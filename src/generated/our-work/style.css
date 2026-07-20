@@ -1,0 +1,36 @@
+    .page-our-work .work-lead { max-width: 60ch; color: var(--grey-700); font-size: clamp(17px, 1.4vw, 22px); margin-top: clamp(18px, 2.5vw, 30px); }
+    .page-our-work .work-note {
+      margin-top: clamp(22px, 3vw, 38px); max-width: 62ch;
+      color: var(--grey-500); font-size: clamp(14px, 1.05vw, 17px);
+      border-left: 3px solid var(--red); padding-left: 18px; line-height: 1.6;
+    }
+
+    .page-our-work .work-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: clamp(20px, 2.2vw, 40px);
+    }
+    .page-our-work .work-card {
+      display: flex; flex-direction: column; height: 100%;
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      overflow: hidden; background: var(--bg);
+      transition: box-shadow .4s var(--ease), transform .4s var(--ease), border-color .4s var(--ease);
+    }
+    .page-our-work .work-card:hover { box-shadow: 0 22px 50px rgba(0,0,0,.08); transform: translateY(-5px); border-color: #eecccc; }
+    .page-our-work .work-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-alt); }
+    .page-our-work .work-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+    .page-our-work .work-card:hover .work-card__media img { transform: scale(1.04); }
+    .page-our-work .work-card__body { padding: clamp(20px, 1.8vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .page-our-work .work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .page-our-work .work-tag {
+      font-size: 13px; color: var(--red); line-height: 1;
+      border: 1px solid #f2c9c9; background: #fff5f5;
+      border-radius: 999px; padding: 6px 12px; letter-spacing: .01em;
+    }
+    .page-our-work .work-card__title { font-family: var(--font-display); font-size: clamp(23px, 2vw, 30px); color: var(--grey-900); line-height: 1.05; }
+    .page-our-work .work-card__meta { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px 18px; color: var(--grey-500); font-size: 14px; padding-top: 4px; }
+    .page-our-work .work-card__meta span { display: inline-flex; align-items: center; gap: 7px; }
+    .page-our-work .work-card__meta svg { width: 15px; height: 15px; color: var(--red); flex-shrink: 0; }
+
+    @media (max-width: 1024px) { .page-our-work .work-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { .page-our-work .work-grid { grid-template-columns: 1fr; } }
+  

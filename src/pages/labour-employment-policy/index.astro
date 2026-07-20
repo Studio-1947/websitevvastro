@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/labour-employment-policy/main.html?raw';
+import css from '../../generated/labour-employment-policy/style.css?raw';
+---
+
+<BaseLayout
+  title={"Labour & Employment Policy | Studio 1947"}
+  description={"Studio 1947's Labour & Employment Policy — our commitment to a fair, ethical, and inclusive workplace and to complying with applicable labour laws."}
+  ogTitle={"Labour & Employment Policy | Studio 1947"}
+  ogDescription={"Our commitment to a fair, ethical, and inclusive workplace."}
+  ogType={"website"}
+  bodyClass={"page-labour-employment-policy"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/solutions-index/main.html?raw';
+import css from '../../generated/solutions-index/style.css?raw';
+---
+
+<BaseLayout
+  title={"Our Solutions — Data, Design, Tech, Research & Capacity Building | Studio 1947"}
+  description={"Explore Studio 1947's solutions across Data, Design & Tech, Communication & Campaign, Research & Survey and Capacity Building — co-created with organisations worldwide."}
+  ogTitle={"Our Solutions | Studio 1947"}
+  ogDescription={"Data, Design & Tech, Communication, Research and Capacity Building solutions from Darjeeling."}
+  ogType={"website"}
+  bodyClass={"page-solutions"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

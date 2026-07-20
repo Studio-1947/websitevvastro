@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import StructuredLayout from '../../layouts/StructuredLayout.astro';
+import { articleJsonLd, cleanName } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('blog');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const url = new URL(`/blog/${entry.id}/`, Astro.site).href;
+const jsonLd = [
+  articleJsonLd({
+    headline: d.heading ?? cleanName(d.title),
+    description: d.description,
+    image: d.cover,
+    author: d.author,
+    url,
+    section: d.section,
+  }),
+];
+---
+
+<StructuredLayout data={d} jsonLd={jsonLd} />

@@ -1,0 +1,49 @@
+    .page-initiatives .init-hero { padding-top: clamp(140px, 18vh, 220px); padding-bottom: clamp(30px, 5vw, 60px); }
+    .page-initiatives .init-hero__eyebrow { font-size: clamp(15px, 1.2vw, 18px); color: var(--red); margin-bottom: 20px; }
+    .page-initiatives .init-hero__title {
+      font-size: clamp(38px, 6.4vw, 96px); line-height: 1.06; color: var(--grey-700);
+      letter-spacing: -0.01em; max-width: 20ch;
+    }
+    .page-initiatives .init-hero__title em { font-style: normal; color: var(--red); }
+    .page-initiatives .init-quote { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 72px); align-items: center; margin-top: clamp(40px, 6vw, 80px); }
+    .page-initiatives .init-quote__media { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-alt); }
+    .page-initiatives .init-quote__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 10; }
+    .page-initiatives .init-quote__text { font-family: var(--font-display); font-size: clamp(20px, 2.1vw, 32px); line-height: 1.3; color: var(--grey-700); }
+    .page-initiatives .init-quote__mark { color: var(--red); font-size: 1.4em; line-height: 0; }
+    .page-initiatives .init-quote__who { margin-top: 26px; }
+    .page-initiatives .init-quote__name { font-family: var(--font-display); font-size: clamp(19px, 1.6vw, 24px); color: var(--grey-900); }
+    .page-initiatives .init-quote__role { font-size: 15px; color: var(--grey-500); margin-top: 4px; }
+
+    .page-initiatives .init-stories { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.4vw, 34px); }
+    .page-initiatives .init-card {
+      border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden;
+      display: flex; flex-direction: column; background: var(--bg);
+      transition: box-shadow .4s var(--ease), transform .4s var(--ease);
+    }
+    .page-initiatives .init-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,.07); transform: translateY(-4px); }
+    .page-initiatives .init-card__media { overflow: hidden; aspect-ratio: 4 / 3; background: var(--bg-alt); }
+    .page-initiatives .init-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+    .page-initiatives .init-card:hover .init-card__media img { transform: scale(1.04); }
+    .page-initiatives .init-card__body { padding: clamp(24px, 2.2vw, 34px); display: flex; flex-direction: column; gap: 16px; flex: 1; }
+    .page-initiatives .init-card__title { font-size: clamp(24px, 2vw, 32px); color: var(--grey-900); }
+    .page-initiatives .init-card__desc { color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); }
+    .page-initiatives .init-card .btn-hello { margin-top: auto; align-self: flex-start; }
+
+    .page-initiatives .init-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(24px, 3vw, 56px); align-items: center; }
+    .page-initiatives .init-feature__media { border-radius: var(--radius-lg); overflow: hidden; }
+    .page-initiatives .init-feature__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 10; }
+    .page-initiatives .init-feature__title { font-size: clamp(32px, 4.4vw, 64px); line-height: 1.05; color: var(--grey-700); }
+    .page-initiatives .init-feature__title strong { font-weight: 400; color: var(--red); }
+    .page-initiatives .init-feature__sub { margin-top: 18px; color: var(--grey-700); font-size: clamp(16px, 1.2vw, 19px); }
+    .page-initiatives .init-feature .btn-hello { margin-top: 30px; }
+
+    .page-initiatives .init-experts { text-align: center; padding-bottom: 0; }
+    .page-initiatives .init-experts__eyebrow { color: var(--red); margin-bottom: 14px; }
+    .page-initiatives .init-experts__title { font-size: clamp(30px, 4vw, 56px); color: var(--grey-700); }
+
+    @media (max-width: 900px) {
+      .page-initiatives .init-stories { grid-template-columns: 1fr; }
+      .page-initiatives .init-quote { grid-template-columns: 1fr; }
+      .page-initiatives .init-feature { grid-template-columns: 1fr; }
+    }
+  

@@ -1,0 +1,53 @@
+---
+/**
+ * Home hero region — the interactive aurora canvas spans the hero + featured
+ * work (masked in CSS), with the logo marquee + "Featured Work" label between
+ * them. Markup ported verbatim from the original index.html.
+ */
+---
+
+<div class="hero-fx">
+  <canvas class="hero-bg" data-hero-aurora aria-hidden="true"></canvas>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero container" data-stagger>
+    <p class="hero__eyebrow">We are Studio 1947</p>
+    <h1 class="hero__title">Crafting &amp; co-creating<br />solutions from Darjeeling.</h1>
+  </section>
+
+  <!-- ===== Logo marquee + Featured Work label on the right ===== -->
+  <div class="container fw-logos-row reveal">
+    <div class="marquee" aria-label="Trusted by">
+      <div class="marquee__track">
+        <img src="/assets/img/logo-01.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-02.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-03.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-04.webp" class="logo-seal" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-05.webp" class="logo-seal" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-06.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-07.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-08.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-09.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-10.webp" alt="Client logo" loading="lazy" />
+      </div>
+    </div>
+    <a class="hero__scroll fw-featured" href="#featured-work">Featured Work <span class="down" aria-hidden="true">&#8595;</span></a>
+  </div>
+
+  <!-- ===== Featured work ===== -->
+  <section id="featured-work" class="section container" style="padding-top: clamp(20px, 3vw, 40px)">
+    <div class="work-gallery reveal">
+      <div class="work-row work-row--a">
+        <a class="tile" href="/products/"><img src="/assets/img/work-shipflow.webp" alt="Analytics dashboard product design" loading="lazy" /></a>
+        <a class="tile" href="/work/awch/"><img src="/assets/img/work-avishkar.webp" alt="Avishkar Hospital brand & campaign design" loading="lazy" /></a>
+      </div>
+      <div class="work-row work-row--b">
+        <a class="tile" href="/work/rajkamal-prakashan/"><img src="/assets/img/work-rajkamal.webp" alt="Rajkamal Prakashan campaign" loading="lazy" /></a>
+        <a class="tile" href="/work/local-futures/"><img src="/assets/img/work-fes.webp" alt="Climate Justice in Action publication" loading="lazy" /></a>
+      </div>
+      <div class="work-row work-row--full">
+        <a class="tile" href="/work/mirik-college/"><img src="/assets/img/work-mirik-survey.webp" alt="Mirik College survey" loading="lazy" /></a>
+      </div>
+    </div>
+  </section>
+</div>

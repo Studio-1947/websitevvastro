@@ -1,0 +1,69 @@
+---
+/**
+ * <head> for every page — SEO meta, OG/Twitter, canonical, fonts, favicon,
+ * JSON-LD. Mirrors the original static site's head, componentized.
+ */
+import { SITE, DEFAULT_FONT_HREF, canonicalUrl, absoluteUrl, organizationJsonLd, type SeoProps } from '../../lib/seo';
+
+type Props = SeoProps & { fontHref?: string };
+const {
+  title = SITE.defaultTitle,
+  description = SITE.defaultDescription,
+  ogTitle,
+  ogDescription,
+  ogType = 'website',
+  image,
+  path,
+  jsonLd = [],
+  fontHref = DEFAULT_FONT_HREF,
+} = Astro.props;
+
+const canonical = canonicalUrl(path, Astro.url.pathname);
+const ogImage = absoluteUrl(image ?? '/assets/img/brand-mark.png');
+const structured = [organizationJsonLd(), ...jsonLd];
+
+// Each page loads the EXACT Google Fonts set its original counterpart loaded
+// (3 variants across the site). Weight sets matter: the ERP product pages load
+// Google Sans weight 400 only, which changes how the 500-weight footer wordmark
+// resolves — loading extra weights broke parity (see MIGRATION_REPORT). "Google
+// Sans" is not a public family; behaviour is reproduced verbatim.
+const fontsHref = fontHref;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<link rel="icon" href="/assets/img/brand-mark.png" />
+
+<!-- Open Graph -->
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={ogTitle ?? title} />
+<meta property="og:description" content={ogDescription ?? description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonical} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={ogTitle ?? title} />
+<meta name="twitter:description" content={ogDescription ?? description} />
+{ogImage && <meta name="twitter:image" content={ogImage} />}
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href={fontsHref} rel="stylesheet" />
+
+<meta name="generator" content={Astro.generator} />
+
+<!-- Structured data -->
+{
+  structured.map((obj) => (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(obj)} />
+  ))
+}
+
+<slot />

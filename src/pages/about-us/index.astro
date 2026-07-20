@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/about-us/main.html?raw';
+import css from '../../generated/about-us/style.css?raw';
+---
+
+<BaseLayout
+  title={"About Studio 1947 | Local Wisdom for Global Impact"}
+  description={"Meet Studio 1947 — a multidisciplinary team of designers, technologists, storytellers and researchers crafting accessible, affordable solutions from Darjeeling."}
+  ogTitle={"About Studio 1947 | Local Wisdom for Global Impact"}
+  ogDescription={"We the people of Studio 1947 — building thoughtful solutions rooted in local wisdom and designed for global impact."}
+  ogType={"website"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

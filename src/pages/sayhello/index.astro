@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/sayhello/main.html?raw';
+import css from '../../generated/sayhello/style.css?raw';
+---
+
+<BaseLayout
+  title={"Say Hello | Studio 1947"}
+  description={"Say hello to Studio 1947 — let's co-create meaningful data, design and technology solutions. Reach our studio in Mirik, Darjeeling."}
+  ogTitle={"Say Hello | Studio 1947"}
+  ogDescription={"Let's build something meaningful together — get in touch with Studio 1947."}
+  ogType={"website"}
+  bodyClass={"page-sayhello"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

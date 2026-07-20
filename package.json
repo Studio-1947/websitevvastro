@@ -1,0 +1,33 @@
+{
+  "name": "studio-1947-astro",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Studio 1947 — Astro migration of the static portfolio site (pixel/behavior-perfect).",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.2.0",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.6.0",
+    "gsap": "3.12.5",
+    "lenis": "^1.1.20",
+    "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@playwright/test": "^1.50.0",
+    "chrome-launcher": "^1.2.1",
+    "lighthouse": "^13.4.0",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
+    "sharp": "^0.33.5",
+    "typescript": "^5.7.0"
+  }
+}

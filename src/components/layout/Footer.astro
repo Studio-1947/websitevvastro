@@ -1,0 +1,79 @@
+---
+/**
+ * CTA + footer — one red block with the hills photo behind both, plus the live
+ * Darjeeling conditions strip. Markup ported from partials/footer.html.
+ *
+ * Rendered exactly ONCE per page (as a single component), which by construction
+ * removes source defect D1 — the duplicated/nested `.footer-block` that appeared
+ * on 53 of 60 original pages (see MIGRATION_AUDIT.md §8).
+ *
+ * Behaviour (live clock/temp/AQI + current year) is wired in
+ * src/scripts/darjeeling.ts, loaded globally via BaseLayout.
+ */
+const year = new Date().getFullYear();
+---
+
+<div class="footer-block">
+  <div class="footer-block__bg"><img src="/assets/img/footer-hills.webp" alt="" /></div>
+
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta__title">Let's co-create something<br />meaningful &amp; impactful together.</h2>
+      <a class="cta__btn" href="/sayhello/">
+        Say Hello
+        <span class="arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <ul class="footer__col">
+          <li><a href="/products/">Our Products</a></li>
+          <li><a href="/solutions/">Our Solutions</a></li>
+          <li><a href="/about-us/">Our Journey</a></li>
+          <li><a href="/initiatives/">Press Corner</a></li>
+          <li><a href="/blog/">Blogs</a></li>
+        </ul>
+        <ul class="footer__col">
+          <li><a href="/accessibility-statement/">Accessibility</a></li>
+          <li><a href="/privacy-policy/">Privacy Policy</a></li>
+          <li><a href="/terms-of-service/">Terms of Service</a></li>
+          <li><a href="/careers/">Career</a></li>
+        </ul>
+        <ul class="footer__col">
+          <li><a href="https://www.instagram.com/1947.io/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/company/studio-1947" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.facebook.com/1947.io/" target="_blank" rel="noopener">Facebook</a></li>
+          <li><span data-todo="medium-url">Medium</span></li>
+        </ul>
+        <address class="footer__addr">
+          <div class="footer__addr-head">
+            <strong>Headquarter<br />@&nbsp;Mirik, Darjeeling</strong>
+            <a class="footer__map" href="https://maps.app.goo.gl/mNnNQbUaWLFf5Xw79" target="_blank" rel="noopener" aria-label="Open our Mirik office in Google Maps"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a>
+          </div>
+          Studio 1947, 1/149 Manbir Thapa Road,<br />
+          Ward 4, Mirik, Darjeeling - 734214<br />
+          Coming Soon @Plassey, Nadia
+        </address>
+      </div>
+      <div class="footer__bar">
+        <span class="footer__wordmark">STUDIO 1947</span>
+        <div class="footer__meta">
+          <!-- Live Darjeeling conditions. Starts hidden and is only revealed once a
+               value resolves, so a blocked or failed request leaves no broken UI. -->
+          <p class="footer__live" data-live hidden>
+            <span class="footer__live-item"><svg class="footer__live-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Darjeeling</span>
+            <span class="footer__live-item" data-live-time-wrap hidden><svg class="footer__live-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2"/></svg><time data-live-time></time></span>
+            <span class="footer__live-item" data-live-temp-wrap hidden><svg class="footer__live-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V5a2 2 0 1 0-4 0v9.76a4 4 0 1 0 4 0z"/></svg><span data-live-temp></span></span>
+            <span class="footer__live-item" data-live-aqi-wrap hidden><svg class="footer__live-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h8a2.5 2.5 0 1 1-2.5 2.5"/></svg><span data-live-aqi></span></span>
+          </p>
+          <span class="footer__copy">&copy; <span data-year>{year}</span> by Studio 1947</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

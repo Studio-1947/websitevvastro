@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/blog-index/main.html?raw';
+import css from '../../generated/blog-index/style.css?raw';
+---
+
+<BaseLayout
+  title={"Stories, Ideas & Perspectives | Studio 1947 Blog"}
+  description={"Stories, ideas and perspectives from Studio 1947 — on traditional knowledge, design thinking, culture, craft and community from Darjeeling and beyond."}
+  ogTitle={"Stories, Ideas & Perspectives | Studio 1947 Blog"}
+  ogDescription={"Stories, ideas and perspectives from Studio 1947 — on traditional knowledge, design, culture and community."}
+  ogType={"website"}
+  bodyClass={"page-blog"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

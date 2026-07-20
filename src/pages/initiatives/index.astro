@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/initiatives/main.html?raw';
+import css from '../../generated/initiatives/style.css?raw';
+---
+
+<BaseLayout
+  title={"Initiatives, Innovation for Communities | Studio 1947"}
+  description={"Studio 1947 initiatives — Sirf Local & Local Archives empower local businesses and artisans across the hills of Darjeeling with affordable data-design solutions."}
+  ogTitle={"Initiatives, Innovation for Communities | Studio 1947"}
+  ogDescription={"Empowering local businesses and artisans in the hills through Sirf Local & Local Archives."}
+  ogType={"website"}
+  bodyClass={"page-initiatives"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/privacy-policy/main.html?raw';
+import css from '../../generated/privacy-policy/style.css?raw';
+---
+
+<BaseLayout
+  title={"Privacy Policy | Studio 1947"}
+  description={"How Studio 1947 collects, uses, discloses and protects personal data obtained through 1947.io and its associated services."}
+  bodyClass={"page-legal"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+/**
+ * Homepage — decomposed into section components (PRD Principle #5). Markup and
+ * section order match the original index.html exactly.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHero from '../components/sections/HomeHero.astro';
+import StatsSection from '../components/sections/StatsSection.astro';
+import Commitment from '../components/sections/Commitment.astro';
+import Approach from '../components/sections/Approach.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import Faq from '../components/sections/Faq.astro';
+---
+
+<BaseLayout
+  title="Data, Design & Tech Consulting | Studio 1947"
+  description="Studio 1947 — crafting & co-creating data, design and technology solutions from Darjeeling. We understand, design, build and grow impactful solutions for organisations worldwide."
+  ogTitle="Data, Design & Tech Consulting | Studio 1947"
+  ogDescription="Crafting & co-creating solutions from Darjeeling."
+  ogType="website"
+  fontHref="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&family=Google+Sans:wght@400;500;700&display=swap"
+>
+  <main>
+    <HomeHero />
+    <StatsSection />
+    <Commitment />
+    <Approach />
+
+    <!-- ===== Client logos (above testimonials — larger, full colour) ===== -->
+    <div class="marquee marquee--lg" aria-label="Trusted by">
+      <div class="marquee__track">
+        <img src="/assets/img/logo-01.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-02.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-03.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-04.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-05.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-06.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-07.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-08.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-09.webp" alt="Client logo" loading="lazy" />
+        <img src="/assets/img/logo-10.webp" alt="Client logo" loading="lazy" />
+      </div>
+    </div>
+
+    <Testimonials />
+    <Faq />
+  </main>
+</BaseLayout>

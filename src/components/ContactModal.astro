@@ -1,0 +1,50 @@
+---
+/**
+ * Contact popup — opened from the nav / footer "Say Hello" buttons and any
+ * [data-contact-open] trigger. Markup ported verbatim from the source.
+ * Behaviour wired in src/scripts/contactModal.ts (global).
+ *
+ * The form posts to formsubmit.co (third-party) exactly as in the source
+ * (see MIGRATION_AUDIT.md D5) — reproduced, not changed.
+ */
+---
+
+<div class="contact-modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="cm-title" aria-hidden="true">
+  <div class="contact-modal__backdrop" data-cm-close></div>
+  <div class="contact-modal__panel" tabindex="-1">
+    <button class="contact-modal__close" type="button" aria-label="Close" data-cm-close>&times;</button>
+    <p class="eyebrow">Say Hello to Studio 1947</p>
+    <h2 class="contact-modal__title" id="cm-title">Send us a note.</h2>
+    <p class="contact-modal__sub">We usually reply within a couple of working days.</p>
+    <!-- BACKEND REQUIRED: UI-only. Point <form action> at Formspree / Web3Forms to make it live. -->
+    <form action="https://formsubmit.co/team@1947.io" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="New enquiry from Studio 1947 website" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <div class="cm-row">
+        <div class="cm-field">
+          <label for="cm-name">Name <span class="cm-req" aria-hidden="true">*</span></label>
+          <input type="text" id="cm-name" name="name" placeholder="Your name" autocomplete="name" required />
+        </div>
+        <div class="cm-field">
+          <label for="cm-email">Email <span class="cm-req" aria-hidden="true">*</span></label>
+          <input type="email" id="cm-email" name="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+      </div>
+      <div class="cm-field">
+        <label for="cm-org">Organisation</label>
+        <input type="text" id="cm-org" name="organisation" placeholder="Company or organisation (optional)" autocomplete="organization" />
+      </div>
+      <div class="cm-field">
+        <label for="cm-msg">Message <span class="cm-req" aria-hidden="true">*</span></label>
+        <textarea id="cm-msg" name="message" placeholder="Tell us about your challenge, goals and timeline…" required></textarea>
+      </div>
+      <button type="submit" class="cm-submit">
+        Send message
+        <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </button>
+      <p class="cm-note">Prefer email? Write to us at <a href="mailto:hello@1947.io" style="color:var(--red)">hello@1947.io</a>.</p>
+    </form>
+  </div>
+</div>

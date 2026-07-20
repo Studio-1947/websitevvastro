@@ -1,0 +1,47 @@
+---
+/**
+ * Layout for the structured (section-markup) collections: work case studies,
+ * product detail, solution categories, career roles. Renders the entry's
+ * `<main>` inner HTML via set:html inside BaseLayout, and injects the scoped
+ * CSS in <head> (shared stylesheet for products/solutions + any per-entry CSS).
+ */
+import BaseLayout from './BaseLayout.astro';
+
+interface EntryData {
+  title: string;
+  description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: 'website' | 'article' | 'product';
+  bodyClass?: string;
+  styles?: string;
+  /** Exact per-page Google Fonts href (matches the original). */
+  fontHref?: string;
+  /** The page's full <main>…</main> (attributes preserved) plus any sibling markup. */
+  html: string;
+}
+interface Props {
+  data: EntryData;
+  /** Shared scoped CSS owned by the layout (products/solutions). */
+  sharedStyles?: string;
+  /** Extra JSON-LD to embed (e.g. Product/Service in Phase 5). */
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { data, sharedStyles = '', jsonLd = [] } = Astro.props;
+const css = [sharedStyles, data.styles].filter(Boolean).join('\n');
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  ogTitle={data.ogTitle}
+  ogDescription={data.ogDescription}
+  ogType={data.ogType}
+  bodyClass={data.bodyClass}
+  fontHref={data.fontHref}
+  jsonLd={jsonLd}
+>
+  {css && <style slot="head" is:global set:html={css} />}
+  <Fragment set:html={data.html} />
+</BaseLayout>

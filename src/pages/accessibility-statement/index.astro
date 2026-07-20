@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/accessibility-statement/main.html?raw';
+import css from '../../generated/accessibility-statement/style.css?raw';
+---
+
+<BaseLayout
+  title={"Accessibility Statement | Studio 1947"}
+  description={"Studio 1947 is committed to ensuring digital accessibility for people with disabilities — providing equal access to our services, digital products and content."}
+  ogTitle={"Accessibility Statement | Studio 1947"}
+  ogDescription={"Studio 1947 is committed to ensuring digital accessibility for people with disabilities."}
+  ogType={"website"}
+  bodyClass={"page-legal page-accessibility-statement"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

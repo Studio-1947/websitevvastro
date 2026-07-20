@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/terms-of-service/main.html?raw';
+import css from '../../generated/terms-of-service/style.css?raw';
+---
+
+<BaseLayout
+  title={"Terms of Service | Studio 1947"}
+  description={"The Terms of Service governing access to and use of the Studio 1947 website, digital products, tools and services."}
+  ogTitle={"Terms of Service | Studio 1947"}
+  ogDescription={"Terms governing access to and use of the Studio 1947 website and services."}
+  ogType={"website"}
+  bodyClass={"page-terms"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

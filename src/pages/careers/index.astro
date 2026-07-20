@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/careers-index/main.html?raw';
+import css from '../../generated/careers-index/style.css?raw';
+---
+
+<BaseLayout
+  title={"Careers | Studio 1947"}
+  description={"Build what matters, together. Explore open roles at Studio 1947 and help us craft data, design and technology solutions from Darjeeling."}
+  ogTitle={"Careers | Studio 1947"}
+  ogDescription={"Explore open roles at Studio 1947 and help us build the future, one project at a time."}
+  ogType={"website"}
+  bodyClass={"page-careers"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>
