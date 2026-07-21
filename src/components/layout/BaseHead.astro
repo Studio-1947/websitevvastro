@@ -13,6 +13,8 @@ const {
   ogDescription,
   ogType = 'website',
   image,
+  imageSize,
+  imageAlt,
   path,
   jsonLd = [],
   noindex = false,
@@ -48,6 +50,18 @@ const fontsHref = fontHref;
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonical} />
 {ogImage && <meta property="og:image" content={ogImage} />}
+{
+  /* Declaring the dimensions lets crawlers lay the card out without first
+     fetching the image to measure it — the difference between a card that
+     renders immediately and one that appears blank on first share. */
+  ogImage && imageSize && (
+    <>
+      <meta property="og:image:width" content={String(imageSize.w)} />
+      <meta property="og:image:height" content={String(imageSize.h)} />
+    </>
+  )
+}
+{ogImage && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />

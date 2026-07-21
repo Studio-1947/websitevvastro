@@ -37,6 +37,10 @@ export interface SeoProps {
   ogType?: 'website' | 'article' | 'product';
   /** Absolute or root-relative OG image. */
   image?: string;
+  /** Pixel size of `image`, emitted as og:image:width/height. */
+  imageSize?: { w: number; h: number };
+  /** Alt text for the share card image. */
+  imageAlt?: string;
   /** Root-relative path used to build the canonical URL. */
   path?: string;
   /** Extra JSON-LD objects to embed on the page. */
