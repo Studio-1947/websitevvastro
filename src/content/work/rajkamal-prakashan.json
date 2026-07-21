@@ -1,10 +1,283 @@
 {
- "title": "Rajkamal Prakashan — Brand Identity & ERP for a Hindi Publisher | Studio 1947",
- "description": "Rajkamal Prakashan case study — Studio 1947 crafted the brand identity, marketing collateral and a custom ERP sales dashboard for one of India's most influential Hindi publishing houses.",
- "ogTitle": "Rajkamal Prakashan — Brand Identity & ERP for a Hindi Publisher | Studio 1947",
- "ogDescription": "A modern-yet-timeless brand identity and an ERP dashboard for India's storied Hindi publishing house.",
- "ogType": "article",
- "bodyClass": "page-case",
- "styles": "    .page-case .case-hero { padding-top: clamp(140px, 18vh, 220px); padding-bottom: clamp(30px, 5vw, 56px); }\n    .page-case .case-hero__eyebrow { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: clamp(18px, 3vw, 30px); }\n    .page-case .case-hero__eyebrow .tag { font-family: var(--font-body); font-size: clamp(14px, 1.05vw, 16px); color: var(--red); border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px; }\n    .page-case .case-hero__title { font-size: clamp(46px, 9vw, 138px); color: var(--grey-700); letter-spacing: -0.02em; line-height: 1; }\n    .page-case .case-meta { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: clamp(22px, 3vw, 36px); padding-top: clamp(20px, 2.4vw, 28px); border-top: 1px solid var(--line); }\n    .page-case .case-meta__item { display: flex; flex-direction: column; gap: 4px; }\n    .page-case .case-meta__label { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-500); }\n    .page-case .case-meta__val { font-family: var(--font-display); font-size: clamp(18px, 1.6vw, 22px); color: var(--grey-900); }\n\n    .page-case .case-cover { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-alt); }\n    .page-case .case-cover img { width: 100%; height: clamp(240px, 46vw, 640px); object-fit: cover; }\n\n    .page-case .case-block { max-width: 1100px; }\n    .page-case .case-block + .case-block { margin-top: clamp(48px, 6vw, 90px); }\n    .page-case .case-block .eyebrow { margin-bottom: 14px; }\n    .page-case .case-block h2 { font-size: clamp(30px, 3.6vw, 56px); color: var(--grey-700); line-height: 1.05; margin-bottom: clamp(16px, 1.8vw, 26px); }\n    .page-case .case-block p { font-size: clamp(16px, 1.15vw, 19px); color: var(--grey-700); max-width: 68ch; }\n    .page-case .case-block p + p { margin-top: 16px; }\n\n    .page-case .case-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 1.8vw, 26px); margin-top: clamp(24px, 3vw, 40px); }\n    .page-case .case-step { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(24px, 2.2vw, 36px); display: flex; flex-direction: column; gap: 12px; transition: box-shadow .4s var(--ease), transform .4s var(--ease); }\n    .page-case .case-step:hover { box-shadow: 0 20px 50px rgba(0,0,0,.06); transform: translateY(-4px); }\n    .page-case .case-step__num { font-family: var(--font-display); font-size: clamp(38px, 3.4vw, 56px); color: var(--red); line-height: 1; }\n    .page-case .case-step h3 { font-size: clamp(20px, 1.6vw, 24px); color: var(--grey-900); }\n    .page-case .case-step p { font-size: clamp(15px, 1.05vw, 17px); color: var(--grey-700); }\n\n    .page-case .case-impact { list-style: none; display: grid; gap: 0; margin-top: clamp(20px, 2.4vw, 30px); max-width: 1000px; }\n    .page-case .case-impact li { display: flex; gap: clamp(18px, 2.4vw, 32px); align-items: baseline; padding: clamp(18px, 2vw, 28px) 0; border-top: 1px solid var(--line); font-size: clamp(17px, 1.35vw, 22px); color: var(--grey-700); }\n    .page-case .case-impact li:last-child { border-bottom: 1px solid var(--line); }\n    .page-case .case-impact li .n { font-family: var(--font-display); color: var(--red); font-size: clamp(22px, 2vw, 30px); flex-shrink: 0; }\n\n    .page-case .case-nav { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; margin-top: clamp(56px, 7vw, 100px); padding-top: clamp(28px, 3vw, 44px); border-top: 1px solid var(--line); }\n    .page-case .case-nav__back { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-display); font-size: clamp(20px, 2vw, 30px); color: var(--grey-900); transition: color .25s var(--ease); }\n    .page-case .case-nav__back:hover { color: var(--red); }\n    .page-case .case-nav__back .arrow { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); display: grid; place-items: center; transition: background .3s var(--ease), color .3s var(--ease); }\n    .page-case .case-nav__back:hover .arrow { background: var(--red); color: #fff; }\n    .page-case .case-nav__hint { font-size: 14px; color: var(--grey-500); letter-spacing: .08em; text-transform: uppercase; }\n\n    @media (max-width: 760px) {\n      .page-case .case-steps { grid-template-columns: 1fr; }\n      .page-case .case-cover img { height: clamp(220px, 60vw, 360px); }\n    }\n  ",
- "html": "<main>\n    <!-- ===== Hero ===== -->\n    <section class=\"case-hero container\" data-stagger>\n      <div class=\"case-hero__eyebrow\">\n        <span class=\"tag\">Creators</span>\n        <span class=\"tag\">Branding</span>\n        <span class=\"tag\">Web Design</span>\n        <span class=\"tag\">Marketing</span>\n      </div>\n      <h1 class=\"case-hero__title\">Rajkamal Prakashan</h1>\n      <div class=\"case-meta\">\n        <div class=\"case-meta__item\">\n          <span class=\"case-meta__label\">Client</span>\n          <span class=\"case-meta__val\">Rajkamal Prakashan</span>\n        </div>\n        <div class=\"case-meta__item\">\n          <span class=\"case-meta__label\">Location</span>\n          <span class=\"case-meta__val\">New Delhi, India</span>\n        </div>\n        <div class=\"case-meta__item\">\n          <span class=\"case-meta__label\">Year</span>\n          <span class=\"case-meta__val\">2025</span>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Cover image ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-cover reveal\">\n        <img src=\"/assets/img/work/rajkamal-prakashan/cae547e4969f4e97ad4bc0472fd64435.webp\" alt=\"Misty, layered hillside evoking the depth and heritage of Rajkamal Prakashan's literary legacy\">\n      </div>\n    </section>\n\n    <!-- ===== Overview ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Overview</p>\n        <h2>A culturally resonant identity for Kitab Utsav.</h2>\n        <p>We partnered with Rajkamal Prakashan, one of India's most influential Hindi publishing houses, to develop the visual identity and communication ecosystem for Kitab Utsav, its annual book festival. The project involved creating a distinctive and culturally resonant brand experience that celebrated literature, ideas, and community engagement across multiple touchpoints.</p>\n        <p>Our scope covered event branding, print collateral, digital assets, and social media communication, ensuring a cohesive festival presence from launch to execution.</p>\n      </div>\n    </section>\n\n    <!-- ===== Introduction / Objective ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Introduction</p>\n        <h2>A storied publisher of Hindi literature.</h2>\n        <p>Rajkamal Prakashan is an esteemed publishing house dedicated to promoting literature and educational content. With a rich history and a commitment to quality, Rajkamal Prakashan sought to enhance their brand presence and streamline their operations through a series of strategic initiatives.</p>\n      </div>\n\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">The Objective</p>\n        <h2>Strengthen the brand, sharpen the operations.</h2>\n        <p>Studio 1947 was engaged to provide a comprehensive suite of services aimed at strengthening Rajkamal Prakashan's brand identity and improving their operational efficiency. This included brand design, marketing collateral, and the development of an ERP dashboard for managing market sales.</p>\n      </div>\n    </section>\n\n    <!-- ===== Process ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Our Process</p>\n        <h2>From heritage to a working sales tool.</h2>\n      </div>\n      <div class=\"case-steps\" data-stagger>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">01</div>\n          <h3>Brand Design</h3>\n          <p>We refined Rajkamal Prakashan's visual identity so it reflected their heritage and commitment to literary excellence — logo design, colour schemes, and typography that resonated with their audience.</p>\n        </div>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">02</div>\n          <h3>Marketing Collateral</h3>\n          <p>Our team designed a series of social media posters and advertisements that highlighted key publications and promotional campaigns, crafted to engage readers and drive sales.</p>\n        </div>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">03</div>\n          <h3>ERP Dashboard Development</h3>\n          <p>To streamline sales and operations, we built a custom ERP dashboard giving real-time insight into market sales, inventory management, and distribution logistics for more informed decisions.</p>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Mid image ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-cover reveal\">\n        <img src=\"/assets/img/work/rajkamal-prakashan/55d98a_3287270d83ef4efabfdd1f52d0dc6ec2.webp\" alt=\"Warm, sweeping dunes reflecting the modern-yet-timeless direction of the Rajkamal Prakashan rebrand\" loading=\"lazy\">\n      </div>\n    </section>\n\n    <!-- ===== Result ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">The Result</p>\n        <h2>Modern, timeless, and measurable.</h2>\n        <p>The collaboration with Rajkamal Prakashan yielded significant results across brand, marketing, and operations.</p>\n        <ul class=\"case-impact\">\n          <li><span class=\"n\">01</span><span><strong>Enhanced brand identity</strong> — a modern yet timeless appeal that strengthened their position in the competitive publishing industry.</span></li>\n          <li><span class=\"n\">02</span><span><strong>Effective marketing campaigns</strong> — social media posters and advertisements that increased engagement and sales, reaching a broader audience of readers.</span></li>\n          <li><span class=\"n\">03</span><span><strong>Operational excellence</strong> — an ERP dashboard that transformed sales management with real-time data and analytics.</span></li>\n        </ul>\n      </div>\n\n      <!-- ===== Client Impact ===== -->\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Client Impact</p>\n        <h2>Through our partnership, Rajkamal Prakashan achieved:</h2>\n        <ul class=\"case-impact\">\n          <li><span class=\"n\">01</span><span>A cohesive and compelling brand identity that resonates with their audience.</span></li>\n          <li><span class=\"n\">02</span><span>Increased visibility and engagement through targeted marketing efforts.</span></li>\n          <li><span class=\"n\">03</span><span>Streamlined operations and improved sales management with the new ERP dashboard.</span></li>\n        </ul>\n      </div>\n\n      <!-- ===== Why Studio 1947 ===== -->\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Why Studio 1947?</p>\n        <h2>Creative design meets practical technology.</h2>\n        <p>Studio 1947 is committed to delivering holistic solutions that address both branding and operational challenges. Our work with Rajkamal Prakashan showcases our ability to integrate creative design with practical technology, helping clients achieve their strategic goals and enhance their market presence.</p>\n      </div>\n\n      <!-- ===== Back to work ===== -->\n      <nav class=\"case-nav reveal\" aria-label=\"Case study navigation\">\n        <a class=\"case-nav__back\" href=\"/our-work/\">\n          <span class=\"arrow\" aria-hidden=\"true\">\n            <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M19 12H5M11 6l-6 6 6 6\"/></svg>\n          </span>\n          View all work\n        </a>\n        <span class=\"case-nav__hint\">Next project &rarr;</span>\n      </nav>\n    </section>\n  </main>"
+  "title": "Rajkamal Prakashan | Studio 1947",
+  "description": "How Studio 1947 rebuilt the brand infrastructure of India's largest Hindi literary publisher — brand governance, enterprise digital product, and nation-wide event execution.",
+  "ogTitle": "Rajkamal Prakashan | Studio 1947",
+  "ogDescription": "How Studio 1947 rebuilt the brand infrastructure of India's largest Hindi literary publisher — brand governance, enterprise digital product, and nation-wide event execution.",
+  "ogType": "article",
+  "brand": "#E52F1D",
+  "client": "Rajkamal Prakashan",
+  "tags": [
+    "Brand Strategy",
+    "Brand Governance",
+    "Enterprise Digital",
+    "Omnichannel Execution"
+  ],
+  "hero": {
+    "src": "/assets/img/work/rajkamal-prakashan/rajkamal-hero.webp",
+    "alt": "Rajkamal Prakashan — brand identity in context",
+    "style": "photo"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "When an enterprise-level cultural institution seeks a creative partner, they aren't looking for a typical vendor to change colors or make pretty layouts. They require high-level strategic consultants capable of managing immense operational pressure, auditing fragmented legacy structures, and engineering enterprise software that directly drives business decisions.",
+        "Since September 2025, our agency has embedded inside <strong>Rajkamal Prakashan</strong>, the premier book publishing house in India, as their Strategic Design & Consulting Partner. Moving far beyond traditional graphic design, this partnership encompasses complete brand system governance, nationwide event marketing strategy, and complex internal product development.",
+        "Here is the strategic breakdown of how we audited their legacy identity, stabilized their brand memory, and built a unified enterprise data ecosystem to future-proof their operations."
+      ]
+    },
+    {
+      "heading": "The Engagement Model: From Pixel Hand-offs to High-Pressure Business Advisory",
+      "label": "The Corporate Challenge",
+      "body": [
+        "<strong>Rajkamal Prakashan</strong> operates at an immense scale. Managing a massive catalog of authors, historic works, and high-frequency print runs across multiple languages means the brand faces rapid production cycles daily. Over decades of organic growth, execution had decentralized.",
+        "When we initiated our deep-dive audit phase, we uncovered systemic visual friction:"
+      ],
+      "layout": "grid-2",
+      "cards": [
+        {
+          "title": "Visual Fragmentation",
+          "body": "The core identity was suffering from inconsistent logo configurations, arbitrary color substitutions, and erratic event-based branding shifts."
+        },
+        {
+          "title": "Algorithmic Disconnect",
+          "body": "In modern digital marketplaces, algorithms classify brands based on consistent pattern recognition—color ratios, layout grids, and visual rhythm. The rapid changes across various campaigns were resetting algorithmic learning loops, directly choking organic digital reach and eroding long-term brand equity."
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "heading": "The Strategic Shift",
+      "body": [
+        "We shifted Rajkamal’s operational model away from ad-hoc asset creation into a disciplined, system-driven framework. We engineered a comprehensive Brand Governance Utility. To validate this shift to Rajkamal's executive board, we delivered an analytical, behavioral-science benchmark study proving how iconic market leaders maintain value over decades by strictly holding their visual architecture completely stable."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/the-strategic-shift.webp",
+          "alt": "Benchmark study slide showing how iconic market leaders hold their visual architecture stable over decades",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "heading": "Brand Governance & The Consolidated Logo Laws",
+      "body": [
+        "To eliminate execution discrepancies by external printers, regional branch offices, and internal marketing teams, we codified a definitive matrix of logo parameters and structural prohibitions."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/brand-governance01.webp",
+          "alt": "Cover slide of the Rajkamal Prakashan brand guideline document setting out the consolidated logo laws",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "layout": "grid-2",
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/brand-governance02.webp",
+          "alt": "Clearspace diagram defining the minimum protected margin around the Rajkamal Prakashan logo",
+          "zoom": true,
+          "pad": false
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/brand-governance03.webp",
+          "alt": "Logo misuse grid showing prohibited stretching, recolouring and rearrangement of the Rajkamal mark",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "heading": "The Typography System",
+      "body": [
+        "Operating a major publishing house across a linguistically diverse market like India presents a severe typographic challenge: how do you maintain a unified, recognizable corporate voice when your content is continuously rendering in completely different scripts?"
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/typographysystemfont.webp",
+          "alt": "Noto Sans specimen sheet introducing the typeface chosen for Rajkamal's corporate voice",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "body": [
+        "We restructured Rajkamal’s universal communications around the Noto Sans engine. Noto Sans seamlessly handles regional scripts including Hindi, Bengali, Gujarati, Gurmukhi, Telugu, Tamil, and Kannada with perfectly matching visual weights."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/typographysystem.webp",
+          "alt": "Noto Sans weight and script system showing matched visual weights across Indian regional scripts",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "body": [
+        "By unifying corporate communications under a highly disciplined, open-source font system, we accomplished two critical goals:"
+      ],
+      "layout": "grid-2",
+      "cards": [
+        {
+          "title": "Visual Consistency",
+          "body": "We guaranteed that whether a reader engages with an ad in Mumbai, a book jacket in Delhi, or a banner in Jaipur, the visual rhythm and typographic voice feel completely uniform."
+        },
+        {
+          "title": "Operational Efficiency",
+          "body": "We completely removed enterprise software font licensing fees and font-delivery errors across external development teams and regional printing houses."
+        }
+      ]
+    },
+    {
+      "heading": "Digital Transformation",
+      "body": [
+        "As a consulting partner, our job is to solve problems that directly impact the bottom line. Rajkamal's executive leadership faced two major operational roadblocks:"
+      ],
+      "layout": "grid-2",
+      "cards": [
+        {
+          "title": "Manual Accounting Overhead",
+          "body": "Tracking high-volume, multi-channel book sales at major nationwide literary festivals was heavily manual. It introduced severe cash flow auditing friction and long delays in tracking product performance records."
+        },
+        {
+          "title": "Zero Centralized Operational Transparency",
+          "body": "High-level leadership lacked a clean, high-fidelity visual layout to analyze live data, causing long delays in re-ordering printing runs, managing inventory storage levels, and coordinating marketing campaigns."
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "heading": "The Solution: A Unified Enterprise Application Design",
+      "body": [
+        "To remove this operational friction, we designed a custom, high-fidelity enterprise management platform layer. This software aggregates critical business units Sales Lifecycles, Inventory Health, Vendor Orders, and Social Performance Channels into a single, secure database layer."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/the-solution.webp",
+          "alt": "Enterprise dashboard interface aggregating sales, inventory, vendor orders and social performance for Rajkamal Prakashan",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Business Impact for Executives",
+      "body": [
+        "By translating fragmented tables of numbers into clean, actionable visual data, we shifted executive workflows from reactive crisis-management to proactive growth strategy. Leadership can now spot an online sales spike instantly, check inventory counts across regional warehouses, flag low stock levels, and issue a print-run request before a title completely runs out."
+      ]
+    },
+    {
+      "heading": "High-Pressure Omnichannel Scaling: Nation-Wide Event Execution",
+      "body": [
+        "A brand identity system must remain absolutely pristine when scaled across high-traffic, real-world customer touchpoints. As part of our consulting role, we oversee the environmental and promotional design systems for Rajkamal's physical footprint at major national book fairs across metropolitan cultural hubs like Mumbai, Delhi, and Jaipur."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Unified Sub-Brand Hierarchy",
+      "body": [
+        "We structured a clear sub-branding architecture under the parent company umbrella, mapping out consistent visual systems for sub-identities like Kitabdesh, Kitab Utsav, and Logo Family extensions."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/high-pressure-omnichannel-scaling.webp",
+          "alt": "Sub-brand logo family for Rajkamal's book-fair events — Kitab Desh, Kitab Tera, Kitab Utsav and Stri Varsh",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Environmental Material Optimization",
+      "body": [
+        "We designed scalable retail assets, premium canvas promotional merchandise (such as custom author tote bags), and high-visibility festival bunting styles."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/environmental-material-optimization.webp",
+          "alt": "Kitab Desh branded canvas tote bag and mug from the festival merchandise range",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Bulletproof Quality Assurance",
+      "body": [
+        "By providing production-ready layout templates and explicit clearspace governance sheets, we ensured local event vendors across different cities could deploy massive structural installations perfectly on time, with zero asset distortion or color inaccuracies."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/bulletproof-quality-assurance.webp",
+          "alt": "Co-branding clearspace governance sheet pairing the Rajkamal Prakashan and partner marks for event vendors",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "heading": "Commercial Value Summary: Building Scalable Brand Capital",
+      "body": [
+        "Through this strategic consulting engagement, we proved that premium design is an operational asset, not an afterthought. By combining strict brand system governance with high-utility enterprise software design, we equipped Rajkamal Prakashan with a powerful corporate utility.",
+        "They now operate with a unified visual language across all regional scripts, complete control over their physical event footprints, and a centralized data ecosystem that eliminates tracking discrepancies and maximizes operational focus where it matters most."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Client Handling",
+      "members": "Rabi"
+    },
+    {
+      "role": "Creative Direction",
+      "members": "Rabi"
+    },
+    {
+      "role": "Design",
+      "members": "Zahid, Soumajit"
+    },
+    {
+      "role": "Strategy",
+      "members": "Studio 1947 Team"
+    },
+    {
+      "role": "Data",
+      "members": "Sankhadipta"
+    },
+    {
+      "role": "Technology Build",
+      "members": "Soumic"
+    },
+    {
+      "role": "Ads Management",
+      "members": "Sankhadipta, Santam"
+    },
+    {
+      "role": "Internal Communication",
+      "members": "Santam"
+    },
+    {
+      "role": "3D Character",
+      "members": "Nikhil Rai"
+    },
+    {
+      "role": "Brand Guideline",
+      "members": "Soumajit"
+    }
+  ],
+  "solutions": [
+    "communication-campaign"
+  ]
 }

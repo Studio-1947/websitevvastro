@@ -1,0 +1,37 @@
+---
+/**
+ * A single case-study image. Zoomable figures are picked up by the delegated
+ * lightbox (scripts/lightbox.ts) via the `.case-figure--zoom` class — no
+ * per-image JS, unlike the source's per-page React handlers.
+ */
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  zoom?: boolean;
+  pad?: boolean;
+  /** Fixed aspect ratio ("4/3"); crops with object-fit: cover. */
+  ratio?: string;
+  /** Hero-adjacent images should load eagerly; everything else defers. */
+  eager?: boolean;
+}
+const { src, alt, caption, zoom = true, pad = false, ratio, eager = false } = Astro.props;
+const cls = [
+  'case-figure',
+  pad && 'case-figure--pad',
+  ratio && 'case-figure--ratio',
+  zoom && 'case-figure--zoom',
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<figure class={cls} style={ratio ? `--ratio: ${ratio}` : undefined}>
+  <img
+    src={src}
+    alt={alt}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+  />
+  {caption && <figcaption class="case-figure__caption">{caption}</figcaption>}
+</figure>

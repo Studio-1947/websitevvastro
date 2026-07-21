@@ -66,4 +66,18 @@
     }
   
     .page-products a.feat-card { text-decoration: none; }
+    /* Products are not launched yet: the cards keep their layout but no longer
+       navigate. The original href is preserved in data-href, so restoring the
+       link is a one-line change. */
+    .page-products .feat-card--soon { cursor: default; }
+    .page-products .feat-card--soon:hover { box-shadow: none; transform: none; border-color: var(--line); }
+    .page-products .feat-card__soon {
+      display: inline-flex; align-items: center; gap: 7px;
+      margin-top: 14px; padding: 6px 14px; border-radius: 999px;
+      background: rgba(230,0,0,.07); color: var(--red);
+      font-size: 13px; font-weight: 500; letter-spacing: .01em;
+    }
+    .page-products .feat-card__soon::before {
+      content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+    }
   

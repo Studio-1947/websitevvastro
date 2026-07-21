@@ -15,6 +15,7 @@ const {
   image,
   path,
   jsonLd = [],
+  noindex = false,
   fontHref = DEFAULT_FONT_HREF,
 } = Astro.props;
 
@@ -35,6 +36,8 @@ const fontsHref = fontHref;
 
 <title>{title}</title>
 <meta name="description" content={description} />
+{/* Pages that build and resolve by URL but are not ready to be found. */}
+{noindex && <meta name="robots" content="noindex, nofollow" />}
 <link rel="canonical" href={canonical} />
 <link rel="icon" href="/assets/img/brand-mark.png" />
 

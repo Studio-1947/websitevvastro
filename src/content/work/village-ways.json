@@ -1,10 +1,303 @@
 {
- "title": "Village Ways — Community Tourism Branding Case Study | Studio 1947",
- "description": "How Studio 1947 partnered with Village Ways, a community-based tourism initiative in the Sundarban, to build a storytelling and branding ecosystem around sustainable, community-led travel.",
- "ogTitle": "Village Ways — Case Study | Studio 1947",
- "ogDescription": "Strategic branding and authentic storytelling for a community-led tourism initiative in the Sundarban.",
- "ogType": "article",
- "bodyClass": "page-case",
- "styles": "    .page-case .case-hero { padding-top: clamp(140px, 18vh, 220px); padding-bottom: clamp(24px, 4vw, 48px); }\n    .page-case .case-hero__tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: clamp(20px, 3vw, 34px); }\n    .page-case .case-hero__tags span {\n      font-size: clamp(13px, 1vw, 15px); color: var(--red);\n      border: 1px solid var(--line); border-radius: 999px; padding: 7px 16px;\n    }\n    .page-case .case-hero__title { font-size: clamp(44px, 8vw, 118px); line-height: 1.04; letter-spacing: -0.01em; max-width: 16ch; }\n    .page-case .case-hero__meta {\n      display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: clamp(22px, 3vw, 38px);\n      font-family: var(--font-display); font-size: clamp(16px, 1.3vw, 20px); color: var(--grey-700);\n    }\n    .page-case .case-hero__meta span { display: inline-flex; align-items: center; gap: 12px; }\n    .page-case .case-hero__meta span::before { content: \"\"; width: 7px; height: 7px; border-radius: 50%; background: var(--red); }\n    .page-case .case-hero__lead { margin-top: clamp(26px, 3.4vw, 44px); max-width: 62ch; font-size: clamp(18px, 1.5vw, 24px); color: var(--grey-700); }\n\n    .page-case .case-cover { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-alt); }\n    .page-case .case-cover img { width: 100%; height: clamp(260px, 46vw, 720px); object-fit: cover; }\n\n    .page-case .case-body { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 90px); }\n    .page-case .case-block { padding-block: clamp(30px, 3.6vw, 56px); border-bottom: 1px solid var(--line); }\n    .page-case .case-block:first-of-type { border-top: 1px solid var(--line); }\n    .page-case .case-block h2 {\n      font-size: clamp(28px, 3.4vw, 52px); line-height: 1.02; color: var(--red);\n    }\n    .page-case .case-block__body p { color: var(--grey-700); font-size: clamp(16px, 1.15vw, 19px); margin-bottom: 16px; }\n    .page-case .case-block__body p:last-child { margin-bottom: 0; }\n    .page-case .case-list { display: flex; flex-direction: column; gap: 18px; }\n    .page-case .case-list li { position: relative; padding-left: 40px; color: var(--grey-700); font-size: clamp(16px, 1.15vw, 19px); }\n    .page-case .case-list li .n {\n      position: absolute; left: 0; top: 0; font-family: var(--font-display); color: var(--red);\n      font-size: clamp(16px, 1.15vw, 19px); font-weight: 600;\n    }\n    .page-case .case-list li strong { color: var(--grey-900); font-weight: 400; }\n\n    .page-case .case-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 28px); }\n    .page-case .case-gallery figure { border-radius: var(--radius); overflow: hidden; background: var(--bg-alt); }\n    .page-case .case-gallery img { width: 100%; height: clamp(220px, 30vw, 460px); object-fit: cover; transition: transform .8s var(--ease); }\n    .page-case .case-gallery figure:hover img { transform: scale(1.03); }\n\n    .page-case .case-nav {\n      display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;\n      padding-top: clamp(30px, 4vw, 60px); border-top: 1px solid var(--line);\n    }\n    .page-case .case-nav__prevnext { display: flex; gap: 26px; flex-wrap: wrap; }\n    .page-case .case-nav__prevnext a { color: var(--grey-500); font-family: var(--font-display); transition: color .25s var(--ease); }\n    .page-case .case-nav__prevnext a:hover { color: var(--red); }\n    .page-case .case-viewall {\n      display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-display);\n      font-size: clamp(18px, 1.5vw, 24px); color: var(--grey-900); transition: color .25s var(--ease);\n    }\n    .page-case .case-viewall:hover { color: var(--red); }\n    .page-case .case-viewall .arrow {\n      width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red);\n      display: grid; place-items: center; transition: background .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);\n    }\n    .page-case .case-viewall:hover .arrow { background: var(--red); color: #fff; transform: translateX(2px); }\n\n    @media (max-width: 860px) {\n      .page-case .case-body { grid-template-columns: 1fr; gap: 0; }\n      .page-case .case-gallery { grid-template-columns: 1fr; }\n    }\n  ",
- "html": "<main>\n    <!-- ===== Case hero ===== -->\n    <section class=\"case-hero container\" data-stagger>\n      <div class=\"case-hero__tags\">\n        <span>Creators</span>\n        <span>Design</span>\n        <span>Capacity Building</span>\n      </div>\n      <h1 class=\"case-hero__title\">Village Ways</h1>\n      <div class=\"case-hero__meta\">\n        <span>Sundarban, India</span>\n        <span>2025</span>\n        <span>Branding &amp; Storytelling</span>\n      </div>\n      <p class=\"case-hero__lead\">Village Ways is a community-based tourism initiative that creates meaningful connections between travelers and rural communities through responsible, locally managed travel experiences. Studio 1947 partnered with the organization to strengthen its visual communication and storytelling ecosystem, translating its mission of sustainable tourism, cultural preservation, and community empowerment into a compelling brand experience.</p>\n    </section>\n\n    <!-- ===== Cover image ===== -->\n    <section class=\"section container\" style=\"padding-block: clamp(24px,3vw,48px)\">\n      <div class=\"case-cover reveal\">\n        <img src=\"/assets/img/work/village-ways/cae547e4969f4e97ad4bc0472fd64435.webp\" alt=\"Misty forested hills and waterways evoking the Sundarban region where Village Ways operates\">\n      </div>\n    </section>\n\n    <!-- ===== Overview: Introduction + Objective ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <div class=\"case-body\">\n          <h2>Introduction</h2>\n          <div class=\"case-block__body\">\n            <p>Village Ways is a community-based tourism initiative that creates meaningful connections between travelers and rural communities through responsible, locally managed travel experiences. Operating in the Sundarban region, the organization empowers local communities to own and manage tourism enterprises while preserving their cultural and ecological heritage.</p>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"case-block reveal\">\n        <div class=\"case-body\">\n          <h2>The Objective</h2>\n          <div class=\"case-block__body\">\n            <p>Studio 1947 partnered with Village Ways to strengthen its visual communication and storytelling ecosystem. The goal was to translate the organization's mission of sustainable tourism, cultural preservation, and community empowerment into a compelling brand experience. The project focused on showcasing authentic village life while reinforcing the social and economic impact generated through community-led tourism.</p>\n          </div>\n        </div>\n      </div>\n\n      <!-- ===== Our Process ===== -->\n      <div class=\"case-block reveal\">\n        <div class=\"case-body\">\n          <h2>Our Process</h2>\n          <ul class=\"case-list case-block__body\">\n            <li><span class=\"n\">01</span><strong>Communication Strategy.</strong> We developed a comprehensive communication framework that highlighted the unique relationship between travelers and host communities, emphasizing dignity, ownership, and long-term sustainability.</li>\n            <li><span class=\"n\">02</span><strong>Visual Identity &amp; Branding.</strong> Our team crafted visual narratives that celebrated local culture, livelihoods, and traditions without reducing village communities to tourist attractions.</li>\n            <li><span class=\"n\">03</span><strong>Content Creation.</strong> We produced storytelling assets across digital platforms, publications, and promotional materials that balanced the expectations of modern travelers with the authenticity of rural life.</li>\n            <li><span class=\"n\">04</span><strong>Human-Centered Approach.</strong> The entire process was guided by a thoughtful, human-centered design approach that ensured respectful and authentic representation of the communities.</li>\n          </ul>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Result + Client Impact ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <div class=\"case-body\">\n          <h2>The Result</h2>\n          <ul class=\"case-list case-block__body\">\n            <li><span class=\"n\">01</span>Successfully positioned Village Ways as a leader in sustainable, community-driven travel experiences.</li>\n            <li><span class=\"n\">02</span>Enhanced audience engagement through authentic storytelling.</li>\n            <li><span class=\"n\">03</span>Created a cohesive brand identity that resonates with responsible travelers.</li>\n            <li><span class=\"n\">04</span>Effectively communicated measurable social impact while maintaining cultural sensitivity.</li>\n          </ul>\n        </div>\n      </div>\n\n      <div class=\"case-block reveal\">\n        <div class=\"case-body\">\n          <h2>Client Impact</h2>\n          <ul class=\"case-list case-block__body\">\n            <li><span class=\"n\">01</span>A professional brand presence that reflects their mission and values.</li>\n            <li><span class=\"n\">02</span>Increased visibility and credibility in the sustainable tourism sector.</li>\n            <li><span class=\"n\">03</span>Stronger connections with their target audience of conscious travelers.</li>\n            <li><span class=\"n\">04</span>A scalable communication system for future growth.</li>\n          </ul>\n        </div>\n      </div>\n\n      <div class=\"case-block reveal\">\n        <div class=\"case-body\">\n          <h2>Why Studio 1947?</h2>\n          <div class=\"case-block__body\">\n            <p>Studio 1947 specializes in working with organizations that create meaningful social impact. Our collaboration with Village Ways demonstrates our ability to combine strategic branding with authentic storytelling, helping mission-driven organizations communicate their values effectively while respecting the communities they serve.</p>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Gallery ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-gallery reveal\">\n        <figure>\n          <img src=\"/assets/img/work/village-ways/cae547e4969f4e97ad4bc0472fd64435.webp\" alt=\"Lush, mist-wrapped landscape representing the natural heritage the community protects\" loading=\"lazy\">\n        </figure>\n        <figure>\n          <img src=\"/assets/img/work/village-ways/55d98a_3287270d83ef4efabfdd1f52d0dc6ec2.webp\" alt=\"Softly lit, minimal travel visual from the Village Ways storytelling assets\" loading=\"lazy\">\n        </figure>\n      </div>\n    </section>\n\n    <!-- ===== Case navigation ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-nav reveal\">\n        <div class=\"case-nav__prevnext\">\n          <a href=\"/our-work/\">&#8592; Previous Project</a>\n          <a href=\"/our-work/\">Next Project &#8594;</a>\n        </div>\n        <a class=\"case-viewall\" href=\"/our-work/\">\n          View all work\n          <span class=\"arrow\" aria-hidden=\"true\">\n            <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>\n          </span>\n        </a>\n      </div>\n    </section>\n  </main>"
+  "title": "Village Ways — Capacity Building | Studio 1947",
+  "description": "How Studio 1947 evolved from a print design vendor into a strategic field consulting partner for Village Ways — executing grassroots digital literacy workshops in Bali Island, Sunderbans.",
+  "ogTitle": "Village Ways — Capacity Building | Studio 1947",
+  "ogDescription": "How Studio 1947 evolved from a print design vendor into a strategic field consulting partner for Village Ways — executing grassroots digital literacy workshops in Bali Island, Sunderbans.",
+  "ogType": "article",
+  "brand": "#94c11f",
+  "client": "Village Ways",
+  "tags": [
+    "Capacity Building"
+  ],
+  "hero": {
+    "src": "/assets/img/work/village-ways/hero.webp",
+    "alt": "Village Ways wordmark logo lockup on a plain white background",
+    "style": "logo"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "When social enterprises, eco-tourism organizations, and global impact funds look for a consultancy partner, they aren't scanning portfolios for slick tech graphics or trendy typography. They look for an agency with deep empathy, tactical field research capabilities, and the unique ability to turn human capital into localized economic growth.",
+        "Since initiating our partnership with Village Ways — an organization globally recognized for pioneer community-owned tourism projects — our role has evolved from a traditional design vendor into a Strategic Field Consulting Partner. This case study details how we moved from high-quality print production into a hands-on, field-level intervention in Bali Island, Sunderbans, designed to bridge the digital literacy gap and empower rural homestay operators to own their narratives."
+      ]
+    },
+    {
+      "heading": "Context & Overarching Strategy"
+    },
+    {
+      "divider": false,
+      "subheading": "The Mission",
+      "body": [
+        "Village Ways works to sustain traditional rural communities by developing low-impact, community-owned tourism modules. By keeping ownership completely in the hands of village committees, they create sustainable income alternatives that preserve cultural landscapes and protect ecological ecosystems."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Evolution of Our Engagement",
+      "body": [
+        "Our initial collaboration began with establishing visual trust through traditional creative channels:"
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Portfolio Carousel Asset (Print Media Tiers)",
+      "body": [
+        "We crafted premium, tactile print brochures and community-themed calendars. These assets were engineered to translate raw rural imagery into high-end editorial layouts suitable for international travelers exploring sustainable tourism options."
+      ],
+      "layout": "grid-2",
+      "media": [
+        {
+          "src": "/assets/img/work/village-ways/brochure01.webp",
+          "alt": "Village Ways print brochure cover, pairing rural Sunderbans photography with an editorial layout",
+          "caption": "Brochure for Village Ways",
+          "zoom": true,
+          "pad": false
+        },
+        {
+          "src": "/assets/img/work/village-ways/brochure02.webp",
+          "alt": "Inside spread of the Village Ways brochure introducing the community-owned tourism model",
+          "zoom": true,
+          "pad": false
+        },
+        {
+          "src": "/assets/img/work/village-ways/brochure03.webp",
+          "alt": "Village Ways brochure spread showing village life and homestay experiences",
+          "zoom": true,
+          "pad": false
+        },
+        {
+          "src": "/assets/img/work/village-ways/brochure04.webp",
+          "alt": "Closing spread of the Village Ways brochure with travel details and contact information",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "layout": "grid-3",
+      "media": [
+        {
+          "src": "/assets/img/work/village-ways/calendar01.webp",
+          "alt": "Community-themed Village Ways wall calendar page featuring rural Sunderbans photography",
+          "caption": "Calendar for Village Ways",
+          "zoom": true,
+          "pad": false
+        },
+        {
+          "src": "/assets/img/work/village-ways/calendar02.webp",
+          "alt": "Second Village Ways calendar page pairing a village portrait with the monthly grid",
+          "zoom": true,
+          "pad": false
+        },
+        {
+          "src": "/assets/img/work/village-ways/calendar03.webp",
+          "alt": "Third Village Ways calendar page showing landscape imagery above the date layout",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "body": [
+        "However, true community empowerment cannot be achieved through static print materials distributed in city centers. To future-proof the local economy, the community members themselves needed the skills to access modern digital marketplaces. On April 1st, 2026, our agency deployed directly to the field in Bali Island, Sunderbans, to execute a comprehensive, human-centric capacity-building program."
+      ]
+    },
+    {
+      "heading": "Uncovering the Human Barriers: The Grassroots Field Audit",
+      "body": [
+        "In tier-4 rural landscapes, introducing social media tools requires understanding unique cultural anxieties. Many design agencies make the mistake of handing over complex digital manuals that create frustration. Through a structured diagnostic discussion on-site, we uncovered the real psychological and technical bottlenecks holding the local community back:"
+      ],
+      "layout": "grid-2",
+      "cards": [
+        {
+          "title": "Social Anxiety & Fear of Judgment",
+          "body": "A deep hesitation regarding public exposure and low confidence when interacting in open digital spaces."
+        },
+        {
+          "title": "Production Nervousness",
+          "body": "High levels of performance anxiety when asked to speak or record directly on camera."
+        },
+        {
+          "title": "Linguistic Isolation",
+          "body": "Language barriers deeply impacted day-to-day business interactions, especially for local tour guides and homestay operators trying to communicate value to urban travelers."
+        },
+        {
+          "title": "Technical Deficit",
+          "body": "Limited baseline knowledge of creative digital apps, software structures, and content algorithms."
+        }
+      ]
+    },
+    {
+      "heading": "Strategic Intervention: Low-Friction Digital Frameworks",
+      "body": [
+        "To dismantle these barriers, we flipped the script on traditional social media production. We engineered three low-friction, high-empathy creative workflows tailored specifically to varying levels of digital literacy."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "A. Camera-Free Content Architectures (Voiceover Visuals)",
+      "body": [
+        "We stripped away the pressure of being on camera. Participants were taught to shoot clean, steady footage of their environment while utilizing authentic, local voiceovers over the top. This completely removed personal anxiety while preserving raw, documentary-style storytelling."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The “Story-First” Composition Standard",
+      "body": [
+        "Rather than worrying about hyper-edited video layouts, we established a simpler metric: One Compelling Local Story + One Striking Photo = A Perfect Social Asset. This shifted focus from technical software mastery back to their natural strength: deep oral traditions and local knowledge."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Collaborative Account Model (Shared Community Ownership)",
+      "body": [
+        "To completely eliminate the ongoing pressure of personal profile management, we designed a unified, collective community profile. Managed together as a team, this shared hub distributed the responsibility of creation, built internal trust, and fostered long-term community alignment."
+      ]
+    },
+    {
+      "heading": "The Workshop Architecture: Deconstructing the 4-Phase System",
+      "body": [
+        "The workshop layer was strictly engineered into sequential, low-pressure modules designed to ease participants gently into open digital creation:"
+      ],
+      "layout": "grid-2",
+      "cards": [
+        {
+          "title": "Low-Pressure Introductions",
+          "body": "Dissolve initial hesitation. Participants introduced themselves in a relaxed, warm environment without any mention of technology or smartphones."
+        },
+        {
+          "title": "Tactical Group Storytelling",
+          "body": "Discover latent talents. Groups selected a locally visible fruit or a handkerchief they stitched themselves to build a spontaneous verbal narrative."
+        },
+        {
+          "title": "Reflection & Individual Mapping",
+          "body": "Capture raw personal context. Attendees mapped out specific activities they personally enjoy, recalling single memorable moments tied to their craft."
+        },
+        {
+          "title": "Boundary Auditing",
+          "body": "Surface hidden fears. A structured open floor to explicitly diagnose and map what explicitly prevents them from maintaining a digital footprint."
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Discovery of Latent Talents",
+      "body": [
+        "The activity-based exercises revealed an extraordinary reservoir of natural creative capability among the villagers of Bali, Rangabelia, and Bijaynagar:"
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Natural Storytellers & Photographers",
+      "body": [
+        "Participants displayed an immediate, organic instinct for framing, capturing context, and spinning highly compelling narratives around everyday village assets such as mapping the profound medicinal benefits, culinary uses, and cultural roles of the native local banana (Kachkala)."
+      ],
+      "layout": "grid-2",
+      "cards": [
+        {
+          "title": "Module A",
+          "body": "INTRODUCTION TO SOCIAL MEDIA PLATFORMS"
+        },
+        {
+          "title": "Module B",
+          "body": "STORYTELLING TO POST CREATION"
+        },
+        {
+          "title": "Module C",
+          "body": "STORYTELLING TO REEL CREATION"
+        },
+        {
+          "title": "Module D",
+          "body": "UNDERSTANDING BASIC METRICS OF SOCIAL MEDIA"
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "body": [
+        "Every cohort participant was selected via rigorous diagnostic profiling based on specific skill tracking to ensure highly concentrated peer-to-peer mentoring on-site, including leaders like Debaprasad Baidya, Jaya Mukherjee, and Animesh Mondal."
+      ]
+    },
+    {
+      "heading": "Future Scope: Engineering the Rural Digital Economy",
+      "body": [
+        "To demonstrate our strategic value as long-term consultants, we delivered an extensive, system-level product and strategy blueprint designed to be deployed progressively over future phases:"
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "num": "1",
+          "title": "Branding of Sundari Sundarbans",
+          "body": "3-4 WEEKS"
+        },
+        {
+          "num": "2",
+          "title": "WhatsApp Marketplace",
+          "body": "3-4 WEEKS"
+        },
+        {
+          "num": "3",
+          "title": "Map for Toto + Homestays",
+          "body": "3-4 WEEKS"
+        },
+        {
+          "num": "4",
+          "title": "Social Media Marketing",
+          "body": "Yearly commitment"
+        },
+        {
+          "num": "5",
+          "title": "Detailed Brochure & Guide Profiles",
+          "body": "3-4 WEEKS"
+        },
+        {
+          "num": "6",
+          "title": "All in One Mobile Application",
+          "body": "40 WEEKS"
+        },
+        {
+          "num": "7",
+          "title": "Responsive Website",
+          "body": "8-10 WEEKS"
+        },
+        {
+          "num": "8",
+          "title": "Initial Brand Strategy",
+          "body": "3-4 WEEKS"
+        },
+        {
+          "num": "9",
+          "title": "Toolkit Design for Guides",
+          "body": "3-4 WEEKS"
+        }
+      ]
+    },
+    {
+      "heading": "Consultancy Value Summary: Building Sustainable Human Capital",
+      "body": [
+        "Through this engagement with Village Ways, we demonstrated that true design innovation is measured by human impact, local agency, and structural legacy. By combining professional print asset curation with rigorous field-level literacy workshops, we moved a vulnerable ecosystem away from dependency into total communication autonomy.",
+        "This project serves as a definitive case study proving to future social funds, government panels, and international NGOs that our agency doesn't just hand over aesthetic files — we build self-sustaining digital engines that preserve local heritage, enrich human capital, and directly fuel local economic growth."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Direction",
+      "members": "Rabi, Pinaki"
+    },
+    {
+      "role": "Brochure",
+      "members": "Rabi"
+    },
+    {
+      "role": "Calendar",
+      "members": "Rabi, Zahid, Anudyia"
+    }
+  ],
+  "solutions": [
+    "research-survey"
+  ]
 }

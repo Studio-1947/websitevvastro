@@ -16,6 +16,8 @@ import { duplicateMarquees } from './marquee';
 import { hydrateYear, darjeelingLive } from './darjeeling';
 import { heroAurora } from './heroAurora';
 import { contactModal } from './contactModal';
+import { caseLightbox } from './lightbox';
+import { contactForms } from './formSubmit';
 import { initSmoothScroll } from './smoothScroll';
 
 function init(): void {
@@ -38,6 +40,8 @@ function init(): void {
   darjeelingLive();
   heroAurora();
   contactModal();
+  caseLightbox();
+  contactForms();
 }
 
 if (document.readyState === 'loading') {

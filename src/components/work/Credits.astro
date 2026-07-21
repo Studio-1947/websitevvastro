@@ -1,0 +1,31 @@
+---
+/**
+ * Project credits. The source linked each name to /team/<slug>; this site has
+ * no /team routes, so names render as plain text (see migration notes). Role
+ * kickers take the per-brand accent via --brand.
+ */
+interface Props {
+  client: string;
+  roles?: { role: string; members: string }[];
+}
+const { client, roles = [] } = Astro.props;
+---
+
+{
+  roles.length > 0 && (
+    <section class="case-credits">
+      <div>
+        <h3 class="case-credits__kicker">Client</h3>
+        <p class="case-credits__client">{client}</p>
+      </div>
+      <div class="case-credits__grid">
+        {roles.map((r) => (
+          <div>
+            <h4 class="case-credit__role">{r.role}</h4>
+            <p class="case-credit__members">{r.members}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}

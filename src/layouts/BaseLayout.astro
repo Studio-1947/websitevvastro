@@ -19,7 +19,7 @@ interface Props extends SeoProps {
   fontHref?: string;
 }
 
-const { bodyClass, ...seo } = Astro.props;
+const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
 ---
 
 <!doctype html>

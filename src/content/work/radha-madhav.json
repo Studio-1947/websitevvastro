@@ -1,10 +1,136 @@
 {
- "title": "Radha Madhav — Smart Pharmacy Dashboard | Studio 1947",
- "description": "Radha Madhav case study — Studio 1947 built a cloud-native, offline-first smart dashboard that streamlined billing, inventory and compliance for a medical shop in Mirik, Darjeeling.",
- "ogTitle": "Radha Madhav — Smart Pharmacy Dashboard | Studio 1947",
- "ogDescription": "A cloud-native, offline-first dashboard unifying point-of-sale, inventory and compliance for a rural medical shop.",
- "ogType": "article",
- "bodyClass": "page-case",
- "styles": "    .page-case .case-hero { padding-top: clamp(140px, 18vh, 220px); padding-bottom: clamp(30px, 5vw, 56px); }\n    .page-case .case-hero__eyebrow { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: clamp(18px, 3vw, 30px); }\n    .page-case .case-hero__eyebrow .tag { font-family: var(--font-body); font-size: clamp(14px, 1.05vw, 16px); color: var(--red); border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px; }\n    .page-case .case-hero__title { font-size: clamp(52px, 10vw, 148px); color: var(--grey-700); letter-spacing: -0.02em; line-height: 1; }\n    .page-case .case-meta { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: clamp(22px, 3vw, 36px); padding-top: clamp(20px, 2.4vw, 28px); border-top: 1px solid var(--line); }\n    .page-case .case-meta__item { display: flex; flex-direction: column; gap: 4px; }\n    .page-case .case-meta__label { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-500); }\n    .page-case .case-meta__val { font-family: var(--font-display); font-size: clamp(18px, 1.6vw, 22px); color: var(--grey-900); }\n\n    .page-case .case-cover { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-alt); }\n    .page-case .case-cover img { width: 100%; height: clamp(240px, 46vw, 640px); object-fit: cover; }\n\n    .page-case .case-block { max-width: 1100px; }\n    .page-case .case-block + .case-block { margin-top: clamp(48px, 6vw, 90px); }\n    .page-case .case-block .eyebrow { margin-bottom: 14px; }\n    .page-case .case-block h2 { font-size: clamp(30px, 3.6vw, 56px); color: var(--grey-700); line-height: 1.05; margin-bottom: clamp(16px, 1.8vw, 26px); }\n    .page-case .case-block p { font-size: clamp(16px, 1.15vw, 19px); color: var(--grey-700); max-width: 68ch; }\n    .page-case .case-block p + p { margin-top: 16px; }\n\n    /* Key-metric stat row (reuses the .stat visual language from the homepage) */\n    .page-case .case-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 1.6vw, 26px); margin-top: clamp(24px, 3vw, 40px); }\n    .page-case .case-statcard { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(22px, 2.2vw, 36px); display: flex; flex-direction: column; gap: 10px; min-height: 190px; transition: box-shadow .4s var(--ease), transform .4s var(--ease); }\n    .page-case .case-statcard:hover { box-shadow: 0 20px 50px rgba(0,0,0,.06); transform: translateY(-4px); }\n    .page-case .case-statcard__num { font-family: var(--font-display); font-size: clamp(34px, 3.2vw, 50px); color: var(--red); line-height: 1; }\n    .page-case .case-statcard__desc { font-size: clamp(14px, 1vw, 16px); color: var(--grey-700); margin-top: auto; }\n\n    .page-case .case-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(16px, 1.8vw, 26px); margin-top: clamp(24px, 3vw, 40px); }\n    .page-case .case-step { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(24px, 2.2vw, 36px); display: flex; flex-direction: column; gap: 12px; transition: box-shadow .4s var(--ease), transform .4s var(--ease); }\n    .page-case .case-step:hover { box-shadow: 0 20px 50px rgba(0,0,0,.06); transform: translateY(-4px); }\n    .page-case .case-step__num { font-family: var(--font-display); font-size: clamp(38px, 3.4vw, 56px); color: var(--red); line-height: 1; }\n    .page-case .case-step h3 { font-size: clamp(20px, 1.6vw, 24px); color: var(--grey-900); }\n    .page-case .case-step p { font-size: clamp(15px, 1.05vw, 17px); color: var(--grey-700); }\n\n    .page-case .case-impact { list-style: none; display: grid; gap: 0; margin-top: clamp(20px, 2.4vw, 30px); max-width: 1000px; }\n    .page-case .case-impact li { display: flex; gap: clamp(18px, 2.4vw, 32px); align-items: baseline; padding: clamp(18px, 2vw, 28px) 0; border-top: 1px solid var(--line); font-size: clamp(17px, 1.35vw, 22px); color: var(--grey-700); }\n    .page-case .case-impact li:last-child { border-bottom: 1px solid var(--line); }\n    .page-case .case-impact li .n { font-family: var(--font-display); color: var(--red); font-size: clamp(22px, 2vw, 30px); flex-shrink: 0; }\n\n    .page-case .case-nav { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; margin-top: clamp(56px, 7vw, 100px); padding-top: clamp(28px, 3vw, 44px); border-top: 1px solid var(--line); }\n    .page-case .case-nav__back { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-display); font-size: clamp(20px, 2vw, 30px); color: var(--grey-900); transition: color .25s var(--ease); }\n    .page-case .case-nav__back:hover { color: var(--red); }\n    .page-case .case-nav__back .arrow { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); display: grid; place-items: center; transition: background .3s var(--ease), color .3s var(--ease); }\n    .page-case .case-nav__back:hover .arrow { background: var(--red); color: #fff; }\n    .page-case .case-nav__hint { font-size: 14px; color: var(--grey-500); letter-spacing: .08em; text-transform: uppercase; }\n\n    @media (max-width: 1024px) {\n      .page-case .case-stats { grid-template-columns: repeat(2, 1fr); }\n    }\n    @media (max-width: 760px) {\n      .page-case .case-steps { grid-template-columns: 1fr; }\n      .page-case .case-stats { grid-template-columns: 1fr; }\n      .page-case .case-cover img { height: clamp(220px, 60vw, 360px); }\n    }\n  ",
- "html": "<main>\n    <!-- ===== Hero ===== -->\n    <section class=\"case-hero container\" data-stagger>\n      <div class=\"case-hero__eyebrow\">\n        <span class=\"tag\">Creators</span>\n        <span class=\"tag\">Dashboard</span>\n      </div>\n      <h1 class=\"case-hero__title\">Radha Madhav</h1>\n      <div class=\"case-meta\">\n        <div class=\"case-meta__item\">\n          <span class=\"case-meta__label\">Location</span>\n          <span class=\"case-meta__val\">Mirik, Darjeeling</span>\n        </div>\n        <div class=\"case-meta__item\">\n          <span class=\"case-meta__label\">Discipline</span>\n          <span class=\"case-meta__val\">Smart Dashboard</span>\n        </div>\n        <div class=\"case-meta__item\">\n          <span class=\"case-meta__label\">Year</span>\n          <span class=\"case-meta__val\">2026</span>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Cover image ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-cover reveal\">\n        <img src=\"/assets/img/work/radha-madhav/cae547e4969f4e97ad4bc0472fd64435.webp\" alt=\"Misty hillside town of Mirik, Darjeeling, home of the Radha Madhav medical shop\">\n      </div>\n    </section>\n\n    <!-- ===== Overview ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Overview</p>\n        <h2>A cloud-native dashboard for a modern medical shop.</h2>\n        <p>The primary objective of this project was to deploy a smart dashboard for the \"Radha Madhav\" medical shop to completely streamline its day-to-day business operations and simplify inventory maintenance. By implementing this cloud-native system design, the pharmacy achieved a blazing-fast point-of-sale billing latency of sub-100 milliseconds and successfully boosted cashier throughput to over 60 line items per minute.</p>\n        <p>Following the dashboard's integration, Radha Madhav optimized its overall retail performance, driving a ₹4,80,000 increase in quarterly revenue and reducing near-expiry medicine write-offs to less than 0.5% of total product costs.</p>\n      </div>\n\n      <!-- Key metrics -->\n      <div class=\"case-stats\" data-stagger>\n        <div class=\"case-statcard\">\n          <div class=\"case-statcard__num\">&lt;100ms</div>\n          <p class=\"case-statcard__desc\">Point-of-sale billing latency for near-instant checkout.</p>\n        </div>\n        <div class=\"case-statcard\">\n          <div class=\"case-statcard__num\">60+</div>\n          <p class=\"case-statcard__desc\">Line items processed per minute at the counter.</p>\n        </div>\n        <div class=\"case-statcard\">\n          <div class=\"case-statcard__num\">₹4.8L</div>\n          <p class=\"case-statcard__desc\">Increase in quarterly revenue after integration.</p>\n        </div>\n        <div class=\"case-statcard\">\n          <div class=\"case-statcard__num\">&lt;0.5%</div>\n          <p class=\"case-statcard__desc\">Near-expiry medicine write-offs of total product costs.</p>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Introduction / Objective ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Introduction</p>\n        <h2>Digital transformation for a Mirik pharmacy.</h2>\n        <p>Radha Madhav is a medical shop located in Mirik, Darjeeling, that sought to modernize its operations through digital transformation. The client needed a comprehensive solution to streamline day-to-day business operations, simplify inventory management, and enhance overall retail efficiency.</p>\n      </div>\n\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">The Objective</p>\n        <h2>Transform the entire operational workflow.</h2>\n        <p>Studio 1947 was engaged to develop a smart dashboard solution for Radha Madhav medical shop. The primary objective was to deploy a cloud-native system that would completely transform the pharmacy's operational workflow, from point-of-sale transactions to inventory management and compliance logging.</p>\n      </div>\n    </section>\n\n    <!-- ===== Process ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Our Process</p>\n        <h2>How we built the platform.</h2>\n      </div>\n      <div class=\"case-steps\" data-stagger>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">01</div>\n          <h3>Smart Dashboard Development</h3>\n          <p>We designed and implemented a specialized, domain-aware management dashboard that unified point-of-sale transactions, distributor procurement pipelines, and automated compliance logging into a single cohesive interface.</p>\n        </div>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">02</div>\n          <h3>Offline-First Architecture</h3>\n          <p>The platform was built on an offline-first architecture to ensure uninterrupted billing capabilities during network disruptions, a critical feature for rural areas with inconsistent connectivity.</p>\n        </div>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">03</div>\n          <h3>Intelligent Inventory Management</h3>\n          <p>We implemented an automated First-Expiry-First-Out (FEFO) allocation engine to manage medicine lots intelligently, reducing waste from expired products.</p>\n        </div>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">04</div>\n          <h3>Advanced Features Integration</h3>\n          <p>The dashboard incorporated real-time stock-on-hand visibility mapped to specific display racks, optical character recognition (OCR) for parsing doctor prescriptions, and instant drug interaction alerts.</p>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Mid image ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-cover reveal\">\n        <img src=\"/assets/img/work/radha-madhav/55d98a_3287270d83ef4efabfdd1f52d0dc6ec2.webp\" alt=\"Rolling landscape of the Darjeeling hills where Radha Madhav serves its community\" loading=\"lazy\">\n      </div>\n    </section>\n\n    <!-- ===== Result ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">The Result</p>\n        <h2>Significant operational improvements.</h2>\n        <ul class=\"case-impact\">\n          <li><span class=\"n\">01</span><span>Blazing-fast performance — point-of-sale billing latency of sub-100 milliseconds.</span></li>\n          <li><span class=\"n\">02</span><span>Increased throughput — cashier processing speed boosted to over 60 line items per minute.</span></li>\n          <li><span class=\"n\">03</span><span>Revenue growth — drove a ₹4,80,000 increase in quarterly revenue.</span></li>\n          <li><span class=\"n\">04</span><span>Reduced waste — cut near-expiry medicine write-offs to less than 0.5% of total product costs.</span></li>\n        </ul>\n      </div>\n\n      <!-- ===== Client Impact ===== -->\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Client Impact</p>\n        <h2>Through our partnership, Radha Madhav achieved:</h2>\n        <ul class=\"case-impact\">\n          <li><span class=\"n\">01</span><span>Complete digitization of manual tracking workflows.</span></li>\n          <li><span class=\"n\">02</span><span>Real-time inventory synchronization across all operations.</span></li>\n          <li><span class=\"n\">03</span><span>Streamlined compliance and regulatory reporting.</span></li>\n          <li><span class=\"n\">04</span><span>Enhanced customer service through faster checkout times.</span></li>\n          <li><span class=\"n\">05</span><span>Significant reduction in financial losses from expired medicines.</span></li>\n        </ul>\n      </div>\n\n      <!-- ===== Why Studio 1947 ===== -->\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Why Studio 1947?</p>\n        <h2>Tailored solutions for real-world challenges.</h2>\n        <p>Studio 1947 specializes in creating tailored digital solutions that address real-world business challenges. Our work with Radha Madhav demonstrates our ability to combine technical expertise with deep understanding of local business needs, delivering solutions that drive measurable impact and sustainable growth for our clients.</p>\n      </div>\n\n      <!-- ===== Back to work ===== -->\n      <nav class=\"case-nav reveal\" aria-label=\"Case study navigation\">\n        <a class=\"case-nav__back\" href=\"/our-work/\">\n          <span class=\"arrow\" aria-hidden=\"true\">\n            <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M19 12H5M11 6l-6 6 6 6\"/></svg>\n          </span>\n          View all work\n        </a>\n        <span class=\"case-nav__hint\">Next project &rarr;</span>\n      </nav>\n    </section>\n  </main>"
+  "title": "Radha Madhav — Smart Pharmacy Dashboard | Studio 1947",
+  "description": "Radha Madhav case study — Studio 1947 built a cloud-native, offline-first smart dashboard that streamlined billing, inventory and compliance for a medical shop in Mirik, Darjeeling.",
+  "ogTitle": "Radha Madhav — Smart Pharmacy Dashboard | Studio 1947",
+  "ogDescription": "A cloud-native, offline-first dashboard unifying point-of-sale, inventory and compliance for a rural medical shop.",
+  "ogType": "article",
+  "client": "Radha Madhav",
+  "location": "Mirik, Darjeeling",
+  "year": "2026",
+  "tags": [
+    "Creators",
+    "Dashboard",
+    "Smart Dashboard"
+  ],
+  "hero": {
+    "src": "/assets/img/work/radha-madhav/cae547e4969f4e97ad4bc0472fd64435.webp",
+    "alt": "Misty hillside town of Mirik, Darjeeling, home of the Radha Madhav medical shop"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "label": "Overview",
+      "heading": "A cloud-native dashboard for a modern medical shop.",
+      "body": [
+        "The primary objective of this project was to deploy a smart dashboard for the \"Radha Madhav\" medical shop to completely streamline its day-to-day business operations and simplify inventory maintenance. By implementing this cloud-native system design, the pharmacy achieved a blazing-fast point-of-sale billing latency of sub-100 milliseconds and successfully boosted cashier throughput to over 60 line items per minute.",
+        "Following the dashboard's integration, Radha Madhav optimized its overall retail performance, driving a ₹4,80,000 increase in quarterly revenue and reducing near-expiry medicine write-offs to less than 0.5% of total product costs."
+      ]
+    },
+    {
+      "divider": false,
+      "layout": "grid-2",
+      "cards": [
+        {
+          "num": "<100ms",
+          "title": "Point-of-sale billing latency for near-instant checkout."
+        },
+        {
+          "num": "60+",
+          "title": "Line items processed per minute at the counter."
+        },
+        {
+          "num": "₹4.8L",
+          "title": "Increase in quarterly revenue after integration."
+        },
+        {
+          "num": "<0.5%",
+          "title": "Near-expiry medicine write-offs of total product costs."
+        }
+      ]
+    },
+    {
+      "label": "Introduction",
+      "heading": "Digital transformation for a Mirik pharmacy.",
+      "body": [
+        "Radha Madhav is a medical shop located in Mirik, Darjeeling, that sought to modernize its operations through digital transformation. The client needed a comprehensive solution to streamline day-to-day business operations, simplify inventory management, and enhance overall retail efficiency."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Objective",
+      "heading": "Transform the entire operational workflow.",
+      "body": [
+        "Studio 1947 was engaged to develop a smart dashboard solution for Radha Madhav medical shop. The primary objective was to deploy a cloud-native system that would completely transform the pharmacy's operational workflow, from point-of-sale transactions to inventory management and compliance logging."
+      ]
+    },
+    {
+      "label": "Our Process",
+      "heading": "How we built the platform.",
+      "layout": "grid-2",
+      "cards": [
+        {
+          "num": "01",
+          "title": "Smart Dashboard Development",
+          "body": "We designed and implemented a specialized, domain-aware management dashboard that unified point-of-sale transactions, distributor procurement pipelines, and automated compliance logging into a single cohesive interface."
+        },
+        {
+          "num": "02",
+          "title": "Offline-First Architecture",
+          "body": "The platform was built on an offline-first architecture to ensure uninterrupted billing capabilities during network disruptions, a critical feature for rural areas with inconsistent connectivity."
+        },
+        {
+          "num": "03",
+          "title": "Intelligent Inventory Management",
+          "body": "We implemented an automated First-Expiry-First-Out (FEFO) allocation engine to manage medicine lots intelligently, reducing waste from expired products."
+        },
+        {
+          "num": "04",
+          "title": "Advanced Features Integration",
+          "body": "The dashboard incorporated real-time stock-on-hand visibility mapped to specific display racks, optical character recognition (OCR) for parsing doctor prescriptions, and instant drug interaction alerts."
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/radha-madhav/55d98a_3287270d83ef4efabfdd1f52d0dc6ec2.webp",
+          "alt": "Rolling landscape of the Darjeeling hills where Radha Madhav serves its community"
+        }
+      ]
+    },
+    {
+      "label": "The Result",
+      "heading": "Significant operational improvements.",
+      "list": [
+        "Blazing-fast performance — point-of-sale billing latency of sub-100 milliseconds.",
+        "Increased throughput — cashier processing speed boosted to over 60 line items per minute.",
+        "Revenue growth — drove a ₹4,80,000 increase in quarterly revenue.",
+        "Reduced waste — cut near-expiry medicine write-offs to less than 0.5% of total product costs."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Client Impact",
+      "heading": "Through our partnership, Radha Madhav achieved:",
+      "list": [
+        "Complete digitization of manual tracking workflows.",
+        "Real-time inventory synchronization across all operations.",
+        "Streamlined compliance and regulatory reporting.",
+        "Enhanced customer service through faster checkout times.",
+        "Significant reduction in financial losses from expired medicines."
+      ]
+    },
+    {
+      "label": "Why Studio 1947?",
+      "heading": "Tailored solutions for real-world challenges.",
+      "body": [
+        "Studio 1947 specializes in creating tailored digital solutions that address real-world business challenges. Our work with Radha Madhav demonstrates our ability to combine technical expertise with deep understanding of local business needs, delivering solutions that drive measurable impact and sustainable growth for our clients."
+      ]
+    }
+  ],
+  "solutions": [
+    "data-design-tech"
+  ],
+  "active": false
 }

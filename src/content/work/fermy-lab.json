@@ -1,9 +1,308 @@
 {
- "title": "Fermy Lab — Branding & Web Design | Studio 1947",
- "description": "Studio 1947 crafted a brand identity and communication framework for Fermy Lab, translating complex fermentation science into a clear, approachable and contemporary visual experience.",
- "ogTitle": "Fermy Lab — Branding & Web Design | Studio 1947",
- "ogDescription": "A brand identity that fuses scientific rigour with forward-thinking innovation for Fermy Lab.",
- "ogType": "article",
- "styles": "    .page-case .case-eyebrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: clamp(18px, 3vw, 30px); }\n    .page-case .case-tag {\n      font-size: 13px; color: var(--red); line-height: 1;\n      border: 1px solid #f2c9c9; background: #fff5f5;\n      border-radius: 999px; padding: 6px 12px; letter-spacing: .01em;\n    }\n    .page-case .case-meta {\n      display: flex; flex-wrap: wrap; gap: 12px 26px;\n      margin-top: clamp(20px, 3vw, 34px);\n      color: var(--grey-500); font-size: clamp(14px, 1.05vw, 17px);\n    }\n    .page-case .case-meta span { display: inline-flex; align-items: center; gap: 8px; }\n    .page-case .case-meta svg { width: 16px; height: 16px; color: var(--red); flex-shrink: 0; }\n\n    .page-case .case-cover {\n      border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-alt);\n      margin-top: clamp(30px, 5vw, 60px);\n    }\n    .page-case .case-cover img { width: 100%; height: auto; display: block; }\n\n    .page-case .case-intro { max-width: 68ch; }\n    .page-case .case-intro .lead {\n      font-family: var(--font-display); font-size: clamp(22px, 2.4vw, 36px);\n      color: var(--grey-900); line-height: 1.18;\n    }\n\n    .page-case .case-block { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(20px, 4vw, 70px); align-items: start; padding-block: clamp(30px, 4vw, 56px); border-bottom: 1px solid var(--line); }\n    .page-case .case-block:first-of-type { border-top: 1px solid var(--line); }\n    .page-case .case-block h2 { font-size: clamp(26px, 3.2vw, 46px); color: var(--grey-900); }\n    .page-case .case-block p { color: var(--grey-700); font-size: clamp(16px, 1.15vw, 19px); }\n    .page-case .case-block p + p { margin-top: 16px; }\n\n    .page-case .case-steps { list-style: none; display: grid; gap: 22px; }\n    .page-case .case-steps li { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; }\n    .page-case .case-steps .num {\n      font-family: var(--font-display); font-size: clamp(20px, 2vw, 28px);\n      color: var(--red); line-height: 1; min-width: 1.6em;\n    }\n    .page-case .case-steps .step-t { font-family: var(--font-display); font-size: clamp(18px, 1.5vw, 22px); color: var(--grey-900); display: block; margin-bottom: 4px; }\n    .page-case .case-steps .step-b { color: var(--grey-700); font-size: clamp(15px, 1.1vw, 18px); }\n\n    .page-case .case-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(16px, 2vw, 28px); }\n    .page-case .case-gallery figure { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--bg-alt); }\n    .page-case .case-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); }\n    .page-case .case-gallery figure:hover img { transform: scale(1.04); }\n\n    .page-case .case-back { margin-top: clamp(30px, 4vw, 52px); }\n\n    @media (max-width: 820px) {\n      .page-case .case-block { grid-template-columns: 1fr; gap: 14px; }\n      .page-case .case-gallery { grid-template-columns: 1fr; }\n    }\n  ",
- "html": "<main class=\"page-case\">\n    <!-- ===== Hero ===== -->\n    <section class=\"hero container\" data-stagger>\n      <div class=\"case-eyebrow\">\n        <span class=\"case-tag\">Creators</span>\n        <span class=\"case-tag\">Branding</span>\n        <span class=\"case-tag\">Web Design</span>\n        <span class=\"case-tag\">Marketing</span>\n      </div>\n      <h1 class=\"hero__title\">Fermy Lab</h1>\n      <div class=\"case-meta\">\n        <span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/></svg>Gurgaon, India</span>\n        <span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"/><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75\"/></svg>3K+ reach</span>\n        <span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/></svg>2026</span>\n      </div>\n    </section>\n\n    <!-- ===== Cover image ===== -->\n    <section class=\"container\">\n      <div class=\"case-cover reveal\">\n        <img src=\"/assets/img/work/fermy-lab/fermy-cover.webp\" alt=\"Fermy Lab brand identity — scientifically crafted, naturally fermented croissants in branded packaging\">\n      </div>\n    </section>\n\n    <!-- ===== Overview / intro ===== -->\n    <section class=\"section container\">\n      <div class=\"case-intro reveal\">\n        <p class=\"lead\">Fermy Lab is an innovation-focused initiative working at the intersection of science, technology, research, and entrepreneurship.</p>\n        <p style=\"margin-top:22px;color:var(--grey-700);font-size:clamp(16px,1.2vw,20px)\">Studio 1947 partnered with the organization to develop a brand identity and communication framework that could translate complex scientific ideas into a clear, approachable, and contemporary visual experience. The objective was to create a brand presence that reflected credibility, innovation, and experimentation while remaining accessible to diverse audiences including researchers, innovators, students, and industry stakeholders.</p>\n      </div>\n    </section>\n\n    <!-- ===== Narrative blocks ===== -->\n    <section class=\"section container\" style=\"padding-top:0\" data-stagger>\n      <div class=\"case-block\">\n        <h2>Introduction</h2>\n        <div>\n          <p>The project centered on building a cohesive identity system that could effectively communicate Fermy Lab's vision and research-driven approach. Through strategic branding, visual storytelling, digital assets, and communication design, Studio 1947 crafted a flexible visual language that supports both technical depth and public engagement.</p>\n          <p>The resulting brand ecosystem helps position Fermy Lab as a forward-looking platform where science, innovation, and collaborative problem-solving converge to create meaningful impact.</p>\n        </div>\n      </div>\n\n      <div class=\"case-block\">\n        <h2>The Objective</h2>\n        <div>\n          <p>Fermy Lab sought a brand identity that conveyed scientific rigor, innovation, and a deep understanding of biological systems, while also being accessible and trustworthy to a broad range of clients and partners. Studio 1947 was engaged to translate their scientific vision into a compelling brand identity.</p>\n        </div>\n      </div>\n\n      <div class=\"case-block\">\n        <h2>Our Process</h2>\n        <ol class=\"case-steps\">\n          <li>\n            <span class=\"num\">01</span>\n            <span><span class=\"step-t\">Brand Exploration</span><span class=\"step-b\">We delved into the core of fermentation science, understanding its complexities and potential applications to inform the brand's visual language.</span></span>\n          </li>\n          <li>\n            <span class=\"num\">02</span>\n            <span><span class=\"step-t\">Logo Development</span><span class=\"step-b\">The logo was designed to symbolize the essence of fermentation — growth, transformation, and precision. It blends organic, biological forms with clean, modern typography.</span></span>\n          </li>\n          <li>\n            <span class=\"num\">03</span>\n            <span><span class=\"step-t\">Brand Application</span><span class=\"step-b\">We ensured the new identity was applied consistently across all touchpoints, from digital platforms to research materials, reinforcing Fermy Lab's scientific credibility and innovative spirit.</span></span>\n          </li>\n        </ol>\n      </div>\n    </section>\n\n    <!-- ===== Gallery ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-gallery reveal\">\n        <figure>\n          <img src=\"/assets/img/work/fermy-lab/cae547e4969f4e97ad4bc0472fd64435.webp\" alt=\"Misty forested hillside — evoking the natural, living roots of fermentation\" loading=\"lazy\">\n        </figure>\n        <figure>\n          <img src=\"/assets/img/work/fermy-lab/55d98a_3287270d83ef4efabfdd1f52d0dc6ec2.webp\" alt=\"Warm rolling sand dunes — the organic, textural palette behind the Fermy Lab identity\" loading=\"lazy\">\n        </figure>\n      </div>\n    </section>\n\n    <!-- ===== Result & impact ===== -->\n    <section class=\"section container\" style=\"padding-top:0\" data-stagger>\n      <div class=\"case-block\">\n        <h2>The Result</h2>\n        <div>\n          <p>The branding for Fermy Lab successfully encapsulates their mission: a fusion of scientific expertise and forward-thinking innovation. The visual identity communicates trust, quality, and a commitment to advancing the field of fermentation.</p>\n        </div>\n      </div>\n\n      <div class=\"case-block\">\n        <h2>Client Impact</h2>\n        <ol class=\"case-steps\">\n          <li>\n            <span class=\"num\">01</span>\n            <span><span class=\"step-b\">Established a distinct and memorable presence in the scientific community.</span></span>\n          </li>\n          <li>\n            <span class=\"num\">02</span>\n            <span><span class=\"step-b\">Clearly communicated their focus on innovative fermentation solutions.</span></span>\n          </li>\n          <li>\n            <span class=\"num\">03</span>\n            <span><span class=\"step-b\">Built a foundation of trust and professionalism with clients and collaborators.</span></span>\n          </li>\n        </ol>\n      </div>\n\n      <div class=\"case-block\">\n        <h2>Why Studio 1947?</h2>\n        <div>\n          <p>Studio 1947 specializes in creating strategic brand identities that resonate with specific industries. Our work with Fermy Lab highlights our capability to merge complex scientific concepts with clear, impactful design, empowering clients to lead in their respective fields.</p>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Back to work ===== -->\n    <section class=\"container case-back reveal\">\n      <a class=\"btn-hello\" href=\"/our-work/\">\n        View all work\n        <span class=\"arrow\" aria-hidden=\"true\">\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>\n        </span>\n      </a>\n    </section>\n  </main>"
+  "title": "Fermy Lab – Portfolio | Studio 1947",
+  "description": "Brand identity, packaging design, and omnichannel UI system for Fermy Lab — an innovative fermented food brand bridging traditional Indian culinary wisdom with modern design.",
+  "ogTitle": "Fermy Lab – Portfolio | Studio 1947",
+  "ogDescription": "Brand identity, packaging design, and omnichannel UI system for Fermy Lab — an innovative fermented food brand bridging traditional Indian culinary wisdom with modern design.",
+  "ogType": "article",
+  "brand": "#3E843E",
+  "client": "Fermy Lab",
+  "tags": [
+    "Brand Strategy",
+    "Master Brand Architecture",
+    "Packaging Design",
+    "Omnichannel UI System"
+  ],
+  "hero": {
+    "src": "/assets/img/work/fermy-lab/the-horizontal-lockup.webp",
+    "alt": "Fermy Lab horizontal logo lockup — the wordmark in deep green and golden ochre above a row of ingredient icons",
+    "style": "logo"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "When food founders and consumer brands look for a creative agency, they aren't just looking for attractive graphics. They want to see a functional commercial system — one that establishes immediate credibility on a grocery shelf, commands attention on digital delivery platforms, and smoothly adapts as the company scales.",
+        "This case study breaks down how we transformed the foundational values of <strong>Fermy Lab</strong> into a highly polished, scalable identity system engineered for real-world business growth."
+      ]
+    },
+    {
+      "heading": "Context & The Challenge",
+      "label": "The Mission",
+      "body": [
+        "<strong>Fermy Lab</strong> is an innovative food brand that creates premium products using slow, natural fermentation methods. The brand seamlessly bridges traditional Indian culinary wisdom with time-tested techniques sourced from diverse cultures around the world. Their focus is on making food that is healthy, enjoyable, and environmentally responsible, completely refusing to rely on artificial preservation shortcuts."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Creative Challenge",
+      "body": [
+        "The brand's core identity operates at a distinct crossroads: balancing deep tradition with modern thinking, local roots with global ideas, and natural patience with scientific rigor. To visually express this balance, we anchored the branding in a concept of “calm confidence”. The style is engineered to look systematically clean yet warm and handcrafted, proving to consumers that slow food can be professional, clean, and world-class."
+      ]
+    },
+    {
+      "heading": "Parent-Brand Architecture",
+      "body": [
+        "To protect the client from future design costs, we built a \"parent-child\" visual system designed to accommodate future growth:"
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/parent-brand-architect.webp",
+          "alt": "Parent-brand architecture diagram — the Fermy Lab master mark sitting above two product tracks, Breads and Condiments, each with its own product line labelling",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "body": [
+        "<strong>Fermy Lab</strong> functions as the overarching master identity. Under this umbrella, the brand launches with two distinct product tracks: Breads and Condiments. Each individual item carries its own product line labeling, while the corporate master-mark retains prominent authority across the entire ecosystem. This allows the business to launch new items instantly without paying for a total brand redesign."
+      ]
+    },
+    {
+      "heading": "Color & Typography Systems",
+      "label": "The Palette",
+      "body": [
+        "The color identity relies on a high-contrast pairing designed to command attention on store shelves:"
+      ],
+      "swatches": [
+        {
+          "role": "Primary",
+          "name": "Deep Green",
+          "hex": "#3E843E",
+          "note": "Represents natural fermentation cycles, organic balance, and core safety and trust."
+        },
+        {
+          "role": "Secondary",
+          "name": "Golden Ochre",
+          "hex": "#E59739",
+          "note": "Evokes warm oven-baked goodness, rich raw nourishment, and human-crafted culinary expertise."
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Typography",
+      "layout": "grid-2",
+      "cards": [
+        {
+          "title": "Space Grotesk",
+          "body": "<strong>Usage</strong><br />Structural Headlines, Packaging Titles, and Technical System Signage.<br /><br /><strong>The Strategy</strong><br />Space Grotesk introduces a clean, disciplined geometric frame that reinforces the empirical, “Lab” aspect of the brand name. It maintains flawless sharpness across physical print packaging and digital screens. Because it is freely accessible in the open-source Google Font library, internal marketing teams can build matching assets globally without licensing friction."
+        },
+        {
+          "title": "Just Sans",
+          "body": "<strong>Usage</strong><br />Narrative Brand Copy, Back-of-Label Explanations, and Detailed Ingredient Lists.<br /><br /><strong>The Strategy</strong><br />To balance the technical look of the primary font, we paired it with Just Sans. This typeface introduces an endearing, modernist warmth and geometric legibility. It ensures that health labels and brand stories remain highly approachable and effortless for consumers to scan."
+        }
+      ]
+    },
+    {
+      "heading": "The Logo Usage & Visual Governance",
+      "body": [
+        "To ensure perfect consistency across entirely different physical labels and screen environments, all configurations, safety guidelines, and visual prohibitions are unified into a single technical standard."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/the-logo-usage-visualgovernance.webp",
+          "alt": "Overview of the Fermy Lab logo usage system — the approved lockup configurations gathered into one technical standard",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Master Badge Lockup",
+      "body": [
+        "This layout serves as the primary seal of quality, beautifully integrating the brand name, core product ingredients, and service taglines into a circular stamp. It features an organic, illustrative wreath highlighting real ingredients: twisted challah bread, garlic bulbs, star anise, cloves, and chilis."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/the-master-badge-lockup.webp",
+          "alt": "The master badge lockup — a circular Fermy Lab stamp ringed by an illustrated wreath of challah bread, garlic, star anise, cloves and chilis",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Horizontal Lockup",
+      "body": [
+        "Created specifically to guarantee high visibility within tight spatial restrictions, this inline variation seats the core wordmark directly above a streamlined row of ingredient icons."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/the-horizontal-lockup.webp",
+          "alt": "The horizontal lockup — the Fermy Lab wordmark set inline above a streamlined row of ingredient icons for tight spaces",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Responsive Favicons",
+      "body": [
+        "Simplified, high-contrast circular badges that isolate a single key icon, such as the mini bread loaf or an organic clove, keeping the identity sharp on micro-screens."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/responsive-favicons.webp",
+          "alt": "Responsive favicon set — simplified circular badges each isolating one icon, such as the bread loaf or a clove, for micro-screen legibility",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The 1-Challah Clearspace Rule",
+      "body": [
+        "To protect the mastermark from being crowded by copy or layout borders, it must always be insulated by a minimum safety border. This breathing room is defined as exactly equal to a \"1 Challah distance,\" derived from the height of the internal twisted bread illustration."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/the-1-challah-clearspace-rule.webp",
+          "alt": "Clearspace diagram — the master badge surrounded by a minimum safety border measured as one challah loaf height on every side",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Partner Co-Branding Safety Margin",
+      "body": [
+        "When co-branding alongside external distribution partners or legacy institutions—such as locking up next to historic entities like Amul—the system enforces a strict 1-Challah safety perimeter to protect FermyLab's independent authority.",
+        "The FermyLab logo isn't just a symbol, it's a statement. Keep it clear, crisp, and confidently placed."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/partner-co-branding-safety-margin.webp",
+          "alt": "Co-branding diagram — the Fermy Lab mark locked up beside a partner logo with the mandated 1-Challah safety perimeter between them",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "heading": "Absolute Production Prohibitions",
+      "body": [
+        "To eliminate any guesswork for third-party printers or internal developers, we codified an explicit checklist of system violations. Production environments are strictly prohibited from making the following adjustments:"
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/absolute-production-prohibitions.webp",
+          "alt": "Violation matrix — a checklist of prohibited treatments of the Fermy Lab mark, such as recolouring, stretching and rotating it",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "heading": "Omnichannel System Application",
+      "body": [
+        "To demonstrate how the identity smoothly wins customers across physical markets and digital platforms, we activated the brand assets across key commercial touchpoints"
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Physical Retail Packaging",
+      "body": [
+        "Clean badge labels wrap seamlessly onto slow-aged condiment jars, creating an elegant, editorial appearance that commands attention on competitive retail shelves."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/physical-retail-packaging.webp",
+          "alt": "Retail packaging — slow-aged condiment jars wrapped in clean Fermy Lab badge labels",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Digital Flagship",
+      "body": [
+        "Clean badge labels wrap seamlessly onto slow-aged condiment jars, creating an elegant, editorial appearance that commands attention on competitive retail shelves."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/the-digital-flagship-experience.webp",
+          "alt": "The digital flagship — Fermy Lab e-commerce storefront screens carrying the identity through product and checkout pages",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Delivery App Optimization",
+      "body": [
+        "The brand assets were optimized for dark-mode smartphone delivery interfaces. This ensures that when a consumer is quickly scrolling through restaurant choices, FermyLab’s product cards, metadata, and icons remain perfectly crisp and legible."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/delivery-app-optimization.webp",
+          "alt": "Delivery app listings — Fermy Lab product cards, metadata and icons tuned for dark-mode smartphone food-delivery interfaces",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Out-of-Home Highway Billboards",
+      "body": [
+        "High-visibility commercial billboard layouts pair massive food photography with minimalist copy (\"No shortcuts. Just fermentation.\") to rapidly establish mainstream awareness."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/out-of-home-highway-billboards.webp",
+          "alt": "Highway billboard — oversized food photography paired with the minimal line \"No shortcuts. Just fermentation.\"",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Real-World Experience",
+      "layout": "grid-2",
+      "media": [
+        {
+          "src": "/assets/img/work/fermy-lab/real-world-experience-left.webp",
+          "alt": "The Fermy Lab identity in a real retail environment, applied across in-store signage and product display",
+          "zoom": true,
+          "pad": false
+        },
+        {
+          "src": "/assets/img/work/fermy-lab/real-world-experience-right.webp",
+          "alt": "The Fermy Lab identity in a live brand activation, applied across on-site collateral and customer touchpoints",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "heading": "Commercial Value Summary",
+      "body": [
+        "By delivering a disciplined, complete brand utility rather than loose, disconnected graphic files, we equipped Fermy Lab with a high-performance system tool. The business is fully prepared to stand out on physical shelves, command digital interfaces, and launch entirely new sub-brands with absolute operational confidence and zero added design debt."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Creative Direction",
+      "members": "Rabi"
+    },
+    {
+      "role": "Logo Concept & Design",
+      "members": "Rabi, Mohanty"
+    },
+    {
+      "role": "Brand Guideline",
+      "members": "Soumajit, Anudyia"
+    }
+  ]
 }

@@ -19,6 +19,10 @@
     .page-our-work .work-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-alt); }
     .page-our-work .work-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
     .page-our-work .work-card:hover .work-card__media img { transform: scale(1.04); }
+    /* Brands whose only art is a wide logo lockup: a 3:2 centre crop would cut
+       through the wordmark, so contain it on the tinted panel instead. */
+    .page-our-work .work-card__media--contain img { object-fit: contain; padding: clamp(10px, 1.2vw, 20px); }
+    .page-our-work .work-card:hover .work-card__media--contain img { transform: scale(1.02); }
     .page-our-work .work-card__body { padding: clamp(20px, 1.8vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1; }
     .page-our-work .work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .page-our-work .work-tag {

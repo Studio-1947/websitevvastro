@@ -1,10 +1,303 @@
 {
- "title": "ReModel UN — Brand Identity & Digital Platform | Studio 1947",
- "description": "ReModel UN case study — Studio 1947 crafted a brand identity, website, and content strategy for a global podcast and dialogue platform exploring ethical, AI-driven solutions to global challenges.",
- "ogTitle": "ReModel UN — Brand Identity & Digital Platform | Studio 1947",
- "ogDescription": "A credible, contemporary brand and digital platform for a global AI-and-policy dialogue initiative.",
- "ogType": "article",
- "bodyClass": "page-case",
- "styles": "    .page-case .case-hero { padding-top: clamp(140px, 18vh, 220px); padding-bottom: clamp(30px, 5vw, 56px); }\n    .page-case .case-hero__eyebrow { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: clamp(18px, 3vw, 30px); }\n    .page-case .case-hero__eyebrow .tag { font-family: var(--font-body); font-size: clamp(14px, 1.05vw, 16px); color: var(--red); border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px; }\n    .page-case .case-hero__title { font-size: clamp(52px, 10vw, 148px); color: var(--grey-700); letter-spacing: -0.02em; line-height: 1; }\n    .page-case .case-meta { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: clamp(22px, 3vw, 36px); padding-top: clamp(20px, 2.4vw, 28px); border-top: 1px solid var(--line); }\n    .page-case .case-meta__item { display: flex; flex-direction: column; gap: 4px; }\n    .page-case .case-meta__label { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--grey-500); }\n    .page-case .case-meta__val { font-family: var(--font-display); font-size: clamp(18px, 1.6vw, 22px); color: var(--grey-900); }\n\n    .page-case .case-cover { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-alt); }\n    .page-case .case-cover img { width: 100%; height: clamp(240px, 46vw, 640px); object-fit: cover; }\n\n    .page-case .case-block { max-width: 1100px; }\n    .page-case .case-block + .case-block { margin-top: clamp(48px, 6vw, 90px); }\n    .page-case .case-block .eyebrow { margin-bottom: 14px; }\n    .page-case .case-block h2 { font-size: clamp(30px, 3.6vw, 56px); color: var(--grey-700); line-height: 1.05; margin-bottom: clamp(16px, 1.8vw, 26px); }\n    .page-case .case-block p { font-size: clamp(16px, 1.15vw, 19px); color: var(--grey-700); max-width: 68ch; }\n    .page-case .case-block p + p { margin-top: 16px; }\n\n    .page-case .case-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 1.8vw, 26px); margin-top: clamp(24px, 3vw, 40px); }\n    .page-case .case-step { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(24px, 2.2vw, 36px); display: flex; flex-direction: column; gap: 12px; transition: box-shadow .4s var(--ease), transform .4s var(--ease); }\n    .page-case .case-step:hover { box-shadow: 0 20px 50px rgba(0,0,0,.06); transform: translateY(-4px); }\n    .page-case .case-step__num { font-family: var(--font-display); font-size: clamp(38px, 3.4vw, 56px); color: var(--red); line-height: 1; }\n    .page-case .case-step h3 { font-size: clamp(20px, 1.6vw, 24px); color: var(--grey-900); }\n    .page-case .case-step p { font-size: clamp(15px, 1.05vw, 17px); color: var(--grey-700); }\n\n    .page-case .case-impact { list-style: none; display: grid; gap: 0; margin-top: clamp(20px, 2.4vw, 30px); max-width: 1000px; }\n    .page-case .case-impact li { display: flex; gap: clamp(18px, 2.4vw, 32px); align-items: baseline; padding: clamp(18px, 2vw, 28px) 0; border-top: 1px solid var(--line); font-size: clamp(17px, 1.35vw, 22px); color: var(--grey-700); }\n    .page-case .case-impact li:last-child { border-bottom: 1px solid var(--line); }\n    .page-case .case-impact li .n { font-family: var(--font-display); color: var(--red); font-size: clamp(22px, 2vw, 30px); flex-shrink: 0; }\n\n    .page-case .case-nav { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; margin-top: clamp(56px, 7vw, 100px); padding-top: clamp(28px, 3vw, 44px); border-top: 1px solid var(--line); }\n    .page-case .case-nav__back { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-display); font-size: clamp(20px, 2vw, 30px); color: var(--grey-900); transition: color .25s var(--ease); }\n    .page-case .case-nav__back:hover { color: var(--red); }\n    .page-case .case-nav__back .arrow { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); display: grid; place-items: center; transition: background .3s var(--ease), color .3s var(--ease); }\n    .page-case .case-nav__back:hover .arrow { background: var(--red); color: #fff; }\n    .page-case .case-nav__hint { font-size: 14px; color: var(--grey-500); letter-spacing: .08em; text-transform: uppercase; }\n\n    @media (max-width: 760px) {\n      .page-case .case-steps { grid-template-columns: 1fr; }\n      .page-case .case-cover img { height: clamp(220px, 60vw, 360px); }\n    }\n  ",
- "html": "<main>\n    <!-- ===== Hero ===== -->\n    <section class=\"case-hero container\" data-stagger>\n      <div class=\"case-hero__eyebrow\">\n        <span class=\"tag\">Creators</span>\n        <span class=\"tag\">Branding</span>\n        <span class=\"tag\">Web Design</span>\n        <span class=\"tag\">Marketing</span>\n      </div>\n      <h1 class=\"case-hero__title\">ReModel UN</h1>\n      <div class=\"case-meta\">\n        <div class=\"case-meta__item\">\n          <span class=\"case-meta__label\">Location</span>\n          <span class=\"case-meta__val\">Geneva, Switzerland</span>\n        </div>\n        <div class=\"case-meta__item\">\n          <span class=\"case-meta__label\">Discipline</span>\n          <span class=\"case-meta__val\">Brand, Web &amp; Marketing</span>\n        </div>\n        <div class=\"case-meta__item\">\n          <span class=\"case-meta__label\">Year</span>\n          <span class=\"case-meta__val\">2025</span>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Cover image ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-cover reveal\">\n        <img src=\"/assets/img/work/remodel-un/cae547e4969f4e97ad4bc0472fd64435.webp\" alt=\"Misty forested hills evoking ReModel UN's vision of sustainable, collaborative global problem-solving\">\n      </div>\n    </section>\n\n    <!-- ===== Overview ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Overview</p>\n        <h2>A credible, contemporary voice for global dialogue.</h2>\n        <p>ReModelUN is a global podcast and dialogue platform that brings together policymakers, AI experts, educators, youth leaders, and changemakers to explore ethical, AI-driven solutions for global challenges. Studio 1947 was engaged to create a distinct brand identity and communication system that could reflect the initiative's vision of combining innovation, sustainability, and collaborative problem-solving within a United Nations-inspired framework.</p>\n        <p>The project aimed to establish a credible yet contemporary presence capable of engaging global audiences across digital and event platforms.</p>\n      </div>\n\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Introduction</p>\n        <h2>Rethinking global cooperation for a modern world.</h2>\n        <p>Remodel UN is an innovative initiative focused on rethinking and revitalizing the structure and function of the United Nations to address modern global challenges more effectively. With a mission to foster international cooperation and sustainability, Remodel UN sought to enhance their digital presence and engagement with a global audience.</p>\n      </div>\n\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">The Objective</p>\n        <h2>A digital platform that mobilizes support.</h2>\n        <p>Studio 1947 partnered with Remodel UN to develop a strategic digital solution that would elevate their message and expand their reach. The primary objective was to create a compelling online platform that would facilitate dialogue, promote their vision, and mobilize support for their initiatives.</p>\n      </div>\n    </section>\n\n    <!-- ===== Process ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Our Process</p>\n        <h2>From platform to identity to content.</h2>\n      </div>\n      <div class=\"case-steps\" data-stagger>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">01</div>\n          <h3>Website Development</h3>\n          <p>We designed and developed a dynamic, user-centric website that serves as a hub for Remodel UN's initiatives, resources, and advocacy efforts, with intuitive navigation, engaging content, and interactive elements that encourage participation.</p>\n        </div>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">02</div>\n          <h3>Brand Identity</h3>\n          <p>We refined Remodel UN's visual identity to ensure consistency and impact across all digital and print materials, including logo design, color schemes, and typography aligned with their mission and values.</p>\n        </div>\n        <div class=\"case-step\">\n          <div class=\"case-step__num\">03</div>\n          <h3>Content Strategy</h3>\n          <p>Our team crafted a content strategy highlighting Remodel UN's key messages, success stories, and calls to action, spanning blog posts, articles, and multimedia content to engage and inform their audience.</p>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Mid image ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-cover reveal\">\n        <img src=\"/assets/img/work/remodel-un/55d98a_3287270d83ef4efabfdd1f52d0dc6ec2.webp\" alt=\"Warm, minimal desert dunes reflecting the initiative's clean, contemporary brand direction\" loading=\"lazy\">\n      </div>\n    </section>\n\n    <!-- ===== Result ===== -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">The Result</p>\n        <h2>Engagement, recognition, and awareness.</h2>\n        <ul class=\"case-impact\">\n          <li><span class=\"n\">01</span><span>Enhanced online engagement — the new website became a central platform for Remodel UN's advocacy, attracting a global audience and fostering meaningful discussions.</span></li>\n          <li><span class=\"n\">02</span><span>A stronger brand identity — the refined visual system made Remodel UN's message more recognizable and impactful.</span></li>\n          <li><span class=\"n\">03</span><span>Increased awareness — the content strategy amplified Remodel UN's voice, raising awareness about their mission and initiatives.</span></li>\n        </ul>\n      </div>\n\n      <!-- ===== Client Impact ===== -->\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Client Impact</p>\n        <h2>Through our partnership, Remodel UN achieved:</h2>\n        <ul class=\"case-impact\">\n          <li><span class=\"n\">01</span><span>A robust digital platform that supports their advocacy and engagement goals.</span></li>\n          <li><span class=\"n\">02</span><span>A cohesive and compelling brand identity that resonates with their audience.</span></li>\n          <li><span class=\"n\">03</span><span>Greater visibility and impact, driving global conversation and action.</span></li>\n        </ul>\n      </div>\n\n      <!-- ===== Why Studio 1947 ===== -->\n      <div class=\"case-block reveal\">\n        <p class=\"eyebrow\">Why Studio 1947?</p>\n        <h2>We help organizations amplify their impact.</h2>\n        <p>Studio 1947 is dedicated to helping organizations amplify their impact through strategic digital solutions. Our work with Remodel UN demonstrates our ability to combine creative design with effective content strategy, empowering clients to achieve their mission and engage their audience effectively.</p>\n      </div>\n\n      <!-- ===== Back to work ===== -->\n      <nav class=\"case-nav reveal\" aria-label=\"Case study navigation\">\n        <a class=\"case-nav__back\" href=\"/our-work/\">\n          <span class=\"arrow\" aria-hidden=\"true\">\n            <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M19 12H5M11 6l-6 6 6 6\"/></svg>\n          </span>\n          View all work\n        </a>\n        <span class=\"case-nav__hint\">Next project &rarr;</span>\n      </nav>\n    </section>\n  </main>"
+  "title": "Remodel UN | Studio 1947",
+  "description": "Brand strategy and visual identity system for ReModelUN — a high-profile AI podcast initiative featuring global UN-affiliated thought leaders.",
+  "ogTitle": "Remodel UN | Studio 1947",
+  "ogDescription": "Brand strategy and visual identity system for ReModelUN — a high-profile AI podcast initiative featuring global UN-affiliated thought leaders.",
+  "ogType": "article",
+  "brand": "#00E357",
+  "client": "ReModelUN",
+  "tags": [
+    "Brand Strategy",
+    "Visual Identity System"
+  ],
+  "hero": {
+    "src": "/assets/img/work/remodel-un/hero.webp",
+    "alt": "ReModelUN conference stage with speakers addressing a global audience",
+    "style": "photo"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "heading": "Context & The Challenge",
+      "label": "The Mission",
+      "body": [
+        "ReModelUN is a high-profile podcast initiative featuring global thought leaders from UN-affiliated groups discussing ethical, AI-driven solutions for social good."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Core Problem",
+      "body": [
+        "The brand needed an identity system that felt authoritative enough for international diplomats, yet agile enough to match cutting-edge AI discourse. It required a <strong>\"sustainable framework\"</strong> to spawn future conferences and scholarships seamlessly without breaking core brand equity."
+      ]
+    },
+    {
+      "heading": "Brand Strategy & Visual Architecture",
+      "label": "The \"re\" Loop — Continuous Iteration",
+      "layout": "grid-2",
+      "body": [
+        "AI is not a static destination, it is an iterative process. The 're' loop represents continuous remodeling, adaptation, and forward momentum. By framing this within an intentional, self-contained cycle, the visual language mirrors the podcast's core theme: endlessly auditing, rethinking, and improving global systems through technology."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/remodel-un/brand-stratergy-left-logo.webp",
+          "alt": "The ReModelUN wordmark reversed out of a deep Dark Cyan panel, showing the enclosing 're' loop",
+          "zoom": true,
+          "pad": false,
+          "ratio": "5/4"
+        },
+        {
+          "src": "/assets/img/work/remodel-un/brand-stratergy-right-logo.svg",
+          "alt": "Construction diagram of the ReModelUN mark, breaking the logo down into its loop, core and terminal elements",
+          "zoom": true,
+          "pad": false,
+          "ratio": "5/4"
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Center Core — The Variable Engine",
+      "body": [
+        "The center of the logo acts as the functional bridge. For the flagship brand, the microphone icon anchors the mark firmly in the audio and broadcasting space. However, this slot is designed as a variable container. By making the icon interchangeable, the architecture allows the core wordmark to adapt dynamically for sister ventures — shifting to a podium for conferences or a cap for scholarships — without losing its structural integrity."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/remodel-un/the-center-core.webp",
+          "alt": "The interchangeable centre slot of the ReModelUN mark shown with a microphone, podium and graduation-cap icon for the podcast, conference and scholarship sub-brands",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The \"UN\" Chat Bubble — Diplomatic Dialogue",
+      "body": [
+        "Global change doesn't happen in a vacuum — it happens through conversation. The '<strong>UN</strong>' terminal is deliberately shaped as a speech bubble to emphasize dialogue, cross-border collaboration, and human-first storytelling. It anchors the institutional authority of UN-affiliated organizations into a warm, approachable, and highly communicative digital asset."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/remodel-un/theunchatbubble.webp",
+          "alt": "The 'UN' terminal of the logo drawn as a speech bubble, signalling dialogue and cross-border collaboration",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "heading": "Color Theory",
+      "body": [
+        "The identity system for ReModelUN operates at a unique crossroads: it must respect the gravity and prestige of international diplomacy while capturing the electric, rapidly changing landscape of artificial intelligence. The palette is a deliberate, high-contrast pairing engineered to bridge these two worlds seamlessly."
+      ],
+      "swatches": [
+        {
+          "role": "Primary",
+          "name": "Dark Cyan",
+          "hex": "#293C53"
+        },
+        {
+          "role": "Secondary",
+          "name": "Fresh Lime",
+          "hex": "#00E357"
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Primary Color",
+      "subheading": "Institutional Authority & Grounded Trust",
+      "body": [
+        "Dark Cyan serves as the structural foundation of the entire brand environment. It is an intentional departure from the traditional, high-saturation corporate blues typically associated with global bureaucracies. Instead, this deep, muted tone introduces a sophisticated, academic weight. It signals deep wisdom, research-backed integrity, and the calm composure required when tackling massive global challenges. By utilizing this as our primary backdrop tone, we establish immediate credibility with UN-affiliated thought leaders and global organizations."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Secondary Color",
+      "subheading": "AI Innovation & Bias toward Action",
+      "body": [
+        "If Dark Cyan represents the institutional problem, Fresh Lime is the technological solution. This color is injected into the design system to represent the spark of artificial intelligence, digital efficiency, and forward-looking optimism. It acts as a deliberate disruption against the deep primary base, pulling the user's eye to interactive UI components, actionable resources, and critical insights. It ensures the platform never feels stagnant or overly bureaucratic — it feels alive, modern, and driven by high-energy innovation."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Chromatic Harmony in Digital Layouts",
+      "layout": "grid-2",
+      "body": [
+        "When these two colors meet, they create a highly scannable visual hierarchy perfect for premium, dark-mode user interfaces."
+      ],
+      "cards": [
+        {
+          "title": "Primary — Dark Cyan",
+          "body": "Establishes visual stability and high-contrast readability for body text and system structures."
+        },
+        {
+          "title": "Secondary — Fresh Lime",
+          "body": "Serves as the high-visibility callout for active states, key data metrics, and dynamic branding nodes."
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "body": [
+        "By maintaining a strict ratio where the deep canvas of Dark Cyan dominates <strong>80%</strong> of the brand space and Fresh Lime strikes intensely at <strong>20%</strong>, the brand successfully commands authority while remaining undeniably tech-forward."
+      ]
+    },
+    {
+      "heading": "The Typography System",
+      "body": [
+        "Legible both in Print and Digital Space, ensuring a seamless visual transition across every possible medium.",
+        "When a brand handles dense, highly academic global challenges alongside fast-evolving artificial intelligence discourse, the typeface cannot afford to be decorative or distracting. It must serve as an invisible, high-performance vehicle for ideas.",
+        "We anchored the entire brand ecosystem to <strong>Roboto</strong>. Chosen for its neo-grotesque, geometric discipline, Roboto features friendly, open curves that make highly technical content feel accessible and easy to digest. By selecting a variable type system globally available in the open-source Google Font Library, we eliminated licensing friction for ReModelUN entirely.",
+        "Beyond aesthetics, choosing a typeface is an operational business decision. By selecting a variable type system globally available in the open-source Google Font Library, we eliminated a major logistical hurdle for <strong>ReModelUN</strong>.",
+        "Future internal teams, international chapter organizers, and external web developers can scale the brand infinitely across the globe without ever encountering licensing friction, missing font errors, or recurring seat-cost liabilities. This proves to prospective clients that your agency designs with their long-term budget and operational workflow in mind."
+      ]
+    },
+    {
+      "heading": "Multi-Platform UI/UX Experience",
+      "label": "Extending the System Across Digital Realities",
+      "body": [
+        "A robust brand identity must effortlessly transition across diverse digital ecosystems without fracturing its core message. For ReModelUN, the UI/UX architecture translates static brand guidelines into dynamic, highly functional touchpoints — mapping the system across video production, dedicated audio players, and micro-screen environments."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Video Broadcast Tier",
+      "layout": "grid-3",
+      "cards": [
+        {
+          "title": "The Component",
+          "body": "Streamlined, high-contrast video overlay templates designed for multi-host and guest configurations."
+        },
+        {
+          "title": "The UX Challenge",
+          "body": "Video backgrounds are inherently unpredictable. Overlays must command immediate legibility regardless of the speaker's lighting, studio framing, or background complexity."
+        },
+        {
+          "title": "The Solution",
+          "body": "We created a pill-shaped, dual-toned frame using the brand's color palette. The speaker's photo is in a circular frame, with a Fresh Lime container for their name. Dark-toned flags categorize their designation and topic, like 'AI & Sustainability.'"
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/remodel-un/the-video-broadcast-tier.webp",
+          "alt": "Broadcast lower-third overlays showing a speaker's circular portrait, a Fresh Lime name plate and dark topic flags",
+          "caption": "Keep it bold, keep it clear, so every voice is heard, every idea shines, and every insight sparks action!",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Human-First Podcast Thumbnail System",
+      "layout": "grid-3",
+      "cards": [
+        {
+          "title": "The Component",
+          "body": "A modular, highly scalable cover art and thumbnail template system engineered for major global audio streaming platforms (Spotify, Apple Podcasts, Google Podcasts)."
+        },
+        {
+          "title": "The UX Challenge",
+          "body": "In competitive audio streaming, cover art must disrupt a user's scroll in under a second. The challenge was to create a template that maintains brand consistency while differentiating episodes and highlighting guests."
+        },
+        {
+          "title": "The Solution",
+          "body": "This asset system uses a square thumbnail layout as a premium card. It prioritizes high-resolution guest photography over abstract graphics, blending the speaker's portrait into the background for a clean surface for text."
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/remodel-un/the-human-first-thumbnail-system.webp",
+          "alt": "Square podcast cover-art templates built around full-bleed guest portraits with episode titles set over a Dark Cyan base",
+          "caption": "Faces tell stories — human-first designs make every conversation feel personal and every voice truly heard.",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "body": [
+        "By delivering a standardized layout template rather than loose, one-off graphics, we equipped the <strong>ReModelUN</strong> marketing team with a plug-and-play production engine. They can scale the podcast indefinitely, swapping guest assets and text fields instantly while maintaining a uniform, premium look across all streaming networks."
+      ]
+    },
+    {
+      "heading": "Design Philosophy",
+      "body": [
+        "A visual identity system is only as durable as its real-world implementation. When corporate assets are distributed across internal marketing teams, development hubs, and international event organizers, they face the risk of visual dilution. To ensure that <strong>ReModelUN</strong> commands an authoritative, uniform presence across every single touchpoint, we established a strict framework of asset governance. This section demonstrates our commitment to technical precision, ensuring the primary visual marks remain pristine, standardized, and structurally uncompromised in any digital or physical ecosystem."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Proportional Clearspace Standard",
+      "body": [
+        "To safeguard the mastermark's visual prominence, it must always be protected from surrounding text, layout margins, and competing graphics. We defined the absolute minimum clearspace perimeter as exactly equal to a \"1 mic distance,\" calculated dynamically from the height of the internal microphone graphic.",
+        "By binding the breathing room proportionally to an internal element of the logo itself, we ensure that the safety boundary scales flawlessly — maintaining brand integrity whether the logo is rendered on a massive event banner or a small smartphone interface."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/remodel-un/the-proportional-clearspace-standard.svg",
+          "alt": "Clearspace diagram measuring a one-microphone-height exclusion zone around all four sides of the ReModelUN mark",
+          "caption": "Respect the clear space, respect breathing space.",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Co-Branding & Partnership Dynamics",
+      "body": [
+        "High-profile global initiatives naturally demand collaborative co-branding layouts. When locking up the mastermark alongside close corporate stakeholders or media affiliates such as Sony, stricter spatial boundaries must be strictly enforced.",
+        "By doubling the standard safety padding threshold to a 2-mic buffer for partner integrations, we protect the logo from crowding — guaranteeing that <strong>ReModelUN</strong> shares the stage with global entities equitably while fully preserving its independent structural authority."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/remodel-un/co-branding-partnershipdynamics.svg",
+          "alt": "Co-branding lockup pairing the ReModelUN mark with a partner logo, with a two-microphone separation gap called out",
+          "caption": "Social distance still required: keep a 2 mic distance even with the closest partner.",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Logo Law 101",
+      "body": [
+        "To completely eliminate guesswork for production and engineering teams, we codified a definitive matrix of visual violations. These constraints prevent common layout mistakes and insulate the identity from arbitrary modification.",
+        "By explicitly defining these implementation laws, we show prospective clients that we don't just deliver loose graphic artwork — we hand over a highly disciplined, enterprise-grade brand asset utility. This meticulous attention to technical precision proves that our design frameworks are engineered to withstand real-world production demands."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/remodel-un/logo-law.webp",
+          "alt": "Matrix of prohibited logo treatments — stretching, recolouring, rotating and adding effects to the ReModelUN mark",
+          "caption": "The reModelUN logo isn't just a symbol, it's a statement. Keep it clear, crisp, and confidently placed.",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Creative Direction",
+      "members": "Rabi"
+    },
+    {
+      "role": "Logo Concept & Design",
+      "members": "Rabi, Mohanty"
+    },
+    {
+      "role": "Brand Guideline",
+      "members": "Rabi, Zahid, Sneha"
+    }
+  ]
 }

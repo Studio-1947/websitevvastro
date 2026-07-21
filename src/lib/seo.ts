@@ -41,6 +41,13 @@ export interface SeoProps {
   path?: string;
   /** Extra JSON-LD objects to embed on the page. */
   jsonLd?: Record<string, unknown>[];
+  /**
+   * Keep the page out of search results. Used for pages that build and are
+   * reachable by direct URL but are not ready to be found — currently the two
+   * unwritten product pages, whose body copy is still TODO scaffolding.
+   * Also excludes the page from the sitemap (see astro.config.mjs).
+   */
+  noindex?: boolean;
 }
 
 /** Build an absolute canonical URL from a root-relative path. */

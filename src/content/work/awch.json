@@ -1,10 +1,231 @@
 {
- "title": "AWCH — Avishkar Women & Children Hospital | Studio 1947",
- "description": "Studio 1947 crafted a warm, trusted brand identity and communication system for Avishkar Women and Children Hospital (AWCH) in Asansol — branding, web design and marketing.",
- "ogTitle": "AWCH — Avishkar Women & Children Hospital | Studio 1947",
- "ogDescription": "A brand identity that reflects care, trust and excellence in women's and children's healthcare.",
- "ogType": "article",
- "bodyClass": "page-case",
- "styles": "    .page-case .case-hero { padding-top: clamp(140px, 18vh, 220px); padding-bottom: clamp(30px, 5vw, 60px); }\n    .page-case .case-hero__eyebrow { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-bottom: clamp(18px, 3vw, 32px); }\n    .page-case .case-tag { font-size: clamp(13px, 1vw, 15px); color: var(--red); border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px; }\n    .page-case .case-hero__title { font-size: clamp(52px, 10vw, 150px); color: var(--grey-700); letter-spacing: -0.01em; line-height: 1; }\n    .page-case .case-hero__lede { font-family: var(--font-display); font-size: clamp(20px, 2.1vw, 32px); color: var(--grey-700); margin-top: clamp(16px, 2vw, 26px); max-width: 26ch; line-height: 1.15; }\n    .page-case .case-meta { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: clamp(24px, 3vw, 40px); font-size: clamp(15px, 1.1vw, 18px); color: var(--grey-500); }\n    .page-case .case-meta strong { font-family: var(--font-display); color: var(--grey-900); font-weight: 400; margin-right: 8px; }\n\n    .page-case .case-cover { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-alt); margin-top: clamp(20px, 3vw, 40px); }\n    .page-case .case-cover img { width: 100%; height: auto; }\n\n    .page-case .creators { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 2vw, 28px); margin-top: clamp(36px, 5vw, 64px); }\n    .page-case .creator { border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(18px, 1.8vw, 26px); }\n    .page-case .creator__name { font-family: var(--font-display); font-size: clamp(20px, 1.8vw, 26px); color: var(--grey-900); }\n    .page-case .creator__role { font-size: clamp(14px, 1vw, 16px); color: var(--grey-500); margin-top: 4px; }\n\n    .page-case .prose { max-width: 62ch; }\n    .page-case .prose h2 { font-size: clamp(30px, 3.6vw, 52px); color: var(--red); line-height: 1.05; margin-bottom: clamp(16px, 1.6vw, 24px); }\n    .page-case .prose p { color: var(--grey-700); font-size: clamp(16px, 1.15vw, 19px); }\n    .page-case .prose p + p { margin-top: 16px; }\n    .page-case .prose ol { margin: 16px 0 0 1.1em; color: var(--grey-700); font-size: clamp(16px, 1.15vw, 19px); }\n    .page-case .prose ol li { margin-bottom: 10px; padding-left: 6px; }\n    .page-case .prose ol li::marker { color: var(--red); font-family: var(--font-display); }\n\n    .page-case .case-figure { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-alt); margin-top: clamp(28px, 4vw, 56px); }\n    .page-case .case-figure img { width: 100%; height: auto; }\n    .page-case .case-figure--pad { padding: clamp(20px, 4vw, 64px); }\n\n    .page-case .case-split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 72px); align-items: center; }\n    .page-case .case-split .case-figure { margin-top: 0; }\n\n    .page-case .back-link { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-display); font-size: clamp(18px, 1.6vw, 24px); color: var(--grey-900); border: 1px solid var(--grey-300); border-radius: 999px; padding: 12px 14px 12px 26px; transition: border-color .3s var(--ease), color .3s var(--ease); }\n    .page-case .back-link .arrow { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); display: grid; place-items: center; transition: transform .3s var(--ease), background .3s var(--ease), color .3s var(--ease); }\n    .page-case .back-link:hover { border-color: var(--red); color: var(--red); }\n    .page-case .back-link:hover .arrow { background: var(--red); color: #fff; transform: translateX(2px); }\n\n    @media (max-width: 1024px) {\n      .page-case .creators { grid-template-columns: repeat(2, 1fr); }\n    }\n    @media (max-width: 760px) {\n      .page-case .creators { grid-template-columns: 1fr; }\n      .page-case .case-split { grid-template-columns: 1fr; }\n    }\n  ",
- "html": "<main>\n    <!-- ===== Hero ===== -->\n    <section class=\"case-hero container\" data-stagger>\n      <div class=\"case-hero__eyebrow\">\n        <span class=\"case-tag\">Branding</span>\n        <span class=\"case-tag\">Web Design</span>\n        <span class=\"case-tag\">Marketing</span>\n      </div>\n      <h1 class=\"case-hero__title\">AWCH</h1>\n      <p class=\"case-hero__lede\">A warm, trusted brand identity for women's &amp; children's healthcare.</p>\n      <div class=\"case-meta\">\n        <span><strong>Client</strong>Avishkar Women &amp; Children Hospital</span>\n        <span><strong>Location</strong>Asansol, Kolkata</span>\n        <span><strong>Year</strong>2025</span>\n      </div>\n    </section>\n\n    <!-- ===== Cover image ===== -->\n    <section class=\"container\">\n      <figure class=\"case-cover reveal\">\n        <img src=\"/assets/img/work/awch/40ad50_9564a6a67d3b4908be9a21d77678820f.webp\" alt=\"Avishkar Women and Children Hospital building in Asansol with AWCH branding\">\n      </figure>\n    </section>\n\n    <!-- ===== Overview + Creators ===== -->\n    <section class=\"section container\">\n      <div class=\"prose reveal\" style=\"max-width:78ch\">\n        <p style=\"font-family:var(--font-display); font-size:clamp(20px,2.2vw,32px); color:var(--grey-700); line-height:1.3\">Studio 1947 collaborated with Avishkar Women and Children Hospital (AWCH), a healthcare-focused non-profit dedicated to accessible, affordable medical services for women and children — building a communication and visual identity system that represents the hospital's mission of compassionate care, trust and community impact.</p>\n      </div>\n      <div class=\"creators\" data-stagger>\n        <div class=\"creator\">\n          <div class=\"creator__name\">Rabi</div>\n          <div class=\"creator__role\">Creative Direction</div>\n        </div>\n        <div class=\"creator\">\n          <div class=\"creator__name\">Zahid</div>\n          <div class=\"creator__role\">Branding &amp; Logo</div>\n        </div>\n        <div class=\"creator\">\n          <div class=\"creator__name\">Nikhil</div>\n          <div class=\"creator__role\">Social Media Posters Design</div>\n        </div>\n        <div class=\"creator\">\n          <div class=\"creator__name\">Sweety</div>\n          <div class=\"creator__role\">Communication</div>\n        </div>\n      </div>\n    </section>\n\n    <!-- ===== Introduction ===== -->\n    <section class=\"section container\" style=\"padding-block:clamp(20px,4vw,70px)\">\n      <div class=\"case-split\">\n        <div class=\"prose reveal\">\n          <h2>Introduction</h2>\n          <p>Avishkar Women and Child Hospital (AWCH) is a specialized healthcare provider offering comprehensive medical care for women and children. Recognized for its advanced facilities and expert care, AWCH aims to deliver a holistic, nurturing environment that supports the well-being of mothers and children with state-of-the-art technology and compassionate healthcare professionals.</p>\n        </div>\n        <figure class=\"case-figure case-figure--pad reveal\">\n          <img src=\"/assets/img/work/awch/40ad50_cbf18a4744b7446baab8e6eaf68ab43e.webp\" alt=\"AWCH logo construction — the 'awch' wordmark with mother-and-child symbol, set in the Inter typeface\" loading=\"lazy\">\n        </figure>\n      </div>\n    </section>\n\n    <!-- ===== The Objective ===== -->\n    <section class=\"section container\" style=\"padding-block:clamp(20px,4vw,70px)\">\n      <div class=\"prose reveal\">\n        <h2>The Objective</h2>\n        <p>AWCH partnered with Studio 1947 to create a brand identity that reflects their commitment to care, trust and excellence in women's and children's healthcare. The goal was to design a brand that exudes warmth, professionalism, and a family-centered approach.</p>\n      </div>\n    </section>\n\n    <!-- ===== Our Process ===== -->\n    <section class=\"section container\" style=\"padding-block:clamp(20px,4vw,70px)\">\n      <div class=\"prose reveal\">\n        <h2>Our Process</h2>\n        <ol>\n          <li><strong>Brand Discovery</strong> — We began by understanding AWCH's mission of empowering women and providing expert healthcare for children, aligning their brand identity with their unique purpose.</li>\n          <li><strong>Logo Design</strong> — With a focus on creating a symbol of care and nurturing, the logo combines gentle, modern elements that appeal to mothers, children and families.</li>\n          <li><strong>Brand Collateral</strong> — We extended the soft, welcoming essence of the AWCH brand to their key collaterals, ensuring consistency and professionalism across all touchpoints.</li>\n        </ol>\n      </div>\n      <figure class=\"case-figure case-figure--pad reveal\">\n        <img src=\"/assets/img/work/awch/40ad50_77df614dbfae4166b4591f1aacfd18fc.webp\" alt=\"AWCH engagement process flow: Research, Strategy, Design and Implementation\" loading=\"lazy\">\n      </figure>\n    </section>\n\n    <!-- ===== The Result ===== -->\n    <section class=\"section container\" style=\"padding-block:clamp(20px,4vw,70px)\">\n      <div class=\"prose reveal\">\n        <h2>The Result</h2>\n        <p>The final design captures the core values of AWCH — compassion, professionalism and innovation. The logo and branding elements effectively communicate their reputation for specialized, family-focused healthcare while setting them apart in their industry.</p>\n      </div>\n      <figure class=\"case-figure reveal\">\n        <img src=\"/assets/img/work/awch/40ad50_6db4bd81aa9a465b92f58103048714bc.webp\" alt=\"AWCH social media posters and campaign mockups — festival greetings, doctor spotlights and health awareness designs\" loading=\"lazy\">\n      </figure>\n    </section>\n\n    <!-- ===== Client Impact ===== -->\n    <section class=\"section container\" style=\"padding-block:clamp(20px,4vw,70px)\">\n      <div class=\"prose reveal\">\n        <h2>Client Impact</h2>\n        <p>With a thoughtful brand identity, AWCH has successfully:</p>\n        <ol>\n          <li>Established themselves as a trusted name for women's and children's healthcare.</li>\n          <li>Created a professional and approachable image that aligns with family-focused values.</li>\n          <li>Strengthened their visibility and reach in the healthcare industry.</li>\n        </ol>\n      </div>\n      <figure class=\"case-figure case-figure--pad reveal\">\n        <img src=\"/assets/img/work/awch/40ad50_a393a2a1b88c458f98c5dc80a0a0d1da.webp\" alt=\"Three brand outcomes for AWCH: Trust, a Professional & Approachable Image, and Increased Visibility & Reach\" loading=\"lazy\">\n      </figure>\n    </section>\n\n    <!-- ===== Why Studio 1947 ===== -->\n    <section class=\"section container\" style=\"padding-top:clamp(20px,4vw,70px)\">\n      <div class=\"prose reveal\">\n        <h2>Why Studio 1947?</h2>\n        <p>At Studio 1947, we understand how to translate purpose into design. Our work with AWCH reflects our dedication to creating meaningful, impactful branding for organizations committed to making a difference in people's lives.</p>\n      </div>\n      <div class=\"reveal\" style=\"margin-top:clamp(32px,4vw,56px)\">\n        <a class=\"back-link\" href=\"/our-work/\">\n          View all work\n          <span class=\"arrow\" aria-hidden=\"true\">\n            <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>\n          </span>\n        </a>\n      </div>\n    </section>\n  </main>"
+  "title": "AWCH — Avishkar Women & Children Hospital | Studio 1947",
+  "description": "How Studio 1947 established AWCH as a modern, premier multispeciality medical institution in Asansol — brand strategy, visual identity, digital platform, and omnichannel social media system.",
+  "ogTitle": "AWCH — Avishkar Women & Children Hospital | Studio 1947",
+  "ogDescription": "How Studio 1947 established AWCH as a modern, premier multispeciality medical institution in Asansol — brand strategy, visual identity, digital platform, and omnichannel social media system.",
+  "ogType": "article",
+  "brand": "#BF0076",
+  "client": "Avishkar Women & Children Hospital",
+  "tags": [
+    "Brand Strategy",
+    "Visual Identity",
+    "Digital Platform",
+    "Social Media"
+  ],
+  "hero": {
+    "src": "/assets/img/work/awch/parent-brand-architecture.webp",
+    "alt": "AWCH master brand lockup — the 'awch' wordmark with its mother-and-child symbol beside the Avishkar Women & Children Hospital signature",
+    "style": "logo"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "When healthcare founders and hospital executives evaluate a creative partner, they look for design that does more than decorate a space. They seek an agency that can build deep institutional trust, shift consumer behavior, and engineer digital-first touchpoints that simplify patient care.",
+        "This case study demonstrates how we established <strong>AWCH (Avishkar Women & Children Hospital)</strong> as a modern, premier multispeciality medical institution in Asansol. By shifting regional perceptions and eliminating digital friction, we built a comprehensive communication ecosystem focused on authority, accessibility, and community impact."
+      ]
+    },
+    {
+      "heading": "Strategic Context & The Regional Trust Gap"
+    },
+    {
+      "divider": false,
+      "label": "The Mission",
+      "body": [
+        "<strong>Avishkar Women & Children Hospital (AWCH)</strong> was envisioned as a state-of-the-art multispeciality hospital bringing world-class medical infrastructure directly to families in Asansol. The institution is dedicated to delivering highly specialized, compassionate care, completely removing the need for artificial operational shortcuts in the patient experience."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Challenge",
+      "body": [
+        "Healthcare brands in Tier-2 cities face a unique psychological hurdle: a systemic lack of digital trust and fragmented institutional communication. Historically, many families in Asansol would undergo the emotional and financial strain of traveling all the way to Kolkata for critical treatments. This flight wasn't due to a lack of local medical infrastructure, but a lack of visual confidence and awareness in local brands.",
+        "Our core strategic challenge was to bridge this confidence gap. The identity needed to balance:"
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "title": "Emotional Warmth",
+          "body": "Reassuring anxious patients and protective parents."
+        },
+        {
+          "title": "Clinical Authority",
+          "body": "Commanding absolute medical professionalism."
+        },
+        {
+          "title": "Cultural Familiarity",
+          "body": "Ensuring the visual environment felt approachably native rather than intimidatingly corporate."
+        }
+      ]
+    },
+    {
+      "heading": "Parent-Brand Architecture",
+      "body": [
+        "To protect the institution from future design debt, we built an adaptable visual architecture. AWCH serves as the primary master identity under which specific wings (such as Pediatrics, Gynecology, Emergency Care, and advanced Dermatology and Skincare Treatments) operate. This cohesive blueprint ensures that as the hospital expands its services, every new department and specialized clinic instantly inherits established brand equity, saving long-term promotional costs."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/awch/frame-4.webp",
+          "alt": "AWCH brand architecture showcase — the master identity applied across the hospital's specialist wings",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "heading": "Visual Direction & Design Tokens"
+    },
+    {
+      "divider": false,
+      "subheading": "Breaking the \"Sterile Blue\" Cliché",
+      "body": [
+        "Standard corporate healthcare branding is crowded with cold, high-saturation blues that feel clinical and detached. To instantly differentiate AWCH on a regional scale, we engineered a distinct, high-contrast palette:"
+      ],
+      "swatches": [
+        {
+          "role": "Primary",
+          "name": "Care Pink",
+          "hex": "#BF0076",
+          "note": "Intentionally selected to evoke care, empathy, and deep compassion. This tone establishes an immediate psychological connection with women-centric and pediatric care while bringing human warmth into an industry often seen as sterile."
+        },
+        {
+          "role": "Secondary",
+          "name": "Neutral",
+          "hex": "#000000",
+          "note": "Sophisticated supporting tones were introduced to frame the primary care colors. These anchors maintain a clean, academic weight, ensuring the system functions perfectly across formal hospital environments, digital software, and print media."
+        }
+      ]
+    },
+    {
+      "heading": "Typography: Accessible and Stress-Free Readability",
+      "body": [
+        "In high-stress medical environments, the typeface must serve as an invisible, high-performance tool for fast reading."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/awch/typographyfont.webp",
+          "alt": "The Inter typeface specimen — every weight used across the AWCH brand system",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "heading": "Omnichannel System Application",
+      "body": [
+        "To demonstrate the system's ability to seamlessly connect with patients across every phase of their healthcare journey, we activated the visual assets across key physical and digital channels:"
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Friction-Free Web Experience",
+      "body": [
+        "The desktop and mobile web platforms were designed as trust-building tools rather than static information walls."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "Simplified Information Architecture",
+      "body": [
+        "Healthcare data is structured into highly scannable layouts, enabling anxious users to find doctors, key medical departments, and emergency contact details within seconds."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/awch/simplified-information-architecture.webp",
+          "alt": "The AWCH website homepage — Expert Women and Children Healthcare in Asansol, with departments and emergency contact surfaced up front",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "Frictionless Appointment UX",
+      "body": [
+        "We designed a clean, intuitive booking flow that removes unnecessary steps. This digital pathway builds immediate brand credibility and helps reduce long dependency lines at physical hospital reception desks."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/awch/frictionless-appointment-ux.webp",
+          "alt": "AWCH appointment booking screen — Schedule Your Visit at AWCH, a short guided form for choosing a doctor and slot",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "Accessibility-First UI",
+      "body": [
+        "By pairing clean typography with generous breathing space, the layout minimizes cognitive load, making the digital experience effortless for users of varying ages and digital literacy levels."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Social Media Awareness Engine",
+      "body": [
+        "Social platforms serve as the primary vehicle for building local awareness in Asansol."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "Template Scaling",
+      "body": [
+        "We engineered modular graphic templates that maintain a strict visual style, recognizable brand colors, and bold typography hierarchy across all health-education posts."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "Instant Recall",
+      "body": [
+        "This systematic structure ensures that every piece of digital content is immediately recognizable in a crowded social feed as an authoritative, caring message from the AWCH ecosystem."
+      ],
+      "layout": "grid-3",
+      "media": [
+        {
+          "src": "/assets/img/work/awch/instant-recall01.webp",
+          "alt": "AWCH social media post built on the modular template — brand pink, bold headline hierarchy and the awch lockup",
+          "zoom": true,
+          "pad": false
+        },
+        {
+          "src": "/assets/img/work/awch/instant-recall02.webp",
+          "alt": "A second AWCH health-education social post using the same template system",
+          "zoom": true,
+          "pad": false
+        },
+        {
+          "src": "/assets/img/work/awch/instant-recall03.webp",
+          "alt": "A third AWCH social post, showing how the template scales to different messages while staying instantly recognizable",
+          "zoom": true,
+          "pad": false
+        }
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Creative Direction",
+      "members": "Rabi, Som"
+    },
+    {
+      "role": "Design",
+      "members": "Zahid, Nikhil Subba"
+    },
+    {
+      "role": "Content",
+      "members": "Nadia, Sweety"
+    },
+    {
+      "role": "Website Design & Development",
+      "members": "Soumajit, Santam"
+    },
+    {
+      "role": "Video",
+      "members": "Ahmed, Nikhil Subba"
+    }
+  ],
+  "solutions": [
+    "communication-campaign"
+  ]
 }

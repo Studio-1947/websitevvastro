@@ -165,6 +165,24 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 }
 .dd__item:hover .dd__ico { color: var(--red); }
 
+/* Unlaunched products: the dropdown still lists them so the range is visible,
+   but the items do not navigate. Original href kept in data-href, so restoring
+   the link is a one-line change. Matches the inert cards on /products/. */
+.dd__item--soon { cursor: default; opacity: .72; }
+.dd__item--soon:hover { background: transparent; color: inherit; }
+.dd__item--soon:hover .dd__ico { color: inherit; }
+.dd__soon {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--red);
+  background: rgba(230,0,0,.08);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
 @media (max-width: 1180px) {
   .nav__links { gap: 0; margin-left: 4px; }
   .nav__links > a, .nav__trigger { padding: 10px 11px; font-size: 15px; }
@@ -536,6 +554,46 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 .contact-modal .cm-submit .arrow { width: 32px; height: 32px; border-radius: 50%; background: #fff; color: var(--red); display: grid; place-items: center; }
 .contact-modal .cm-submit:hover { transform: translateY(-2px); }
 .contact-modal .cm-note { margin-top: 16px; font-size: 13.5px; color: var(--grey-500); }
+
+/* ── Contact form feedback (scripts/formSubmit.ts) ─────────────────────────
+   Submissions used to navigate away to formsubmit.co's own page; they now post
+   in the background, so the outcome has to be shown here instead. Not scoped to
+   .contact-modal — the /sayhello/ page uses the same markup and endpoint. */
+.cm-error {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--red);
+}
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: var(--red) !important;
+}
+button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
+
+.cm-status {
+  display: grid;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.cm-status strong { font-family: var(--font-display); font-size: 19px; font-weight: 400; }
+.cm-status span { color: var(--grey-700); }
+.cm-status--ok {
+  background: #f1f8f2;
+  border: 1px solid #cfe6d3;
+  color: #1c5c2a;
+}
+.cm-status--ok span { color: #2c6b39; }
+.cm-status--error {
+  background: #fff5f5;
+  border: 1px solid #f2c9c9;
+  color: var(--red-dark);
+}
+.cm-status--error a { color: var(--red); text-decoration: underline; }
 @media (max-width: 520px) { .contact-modal .cm-row { grid-template-columns: 1fr; } }
 
 /* =====================================================================
@@ -674,6 +732,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 }
 .page-solcat .cat-work__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
 .page-solcat .cat-work:hover .cat-work__media img { transform: scale(1.04); }
+/* Brands whose only art is a wide logo lockup: cropping to the tile's ratio
+   would cut through the wordmark, so contain it on the tinted panel instead.
+   Mirrors .work-card__media--contain on /our-work. */
+.page-solcat .cat-work__media--contain img { object-fit: contain; padding: clamp(10px, 1.2vw, 20px); }
+.page-solcat .cat-work:hover .cat-work__media--contain img { transform: scale(1.02); }
 
 /* Solutions overview — four big category cards (2x2), red-fill on hover. */
 .page-solutions .solcards { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 30px); }

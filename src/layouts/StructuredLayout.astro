@@ -14,6 +14,7 @@ interface EntryData {
   ogDescription?: string;
   ogType?: 'website' | 'article' | 'product';
   bodyClass?: string;
+  noindex?: boolean;
   styles?: string;
   /** Exact per-page Google Fonts href (matches the original). */
   fontHref?: string;
@@ -39,6 +40,7 @@ const css = [sharedStyles, data.styles].filter(Boolean).join('\n');
   ogDescription={data.ogDescription}
   ogType={data.ogType}
   bodyClass={data.bodyClass}
+  noindex={data.noindex}
   fontHref={data.fontHref}
   jsonLd={jsonLd}
 >

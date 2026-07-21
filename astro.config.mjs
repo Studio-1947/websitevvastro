@@ -20,7 +20,13 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      // Pages marked `noindex` must not be advertised in the sitemap either —
+      // submitting a URL while asking robots to ignore it is contradictory.
+      // Currently the two unwritten product pages (body copy still TODO).
+      filter: (page) =>
+        !/\/products\/(aangar-erp|1-darjeeling)\/$/.test(page),
+    }),
   ],
   vite: {
     // GSAP 3.12.5 ships fine as an ESM import; nothing special needed here yet.

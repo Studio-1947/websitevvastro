@@ -1,0 +1,79 @@
+---
+/**
+ * Layout for modular case studies (entries carrying `sections` rather than raw
+ * `html`). Assembles hero → sections → credits → CTA and sets the per-brand
+ * accent as --brand on the page root, which every case primitive derives from.
+ */
+import BaseLayout from './BaseLayout.astro';
+import '../styles/work-case.css';
+import CaseHero from '../components/work/CaseHero.astro';
+import CaseSection from '../components/work/CaseSection.astro';
+import Credits from '../components/work/Credits.astro';
+import PortfolioCTA from '../components/work/PortfolioCTA.astro';
+
+interface Props {
+  data: {
+    title: string;
+    description?: string;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogType?: 'website' | 'article' | 'product';
+    brand?: string;
+    client?: string;
+    location?: string;
+    year?: string;
+    tags?: string[];
+    hero?: { src: string; alt: string; style?: 'photo' | 'logo' };
+    sections?: any[];
+    credits?: { role: string; members: string }[];
+  };
+  jsonLd?: Record<string, unknown>[];
+}
+const { data, jsonLd = [] } = Astro.props;
+const { brand, hero, sections = [], credits = [], client, tags = [], title, location, year } = data;
+
+// Hero headline: the <h1> text, independent of the SEO <title>.
+const headline = client ?? title;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  ogTitle={data.ogTitle}
+  ogDescription={data.ogDescription}
+  ogType={data.ogType ?? 'article'}
+  bodyClass="page-case-modular"
+  jsonLd={jsonLd}
+>
+  <main class="case-page" style={brand ? `--brand: ${brand};` : undefined}>
+    {
+      hero && (
+        <CaseHero
+          src={hero.src}
+          alt={hero.alt}
+          title={headline}
+          tags={tags}
+          style={hero.style}
+          location={location}
+          year={year}
+        />
+      )
+    }
+
+    <div class="case-body">
+      {sections.map((s, i) => <CaseSection {...s} first={i === 0} />)}
+      {client && <Credits client={client} roles={credits} />}
+
+      <a class="case-back" href="/our-work/">
+        <span class="arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M11 6l-6 6 6 6" />
+          </svg>
+        </span>
+        View all work
+      </a>
+
+      <PortfolioCTA />
+    </div>
+  </main>
+</BaseLayout>

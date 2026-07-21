@@ -1,0 +1,330 @@
+{
+  "title": "AIcrowd | Studio 1947",
+  "description": "A deep-tech design methodology translating highly complex, multi-dimensional machine learning challenges for AIcrowd.",
+  "ogTitle": "AIcrowd | Studio 1947",
+  "ogDescription": "A deep-tech design methodology translating highly complex, multi-dimensional machine learning challenges for AIcrowd.",
+  "ogType": "article",
+  "brand": "#D60000",
+  "client": "AIcrowd",
+  "tags": [
+    "Capacity Building"
+  ],
+  "hero": {
+    "src": "/assets/img/work/aicrowd/hero.webp",
+    "alt": "AIcrowd brand lockup on a plain white field",
+    "style": "logo"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "When deep-tech platforms, artificial intelligence researchers, and enterprise data engines look for a creative collaborator, they don't look for a traditional graphic agency. They require a partner operating at the intersection of abstract mathematics, cognitive communication, and interactive data visualization. The challenge is immense: taking highly complex, multi-dimensional machine learning challenges and framing them so that the world’s elite data scientists can instantly grasp the problem, benchmark their models, and push the boundaries of science.",
+        "Our partnership with AIcrowd represents the longest-standing technical design relationship in our company's history. Initiated years ago by our CEO, Rabiul Islam, prior to the formal inception of Studio 1947, this collaboration has evolved into a powerhouse framework. Together, we have shaped the visual identity and communication architecture for world-defining AI challenges hosted alongside premium institutions like NeurIPS, Meta, Amazon, and the KDD Cup."
+      ]
+    },
+    {
+      "heading": "The Core Triad: Science, Communication, Visualisation",
+      "body": [
+        "To bridge the gap between complex algorithms and human understanding, our workflow relies on three rigid pillars:"
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Science",
+      "body": [
+        "Immersing our team directly into the underlying mechanics of the challenge—whether it is reinforcement learning, multi-modal retrieval-augmented generation (RAG), or clinical biomedical telemetry."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Communication",
+      "body": [
+        "Crafting clear information hierarchies and narrative frames that eliminate cognitive friction, helping global developer communities quickly comprehend scoring metrics and data parameters."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Visualisation",
+      "body": [
+        "Engineering high-fidelity key visuals, dynamic leaderboard assets, and technical UI interfaces that translate dry mathematical formulas into rich, inspiring, and functional design languages."
+      ]
+    },
+    {
+      "heading": "Phase 1: The Legacy Era",
+      "body": [
+        "Before Studio 1947 was formally structured, our CEO <strong>Rabiul Islam</strong> laid the groundwork for this deep-tech design methodology, spearheading individual consulting tracks for AIcrowd’s most critical enterprise benchmarks."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Amazon KDD Cup 2024",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Benchmarking Large Language Models on their ability to handle complex, multi-task digital commerce environments (e.g., personalized shopping tracking, query intent understanding, and product recommendations)."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "We engineered a visual system that balanced Amazon’s corporate identity with a sophisticated, network-graph visual aesthetic. The artwork mapped out the multi-layered execution tracks of LLMs parsing data strings, visually transforming dry e-commerce data tracks into a compelling playground for global NLP engineering talent."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/amazon-kdd-cup-2024.webp",
+          "alt": "Amazon KDD Cup 2024 challenge key visual — network-graph artwork mapping multi-task LLM commerce tracks",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "ADDI — Alzheimer's Detection Challenge",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Utilizing advanced data science pipelines to detect and track biomarkers for early-stage Alzheimer's disease in clinical medical trials."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "Healthcare data requires absolute precision mixed with deep human empathy. We moved completely away from cold, sterile tech patterns, crafting an organic yet data-driven composition that focused on neural pathway connectivity and structural brain metrics. The interface prioritized crisp, readable typographic grids for medical researchers scanning complex rules."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/addi-alzheimers-detection-challenge.webp",
+          "alt": "ADDI Alzheimer's Detection Challenge key visual — organic neural pathway composition over a typographic grid",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Scene Understanding for Autonomous Drone Delivery (SUADD '23)",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Computer vision training models tasked with real-time semantic segmentation, depth estimation, and obstacle avoidance for flight routing."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "We translated the concept of machine vision into the core key visual. By overlaying vibrant, vector tracking grids, bounding boxes, and pixel-level depth heatmaps over scenic aerial landscapes, the design immediately communicated the exact functional goal of the computer vision model to scanning developers."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/scene-understanding-for-autonomous-drone-delivery-suadd23.webp",
+          "alt": "SUADD '23 key visual — vector tracking grids, bounding boxes and depth heatmaps over an aerial landscape",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Data Purchasing Challenge 2022",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Simulating automated algorithmic marketplaces where AI agents must dynamically evaluate, bid on, and acquire high-value datasets under budget constraints."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "To visually ground a abstract conceptual marketplace, we built a sharp, structural system asset that mirrored algorithmic trading floors. Using clean geometric arrays and dark-mode data nodes, the identity projected an atmosphere of quantitative finance and data commoditization."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/data-purchasing-challenge-2022.webp",
+          "alt": "Data Purchasing Challenge 2022 key visual — geometric arrays and dark-mode data nodes evoking an algorithmic trading floor",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Multi-Agent Behavior Challenge 2022",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Mapping, predicting, and classifying the intricate social and physical trajectories of interacting multi-agent systems (e.g., automated tracking of neuroscience animal models or multi-robot swarms)."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "We designed a complex choreography of motion lines. By tracing intersecting path arrays and emergent behavioral clusters using distinctive brand neon color gradients, the key art visually decoded the science of tracking individual agent intents within a chaotic unified group."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/multi-agent-behaviorchallenge2022.webp",
+          "alt": "Multi-Agent Behavior Challenge 2022 key visual — intersecting neon motion trajectories forming behavioural clusters",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "NeurIPS 2021: AWS DeepRacer — AI Driving Olympics Challenge",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Advanced reinforcement learning models trained to navigate scale-model autonomous vehicles through unpredictable, high-speed physical racing tracks."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "Merging AWS corporate branding with the high-octane world of competitive motorsport. The design system featured sharp velocity lines, technical track racing grids, and telemetry dashboard indicators that capture the intense, micro-second optimization required by autonomous driving agents."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/neurips2021-awsdeepracer-aidrivingolympicschallenge.webp",
+          "alt": "NeurIPS 2021 AWS DeepRacer key visual — velocity lines, racing track grids and telemetry indicators",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "NeurIPS 2020: Procgen Competition",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Evaluating the generalized reinforcement learning capabilities of AI agents inside procedurally generated 2D gaming environments."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "We paid homage to classic 8-bit/16-bit retro developer environments, but elevated the aesthetic with clean, vector-based structural modularity. The visual design explicitly demonstrated how infinite, randomized gaming iterations spawn from fixed underlying algorithmic code rules, speaking directly to the gaming and ML research demographic."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/neurips-2020-procgen-competition.webp",
+          "alt": "NeurIPS 2020 Procgen Competition key visual — retro 8-bit game environments rebuilt as clean modular vector tiles",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "heading": "Phase 2: The Studio 1947 Era",
+      "body": [
+        "Following the official launch of Studio 1947, our agency took full design ownership of AIcrowd's modern product track. We transitioned from standalone assets into building comprehensive, multi-layered visual ecosystems for next-generation machine learning sectors."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Global Chess Challenge 2025",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Deep-learning neural networks trained to evaluate non-traditional board structures, graph networks, and complex predictive game trees."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "We completely re-imagined the traditional chessboard layout into a mathematical matrix field. By transforming physical chess pieces into hyper-minimalist, vector nodes projecting calculated path trajectories, the creative direction bridged timeless human strategy with modern AI processing depth."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/global-chess-challenge-2025.webp",
+          "alt": "Global Chess Challenge 2025 key visual — chessboard reimagined as a matrix field with minimalist vector piece nodes",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Commonsense Persona-Grounded Dialogue Challenge 2025",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Forcing conversational NLP engines to maintain logical consistency, common-sense reasoning, and nuanced persona tracking over multi-turn dialogues."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "Communicating human personality through code requires deep abstract layering. We engineered a compelling system mapping intersecting typographic thought clouds and semantic matching matrices, visualizing how an algorithm accurately weights context, empathy, and logic during interactive human-to-computer text generation."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/commonsense-persona-grounded-dialogue-challenge-2025.webp",
+          "alt": "Commonsense Persona-Grounded Dialogue Challenge 2025 key visual — typographic thought clouds over semantic matching matrices",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Meta CRAG Multi-Modal Challenge 2025",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Elevating Retrieval-Augmented Generation (RAG) by challenging engineers to fuse real-time text web data with highly complex, multi-modal video, image, and speech inputs under Meta's technical guidelines."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "Operating within strict institutional parameters, we built a premium, dark-mode visual framework representing data fusion. The system illustrates distinct, raw media formats dissolving into a single, high-performance structured retrieval pipeline, creating an elite visual presence that reflects Meta’s engineering standards."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/meta-crag-multi-modal-challenge-2025.webp",
+          "alt": "Meta CRAG Multi-Modal Challenge 2025 key visual — dark-mode data fusion of video, image and speech into one retrieval pipeline",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Sounding Video Generation (SVG) Challenge 2024",
+      "subheading": "The Technical Focus:",
+      "body": [
+        "Generative models tasked with perfectly analyzing video feeds and generating corresponding, high-fidelity spatial audio waveforms that synchronize seamlessly with visual timelines."
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "The Design Execution",
+      "body": [
+        "A masterclass in cross-modal visualization. We built a stunning visual grid system that blended audio frequency spectrograms directly with cinematic video strip layouts. The design tracking explicitly mapped how sound waves emerge directly out of motion physics, presenting a beautiful, harmonious challenge interface for generative media researchers."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/aicrowd/sounding-video-generation-svg-challenge-2024.webp",
+          "alt": "Sounding Video Generation Challenge 2024 key visual — audio frequency spectrograms blended into cinematic video strips",
+          "zoom": true,
+          "pad": true
+        }
+      ]
+    },
+    {
+      "heading": "The Strategic Studio Takeaway",
+      "body": [
+        "Our decade-spanning engagement with AIcrowd highlights our ultimate competitive advantage: we speak deep-tech fluently. By completely avoiding generic, shallow tech templates, Studio 1947 delivers a rigorous, data-faithful visual architecture that respects the intelligence of the scientific community. We ensure that every challenge interface, dataset callout, and enterprise brand asset looks authoritative, inspiring, and ready to mobilize the world's finest algorithmic minds."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Science Comm & Visualization",
+      "members": "Rabi, Sneha, Mohanty"
+    }
+  ]
+}

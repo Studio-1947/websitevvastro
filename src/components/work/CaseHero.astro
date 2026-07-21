@@ -1,0 +1,56 @@
+---
+/**
+ * Case hero, in two variants:
+ *
+ *  photo — full-bleed image, dark scrim, tags + title overlaid in white.
+ *  logo  — brand lockup contained on a tinted panel, title set below it. Some
+ *          brands supply a logo rather than a photograph; scrimming one of
+ *          those produces muddy grey and duplicates the wordmark.
+ *
+ * Per the theme decision the title renders in Syne 400 (not the source's
+ * font-black Bricolage) and lets size carry the emphasis.
+ */
+interface Props {
+  src: string;
+  alt: string;
+  title: string;
+  tags?: string[];
+  style?: 'photo' | 'logo';
+  /** Legacy case studies carry these; the React-sourced ones do not. */
+  location?: string;
+  year?: string;
+}
+const { src, alt, title, tags = [], style = 'photo', location, year } = Astro.props;
+const isLogo = style === 'logo';
+const meta = [location, year].filter(Boolean) as string[];
+---
+
+<div class:list={['case-hero', isLogo && 'case-hero--logo']}>
+  <img class="case-hero__img" src={src} alt={alt} loading="eager" decoding="async" fetchpriority="high" />
+  {!isLogo && <div class="case-hero__scrim"></div>}
+
+  <div class="case-hero__body">
+    {
+      tags.length > 0 && (
+        <div class="case-hero__tags">
+          {tags.map((t) => (
+            <span class="case-tag">{t}</span>
+          ))}
+        </div>
+      )
+    }
+    <h1 class="case-hero__title" set:html={title} />
+    {
+      meta.length > 0 && (
+        <p class="case-hero__meta">
+          {meta.map((m, i) => (
+            <>
+              {i > 0 && <span class="case-hero__dot" aria-hidden="true">·</span>}
+              <span>{m}</span>
+            </>
+          ))}
+        </p>
+      )
+    }
+  </div>
+</div>

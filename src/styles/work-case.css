@@ -1,0 +1,602 @@
+/**
+ * Case-study primitives for /work/<slug>/.
+ *
+ * These replace the Tailwind utility classes baked into the source React pages
+ * (studio-website/src/pages/portfolio/*.tsx). The source uses Bricolage
+ * Grotesque at font-black with Tailwind's default gray ramp; this site uses
+ * Syne at weight 400 with its own --grey-* ramp. Everything below is expressed
+ * in the site's tokens so case pages read as part of 1947.io rather than as a
+ * transplant.
+ *
+ * Per-brand colour arrives as --brand on .case-page (see CaseLayout). All
+ * accents derive from it via color-mix, so a brand is one hex in JSON, not a
+ * stylesheet.
+ */
+
+.case-page {
+  --brand: var(--red); /* overridden inline per entry */
+  --brand-tint: color-mix(in srgb, var(--brand) 8%, #fff);
+  --brand-line: color-mix(in srgb, var(--brand) 28%, transparent);
+  background: var(--bg-alt);
+}
+
+/* The footer block sits ~87px below <main>; without this the white <body>
+   shows through as a band between the CTA and the footer. */
+body.page-case-modular { background: var(--bg-alt); }
+
+/* ── Hero ─────────────────────────────────────────────────────────────────── */
+.case-hero {
+  position: relative;
+}
+.case-hero__img {
+  width: 100%;
+  height: clamp(360px, 60vh, 520px);
+  object-fit: cover;
+  display: block;
+}
+@media (min-width: 768px) {
+  .case-hero__img { height: 80vh; }
+}
+/* Scrim so the wordmark stays legible over any photograph. */
+.case-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2) 45%, transparent);
+  pointer-events: none;
+}
+.case-hero__body {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 0 var(--gutter) clamp(28px, 4vw, 56px);
+}
+.case-hero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.case-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: clamp(12px, 0.9vw, 14px);
+  letter-spacing: 0.02em;
+}
+/* Site theme: Syne 400, not the source's font-black. Size carries the weight. */
+.case-hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: #fff;
+  font-size: clamp(44px, 8vw, 118px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+/* ── Hero: logo variant ───────────────────────────────────────────────────── */
+/* Brand lockups are contained on a tinted panel and the title sits below, in
+   ink rather than white — a scrim over a light logo just muddies it. */
+.case-hero--logo { background: var(--bg-alt); padding-top: 96px; }
+.case-hero--logo .case-hero__img {
+  height: clamp(200px, 30vw, 360px);
+  object-fit: contain;
+  padding: clamp(20px, 4vw, 56px) var(--gutter);
+}
+.case-hero--logo .case-hero__body {
+  position: static;
+  padding: 0 var(--gutter) clamp(24px, 3vw, 44px);
+}
+.case-hero--logo .case-hero__title { color: var(--grey-900); }
+.case-hero--logo .case-tag {
+  background: var(--brand-tint);
+  border-color: var(--brand-line);
+  color: var(--brand);
+  backdrop-filter: none;
+}
+
+/* Back control. The source floated a red circle over the hero; that collides
+   with this site's fixed header and reads as foreign. Replaced with the site's
+   own outlined pill idiom, set in-flow after the credits. */
+.case-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: clamp(17px, 1.5vw, 22px);
+  color: var(--grey-900);
+  border: 1px solid var(--grey-300);
+  border-radius: 999px;
+  padding: 11px 26px 11px 14px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.case-back .arrow {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brand);
+  color: var(--brand);
+  transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.case-back:hover { border-color: var(--brand); color: var(--brand); }
+.case-back:hover .arrow { background: var(--brand); color: #fff; transform: translateX(-2px); }
+
+/* ── Shell ────────────────────────────────────────────────────────────────── */
+.case-body {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+.case-section { padding-bottom: clamp(28px, 4vw, 52px); }
+.case-section--divided { border-top: 1px solid var(--line); padding-top: clamp(32px, 4.5vw, 64px); }
+
+.case-section__heading {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(36px, 3.6vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--grey-900);
+  margin-bottom: clamp(16px, 1.6vw, 24px);
+}
+
+/* Source's <SubHeading>: brand-coloured, body face so it reads as a step down
+   from the Syne section heading rather than competing with it. */
+.case-section__subheading {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(20px, 1.4vw, 22px);
+  line-height: 1.3;
+  color: var(--brand);
+  margin-bottom: 14px;
+}
+.case-section:not(.case-section--divided) .case-section__subheading { margin-top: clamp(20px, 2.4vw, 36px); }
+
+/* Brand-tinted pill — the one place per-brand colour reads strongly. */
+.case-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 20px;
+  border-radius: 999px;
+  background: var(--brand-tint);
+  color: var(--brand);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(13px, 1vw, 15px);
+  letter-spacing: 0.01em;
+  margin-bottom: clamp(14px, 1.4vw, 22px);
+}
+
+/* Fills the shell rather than capping at a measure — matches the source, where
+   <Body> had no max-width and ran the full 1400px container. Size scales up on
+   wide viewports so the longer line length still reads comfortably. */
+.case-prose p {
+  font-family: var(--font-body);
+  font-size: clamp(18px, 1.25vw, 21px);
+  line-height: 1.7;
+  color: var(--grey-700);
+}
+.case-prose p + p { margin-top: 16px; }
+.case-prose strong { color: var(--brand); font-weight: 500; }
+.case-prose a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── Lists ────────────────────────────────────────────────────────────────── */
+/* Brand-ringed markers, matching the legacy case studies' .case-list idiom. */
+.case-list {
+  margin-top: clamp(18px, 2vw, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 90ch;
+}
+.case-list li {
+  position: relative;
+  padding-left: 28px;
+  font-family: var(--font-body);
+  font-size: clamp(17px, 1.2vw, 20px);
+  line-height: 1.6;
+  color: var(--grey-700);
+}
+.case-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.52em;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--brand);
+  border-radius: 50%;
+}
+.case-list li strong { color: var(--grey-900); font-weight: 500; }
+
+/* ── Swatches ─────────────────────────────────────────────────────────────── */
+/* The source draws palette chips in CSS rather than exporting images, so they
+   have to be rebuilt as real swatches or the palette reads as a spec list. */
+/*
+ * Reproduces the source's swatch panel: the card IS the colour, the usage note
+ * sits at the top, and the role + hex sit on one baseline at the bottom with
+ * the colour name beneath. Source: `bg-[#293C53] rounded-3xl p-8 aspect-[4/3]
+ * flex flex-col justify-end`, role at text-xl/3xl bold, hex in mono at 20%
+ * opacity, colour name at 60%.
+ */
+.case-swatches {
+  margin-top: clamp(22px, 3vw, 40px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(16px, 1.8vw, 26px);
+}
+.case-swatch {
+  background: var(--sw);
+  color: var(--sw-ink);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 2.4vw, 34px);
+  min-height: clamp(240px, 26vw, 380px);
+  display: flex;
+  flex-direction: column;
+}
+.case-swatch__note {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(18px, 1.5vw, 24px);
+  line-height: 1.3;
+  color: inherit;
+  max-width: 30ch;
+}
+/* Pushes the identity block to the bottom edge (the source's justify-end). */
+.case-swatch__foot { margin-top: auto; }
+.case-swatch__row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+.case-swatch__role {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.05;
+  color: inherit;
+}
+.case-swatch__hex {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-weight: 700;
+  font-size: clamp(15px, 1.7vw, 26px);
+  line-height: 1.05;
+  color: inherit;
+  opacity: 0.25;
+}
+.case-swatch__name {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1vw, 15px);
+  color: inherit;
+  opacity: 0.6;
+}
+
+/* ── Cards ────────────────────────────────────────────────────────────────── */
+/* Bordered panel grids from the source (grid-cols-2/3 of rounded boxes). */
+.case-cards {
+  margin-top: clamp(22px, 3vw, 40px);
+  display: grid;
+  gap: clamp(16px, 1.8vw, 26px);
+}
+.case-cards--grid-2 { grid-template-columns: repeat(2, 1fr); }
+.case-cards--grid-3 { grid-template-columns: repeat(3, 1fr); }
+.case-cards--split { grid-template-columns: 1fr 1fr; }
+
+.case-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: clamp(22px, 2.2vw, 34px);
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+}
+.case-card:hover {
+  border-color: var(--brand-line);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+}
+.case-card__num {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.4vw, 38px);
+  line-height: 1;
+  color: var(--brand);
+  margin-bottom: 14px;
+}
+.case-card__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(19px, 1.6vw, 25px);
+  line-height: 1.15;
+  color: var(--grey-900);
+  margin-bottom: 10px;
+}
+.case-card__body {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.6;
+  color: var(--grey-700);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-card { transition: none; }
+  .case-card:hover { transform: none; }
+}
+
+/* ── Media ────────────────────────────────────────────────────────────────── */
+.case-media { margin-top: clamp(22px, 3vw, 44px); display: grid; gap: clamp(16px, 2vw, 28px); }
+.case-media--grid-2 { grid-template-columns: repeat(2, 1fr); }
+.case-media--grid-3 { grid-template-columns: repeat(3, 1fr); }
+.case-media--split { grid-template-columns: 1fr 1fr; align-items: center; }
+
+.case-figure {
+  margin: 0;
+  /* rounded-3xl in the source (24px), not this site's 28px --radius-lg. */
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/*
+ * Mobile full-bleed. The dominant source treatment is
+ * `-mx-6 md:mx-0 rounded-none md:rounded-3xl` — 32 of ~45 figures — so below
+ * the md breakpoint the artwork breaks out of the gutter edge-to-edge and
+ * drops its radius, then becomes a contained rounded card at desktop. Grids
+ * are already single-column at this width, so pulling the margins is safe.
+ */
+@media (max-width: 767px) {
+  .case-figure {
+    margin-inline: calc(var(--gutter) * -1);
+    border-radius: 0;
+  }
+  /* The inset panel keeps its card shape at every width in the source. */
+  .case-figure--pad {
+    margin-inline: 0;
+    border-radius: 30px;
+  }
+}
+/*
+ * Inset panel. The source has exactly two figure treatments and they must not
+ * be collapsed into one:
+ *
+ *   full-bleed  `-mx-6 md:mx-0 rounded-none md:rounded-3xl overflow-hidden`
+ *               — no frame, no padding. The default above.
+ *   inset panel `rounded-[30px] border border-[#EEE] bg-white
+ *                pt-8 px-4 md:pt-[65px] md:px-[89px] overflow-hidden`
+ *               — reproduced here.
+ *
+ * Note the padding is asymmetric on purpose: top and sides only, none at the
+ * bottom, so the artwork rises out of the bottom edge of the card. Only the
+ * AIcrowd challenge visuals use this in the source.
+ */
+.case-figure--pad {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 30px;
+  padding: 32px 16px 0;
+}
+@media (min-width: 768px) {
+  .case-figure--pad { padding: 65px 89px 0; }
+}
+/*
+ * `width: 100%` would upscale every asset to its container: the brand-governance
+ * artwork is 409px wide natively and was being blown up to 1214px (~3x) and
+ * going soft. Cap at the intrinsic size instead and centre what does not fill.
+ */
+.case-figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+/* Ratio-pinned figures fill and crop, so a side-by-side pair stays level. */
+.case-figure--ratio { aspect-ratio: var(--ratio); }
+.case-figure--ratio img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: none;
+}
+
+.case-figure__caption {
+  padding: 12px 18px 16px;
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1vw, 15px);
+  color: var(--grey-500);
+}
+.case-figure--zoom img { cursor: zoom-in; transition: transform 0.5s var(--ease); }
+.case-figure--zoom:hover img { transform: scale(1.02); }
+
+/* Responsive 16:9 embed (aspect-ratio rather than the source's padding hack). */
+.case-embed {
+  margin-top: clamp(22px, 3vw, 44px);
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--ink);
+}
+.case-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* ── Credits ──────────────────────────────────────────────────────────────── */
+.case-credits {
+  border-top: 1px solid var(--line);
+  margin-top: clamp(32px, 4vw, 56px);
+  padding-block: clamp(40px, 5vw, 68px);
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: clamp(28px, 4vw, 56px);
+}
+.case-credits__kicker,
+.case-credit__role {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.case-credits__kicker { color: var(--grey-500); }
+.case-credit__role { color: var(--brand); }
+.case-credits__client {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.8vw, 26px);
+  color: var(--grey-900);
+}
+.case-credits__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(26px, 3vw, 44px) clamp(20px, 2vw, 32px);
+}
+.case-credit__members {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1vw, 15px);
+  line-height: 1.6;
+  color: var(--grey-700);
+}
+
+/* ── CTA ──────────────────────────────────────────────────────────────────── */
+.case-cta {
+  position: relative;
+  margin-bottom: clamp(48px, 6vw, 92px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  padding: clamp(32px, 5vw, 64px);
+}
+/* Half-wheel mark bleeding off the right edge. Decorative, so it yields the
+   whole card to the copy on narrow viewports. */
+.case-cta__mark {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  object-position: left center;
+  pointer-events: none;
+}
+.case-cta__body { position: relative; z-index: 1; max-width: 46ch; }
+@media (max-width: 900px) {
+  .case-cta__mark { display: none; }
+  .case-cta__body { max-width: none; }
+}
+.case-cta__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(26px, 3.2vw, 46px);
+  line-height: 1.1;
+  color: var(--brand);
+  max-width: 20ch;
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+.case-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 32px;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(15px, 1.1vw, 18px);
+  transition: filter 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.case-cta__btn:hover { filter: brightness(0.88); transform: translateY(-1px); }
+
+/* ── Lightbox ─────────────────────────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  cursor: zoom-out;
+}
+.lightbox[hidden] { display: none; }
+/*
+ * Most case artwork is exported with an alpha channel (11 of 13 on rajkamal
+ * alone), so without an opaque backing the transparent areas show the dark
+ * scrim through and the diagram reads as broken. White matches how the same
+ * asset sits inside .case-figure on the page.
+ */
+.lightbox img {
+  max-width: 96vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  padding: clamp(10px, 1.5vw, 22px);
+}
+.lightbox__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s var(--ease);
+}
+.lightbox__close:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .case-credits { grid-template-columns: 1fr; }
+  .case-credits__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 1024px) {
+  .case-cards--grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .case-media--grid-2,
+  .case-media--grid-3,
+  .case-media--split { grid-template-columns: 1fr; }
+  .case-cards--grid-2,
+  .case-cards--grid-3,
+  .case-cards--split { grid-template-columns: 1fr; }
+  .case-credits__grid { grid-template-columns: 1fr; }
+}
+
+/* Respect reduced-motion for the figure zoom affordance. */
+@media (prefers-reduced-motion: reduce) {
+  .case-figure--zoom img,
+  .case-back,
+  .case-cta__btn { transition: none; }
+  .case-figure--zoom:hover img { transform: none; }
+}
+
+/* Hero meta (location · year) — legacy case studies carry these facts in a
+   meta row; the React-sourced pages simply omit them. */
+.case-hero__meta {
+  margin-top: clamp(12px, 1.4vw, 20px);
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.05vw, 17px);
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.case-hero--logo .case-hero__meta { color: var(--grey-500); }
+.case-hero__dot { opacity: 0.5; }
