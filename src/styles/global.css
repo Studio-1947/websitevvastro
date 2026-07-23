@@ -355,19 +355,20 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 .approach-band .approach__eyebrow { color: rgba(255,255,255,.85); }
 
 /* "Our approach" — animated vertical stepper (pill rail, active step expands). */
-.astep { list-style: none; margin: 0; padding: 0; position: relative; max-width: 760px; }
-.astep::before { content: ""; position: absolute; left: 0; top: 6px; bottom: 6px; width: 54px; border-radius: 999px; background: rgba(255,255,255,.14); }
+.astep { list-style: none; margin: 0; padding: 0; position: relative; max-width: none; }
+/* Number-rail shading removed: the strings provide the structure now. */
 .astep__item { position: relative; }
 .astep__row { display: flex; align-items: center; gap: clamp(18px, 2vw, 28px); width: 100%; text-align: left; padding: clamp(9px, 1vw, 12px) 0; cursor: pointer; }
-.astep__num { flex: 0 0 auto; position: relative; z-index: 1; width: 54px; height: 54px; border-radius: 999px; display: grid; place-items: center; font-family: var(--font-display); font-size: clamp(19px, 1.6vw, 23px); color: rgba(255,255,255,.55); transition: color .35s var(--ease), background .35s var(--ease), box-shadow .35s var(--ease); }
-.astep__title { font-family: "Google Sans", var(--font-body); font-weight: 700; font-size: clamp(26px, 2.9vw, 46px); letter-spacing: -0.025em; line-height: 1.06; color: rgba(255,255,255,.5); transition: color .35s var(--ease); }
+.astep__num { flex: 0 0 auto; position: relative; z-index: 1; width: 42px; height: 42px; border-radius: 999px; display: grid; place-items: center; font-family: var(--font-display); font-size: clamp(15px, 1.15vw, 18px); color: rgba(255,255,255,.6); transition: color .35s var(--ease), background .35s var(--ease), box-shadow .35s var(--ease); }
+.astep__title { font-family: "Google Sans", var(--font-body); font-weight: 700; font-size: clamp(21px, 2vw, 32px); letter-spacing: -0.02em; line-height: 1.08; color: rgba(255,255,255,.82); transition: color .35s var(--ease); }
 .astep__item.is-active .astep__num { color: var(--red); background: #fff; box-shadow: 0 10px 26px rgba(0,0,0,.22); }
 .astep__item.is-active .astep__title { color: #fff; }
+.astep__row:focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 8px; }
 .astep__row:hover .astep__title { color: rgba(255,255,255,.85); }
-.astep__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease); }
-.astep__item.is-active .astep__panel { grid-template-rows: 1fr; }
+.astep__panel { display: grid; grid-template-rows: 1fr; }
+
 .astep__panel-in { overflow: hidden; }
-.astep__desc { margin: 4px 0 clamp(14px, 1.8vw, 22px) calc(54px + clamp(18px, 2vw, 28px)); max-width: 560px; color: rgba(255,255,255,.9); font-size: clamp(15px, 1.15vw, 18px); line-height: 1.65; }
+.astep__desc { margin: 2px 0 clamp(12px, 1.4vw, 18px) calc(42px + clamp(18px, 2vw, 28px)); max-width: 74ch; color: rgba(255,255,255,.86); font-size: clamp(14px, 1vw, 16px); line-height: 1.6; }
 .astep__desc strong { color: #fff; font-weight: 600; }
 @media (max-width: 620px) {
   .astep__desc { margin-left: 0; }
@@ -756,3 +757,65 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
 .page-solutions .solcard__link svg { transition: transform .3s var(--ease); }
 .page-solutions .solcard:hover .solcard__link svg { transform: translateX(4px); }
 @media (max-width: 760px) { .page-solutions .solcards { grid-template-columns: 1fr; } }
+
+/* ── Pluckable strings on the Approach steps (scripts/approachStrings.ts) ────
+   Five full-width strings run edge to edge across the stepper — one above each
+   step plus one closing the set. They are <li> elements inside the existing
+   <ol>, so they move with the layout as panels expand instead of having to
+   chase those transitions. Injected by script and decorative; without JS the
+   rows are unchanged. */
+.astep__stringrow {
+  display: block;
+  position: relative;
+  width: 100%;
+  /* Generous hit area — a hairline is almost impossible to aim at. */
+  height: 26px;
+  margin: 2px 0;
+  cursor: grab;
+  touch-action: pan-y;           /* never hijack vertical page scrolling */
+}
+.astep__stringrow svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
+}
+.astep__stringrow path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.3s var(--ease), stroke-width 0.3s var(--ease);
+}
+.astep__stringrow:hover path { stroke: rgba(255, 255, 255, 0.55); }
+.astep__stringrow.is-ringing path { stroke: rgba(255, 255, 255, 0.92); stroke-width: 1.75; }
+
+.astep__mute {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: clamp(16px, 2vw, 26px);
+  padding: 8px 16px 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.astep__mute:hover { border-color: #fff; color: #fff; }
+
+/* Plucking needs a pointer; on touch the strings collapse to plain hairlines
+   rather than shipping an affordance that cannot be used. */
+@media (hover: none), (pointer: coarse) {
+  .astep__stringrow { height: 14px; cursor: default; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .astep__stringrow { height: 14px; cursor: default; }
+  .astep__mute { display: none; }
+}
