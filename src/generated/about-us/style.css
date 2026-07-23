@@ -136,17 +136,27 @@
       flex: none; width: 24px; height: 24px; border-radius: 50%;
       background: var(--red); position: relative;
     }
+    .pm-audio__icon::before,
+    .pm-audio__icon::after { content: ""; position: absolute; top: 50%; left: 50%; }
+    /* Play: one triangle, nudged a touch right of true centre because a
+       triangle's visual mass sits left of its bounding box. */
     .pm-audio__icon::before {
-      content: ""; position: absolute; top: 50%; left: 50%;
-      transform: translate(-40%, -50%);
+      transform: translate(-35%, -50%);
       border-style: solid; border-width: 5px 0 5px 8px;
       border-color: transparent transparent transparent #fff;
     }
-    .pm-audio__toggle.is-playing .pm-audio__icon::before {
-      transform: translate(-50%, -50%);
-      border: none; width: 3px; height: 10px;
-      background: #fff; box-shadow: 5px 0 0 #fff;
+    .pm-audio__icon::after { display: none; }
+    /* Pause: two bars as two real elements placed symmetrically about the
+       centre. The second bar used to be a box-shadow on the first, which meant
+       translate(-50%) centred only the 3px element and left the 8px pair
+       sitting off-centre in the circle. */
+    .pm-audio__toggle.is-playing .pm-audio__icon::before,
+    .pm-audio__toggle.is-playing .pm-audio__icon::after {
+      display: block; border: none; box-shadow: none;
+      width: 3px; height: 10px; border-radius: 1px; background: #fff;
     }
+    .pm-audio__toggle.is-playing .pm-audio__icon::before { transform: translate(-4px, -50%); }
+    .pm-audio__toggle.is-playing .pm-audio__icon::after { transform: translate(1px, -50%); }
     .pm-audio__note {
       margin: 0 0 clamp(16px, 1.8vw, 22px); color: var(--grey-700);
       font-size: 13.5px; line-height: 1.6; font-style: italic;
