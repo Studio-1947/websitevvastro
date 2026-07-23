@@ -2,7 +2,12 @@
  * Team member dialog — content read from each .team-card (name/role/photo) +
  * per-person data-attrs (data-work / data-interests / data-about) or a rich
  * .team-bio block. Ported from js/main.js.
+ *
+ * Members whose card carries `data-audio` also get a track that starts with the
+ * dialog and a pause control (see `audioFor`).
  */
+import { lockScroll, unlockScroll } from './scrollLock';
+
 export function personModal(): void {
   const modal = document.getElementById('person-modal');
   const cards = document.querySelectorAll<HTMLElement>('.team-card[data-person]');
@@ -14,6 +19,67 @@ export function personModal(): void {
   const blocks = modal.querySelector('[data-pm-blocks]');
   if (!media || !nameEl || !roleEl || !blocks) return;
   let lastFocus: HTMLElement | null = null;
+
+  const audioWrap = modal.querySelector<HTMLElement>('[data-pm-audio]');
+  const audioToggle = modal.querySelector<HTMLButtonElement>('[data-pm-audio-toggle]');
+  const audioLabel = modal.querySelector<HTMLElement>('[data-pm-audio-label]');
+  const audioNote = modal.querySelector<HTMLElement>('[data-pm-audio-note]');
+  let audio: HTMLAudioElement | null = null;
+
+  function setPlaying(on: boolean): void {
+    if (!audioToggle) return;
+    audioToggle.setAttribute('aria-pressed', String(on));
+    audioToggle.classList.toggle('is-playing', on);
+    // The visible label is the track name; the action lives in the a11y name so
+    // screen readers announce "Pause"/"Play" rather than just the title.
+    const track = audioLabel ? audioLabel.textContent || 'track' : 'track';
+    audioToggle.setAttribute('aria-label', (on ? 'Pause ' : 'Play ') + track);
+  }
+
+  /** Wire (or tear down) the player for one card. */
+  function audioFor(card: HTMLElement): void {
+    stopAudio();
+    const src = card.getAttribute('data-audio');
+    if (!audioWrap || !audioToggle) return;
+    if (!src) {
+      audioWrap.hidden = true;
+      return;
+    }
+    audioWrap.hidden = false;
+    if (audioLabel) audioLabel.textContent = card.getAttribute('data-audio-label') || 'Listen';
+    const note = card.getAttribute('data-audio-note');
+    if (audioNote) {
+      audioNote.textContent = note || '';
+      audioNote.hidden = !note;
+    }
+
+    audio = new Audio(src);
+    audio.loop = true;
+    audio.addEventListener('play', () => setPlaying(true));
+    audio.addEventListener('pause', () => setPlaying(false));
+    setPlaying(false);
+
+    // Autoplay is permitted here because we are inside the click that opened the
+    // dialog. It can still be refused (iOS Low Power Mode, site sound blocked) —
+    // leaving the control in its paused state is the correct outcome, not an error.
+    audio.play().catch(() => setPlaying(false));
+  }
+
+  function stopAudio(): void {
+    if (!audio) return;
+    audio.pause();
+    audio.src = '';
+    audio = null;
+    setPlaying(false);
+  }
+
+  if (audioToggle) {
+    audioToggle.addEventListener('click', () => {
+      if (!audio) return;
+      if (audio.paused) audio.play().catch(() => setPlaying(false));
+      else audio.pause();
+    });
+  }
 
   function text(card: HTMLElement, sel: string): string {
     const el = card.querySelector(sel);
@@ -79,10 +145,12 @@ export function personModal(): void {
       addBlock('About', card.getAttribute('data-about'));
     }
 
+    audioFor(card);
+
     lastFocus = document.activeElement as HTMLElement;
     modal!.classList.add('is-open');
     modal!.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    lockScroll();
     const panel = modal!.querySelector<HTMLElement>('.person-modal__panel');
     if (panel) panel.focus();
   }
@@ -90,7 +158,8 @@ export function personModal(): void {
   function close(): void {
     modal!.classList.remove('is-open');
     modal!.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    unlockScroll();
+    stopAudio();
     if (lastFocus) lastFocus.focus();
   }
 

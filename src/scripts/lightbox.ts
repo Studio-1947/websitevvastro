@@ -6,6 +6,8 @@
  * have no zoomable figures and needs no per-image wiring.
  */
 
+import { lockScroll, unlockScroll } from './scrollLock';
+
 /** Elements are created on first zoom, not on every page load. */
 let overlay: HTMLDivElement | null = null;
 let img: HTMLImageElement | null = null;
@@ -45,16 +47,19 @@ function show(src: string, alt: string): void {
   lastFocused = document.activeElement as HTMLElement | null;
   img.src = src;
   img.alt = alt;
+  const wasOpen = !overlay.hidden;
   overlay.hidden = false;
-  // Prevent the page behind from scrolling while open.
-  document.body.style.overflow = 'hidden';
+  // Prevent the page behind from scrolling while open. Skipped when already
+  // open (clicking straight from one figure to the next) so the lock stays
+  // balanced against the single `hide`.
+  if (!wasOpen) lockScroll();
   overlay.querySelector<HTMLButtonElement>('.lightbox__close')?.focus();
 }
 
 function hide(): void {
-  if (!overlay) return;
+  if (!overlay || overlay.hidden) return;
   overlay.hidden = true;
-  document.body.style.overflow = '';
+  unlockScroll();
   lastFocused?.focus();
   lastFocused = null;
 }

@@ -387,7 +387,12 @@
         </div>
       </article>
 
-      <article class="team-card" data-person>
+      <article
+        class="team-card"
+        data-person
+        data-audio="/assets/audio/nikhil-subba.mp3"
+        data-audio-label="Nikhil's track"
+      >
         <div class="team-card__img">
           <img
             src="/assets/img/about-us/40ad50_4dd4a33b5bcb49ccb95517b4e9f72659.webp"
@@ -459,7 +464,13 @@
         </div>
       </article>
 
-      <article class="team-card" data-person>
+      <article
+        class="team-card"
+        data-person
+        data-audio="/assets/audio/rahul-c.mp3"
+        data-audio-label="Rahul's guitar lead"
+        data-audio-note="PS: That's Rahul himself on the guitar — a lead he wrote and recorded for us."
+      >
         <div class="team-card__img">
           <img
             src="/assets/img/about-us/40ad50_3387198896a4446bb6555a58a616eb08.webp"
@@ -779,6 +790,16 @@
         <h3 class="person-modal__name" id="person-modal-name" data-pm-name></h3>
         <p class="person-modal__role" data-pm-role></p>
       </div>
+    </div>
+    <!-- Only revealed for members whose card carries data-audio. The track
+         starts on open (the click that opens the dialog is the user gesture
+         autoplay policies require) and WCAG 1.4.2 needs the pause control. -->
+    <div class="pm-audio" data-pm-audio hidden>
+      <button class="pm-audio__toggle" type="button" data-pm-audio-toggle aria-pressed="false">
+        <span class="pm-audio__icon" aria-hidden="true"></span>
+        <span class="pm-audio__label" data-pm-audio-label></span>
+      </button>
+      <p class="pm-audio__note" data-pm-audio-note hidden></p>
     </div>
     <div class="person-modal__body">
       <div data-pm-blocks></div>

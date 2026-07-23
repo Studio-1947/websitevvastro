@@ -3,6 +3,8 @@
  * navigating (href="/sayhello/" stays as the no-JS fallback). Ported from
  * js/main.js.
  */
+import { lockScroll, unlockScroll } from './scrollLock';
+
 export function contactModal(): void {
   const modal = document.getElementById('contact-modal');
   if (!modal) return;
@@ -16,17 +18,23 @@ export function contactModal(): void {
   function open(e?: Event): void {
     if (e) e.preventDefault();
     lastFocus = document.activeElement as HTMLElement;
+    // Hand the drawer's scroll lock over rather than stacking a second one —
+    // the counter would otherwise never unwind back to zero.
     const mm = document.querySelector('.mobile-menu.is-open');
-    if (mm) mm.classList.remove('is-open');
+    if (mm) {
+      mm.classList.remove('is-open');
+      unlockScroll();
+    }
     modal!.classList.add('is-open');
     modal!.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    lockScroll();
     if (panel) panel.focus();
   }
   function close(): void {
+    if (!modal!.classList.contains('is-open')) return;
     modal!.classList.remove('is-open');
     modal!.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    unlockScroll();
     if (lastFocus) lastFocus.focus();
   }
   triggers.forEach((t) => t.addEventListener('click', open));

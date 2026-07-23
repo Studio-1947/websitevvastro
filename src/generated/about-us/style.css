@@ -44,7 +44,25 @@
       padding: clamp(24px, 3vw, 44px);
       box-shadow: 0 40px 90px rgba(0,0,0,.28);
       transform: translateY(12px) scale(.98); transition: transform .35s var(--ease);
+      /* The default chrome scrollbar rendered as a full-height grey gutter hard
+         against the rounded corner. Slim + translucent so it reads as part of
+         the panel, and `overscroll-behavior` stops a scroll that reaches the
+         end of the bio from chaining out to the page underneath. */
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,.22) transparent;
     }
+    .person-modal__panel::-webkit-scrollbar { width: 10px; }
+    .person-modal__panel::-webkit-scrollbar-track { background: transparent; }
+    .person-modal__panel::-webkit-scrollbar-thumb {
+      background-color: rgba(0,0,0,.18);
+      border-radius: 999px;
+      /* Transparent border + background-clip insets the thumb from the panel
+         edge, so it never collides with the corner radius. */
+      border: 3px solid transparent;
+      background-clip: content-box;
+    }
+    .person-modal__panel::-webkit-scrollbar-thumb:hover { background-color: rgba(0,0,0,.34); background-clip: content-box; }
     /* Fixed image component (never stretches) + name/role, top-left of the popup. */
     .person-modal__head { display: flex; align-items: center; gap: clamp(16px, 2vw, 24px); }
     .person-modal__id { min-width: 0; }
@@ -63,6 +81,42 @@
     .person-modal__media img { width: 100%; height: 100%; object-fit: cover; }
     .person-modal__media .initial { font-family: var(--font-display); font-size: clamp(34px, 4vw, 48px); color: var(--red); line-height: 1; }
     .person-modal__body { padding: 0; margin-top: clamp(20px, 2.4vw, 30px); }
+
+    /* ---- Per-member audio ---- */
+    .pm-audio { margin-top: clamp(18px, 2vw, 24px); }
+    .pm-audio[hidden] { display: none; }
+    .pm-audio__toggle {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 10px 18px 10px 12px; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--bg-alt);
+      color: var(--grey-900); font-size: 14.5px; line-height: 1;
+      transition: border-color .25s var(--ease), background .25s var(--ease);
+    }
+    .pm-audio__toggle:hover { border-color: var(--red); background: #fff; }
+    .pm-audio__toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+    /* One element drawn as a triangle, then swapped to two bars while playing —
+       avoids shipping two icons and keeps the control the same size in both
+       states, so the pill never reflows on toggle. */
+    .pm-audio__icon {
+      flex: none; width: 26px; height: 26px; border-radius: 50%;
+      background: var(--red); position: relative;
+    }
+    .pm-audio__icon::before {
+      content: ""; position: absolute; top: 50%; left: 50%;
+      transform: translate(-40%, -50%);
+      border-style: solid; border-width: 5px 0 5px 8px;
+      border-color: transparent transparent transparent #fff;
+    }
+    .pm-audio__toggle.is-playing .pm-audio__icon::before {
+      transform: translate(-50%, -50%);
+      border: none; width: 3px; height: 10px;
+      background: #fff; box-shadow: 5px 0 0 #fff;
+    }
+    .pm-audio__note {
+      margin-top: 10px; color: var(--grey-500);
+      font-size: 13.5px; line-height: 1.6; font-style: italic;
+    }
+    .pm-audio__note[hidden] { display: none; }
 
     /* Bio typography inside the popup. */
     .pm-bio .team-bio__lead { font-family: var(--font-display); color: var(--grey-900); font-size: clamp(18px, 1.7vw, 24px); line-height: 1.25; padding-left: 16px; border-left: 3px solid var(--red); margin-bottom: clamp(20px, 2.4vw, 28px); }
