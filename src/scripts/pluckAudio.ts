@@ -155,26 +155,31 @@ function synthPluck(index: number, velocity: number): void {
 /**
  * Strike string `index` at `velocity` (0–1, from how hard it was crossed).
  * Each strike advances that string to its next note.
+ *
+ * Returns which of the four notes was struck (0–3) so the caller can shape the
+ * string's motion to match the note. The cursor advances even when muted or
+ * still loading: the string keeps moving in either case, and its motion should
+ * still vary strike to strike rather than freeze on one shape.
  */
-export function pluck(index: number, velocity: number): void {
-  if (muted) return;
+export function pluck(index: number, velocity: number): number {
+  const i = index % SAMPLES.length;
+  const n = cursor[i];
+  cursor[i] = (n + 1) % NOTES_PER_FILE;
+
+  if (muted) return n;
   const c = ensureContext();
-  if (!c) return;
+  if (!c) return n;
   if (c.state === 'suspended') void c.resume();
   if (!loading) loading = loadSamples();
 
-  const i = index % SAMPLES.length;
-  const n = cursor[i];
-  if (playNote(i, n, velocity)) {
-    cursor[i] = (n + 1) % NOTES_PER_FILE;
-  } else if (ready) {
+  if (!playNote(i, n, velocity) && ready) {
     // The decode pass finished and this file genuinely failed — a synthesised
-    // note is better than a dead string.
+    // note is better than a dead string. While still decoding we stay silent:
+    // a synth beep against folk instruments reads as broken, whereas one quiet
+    // strike reads as a light touch.
     synthPluck(i, velocity);
   }
-  // Still decoding: stay silent. A synth beep against folk instruments reads as
-  // broken, whereas one quiet strike reads as a light touch. The string still
-  // moves, so the interaction never feels unresponsive.
+  return n;
 }
 
 /** Warm the context and start fetching on the first gesture. */

@@ -31,6 +31,8 @@ interface StringState {
   v: number;
   /** Where along the string it is pulled, 0–1. */
   at: number;
+  /** Standing-wave mode while ringing: 1 lobe (note 1) … 4 lobes (note 4). */
+  mode: number;
   held: boolean;
   lastY: number;
   lastT: number;
@@ -42,6 +44,26 @@ const MAX_PULL = 12; // clamp: the string bends, it does not sag
 const BOW = 1.15; // control-point multiplier — how deep the curve reads
 const STIFFNESS = 300;
 const DAMPING = 11;
+/** Polyline resolution — enough to keep four lobes smooth. */
+const SAMPLES_PER_STRING = 48;
+/**
+ * Per-note character, indexed by note (0–3).
+ *
+ * `amp` scales the displacement the string is released with. It has to be
+ * applied to the position, not just to the velocity kick: the pull height is
+ * whatever the pointer dragged to and is identical for every note, so scaling
+ * only the kick leaves all four notes ringing at nearly the same depth.
+ *
+ * `freq` and `damp` then make the higher notes move faster and settle sooner,
+ * the way a real string's upper harmonics do. Together with the mode count the
+ * progression runs from one slow shallow ripple to four deep fast lobes.
+ */
+const NOTE_FEEL = [
+  { amp: 0.3, freq: 1.0, damp: 0.85 }, // note 1 — one slow, shallow lobe
+  { amp: 0.55, freq: 1.35, damp: 1.0 },
+  { amp: 0.78, freq: 1.7, damp: 1.2 },
+  { amp: 1.0, freq: 2.05, damp: 1.45 }, // note 4 — four deep, fast lobes
+];
 
 export function approachStrings(): void {
   const root = document.querySelector<HTMLElement>('[data-approach] .astep');
@@ -65,7 +87,7 @@ export function approachStrings(): void {
     li.appendChild(svg);
     strings.push({
       el: li, path, index,
-      w: 0, h: 0, y: 0, v: 0, at: 0.5,
+      w: 0, h: 0, y: 0, v: 0, at: 0.5, mode: 1,
       held: false, lastY: 0, lastT: 0, speed: 0,
     });
     return li;
@@ -85,12 +107,40 @@ export function approachStrings(): void {
     );
   }
 
+  /**
+   * The string is sampled as a polyline rather than drawn as one bezier,
+   * because a bezier can only ever show a single hump. Each of a file's four
+   * notes rings the string in a different standing-wave mode — note 1 in the
+   * fundamental (one lazy lobe), note 4 in the fourth harmonic (four tight
+   * ones) — which needs a curve that can cross the rest line several times.
+   */
   function draw(s: StringState): void {
     const mid = s.h / 2;
-    s.path.setAttribute(
-      'd',
-      `M 0 ${mid} Q ${s.at * s.w} ${mid + s.y * BOW} ${s.w} ${mid}`,
-    );
+
+    // At rest, a straight line: cheaper, and perfectly flat with no sampling
+    // wobble from the polyline approximation.
+    if (!s.held && Math.abs(s.y) < 0.02) {
+      s.path.setAttribute('d', `M 0 ${mid.toFixed(1)} L ${s.w.toFixed(1)} ${mid.toFixed(1)}`);
+      return;
+    }
+
+    let d = '';
+    for (let k = 0; k <= SAMPLES_PER_STRING; k++) {
+      const t = k / SAMPLES_PER_STRING;
+      let shape: number;
+      if (s.held) {
+        // Being pulled: one smooth hump peaked under the pointer.
+        const u = t < s.at ? t / Math.max(0.001, s.at) : (1 - t) / Math.max(0.001, 1 - s.at);
+        shape = u * u * (3 - 2 * u) * BOW;
+      } else {
+        // Ringing: `mode` half-wavelengths between the fixed ends.
+        shape = Math.sin(Math.PI * s.mode * t);
+      }
+      const x = t * s.w;
+      const y = mid + s.y * shape;
+      d += (k === 0 ? 'M ' : ' L ') + x.toFixed(1) + ' ' + y.toFixed(2);
+    }
+    s.path.setAttribute('d', d);
   }
 
   strings.forEach((s) => { measure(s); draw(s); });
@@ -115,7 +165,11 @@ export function approachStrings(): void {
 
     for (const s of strings) {
       if (s.held) { alive = true; continue; } // pointer owns the position
-      const a = -STIFFNESS * s.y - DAMPING * s.v; // damped spring back to rest
+      const feel = NOTE_FEEL[Math.min(NOTE_FEEL.length - 1, s.mode - 1)];
+      // Frequency scales with the mode (omega grows with stiffness), so the
+      // higher notes visibly shimmer rather than merely swinging wider.
+      const k = STIFFNESS * feel.freq * feel.freq;
+      const a = -k * s.y - DAMPING * feel.damp * s.v; // damped spring back to rest
       s.v += a * dt;
       s.y += s.v * dt;
       if (Math.abs(s.y) < 0.05 && Math.abs(s.v) < 0.5) {
@@ -140,14 +194,27 @@ export function approachStrings(): void {
     if (!s.held) return;
     s.held = false;
     s.el.classList.add('is-ringing');
-    // Launch the oscillation; the pull sets the amplitude, capped so a fast
-    // swipe cannot throw the string across the section.
-    s.v = Math.max(-260, Math.min(260, -s.y * 9 - s.speed * 0.06));
-    if (!reduce) {
-      const strength = Math.abs(s.y) / MAX_PULL * 0.6 + Math.min(0.4, s.speed / 2600);
-      pluck(s.index, Math.max(0.12, Math.min(1, strength)));
-    }
+    const strength = Math.max(
+      0.12,
+      Math.min(1, Math.abs(s.y) / MAX_PULL * 0.6 + Math.min(0.4, s.speed / 2600)),
+    );
+    // The note that sounds decides how the string moves, so the four notes of a
+    // file are told apart by eye as well as by ear.
+    const note = reduce ? 0 : pluck(s.index, strength);
+    s.mode = note + 1;
+    s.el.dataset.mode = String(s.mode);
+    const feel = NOTE_FEEL[Math.min(NOTE_FEEL.length - 1, note)];
+    // Launch the oscillation. Position and velocity are scaled together so the
+    // decay keeps its shape and only the depth changes; the velocity is capped
+    // so a fast swipe cannot throw the string across the section.
+    s.y *= feel.amp;
+    s.v = Math.max(-340, Math.min(340, (-s.y * 9 - s.speed * 0.06) * feel.amp));
     s.speed = 0;
+    // Redraw now rather than waiting for the next animation frame: otherwise
+    // the string is flagged as ringing while still painted in its held shape at
+    // full pull depth, so every note flashes the same deep hump for one frame
+    // before settling into its own.
+    draw(s);
     kick();
   }
 
@@ -192,9 +259,11 @@ export function approachStrings(): void {
       if (k !== 'Enter' && k !== ' ') return;
       if (reduce) return;
       warmAudio();
-      pluck(i, 0.5);
+      const note = pluck(i, 0.5);
       const s = strings[i];
-      s.y = MAX_PULL * 0.7;
+      s.mode = note + 1;
+      s.el.dataset.mode = String(s.mode);
+      s.y = MAX_PULL * 0.9 * NOTE_FEEL[Math.min(NOTE_FEEL.length - 1, note)].amp;
       s.v = 0;
       s.at = 0.5;
       s.el.classList.add('is-ringing');
