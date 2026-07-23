@@ -10,11 +10,17 @@
  * Behaviour (live clock/temp/AQI + current year) is wired in
  * src/scripts/darjeeling.ts, loaded globally via BaseLayout.
  */
+import { Image } from 'astro:assets';
+import footerHills from '../../assets/img/footer-hills.webp';
+
 const year = new Date().getFullYear();
 ---
 
 <div class="footer-block">
-  <div class="footer-block__bg"><img src="/assets/img/footer-hills.webp" alt="" /></div>
+  {/* Full-bleed backdrop on every page, so it carries the site-wide win.
+      Decorative (empty alt) and always below the fold — lazy, unlike the
+      original eager <img>. */}
+  <div class="footer-block__bg"><Image src={footerHills} sizes="100vw" quality={85} widths={[640, 960, 1280, 1600]} alt="" loading="lazy" /></div>
 
   <section class="cta">
     <div class="container">

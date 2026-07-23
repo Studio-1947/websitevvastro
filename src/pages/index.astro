@@ -3,6 +3,17 @@
  * Homepage — decomposed into section components (PRD Principle #5). Markup and
  * section order match the original index.html exactly.
  */
+import { Image } from 'astro:assets';
+import { clientLogos } from '../assets/clientLogos';
+
+// `.marquee--lg img` runs bigger than the hero strip:
+// `max-width: clamp(130px, 13vw, 190px)`. Same rationale as HomeHero — the
+// track is JS-duplicated, so each logo is decoded twice on this page too.
+const LOGO_SIZES = '(max-width: 1024px) 130px, 190px';
+// 480 rather than a tight 400 for the 2x rung: these are high-contrast line-art
+// marks where a little supersampling reads noticeably crisper, and a 480w logo
+// is ~5KB — cheap enough that exactness isn't worth the softer edges.
+const LOGO_WIDTHS = [200, 480, 641];
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/sections/HomeHero.astro';
 import StatsSection from '../components/sections/StatsSection.astro';
@@ -32,16 +43,11 @@ import Faq from '../components/sections/Faq.astro';
     <!-- ===== Client logos (above testimonials — larger, full colour) ===== -->
     <div class="marquee marquee--lg" aria-label="Trusted by">
       <div class="marquee__track">
-        <img src="/assets/img/logo-01.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-02.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-03.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-04.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-05.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-06.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-07.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-08.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-09.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-10.webp" alt="Client logo" loading="lazy" />
+        {/* Same marks as the hero strip, rendered larger — `.logo-seal` is
+            deliberately not applied here (`.marquee--lg` sizes them all alike). */}
+        {clientLogos.map((logo) => (
+          <Image src={logo.src} alt="Client logo" loading="lazy" quality={85} sizes={LOGO_SIZES} widths={LOGO_WIDTHS} />
+        ))}
       </div>
     </div>
 

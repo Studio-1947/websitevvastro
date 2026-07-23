@@ -3,7 +3,41 @@
  * Home hero region — the interactive aurora canvas spans the hero + featured
  * work (masked in CSS), with the logo marquee + "Featured Work" label between
  * them. Markup ported verbatim from the original index.html.
+ *
+ * Images go through <Image> (astro:assets) rather than raw <img> pointing at
+ * `public/`: that stamps intrinsic width/height on every tag (no reflow as the
+ * lazy tiles resolve mid-scroll) and emits a `srcset` so a phone decodes a
+ * ~400px bitmap instead of the 1600px original. Decoding a 1600×1600 source
+ * costs ~10MB of main-thread work at the exact moment it scrolls into view,
+ * and Lenis drives scroll from the main thread — so that decode was landing as
+ * visible scroll stutter.
+ *
+ * <Image> (not <Picture>) on purpose: <Picture> emits a <picture> wrapper, and
+ * `.work-gallery .tile img { width:100%; height:100% }` resolves against that
+ * inline wrapper instead of the fixed-height `.tile`, which collapses the
+ * gallery.
  */
+import { Image } from 'astro:assets';
+import { clientLogos } from '../../assets/clientLogos';
+import workShipflow from '../../assets/img/work-shipflow.webp';
+import workAvishkar from '../../assets/img/work-avishkar.webp';
+import workRajkamal from '../../assets/img/work-rajkamal.webp';
+import workFes from '../../assets/img/work-fes.webp';
+import workMirikSurvey from '../../assets/img/work-mirik-survey.webp';
+
+// `.work-row` stacks below 760px; above it the tiles split the 1760px container
+// on a 1 / 1.72 flex ratio, hence the two different desktop fractions.
+const TILE_WIDE = '(max-width: 760px) 100vw, 63vw';
+const TILE_NARROW = '(max-width: 760px) 100vw, 37vw';
+const TILE_FULL = '100vw';
+
+// `.marquee img` caps at `max-width: clamp(110px, 11vw, 152px)`, and the track
+// is duplicated in JS for the seamless loop — so every logo is decoded twice.
+// Describing the real display width matters more here than anywhere else on the
+// page: a density srcset off the 641px source made these the single largest
+// block of decoded pixels on a retina phone.
+const LOGO_SIZES = '(max-width: 1024px) 110px, 152px';
+const LOGO_WIDTHS = [160, 320, 480, 641];
 ---
 
 <div class="hero-fx">
@@ -19,16 +53,17 @@
   <div class="container fw-logos-row reveal">
     <div class="marquee" aria-label="Trusted by">
       <div class="marquee__track">
-        <img src="/assets/img/logo-01.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-02.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-03.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-04.webp" class="logo-seal" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-05.webp" class="logo-seal" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-06.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-07.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-08.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-09.webp" alt="Client logo" loading="lazy" />
-        <img src="/assets/img/logo-10.webp" alt="Client logo" loading="lazy" />
+        {clientLogos.map((logo) => (
+          <Image
+            src={logo.src}
+            class={logo.seal ? 'logo-seal' : undefined}
+            alt="Client logo"
+            loading="lazy"
+            quality={85}
+            sizes={LOGO_SIZES}
+            widths={LOGO_WIDTHS}
+          />
+        ))}
       </div>
     </div>
     <a class="hero__scroll fw-featured" href="#featured-work">Featured Work <span class="down" aria-hidden="true">&#8595;</span></a>
@@ -38,15 +73,15 @@
   <section id="featured-work" class="section container" style="padding-top: clamp(20px, 3vw, 40px)">
     <div class="work-gallery reveal">
       <div class="work-row work-row--a">
-        <a class="tile" href="/products/"><img src="/assets/img/work-shipflow.webp" fetchpriority="high" alt="Analytics dashboard product design" loading="eager" /></a>
-        <a class="tile" href="/work/awch/"><img src="/assets/img/work-avishkar.webp" fetchpriority="high" alt="Avishkar Hospital brand & campaign design" loading="eager" /></a>
+        <a class="tile" href="/products/"><Image src={workShipflow} sizes={TILE_NARROW} quality={85} widths={[480, 720, 1080, 1440]} fetchpriority="high" alt="Analytics dashboard product design" loading="eager" /></a>
+        <a class="tile" href="/work/awch/"><Image src={workAvishkar} sizes={TILE_WIDE} quality={85} widths={[640, 960, 1280, 1600]} fetchpriority="high" alt="Avishkar Hospital brand & campaign design" loading="eager" /></a>
       </div>
       <div class="work-row work-row--b">
-        <a class="tile" href="/work/rajkamal-prakashan/"><img src="/assets/img/work-rajkamal.webp" alt="Rajkamal Prakashan campaign" loading="lazy" /></a>
-        <a class="tile" href="/work/local-futures/"><img src="/assets/img/work-fes.webp" alt="Climate Justice in Action publication" loading="lazy" /></a>
+        <a class="tile" href="/work/rajkamal-prakashan/"><Image src={workRajkamal} sizes={TILE_WIDE} quality={85} widths={[640, 960, 1280, 1600]} alt="Rajkamal Prakashan campaign" loading="lazy" /></a>
+        <a class="tile" href="/work/local-futures/"><Image src={workFes} sizes={TILE_NARROW} quality={85} widths={[480, 720, 1080, 1401]} alt="Climate Justice in Action publication" loading="lazy" /></a>
       </div>
       <div class="work-row work-row--full">
-        <a class="tile" href="/work/mirik-college/"><img src="/assets/img/work-mirik-survey.webp" alt="Mirik College survey" loading="lazy" /></a>
+        <a class="tile" href="/work/mirik-college/"><Image src={workMirikSurvey} sizes={TILE_FULL} quality={85} widths={[640, 960, 1280]} alt="Mirik College survey" loading="lazy" /></a>
       </div>
     </div>
   </section>

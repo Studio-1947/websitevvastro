@@ -1,5 +1,18 @@
 ---
 /** Home testimonials — static 3×2 grid of 6 cards. */
+import { Image } from 'astro:assets';
+import tSuranya from '../../assets/img/t-suranya.webp';
+import tSharda from '../../assets/img/t-sharda.webp';
+import tMandvi from '../../assets/img/t-mandvi.webp';
+import tVikram from '../../assets/img/t-vikram.webp';
+import tManisha from '../../assets/img/t-manisha.webp';
+import tRishi from '../../assets/img/t-rishi.webp';
+
+// 3 columns → 2 (≤1024px) → 1 (≤760px), inside the 1760px container. The
+// sources are 1500px wide for a card that never exceeds ~570px, so without a
+// srcset every card was decoding a ~4x oversized bitmap while scrolling.
+const CARD = '(max-width: 760px) 100vw, (max-width: 1024px) 50vw, 33vw';
+const CARD_WIDTHS = [400, 600, 800, 1200];
 ---
 
 <section class="section container" style="padding-top: clamp(20px, 3vw, 40px)">
@@ -7,7 +20,7 @@
   <div class="testi__track reveal">
     <article class="testi-card">
       <div class="testi-card__top">
-        <img src="/assets/img/t-suranya.webp" alt="Suranya Aiyar" loading="lazy" />
+        <Image src={tSuranya} sizes={CARD} quality={85} widths={CARD_WIDTHS} alt="Suranya Aiyar" loading="lazy" />
         <div>
           <div class="testi-card__name">Suranya Aiyar</div>
           <div class="testi-card__role">CEO, Bhagyam Arts &amp; Aesthetic</div>
@@ -19,7 +32,7 @@
 
     <article class="testi-card">
       <div class="testi-card__top">
-        <img src="/assets/img/t-sharda.webp" alt="Sharda Mohanty" loading="lazy" />
+        <Image src={tSharda} sizes={CARD} quality={85} widths={CARD_WIDTHS} alt="Sharda Mohanty" loading="lazy" />
         <div>
           <div class="testi-card__name">Sharda Mohanty</div>
           <div class="testi-card__role">CEO, AIcrowd</div>
@@ -31,7 +44,7 @@
 
     <article class="testi-card">
       <div class="testi-card__top">
-        <img src="/assets/img/t-mandvi.webp" alt="Mandvi Kulshreshtha" loading="lazy" />
+        <Image src={tMandvi} sizes={CARD} quality={85} widths={CARD_WIDTHS} alt="Mandvi Kulshreshtha" loading="lazy" />
         <div>
           <div class="testi-card__name">Mandvi Kulshreshtha</div>
           <div class="testi-card__role">Senior Program Advisor, Friedrich-Ebert-Stiftung, India</div>
@@ -43,7 +56,7 @@
 
     <article class="testi-card">
       <div class="testi-card__top">
-        <img src="/assets/img/t-vikram.webp" alt="Vikram Buragohain" loading="lazy" />
+        <Image src={tVikram} sizes={CARD} quality={85} widths={CARD_WIDTHS} alt="Vikram Buragohain" loading="lazy" />
         <div>
           <div class="testi-card__name">Vikram Buragohain</div>
           <div class="testi-card__role">Jan Sahas Foundation</div>
@@ -55,7 +68,7 @@
 
     <article class="testi-card">
       <div class="testi-card__top">
-        <img src="/assets/img/t-manisha.webp" alt="Manisha Pande" loading="lazy" />
+        <Image src={tManisha} sizes={CARD} quality={85} widths={CARD_WIDTHS} alt="Manisha Pande" loading="lazy" />
         <div>
           <div class="testi-card__name">Manisha Pande</div>
           <div class="testi-card__role">Village Ways</div>
@@ -67,7 +80,7 @@
 
     <article class="testi-card">
       <div class="testi-card__top">
-        <img src="/assets/img/t-rishi.webp" alt="Rishi Agarwal" loading="lazy" />
+        <Image src={tRishi} sizes={CARD} quality={85} widths={CARD_WIDTHS} alt="Rishi Agarwal" loading="lazy" />
         <div>
           <div class="testi-card__name">Rishi Agarwal</div>
           <div class="testi-card__role">Convener, Walking Project</div>

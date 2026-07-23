@@ -1,5 +1,7 @@
 ---
 /** Home "Our Commitment" carousel + team photo. */
+import { Image } from 'astro:assets';
+import teamPhoto from '../../assets/img/team-photo.webp';
 ---
 
 <section class="section container">
@@ -34,7 +36,13 @@
       </div>
     </div>
     <div class="commit__media">
-      <img src="/assets/img/team-photo.webp" alt="The Studio 1947 team" loading="lazy" />
+      <Image
+        src={teamPhoto}
+        sizes="(max-width: 760px) 100vw, 50vw"
+        quality={85} widths={[640, 960, 1280, 1600]}
+        alt="The Studio 1947 team"
+        loading="lazy"
+      />
     </div>
   </div>
 </section>

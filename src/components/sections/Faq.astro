@@ -1,12 +1,22 @@
 ---
 /** Home FAQ accordion + Mirik photo. */
+import { Image } from 'astro:assets';
+import faqMirik from '../../assets/img/faq-mirik.jpg';
 ---
 
 <section class="section container">
   <p class="eyebrow reveal" style="margin-bottom:28px">Frequently Asked Questions</p>
   <div class="faq reveal">
     <div class="faq__media">
-      <img src="/assets/img/faq-mirik.jpg" alt="Sunset over Mirik lake and the Darjeeling hills, with the footbridge and hillside homes" loading="lazy" width="1200" height="1600" />
+      {/* The one remaining JPEG on the page (332KB); astro:assets re-encodes it
+          to WebP and drops the widths the 0.85fr column never needs. */}
+      <Image
+        src={faqMirik}
+        sizes="(max-width: 1024px) 100vw, 42vw"
+        quality={85} widths={[480, 720, 960, 1200]}
+        alt="Sunset over Mirik lake and the Darjeeling hills, with the footbridge and hillside homes"
+        loading="lazy"
+      />
     </div>
     <div class="faq__list">
       <div class="faq__item">
