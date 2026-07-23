@@ -169,6 +169,8 @@
     .pm-bio p { color: var(--grey-700); font-size: clamp(14.5px, 1.05vw, 16.5px); line-height: 1.72; margin-bottom: 16px; }
     .pm-bio p:last-child { margin-bottom: 0; }
     .pm-bio em { font-style: italic; color: var(--grey-900); }
+    .pm-bio a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; font-weight: 500; transition: color .2s var(--ease); }
+    .pm-bio a:hover { color: var(--grey-900); }
 
     .person-modal__name { font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 34px); color: var(--grey-900); line-height: 1.08; }
     .person-modal__role { color: var(--red); font-size: 15px; margin-top: 6px; }

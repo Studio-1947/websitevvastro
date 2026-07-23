@@ -82,11 +82,16 @@ export function personModal(): void {
   }
 
   function stopAudio(): void {
-    if (!audio) return;
-    audio.pause();
-    audio.src = '';
-    audio = null;
+    if (audio) {
+      audio.pause();
+      audio.src = '';
+      audio = null;
+    }
     setPlaying(false);
+    if (audioNote) {
+      audioNote.textContent = '';
+      audioNote.hidden = true;
+    }
   }
 
   if (audioToggle) {
