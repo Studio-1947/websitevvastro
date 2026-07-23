@@ -26,9 +26,12 @@ interface StringState {
   index: number;
   w: number;
   h: number;
-  /** Displacement of the string's midpoint, px. */
+  /** Peak height of the wave envelope, px. Decays to zero as the note dies. */
   y: number;
-  v: number;
+  /** Travelling-wave phase, radians. Advancing this is what makes it flow. */
+  phase: number;
+  /** 0 = still shaped by the pointer's pull, 1 = fully into the wave. */
+  morph: number;
   /** Where along the string it is pulled, 0–1. */
   at: number;
   /** Standing-wave mode while ringing: 1 lobe (note 1) … 4 lobes (note 4). */
@@ -42,8 +45,13 @@ interface StringState {
 const GRAB = 20; // px from the rest line that counts as touching the string
 const MAX_PULL = 12; // clamp: the string bends, it does not sag
 const BOW = 1.15; // control-point multiplier — how deep the curve reads
-const STIFFNESS = 300;
-const DAMPING = 11;
+/** Base rate the wave crest travels along the string, radians/sec. */
+const WAVE_SPEED = 7.5;
+/** Base amplitude decay; the note fades over roughly two seconds. */
+const DECAY = 1.25;
+/** Seconds spent easing from the pulled hump into the flowing wave. */
+const MORPH_TIME = 0.22;
+const TAU = Math.PI * 2;
 /** Polyline resolution — enough to keep four lobes smooth. */
 const SAMPLES_PER_STRING = 48;
 /**
@@ -59,10 +67,10 @@ const SAMPLES_PER_STRING = 48;
  * progression runs from one slow shallow ripple to four deep fast lobes.
  */
 const NOTE_FEEL = [
-  { amp: 0.3, freq: 1.0, damp: 0.85 }, // note 1 — one slow, shallow lobe
-  { amp: 0.55, freq: 1.35, damp: 1.0 },
-  { amp: 0.78, freq: 1.7, damp: 1.2 },
-  { amp: 1.0, freq: 2.05, damp: 1.45 }, // note 4 — four deep, fast lobes
+  { amp: 0.35, flow: 1.0, decay: 0.9 }, // note 1 — one shallow crest, drifting
+  { amp: 0.6, flow: 1.3, decay: 1.05 },
+  { amp: 0.8, flow: 1.6, decay: 1.2 },
+  { amp: 1.0, flow: 1.95, decay: 1.35 }, // note 4 — four deep crests, racing
 ];
 
 export function approachStrings(): void {
@@ -87,7 +95,7 @@ export function approachStrings(): void {
     li.appendChild(svg);
     strings.push({
       el: li, path, index,
-      w: 0, h: 0, y: 0, v: 0, at: 0.5, mode: 1,
+      w: 0, h: 0, y: 0, phase: 0, morph: 1, at: 0.5, mode: 1,
       held: false, lastY: 0, lastT: 0, speed: 0,
     });
     return li;
@@ -127,14 +135,20 @@ export function approachStrings(): void {
     let d = '';
     for (let k = 0; k <= SAMPLES_PER_STRING; k++) {
       const t = k / SAMPLES_PER_STRING;
+      // Being pulled: one smooth hump peaked under the pointer.
+      const u = t < s.at ? t / Math.max(0.001, s.at) : (1 - t) / Math.max(0.001, 1 - s.at);
+      const hump = u * u * (3 - 2 * u) * BOW;
+
       let shape: number;
       if (s.held) {
-        // Being pulled: one smooth hump peaked under the pointer.
-        const u = t < s.at ? t / Math.max(0.001, s.at) : (1 - t) / Math.max(0.001, 1 - s.at);
-        shape = u * u * (3 - 2 * u) * BOW;
+        shape = hump;
       } else {
-        // Ringing: `mode` half-wavelengths between the fixed ends.
-        shape = Math.sin(Math.PI * s.mode * t);
+        // Ringing: crests travel along the string instead of a standing wave
+        // flicking in place, which is what makes it read as flow rather than
+        // flicker. sin(pi t) is the envelope that keeps both ends pinned.
+        const wave = Math.sin(Math.PI * t) * Math.cos(s.mode * TAU * t - s.phase);
+        // Ease out of the pulled shape so releasing does not snap.
+        shape = hump + (wave - hump) * s.morph;
       }
       const x = t * s.w;
       const y = mid + s.y * shape;
@@ -166,15 +180,14 @@ export function approachStrings(): void {
     for (const s of strings) {
       if (s.held) { alive = true; continue; } // pointer owns the position
       const feel = NOTE_FEEL[Math.min(NOTE_FEEL.length - 1, s.mode - 1)];
-      // Frequency scales with the mode (omega grows with stiffness), so the
-      // higher notes visibly shimmer rather than merely swinging wider.
-      const k = STIFFNESS * feel.freq * feel.freq;
-      const a = -k * s.y - DAMPING * feel.damp * s.v; // damped spring back to rest
-      s.v += a * dt;
-      s.y += s.v * dt;
-      if (Math.abs(s.y) < 0.05 && Math.abs(s.v) < 0.5) {
+      // Crests keep travelling for as long as the note sounds; the envelope
+      // fades exponentially underneath them.
+      s.phase += WAVE_SPEED * feel.flow * dt;
+      if (s.morph < 1) s.morph = Math.min(1, s.morph + dt / MORPH_TIME);
+      s.y *= Math.exp(-DECAY * feel.decay * dt);
+      if (Math.abs(s.y) < 0.08) {
         s.y = 0;
-        s.v = 0;
+        s.phase = 0;
         s.el.classList.remove('is-ringing');
       } else {
         alive = true;
@@ -204,11 +217,11 @@ export function approachStrings(): void {
     s.mode = note + 1;
     s.el.dataset.mode = String(s.mode);
     const feel = NOTE_FEEL[Math.min(NOTE_FEEL.length - 1, note)];
-    // Launch the oscillation. Position and velocity are scaled together so the
-    // decay keeps its shape and only the depth changes; the velocity is capped
-    // so a fast swipe cannot throw the string across the section.
-    s.y *= feel.amp;
-    s.v = Math.max(-340, Math.min(340, (-s.y * 9 - s.speed * 0.06) * feel.amp));
+    // Set the envelope height the wave starts from; the note's own character
+    // scales it, so note 1 ripples shallowly and note 4 runs deep.
+    s.y = Math.abs(s.y) * feel.amp;
+    s.phase = 0;
+    s.morph = 0;
     s.speed = 0;
     // Redraw now rather than waiting for the next animation frame: otherwise
     // the string is flagged as ringing while still painted in its held shape at
@@ -226,7 +239,7 @@ export function approachStrings(): void {
       const dy = e.clientY - (r.top + r.height / 2);
 
       if (inside && Math.abs(dy) < GRAB) {
-        if (!s.held) { s.held = true; s.lastY = e.clientY; s.lastT = now; }
+        if (!s.held) { s.held = true; s.morph = 0; s.lastY = e.clientY; s.lastT = now; }
         const dt = Math.max(1, now - s.lastT);
         s.speed = (Math.abs(e.clientY - s.lastY) / dt) * 1000; // px/s
         s.lastY = e.clientY;
@@ -264,7 +277,8 @@ export function approachStrings(): void {
       s.mode = note + 1;
       s.el.dataset.mode = String(s.mode);
       s.y = MAX_PULL * 0.9 * NOTE_FEEL[Math.min(NOTE_FEEL.length - 1, note)].amp;
-      s.v = 0;
+      s.phase = 0;
+      s.morph = 1;   // no pull to ease out of
       s.at = 0.5;
       s.el.classList.add('is-ringing');
       kick();
