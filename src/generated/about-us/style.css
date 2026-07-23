@@ -30,75 +30,110 @@
       transition: background .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
     }
     .page-about-us .team-card__more svg { width: 12px; height: 12px; }
-    .page-about-us .team-card__more:hover { background: var(--red); color: #fff; transform: translateX(2px); }
     .page-about-us .team-card__more:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+    /* The whole card opens the profile, so the affordance has to read at card
+       level: the pointer covers the card, and the arrow fills on card hover
+       rather than only on its own — otherwise it looks like the arrow is the
+       one clickable spot. It stays a real <button> for keyboard and AT. */
+    .page-about-us .team-card.is-clickable { cursor: pointer; }
+    .page-about-us .team-card.is-clickable:hover .team-card__more,
+    .page-about-us .team-card.is-clickable:focus-within .team-card__more {
+      background: var(--red); color: #fff; transform: translateX(2px);
+    }
+    .page-about-us .team-card.is-clickable:active { transform: translateY(-1px); }
 
     /* ---- Person modal ---- */
     .person-modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: clamp(16px, 4vw, 48px);
       opacity: 0; visibility: hidden; transition: opacity .3s var(--ease), visibility 0s linear .3s; }
     .person-modal.is-open { opacity: 1; visibility: visible; transition: opacity .3s var(--ease); }
     .person-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+    /* Panel is a fixed head + a scrolling body, rather than one big scrolling
+       box: the portrait and name stay anchored while a long bio moves under
+       them, and the scrollbar is confined to the text instead of running the
+       full height of the dialog past the header. */
     .person-modal__panel {
       position: relative; z-index: 1; background: #fff; border-radius: var(--radius-lg);
-      width: min(680px, 100%); max-height: min(88vh, 820px); overflow: auto;
-      padding: clamp(24px, 3vw, 44px);
+      width: min(720px, 100%); max-height: min(88vh, 820px);
+      display: flex; flex-direction: column; overflow: hidden;
       box-shadow: 0 40px 90px rgba(0,0,0,.28);
       transform: translateY(12px) scale(.98); transition: transform .35s var(--ease);
-      /* The default chrome scrollbar rendered as a full-height grey gutter hard
-         against the rounded corner. Slim + translucent so it reads as part of
-         the panel, and `overscroll-behavior` stops a scroll that reaches the
-         end of the bio from chaining out to the page underneath. */
-      overscroll-behavior: contain;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(0,0,0,.22) transparent;
     }
-    .person-modal__panel::-webkit-scrollbar { width: 10px; }
-    .person-modal__panel::-webkit-scrollbar-track { background: transparent; }
-    .person-modal__panel::-webkit-scrollbar-thumb {
-      background-color: rgba(0,0,0,.18);
+    .person-modal__scroll {
+      flex: 1 1 auto; min-height: 0; overflow-y: auto;
+      padding: clamp(20px, 2.4vw, 30px) clamp(24px, 3vw, 44px) clamp(24px, 3vw, 40px);
+      /* Stops a scroll that reaches the end of the bio from chaining out to the
+         page underneath. */
+      overscroll-behavior: contain;
+      /* Slim + translucent so it reads as part of the panel rather than the
+         full-height grey gutter the default chrome scrollbar drew. */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,.2) transparent;
+    }
+    /* Fades the last line rather than slicing it, so a long bio reads as
+       continuing. Toggled off once the end is reached (and never shown when the
+       text already fits) by the `is-scrollable` / `is-scroll-end` classes. */
+    .person-modal__panel::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 60px;
+      background: linear-gradient(180deg, rgba(255,255,255,0), #fff 78%);
+      pointer-events: none; opacity: 0; transition: opacity .25s var(--ease);
+    }
+    .person-modal__panel.is-scrollable:not(.is-scroll-end)::after { opacity: 1; }
+    .person-modal__scroll::-webkit-scrollbar { width: 10px; }
+    .person-modal__scroll::-webkit-scrollbar-track { background: transparent; }
+    .person-modal__scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(0,0,0,.16);
       border-radius: 999px;
       /* Transparent border + background-clip insets the thumb from the panel
          edge, so it never collides with the corner radius. */
       border: 3px solid transparent;
       background-clip: content-box;
     }
-    .person-modal__panel::-webkit-scrollbar-thumb:hover { background-color: rgba(0,0,0,.34); background-clip: content-box; }
+    .person-modal__scroll:hover::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,.3); background-clip: content-box; }
     /* Fixed image component (never stretches) + name/role, top-left of the popup. */
-    .person-modal__head { display: flex; align-items: center; gap: clamp(16px, 2vw, 24px); }
+    .person-modal__head {
+      flex: none; display: flex; align-items: center; gap: clamp(18px, 2.2vw, 28px);
+      padding: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 44px) clamp(20px, 2.2vw, 28px);
+      padding-right: clamp(56px, 6vw, 76px); /* clear of the close button */
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--bg-alt), #fff);
+    }
     .person-modal__id { min-width: 0; }
     .person-modal__panel:focus { outline: none; }
     .person-modal.is-open .person-modal__panel { transform: translateY(0) scale(1); }
     .person-modal__close {
-      position: absolute; top: 14px; right: 16px; z-index: 2;
-      width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.9);
-      font-size: 26px; line-height: 1; color: var(--grey-900); display: grid; place-items: center;
-      transition: background .25s var(--ease), color .25s var(--ease);
+      position: absolute; top: clamp(14px, 1.6vw, 20px); right: clamp(14px, 1.6vw, 20px); z-index: 2;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,.82); border: 1px solid var(--line);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      font-size: 24px; line-height: 1; color: var(--grey-700); display: grid; place-items: center;
+      transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
     }
-    .person-modal__close:hover { background: var(--red); color: #fff; }
+    .person-modal__close:hover { background: var(--red); border-color: var(--red); color: #fff; }
     .person-modal__close:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
     /* Fixed-size portrait thumbnail — identical for every member, no stretching. */
     .person-modal__media { flex: none; width: clamp(88px, 11vw, 120px); aspect-ratio: 4 / 5; background: var(--bg-alt); display: grid; place-items: center; overflow: hidden; border-radius: 16px; }
     .person-modal__media img { width: 100%; height: 100%; object-fit: cover; }
     .person-modal__media .initial { font-family: var(--font-display); font-size: clamp(34px, 4vw, 48px); color: var(--red); line-height: 1; }
-    .person-modal__body { padding: 0; margin-top: clamp(20px, 2.4vw, 30px); }
+    .person-modal__body { padding: 0; }
 
     /* ---- Per-member audio ---- */
-    .pm-audio { margin-top: clamp(18px, 2vw, 24px); }
+    .pm-audio { margin-top: 14px; }
     .pm-audio[hidden] { display: none; }
     .pm-audio__toggle {
-      display: inline-flex; align-items: center; gap: 12px;
-      padding: 10px 18px 10px 12px; border-radius: 999px;
-      border: 1px solid var(--line); background: var(--bg-alt);
-      color: var(--grey-900); font-size: 14.5px; line-height: 1;
-      transition: border-color .25s var(--ease), background .25s var(--ease);
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 7px 16px 7px 7px; border-radius: 999px;
+      border: 1px solid var(--line); background: #fff;
+      color: var(--grey-900); font-size: 13.5px; line-height: 1;
+      transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
     }
-    .pm-audio__toggle:hover { border-color: var(--red); background: #fff; }
+    .pm-audio__toggle:hover { border-color: var(--red); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
     .pm-audio__toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
     /* One element drawn as a triangle, then swapped to two bars while playing —
        avoids shipping two icons and keeps the control the same size in both
        states, so the pill never reflows on toggle. */
     .pm-audio__icon {
-      flex: none; width: 26px; height: 26px; border-radius: 50%;
+      flex: none; width: 24px; height: 24px; border-radius: 50%;
       background: var(--red); position: relative;
     }
     .pm-audio__icon::before {
@@ -113,8 +148,9 @@
       background: #fff; box-shadow: 5px 0 0 #fff;
     }
     .pm-audio__note {
-      margin-top: 10px; color: var(--grey-500);
+      margin: 0 0 clamp(16px, 1.8vw, 22px); color: var(--grey-700);
       font-size: 13.5px; line-height: 1.6; font-style: italic;
+      padding: 12px 16px; border-radius: 12px; background: var(--bg-alt);
     }
     .pm-audio__note[hidden] { display: none; }
 
@@ -123,17 +159,22 @@
     .pm-bio p { color: var(--grey-700); font-size: clamp(14.5px, 1.05vw, 16.5px); line-height: 1.72; margin-bottom: 16px; }
     .pm-bio p:last-child { margin-bottom: 0; }
     .pm-bio em { font-style: italic; color: var(--grey-900); }
-    .person-modal__body { padding: clamp(24px, 3vw, 44px); }
+
     .person-modal__name { font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 34px); color: var(--grey-900); line-height: 1.08; }
     .person-modal__role { color: var(--red); font-size: 15px; margin-top: 6px; }
     .pm-block { margin-top: clamp(20px, 2.2vw, 30px); }
+    .pm-block:first-child { margin-top: 0; }
     .pm-block h4 { font-family: var(--font-body); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-500); margin-bottom: 8px; }
     .pm-block p { color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); }
     .pm-tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .pm-tags span { border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 14px; color: var(--grey-900); }
     @media (max-width: 480px) {
-      .person-modal__head { gap: 14px; }
+      .person-modal__head { gap: 14px; align-items: flex-start; }
       .person-modal__media { width: 84px; }
+      /* Nearly full-height on a phone: the header eats a fixed slice, so give
+         the bio as much of the remaining screen as possible. */
+      .person-modal { padding: 12px; }
+      .person-modal__panel { max-height: 92vh; }
     }
     .page-about-us .team-card__name { font-family: var(--font-display); font-size: clamp(19px, 1.5vw, 24px); color: var(--grey-900); line-height: 1.08; }
     .page-about-us .team-card__role { color: var(--red); font-size: 14px; margin-top: 8px; }

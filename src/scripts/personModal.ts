@@ -20,6 +20,22 @@ export function personModal(): void {
   if (!media || !nameEl || !roleEl || !blocks) return;
   let lastFocus: HTMLElement | null = null;
 
+  const panel = modal.querySelector<HTMLElement>('.person-modal__panel');
+  const scroller = modal.querySelector<HTMLElement>('.person-modal__scroll');
+
+  /** Drives the bottom fade: only while there is more bio below the fold. */
+  function syncScrollState(): void {
+    if (!panel || !scroller) return;
+    const scrollable = scroller.scrollHeight - scroller.clientHeight > 4;
+    panel.classList.toggle('is-scrollable', scrollable);
+    panel.classList.toggle(
+      'is-scroll-end',
+      scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 4
+    );
+  }
+  scroller?.addEventListener('scroll', syncScrollState, { passive: true });
+  window.addEventListener('resize', syncScrollState);
+
   const audioWrap = modal.querySelector<HTMLElement>('[data-pm-audio]');
   const audioToggle = modal.querySelector<HTMLButtonElement>('[data-pm-audio-toggle]');
   const audioLabel = modal.querySelector<HTMLElement>('[data-pm-audio-label]');
@@ -151,7 +167,10 @@ export function personModal(): void {
     modal!.classList.add('is-open');
     modal!.setAttribute('aria-hidden', 'false');
     lockScroll();
-    const panel = modal!.querySelector<HTMLElement>('.person-modal__panel');
+    // Each open starts at the top of the new person's bio, not where the last
+    // one was left, and the fade is measured against the fresh content.
+    if (scroller) scroller.scrollTop = 0;
+    syncScrollState();
     if (panel) panel.focus();
   }
 
@@ -164,8 +183,17 @@ export function personModal(): void {
   }
 
   cards.forEach((card) => {
-    const btn = card.querySelector('.team-card__more');
-    if (btn) btn.addEventListener('click', () => open(card));
+    // The whole card is the target, not just the arrow. Bound on the card so
+    // the arrow's own click bubbles up to exactly one handler — binding both
+    // would open, then immediately re-open, on every arrow press.
+    card.classList.add('is-clickable');
+    card.addEventListener('click', (e) => {
+      // Never swallow a real link or control that happens to sit in a card.
+      if ((e.target as HTMLElement).closest('a, button:not(.team-card__more)')) return;
+      open(card);
+    });
+    // Keyboard parity: the arrow is still the focusable control, so Enter and
+    // Space keep working through its native button behaviour.
   });
   modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', close));
   document.addEventListener('keydown', (e) => {

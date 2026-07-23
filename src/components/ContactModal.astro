@@ -11,7 +11,10 @@
 
 <div class="contact-modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="cm-title" aria-hidden="true">
   <div class="contact-modal__backdrop" data-cm-close></div>
-  <div class="contact-modal__panel" tabindex="-1">
+  {/* data-lenis-prevent: Lenis preventDefaults wheel events document-wide, which
+      swallowed the wheel here and left the form unscrollable on short viewports.
+      The attribute hands this subtree back to native scrolling. */}
+  <div class="contact-modal__panel" tabindex="-1" data-lenis-prevent>
     <button class="contact-modal__close" type="button" aria-label="Close" data-cm-close>&times;</button>
     <p class="eyebrow">Say Hello to Studio 1947</p>
     <h2 class="contact-modal__title" id="cm-title">Send us a note.</h2>

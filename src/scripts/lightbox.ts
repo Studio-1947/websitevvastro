@@ -20,6 +20,9 @@ function build(): void {
   overlay.setAttribute('role', 'dialog');
   overlay.setAttribute('aria-modal', 'true');
   overlay.setAttribute('aria-label', 'Expanded image');
+  // Lenis preventDefaults wheel events document-wide; without this a tall
+  // zoomed image cannot be scrolled inside the overlay.
+  overlay.setAttribute('data-lenis-prevent', '');
 
   img = document.createElement('img');
   img.alt = '';
