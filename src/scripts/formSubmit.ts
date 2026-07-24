@@ -112,7 +112,7 @@ async function send(form: HTMLFormElement): Promise<void> {
       'error',
       '<strong>Sorry, that didn’t send.</strong>' +
         '<span>Please try again, or email us directly at ' +
-        '<a href="mailto:team@1947.io">team@1947.io</a>.</span>',
+        '<a href="mailto:studio@1947.io">studio@1947.io</a>.</span>',
     );
     if (button) {
       button.disabled = false;

@@ -6,7 +6,6 @@
 import { scrollReveal, countUps } from './reveal';
 import { approachFill } from './animations';
 import { accordion } from './faq';
-import { approachStepper } from './stepper';
 import { approachStrings } from './approachStrings';
 import { cocreateCycle } from './cocreate';
 import { commitmentCarousel } from './carousel';
@@ -30,7 +29,6 @@ function init(): void {
   countUps();
   approachFill();
   accordion();
-  approachStepper();
   approachStrings();
   cocreateCycle();
   commitmentCarousel();

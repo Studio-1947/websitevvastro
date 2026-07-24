@@ -46,4 +46,7 @@ const css = [sharedStyles, data.styles].filter(Boolean).join('\n');
 >
   {css && <style slot="head" is:global set:html={css} />}
   <Fragment set:html={data.html} />
+  {/* Anything the route wants after the entry's own <main> — the blog's
+      previous/next footer is the only user today. */}
+  <slot />
 </BaseLayout>

@@ -1,0 +1,516 @@
+/* =====================================================================
+   Blog post — one shared stylesheet for all 19 posts.
+
+   The posts were ported from three different source templates, so each one
+   carried its own copy of the article CSS with its own numbers: covers were
+   820px on some posts and 1100px on others, the "Back to Blog" control was a
+   bordered pill here, a bare link with a circled arrow there. This file owns
+   everything the three dialects have in common — header, cover, prose, meta —
+   so a post reads the same whichever template it came from. Each post's JSON
+   now keeps only the CSS that is genuinely its own (pull-quotes, figure
+   captions, dialogue blocks).
+
+   The metrics follow Medium's reading layout: a 680px measure, Charter (with
+   Georgia as the near-universal fallback — the same stack Medium ships) for
+   body prose, the site's sans for headings and furniture, 21/1.58 body type,
+   and images constrained to the column rather than running wider than it.
+   ===================================================================== */
+
+.page-post {
+  /* Medium's content measure. Everything in the article aligns to it. */
+  --post-w: 680px;
+  /*
+   * Medium's own body stack. Charter is present on macOS/iOS; Georgia covers
+   * Windows and Android. No webfont request is added for it — the difference
+   * between Charter and Georgia at reading size is small next to the cost of
+   * another blocking font on every article.
+   */
+  --post-serif: charter, "Charter", "Bitstream Charter", "Sitka Text", Cambria,
+    Georgia, "Times New Roman", serif;
+  --post-ink: rgba(0, 0, 0, 0.84);
+  --post-ink-soft: rgba(0, 0, 0, 0.54);
+}
+
+/* ---------- Measure ----------
+   The three templates nest the site's .container helper in different places —
+   on the header, on the article, on the cover, or not at all — so each post
+   ended up with its own gutter arithmetic. Neutralise it here and let the
+   article's own blocks own both the measure and the gutter, so every post is
+   laid out identically. Only the innermost block of each pair is padded, which
+   is what the :has() guard on .post-head is for: two templates wrap the header
+   in .post-head__inner, one sets the header directly. */
+.page-post .container {
+  max-width: none;
+  padding-inline: 0;
+}
+.page-post .post-head:not(:has(.post-head__inner)),
+.page-post .post-head__inner,
+.page-post .post__header,
+.page-post .post__wrap,
+.page-post .post-body,
+.page-post .post__body,
+.page-post .post-cover,
+.page-post .post__cover {
+  width: 100%;
+  max-width: calc(var(--post-w) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---------- Header ---------- */
+/* Three dialects name the outer header block differently; all get one rhythm. */
+.page-post .post-head,
+.page-post .post-hero,
+.page-post .post {
+  padding-top: clamp(120px, 16vh, 190px);
+}
+/* One template nests .post-head inside .post-hero, which would apply the header
+   clearance twice and drop the title well below every other post's. */
+.page-post .post-hero .post-head {
+  padding-top: 0;
+}
+
+.page-post .post-eyebrow,
+.page-post .post__eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 18px;
+}
+
+/* Medium's title: sans, 42px, tight leading, slightly negative tracking. */
+.page-post .post-title,
+.page-post .post__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(32px, 3.4vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--post-ink);
+}
+
+.page-post .post-meta,
+.page-post .post__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--post-ink-soft);
+}
+.page-post .post-meta__author,
+.page-post .post-meta .author,
+.page-post .post__meta .who {
+  font-weight: 600;
+  color: var(--post-ink);
+}
+/* Two dialects draw the separator as a CSS dot, two as a character. */
+.page-post .post-meta__dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--grey-300);
+  flex: none;
+}
+.page-post .post-meta .dot,
+.page-post .post__meta .dot,
+.page-post .post__meta .sep {
+  color: var(--grey-300);
+}
+
+.page-post .post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 16px;
+}
+.page-post .post-tags span {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--post-ink-soft);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+/* ---------- Cover + in-article images ----------
+   The complaint that images run too large came from covers set at 820–1100px
+   against a 720px column. Medium sizes an inserted image to the measure, so
+   that is what both the cover and body figures do here. */
+.page-post .post-cover,
+.page-post .post__cover {
+  margin-top: clamp(32px, 4vw, 48px);
+  border-radius: 0;
+  overflow: visible;
+  background: none;
+}
+/* Every cover ships as a 4:5 portrait, which at the 680px measure stands 850px
+   tall — the reader gets a full screen of photograph before a line of text.
+   Crop to a 3:2 band instead: same column width, a little over half the height,
+   and the subject of each of these frames sits centred enough to survive it. */
+.page-post .post-cover img,
+.page-post .post__cover img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 2px;
+  background: var(--bg-alt);
+}
+.page-post .post-body img,
+.page-post .post-body figure,
+.page-post .post__body img,
+.page-post .post__body figure {
+  width: 100%;
+  max-width: var(--post-w);
+  height: auto;
+  margin-inline: auto;
+}
+.page-post .post-body figure,
+.page-post .post__body figure {
+  margin-block: clamp(32px, 4vw, 44px);
+}
+.page-post .post-body figcaption,
+.page-post .post__body figcaption {
+  margin-top: 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--post-ink-soft);
+}
+
+/* ---------- Prose ---------- */
+.page-post .post-body,
+.page-post .post__body {
+  padding-block: clamp(36px, 5vw, 56px) 0;
+}
+.page-post .post-body p,
+.page-post .post__body p {
+  font-family: var(--post-serif);
+  font-size: 21px;
+  line-height: 1.58;
+  letter-spacing: -0.003em;
+  color: var(--post-ink);
+  /* Medium's paragraph gap is ~29px at 21px type. */
+  margin: 0 0 1.4em;
+}
+.page-post .post-body p:last-child,
+.page-post .post__body p:last-child {
+  margin-bottom: 0;
+}
+/* The opening paragraph is set larger in every dialect; two spell it .lead and
+   one .lede. */
+.page-post .post-body .lead,
+.page-post .post-body .lede,
+.page-post .post__body .lead,
+.page-post .post__body .lede {
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--post-ink);
+}
+.page-post .post-body h2,
+.page-post .post__body h2 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--post-ink);
+  margin: 1.6em 0 0.2em;
+}
+.page-post .post-body h3,
+.page-post .post__body h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.22;
+  letter-spacing: -0.012em;
+  color: var(--post-ink);
+  margin: 1.4em 0 0.2em;
+}
+.page-post .post-body h2 + p,
+.page-post .post-body h3 + p,
+.page-post .post__body h2 + p,
+.page-post .post__body h3 + p {
+  margin-top: 0;
+}
+.page-post .post-body strong,
+.page-post .post__body strong {
+  font-weight: 700;
+  color: var(--post-ink);
+}
+.page-post .post-body em,
+.page-post .post__body em {
+  font-style: italic;
+}
+.page-post .post-body a,
+.page-post .post__body a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.page-post .post-body a:hover,
+.page-post .post__body a:hover {
+  color: var(--red);
+}
+.page-post .post-body ul,
+.page-post .post-body ol,
+.page-post .post__body ul,
+.page-post .post__body ol {
+  margin: 0 0 1.4em;
+  padding-left: 1.4em;
+  list-style: disc;
+  font-family: var(--post-serif);
+  font-size: 21px;
+  line-height: 1.58;
+  color: var(--post-ink);
+}
+.page-post .post-body ol,
+.page-post .post__body ol {
+  list-style: decimal;
+}
+.page-post .post-body li,
+.page-post .post__body li {
+  margin-bottom: 0.6em;
+}
+.page-post .post-body blockquote,
+.page-post .post__body blockquote {
+  margin: 1.6em 0;
+  padding-left: 22px;
+  border-left: 3px solid var(--grey-300);
+  font-family: var(--post-serif);
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1.58;
+  color: var(--post-ink-soft);
+}
+
+/* =====================================================================
+   Bengali / Hindi / Nepali posts.
+
+   Medium's Latin metrics do not transfer to these scripts, and applying them
+   made whole articles read as bold. Three separate causes, all fixed here:
+
+     • The face. The Charter/Georgia body stack has no Indic coverage at all,
+       and the sans fallback is Latin-first — its Devanagari and Bengali are
+       drawn much heavier than its Latin. The route loads the matching Noto
+       family for these posts (see pages/blog/[slug].astro) and it is named
+       first below.
+     • The tracking. -0.003em is a Latin refinement; on Devanagari and Bengali
+       it crowds conjuncts into the shirorekha until the line reads as a solid
+       bar. These scripts want normal tracking.
+     • The size and ink. Both scripts carry a far larger apparent size than
+       Latin at the same px, so 21px of near-black set a much darker block of
+       text than the Latin posts. 19px, more leading and slightly softer ink
+       put them back at the same optical weight.
+
+   Latin runs inside these posts are marked .en and keep the reading serif.
+   ===================================================================== */
+.page-post .post-body:lang(bn) p,
+.page-post .post-body:lang(ne) p,
+.page-post .post-body:lang(hi) p,
+.page-post .post-body p:lang(bn),
+.page-post .post-body p:lang(ne),
+.page-post .post-body p:lang(hi),
+.page-post .post__body:lang(bn) p,
+.page-post .post__body:lang(ne) p,
+.page-post .post__body:lang(hi) p,
+.page-post .post__body p:lang(bn),
+.page-post .post__body p:lang(ne),
+.page-post .post__body p:lang(hi),
+.page-post .post-body:lang(bn) li,
+.page-post .post-body:lang(ne) li,
+.page-post .post-body:lang(hi) li {
+  font-family: var(--post-indic), var(--font-body);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.95;
+  letter-spacing: normal;
+  color: rgba(0, 0, 0, 0.78);
+}
+.page-post .post-body:lang(bn) .lead,
+.page-post .post-body:lang(ne) .lead,
+.page-post .post-body:lang(hi) .lead,
+.page-post .post__body:lang(bn) .lead,
+.page-post .post__body:lang(ne) .lead,
+.page-post .post__body:lang(hi) .lead {
+  font-size: 21px;
+  line-height: 1.85;
+}
+/* Headings and the title too — at 700 in a Latin-first face these were the
+   heaviest thing on the page. Noto's 600 reads as a heading without shouting. */
+.page-post [lang="bn"] .post-title,
+.page-post [lang="ne"] .post-title,
+.page-post [lang="hi"] .post-title,
+.page-post [lang="bn"] .post__title,
+.page-post [lang="ne"] .post__title,
+.page-post [lang="hi"] .post__title,
+.page-post [lang="bn"] .post-body h2,
+.page-post [lang="ne"] .post-body h2,
+.page-post [lang="hi"] .post-body h2,
+.page-post [lang="bn"] .post-body h3,
+.page-post [lang="ne"] .post-body h3,
+.page-post [lang="hi"] .post-body h3,
+.page-post [lang="bn"] .post__body h2,
+.page-post [lang="ne"] .post__body h2,
+.page-post [lang="hi"] .post__body h2 {
+  font-family: var(--post-indic), var(--font-body);
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.35;
+}
+/* Never let the browser fake a weight these faces do not ship. */
+.page-post [lang="bn"],
+.page-post [lang="ne"],
+.page-post [lang="hi"] {
+  font-synthesis-weight: none;
+}
+/* Which Noto the route loaded, so the rules above can name one family rather
+   than listing every script's. */
+.page-post [lang="bn"] {
+  --post-indic: "Noto Sans Bengali";
+}
+.page-post [lang="hi"],
+.page-post [lang="ne"] {
+  --post-indic: "Noto Sans Devanagari";
+}
+.page-post .post-body .en,
+.page-post .post__body .en {
+  font-family: var(--post-serif);
+}
+
+@media (max-width: 740px) {
+  /* Medium steps body type down to 18px on small screens. */
+  .page-post .post-body p,
+  .page-post .post__body p,
+  .page-post .post-body ul,
+  .page-post .post-body ol,
+  .page-post .post__body ul,
+  .page-post .post__body ol,
+  .page-post .post-body blockquote,
+  .page-post .post__body blockquote {
+    font-size: 18px;
+  }
+  .page-post .post-body .lead,
+  .page-post .post-body .lede,
+  .page-post .post__body .lead,
+  .page-post .post__body .lede {
+    font-size: 20px;
+  }
+  .page-post .post-body h2,
+  .page-post .post__body h2 {
+    font-size: 26px;
+  }
+  .page-post .post-body h3,
+  .page-post .post__body h3 {
+    font-size: 22px;
+  }
+  .page-post .post-head,
+  .page-post .post-hero,
+  .page-post .post {
+    padding-top: clamp(110px, 20vh, 150px);
+  }
+}
+
+/* =====================================================================
+   Article footer — back to blog + previous/next.
+
+   Rendered by the route (components/blog/PostFooterNav.astro), not by the post
+   markup, which is why it is styled on its own class rather than under
+   .page-post: three of the posts carry that class on <main>, and the nav is a
+   sibling of <main>.
+   ===================================================================== */
+.blog-postnav {
+  width: 100%;
+  max-width: calc(680px + var(--gutter) * 2);
+  margin: clamp(48px, 6vw, 80px) auto 0;
+  padding: clamp(28px, 3vw, 40px) var(--gutter) clamp(56px, 8vw, 96px);
+  border-top: 1px solid var(--line);
+}
+.blog-postnav__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.54);
+  transition: color 0.25s var(--ease);
+}
+.blog-postnav__back:hover {
+  color: var(--red);
+}
+.blog-postnav__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 2vw, 24px);
+  margin-top: clamp(22px, 3vw, 32px);
+}
+.blog-postnav__link {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: border-color 0.25s var(--ease);
+}
+.blog-postnav__link:hover {
+  border-color: var(--grey-300);
+}
+/* "Next" sits on the right and reads right-aligned, mirroring "Previous". */
+.blog-postnav__link--next {
+  text-align: right;
+  align-items: flex-end;
+}
+/* With only one neighbour, keep it in its own column rather than stretching it
+   across the pair. */
+.blog-postnav__link--next:only-child {
+  grid-column: 2;
+}
+.blog-postnav__dir {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--grey-500);
+}
+.blog-postnav__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: rgba(0, 0, 0, 0.84);
+}
+.blog-postnav__link:hover .blog-postnav__title {
+  color: var(--red);
+}
+
+@media (max-width: 620px) {
+  .blog-postnav__pair {
+    grid-template-columns: 1fr;
+  }
+  .blog-postnav__link--next {
+    text-align: left;
+    align-items: flex-start;
+  }
+  .blog-postnav__link--next:only-child {
+    grid-column: 1;
+  }
+}

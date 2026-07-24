@@ -46,6 +46,12 @@ const blog = defineCollection({
     fontHref: z.string().optional(),
     styles: z.string().optional(),
     html: z.string(),
+    /**
+     * Position in the blog index grid. The index is hand-ordered, and the
+     * posts carry no usable date (every one reads "Jun 4"), so this is what
+     * previous/next walks — the reader moves through the list they came from.
+     */
+    order: z.number().int(),
     /** SEO-only (not used for rendering — the markup lives in `html`). */
     heading: z.string().optional(),
     author: z.string().optional(),

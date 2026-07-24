@@ -1,16 +1,39 @@
 ---
 import { getCollection } from 'astro:content';
 import StructuredLayout from '../../layouts/StructuredLayout.astro';
-import { articleJsonLd, cleanName } from '../../lib/seo';
+import PostFooterNav from '../../components/blog/PostFooterNav.astro';
+import { articleJsonLd, cleanName, DEFAULT_FONT_HREF } from '../../lib/seo';
+// One shared article stylesheet for all 19 posts (they came from three
+// different templates, each with its own copy of the article CSS).
+import postCss from '../../styles/blog-post.css?raw';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('blog');
-  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  const entries = (await getCollection('blog')).sort((a, b) => a.data.order - b.data.order);
+  const neighbour = (e: (typeof entries)[number] | undefined) =>
+    e && { slug: e.id, title: e.data.heading ?? cleanName(e.data.title) };
+
+  return entries.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: neighbour(entries[i - 1]), next: neighbour(entries[i + 1]) },
+  }));
 }
 
-const { entry } = Astro.props;
+const { entry, prev, next } = Astro.props;
 const d = entry.data;
 const url = new URL(`/blog/${entry.id}/`, Astro.site).href;
+
+/*
+ * The site's body face is Latin-first: its Devanagari and Bengali glyphs are
+ * far heavier than its Latin, so a whole article set in them reads as bold.
+ * Posts written in those scripts load the matching Noto family instead, which
+ * is drawn for the script and sits at a true regular weight. Only those posts
+ * pay for the extra request — a Latin post's <head> is unchanged.
+ */
+const script = /lang="(bn|hi|ne)"/.exec(d.html)?.[1];
+const NOTO = { bn: 'Noto+Sans+Bengali', hi: 'Noto+Sans+Devanagari', ne: 'Noto+Sans+Devanagari' };
+const fontHref = script
+  ? DEFAULT_FONT_HREF.replace('&display=swap', `&family=${NOTO[script as keyof typeof NOTO]}:wght@400;600;700&display=swap`)
+  : d.fontHref;
 const jsonLd = [
   articleJsonLd({
     headline: d.heading ?? cleanName(d.title),
@@ -23,4 +46,6 @@ const jsonLd = [
 ];
 ---
 
-<StructuredLayout data={d} jsonLd={jsonLd} />
+<StructuredLayout data={{ ...d, fontHref }} sharedStyles={postCss} jsonLd={jsonLd}>
+  <PostFooterNav prev={prev} next={next} />
+</StructuredLayout>

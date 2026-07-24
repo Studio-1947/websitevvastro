@@ -1,0 +1,59 @@
+---
+/**
+ * Article footer for blog posts — "Back to Blog" plus previous/next.
+ *
+ * The three source templates each shipped their own back link (a bordered pill,
+ * a bare link, a circled arrow), so the control changed shape depending on
+ * which post you were reading. Those are gone from the post markup; the route
+ * renders this instead, so every post ends the same way.
+ *
+ * It sits outside <main> because three posts carry `page-post` on <main> rather
+ * than on <body> — styling under `.page-post` would miss them. Styles live in
+ * src/styles/blog-post.css under `.blog-postnav`.
+ */
+interface Neighbour {
+  slug: string;
+  title: string;
+}
+interface Props {
+  prev?: Neighbour;
+  next?: Neighbour;
+}
+const { prev, next } = Astro.props;
+---
+
+<nav class="blog-postnav" aria-label="More posts">
+  <a class="blog-postnav__back" href="/blog/">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" /></svg
+    >
+    Back to Blog
+  </a>
+
+  {
+    (prev || next) && (
+      <div class="blog-postnav__pair">
+        {prev && (
+          <a class="blog-postnav__link blog-postnav__link--prev" href={`/blog/${prev.slug}/`} rel="prev">
+            <span class="blog-postnav__dir">Previous</span>
+            <span class="blog-postnav__title">{prev.title}</span>
+          </a>
+        )}
+        {next && (
+          <a class="blog-postnav__link blog-postnav__link--next" href={`/blog/${next.slug}/`} rel="next">
+            <span class="blog-postnav__dir">Next</span>
+            <span class="blog-postnav__title">{next.title}</span>
+          </a>
+        )}
+      </div>
+    )
+  }
+</nav>

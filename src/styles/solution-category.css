@@ -1,8 +1,7 @@
-    .page-solcat .cat-crumb { padding-top: clamp(120px, 15vh, 180px); font-size: 15px; color: var(--grey-500); display: flex; gap: 8px; align-items: center; }
-    .page-solcat .cat-crumb a { color: var(--grey-700); }
-    .page-solcat .cat-crumb a:hover { color: var(--red); }
-
-    .page-solcat .cat-hero { padding-top: clamp(20px, 3vw, 36px); padding-bottom: clamp(30px, 5vw, 64px); }
+    /* The breadcrumb used to sit above the hero and carry the clearance for the
+       fixed header. With it gone the hero owns that clearance, matching the top
+       padding the other landing heroes use (e.g. /products/). */
+    .page-solcat .cat-hero { padding-top: clamp(140px, 18vh, 230px); padding-bottom: clamp(30px, 5vw, 64px); }
     .page-solcat .cat-hero__eyebrow { color: var(--red); font-size: clamp(15px, 1.2vw, 18px); margin-bottom: 18px; }
     .page-solcat .cat-hero h1 { font-size: clamp(40px, 6vw, 96px); color: var(--grey-700); line-height: 1.04; letter-spacing: -0.02em; max-width: 16ch; }
     .page-solcat .cat-hero__sub { margin-top: clamp(20px, 2.4vw, 32px); font-size: clamp(17px, 1.3vw, 21px); color: var(--grey-700); max-width: 60ch; }

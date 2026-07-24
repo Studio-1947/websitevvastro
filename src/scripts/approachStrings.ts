@@ -15,8 +15,8 @@
  *     rings — that is what separates this from a button that makes a noise.
  *   • The rAF loop runs only while a string is moving; at rest it costs nothing.
  *   • Decorative: injected by script and aria-hidden, so it never reaches
- *     assistive tech or no-JS visitors. Keyboard users still get a note from
- *     the underlying <button> at a fixed velocity.
+ *     assistive tech or no-JS visitors. There is no keyboard path — the step
+ *     rows are inert labels, not controls — so the strings are pointer-only.
  */
 import { pluck, warmAudio, initMuteState, isMuted, setMuted } from './pluckAudio';
 
@@ -262,28 +262,6 @@ export function approachStrings(): void {
   // wrong one. Decoding needs no user gesture; only playback does.
   root.addEventListener('pointerenter', warmAudio, { passive: true, once: true });
   root.addEventListener('pointerdown', warmAudio, { passive: true, once: true });
-
-  // Keyboard: opening a step sounds the string above it, at a fixed velocity.
-  items.forEach((item, i) => {
-    const row = item.querySelector('.astep__row');
-    if (!row) return;
-    row.addEventListener('keydown', (e) => {
-      const k = (e as KeyboardEvent).key;
-      if (k !== 'Enter' && k !== ' ') return;
-      if (reduce) return;
-      warmAudio();
-      const note = pluck(i, 0.5);
-      const s = strings[i];
-      s.mode = note + 1;
-      s.el.dataset.mode = String(s.mode);
-      s.y = MAX_PULL * 0.9 * NOTE_FEEL[Math.min(NOTE_FEEL.length - 1, note)].amp;
-      s.phase = 0;
-      s.morph = 1;   // no pull to ease out of
-      s.at = 0.5;
-      s.el.classList.add('is-ringing');
-      kick();
-    });
-  });
 
   mountMuteToggle(root);
 }
