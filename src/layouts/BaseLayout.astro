@@ -42,5 +42,9 @@ const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
     <script>
       import '../scripts/main.ts';
     </script>
+    <script>
+      import { inject } from '@vercel/analytics';
+      inject();
+    </script>
   </body>
 </html>
