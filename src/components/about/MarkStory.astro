@@ -250,7 +250,7 @@
 /* ── Responsive ────────────────────────────────────────────────────── */
 @media(max-width:900px){
   .sf-stick{grid-template-columns:1fr;grid-template-rows:1fr auto;
-    align-content:center;gap:8px;padding:48px var(--gut) 36px}
+    align-content:center;gap:8px;padding:clamp(96px,15vh,132px) var(--gut) 36px}
   .sf-canvas svg{max-height:50vh}
   .jr-stops span{opacity:0}
   .jr-stops span.on{opacity:1;left:50%!important}
@@ -947,7 +947,19 @@
       } else if(rulerG.firstChild) rulerG.textContent = '';
 
       /* the wheel: rolls, so rotation is distance over radius */
-      var wy  = GYc - WR;
+      /* ride on the ground it passes instead of gliding at a fixed height, so
+         it bobs over bumps like a real tyre. Contact = the tallest ground within
+         a short footprint under the axle; capped + scaled so the ride stays only
+         slightly bumpy, and it eases off with the globe curvature because hAt
+         already carries the HS relief-flattening. */
+      var bump = 0;
+      for(var bd = -WR*0.42; bd <= WR*0.42; bd += WR*0.084){
+        var bh = hAt(off + bd); if(bh > bump) bump = bh;
+      }
+      /* scale (not cap) the contact height, so the ride keeps varying even where
+         the ground is uniformly tall — a cap there would flatten it back out. */
+      bump *= 0.24;
+      var wy  = GYc - WR - bump;
       var deg = (off - OFF0)/WR * 180/Math.PI;
       wheelG.setAttribute('transform','translate('+JCX+','+wy.toFixed(1)+') rotate('+deg.toFixed(2)+')');
       occ.setAttribute('cy', wy.toFixed(1));
