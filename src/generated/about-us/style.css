@@ -233,6 +233,11 @@
     .page-about-us .value-card__media { aspect-ratio: 16 / 10; border-radius: var(--radius); background: var(--bg-alt); display: grid; place-items: center; overflow: hidden; margin-bottom: clamp(20px, 2vw, 30px); }
     .page-about-us .value-card__media .num { font-family: var(--font-display); font-size: clamp(46px, 5vw, 76px); color: var(--red); line-height: 1; }
     .page-about-us .value-card__media img { width: 100%; height: 100%; object-fit: cover; }
+    /* The value illustrations carry their own white ground and soft corner
+       glows, so they sit contained on white rather than cropped on grey —
+       nothing is clipped and the SVG's own background blends with the panel. */
+    .page-about-us .value-card__media--art { background: #fff; }
+    .page-about-us .value-card__media--art img { object-fit: contain; }
     .page-about-us .value-card__title { font-family: var(--font-display); font-size: clamp(26px, 2.5vw, 40px); color: var(--grey-900); line-height: 1.05; }
     .page-about-us .value-card__desc { margin-top: 14px; color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); }
 
