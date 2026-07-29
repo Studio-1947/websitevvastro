@@ -1,18 +1,22 @@
     /* Hero is the industries strip itself — no separate hero needed */
 
     /* Industries strip */
-    .page-solutions .ind { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(14px, 1.4vw, 24px); }
-    .page-solutions .ind__card { border: none; border-radius: 20px; background: #f4f4f4; padding: clamp(22px, 2vw, 36px); min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; transition: background .4s var(--ease), box-shadow .4s var(--ease), transform .5s var(--ease); }
+    /* Column of full-width cards, each revealed on scroll (per-card .reveal). */
+    .page-solutions .ind { display: flex; flex-direction: column; gap: clamp(12px, 1.2vw, 20px); max-width: 940px; margin-inline: auto; }
+    .page-solutions .ind__card { border: none; border-radius: 20px; background: #f4f4f4; padding: clamp(22px, 2.2vw, 34px) clamp(26px, 3vw, 44px); min-height: 0; display: flex; flex-direction: row; align-items: center; gap: clamp(18px, 2.6vw, 40px); transition: background .4s var(--ease), box-shadow .4s var(--ease), transform .5s var(--ease); }
     /* Interactive: each industry card fills red on hover, its content turns white. */
     .page-solutions .ind__card:hover { background: var(--red); box-shadow: 0 24px 55px rgba(230, 0, 0, .22); transform: translateY(-6px); }
     .page-solutions .ind__ico, .page-solutions .ind__num, .page-solutions .ind__plus, .page-solutions .ind__label { transition: color .4s var(--ease); }
     .page-solutions .ind__card:hover .ind__ico, .page-solutions .ind__card:hover .ind__num, .page-solutions .ind__card:hover .ind__plus, .page-solutions .ind__card:hover .ind__label { color: #fff; }
     /* Pronounced staggered slide-up as the section scrolls into view (matches 1947.io/solutions). */
-    .js .page-solutions .ind[data-stagger] > .ind__card { transform: translateY(60px); }
-    .js .page-solutions .ind[data-stagger].is-in > .ind__card { transform: none; }
+    /* Per-card reveal handled by the global .reveal + IntersectionObserver, so
+       each card slides up as it scrolls into view rather than all at once. */
     .page-solutions .ind-head { text-align: center; margin-bottom: clamp(40px, 5vw, 76px); }
     .page-solutions .ind-title { font-family: var(--font-display); font-size: clamp(30px, 4.4vw, 62px); color: var(--grey-900); line-height: 1.04; letter-spacing: -0.02em; }
-    .page-solutions .ind__ico { color: var(--red); display: flex; justify-content: center; line-height: 0; margin-bottom: auto; }
+    .page-solutions .ind__ico { color: var(--red); display: flex; justify-content: center; line-height: 0; flex: 0 0 auto; }
+    /* Horizontal band: icon + count grouped left, industry name fills the rest. */
+    .page-solutions .ind__num { flex: 0 0 auto; min-width: 3.4ch; }
+    .page-solutions .ind__label { flex: 1 1 auto; }
     .page-solutions .ind__ico svg { width: clamp(26px, 2.2vw, 34px); height: auto; }
     .page-solutions .ind__num { font-family: "Google Sans", var(--font-body); font-weight: 400; font-size: clamp(42px, 3.6vw, 66px); color: var(--grey-900); line-height: 1; letter-spacing: -0.03em; }
     .page-solutions .ind__plus { color: var(--red); }
