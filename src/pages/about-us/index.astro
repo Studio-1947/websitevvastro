@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import MarkStory from '../../components/about/MarkStory.astro';
 import html from '../../generated/about-us/main.html?raw';
 import css from '../../generated/about-us/style.css?raw';
 ---
@@ -12,5 +13,8 @@ import css from '../../generated/about-us/style.css?raw';
   ogType={"website"}
 >
   <style slot="head" is:global set:html={css} />
+  {/* Scroll-driven "four lines make a wheel" intro, prepended before the
+      existing About content (hero, team, etc.) — nothing below is replaced. */}
+  <MarkStory />
   <Fragment set:html={html} />
 </BaseLayout>

@@ -1,0 +1,1018 @@
+---
+/**
+ * "Four lines make a wheel" - the scroll-driven opening of the About page.
+ *
+ * Two-act SVG scrollytelling: act one builds the 1947 mark from four crossing
+ * lines into the eight-spoke wheel; act two rolls it from the Darjeeling ridge
+ * to the world and back, then a drag-to-spin wheel and a closing line. It is
+ * prepended before the existing About content - nothing is replaced.
+ *
+ * Ported from a standalone prototype with its page chrome stripped so it lives
+ * inside the site shell:
+ *   - embedded @font-face dropped (the site already loads Syne + Google Sans);
+ *   - html{scroll-behavior:smooth} dropped (it fought the site's Lenis scroll);
+ *   - box-sizing scoped to .sf; the prototype's own top-bar and footer removed
+ *     (the site provides the nav and footer);
+ *   - the hero padded to clear the fixed header.
+ * Styles are injected is:global because the script draws SVG children at runtime
+ * that never receive Astro's scoped hash. The script is is:inline so the
+ * self-contained vanilla IIFE runs verbatim.
+ */
+---
+
+<style is:global>
+.sf, .sf *, .sf *::before, .sf *::after{box-sizing:border-box}
+
+/* ── Fonts ─────────────────────────────────────────────────────────── */
+/* ── Tokens ────────────────────────────────────────────────────────── */
+.sf{
+  --paper:#FFFFFF;
+  --ink:#0B0B0C;
+  --red:#E60000;
+  --red-deep:#A6121F;
+  --hair:#E6E6E8;
+  --mute:#77777C;
+  --ghost:#EDEDEF;
+  --display:'Syne',system-ui,sans-serif;
+  --body:'Google Sans Flex','Google Sans',system-ui,sans-serif;
+  --gut:clamp(20px,6vw,84px);
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  -webkit-font-smoothing:antialiased;
+}
+
+
+
+
+/* ── Shared type ───────────────────────────────────────────────────── */
+.sf .eyebrow{
+  font-family:var(--body);font-weight:600;font-size:.66rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--mute);margin:0;
+}
+.sf .eyebrow em{font-style:normal;color:var(--red)}
+.sf .lede{
+  font-family:var(--body);font-weight:400;font-size:clamp(.98rem,1.05vw,1.08rem);
+  line-height:1.62;color:var(--mute);max-width:38ch;margin:0;
+}
+.sf .rule{height:1px;background:var(--hair);border:0;margin:0}
+
+/* ── Top bar ───────────────────────────────────────────────────────── */
+.sf-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px var(--gut);border-bottom:1px solid var(--hair);
+}
+.sf-top .mark{font-family:var(--display);font-weight:400;font-size:1.02rem;letter-spacing:0}
+.sf-top .mark span{color:var(--red)}
+
+/* ── Hero ──────────────────────────────────────────────────────────── */
+.sf-hero{
+  min-height:88vh;display:flex;flex-direction:column;justify-content:center;
+  padding:10vh var(--gut) 8vh;position:relative;
+}
+.sf-hero h1{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2.9rem,8.2vw,7rem);line-height:.94;letter-spacing:-.018em;
+  margin:.5em 0 0;max-width:14ch;
+}
+.sf-hero h1 .w{color:var(--red)}
+.sf-hero .lede{margin-top:2rem}
+.sf-hero-lines{margin:3.2rem 0 0;width:min(420px,60vw);display:grid;gap:14px}
+.sf-hero-lines i{display:block;height:1px;background:var(--ink);opacity:.9;
+  transform-origin:left;animation:sfGrow .9s cubic-bezier(.2,.7,.2,1) both}
+.sf-hero-lines i:nth-child(2){animation-delay:.10s;width:82%}
+.sf-hero-lines i:nth-child(3){animation-delay:.20s;width:64%}
+.sf-hero-lines i:nth-child(4){animation-delay:.30s;width:46%;background:var(--red)}
+@keyframes sfGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.sf-cue{
+  margin-top:auto;padding-top:5rem;display:flex;align-items:center;gap:12px;
+  font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--mute);font-weight:600;
+}
+.sf-cue b{display:block;width:52px;height:1px;background:var(--red);transform-origin:left;
+  animation:sfPulse 2.2s ease-in-out infinite}
+@keyframes sfPulse{0%,100%{transform:scaleX(.35)}50%{transform:scaleX(1)}}
+
+/* ── Scrolly ───────────────────────────────────────────────────────── */
+.sf-scrolly{position:relative;height:640vh}
+#sf-build{height:780vh}
+.sf-stick{
+  position:sticky;top:0;height:100vh;display:grid;
+  grid-template-columns:1.5fr .82fr;align-items:center;
+  gap:clamp(20px,4vw,64px);padding:0 var(--gut);
+}
+.sf-canvas{position:relative;width:100%;display:flex;align-items:center;justify-content:center}
+.sf-canvas svg{width:100%;height:auto;max-height:74vh;overflow:visible}
+
+/* caption stack */
+.sf-caps{position:relative;min-height:clamp(230px,34vh,330px)}
+.sf-cap{
+  position:absolute;inset:0;opacity:0;transform:translateY(16px);pointer-events:none;
+  transition:opacity .45s ease,transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.sf-cap.on{opacity:1;transform:none;pointer-events:auto}
+.sf-cap .num{
+  font-family:var(--display);font-weight:400;font-size:.84rem;letter-spacing:.04em;
+  color:var(--red);display:block;margin-bottom:1.1rem;
+}
+.sf-cap h2{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2rem,4.1vw,3.4rem);line-height:1.02;letter-spacing:-.015em;margin:0 0 1.1rem;
+}
+.sf-cap .kind{
+  display:inline-flex;align-items:center;gap:9px;margin-bottom:1.4rem;
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);font-weight:600;
+}
+.sf-cap .kind s{display:block;width:34px;height:0;border-top:4px solid var(--ink);text-decoration:none}
+.sf-cap .kind s.dash{border-top-style:dashed}
+.sf-cap .kind s.chev{position:relative}
+.sf-cap .kind s.chev::after{content:"";position:absolute;right:0;top:-5px;width:7px;height:7px;
+  border-top:2px solid var(--ink);border-right:2px solid var(--ink);transform:rotate(45deg)}
+.sf-cap .kind s.node{position:relative}
+.sf-cap .kind s.node::after{content:"";position:absolute;right:-4px;top:-4px;width:6px;height:6px;
+  border:1.5px solid var(--ink);background:#fff}
+
+/* progress rail */
+.sf-rail{
+  position:absolute;left:calc(var(--gut) * .42);top:50%;transform:translateY(-50%);
+  width:1px;height:34vh;background:var(--hair);
+}
+.sf-rail b{position:absolute;top:0;left:-1px;width:3px;background:var(--red);height:0}
+.sf-rail u{
+  position:absolute;left:10px;top:100%;margin-top:10px;text-decoration:none;
+  font-size:.58rem;letter-spacing:.18em;font-weight:600;color:var(--mute);white-space:nowrap;
+}
+@media(max-width:900px){.sf-rail{display:none}}
+
+/* ── Chapter divider ───────────────────────────────────────────────── */
+.sf-chapter{display:flex;align-items:center;gap:clamp(14px,2.5vw,26px);
+  padding:clamp(44px,8vw,96px) var(--gut) clamp(28px,4vw,44px)}
+.sf-chapter hr{flex:1}
+.sf-chapter span{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;
+  font-weight:600;color:var(--mute);white-space:nowrap}
+.sf-chapter span b{color:var(--ink);font-weight:600}
+
+/* ── Journey stage ─────────────────────────────────────────────────── */
+#jr-stage{overflow:hidden}
+.jr-line{fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.jr-stem{stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;fill:none}
+.jr-dot{fill:var(--ink)}
+.jr-red .jr-stem{stroke:var(--red)}
+.jr-red .jr-dot{fill:var(--red)}
+.jr-mer{fill:none;stroke:var(--hair);stroke-width:1.4}
+.jr-rule{stroke:var(--hair);stroke-width:1.4;stroke-linecap:round}
+#sf-roll .sf-canvas{flex-direction:column;align-items:stretch;gap:clamp(10px,1.8vw,22px)}
+.jr-axis{width:100%}
+.jr-track{position:relative;height:1px;background:var(--hair)}
+.jr-track i{position:absolute;top:-4px;width:1px;height:9px;background:var(--hair);transform:translateX(-50%)}
+.jr-track b{position:absolute;top:-4.5px;left:0;width:10px;height:10px;border-radius:50%;
+  background:var(--red);transform:translateX(-50%)}
+.jr-stops{position:relative;height:1.2em;margin-top:13px}
+.jr-stops span{position:absolute;transform:translateX(-50%);white-space:nowrap;
+  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  color:var(--mute);opacity:.45;transition:opacity .3s ease,color .3s ease}
+.jr-stops span.on{opacity:1;color:var(--red)}
+.jr-tele{display:flex;gap:26px;justify-content:flex-end;margin-top:14px;
+  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--mute)}
+.jr-tele var{font-style:normal;color:var(--ink);font-variant-numeric:tabular-nums}
+#sf-roll .sf-cap .lede .w{display:inline-block;opacity:.08;transform:translateY(5px)}
+.jr-lab{font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.2em;
+  text-transform:uppercase;fill:var(--mute)}
+.jr-val{font-family:var(--display);font-weight:400;font-size:31px;fill:var(--ink)}
+.jr-val.red{fill:var(--red)}
+
+/* ── Interactive section ───────────────────────────────────────────── */
+.sf-play{
+  border-top:1px solid var(--hair);padding:clamp(56px,9vw,120px) var(--gut);
+  display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,5vw,80px);align-items:center;
+}
+.sf-play h2{
+  font-family:var(--display);font-weight:400;font-size:clamp(2rem,4.4vw,3.6rem);
+  line-height:1.02;letter-spacing:-.015em;margin:1.1rem 0 1.3rem;
+}
+.sf-chips{display:flex;flex-wrap:wrap;gap:10px;margin:2rem 0 1.4rem;padding:0;list-style:none}
+.sf-chip{
+  font-family:var(--body);font-weight:600;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:10px 16px;border:1px solid var(--hair);background:#fff;color:var(--ink);
+  cursor:pointer;border-radius:999px;transition:border-color .2s,color .2s,background .2s;
+}
+.sf-chip:hover,.sf-chip[aria-pressed="true"]{border-color:var(--red);color:var(--red)}
+.sf-chip:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.sf-readout{
+  display:flex;gap:26px;flex-wrap:wrap;border-top:1px solid var(--hair);padding-top:16px;
+  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:600;
+}
+.sf-readout var{font-style:normal;color:var(--ink);font-variant-numeric:tabular-nums}
+.sf-wheel{display:flex;align-items:center;justify-content:center}
+.sf-wheel svg{width:min(100%,460px);height:auto;cursor:grab;touch-action:pan-y}
+.sf-wheel use{transition:fill .35s ease}
+.sf-cons{fill:none;stroke:var(--ink);stroke-width:1.6}
+.sf-cons.bar{fill:rgba(11,11,12,.07);transition:opacity .3s ease}
+#sf-axes{transition:opacity .3s ease}
+.sf-wheel svg:active{cursor:grabbing}
+.sf-wheel svg:focus-visible{outline:2px solid var(--red);outline-offset:8px;border-radius:50%}
+
+/* ── Close ─────────────────────────────────────────────────────────── */
+.sf-close{
+  border-top:1px solid var(--hair);padding:clamp(56px,9vw,120px) var(--gut);
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.6rem;
+}
+.sf-close p{
+  font-family:var(--display);font-weight:400;font-size:clamp(1.5rem,3.4vw,2.6rem);
+  line-height:1.18;letter-spacing:-.012em;margin:0;max-width:22ch;
+}
+.sf-close p em{font-style:normal;color:var(--red)}
+.sf-again{
+  font-family:var(--body);font-weight:600;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink);background:none;border:0;border-bottom:1px solid var(--red);
+  padding:0 0 6px;cursor:pointer;
+}
+.sf-again:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+.sf-foot{
+  border-top:1px solid var(--hair);padding:20px var(--gut);display:flex;
+  justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:600;
+}
+
+/* ── SVG stage bits ────────────────────────────────────────────────── */
+.sf-bar{fill:none;stroke-linecap:butt}
+.sf-cut{fill:none;stroke:var(--paper);stroke-linecap:butt}
+.sf-ring{fill:none;stroke:var(--red);stroke-linecap:butt}
+.sf-hub{fill:none;stroke:var(--paper);stroke-width:2.8}
+.sf-guide{stroke:var(--hair);stroke-width:1.4;fill:none}
+.sf-tag{
+  font-family:var(--body);font-weight:600;font-size:19px;letter-spacing:.18em;
+  text-transform:uppercase;fill:var(--ink);
+}
+.sf-word{font-family:var(--display);font-weight:400;font-size:76px;letter-spacing:-.012em;fill:var(--ink)}
+.sf-word tspan{fill:var(--red)}
+.sf-sub{font-family:var(--body);font-weight:600;font-size:17px;letter-spacing:.22em;fill:var(--mute)}
+
+/* ── Responsive ────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .sf-stick{grid-template-columns:1fr;grid-template-rows:1fr auto;
+    align-content:center;gap:8px;padding:clamp(96px,15vh,132px) var(--gut) 36px}
+  .sf-canvas svg{max-height:50vh}
+  .jr-stops span{opacity:0}
+  .jr-stops span.on{opacity:1;left:50%!important}
+  .jr-tele{justify-content:space-between;gap:12px}
+  .sf-tag{font-size:30px;letter-spacing:.14em}
+  .sf-word{font-size:96px}
+  .sf-sub{font-size:24px}
+  .sf-caps{min-height:236px}
+  .sf-play,.sf-close{grid-template-columns:1fr}
+  .sf-play{display:flex;flex-direction:column-reverse;align-items:stretch}
+  .sf-hero{min-height:80vh}
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────── */
+@media(prefers-reduced-motion:reduce){
+  
+  .sf *,.sf *::before,.sf *::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+
+/* clear the site's fixed header (added for the in-site embed) */
+.sf .sf-hero{padding-top:clamp(150px,20vh,240px)}
+</style>
+
+<section class="sf" aria-label="How the 1947 mark is built from four lines, and where it travels">
+
+<!-- shared mark definition -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <g id="sf-mark">
+      <path transform="scale(4.65116279) translate(-21.5,-21.5)" d="M20.9017 0.00715656C26.6349 -0.138394 32.0678 1.9402 36.2338 5.87825C40.3915 9.80817 42.7634 15.1291 42.9096 20.8382C43.0556 26.547 40.9765 31.9732 37.0219 36.1214C33.0753 40.2695 27.7482 42.631 22.015 42.7767C16.2819 42.9223 10.8489 40.8436 6.68299 36.9056C2.52518 32.9756 0.153378 27.6546 0.00721264 21.9456C-0.13895 16.2366 1.94019 10.8107 5.89491 6.66243C9.84144 2.51422 15.1767 0.152818 20.9017 0.00715656ZM23.0053 14.5462C22.4531 14.4089 21.8684 14.3522 21.2758 14.3685C20.6829 14.3846 20.0981 14.4896 19.5541 14.6351L19.2699 3.74348C15.6562 4.18017 12.3835 5.69224 9.77674 7.95638L17.7025 15.4603C16.72 16.0829 15.9001 16.9486 15.3236 17.9593L7.39784 10.4554C5.27023 13.1643 3.93015 16.5116 3.6703 20.1263L14.5922 19.8431C14.4541 20.401 14.3972 20.9833 14.4135 21.5736C14.4297 22.1638 14.5359 22.7385 14.682 23.2884L3.75917 23.5706C4.20581 27.1771 5.73305 30.4447 7.99061 33.0404L15.5101 25.14C16.1354 26.1183 17.0041 26.935 18.0189 27.5091L10.4994 35.4017C13.2198 37.5284 16.5739 38.8627 20.1957 39.1214L19.9115 28.2288C20.4636 28.3663 21.0482 28.4227 21.641 28.4066C22.2337 28.3903 22.8186 28.2855 23.3627 28.14L23.6469 39.0325C27.2605 38.5959 30.5333 37.0757 33.14 34.8197L25.2142 27.3148C26.1967 26.6922 27.0175 25.8275 27.5941 24.8167L35.5199 32.3206C37.6475 29.6117 38.9865 26.2633 39.2465 22.6488L28.3246 22.932C28.4626 22.3741 28.5195 21.7917 28.5033 21.2015C28.487 20.6113 28.381 20.0374 28.2348 19.4876L39.1576 19.2044C38.711 15.5979 37.1919 12.3314 34.9262 9.73567L27.4066 17.6361C26.7813 16.6576 25.9129 15.8401 24.8978 15.2659L32.4174 7.36556H32.4252C29.7047 5.2471 26.3509 3.90459 22.7211 3.64583L23.0053 14.5462ZM21.3168 15.9124C24.354 15.8396 26.88 18.2249 26.9613 21.2572C27.0345 24.2896 24.6382 26.8124 21.601 26.8851C18.5639 26.9578 16.0386 24.5728 15.9574 21.5404C15.8843 18.5081 18.2798 15.9852 21.3168 15.9124Z"/>
+    </g>
+  </defs>
+</svg>
+<!-- ── HERO ─────────────────────────────────────────────────────── -->
+<section class="sf-hero">
+  <p class="eyebrow">Data · Design · Technology · Communication</p>
+  <h1>Four lines make a <span class="w">wheel</span>.</h1>
+  <div class="sf-hero-lines"><i></i><i></i><i></i><i></i></div>
+  <p class="lede">Our logo is not a drawing of a wheel. It is four straight lines,
+     pinned at one point and set turning — in Darjeeling, at 2,042 metres.
+     Scroll to build it, then follow where it rolls.</p>
+  <div class="sf-cue"><b></b> Scroll to build the mark</div>
+</section>
+
+<div class="sf-chapter">
+  <hr class="rule"><span>Act one — <b>The build</b></span><hr class="rule">
+</div>
+
+<!-- ── SCROLLY ──────────────────────────────────────────────────── -->
+<section class="sf-scrolly" id="sf-build">
+  <div class="sf-stick">
+
+    <div class="sf-rail" aria-hidden="true"><b id="sf-fill"></b><u id="sf-count">01 / 06</u></div>
+
+    <div class="sf-canvas">
+      <svg id="sf-stage" viewBox="0 0 1000 1000" role="img"
+           aria-label="Four lines cross at a single centre, forty-five degrees apart, giving the eight ends that a closing circle turns into the 1947 eight-spoked wheel.">
+
+        <!-- construction guides -->
+        <g id="sf-guides" opacity="0">
+          <circle class="sf-guide" cx="500" cy="500" r="330"/>
+          <circle class="sf-guide" cx="500" cy="500" r="275"/>
+          <circle class="sf-guide" cx="500" cy="500" r="84"/>
+          <path class="sf-guide" d="M500 130 L500 870 M130 500 L870 500"
+                stroke-dasharray="3 9" opacity=".85" transform="rotate(-1.5 500 500)"/>
+        </g>
+
+        <!-- four lines, crossing -->
+        <g id="sf-lines">
+          <g id="sf-g0" opacity="0"><line class="sf-bar" id="sf-l0"/><g id="sf-d0"></g></g>
+          <g id="sf-g1" opacity="0"><line class="sf-bar" id="sf-l1"/><g id="sf-d1"></g></g>
+          <g id="sf-g2" opacity="0"><line class="sf-bar" id="sf-l2"/><g id="sf-d2"></g></g>
+          <g id="sf-g3" opacity="0"><line class="sf-bar" id="sf-l3"/><g id="sf-d3"></g></g>
+        </g>
+
+        <!-- the hub, inscribed in the crossing -->
+        <circle class="sf-hub" id="sf-hub" cx="500" cy="500" r="84.4" opacity="0"/>
+
+        <!-- one circle closes it -->
+        <circle class="sf-ring" id="sf-ring" cx="500" cy="500" r="302.35"
+                stroke-width="55.3" opacity="0" transform="rotate(-90 500 500)"/>
+
+        <!-- the finished mark -->
+        <g id="sf-logo" opacity="0">
+          <use href="#sf-mark" transform="translate(500,500) scale(3.3)" fill="var(--red)"/>
+        </g>
+
+        <!-- travelling name tags -->
+        <g id="sf-tags">
+          <text class="sf-tag" id="sf-t0" opacity="0">Data</text>
+          <text class="sf-tag" id="sf-t1" opacity="0">Design</text>
+          <text class="sf-tag" id="sf-t2" opacity="0">Technology</text>
+          <text class="sf-tag" id="sf-t3" opacity="0">Communication</text>
+        </g>
+
+        <!-- wordmark -->
+        <g id="sf-lockup" opacity="0">
+          <text class="sf-word" x="500" y="945" text-anchor="middle">1947<tspan>.</tspan></text>
+        </g>
+      </svg>
+
+      </div>
+
+    <div class="sf-caps">
+      <article class="sf-cap" data-i="0">
+        <span class="num">Line 01</span>
+        <span class="kind"><s></s> Ruled — measured in increments</span>
+        <h2>Data</h2>
+        <p class="lede">The first line is a measurement. Evidence set end to end: what happened,
+          how often, to whom. Read it and you know exactly one thing — and it points in exactly
+          one direction.</p>
+      </article>
+
+      <article class="sf-cap" data-i="1">
+        <span class="num">Line 02</span>
+        <span class="kind"><s class="node"></s> Handled — a line with tension</span>
+        <h2>Design</h2>
+        <p class="lede">The second line gives the first a shape worth following. It decides where
+          the eye starts, what it can skip, where it rests. Beautiful, and still just an edge.</p>
+      </article>
+
+      <article class="sf-cap" data-i="2">
+        <span class="num">Line 03</span>
+        <span class="kind"><s class="dash"></s> Sampled — repeatable, discrete</span>
+        <h2>Technology</h2>
+        <p class="lede">The third line makes it run. It takes what was measured and drawn and
+          repeats it a thousand times a second without tiring. On its own it has nowhere to go.</p>
+      </article>
+
+      <article class="sf-cap" data-i="3">
+        <span class="num">Line 04</span>
+        <span class="kind"><s class="chev"></s> Directed — carries both ways</span>
+        <h2>Communication</h2>
+        <p class="lede">The fourth line is the one that leaves the building. It decides what gets
+          said, to whom, and in what order — and whether the other three are ever noticed at all.
+          On its own it has nothing to carry.</p>
+      </article>
+
+      <article class="sf-cap" data-i="4">
+        <span class="num">The crossing</span>
+        <h2>One centre</h2>
+        <p class="lede">Lay all four through a single point, forty-five degrees apart. Four lines,
+          eight ends — the exact spoke count of the finished mark. Nothing is added to reach it.
+          The hub is simply the circle they all turn around.</p>
+      </article>
+
+      <article class="sf-cap" data-i="5">
+        <span class="num">The rim</span>
+        <h2>One circle</h2>
+        <p class="lede">Draw a single circle across the eight ends and the lines stop being lines —
+          they're spokes. Nothing is dropped and nothing is invented. The wheel just closes, and
+          reads the same however it turns.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="sf-chapter">
+  <hr class="rule"><span>Act two — <b>The journey</b></span><hr class="rule">
+</div>
+
+<!-- ── JOURNEY ──────────────────────────────────────────────────── -->
+<section class="sf-scrolly" id="sf-roll">
+  <div class="sf-stick">
+
+    <div class="sf-rail" aria-hidden="true"><b id="jr-fill"></b><u id="jr-count">01 / 05</u></div>
+
+    <div class="sf-canvas">
+      <svg id="jr-stage" viewBox="0 0 1200 690" role="img"
+           aria-label="The wheel rolls from the Darjeeling ridge, down through the plains towns and the metros, until the horizon curves into a globe, then back to the ridge and its people.">
+        <g id="jr-mer" opacity="0"></g>
+        <g id="jr-ruler" opacity="0"></g>
+        <path id="jr-ground" class="jr-line" d="M0 0"/>
+        <g id="jr-marks"></g>
+        <circle id="jr-occ" cx="600" cy="374" r="99" fill="#fff"/>
+        <g id="jr-wheel"><use href="#sf-mark" transform="scale(0.96)" fill="var(--red)"/></g>
+      </svg>
+
+      <div class="jr-axis" aria-hidden="true">
+        <div class="jr-track">
+          <i style="left:9.5%"></i><i style="left:28.5%"></i><i style="left:46.5%"></i>
+          <i style="left:68.5%"></i><i style="left:91%"></i>
+          <b id="jr-pos"></b>
+        </div>
+        <div class="jr-stops">
+          <span style="left:9.5%">Darjeeling</span>
+          <span style="left:28.5%">The plains</span>
+          <span style="left:46.5%">The metros</span>
+          <span style="left:68.5%">The world</span>
+          <span style="left:91%">Darjeeling</span>
+        </div>
+        <div class="jr-tele">
+          <span>Elevation <var id="jr-alt">2,042 m</var></span>
+          <span>Rolled <var id="jr-rev">0.0 rev</var></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf-caps">
+      <article class="sf-cap" data-i="0">
+        <span class="num">Stop 01</span>
+        <h2>Darjeeling</h2>
+        <p class="lede">Two thousand and forty-two metres up, where the road bends back on
+          itself every hundred yards and nothing arrives quickly. A place that teaches you
+          to make things that travel light.</p>
+      </article>
+
+      <article class="sf-cap" data-i="1">
+        <span class="num">Stop 02</span>
+        <h2>The plains</h2>
+        <p class="lede">The first stretch is short. Siliguri, Kalimpong, Gangtok — the corridor
+          where the hills hand over to the plains. Work made up there starts turning up down
+          here, on shopfronts and signboards, in hands that never asked where it came from.</p>
+      </article>
+
+      <article class="sf-cap" data-i="2">
+        <span class="num">Stop 03</span>
+        <h2>The metros</h2>
+        <p class="lede">Then the buildings get taller and the briefs get longer. Kolkata, Delhi,
+          Bengaluru, Mumbai. Same four lines, same wheel — just further to roll between stops.</p>
+      </article>
+
+      <article class="sf-cap" data-i="3">
+        <span class="num">Stop 04</span>
+        <h2>The world</h2>
+        <p class="lede">Roll far enough in one direction and the ground stops being flat.
+          Time zones turn into a scheduling detail, a studio in the hills turns out to be a
+          studio anywhere, and the horizon closes into a circle.</p>
+      </article>
+
+      <article class="sf-cap" data-i="4">
+        <span class="num">Full circle</span>
+        <h2>Darjeeling</h2>
+        <p class="lede">A circle only goes one place. Back up the switchbacks, past the tea,
+          to the people who built it, taught it, and are still standing on that ridge.
+          The wheel doesn't finish anywhere. It comes home.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTERACTIVE ──────────────────────────────────────────────── -->
+<section class="sf-play">
+  <div>
+    <p class="eyebrow">Take it for a turn</p>
+    <h2>Drag the wheel.</h2>
+    <p class="lede">The construction never really leaves. Pick a line to lay it back over
+      the mark — or just grab the wheel and spin it. Arrow keys work too.</p>
+
+    <ul class="sf-chips">
+      <li><button class="sf-chip" data-iso="0" aria-pressed="false">Data</button></li>
+      <li><button class="sf-chip" data-iso="1" aria-pressed="false">Design</button></li>
+      <li><button class="sf-chip" data-iso="2" aria-pressed="false">Technology</button></li>
+      <li><button class="sf-chip" data-iso="3" aria-pressed="false">Communication</button></li>
+      <li><button class="sf-chip" data-iso="-1" aria-pressed="true">Just the mark</button></li>
+    </ul>
+
+    <div class="sf-readout">
+      <span>Lines <var>4</var></span>
+      <span>Spokes <var>8</var></span>
+      <span>Rotation <var id="sf-deg">0°</var></span>
+    </div>
+  </div>
+
+  <div class="sf-wheel">
+    <svg id="sf-toy" viewBox="0 0 600 600" tabindex="0" role="img"
+         aria-label="Interactive 1947 wheel. Drag or use the arrow keys to rotate it.">
+      <g id="sf-spin">
+        <use href="#sf-mark" transform="translate(300,300) scale(2)" fill="var(--red)" id="sf-toylogo"/>
+        <g id="sf-axes" opacity="0">
+          <circle class="sf-cons" cx="300" cy="300" r="200"/>
+          <g transform="translate(300,300)">
+            <rect class="sf-cons bar" id="sf-a0" x="-166.5" y="-14.3" width="333" height="28.6"/>
+            <rect class="sf-cons bar" id="sf-a1" x="-166.5" y="-14.3" width="333" height="28.6" transform="rotate(45)"/>
+            <rect class="sf-cons bar" id="sf-a2" x="-166.5" y="-14.3" width="333" height="28.6" transform="rotate(90)"/>
+            <rect class="sf-cons bar" id="sf-a3" x="-166.5" y="-14.3" width="333" height="28.6" transform="rotate(135)"/>
+          </g>
+          <circle class="sf-cons" cx="300" cy="300" r="51.2"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- ── CLOSE ────────────────────────────────────────────────────── -->
+<section class="sf-close">
+  <p class="eyebrow">And that is the whole idea</p>
+  <p>Data measures it. Design shapes it. Technology moves it. Communication carries it.<br>
+     It leaves the ridge, it crosses the world, and <em>it comes back to Darjeeling</em>.</p>
+  <button class="sf-again" id="sf-replay">Build it again</button>
+</section>
+</section>
+
+<script is:inline>
+(function(){
+  "use strict";
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── geometry helpers ─────────────────────────────────────────── */
+  var CX = 500, CY = 500, R = 330, HUB = 84;
+  var TAGS = ['Data','Design','Technology'];
+
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+  function seg(p,a,b){ return clamp((p-a)/(b-a),0,1); }
+  function lerp(a,b,t){ return a+(b-a)*t; }
+  function easeOut(t){ return 1-Math.pow(1-t,3); }
+  function easeInOut(t){ return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+  function pol(cx,cy,a,r){ var t=a*Math.PI/180; return [cx+r*Math.cos(t), cy+r*Math.sin(t)]; }
+
+  /* pie wedge used as a reveal mask */
+  function wedge(cx,cy,a0,span,r){
+    if(span<=0.05) return 'M0 0';
+    if(span>=359.9) span = 359.9;
+    var s=pol(cx,cy,a0,r), e=pol(cx,cy,a0+span,r), la = span>180?1:0;
+    return 'M'+cx+','+cy+' L'+s[0].toFixed(2)+','+s[1].toFixed(2)+
+           ' A'+r+','+r+' 0 '+la+' 1 '+e[0].toFixed(2)+','+e[1].toFixed(2)+' Z';
+  }
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* ── STAGE: three bold lines cross, one circle closes it ──────── */
+  var stage = $('sf-stage');
+  if(stage){
+    var G  = [$('sf-g0'),$('sf-g1'),$('sf-g2'),$('sf-g3')];
+    var L  = [$('sf-l0'),$('sf-l1'),$('sf-l2'),$('sf-l3')];
+    var D  = [$('sf-d0'),$('sf-d1'),$('sf-d2'),$('sf-d3')];
+    var T  = [$('sf-t0'),$('sf-t1'),$('sf-t2'),$('sf-t3')];
+    var guides = $('sf-guides'), logo = $('sf-logo'), lockup = $('sf-lockup');
+    var ring = $('sf-ring'), hub = $('sf-hub');
+    var caps = Array.prototype.slice.call(document.querySelectorAll('#sf-build .sf-cap'));
+    var fill = $('sf-fill'), count = $('sf-count');
+    var scrolly = $('sf-build');
+
+    /* every number below is measured off the real mark */
+    var CX = 500, CY = 500;
+    var REACH  = 274.7;    /* spokes run out to the inner edge of the rim   */
+    var BOLD   = 47.2;     /* the mark's own spoke width: 0.143 x R (R=330) */
+    var HUBR   = 84.4;     /* and that core's inscribed circle is the hub   */
+    var RINGC  = 2*Math.PI*302.35;
+    var TILT   = -1.5;                  /* the mark itself sits 1.5 deg off-axis   */
+    var ANG    = [0+TILT, 45+TILT, 90+TILT, 135+TILT];  /* -> the 8 real spoke angles */
+    var TAGA   = [180+TILT, 45+TILT, 270+TILT, 315+TILT];
+    var HY     = [359, 453, 547, 641];  /* stacked, before they cross             */
+
+    ring.setAttribute('stroke-dasharray', RINGC.toFixed(1));
+
+    function mix(t){   /* ink -> red, as the circle closes */
+      return 'rgb('+Math.round(lerp(11,230,t))+','+Math.round(lerp(11,0,t))+','+Math.round(lerp(12,0,t))+')';
+    }
+
+    /* white marks cut into each bold bar — one per discipline */
+    function decorate(i, x1,y1,x2,y2, alpha){
+      var g = D[i];
+      if(alpha <= 0.01){ if(g.firstChild) g.textContent=''; return; }
+      var dx=x2-x1, dy=y2-y1, len=Math.hypot(dx,dy) || 1;
+      var ux=dx/len, uy=dy/len, px=-uy, py=ux, h=BOLD/2, out='';
+
+      function cross(f, wid, frac){
+        var bx=x1+dx*f, by=y1+dy*f, e=h*frac;
+        out += '<line class="sf-cut" stroke-width="'+wid+'" x1="'+(bx-px*e).toFixed(1)+'" y1="'+(by-py*e).toFixed(1)+
+               '" x2="'+(bx+px*e).toFixed(1)+'" y2="'+(by+py*e).toFixed(1)+'"/>';
+      }
+      if(i===0){                                   /* Data — ruled increments */
+        for(var t=0;t<=20;t++) cross(t/20, t%5===0 ? 4 : 2.4, t%5===0 ? 1 : 0.5);
+      } else if(i===1){                            /* Design — a path with handles */
+        out += '<line class="sf-cut" stroke-width="2.4" x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+
+               '" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'"/>';
+        [[x1,y1],[x2,y2],[(x1+x2)/2,(y1+y2)/2]].forEach(function(q,n){
+          out += '<circle class="sf-cut" stroke-width="'+(n===2?2:2.6)+'" cx="'+q[0].toFixed(1)+
+                 '" cy="'+q[1].toFixed(1)+'" r="'+(n===2?8:14)+'"/>';
+        });
+      } else if(i===2){                            /* Technology — sampled blocks */
+        for(var j=1;j<8;j++) cross(j/8, 13, 1);
+      } else {                                     /* Communication — carried outward */
+        var wh = h*0.60, dp = 9;
+        for(var m=0;m<8;m++){
+          var f2=(m+0.5)/8, bx2=x1+dx*f2, by2=y1+dy*f2, sg=(f2<0.5?-1:1);
+          out += '<polyline class="sf-cut" stroke-width="3" points="'+
+                 (bx2-ux*sg*dp+px*wh).toFixed(1)+','+(by2-uy*sg*dp+py*wh).toFixed(1)+' '+
+                 (bx2+ux*sg*dp).toFixed(1)+','+(by2+uy*sg*dp).toFixed(1)+' '+
+                 (bx2-ux*sg*dp-px*wh).toFixed(1)+','+(by2-uy*sg*dp-py*wh).toFixed(1)+'"/>';
+        }
+      }
+      g.innerHTML = out;
+      g.setAttribute('opacity', alpha.toFixed(3));
+    }
+
+    function placeTag(i, tx, ty, anchor, alpha){
+      var t = T[i];
+      if(alpha<=0.01){ t.setAttribute('opacity','0'); return; }
+      t.setAttribute('x', tx.toFixed(1)); t.setAttribute('y', ty.toFixed(1));
+      t.setAttribute('text-anchor', anchor);
+      t.setAttribute('opacity', alpha.toFixed(3));
+    }
+
+    var lastCap = -1;
+
+    function render(p){
+      var grow  = [seg(p,0.012,0.105), seg(p,0.157,0.250), seg(p,0.302,0.395), seg(p,0.447,0.540)];
+      var born  = [seg(p,0.004,0.040), seg(p,0.150,0.185), seg(p,0.295,0.330), seg(p,0.440,0.475)];
+      var conv  = easeInOut(seg(p,0.592,0.722));   /* swing into the crossing */
+      var ringP = easeOut(seg(p,0.752,0.872));     /* draw the circle          */
+      var res   = easeInOut(seg(p,0.888,0.978));   /* settle into the mark     */
+      var done  = seg(p,0.940,1.000);
+      var col   = mix(ringP);
+
+      for(var i=0;i<4;i++){
+        var a  = lerp(0, ANG[i], conv) * Math.PI/180;
+        var cy = lerp(HY[i], CY, conv);
+        var hf = REACH * easeOut(grow[i]);
+        var x1 = CX - hf*Math.cos(a), y1 = cy - hf*Math.sin(a);
+        var x2 = CX + hf*Math.cos(a), y2 = cy + hf*Math.sin(a);
+
+        L[i].setAttribute('x1',x1.toFixed(2)); L[i].setAttribute('y1',y1.toFixed(2));
+        L[i].setAttribute('x2',x2.toFixed(2)); L[i].setAttribute('y2',y2.toFixed(2));
+        L[i].setAttribute('stroke', col);
+        L[i].setAttribute('stroke-width', BOLD);
+        /* translucent while they cross, so the core builds up visibly,
+           then solid again as the circle closes */
+        var alpha = lerp(lerp(1, 0.58, conv), 1, ringP);
+        G[i].setAttribute('opacity', (born[i]*alpha*(1-res)).toFixed(3));
+
+        decorate(i, x1,y1,x2,y2, born[i]*(1-conv));
+
+        /* the name travels from beside the bar to the end of its spoke */
+        var rp = pol(CX,CY,TAGA[i],REACH+62), c = Math.cos(TAGA[i]*Math.PI/180);
+        placeTag(i,
+          lerp(CX-REACH, rp[0], conv),
+          lerp(HY[i]-BOLD/2-30, rp[1], conv),
+          conv>0.5 ? (c>0.25?'start':(c<-0.25?'end':'middle')) : 'start',
+          born[i]*(1-res));
+      }
+
+      hub.setAttribute('opacity', (conv*(1-ringP*0.7)*(1-res)).toFixed(3));
+      guides.setAttribute('opacity', (conv*0.9*(1-res*0.85)).toFixed(3));
+
+      ring.setAttribute('opacity', ringP>0.001 ? '1' : '0');
+      ring.setAttribute('stroke-dashoffset', (RINGC*(1-ringP)).toFixed(1));
+
+      logo.setAttribute('opacity', res.toFixed(3));
+      lockup.setAttribute('opacity', done.toFixed(3));
+
+      var idx = p<0.145?0 : p<0.290?1 : p<0.435?2 : p<0.580?3 : p<0.735?4 : 5;
+      if(idx!==lastCap){
+        for(var c2=0;c2<caps.length;c2++) caps[c2].classList.toggle('on', c2===idx);
+        count.textContent = '0'+(idx+1)+' / 06';
+        lastCap = idx;
+      }
+      fill.style.height = (p*100).toFixed(1)+'%';
+    }
+
+    var ticking = false;
+    function onScroll(){
+      if(ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        var r = scrolly.getBoundingClientRect();
+        var total = scrolly.offsetHeight - window.innerHeight;
+        render(clamp(-r.top/(total||1), 0, 1));
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+    render(0);
+  }
+
+  /* ── INTERACTIVE WHEEL ────────────────────────────────────────── */
+  var toy = $('sf-toy');
+  if(toy){
+    var toyLogo = $('sf-toylogo'), axes = $('sf-axes');
+    var BARS = [$('sf-a0'),$('sf-a1'),$('sf-a2'),$('sf-a3')];
+    var spin = $('sf-spin'), degOut = $('sf-deg');
+    var rot = 0, vel = RM ? 0 : 0.06, drag = false, lastA = 0, touched = false;
+
+    function paint(){
+      spin.setAttribute('transform','rotate('+rot.toFixed(2)+' 300 300)');
+      degOut.textContent = (((rot%360)+360)%360).toFixed(0)+'°';
+    }
+    function frame(){
+      if(!drag){
+        rot += vel;
+        if(touched) vel *= 0.955;
+        if(Math.abs(vel)<0.004) vel = 0;
+      }
+      paint();
+      requestAnimationFrame(frame);
+    }
+    function angleAt(ev){
+      var bx = toy.getBoundingClientRect();
+      return Math.atan2(ev.clientY-(bx.top+bx.height/2), ev.clientX-(bx.left+bx.width/2))*180/Math.PI;
+    }
+    toy.addEventListener('pointerdown', function(e){
+      drag = true; touched = true; lastA = angleAt(e); vel = 0;
+      toy.setPointerCapture(e.pointerId);
+    });
+    toy.addEventListener('pointermove', function(e){
+      if(!drag) return;
+      var a = angleAt(e), d = a-lastA;
+      if(d>180) d-=360; if(d<-180) d+=360;
+      rot += d; vel = d; lastA = a; paint();
+      e.preventDefault();
+    });
+    function release(){ drag = false; }
+    toy.addEventListener('pointerup', release);
+    toy.addEventListener('pointercancel', release);
+    toy.addEventListener('keydown', function(e){
+      if(e.key==='ArrowRight'||e.key==='ArrowUp'){ touched=true; rot+=15; vel=0; paint(); e.preventDefault(); }
+      if(e.key==='ArrowLeft' ||e.key==='ArrowDown'){ touched=true; rot-=15; vel=0; paint(); e.preventDefault(); }
+    });
+
+    /* lay a construction line back over the mark — hover previews, click pins */
+    var chips = Array.prototype.slice.call(document.querySelectorAll('.sf-chip'));
+    var pinned = -1;
+    function apply(n){
+      var on = n >= 0;
+      toyLogo.setAttribute('fill', on ? 'var(--ghost)' : 'var(--red)');
+      axes.setAttribute('opacity', on ? '1' : '0');
+      for(var k=0;k<4;k++) BARS[k].setAttribute('opacity', (on && k===n) ? '1' : '0');
+    }
+    function pin(n){
+      pinned = n; apply(n);
+      chips.forEach(function(c){ c.setAttribute('aria-pressed', String(+c.dataset.iso === n)); });
+    }
+    chips.forEach(function(c){
+      var n = +c.dataset.iso;
+      c.addEventListener('click', function(){ pin(n); });
+      c.addEventListener('mouseenter', function(){ apply(n); });
+      c.addEventListener('focus', function(){ apply(n); });
+      c.addEventListener('blur', function(){ apply(pinned); });
+    });
+    document.querySelector('.sf-chips').addEventListener('mouseleave', function(){ apply(pinned); });
+
+    apply(-1); paint();
+    if(!RM) frame();
+  }
+
+  /* ── ACT TWO: the wheel rolls ──────────────────────────────────── */
+  var jrs = $('jr-stage');
+  if(jrs){
+    var JCX = 600, WR = 96, GLOBE = 185, SPAN = 780;
+    var FLAT_Y = 470, ARC_Y = 235;
+    var OFF0 = 560, LEN = 6300;
+
+    var ground = $('jr-ground'), marks = $('jr-marks'), occ = $('jr-occ');
+    var wheelG = $('jr-wheel'), merG = $('jr-mer'), rulerG = $('jr-ruler');
+    var oAlt = $('jr-alt'), oRev = $('jr-rev'), oPos = $('jr-pos');
+    var stops = Array.prototype.slice.call(document.querySelectorAll('.jr-stops span'));
+    var jFill = $('jr-fill'), jCount = $('jr-count'), jRoll = $('sf-roll');
+    var jCaps = Array.prototype.slice.call(jRoll.querySelectorAll('.sf-cap'));
+
+    /* split each lede so the copy can arrive in step with the rolling wheel */
+    var esc = function(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); };
+    jCaps.forEach(function(c){
+      var l = c.querySelector('.lede'); if(!l) return;
+      l.innerHTML = esc(l.textContent.trim()).split(/\s+/)
+        .map(function(w){ return '<span class="w">'+w+'</span>'; }).join(' ');
+      c.__w = l.querySelectorAll('.w');
+      c.__h = c.querySelector('h2');
+    });
+    var SCN = [[0,0.19],[0.19,0.38],[0.38,0.55],[0.55,0.82],[0.82,1.0]];
+
+    /* deterministic hash so the landscape never reshuffles */
+    function h1(i){ var x = Math.sin(i*12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); }
+
+    /* ── build the world: one continuous strip of terrain ─────────── */
+    var FEAT = [], PINS = [], FOLK = [], k = 0;
+
+    function ridge(s0,s1){
+      var s = s0;
+      while(s < s1){
+        var w = 120 + h1(k)*130, hh = 52 + h1(k+91)*100;
+        FEAT.push({s:s + w/2, w:w, h:hh, peak:1}); s += w*0.62; k++;
+      }
+    }
+    function roofs(s0,s1){
+      var s = s0;
+      while(s < s1){
+        var w = 56 + h1(k)*70, hh = 26 + h1(k+37)*36;
+        FEAT.push({s:s + w/2, w:w, h:hh, peak:0}); s += w + 10 + h1(k+7)*26; k++;
+      }
+    }
+    function towers(s0,s1){
+      var s = s0;
+      while(s < s1){
+        var w = 26 + h1(k)*32, hh = 62 + h1(k+53)*105;
+        FEAT.push({s:s + w/2, w:w, h:hh, peak:0}); s += w + 12 + h1(k+11)*20; k++;
+      }
+    }
+    function crust(s0,s1){                      /* near-smooth earth, faint texture */
+      var s = s0;
+      while(s < s1){
+        var w = 40 + h1(k)*70, hh = 4 + h1(k+23)*12;
+        FEAT.push({s:s + w/2, w:w, h:hh, peak:1}); s += w*0.8; k++;
+      }
+    }
+
+    ridge(0,1500); roofs(1500,2900); towers(2900,4200); crust(4200,5600); ridge(5600,7700);
+
+    /* city pins around the globe, people back on the home ridge */
+    for(var s=4240; s<5580; s+=52 + h1(k++)*46) PINS.push({s:s, h:24 + h1(k)*44});
+    for(var s2=6180; s2<7320; s2+=24 + h1(k++)*16) FOLK.push({s:s2, h:13 + h1(k)*5});
+
+    /* bucket the features so height() stays cheap */
+    var BUCKET = {}, BW = 300;
+    FEAT.forEach(function(f){
+      var a = Math.floor((f.s-f.w/2)/BW), b = Math.floor((f.s+f.w/2)/BW);
+      for(var i=a;i<=b;i++){ (BUCKET[i] = BUCKET[i] || []).push(f); }
+    });
+    var HS = 1;                                  /* relief flattens with distance */
+    function hAt(sv){ return height(sv)*HS; }
+    function height(sv){
+      var list = BUCKET[Math.floor(sv/BW)]; if(!list) return 0;
+      var m = 0;
+      for(var i=0;i<list.length;i++){
+        var f = list[i], d = Math.abs(sv - f.s), r = f.w/2;
+        if(d > r) continue;
+        var hv = f.peak ? f.h*(1 - d/r) : f.h;
+        if(hv > m) m = hv;
+      }
+      return m;
+    }
+
+    /* ── map arc-distance + height onto the curved ground ─────────── */
+    var Rc = 60000, GYc = FLAT_Y;
+    function mapPt(d, h){
+      if(Rc > 20000) return [JCX + d, GYc - h];
+      var th = d/Rc, rr = Rc + h;
+      return [JCX + rr*Math.sin(th), GYc + Rc - rr*Math.cos(th)];
+    }
+
+    var WHERE = ['Darjeeling','The plains','The metros','The world','Darjeeling'];
+    var ALT   = ['2,042 m','122 m','sea level','40,075 km','2,042 m'];
+    var lastJ = -1;
+
+    function drawJourney(p){
+      var off = OFF0 + p*LEN;
+
+      /* curvature: flat, curl into a globe, flatten again */
+      var c = seg(p,0.50,0.645) - seg(p,0.775,0.905);
+      c = clamp(c,0,1); c = c*c*(3-2*c);
+      Rc  = 1/(c/GLOBE + (1-c)/60000);
+      GYc = lerp(FLAT_Y, ARC_Y, c);
+      HS  = 1 - 0.70*c;
+
+      var dmax = Math.min(SPAN, Math.PI*Rc);
+      var step = 4.5, d, pt, out = '';
+      for(d = -dmax; d <= dmax; d += step){
+        pt = mapPt(d, hAt(off + d));
+        out += (out ? 'L' : 'M') + pt[0].toFixed(1) + ' ' + pt[1].toFixed(1);
+      }
+      ground.setAttribute('d', out);
+
+      /* pins + people, drawn only while they are inside the window */
+      var pinA = clamp((c-0.30)/0.35, 0, 1), g = '';
+      function stem(item, cls, alpha, rad){
+        var d0 = item.s - off;
+        if(d0 < -dmax || d0 > dmax || alpha <= 0.02) return;
+        var base = hAt(item.s), a = mapPt(d0, base), b = mapPt(d0, base + item.h);
+        g += '<g class="'+cls+'" opacity="'+alpha.toFixed(2)+'">'
+          +  '<line class="jr-stem" x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)+
+             '" x2="'+b[0].toFixed(1)+'" y2="'+b[1].toFixed(1)+'"/>'
+          +  '<circle class="jr-dot" cx="'+b[0].toFixed(1)+'" cy="'+b[1].toFixed(1)+'" r="'+rad+'"/></g>';
+      }
+      PINS.forEach(function(o){ stem(o,'jr-pin',  pinA, 5); });
+      FOLK.forEach(function(o){ stem(o,'jr-red',  1,     4.2); });
+      marks.innerHTML = g;
+
+      /* meridians only once it genuinely reads as a sphere */
+      var mA = clamp((c-0.55)/0.35, 0, 1);
+      merG.setAttribute('opacity', mA.toFixed(2));
+      if(mA > 0.02){
+        var cy = GYc + Rc;
+        merG.innerHTML =
+          '<circle class="jr-mer" cx="'+JCX+'" cy="'+cy.toFixed(1)+'" r="'+Rc.toFixed(1)+'"/>'+
+          '<ellipse class="jr-mer" cx="'+JCX+'" cy="'+cy.toFixed(1)+'" rx="'+(Rc*0.34).toFixed(1)+'" ry="'+Rc.toFixed(1)+'"/>'+
+          '<ellipse class="jr-mer" cx="'+JCX+'" cy="'+cy.toFixed(1)+'" rx="'+(Rc*0.70).toFixed(1)+'" ry="'+Rc.toFixed(1)+'"/>'+
+          '<ellipse class="jr-mer" cx="'+JCX+'" cy="'+cy.toFixed(1)+'" rx="'+Rc.toFixed(1)+'" ry="'+(Rc*0.30).toFixed(1)+'"/>';
+      } else if(merG.firstChild) merG.textContent = '';
+
+      /* the measuring line from Act one, still running underneath */
+      var rA = (1-c)*0.9;
+      rulerG.setAttribute('opacity', rA.toFixed(2));
+      if(rA > 0.02){
+        var ry = GYc + 168, r0 = Math.ceil((off-540)/60)*60, rg = '';
+        rg += '<line class="jr-rule" x1="70" y1="'+ry+'" x2="1130" y2="'+ry+'"/>';
+        for(var t = r0; t < off+540; t += 60){
+          var x = JCX + (t - off);
+          if(x < 72 || x > 1128) continue;
+          var tall = (Math.round(t/60) % 5 === 0) ? 13 : 6;
+          rg += '<line class="jr-rule" x1="'+x.toFixed(1)+'" y1="'+(ry-tall)+'" x2="'+x.toFixed(1)+'" y2="'+ry+'"/>';
+        }
+        rulerG.innerHTML = rg;
+      } else if(rulerG.firstChild) rulerG.textContent = '';
+
+      /* the wheel: rolls, so rotation is distance over radius */
+      /* ride on the ground it passes instead of gliding at a fixed height, so
+         it bobs over bumps like a real tyre. Contact = the tallest ground within
+         a short footprint under the axle; capped + scaled so the ride stays only
+         slightly bumpy, and it eases off with the globe curvature because hAt
+         already carries the HS relief-flattening. */
+      var bump = 0;
+      for(var bd = -WR*0.42; bd <= WR*0.42; bd += WR*0.084){
+        var bh = hAt(off + bd); if(bh > bump) bump = bh;
+      }
+      /* scale (not cap) the contact height, so the ride keeps varying even where
+         the ground is uniformly tall — a cap there would flatten it back out. */
+      bump *= 0.24;
+      var wy  = GYc - WR - bump;
+      var deg = (off - OFF0)/WR * 180/Math.PI;
+      wheelG.setAttribute('transform','translate('+JCX+','+wy.toFixed(1)+') rotate('+deg.toFixed(2)+')');
+      occ.setAttribute('cy', wy.toFixed(1));
+
+      /* readout + captions */
+      var idx = p<0.19?0 : p<0.38?1 : p<0.55?2 : p<0.82?3 : 4;
+      if(idx !== lastJ){
+        oAlt.textContent = ALT[idx];
+        for(var q=0;q<jCaps.length;q++) jCaps[q].classList.toggle('on', q===idx);
+        for(var q2=0;q2<stops.length;q2++) stops[q2].classList.toggle('on', q2===idx);
+        jCount.textContent = '0'+(idx+1)+' / 05';
+        lastJ = idx;
+      }
+      oPos.style.left = (p*100).toFixed(2)+'%';
+
+      /* the copy arrives at the pace the wheel turns */
+      var cap = jCaps[idx], ws = cap.__w;
+      if(ws && ws.length){
+        var loc  = clamp((p-SCN[idx][0])/(SCN[idx][1]-SCN[idx][0]), 0, 1);
+        var lead = RM ? ws.length+8 : easeOut(clamp(loc/0.55,0,1))*(ws.length+8);
+        for(var w=0; w<ws.length; w++){
+          var tw = clamp(lead - w, 0, 1);
+          ws[w].style.opacity   = (0.08 + 0.92*tw).toFixed(3);
+          ws[w].style.transform = tw>0.999 ? 'none' : 'translateY('+((1-tw)*5).toFixed(2)+'px)';
+        }
+        if(cap.__h) cap.__h.style.transform =
+          RM ? 'none' : 'translateX('+((1-easeOut(clamp(loc/0.3,0,1)))*16).toFixed(1)+'px)';
+      }
+      oRev.textContent = ((off-OFF0)/(2*Math.PI*WR)).toFixed(1) + ' rev';
+      jFill.style.height = (p*100).toFixed(1)+'%';
+    }
+
+    var jTick = false;
+    function onRoll(){
+      if(jTick) return;
+      jTick = true;
+      requestAnimationFrame(function(){
+        var r = jRoll.getBoundingClientRect();
+        var total = jRoll.offsetHeight - window.innerHeight;
+        drawJourney(clamp(-r.top/(total||1), 0, 1));
+        jTick = false;
+      });
+    }
+    window.addEventListener('scroll', onRoll, {passive:true});
+    window.addEventListener('resize', onRoll);
+    drawJourney(0);
+  }
+
+  /* replay */
+  var again = $('sf-replay');
+  if(again) again.addEventListener('click', function(){
+    var el = $('sf-build');
+    window.scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' });
+  });
+})();
+</script>
