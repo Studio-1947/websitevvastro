@@ -1,18 +1,26 @@
     /* Hero is the industries strip itself — no separate hero needed */
 
-    /* Industries strip */
-    .page-solutions .ind { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(14px, 1.4vw, 24px); }
-    .page-solutions .ind__card { border: none; border-radius: 20px; background: #f4f4f4; padding: clamp(22px, 2vw, 36px); min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; transition: background .4s var(--ease), box-shadow .4s var(--ease), transform .5s var(--ease); }
+    /* Industries strip — the heading pins on the left while a column of sharp
+       portrait cards scrolls past it on the right. */
+    .page-solutions .ind-section { display: grid; grid-template-columns: 1fr minmax(280px, 380px); gap: clamp(30px, 6vw, 100px); align-items: start; }
+    .page-solutions .ind { display: flex; flex-direction: column; gap: clamp(16px, 1.8vw, 28px); max-width: none; margin: 0; }
+    /* Sharp rectangle, taller than wide. */
+    .page-solutions .ind__card { border: none; border-radius: 2px; background: #f4f4f4; padding: clamp(26px, 2.2vw, 38px); aspect-ratio: 4 / 5; width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; transition: background .4s var(--ease), box-shadow .4s var(--ease), transform .5s var(--ease); }
     /* Interactive: each industry card fills red on hover, its content turns white. */
     .page-solutions .ind__card:hover { background: var(--red); box-shadow: 0 24px 55px rgba(230, 0, 0, .22); transform: translateY(-6px); }
     .page-solutions .ind__ico, .page-solutions .ind__num, .page-solutions .ind__plus, .page-solutions .ind__label { transition: color .4s var(--ease); }
     .page-solutions .ind__card:hover .ind__ico, .page-solutions .ind__card:hover .ind__num, .page-solutions .ind__card:hover .ind__plus, .page-solutions .ind__card:hover .ind__label { color: #fff; }
     /* Pronounced staggered slide-up as the section scrolls into view (matches 1947.io/solutions). */
-    .js .page-solutions .ind[data-stagger] > .ind__card { transform: translateY(60px); }
-    .js .page-solutions .ind[data-stagger].is-in > .ind__card { transform: none; }
-    .page-solutions .ind-head { text-align: center; margin-bottom: clamp(40px, 5vw, 76px); }
-    .page-solutions .ind-title { font-family: var(--font-display); font-size: clamp(30px, 4.4vw, 62px); color: var(--grey-900); line-height: 1.04; letter-spacing: -0.02em; }
-    .page-solutions .ind__ico { color: var(--red); display: flex; justify-content: center; line-height: 0; margin-bottom: auto; }
+    /* Per-card reveal handled by the global .reveal + IntersectionObserver, so
+       each card slides up as it scrolls into view rather than all at once. */
+    /* Pinned heading — stays in view while the cards scroll past. */
+    .page-solutions .ind-head { position: sticky; top: clamp(110px, 16vh, 180px); text-align: left; }
+    /* Red and sized to match the "Our Solutions" title below. */
+    .page-solutions .ind-title { font-family: var(--font-display); font-size: clamp(40px, 6.2vw, 92px); color: var(--red); line-height: 1.02; letter-spacing: -0.03em; max-width: 13ch; }
+    /* Large screens: rest the pinned heading a little lower down the viewport. */
+    @media (min-width: 1200px) { .page-solutions .ind-head { top: 240px; } }
+    /* Portrait card fills top-to-bottom: icon up top, count and label below. */
+    .page-solutions .ind__ico { color: var(--red); display: flex; justify-content: flex-start; line-height: 0; margin-bottom: auto; }
     .page-solutions .ind__ico svg { width: clamp(26px, 2.2vw, 34px); height: auto; }
     .page-solutions .ind__num { font-family: "Google Sans", var(--font-body); font-weight: 400; font-size: clamp(42px, 3.6vw, 66px); color: var(--grey-900); line-height: 1; letter-spacing: -0.03em; }
     .page-solutions .ind__plus { color: var(--red); }
@@ -74,15 +82,15 @@
     .page-solutions .btn-submit .arrow { width: 34px; height: 34px; border-radius: 50%; background: #fff; color: var(--red); display: grid; place-items: center; }
     .page-solutions .btn-submit:hover { transform: translateY(-3px); background: var(--red-dark); }
 
-    @media (max-width: 1024px) {
-      .page-solutions .ind { grid-template-columns: repeat(3, 1fr); }
-    }
     @media (max-width: 860px) {
-      .page-solutions .ind { grid-template-columns: repeat(3, 1fr); }
+      /* Stack: heading on top (no longer pinned), portrait cards below. */
+      .page-solutions .ind-section { grid-template-columns: 1fr; gap: clamp(28px, 7vw, 52px); }
+      .page-solutions .ind-head { position: static; text-align: center; }
+      .page-solutions .ind-title { max-width: none; }
+      .page-solutions .ind { max-width: 380px; margin-inline: auto; }
       .page-solutions .contact { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
-      .page-solutions .ind { grid-template-columns: repeat(2, 1fr); }
       .page-solutions .form-grid { grid-template-columns: 1fr; }
     }
   

@@ -325,8 +325,7 @@
       >
         <div class="team-card__img">
           <img
-            src="/assets/img/about-us/40ad50_641325dafa9a422c8a850059490cfa6f.webp"
-            style="--y: 30%; --z: 1.06"
+            src="/assets/img/about-us/team/subhayu.webp"
             alt="Portrait of Subhayu, Academic Advisor at Studio 1947"
             loading="lazy"
           />
@@ -749,6 +748,10 @@
         </div>
       </article>
 
+      <!-- TEMPORARILY HIDDEN: Sankhadipta (Data), Soumajit (Design) and the
+           "You :)" recruiting card. Kept in a non-rendering <template> so
+           nothing ships; unwrap this template to restore all three. -->
+      <template data-hidden-team>
       <article class="team-card" data-person>
         <div class="team-card__img">
           <img
@@ -896,6 +899,7 @@
           </span>
         </div>
       </a>
+      </template>
     </div>
   </section>
 
@@ -910,7 +914,13 @@
     </p>
     <div class="values__grid" data-stagger>
       <article class="value-card">
-        <div class="value-card__media"><span class="num">01</span></div>
+        <div class="value-card__media value-card__media--art">
+          <img
+            src="/assets/img/about-us/values/co-creation.svg"
+            alt="Two people fitting together the pieces of a puzzle"
+            loading="lazy"
+          />
+        </div>
         <h3 class="value-card__title">Co-Creation</h3>
         <p class="value-card__desc">
           We build with people, not just for them &mdash; every solution is
@@ -918,7 +928,13 @@
         </p>
       </article>
       <article class="value-card">
-        <div class="value-card__media"><span class="num">02</span></div>
+        <div class="value-card__media value-card__media--art">
+          <img
+            src="/assets/img/about-us/values/dignity-of-labour.svg"
+            alt="A pair of hands cradling a handmade pot"
+            loading="lazy"
+          />
+        </div>
         <h3 class="value-card__title">Dignity of Labour</h3>
         <p class="value-card__desc">
           Every craft and every contribution matters. We respect the work, the
@@ -926,10 +942,10 @@
         </p>
       </article>
       <article class="value-card">
-        <div class="value-card__media">
+        <div class="value-card__media value-card__media--art">
           <img
-            src="/assets/img/about-us/8292e9_af771af741db4924b12ef7d21a6668a9f000.webp"
-            alt="Illustration of a clock representing balanced time"
+            src="/assets/img/about-us/values/work-life-balance.svg"
+            alt="A clock framed by a leafy branch and birds in flight"
             loading="lazy"
           />
         </div>
