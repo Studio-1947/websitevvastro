@@ -748,9 +748,13 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
 .page-solcat .cat-work__media--contain img { object-fit: contain; padding: clamp(10px, 1.2vw, 20px); }
 .page-solcat .cat-work:hover .cat-work__media--contain img { transform: scale(1.02); }
 
-/* Solutions overview — four big category cards (2x2), red-fill on hover. */
-.page-solutions .solcards { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2vw, 30px); }
-.page-solutions .solcard { display: flex; flex-direction: column; min-height: clamp(240px, 26vw, 340px); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(28px, 3vw, 48px); background: #fff; transition: background .4s var(--ease), box-shadow .4s var(--ease), transform .4s var(--ease), border-color .4s var(--ease); }
+/* Solutions overview — the heading pins on the left while sharp portrait
+   cards scroll past on the right, matching the industries strip above. */
+.page-solutions .sol-section { display: grid; grid-template-columns: 1fr minmax(300px, 400px); gap: clamp(30px, 6vw, 100px); align-items: start; }
+.page-solutions .solutions__head { position: sticky; top: clamp(110px, 16vh, 180px); margin-bottom: 0; max-width: none; }
+.page-solutions .solcards { display: flex; flex-direction: column; gap: clamp(16px, 1.8vw, 28px); }
+/* Sharp rectangle, taller than wide. */
+.page-solutions .solcard { display: flex; flex-direction: column; aspect-ratio: 4 / 5; width: 100%; border: 1px solid var(--line); border-radius: 2px; padding: clamp(28px, 3vw, 44px); background: #fff; transition: background .4s var(--ease), box-shadow .4s var(--ease), transform .4s var(--ease), border-color .4s var(--ease); }
 .page-solutions .solcard:hover { background: var(--red); border-color: var(--red); transform: translateY(-6px); box-shadow: 0 30px 70px rgba(230,0,0,.24); }
 .page-solutions .solcard__top { display: flex; align-items: center; justify-content: space-between; }
 .page-solutions .solcard__ico { width: 56px; height: 56px; border-radius: 15px; background: rgba(230,0,0,.08); color: var(--red); display: grid; place-items: center; transition: background .4s var(--ease), color .4s var(--ease); }
@@ -765,7 +769,12 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
 .page-solutions .solcard:hover .solcard__link { color: #fff; }
 .page-solutions .solcard__link svg { transition: transform .3s var(--ease); }
 .page-solutions .solcard:hover .solcard__link svg { transform: translateX(4px); }
-@media (max-width: 760px) { .page-solutions .solcards { grid-template-columns: 1fr; } }
+@media (max-width: 860px) {
+  /* Stack: heading on top (no longer pinned), portrait cards centred below. */
+  .page-solutions .sol-section { grid-template-columns: 1fr; gap: clamp(28px, 7vw, 52px); }
+  .page-solutions .solutions__head { position: static; }
+  .page-solutions .solcards { max-width: 400px; margin-inline: auto; }
+}
 
 /* ── Pluckable strings on the Approach steps (scripts/approachStrings.ts) ────
    Five full-width strings run edge to edge across the stepper — one above each
