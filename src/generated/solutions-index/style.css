@@ -15,7 +15,10 @@
        each card slides up as it scrolls into view rather than all at once. */
     /* Pinned heading — stays in view while the cards scroll past. */
     .page-solutions .ind-head { position: sticky; top: clamp(110px, 16vh, 180px); text-align: left; }
-    .page-solutions .ind-title { font-family: var(--font-display); font-size: clamp(30px, 4.4vw, 62px); color: var(--grey-900); line-height: 1.04; letter-spacing: -0.02em; max-width: 12ch; }
+    /* Red and sized to match the "Our Solutions" title below. */
+    .page-solutions .ind-title { font-family: var(--font-display); font-size: clamp(40px, 6.2vw, 92px); color: var(--red); line-height: 1.02; letter-spacing: -0.03em; max-width: 13ch; }
+    /* Large screens: rest the pinned heading a little lower down the viewport. */
+    @media (min-width: 1200px) { .page-solutions .ind-head { top: 240px; } }
     /* Portrait card fills top-to-bottom: icon up top, count and label below. */
     .page-solutions .ind__ico { color: var(--red); display: flex; justify-content: flex-start; line-height: 0; margin-bottom: auto; }
     .page-solutions .ind__ico svg { width: clamp(26px, 2.2vw, 34px); height: auto; }
