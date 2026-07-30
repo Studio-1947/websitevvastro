@@ -26,6 +26,8 @@
         <p class="wi-line wi-jrny">It leaves the ridge,</p>
         <p class="wi-line wi-jrny">it crosses the world,</p>
         <p class="wi-line wi-jrny">and it comes back to <em>Darjeeling</em>.</p>
+
+        <button class="wi-again" id="wi-replay" type="button">Build it again</button>
       </div>
     </div>
   </div>
@@ -71,14 +73,33 @@
   .wi-jrny:first-of-type { margin-top: clamp(20px, 3.4vw, 44px); }
   .wi-jrny em { font-style: normal; color: #e60000; }
 
+  /* "Build it again" — the replay control, sitting below the closing line. */
+  .wi-again {
+    margin-top: clamp(28px, 4vw, 52px);
+    font-family: 'Google Sans', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #0b0b0c;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid #e60000;
+    padding: 0 0 6px;
+    cursor: pointer;
+  }
+  .wi-again:focus-visible { outline: 2px solid #e60000; outline-offset: 4px; }
+
   /* Enhanced state only applies once JS marks the section active; without it
      (no-JS) everything stays fully visible. */
-  .wi.is-live .wi-line { opacity: 0; transform: translateY(20px); }
+  .wi.is-live .wi-line,
+  .wi.is-live .wi-again { opacity: 0; transform: translateY(20px); }
 
   @media (prefers-reduced-motion: reduce) {
     .wi-scrolly { height: auto; }
     .wi-stage { position: static; height: auto; min-height: 60vh; }
-    .wi.is-live .wi-line { opacity: 1; transform: none; }
+    .wi.is-live .wi-line,
+    .wi.is-live .wi-again { opacity: 1; transform: none; }
   }
 </style>
 
@@ -90,10 +111,20 @@
     if (!scrolly || !inner) return;
 
     var lines = inner.querySelectorAll('.wi-line');
+    var again = document.getElementById('wi-replay');
     var section = scrolly.closest('.wi');
 
     function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
     function seg(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
+
+    // Replay the wheel build. Works regardless of motion preference, so it is
+    // wired before the reduced-motion return below.
+    if (again) {
+      again.addEventListener('click', function () {
+        var el = document.getElementById('sf-build');
+        if (el) window.scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' });
+      });
+    }
 
     if (RM) return; // CSS renders the static, fully-visible layout
 
@@ -113,6 +144,12 @@
         var t = seg(p, start, start + 0.16);
         lines[i].style.opacity = t.toFixed(3);
         lines[i].style.transform = 'translateY(' + ((1 - t) * 20).toFixed(1) + 'px)';
+      }
+      // The replay control comes in just after the last line.
+      if (again) {
+        var bt = seg(p, 0.62, 0.8);
+        again.style.opacity = bt.toFixed(3);
+        again.style.transform = 'translateY(' + ((1 - bt) * 20).toFixed(1) + 'px)';
       }
     }
 

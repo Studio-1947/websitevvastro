@@ -537,13 +537,10 @@
   </div>
 </section>
 
-<!-- ── CLOSE ────────────────────────────────────────────────────── -->
-<!-- The manifesto text that used to sit here now lives in its own scroll-driven
-     section (components/about/Manifesto.astro), rendered right after this one —
-     only the replay control remains. -->
-<section class="sf-close">
-  <button class="sf-again" id="sf-replay">Build it again</button>
-</section>
+<!-- The manifesto text AND its "Build it again" replay control now live in the
+     scroll-driven Manifesto section rendered right after this one, so the whole
+     close band is gone from here. -->
+
 </section>
 
 <script is:inline>
@@ -1010,11 +1007,6 @@
     drawJourney(0);
   }
 
-  /* replay */
-  var again = $('sf-replay');
-  if(again) again.addEventListener('click', function(){
-    var el = $('sf-build');
-    window.scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' });
-  });
+  /* the "Build it again" replay control now lives in Manifesto.astro */
 })();
 </script>
