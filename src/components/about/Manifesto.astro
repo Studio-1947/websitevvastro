@@ -1,0 +1,171 @@
+---
+/**
+ * "And that is the whole idea" — the manifesto payoff that follows MarkStory.
+ *
+ * The four discipline lines (Data / Design / Technology / Communication) are the
+ * four crossing lines MarkStory builds its wheel from; this is where they land.
+ *
+ * Scroll effect: a pinned stage (a tall wrapper + a sticky 100vh stage, the same
+ * pattern MarkStory uses so it plays nicely with Lenis). As the section scrolls
+ * through, the text grows and rises, and the lines reveal in sequence. Text is
+ * fully visible by default, so no-JS and reduced-motion readers lose nothing.
+ */
+---
+
+<section class="wi" aria-label="Studio 1947 — the whole idea">
+  <div class="wi-scrolly" id="wi-scrolly">
+    <div class="wi-stage">
+      <div class="wi-inner" id="wi-inner">
+        <p class="wi-open">And that is the whole idea.</p>
+
+        <p class="wi-line wi-disc"><span>Data</span> measures it.</p>
+        <p class="wi-line wi-disc"><span>Design</span> shapes it.</p>
+        <p class="wi-line wi-disc"><span>Technology</span> moves it.</p>
+        <p class="wi-line wi-disc"><span>Communication</span> carries it.</p>
+
+        <p class="wi-line wi-jrny">It leaves the ridge,</p>
+        <p class="wi-line wi-jrny">it crosses the world,</p>
+        <p class="wi-line wi-jrny">and it comes back to <em>Darjeeling</em>.</p>
+
+        <button class="wi-again" id="wi-replay" type="button">Build it again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .wi { background: #fff; color: #0b0b0c; }
+  /* Tall wrapper gives the pin something to scrub against; the stage stays put. */
+  .wi-scrolly { position: relative; height: 260vh; }
+  .wi-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    padding: 8vh clamp(20px, 6vw, 84px);
+  }
+  .wi-inner {
+    text-align: center;
+    max-width: 1100px;
+    transform-origin: center 40%;
+    will-change: transform;
+  }
+  .wi-open {
+    font-family: 'Google Sans', system-ui, sans-serif;
+    font-size: clamp(14px, 1.3vw, 18px);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #77777c;
+    margin-bottom: clamp(22px, 4vw, 48px);
+  }
+  .wi-line {
+    font-family: 'Syne', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(24px, 3vw, 46px);
+    line-height: 1.24;
+    letter-spacing: -0.01em;
+  }
+  .wi-disc span { color: #e60000; }
+  .wi-jrny { color: #0b0b0c; }
+  /* A gap between the four disciplines and the three journey lines. */
+  .wi-jrny:first-of-type { margin-top: clamp(20px, 3.4vw, 44px); }
+  .wi-jrny em { font-style: normal; color: #e60000; }
+
+  /* "Build it again" — the replay control, sitting below the closing line. */
+  .wi-again {
+    margin-top: clamp(28px, 4vw, 52px);
+    font-family: 'Google Sans', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #0b0b0c;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid #e60000;
+    padding: 0 0 6px;
+    cursor: pointer;
+  }
+  .wi-again:focus-visible { outline: 2px solid #e60000; outline-offset: 4px; }
+
+  /* Enhanced state only applies once JS marks the section active; without it
+     (no-JS) everything stays fully visible. */
+  .wi.is-live .wi-line,
+  .wi.is-live .wi-again { opacity: 0; transform: translateY(20px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wi-scrolly { height: auto; }
+    .wi-stage { position: static; height: auto; min-height: 60vh; }
+    .wi.is-live .wi-line,
+    .wi.is-live .wi-again { opacity: 1; transform: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var scrolly = document.getElementById('wi-scrolly');
+    var inner = document.getElementById('wi-inner');
+    if (!scrolly || !inner) return;
+
+    var lines = inner.querySelectorAll('.wi-line');
+    var again = document.getElementById('wi-replay');
+    var section = scrolly.closest('.wi');
+
+    function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+    function seg(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
+
+    // Replay the wheel build. Works regardless of motion preference, so it is
+    // wired before the reduced-motion return below.
+    if (again) {
+      again.addEventListener('click', function () {
+        var el = document.getElementById('sf-build');
+        if (el) window.scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' });
+      });
+    }
+
+    if (RM) return; // CSS renders the static, fully-visible layout
+
+    section.classList.add('is-live');
+
+    function render(p) {
+      var vh = window.innerHeight || 800;
+      // The whole block grows and rises as the section scrolls through.
+      var scale = 0.84 + p * 0.34;          // 0.84 -> 1.18
+      var y = (0.11 - p * 0.22) * vh;        // +11vh -> -11vh
+      inner.style.transform = 'translateY(' + y.toFixed(1) + 'px) scale(' + scale.toFixed(3) + ')';
+
+      // Lines reveal in sequence across the first ~75% of the scrub.
+      var n = lines.length;
+      for (var i = 0; i < n; i++) {
+        var start = (i / n) * 0.55;
+        var t = seg(p, start, start + 0.16);
+        lines[i].style.opacity = t.toFixed(3);
+        lines[i].style.transform = 'translateY(' + ((1 - t) * 20).toFixed(1) + 'px)';
+      }
+      // The replay control comes in just after the last line.
+      if (again) {
+        var bt = seg(p, 0.62, 0.8);
+        again.style.opacity = bt.toFixed(3);
+        again.style.transform = 'translateY(' + ((1 - bt) * 20).toFixed(1) + 'px)';
+      }
+    }
+
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var r = scrolly.getBoundingClientRect();
+        var total = scrolly.offsetHeight - window.innerHeight;
+        render(clamp(-r.top / (total || 1), 0, 1));
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    render(0);
+  })();
+</script>

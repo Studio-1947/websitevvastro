@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MarkStory from '../../components/about/MarkStory.astro';
+import Manifesto from '../../components/about/Manifesto.astro';
 import html from '../../generated/about-us/main.html?raw';
 import css from '../../generated/about-us/style.css?raw';
 ---
@@ -16,5 +17,8 @@ import css from '../../generated/about-us/style.css?raw';
   {/* Scroll-driven "four lines make a wheel" intro, prepended before the
       existing About content (hero, team, etc.) — nothing below is replaced. */}
   <MarkStory />
+  {/* Manifesto payoff — the four disciplines MarkStory's wheel is built from,
+      revealed as the section scrolls (text grows and rises). */}
+  <Manifesto />
   <Fragment set:html={html} />
 </BaseLayout>

@@ -13,6 +13,10 @@ export function contactModal(): void {
   );
   if (!triggers.length) return;
   const panel = modal.querySelector<HTMLElement>('.contact-modal__panel');
+  const video = modal.querySelector<HTMLVideoElement>('[data-cm-video]');
+  // Autoplaying a looping reel is motion the user didn't ask for — hold it for
+  // reduced-motion visitors; the still first frame stays.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let lastFocus: HTMLElement | null = null;
 
   function open(e?: Event): void {
@@ -28,6 +32,9 @@ export function contactModal(): void {
     modal!.classList.add('is-open');
     modal!.setAttribute('aria-hidden', 'false');
     lockScroll();
+    // Start the reel only now — preload="metadata" kept its 2.8 MB off the
+    // page load, so the first open is what fetches and plays it.
+    if (video && !reduce) video.play().catch(() => {});
     if (panel) panel.focus();
   }
   function close(): void {
@@ -35,6 +42,12 @@ export function contactModal(): void {
     modal!.classList.remove('is-open');
     modal!.setAttribute('aria-hidden', 'true');
     unlockScroll();
+    // Pause and rewind so it doesn't keep decoding off-screen and starts fresh
+    // on the next open.
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
     if (lastFocus) lastFocus.focus();
   }
   triggers.forEach((t) => t.addEventListener('click', open));

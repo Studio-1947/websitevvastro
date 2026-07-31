@@ -212,9 +212,11 @@
 .sf-wheel svg:focus-visible{outline:2px solid var(--red);outline-offset:8px;border-radius:50%}
 
 /* ── Close ─────────────────────────────────────────────────────────── */
+/* Holds only the replay control now (the manifesto text moved to its own
+   section), so it is a slim centred band rather than the tall text block. */
 .sf-close{
-  border-top:1px solid var(--hair);padding:clamp(56px,9vw,120px) var(--gut);
-  display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.6rem;
+  border-top:1px solid var(--hair);padding:clamp(24px,3.4vw,40px) var(--gut);
+  display:flex;flex-direction:column;align-items:center;text-align:center;
 }
 .sf-close p{
   font-family:var(--display);font-weight:400;font-size:clamp(1.5rem,3.4vw,2.6rem);
@@ -535,13 +537,10 @@
   </div>
 </section>
 
-<!-- ── CLOSE ────────────────────────────────────────────────────── -->
-<section class="sf-close">
-  <p class="eyebrow">And that is the whole idea</p>
-  <p>Data measures it. Design shapes it. Technology moves it. Communication carries it.<br>
-     It leaves the ridge, it crosses the world, and <em>it comes back to Darjeeling</em>.</p>
-  <button class="sf-again" id="sf-replay">Build it again</button>
-</section>
+<!-- The manifesto text AND its "Build it again" replay control now live in the
+     scroll-driven Manifesto section rendered right after this one, so the whole
+     close band is gone from here. -->
+
 </section>
 
 <script is:inline>
@@ -1008,11 +1007,6 @@
     drawJourney(0);
   }
 
-  /* replay */
-  var again = $('sf-replay');
-  if(again) again.addEventListener('click', function(){
-    var el = $('sf-build');
-    window.scrollTo({ top: el.offsetTop, behavior: RM ? 'auto' : 'smooth' });
-  });
+  /* the "Build it again" replay control now lives in Manifesto.astro */
 })();
 </script>
