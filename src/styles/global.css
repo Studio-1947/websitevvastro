@@ -544,10 +544,43 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 .contact-modal { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; padding: clamp(16px, 4vw, 48px); opacity: 0; visibility: hidden; transition: opacity .3s var(--ease), visibility 0s linear .3s; }
 .contact-modal.is-open { opacity: 1; visibility: visible; transition: opacity .3s var(--ease); }
 .contact-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-.contact-modal__panel { position: relative; z-index: 1; background: #fff; border-radius: var(--radius-lg); width: min(560px, 100%); max-height: min(90vh, 780px); overflow: auto; padding: clamp(28px, 3.4vw, 48px); box-shadow: 0 40px 90px rgba(0,0,0,.28); transform: translateY(14px) scale(.98); transition: transform .35s var(--ease); }
+/* Two columns: the studio reel (.cm-media) beside the form (.cm-body). The
+   panel clips to its radius so the video corners round with it; the form column
+   owns the padding and the scroll, and flex-stretch matches the video's height
+   to the form's. */
+.contact-modal__panel { position: relative; z-index: 1; background: #fff; border-radius: var(--radius-lg); width: min(860px, 100%); overflow: hidden; display: flex; box-shadow: 0 40px 90px rgba(0,0,0,.28); transform: translateY(14px) scale(.98); transition: transform .35s var(--ease); }
 .contact-modal.is-open .contact-modal__panel { transform: none; }
 .contact-modal__panel:focus { outline: none; }
-.contact-modal__close { position: absolute; top: 14px; right: 16px; width: 38px; height: 38px; border-radius: 50%; background: var(--bg-alt); font-size: 24px; line-height: 1; color: var(--grey-900); display: grid; place-items: center; transition: background .25s var(--ease), color .25s var(--ease); }
+
+/* The reel is a 9:16 portrait clip, so the media column takes the video's exact
+   aspect ratio and derives its width from its (form-matched) height. That way
+   the whole frame shows — object-fit: cover fills an aspect-matched box with no
+   crop and no letterbox — instead of the taller column slicing the sides off.
+   The light backing matches the clip's own background so any sub-pixel edge is
+   invisible. */
+/* The reel is a 9:16 portrait clip. Rather than crop it into a taller column,
+   the video sizes the column itself: it runs full height (matched to the form
+   via align-self: stretch) and takes its width from its own aspect ratio, so
+   the whole frame shows with no crop and no letterbox. The light backing matches
+   the clip's own background in case of a sub-pixel edge. */
+.cm-media { position: relative; flex: 0 0 auto; overflow: hidden; background: #d9d6d3; line-height: 0; }
+.cm-media__video { display: block; height: min(84vh, 680px); width: auto; max-width: 46vw; }
+
+.cm-body { flex: 1 1 auto; min-width: 0; padding: clamp(28px, 3.4vw, 48px); max-height: min(84vh, 680px); overflow-y: auto; align-self: center; }
+
+@media (max-width: 620px) {
+  /* Stack: a compact centred reel card as a header (full-frame, not cropped),
+     with the form filling the rest and scrolling. The panel is capped to the
+     viewport so nothing clips off the top or bottom — the portrait reel plus a
+     full form is otherwise taller than a phone screen. The video is sized by a
+     capped height so it stays a modest header rather than a full-height card. */
+  .contact-modal__panel { flex-direction: column; width: min(440px, 100%); max-height: 90vh; }
+  .cm-media { align-self: center; flex: 0 0 auto; margin: clamp(16px, 4vw, 24px) auto 0; border-radius: 18px; }
+  .cm-media__video { width: auto; height: min(30vh, 260px); max-width: 82vw; }
+  .cm-body { align-self: stretch; flex: 1 1 auto; min-height: 0; max-height: none; padding-top: clamp(14px, 3vw, 20px); }
+}
+
+.contact-modal__close { position: absolute; z-index: 2; top: 14px; right: 16px; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); font-size: 24px; line-height: 1; color: var(--grey-900); display: grid; place-items: center; transition: background .25s var(--ease), color .25s var(--ease); }
 .contact-modal__close:hover { background: var(--red); color: #fff; }
 .contact-modal__close:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 .contact-modal .eyebrow { margin-bottom: 6px; }
