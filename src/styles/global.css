@@ -599,7 +599,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 .contact-modal .cm-note { margin-top: 16px; font-size: 13.5px; color: var(--grey-500); }
 
 /* ── Contact form feedback (scripts/formSubmit.ts) ─────────────────────────
-   Submissions used to navigate away to formsubmit.co's own page; they now post
+   Submissions used to navigate away to the form provider's own page; they now post
    in the background, so the outcome has to be shown here instead. Not scoped to
    .contact-modal — the /sayhello/ page uses the same markup and endpoint. */
 .cm-error {

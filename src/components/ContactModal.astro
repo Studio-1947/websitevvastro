@@ -10,8 +10,11 @@
  * page load — it only fetches once the popup is opened. It is decorative
  * (aria-hidden), so no captions or controls.
  *
- * The form posts to formsubmit.co (third-party) exactly as in the source
- * (see MIGRATION_AUDIT.md D5) — reproduced, not changed.
+ * The form posts to Web3Forms. `access_key` is Web3Forms' *public* key — it is
+ * designed to sit in client-side HTML and identifies the destination inbox, so
+ * the studio address itself never appears in the markup. Unlike the previous
+ * FormSubmit endpoint there is no activation step, so submissions deliver from
+ * the first one.
  */
 ---
 
@@ -40,12 +43,12 @@
       <p class="eyebrow">Say Hello to Studio 1947</p>
       <h2 class="contact-modal__title" id="cm-title">Send us a note.</h2>
       <p class="contact-modal__sub">We usually reply within a couple of working days.</p>
-      <!-- BACKEND REQUIRED: UI-only. Point <form action> at Formspree / Web3Forms to make it live. -->
-      <form action="https://formsubmit.co/studio@1947.io" method="POST" novalidate>
-        <input type="hidden" name="_subject" value="New enquiry from Studio 1947 website" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <form action="https://api.web3forms.com/submit" method="POST" novalidate data-contact-form>
+        <input type="hidden" name="access_key" value="5f7140d3-65d4-4366-bdd0-e326ec2b8483" />
+        <input type="hidden" name="subject" value="New enquiry from Studio 1947 website" />
+        <input type="hidden" name="from_name" value="Studio 1947 website" />
+        {/* Web3Forms' honeypot: bots tick it, people never see it. */}
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="cm-row">
           <div class="cm-field">
             <label for="cm-name">Name <span class="cm-req" aria-hidden="true">*</span></label>

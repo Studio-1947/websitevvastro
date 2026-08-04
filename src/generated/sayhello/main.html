@@ -39,18 +39,17 @@
           <p class="contact__form-sub">We usually reply within a couple of working days.</p>
 
           <!--
-            BACKEND REQUIRED: this form is UI-only and is intentionally NOT wired to a live endpoint.
-            To make it functional, point the <form action> at a form handler such as
-            Formspree (https://formspree.io) or Web3Forms (https://web3forms.com), e.g.
-              <form action="https://formspree.io/f/XXXXXXXX" method="POST">
-            The field `name` attributes below are already set up for that. Until then, submissions
-            do nothing (action="#").
+            Posts to Web3Forms. `access_key` is Web3Forms' *public* key — it belongs in
+            client-side HTML and identifies the destination inbox, so the studio address
+            itself never appears in the markup. Behaviour is shared with the contact
+            modal via src/scripts/formSubmit.ts.
           -->
-          <form action="https://formsubmit.co/studio@1947.io" method="POST" novalidate>
-            <input type="hidden" name="_subject" value="New enquiry from Studio 1947 website">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <form action="https://api.web3forms.com/submit" method="POST" novalidate data-contact-form>
+            <input type="hidden" name="access_key" value="5f7140d3-65d4-4366-bdd0-e326ec2b8483">
+            <input type="hidden" name="subject" value="New enquiry from Studio 1947 website">
+            <input type="hidden" name="from_name" value="Studio 1947 website">
+            <!-- Web3Forms' honeypot: bots tick it, people never see it. -->
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="field-row">
               <div class="field">
                 <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
