@@ -160,7 +160,7 @@ export function approachStrings(): void {
   strings.forEach((s) => { measure(s); draw(s); });
 
   // Panels expand/collapse and the viewport changes; keep geometry in sync.
-  if ('ResizeObserver' in window) {
+  if (typeof ResizeObserver !== 'undefined') {
     const ro = new ResizeObserver(() => strings.forEach((s) => { measure(s); draw(s); }));
     strings.forEach((s) => ro.observe(s.el));
   } else {
