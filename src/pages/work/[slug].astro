@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import StructuredLayout from '../../layouts/StructuredLayout.astro';
 import CaseLayout from '../../layouts/CaseLayout.astro';
-import { serviceJsonLd, cleanName } from '../../lib/seo';
+import { serviceJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const entries = await getCollection('work');
@@ -12,7 +12,13 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const d = entry.data;
 const url = new URL(`/work/${entry.id}/`, Astro.site).href;
-const jsonLd = [serviceJsonLd({ name: cleanName(d.title), description: d.description, url })];
+const jsonLd = [serviceJsonLd({ name: cleanName(d.title), description: d.description, url }),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Our Work', path: '/our-work/' },
+    { name: cleanName(d.title), path: `/work/${entry.id}/` },
+  ]),
+];
 
 // Entries migrated to the modular schema carry `sections`; legacy ones still
 // carry raw `html`. Both render for as long as the migration is in progress.

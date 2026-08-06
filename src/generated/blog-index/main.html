@@ -1,7 +1,10 @@
 <main>
     <!-- ===== Video hero (full-bleed, runs behind the navbar) ===== -->
     <section class="blog-video">
-      <video class="blog-video__el" autoplay muted loop playsinline preload="metadata" aria-label="Studio 1947 journal intro video">
+      <!-- poster: without it the first viewport rendered blank white while the
+           2.6 MB clip loaded. The still is a frame from the clip itself, so the
+           swap to video is invisible. -->
+      <video class="blog-video__el" autoplay muted loop playsinline preload="metadata" poster="/assets/img/blog-hero-poster.jpg" aria-label="Studio 1947 journal intro video">
         <source src="/assets/video/blog-hero.mp4" type="video/mp4">
       </video>
     </section>

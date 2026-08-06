@@ -38,7 +38,8 @@ function validate(form: HTMLFormElement): boolean {
   let ok = true;
   let firstBad: HTMLElement | null = null;
 
-  form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]').forEach((input) => {
+  const inputs = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]');
+  for (const input of inputs) {
     const value = input.value.trim();
     if (!value) {
       fieldError(input, 'This field is required.');
@@ -49,7 +50,7 @@ function validate(form: HTMLFormElement): boolean {
       ok = false;
       firstBad ??= input;
     }
-  });
+  }
 
   firstBad?.focus();
   return ok;

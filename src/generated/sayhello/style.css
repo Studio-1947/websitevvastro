@@ -14,6 +14,9 @@
     .page-sayhello .contact__info-bg img { width: 100%; height: 100%; object-fit: cover; }
     .page-sayhello .contact__info::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(160deg, rgba(20,20,20,.55), rgba(158,42,42,.82)); }
     .page-sayhello .contact__info > * { position: relative; z-index: 2; }
+    /* h1 since the page had no top-level heading; h2 kept so the rule survives
+       if the markup changes back. */
+    .page-sayhello .contact__info h1,
     .page-sayhello .contact__info h2 { color: #fff; font-size: clamp(28px, 2.8vw, 44px); line-height: 1.05; }
     .page-sayhello .contact__info p { color: rgba(255,255,255,.9); font-size: clamp(15px, 1.1vw, 18px); }
     .page-sayhello .contact__detail { margin-top: auto; }

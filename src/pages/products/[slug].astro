@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import StructuredLayout from '../../layouts/StructuredLayout.astro';
-import { productJsonLd, cleanName } from '../../lib/seo';
+import { productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
 // Shared scoped CSS for the 5 ERP/SaaS product pages (byte-identical in source).
 // 1-darjeeling uses the global .pdp-* system and simply ignores these selectors.
 import productCss from '../../styles/product.css?raw';
@@ -14,7 +14,13 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const d = entry.data;
 const url = new URL(`/products/${entry.id}/`, Astro.site).href;
-const jsonLd = [productJsonLd({ name: cleanName(d.title), description: d.description, url })];
+const jsonLd = [productJsonLd({ name: cleanName(d.title), description: d.description, url }),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products/' },
+    { name: cleanName(d.title), path: `/products/${entry.id}/` },
+  ]),
+];
 ---
 
 <StructuredLayout data={d} sharedStyles={productCss} jsonLd={jsonLd} />
