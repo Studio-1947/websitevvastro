@@ -72,6 +72,23 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 }
 .text-red { color: var(--red); }
 
+/* ---------- Skip to content ----------
+   Off-screen until focused, then lands as a normal-looking pill above the nav.
+   Not display:none — that would take it out of the tab order entirely, which
+   defeats the point. */
+.skip-link {
+  position: fixed; top: 8px; left: 8px; z-index: 400;
+  transform: translateY(-160%);
+  background: var(--red); color: #fff;
+  padding: 12px 22px; border-radius: 999px;
+  font-size: 15px; font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  transition: transform .25s var(--ease);
+}
+.skip-link:focus { transform: translateY(0); outline: 2px solid #fff; outline-offset: -4px; }
+/* The anchor is a zero-size marker; never let its focus ring paint. */
+#main-content:focus { outline: none; }
+
 /* =====================================================================
    Header — floating white pill nav (sticky)
    ===================================================================== */
@@ -377,7 +394,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 .astep__panel { display: grid; grid-template-rows: 1fr; }
 
 .astep__panel-in { overflow: hidden; }
-.astep__desc { margin: 2px 0 clamp(12px, 1.4vw, 18px) calc(42px + clamp(18px, 2vw, 28px)); max-width: 74ch; color: rgba(255,255,255,.86); font-size: clamp(14px, 1vw, 16px); line-height: 1.6; }
+/* Full white, not 86%: over the band's #E60000 the translucent white measured
+   3.74:1, under the 4.5:1 WCAG AA minimum. Solid white is 4.81:1, and the floor
+   rises from 14px to 15px so the copy is comfortably readable on the red. */
+.astep__desc { margin: 2px 0 clamp(12px, 1.4vw, 18px) calc(42px + clamp(18px, 2vw, 28px)); max-width: 74ch; color: #fff; font-size: clamp(15px, 1vw, 16px); line-height: 1.65; }
 .astep__desc strong { color: #fff; font-weight: 600; }
 @media (max-width: 620px) {
   .astep__desc { margin-left: 0; }

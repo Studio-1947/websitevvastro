@@ -6,12 +6,12 @@
 
 export const SITE = {
   name: 'Studio 1947',
-  url: 'https://1947.io',
+  url: 'https://www.1947.io',
   defaultTitle: 'Data, Design & Tech Consulting | Studio 1947',
   defaultDescription:
     'Studio 1947 — crafting & co-creating data, design and technology solutions from Darjeeling. We understand, design, build and grow impactful solutions for organisations worldwide.',
   locale: 'en',
-  logo: 'https://1947.io/assets/img/brand-mark.png',
+  logo: 'https://www.1947.io/assets/img/brand-mark.png',
   sameAs: [
     'https://www.instagram.com/1947.io/',
     'https://www.linkedin.com/company/studio-1947',
@@ -141,6 +141,43 @@ export function serviceJsonLd(opts: {
 /** Strip the " | Studio 1947…" suffix from a page <title> to get a clean name. */
 export function cleanName(title: string): string {
   return title.split('|')[0].trim();
+}
+
+/**
+ * FAQPage JSON-LD. Only valid when the answers are visible on the page, which
+ * they are — the accordion hides them with CSS, not from the DOM.
+ */
+export function faqJsonLd(
+  items: { question: string; answer: string }[],
+): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((i) => ({
+      '@type': 'Question',
+      name: i.question,
+      acceptedAnswer: { '@type': 'Answer', text: i.answer },
+    })),
+  };
+}
+
+/**
+ * BreadcrumbList JSON-LD. `trail` is ordered root-first and excludes the
+ * current page's own URL only if you omit its `path`.
+ */
+export function breadcrumbJsonLd(
+  trail: { name: string; path: string }[],
+): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map((t, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: t.name,
+      item: new URL(t.path, SITE.url).href,
+    })),
+  };
 }
 
 /** Organization JSON-LD — embedded on every page. */

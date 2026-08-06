@@ -6,7 +6,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://1947.io',
+  site: 'https://www.1947.io',
   // Clean directory URLs so routes resolve at /about-us/ etc. — identical to the
   // original static site's <slug>/index.html structure.
   trailingSlash: 'always',

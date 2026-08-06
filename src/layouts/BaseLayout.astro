@@ -32,8 +32,14 @@ const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
     </BaseHead>
   </head>
   <body class={bodyClass}>
+    {/* Skip link: first thing in the tab order, so keyboard and screen-reader
+        users can jump the nav. Pages render their own <main> through the slot,
+        so the target is this zero-size anchor rather than an id we cannot reach
+        from here. */}
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <Header />
 
+    <span id="main-content" tabindex="-1"></span>
     <slot />
 
     <Footer />
@@ -41,6 +47,13 @@ const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
 
     <script>
       import '../scripts/main.ts';
+    </script>
+
+    {/* Vercel Web Analytics — cookieless and privacy-preserving, so it keeps the
+        site's "no cookie banner needed" position. No-ops in local dev. */}
+    <script>
+      import { inject } from '@vercel/analytics';
+      inject();
     </script>
   </body>
 </html>

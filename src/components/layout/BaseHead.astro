@@ -42,6 +42,12 @@ const fontsHref = fontHref;
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 <link rel="canonical" href={canonical} />
 <link rel="icon" href="/assets/img/brand-mark.png" />
+<!-- /favicon.ico is requested by browsers and crawlers whether or not it is
+     declared, so it ships as a real multi-resolution file rather than a 404. -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#e60000" />
 
 <!-- Open Graph -->
 <meta property="og:site_name" content={SITE.name} />

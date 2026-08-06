@@ -1,8 +1,8 @@
-# Studio 1947 — robots.txt (base; finalized in Phase 5)
+# Studio 1947 — robots.txt
 User-agent: *
 Allow: /
 
-# AI crawlers — explicitly allowed (see PRD Principle #7)
+# AI crawlers — explicitly allowed
 User-agent: GPTBot
 Allow: /
 
@@ -15,4 +15,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://1947.io/sitemap-index.xml
+Sitemap: https://www.1947.io/sitemap-index.xml

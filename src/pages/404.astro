@@ -1,0 +1,93 @@
+---
+/**
+ * Branded 404. Astro emits this as dist/404.html, which Vercel serves for any
+ * unmatched path — replacing the raw platform NOT_FOUND text page.
+ *
+ * noindex so the error page itself never enters the index.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title={"Page not found | Studio 1947"}
+  description={"That page does not exist. Find our work, solutions and contact details instead."}
+  noindex={true}
+>
+  <main class="page-404">
+    <section class="nf container">
+      <p class="eyebrow">Error 404</p>
+      <h1 class="nf__title">This page took a wrong turn.</h1>
+      <p class="nf__sub">
+        The link may be out of date, or the page may have moved. Here is the way
+        back.
+      </p>
+
+      <div class="nf__links">
+        <a class="nf__link" href="/">
+          <span class="nf__link-name">Home</span>
+          <span class="nf__link-desc">Start from the beginning</span>
+        </a>
+        <a class="nf__link" href="/our-work/">
+          <span class="nf__link-name">Our Work</span>
+          <span class="nf__link-desc">Case studies and projects</span>
+        </a>
+        <a class="nf__link" href="/solutions/">
+          <span class="nf__link-name">Solutions</span>
+          <span class="nf__link-desc">What we do, and how</span>
+        </a>
+        <a class="nf__link" href="/sayhello/">
+          <span class="nf__link-name">Say Hello</span>
+          <span class="nf__link-desc">Tell us about your project</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  .page-404 .nf {
+    padding-top: clamp(150px, 20vh, 240px);
+    padding-bottom: clamp(64px, 9vw, 140px);
+  }
+  .page-404 .nf__title {
+    font-size: clamp(36px, 5.4vw, 76px);
+    color: var(--grey-700);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    margin-top: 14px;
+    max-width: 16ch;
+  }
+  .page-404 .nf__sub {
+    margin-top: clamp(18px, 2.2vw, 28px);
+    font-size: clamp(16px, 1.2vw, 20px);
+    color: var(--grey-700);
+    max-width: 52ch;
+  }
+  .page-404 .nf__links {
+    margin-top: clamp(36px, 5vw, 64px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(14px, 1.6vw, 22px);
+    max-width: 1100px;
+  }
+  .page-404 .nf__link {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: clamp(20px, 2vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: border-color .3s var(--ease), transform .3s var(--ease);
+  }
+  .page-404 .nf__link:hover {
+    border-color: var(--red);
+    transform: translateY(-3px);
+  }
+  .page-404 .nf__link-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--grey-900);
+  }
+  .page-404 .nf__link:hover .nf__link-name { color: var(--red); }
+  .page-404 .nf__link-desc { font-size: 14.5px; color: var(--grey-500); }
+</style>

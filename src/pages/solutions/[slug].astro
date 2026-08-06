@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import StructuredLayout from '../../layouts/StructuredLayout.astro';
-import { serviceJsonLd, cleanName } from '../../lib/seo';
+import { serviceJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
 // Shared scoped CSS for the 4 solution-category pages (byte-identical in source).
 import solutionCss from '../../styles/solution-category.css?raw';
 
@@ -13,7 +13,13 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const d = entry.data;
 const url = new URL(`/solutions/${entry.id}/`, Astro.site).href;
-const jsonLd = [serviceJsonLd({ name: cleanName(d.title), description: d.description, url })];
+const jsonLd = [serviceJsonLd({ name: cleanName(d.title), description: d.description, url }),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Solutions', path: '/solutions/' },
+    { name: cleanName(d.title), path: `/solutions/${entry.id}/` },
+  ]),
+];
 ---
 
 <StructuredLayout data={d} sharedStyles={solutionCss} jsonLd={jsonLd} />

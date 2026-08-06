@@ -21,11 +21,47 @@ import Commitment from '../components/sections/Commitment.astro';
 import Approach from '../components/sections/Approach.astro';
 import Testimonials from '../components/sections/Testimonials.astro';
 import Faq from '../components/sections/Faq.astro';
+import { faqJsonLd } from '../lib/seo';
+
+/* Mirrors the six questions rendered by <Faq />. Kept beside the page rather
+   than inside the component so the markup stays a verbatim port. */
+const faq = faqJsonLd([
+  {
+    question: 'What we do?',
+    answer:
+      'We design solutions that create impact. We innovate and create at the intersections of Data, Design, Technology, Communication and Research to achieve the best possible impact for our clients and partners — from evidence and strategy through to brand, product and growth.',
+  },
+  {
+    question: 'Why Darjeeling?',
+    answer:
+      'Local wisdom for global impact. We chose Darjeeling because creativity thrives where culture, nature, and people intersect. By building from the hills, we prove that world-class research, design, technology, and communication can emerge from regional India.',
+  },
+  {
+    question: 'Who is the Founder?',
+    answer:
+      'Rabi (Rabiul Islam), from a farming family in rural Bengal, believes that great ideas should not be limited by geography or resources. Through Studio 1947, he works at the intersection of Data and Design.',
+  },
+  {
+    question: 'Our Vision',
+    answer:
+      'Democratise innovation. Our vision is to make Data, Design, and Technology accessible, affordable, and impactful for every organisation — from grassroots communities and small local enterprises to governments, NGOs, and global institutions.',
+  },
+  {
+    question: 'How do we get started?',
+    answer:
+      "Simpler than you think. Tell us your challenge and we'll map the solution — from first conversation to a working platform, we guide every step.",
+  },
+  {
+    question: 'Do you work with international clients?',
+    answer:
+      'Yes. We partner with organisations across the US, Europe, and beyond, delivering the same standards from our base in the hills.',
+  },
+]);
 ---
 
 <BaseLayout
   title="Data, Design & Tech Consulting | Studio 1947"
-  description="Studio 1947 — crafting & co-creating data, design and technology solutions from Darjeeling. We understand, design, build and grow impactful solutions for organisations worldwide."
+  description="Studio 1947 co-creates data, design and technology solutions from Darjeeling — helping organisations worldwide understand, design, build and grow."
   ogTitle="Data, Design & Tech Consulting | Studio 1947"
   ogDescription="Crafting & co-creating solutions from Darjeeling."
   ogType="website"
@@ -33,6 +69,7 @@ import Faq from '../components/sections/Faq.astro';
   imageSize={{ w: 1200, h: 628 }}
   imageAlt="We are Studio 1947 — the studio wordmark over Mirik lake in Darjeeling"
   fontHref="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&family=Google+Sans:wght@400;500;700&display=swap"
+  jsonLd={[faq]}
 >
   <main>
     <HomeHero />
