@@ -27,6 +27,16 @@ export const SITE = {
 export const DEFAULT_FONT_HREF =
   'https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Google+Sans:wght@400;500;700&display=swap';
 
+/**
+ * The latin subset of Syne — a variable font, so this ONE file covers every
+ * weight (400–800) this site uses. Preloaded on pages whose font set includes
+ * Syne so the hero/heading swap happens the moment the font arrives, instead
+ * of waiting on the async stylesheet's 90+ @font-face blocks being parsed.
+ * If Google ever bumps the version, the stale URL 404s (a console error, one
+ * wasted request) and the stylesheet's own src takes over.
+ */
+export const SYNE_LATIN_URL = 'https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm2BL9A.woff2';
+
 export interface SeoProps {
   title?: string;
   description?: string;
@@ -79,6 +89,9 @@ export function articleJsonLd(opts: {
   author?: string;
   url: string;
   section?: string;
+  /** ISO date (YYYY-MM-DD). Emitted as datePublished, required for Article
+   * rich results. */
+  date?: string;
 }): Record<string, unknown> {
   const o: Record<string, unknown> = {
     '@context': 'https://schema.org',
@@ -98,6 +111,7 @@ export function articleJsonLd(opts: {
   if (opts.description) o.description = opts.description;
   if (opts.image) o.image = absoluteUrl(opts.image);
   if (opts.section) o.articleSection = opts.section;
+  if (opts.date) o.datePublished = opts.date;
   return o;
 }
 
@@ -141,6 +155,20 @@ export function serviceJsonLd(opts: {
 /** Strip the " | Studio 1947…" suffix from a page <title> to get a clean name. */
 export function cleanName(title: string): string {
   return title.split('|')[0].trim();
+}
+
+/**
+ * "2025-06-04" → "Jun 4, 2025". Parsed as UTC so the build's local timezone
+ * can never shift the day — the JSON-LD datePublished and the visible meta
+ * must agree on the exact date.
+ */
+export function formatPostDate(iso: string): string {
+  return new Date(iso + 'T00:00:00Z').toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
 }
 
 /**
