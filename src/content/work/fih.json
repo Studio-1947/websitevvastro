@@ -1,0 +1,179 @@
+{
+  "title": "Foundation for Innovations in Health — FIH | Studio 1947",
+  "description": "How Studio 1947 engineered a digital platform and CMS ecosystem for Foundation for Innovations in Health to scale rural healthcare interventions, training, and 3T model deployment across India.",
+  "ogTitle": "Foundation for Innovations in Health — FIH | Studio 1947",
+  "ogDescription": "How Studio 1947 engineered a digital platform and CMS ecosystem for Foundation for Innovations in Health to scale rural healthcare interventions, training, and 3T model deployment across India.",
+  "ogType": "article",
+  "brand": "#FBBF24",
+  "client": "Foundation for Innovations in Health",
+  "location": "Kolkata & Rural India",
+  "year": "2026",
+  "tags": [
+    "Digital Platform",
+    "UX/UI Design",
+    "Sanity CMS",
+    "Frugal Health Tech"
+  ],
+  "solutions": [
+    "data-design-tech",
+    "capacity-building",
+    "communication-campaign"
+  ],
+  "active": true,
+  "hero": {
+    "src": "/assets/img/work/fih/frame-12.webp",
+    "alt": "Foundation for Innovations in Health master brand lockup",
+    "style": "logo"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "Healthcare delivery in underserved rural regions faces systemic barriers: severe shortage of medical professionals, fragmented communication, and geographical isolation. <strong>Foundation for Innovations in Health (FIH)</strong> is a pioneering non-profit operating out of Kolkata, working to mitigate Multi-Dimensional Poverty (MDP) through frugal, technology-enabled primary care interventions.",
+        "Studio 1947 was brought in to engineer a modern, highly accessible digital platform and headless content ecosystem. Our goal was to articulate FIH's transformative mission, empower rural youth and female health workers, and build institutional trust for corporate CSR and academic partnerships."
+      ]
+    },
+    {
+      "heading": "Strategic Context & The Rural Health Gap"
+    },
+    {
+      "divider": false,
+      "label": "The Mission",
+      "body": [
+        "Founded in 2013, <strong>FIH</strong> delivers evidence-based primary healthcare solutions across rural West Bengal and Bihar. The foundation equips rural youth—particularly women—with employment-oriented health education while deploying digital clinics directly to vulnerable communities."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "The Challenge",
+      "body": [
+        "Communicating complex, field-tested healthcare methodologies requires more than a static brochure site. FIH needed a digital flagship that could accomplish three critical objectives simultaneously:"
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "num": "01",
+          "title": "Institutional Trust",
+          "body": "Instilling visual confidence for major CSR donors, government partners, and academic institutions like the IITs."
+        },
+        {
+          "num": "02",
+          "title": "Frugal Tech Showcase",
+          "body": "Demonstrating how digital clinics, floating healthcare units, and decision-support software operate on the ground."
+        },
+        {
+          "num": "03",
+          "title": "Dynamic Operations",
+          "body": "Empowering non-technical staff to publish real-time notifications, event updates, and healthcare stories effortlessly."
+        }
+      ]
+    },
+    {
+      "heading": "The Core Methodology: The 3T Model",
+      "label": "Proprietary Healthcare Framework",
+      "body": [
+        "At the heart of FIH's operations is its proprietary <strong>3T Model</strong>—a scalable strategy engineered to solve the shortage of doctors in remote communities. We translated this methodology into an intuitive, interactive visual breakdown on the digital platform:"
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "num": "Train",
+          "title": "Employment-Oriented Education",
+          "body": "Training rural youth and women to become certified allied health professionals and frontline health workers."
+        },
+        {
+          "num": "Technology",
+          "title": "Frugal Health-Tech",
+          "body": "Deploying data-driven diagnostic tools, digital clinics, and clinical decision-support software tailored for low-resource settings."
+        },
+        {
+          "num": "Task-Shift",
+          "title": "Frontline Empowerment",
+          "body": "Shifting specific primary health tasks from overburdened doctors to trained community workers, bringing care directly to the doorstep."
+        }
+      ]
+    },
+    {
+      "heading": "Digital Architecture & Interface Design",
+      "label": "Engineering & Technology",
+      "body": [
+        "To deliver a lightning-fast, resilient experience, Studio 1947 built the flagship application using <strong>Next.js 16 (App Router)</strong>, <strong>Tailwind CSS v4</strong>, and <strong>Sanity CMS v5</strong>. The system provides real-time content synchronization, responsive accessibility, and zero-latency page transitions."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fih/screenshot.webp",
+          "alt": "Foundation for Innovations in Health digital platform interface",
+          "caption": "Digital platform interface designed by Studio 1947 for Foundation for Innovations in Health (click to expand full screenshot in lightbox)",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
+      "heading": "Key Platform Capabilities & Design Highlights",
+      "divider": true
+    },
+    {
+      "divider": false,
+      "label": "Key Features",
+      "layout": "grid-2",
+      "cards": [
+        {
+          "title": "Real-time Notification Bell & Lightbox",
+          "body": "Built a custom client notification bell fetching live Sanity CMS data, unread state persistence via localStorage, and high-res image lightboxes for urgent field updates."
+        },
+        {
+          "title": "Floating Digital Clinics & Stories",
+          "body": "Immersive media showcases highlighting mobile clinic boats, cancer screening initiatives, and rural health worker training stories."
+        },
+        {
+          "title": "CSR & 80G Tax-Exempt Information Hub",
+          "body": "Clear showcase of corporate CSR partnership frameworks, academic collaborations (IITs), and Section 80G tax-exemption compliance guidelines for prospective donors."
+        },
+        {
+          "title": "Micro-Animations & Accessible Typography",
+          "body": "Configured motion-driven scroll reveals (Framer Motion) paired with high-legibility Google Fonts (Poppins, Lato) for inclusive reading."
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Brand Color Palette",
+      "swatches": [
+        {
+          "hex": "#FBBF24",
+          "name": "Amber Gold",
+          "role": "Primary Brand Accent",
+          "note": "Used for callouts, buttons, notifications, and active states"
+        },
+        {
+          "hex": "#0E0F11",
+          "name": "Deep Midnight Slate",
+          "role": "Dark Structural Panels",
+          "note": "Provides high contrast for footer and navigation"
+        }
+      ]
+    },
+    {
+      "heading": "Client Impact & Outcomes",
+      "divider": true,
+      "label": "Measuring Success",
+      "list": [
+        "<strong>Unified Digital Presence:</strong> Replaced fragmented static messaging with a modern, performant flagship application.",
+        "<strong>Empowered Field Staff:</strong> Enabled real-time publishing of health camps, emergency alerts, and training outcomes via Sanity CMS without developer intervention.",
+        "<strong>Accelerated Partnerships:</strong> Strengthened corporate CSR engagement and academic collaboration visibility for long-term health initiative funding."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "UI/UX Design",
+      "members": "Soumyajit"
+    },
+    {
+      "role": "Website Development & Engineering",
+      "members": "Santam"
+    }
+  ]
+}

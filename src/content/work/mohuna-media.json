@@ -1,116 +1,121 @@
 {
   "title": "Mohuna Media — Branding for an Assam News Channel | Studio 1947",
-  "description": "How Studio 1947 crafted a culturally rooted brand identity for Mohuna Media, an independent Assam news channel on the Brahmaputra.",
+  "description": "How Studio 1947 crafted a culturally rooted brand identity and business card system for Mohuna Media, an independent Assam news channel documenting Brahmaputra river livelihoods.",
   "ogTitle": "Mohuna Media — Branding for an Assam News Channel | Studio 1947",
-  "ogDescription": "A cohesive brand identity built on confluence, community and storytelling from the heart of Assam.",
+  "ogDescription": "A cohesive brand identity built on confluence, community and storytelling from the heart of Assam, honoring Brahmaputra river livelihoods.",
   "ogType": "article",
+  "brand": "#CC3002",
   "client": "Mohuna Media",
   "location": "Assam, India",
   "year": "2026",
   "tags": [
-    "Creators",
-    "Branding",
-    "Brand Identity"
+    "Brand Identity",
+    "Logo Design",
+    "Stationery & Collateral",
+    "Media & Publishing"
   ],
+  "solutions": [
+    "communication-campaign",
+    "data-design-tech"
+  ],
+  "active": true,
   "hero": {
-    "src": "/assets/img/work/mohuna-media/cae547e4969f4e97ad4bc0472fd64435.webp",
-    "alt": "Mist drifting over forested hills — the landscape and communities at the heart of Mohuna Media's journalism"
+    "src": "/assets/img/work/mohuna-media/logo.webp",
+    "alt": "Mohuna Media master brand mark representing the Brahmaputra river and community livelihoods",
+    "style": "logo"
   },
   "sections": [
     {
       "divider": false,
-      "label": "Overview",
-      "heading": "A brand identity for stories from the Brahmaputra.",
       "body": [
-        "Studio 1947 collaborated with Mohuna Media to develop a compelling brand identity for this Assam-based news channel documenting livelihoods along the Brahmaputra River. Our team designed a distinctive logo featuring symbolic imagery of the river's confluence and silhouetted figures representing local communities, paired with professionally crafted business cards.",
-        "The warm, earthy color palette and clean typography convey both cultural authenticity and journalistic professionalism. The result is a cohesive visual identity that effectively communicates Mohuna Media's mission of amplifying voices and telling stories from the heart of Assam."
+        "Studio 1947 collaborated with <strong>Mohuna Media</strong> (<u><a href=\"https://muhonamedia.com/\" target=\"_blank\" rel=\"noopener noreferrer\">muhonamedia.com</a></u>) to develop a compelling visual brand identity and physical collateral system for an independent Assam-based news channel.",
+        "The name \"Mohuna\" signifies the confluence where rivers meet—a powerful metaphor for the intersection of climate, culture, and human stories that form the core of their journalistic mission. Our mandate was to craft a memorable logo and business card system that honors the heritage of the Brahmaputra region while asserting broadcast authority."
       ]
     },
     {
-      "label": "Introduction",
-      "heading": "Journalism from where the rivers meet.",
+      "heading": "Logo Symbolism & Narrative Architecture",
+      "label": "The Mission",
       "body": [
-        "Mohuna Media is an independent news channel from Assam dedicated to documenting the livelihoods, cultures, and stories of communities living along the mighty Brahmaputra River. The name \"Mohuna\" represents the confluence where rivers meet—a powerful metaphor for the intersection of climate, culture, and human stories that form the core of their journalistic mission. Founded by Mahibul Hoque, Mohuna Media seeks to amplify voices often overlooked in mainstream media while highlighting the environmental and social dynamics of the region."
+        "The logo represents the livelihoods of people living around the Brahmaputra River. It highlights key activities such as agriculture, fishery, local artisanship, and water transport that sustain the community.",
+        "Each element reflects how the river supports farming, fishing, traditional crafts, and movement of people and goods. Overall, the design symbolizes the strong connection between the river and the everyday lives of the people."
       ]
     },
     {
-      "label": "The Objective",
-      "heading": "Convergence of people, nature and storytelling.",
-      "body": [
-        "Studio 1947 partnered with Mohuna Media to develop a cohesive brand identity that would authentically represent their journalistic focus and regional roots. The primary goal was to create visual elements—specifically a logo and business cards—that would communicate the essence of their work: the convergence of people, nature, and storytelling along the Brahmaputra River."
-      ]
-    },
-    {
-      "label": "Our Process",
-      "heading": "Building a unified visual system.",
-      "layout": "grid-3",
+      "heading": "Four Pillars of River Livelihood",
+      "label": "Visual Language",
+      "layout": "grid-2",
       "cards": [
         {
           "num": "01",
-          "title": "Logo Conceptualization",
-          "body": "A distinctive logo incorporating symbolic imagery of the river's confluence. A flowing line evokes the Brahmaputra's path, while silhouetted figures along its curve represent the people at the heart of Mohuna Media's journalism."
+          "title": "Agriculture & Farming",
+          "body": "Honoring the fertile riverbanks and agricultural rhythms that feed riverine communities across Assam."
         },
         {
           "num": "02",
-          "title": "Color Selection",
-          "body": "A warm, earthy orange-red palette reflecting the rich soil of Assam, the warmth of its people, and the urgency of environmental storytelling—standing out effectively across print and digital platforms."
+          "title": "Fishery & River Ecology",
+          "body": "Celebrating the traditional fishing practices and aquatic harmony sustaining families along the Brahmaputra."
         },
         {
           "num": "03",
-          "title": "Business Card Design",
-          "body": "Professional visiting cards consistent with the logo, featuring clean typography, ample white space, and subtle wave motifs that echo the river theme without overwhelming the content."
+          "title": "Local Artisanship",
+          "body": "Weaving traditional crafts, silk handlooms, and indigenous technical knowledge into the visual identity."
+        },
+        {
+          "num": "04",
+          "title": "Water Transport & Confluence",
+          "body": "Reflecting boats, ferries, and riverways that connect isolated islands (Char areas) to mainstream economic life."
         }
       ]
     },
     {
-      "divider": false,
+      "heading": "Brand Collateral & Business Cards",
+      "label": "Collateral Design",
       "body": [
-        "<strong>Brand Cohesion:</strong> Both the logo and business card were designed as part of a unified visual system, ensuring that Mohuna Media presents a consistent and memorable identity across all touchpoints."
-      ]
-    },
-    {
-      "divider": false,
+        "We engineered a clean business card system that balances journalistic authority with regional warmth. Featuring balanced white space and riverine motifs, the stationery makes a lasting impression during field reporting and press engagements."
+      ],
+      "layout": "grid-2",
       "media": [
         {
-          "src": "/assets/img/work/mohuna-media/55d98a_3287270d83ef4efabfdd1f52d0dc6ec2.webp",
-          "alt": "Warm, earthy dunes at dusk reflecting the tone of Mohuna Media's environmental and community storytelling"
+          "src": "/assets/img/work/mohuna-media/business-card-01.webp",
+          "alt": "Mohuna Media business card front design",
+          "caption": "Mohuna Media business card — primary logo mark and brand layout",
+          "zoom": true
+        },
+        {
+          "src": "/assets/img/work/mohuna-media/business-card-02.webp",
+          "alt": "Mohuna Media business card back design",
+          "caption": "Mohuna Media business card — contact details and brand tagline",
+          "zoom": true
         }
       ]
     },
     {
-      "label": "The Result",
-      "heading": "A visual identity that captures their essence.",
-      "body": [
-        "The newly developed brand identity successfully captures Mohuna Media's essence—memorable, culturally resonant, and versatile across every medium they work in."
-      ],
-      "list": [
-        "A memorable logo that communicates the organization's focus on confluence, community, and storytelling.",
-        "Professional business cards that make a strong first impression during networking and press engagements.",
-        "Cultural resonance—visual elements that honor Assamese heritage while maintaining modern professionalism.",
-        "Versatile application across various mediums, from print publications to digital profiles."
+      "divider": false,
+      "label": "Brand Color Palette",
+      "swatches": [
+        {
+          "hex": "#CC3002",
+          "name": "Brahmaputra Red",
+          "role": "Primary Brand Accent",
+          "note": "Represents the river soil, community warmth, and riverine vitality"
+        }
       ]
     },
     {
-      "label": "Client Impact",
-      "heading": "Through our collaboration, Mohuna Media now benefits from:",
+      "heading": "Client Impact & Outcomes",
+      "divider": true,
+      "label": "Measuring Success",
       "list": [
-        "A professional brand identity that establishes credibility in the media landscape.",
-        "Consistent visual communication across all organizational materials.",
-        "Enhanced recognition among readers, sources, and industry peers.",
-        "A visual language that reinforces their unique positioning as storytellers of the Brahmaputra region.",
-        "Quality business cards that facilitate meaningful connections in the journalism community."
-      ]
-    },
-    {
-      "label": "Why Studio 1947?",
-      "heading": "We turn missions into powerful visuals.",
-      "body": [
-        "Studio 1947 specializes in creating brand identities that go beyond aesthetics—they tell stories and build connections. Our work with Mohuna Media demonstrates our ability to translate complex missions into simple, powerful visuals that resonate with audiences and stand the test of time. We believe every brand deserves a visual identity that reflects its true purpose, and we're proud to have helped Mohuna Media find theirs."
+        "<strong>Authentic Regional Authority:</strong> Built a logo and brand language that immediately connects with audiences across Assam and the Northeast.",
+        "<strong>Unified Touchpoints:</strong> Created consistent brand representation across their web platform (<u><a href=\"https://muhonamedia.com/\" target=\"_blank\" rel=\"noopener noreferrer\">muhonamedia.com</a></u>), social channels, and physical press passes/business cards.",
+        "<strong>Credibility in Journalism:</strong> Established a professional visual identity that commands trust among readers, interviewees, and field sources."
       ]
     }
   ],
-  "solutions": [
-    "communication-campaign"
-  ],
-  "active": false
+  "credits": [
+    {
+      "role": "Brand Strategy & Design",
+      "members": "Rabi, Nikhil Subba"
+    }
+  ]
 }

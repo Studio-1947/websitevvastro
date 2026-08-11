@@ -3,7 +3,7 @@
  * <head> for every page — SEO meta, OG/Twitter, canonical, fonts, favicon,
  * JSON-LD. Mirrors the original static site's head, componentized.
  */
-import { SITE, DEFAULT_FONT_HREF, canonicalUrl, absoluteUrl, organizationJsonLd, type SeoProps } from '../../lib/seo';
+import { SITE, DEFAULT_FONT_HREF, SYNE_LATIN_URL, canonicalUrl, absoluteUrl, organizationJsonLd, type SeoProps } from '../../lib/seo';
 
 type Props = SeoProps & { fontHref?: string };
 const {
@@ -75,10 +75,25 @@ const fontsHref = fontHref;
 <meta name="twitter:description" content={ogDescription ?? description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-<!-- Fonts -->
+<!-- Fonts
+     The Google Fonts stylesheet is deliberately NOT render-blocking: it ships
+     90+ @font-face blocks (three families, several subsets each), and in the
+     original head it sat between the page and first paint — delaying the LCP
+     (the hero title) by a full CSS round-trip plus parse. Every face here uses
+     font-display: swap, so text paints immediately in the fallback face and
+     swaps when ready; the `preload as=style` + `media=print` onload pattern
+     keeps one fetch, and the Syne preload below warms the hero font in
+     parallel so the swap lands within the first frames. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href={fontsHref} rel="stylesheet" />
+{fontsHref.includes('Syne') && (
+  <link rel="preload" as="font" type="font/woff2" crossorigin href={SYNE_LATIN_URL} />
+)}
+<link rel="preload" as="style" href={fontsHref} />
+<link href={fontsHref} rel="stylesheet" media="print" onload="this.media='all'" />
+<noscript>
+  <link href={fontsHref} rel="stylesheet" />
+</noscript>
 
 <meta name="generator" content={Astro.generator} />
 

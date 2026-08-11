@@ -10,12 +10,18 @@ export function heroAurora(): void {
   const wrap = canvas.parentNode as HTMLElement;
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
-  const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  // Backing-store scale, re-derived on resize so a phone rotated to landscape
+  // doesn't keep drawing at portrait scale. Capped at 2× on desktop, 1.5× on
+  // small screens — the extra 2× detail is wasted on a small physical pixel
+  // pitch, and halving the backing store roughly halves the fill cost.
+  let dpr = 1;
   let W = 0,
     H = 0,
     base = 0;
 
-  const CELL = 30;
+  // Grid cell in CSS px. Coarsened on small screens (fewer fillText calls per
+  // frame; the glyph field is texture, not information).
+  let cell = 30;
   let cols = 0,
     rows = 0;
   let chars: string[] = [],
@@ -27,8 +33,8 @@ export function heroAurora(): void {
   }
 
   function buildGrid(): void {
-    cols = Math.ceil(W / CELL) + 1;
-    rows = Math.ceil(H / CELL) + 1;
+    cols = Math.ceil(W / cell) + 1;
+    rows = Math.ceil(H / cell) + 1;
     chars = [];
     sizes = [];
     flip = [];
@@ -39,6 +45,9 @@ export function heroAurora(): void {
     }
   }
   function resize(): void {
+    const small = window.innerWidth < 768;
+    dpr = Math.max(1, Math.min(small ? 1.5 : 2, window.devicePixelRatio || 1));
+    cell = small ? 44 : 30;
     W = wrap.clientWidth;
     H = wrap.clientHeight;
     base = Math.max(W, H);
@@ -116,8 +125,8 @@ export function heroAurora(): void {
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
         const idx = y * cols + x;
-        const gx = x * CELL + CELL / 2,
-          gy = y * CELL + CELL / 2;
+        const gx = x * cell + cell / 2,
+          gy = y * cell + cell / 2;
         if ((now + flip[idx]) % 6000 < 16) chars[idx] = chars[idx] === '0' ? '1' : '0';
         const dxx = gx - cx,
           dyy = gy - cy;
@@ -145,25 +154,82 @@ export function heroAurora(): void {
     });
     return;
   }
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', () => {
+    resize();
+    // resize() resets the backing store to transparent; repaint now so a
+    // resize while the loop is asleep doesn't leave a blank hero.
+    draw(performance.now());
+  });
 
+  const wake = (): void => {
+    // Without this, the first frame after a wake sees `now - lastPointer` >
+    // SLEEP_AFTER (lastPointer still dates from page load) and instantly puts
+    // the loop back to sleep — a wake that never survives one frame.
+    lastPointer = performance.now();
+    if (!rafId) start();
+  };
   wrap.addEventListener('pointermove', (e) => {
     const r = canvas!.getBoundingClientRect();
     tx = e.clientX - r.left;
     ty = e.clientY - r.top;
     on = true;
+    wake();
   });
+  // Touch: a tap fires pointerdown (with no move) — count it as interaction.
+  wrap.addEventListener('pointerdown', wake);
   wrap.addEventListener('pointerleave', () => (on = false));
 
   let running = true;
   if ('IntersectionObserver' in window) {
     new IntersectionObserver((ents) => {
       running = ents[0].isIntersecting;
+      if (running) start(); // re-wake after scrolling back into view
     }).observe(wrap);
   }
+  /*
+   * Cap the loop to ~30fps. The bulge drifts slowly and the cursor trails at
+   * pointer speed, so 60fps buys nothing visible while doubling the per-second
+   * fillText of the whole 0/1 grid — the main-thread cost that dominated the
+   * performance audits. `now` still advances at full rate, so nothing about
+   * the animation's speed or easing changes; frames are just skipped.
+   *
+   * The loop also sleeps after ~2s without a pointer move: the ambient drift
+   * is nearly imperceptible frame to frame, so once the visitor stops
+   * interacting the hero holds its last painted frame instead of keeping the
+   * main thread busy for as long as the page is open. Any pointer movement
+   * wakes it (see the handler above). 2s is short enough that the loop's
+   * awake window no longer dominates a throttled load's total blocking time.
+   */
+  const FRAME_MS = 1000 / 30;
+  const SLEEP_AFTER = 2000;
+  let lastDraw = 0;
+  let lastPointer = performance.now();
+  let rafId = 0;
   function frame(now: number): void {
+    if (!running || !rafId) return; // stopped (sleep or out of view)
     requestAnimationFrame(frame);
-    if (running) draw(now);
+    if (now - lastDraw < FRAME_MS) return;
+    if (now - lastPointer > SLEEP_AFTER) {
+      rafId = 0;
+      return; // hold the last frame until the pointer moves again
+    }
+    lastDraw = now;
+    draw(now);
   }
-  requestAnimationFrame(frame);
+  function start(): void {
+    if (rafId || !running) return;
+    rafId = requestAnimationFrame(frame);
+  }
+  // Paint the first frame synchronously so the hero is never blank, then start
+  // the loop only once the browser is idle — the loop running through the
+  // whole page-load window was the homepage's dominant main-thread cost.
+  draw(0);
+  // typeof, not `in`: requestIdleCallback is a declared Window property, so an
+  // `in` check would narrow the else branch to never at compile time.
+  if (typeof window.requestIdleCallback === 'function') {
+    window.requestIdleCallback(start, { timeout: 3000 });
+  } else {
+    window.addEventListener('load', start, { once: true });
+    setTimeout(start, 2000);
+  }
 }

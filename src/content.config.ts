@@ -47,15 +47,18 @@ const blog = defineCollection({
     styles: z.string().optional(),
     html: z.string(),
     /**
-     * Position in the blog index grid. The index is hand-ordered, and the
-     * posts carry no usable date (every one reads "Jun 4"), so this is what
-     * previous/next walks — the reader moves through the list they came from.
+     * Position in the blog index grid. The index is hand-ordered (not by
+     * date), so this is what previous/next walks — the reader moves through
+     * the list they came from.
      */
     order: z.number().int(),
     /** SEO-only (not used for rendering — the markup lives in `html`). */
     heading: z.string().optional(),
     author: z.string().optional(),
-    date: z.string().optional(),
+    /** ISO date (YYYY-MM-DD). Emitted as Article datePublished + sitemap
+     * lastmod, and substituted for the ported "Jun 4" placeholder in the
+     * visible meta. Required so a new post can't silently drop its date. */
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     cover: z.string().optional(),
     section: z.string().optional(),
   }),

@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import StructuredLayout from '../../layouts/StructuredLayout.astro';
 import PostFooterNav from '../../components/blog/PostFooterNav.astro';
-import { articleJsonLd, cleanName, DEFAULT_FONT_HREF } from '../../lib/seo';
+import { articleJsonLd, cleanName, DEFAULT_FONT_HREF, formatPostDate } from '../../lib/seo';
 // One shared article stylesheet for all 19 posts (they came from three
 // different templates, each with its own copy of the article CSS).
 import postCss from '../../styles/blog-post.css?raw';
@@ -34,6 +34,18 @@ const NOTO = { bn: 'Noto+Sans+Bengali', hi: 'Noto+Sans+Devanagari', ne: 'Noto+Sa
 const fontHref = script
   ? DEFAULT_FONT_HREF.replace('&display=swap', `&family=${NOTO[script as keyof typeof NOTO]}:wght@400;600;700&display=swap`)
   : d.fontHref;
+
+/*
+ * The ported markup pins every post to the same placeholder date ("Jun 4",
+ * and one template's <time datetime="2026-06-04">Jun 4, 2026</time>). Swap it
+ * for the real date from the collection, stamped as a semantic <time> so the
+ * visible date matches the Article JSON-LD's datePublished exactly.
+ */
+const visibleDate = `<time datetime="${d.date}">${formatPostDate(d.date)}</time>`;
+const html = d.html
+  .replace(/<span>Jun 4<\/span>/, visibleDate)
+  .replace(/<time datetime="[^"]*">Jun 4, 2026<\/time>/, visibleDate);
+
 const jsonLd = [
   articleJsonLd({
     headline: d.heading ?? cleanName(d.title),
@@ -42,10 +54,11 @@ const jsonLd = [
     author: d.author,
     url,
     section: d.section,
+    date: d.date,
   }),
 ];
 ---
 
-<StructuredLayout data={{ ...d, fontHref }} sharedStyles={postCss} jsonLd={jsonLd}>
+<StructuredLayout data={{ ...d, html, fontHref }} sharedStyles={postCss} jsonLd={jsonLd}>
   <PostFooterNav prev={prev} next={next} />
 </StructuredLayout>

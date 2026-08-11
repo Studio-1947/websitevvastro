@@ -515,6 +515,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
 .js .reveal.is-in { opacity: 1; transform: none; }
 .js [data-stagger] > * { opacity: 0; transform: translateY(30px); transition: opacity 1.05s var(--ease), transform 1.05s var(--ease); }
 .js [data-stagger].is-in > * { opacity: 1; transform: none; }
+/* The hero is the page's LCP: it slides in (transform only) rather than
+   fading from opacity 0 — a fade pins LCP to the end of the transition on
+   every load. The stagger delays set inline by reveal.ts still apply. */
+.js .hero[data-stagger] > * { opacity: 1; transform: translateY(30px); transition: transform .65s var(--ease); }
+.js .hero[data-stagger].is-in > * { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .js .reveal, .js [data-stagger] > * { opacity: 1 !important; transform: none !important; transition: none; }
