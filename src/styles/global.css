@@ -71,6 +71,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
   letter-spacing: .01em;
 }
 .text-red { color: var(--red); }
+/* Links inside running text must not rely on colour alone — the underline is
+   what passes Lighthouse's link-in-text-block audit. */
+a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Skip to content ----------
    Off-screen until focused, then lands as a normal-looking pill above the nav.
@@ -510,10 +513,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
    is active (html.js) and is always guaranteed to be revealed — so a
    stalled script or blocked CDN can never leave content invisible.
    ===================================================================== */
-.reveal { transition: opacity 1.15s var(--ease), transform 1.15s var(--ease); will-change: transform, opacity; }
+/* Entrance duration kept short enough to finish before an a11y snapshot can
+   land mid-fade (Lighthouse's axe pass caught reveal elements at ~0.8 opacity
+   and flagged their red-on-white text as low-contrast). Still a smooth fade-up,
+   just not a cinematic one. */
+.reveal { transition: opacity 0.45s var(--ease), transform 0.45s var(--ease); will-change: transform, opacity; }
 .js .reveal { opacity: 0; transform: translateY(34px); }
 .js .reveal.is-in { opacity: 1; transform: none; }
-.js [data-stagger] > * { opacity: 0; transform: translateY(30px); transition: opacity 1.05s var(--ease), transform 1.05s var(--ease); }
+.js [data-stagger] > * { opacity: 0; transform: translateY(30px); transition: opacity 0.45s var(--ease), transform 0.45s var(--ease); }
 .js [data-stagger].is-in > * { opacity: 1; transform: none; }
 /* The hero is the page's LCP: it slides in (transform only) rather than
    fading from opacity 0 — a fade pins LCP to the end of the transition on
@@ -784,7 +791,7 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
 .page-solcat .cat-cycle__node p { margin-top: 10px; color: var(--grey-700); font-size: clamp(14px,1vw,16px); }
 .page-solcat .cat-cycle__link { flex: 0 0 auto; align-self: center; color: var(--red); opacity: .55; display: grid; place-items: center; }
 .page-solcat .cat-cycle__link svg { width: 26px; height: 26px; }
-.page-solcat .cat-cycle__badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-size: 14px; color: var(--red); background: rgba(230,0,0,.07); border-radius: 999px; padding: 8px 18px; }
+.page-solcat .cat-cycle__badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-size: 14px; color: color-mix(in srgb, var(--red) 84%, #000); background: rgba(230,0,0,.07); border-radius: 999px; padding: 8px 18px; }
 @media (max-width: 900px) {
   .page-solcat .cat-cycle { flex-direction: column; }
   .page-solcat .cat-cycle__node { flex: 1 1 auto; }

@@ -20,7 +20,9 @@
     }
     .page-products .feat-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,.06); transform: translateY(-4px); border-color: #d9d9d9; }
     .page-products .feat-card__ico { width: 54px; height: 54px; border-radius: 15px; background: rgba(230,0,0,.08); color: var(--red); display: grid; place-items: center; }
-    .page-products .feat-card h3 { font-size: clamp(22px, 2vw, 30px); color: var(--grey-900); line-height: 1.1; margin-bottom: 12px; }
+    /* Card titles are h2 on this page (they follow the hero h1 directly), so
+       the selector targets h2 — matching product detail pages keep h3. */
+    .page-products .feat-card h2 { font-size: clamp(22px, 2vw, 30px); color: var(--grey-900); line-height: 1.1; margin-bottom: 12px; }
     .page-products .feat-card p { color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); }
 
     /* Product preview */
@@ -74,7 +76,8 @@
     .page-products .feat-card__soon {
       display: inline-flex; align-items: center; gap: 7px;
       margin-top: 14px; padding: 6px 14px; border-radius: 999px;
-      background: rgba(230,0,0,.07); color: var(--red);
+      /* Deepened red: --red on the .07 tint background measured 4.24:1. */
+      background: rgba(230,0,0,.07); color: color-mix(in srgb, var(--red) 88%, #000);
       font-size: 13px; font-weight: 500; letter-spacing: .01em;
     }
     .page-products .feat-card__soon::before {

@@ -1,0 +1,225 @@
+{
+  "title": "Nest Homes — Himalayan Brand Identity & Collateral | Studio 1947",
+  "description": "How Studio 1947 crafted the brand identity, color theory, typography system, and marketing collateral for Nest Homes — a premier eco-conscious tourist and homestay network across the Himalayas.",
+  "ogTitle": "Nest Homes — Brand Identity & Collateral | Studio 1947",
+  "ogDescription": "Branding, color psychology, and collateral design for Nest Homes across Darjeeling, Sikkim, and Himachal Pradesh.",
+  "ogType": "article",
+  "brand": "#004D57",
+  "client": "Nest Homes",
+  "location": "Bengal & Himalayan Region",
+  "year": "2026",
+  "tags": [
+    "Branding",
+    "Brand Identity",
+    "Color Psychology",
+    "Print Collateral",
+    "Tourism"
+  ],
+  "solutions": [
+    "communication-campaign",
+    "data-design-tech"
+  ],
+  "active": true,
+  "hero": {
+    "src": "/assets/img/work/nest-homes/hero-banner-top.png",
+    "alt": "Nest Homes Himalayan mountain sunset banner with floating stay photo object showcase",
+    "style": "photo"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "<strong>Nest Homes</strong> is a premier curated travel and homestay brand operating across 20+ pristine properties in the Himalayan belt — spanning Darjeeling, Sikkim, and Himachal Pradesh. With a proven record of over 1.5 Lakh+ happy travelers, 900+ Google Reviews (4.8★), and 1,000+ JustDial Reviews (4.8★), Nest Homes offers travelers authentic, nature-driven Himalayan stays and curated offbeat tours.",
+        "Studio 1947 was entrusted with transforming Nest Homes' visual identity — reimagining its logo, defining a comprehensive color psychology and typography system, and crafting high-impact print collateral and brand assets to reflect eco-conscious hospitality and Himalayan harmony."
+      ]
+    },
+    {
+      "heading": "Strategic Vision & Identity Challenge",
+      "divider": true
+    },
+    {
+      "divider": false,
+      "label": "The Challenge",
+      "body": [
+        "As Nest Homes expanded its presence across offbeat mountain destinations — including Sittong, Tinchuley, Chatakpur, Sandakphu, Kolakham, and Rishikhola — its existing brand identity required a refresh to reflect its growing footprint.",
+        "The brand needed a unified visual language that captured both the calming serenity of Himalayan rivers and the raw adventure of untamed mountain forests, while communicating institutional trust to modern, mobile-first travelers."
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "num": "01",
+          "title": "Himalayan Harmony",
+          "body": "Bridging the duality of peaceful river valleys and rugged mountain wilderness into one cohesive brand aesthetic."
+        },
+        {
+          "num": "02",
+          "title": "Collateral Uniformity",
+          "body": "Creating scalable print and digital assets for 20+ stay properties, tour packages, and offbeat travel itineraries."
+        },
+        {
+          "num": "03",
+          "title": "Trust & Eco-Consciousness",
+          "body": "Highlighting 150K+ happy guest reviews while positioning the brand around sustainable, nature-focused experiences."
+        }
+      ]
+    },
+    {
+      "heading": "Logo Redesign & Anatomy of a Nest",
+      "label": "Thought Process & Emblem Design",
+      "body": [
+        "We reimagined the Nest Homes logo from a legacy blocky layout into a unified, perfectly balanced circular emblem. The design draws directly from the fundamental anatomy of a nest — the organic, interlocking weave of twigs and grasses.",
+        "At the center of the emblem, two birds face each other in a protective, nurturing gesture inside a circular ring of woven branches, crowned by elegant serif typography. The symbol represents sanctuary, warmth, safety, and homecoming in the pristine Himalayan landscape."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/nest-homes/logo update.png",
+          "alt": "Before and After comparison of the Nest Homes logo redesign",
+          "caption": "Transition from the legacy logo layout (left) to the refined circular nest emblem (right)",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/nest-homes/logo formation.png",
+          "alt": "Anatomy of a Nest emblem creation process",
+          "caption": "Thought Process: Interlocking twigs and grasses + brand typography = the final unified emblem",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
+      "heading": "Architectural & Environmental Signage",
+      "label": "Brand Application",
+      "body": [
+        "A robust brand identity must transition seamlessly between digital interfaces and physical environments. We engineered the Nest Homes emblem to work across dual light/dark tonal variations, as well as exterior architectural signage.",
+        "The circular emblem translates effortlessly onto hanging wooden storefront signage, frosted window glass, and backlit resort entry markers across mountain retreats."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/nest-homes/logo.png",
+          "alt": "Nest Homes logo dual light and dark variations",
+          "caption": "Dual contrast lockups on clean white and atmospheric misty teal backgrounds",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/nest-homes/mockuplogo.png",
+          "alt": "Nest Homes circular hanging wooden storefront signage mockup",
+          "caption": "Physical storefront application featuring hanging circular signage set against warm wooden architectural louvers",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
+      "heading": "Colour Psychology: Harmony between Earth & Water",
+      "label": "Palette Architecture",
+      "body": [
+        "Teal is the perfect colour for a tourist brand inspired by the Himalayas, symbolising the harmony between earth and water. Its green hues reflect the earthiness of the region's fertile valleys and forests, while the blue evokes the calming serenity of rivers and lakes.",
+        "The darker tones represent the mystery and adventure of the untamed jungles, capturing the essence of exploration. Teal conveys balance, offering travelers both peace and adventure, while aligning the brand with eco-conscious tourism and authentic, nature-driven experiences in the pristine Himalayan landscape."
+      ],
+      "swatches": [
+        {
+          "hex": "#0B2C34",
+          "name": "Deep Forest Teal",
+          "role": "Primary Brand Anchor",
+          "note": "Evokes untamed Himalayan woods, misty mountain depths, and grounding structure"
+        },
+        {
+          "hex": "#004D57",
+          "name": "Dark Himalayan Teal",
+          "role": "Secondary Accent",
+          "note": "Symbolises the earthy balance of fertile valleys and deep forest foliage"
+        },
+        {
+          "hex": "#00AEC6",
+          "name": "Glacial Cyan",
+          "role": "Vibrant Brand Accent",
+          "note": "Represents the crisp purity of Himalayan rivers, alpine lakes, and mountain skies"
+        },
+        {
+          "hex": "#5EECFF",
+          "name": "Stream Ice Highlight",
+          "role": "Light Callout Tone",
+          "note": "Provides high contrast and refreshing highlights across digital & print touchpoints"
+        }
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/nest-homes/ccolour  theory.png",
+          "alt": "Color psychology chart showing forest mist teal vs warm golden sunset spectrums",
+          "caption": "Color psychology visualization: Balancing cold misty forest teals with warm golden sunset earth tones",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
+      "heading": "Typography System: Legibility & Warmth",
+      "label": "Visual Communication",
+      "body": [
+        "Roboto & Roboto Serif offer a modern, clean look with a balance of professionalism and warmth, ideal for a Himalayan tourist brand. Its clarity ensures easy readability across digital and print, enhancing communication while reflecting the brand's focus on nature, adventure, and sustainability."
+      ],
+      "layout": "grid-2",
+      "cards": [
+        {
+          "num": "01",
+          "title": "Roboto Serif — Editorial Warmth",
+          "body": "Used for main brand headlines, taglines ('Take Rest in your NEST'), and editorial callouts, bringing literary authority, heritage warmth, and welcoming hospitality."
+        },
+        {
+          "num": "02",
+          "title": "Roboto Sans-Serif — Modern Clarity",
+          "body": "Used for body text, tour itineraries, price charts, and mobile UI elements to ensure high legibility across digital devices and printed brochures."
+        }
+      ]
+    },
+    {
+      "heading": "Marketing Collateral, Brochures & Visiting Cards",
+      "label": "Print & Media Design",
+      "body": [
+        "We designed a complete suite of print collateral, including tri-fold brochures, business cards, and promotional poster mockups. The print collateral incorporates vibrant hand-illustrated Himalayan artwork depicting the historic Darjeeling Toy Train, iconic yellow mountain taxis, rolling tea gardens, and Kanchenjunga mountain views.",
+        "The collateral effectively presents tour packages (Sandakphu 3N/4D, Darjeeling 4N/5D, Kurseong 2N/3D) alongside key trust indicators, office details, and QR codes for instant digital inquiries."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/nest-homes/banner-hero-image.png",
+          "alt": "Nest Homes full Explore Darjeeling brand banner poster",
+          "caption": "Full brand banner poster layout featuring Kanchenjunga sunset panorama and curated homestay highlights",
+          "zoom": true,
+          "pad": true,
+          "ratio": "4/5"
+        },
+        {
+          "src": "/assets/img/work/nest-homes/brochure_mockup.png",
+          "alt": "Nest Homes brochure and visiting cards mockup",
+          "caption": "Complete collateral showcase: tri-fold brochure, visiting cards, tour package itineraries, and illustrated mountain art cover",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
+      "heading": "Client Impact & Outcomes",
+      "divider": true,
+      "label": "Measuring Success",
+      "list": [
+        "<strong>Unified Brand Experience:</strong> Transformed scattered promotional material into a sleek, cohesive brand identity across print, digital, and architectural touchpoints.",
+        "<strong>Trust & Performance:</strong> Prominently featured high trust markers (1.5 Lakh+ happy travelers, 900+ Google reviews) to convert prospective travelers into direct homestay bookings.",
+        "<strong>Eco-Conscious Market Positioning:</strong> Successfully aligned Nest Homes with authentic, nature-focused, and sustainable tourism across Bengal, Sikkim, and Himachal Pradesh."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Brand Identity & Design",
+      "members": "Rabi"
+    }
+  ]
+}

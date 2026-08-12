@@ -60,6 +60,9 @@
     .page-sayhello .contact__submit .arrow { width: 36px; height: 36px; border-radius: 50%; background: #fff; color: var(--red); display: grid; place-items: center; }
     .page-sayhello .contact__submit:hover { transform: translateY(-3px); background: var(--red-dark); }
     .page-sayhello .contact__note { margin-top: 18px; font-size: 13px; color: var(--grey-500); }
+    /* In-text link must be distinguishable without colour alone (Lighthouse
+       link-in-text-block: underline beats the 3:1 colour-only bar). */
+    .page-sayhello .contact__note a { text-decoration: underline; text-underline-offset: 3px; }
 
     @media (max-width: 900px) {
       .page-sayhello .contact { grid-template-columns: 1fr; }

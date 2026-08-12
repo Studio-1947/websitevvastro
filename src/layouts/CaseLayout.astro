@@ -34,6 +34,72 @@ const { brand, hero, sections = [], credits = [], client, tags = [], title, loca
 
 // Hero headline: the <h1> text, independent of the SEO <title>.
 const headline = client ?? title;
+
+/* ── Contrast-safe brand derivations ────────────────────────────────
+   Brand colors are per-client and some are too light for white text or white
+   surfaces (amber #FBBF24, lime #94c11f, bright green #00E357…), while a few
+   mid-tone reds (#E52F1D) defeat both white and near-black ink on their own
+   fill. Three derived vars are set on the page root and every case primitive
+   uses them with the raw brand as fallback:
+     --brand-ink  — whichever of white / near-black reads better on the brand.
+     --brand-fill — the brand (or a hair-darkened version) that lets
+                    --brand-ink clear 4.5:1 on it — hero + CTA fills.
+     --brand-text — the brand darkened just enough to clear 4.6:1 on the
+                    lightest surface brand text sits on (the label tint).
+*/
+function relLum(hex: string): number {
+  const v = (i: number) => {
+    const c = parseInt(hex.slice(1 + i * 2, 3 + i * 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * v(0) + 0.7152 * v(1) + 0.0722 * v(2);
+}
+const contrast = (a: number, b: number) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+const INK = '#10240f';
+const mixBrand = (t: number) =>
+  '#' + [0, 1, 2]
+    .map((i) => Math.round(parseInt(brand!.slice(1 + i * 2, 3 + i * 2), 16) * t).toString(16).padStart(2, '0'))
+    .join('');
+
+const brandL = brand ? relLum(brand) : 0;
+let brandInk = '#ffffff';
+if (brand) brandInk = contrast(1, brandL) >= contrast(relLum(INK), brandL) ? '#ffffff' : INK;
+
+let brandFill = brand ?? '#e60000';
+if (brand && contrast(relLum(brandInk), brandL) < 4.5) {
+  // Largest mix ratio whose fill still lets --brand-ink clear 4.5:1.
+  let lo = 0, hi = 1;
+  for (let i = 0; i < 24; i++) {
+    const mid = (lo + hi) / 2;
+    if (contrast(relLum(brandInk), relLum(mixBrand(mid))) >= 4.5) lo = mid; else hi = mid;
+  }
+  brandFill = mixBrand(lo);
+}
+
+let brandText = brand ?? '#e60000';
+if (brand) {
+  // The label pill's own surface: brand 8% + white. Brand text must clear
+  // 4.6:1 on it (the tightest surface brand text sits on).
+  const tintHex =
+    '#' + [0, 1, 2]
+      .map((i) => {
+        const c = Math.round(parseInt(brand.slice(1 + i * 2, 3 + i * 2), 16) * 0.08 + 255 * 0.92);
+        return c.toString(16).padStart(2, '0');
+      })
+      .join('');
+  // Brand text also sits on --bg-alt (#f5f5f5) — whichever of that and the
+  // tint is darker is the binding surface.
+  const worstL = Math.min(relLum('#f5f5f5'), relLum(tintHex));
+  const need = (worstL + 0.05) / 4.6 - 0.05;
+  if (brandL > need) {
+    let lo = 0, hi = 1;
+    for (let i = 0; i < 24; i++) {
+      const mid = (lo + hi) / 2;
+      if (relLum(mixBrand(mid)) <= need) lo = mid; else hi = mid;
+    }
+    brandText = mixBrand(lo);
+  }
+}
 ---
 
 <BaseLayout
@@ -45,7 +111,10 @@ const headline = client ?? title;
   bodyClass="page-case-modular"
   jsonLd={jsonLd}
 >
-  <main class="case-page" style={brand ? `--brand: ${brand};` : undefined}>
+  <main
+    class="case-page"
+    style={brand ? `--brand: ${brand}; --brand-ink: ${brandInk}; --brand-fill: ${brandFill}; --brand-text: ${brandText};` : undefined}
+  >
     {
       hero && (
         <CaseHero

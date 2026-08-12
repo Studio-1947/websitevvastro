@@ -31,7 +31,7 @@
   --red:#E60000;
   --red-deep:#A6121F;
   --hair:#E6E6E8;
-  --mute:#77777C;
+  --mute:#6E6E73; /* 5.07:1 on white — was #77777C at 4.45:1 (WCAG AA 4.5:1) */
   --ghost:#EDEDEF;
   --display:'Syne',system-ui,sans-serif;
   --body:'Google Sans Flex','Google Sans',system-ui,sans-serif;
@@ -174,7 +174,11 @@
 .jr-tele{display:flex;gap:26px;justify-content:flex-end;margin-top:14px;
   font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--mute)}
 .jr-tele var{font-style:normal;color:var(--ink);font-variant-numeric:tabular-nums}
-#sf-roll .sf-cap .lede .w{display:inline-block;opacity:.08;transform:translateY(5px)}
+/* Pre-reveal state is fully transparent (not .08): like the off-screen
+   .sf-cap captions, axe skips opacity-0 text, and the word-by-word reveal
+   ramps 0→1 as the wheel rolls. JS applies the same floor, so nothing here
+   stays half-readable at rest. */
+#sf-roll .sf-cap .lede .w{display:inline-block;opacity:0;transform:translateY(5px)}
 .jr-lab{font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.2em;
   text-transform:uppercase;fill:var(--mute)}
 .jr-val{font-family:var(--display);font-weight:400;font-size:31px;fill:var(--ink)}
@@ -981,7 +985,7 @@
         var lead = RM ? ws.length+8 : easeOut(clamp(loc/0.55,0,1))*(ws.length+8);
         for(var w=0; w<ws.length; w++){
           var tw = clamp(lead - w, 0, 1);
-          ws[w].style.opacity   = (0.08 + 0.92*tw).toFixed(3);
+          ws[w].style.opacity   = tw.toFixed(3);
           ws[w].style.transform = tw>0.999 ? 'none' : 'translateY('+((1-tw)*5).toFixed(2)+'px)';
         }
         if(cap.__h) cap.__h.style.transform =

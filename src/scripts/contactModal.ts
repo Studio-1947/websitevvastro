@@ -24,9 +24,10 @@ export function contactModal(): void {
     lastFocus = document.activeElement as HTMLElement;
     // Hand the drawer's scroll lock over rather than stacking a second one —
     // the counter would otherwise never unwind back to zero.
-    const mm = document.querySelector('.mobile-menu.is-open');
+    const mm = document.querySelector<HTMLElement>('.mobile-menu.is-open');
     if (mm) {
       mm.classList.remove('is-open');
+      mm.inert = true;
       unlockScroll();
     }
     modal!.classList.add('is-open');
