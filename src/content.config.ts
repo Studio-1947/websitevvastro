@@ -150,6 +150,27 @@ const caseSection = z.object({
   embed: z
     .object({ src: z.string().url(), title: z.string() })
     .optional(),
+  /**
+   * Playable track list (the Sundargaan case — a field-recorded song archive).
+   * Rendered as a small audio player with play/pause + progress; missing files
+   * fall back to a graceful "recording arriving soon" state, so the section
+   * ships before the final recordings land.
+   */
+  audio: z
+    .array(
+      z.object({
+        title: z.string(),
+        artist: z.string().optional(),
+        /** Village / block where the recording was made ("Kalitala"). */
+        origin: z.string().optional(),
+        /** Genre ("Bhatiyali", "Baul"…). */
+        genre: z.string().optional(),
+        /** Display duration ("4:32") — shown when known. */
+        duration: z.string().optional(),
+        src: z.string(),
+      }),
+    )
+    .default([]),
   layout: z.enum(['stack', 'split', 'grid-2', 'grid-3']).default('stack'),
   /** Draw the hairline divider above this section. Default true. */
   divider: z.boolean().default(true),
