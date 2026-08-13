@@ -213,6 +213,21 @@ const work = defineCollection({
          *           photograph, and scrimming those turns them muddy grey.
          */
         style: z.enum(['photo', 'logo']).default('photo'),
+        /**
+         * Overlay colour for 'photo' heroes, applied as a flat tint over the
+         * whole image (the site's own hero treatment — e.g. JSSES uses its
+         * deep indigo #03003c at 80%). Absent → the default black gradient
+         * scrim (dark at the base where the title sits, fading to clear).
+         */
+        scrim: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+        /**
+         * Logo-hero surface: 'brand' (default) renders the lockup on the
+         * brand-fill panel; 'light' renders it on a clean light panel. A few
+         * lockups read muddy against their own fill, and their source sites
+         * present them on white — 'light' reproduces that without disturbing
+         * the other logo heroes. Ignored for 'photo' style.
+         */
+        background: z.enum(['brand', 'light']).default('brand'),
       })
       .optional(),
     sections: z.array(caseSection).optional(),

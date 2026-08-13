@@ -1,9 +1,35 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MarkStory from '../../components/about/MarkStory.astro';
 import Manifesto from '../../components/about/Manifesto.astro';
 import html from '../../generated/about-us/main.html?raw';
 import css from '../../generated/about-us/style.css?raw';
+import { teamMemberKeyForCreditName } from '../../lib/team';
+
+// member key → { href, label }[]
+const projectsByMember = new Map<string, { href: string; label: string }[]>();
+
+for (const entry of await getCollection('work')) {
+  const label = entry.data.client || entry.data.title.split('|')[0].trim();
+  const href = `/work/${entry.id}/`;
+  for (const credit of entry.data.credits) {
+    for (const raw of credit.members.split(',')) {
+      const member = teamMemberKeyForCreditName(raw);
+      if (!member) continue;
+      const list = projectsByMember.get(member) ?? [];
+      if (!list.some((p) => p.href === href)) {
+        list.push({ href, label });
+        projectsByMember.set(member, list);
+      }
+    }
+  }
+}
+for (const list of projectsByMember.values()) {
+  list.sort((a, b) => a.label.localeCompare(b.label));
+}
+
+const teamProjectsJson = JSON.stringify(Object.fromEntries(projectsByMember));
 ---
 
 <BaseLayout
@@ -21,4 +47,13 @@ import css from '../../generated/about-us/style.css?raw';
       revealed as the section scrolls (text grows and rises). */}
   <Manifesto />
   <Fragment set:html={html} />
+  {/* Member → portfolio projects, derived from the work collection's credits.
+      The person modal reads this and renders "Portfolio" links under each
+      member's details. */}
+  <script
+    type="application/json"
+    id="team-projects-data"
+    is:inline
+    set:html={teamProjectsJson}
+  ></script>
 </BaseLayout>

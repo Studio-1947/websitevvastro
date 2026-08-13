@@ -1,8 +1,8 @@
 {
   "title": "Foundation for Innovations in Health — FIH | Studio 1947",
-  "description": "How Studio 1947 engineered a digital platform and CMS ecosystem for Foundation for Innovations in Health to scale rural healthcare interventions, training, and 3T model deployment across India.",
+  "description": "How Studio 1947 engineered a digital platform and CMS ecosystem for Foundation for Innovations in Health to scale rural healthcare interventions, training, and the 3T model across India.",
   "ogTitle": "Foundation for Innovations in Health — FIH | Studio 1947",
-  "ogDescription": "How Studio 1947 engineered a digital platform and CMS ecosystem for Foundation for Innovations in Health to scale rural healthcare interventions, training, and 3T model deployment across India.",
+  "ogDescription": "How Studio 1947 engineered a digital platform and CMS ecosystem for Foundation for Innovations in Health to scale rural healthcare interventions, training, and the 3T model across India.",
   "ogType": "article",
   "brand": "#FBBF24",
   "client": "Foundation for Innovations in Health",
@@ -23,13 +23,14 @@
   "hero": {
     "src": "/assets/img/work/fih/frame-12.webp",
     "alt": "Foundation for Innovations in Health master brand lockup",
-    "style": "logo"
+    "style": "logo",
+    "background": "light"
   },
   "sections": [
     {
       "divider": false,
       "body": [
-        "Healthcare delivery in underserved rural regions faces systemic barriers: severe shortage of medical professionals, fragmented communication, and geographical isolation. <strong>Foundation for Innovations in Health (FIH)</strong> is a pioneering non-profit operating out of Kolkata, working to mitigate Multi-Dimensional Poverty (MDP) through frugal, technology-enabled primary care interventions.",
+        "Healthcare delivery in underserved rural regions faces systemic barriers: a severe shortage of medical professionals, fragmented communication, and geographical isolation. <strong>Foundation for Innovations in Health (FIH)</strong> is a not-for-profit social impact enterprise operating out of Kolkata, working to mitigate Multi-Dimensional Poverty (MDP) and build rural resilience through twin interventions — employment-oriented education for rural youth, and improved access to public health and primary care for last-mile communities. Its unifying purpose: <strong>\"Health for a billion.\"</strong>",
         "Studio 1947 was brought in to engineer a modern, highly accessible digital platform and headless content ecosystem. Our goal was to articulate FIH's transformative mission, empower rural youth and female health workers, and build institutional trust for corporate CSR and academic partnerships."
       ]
     },
@@ -38,15 +39,9 @@
     },
     {
       "divider": false,
-      "label": "The Mission",
+      "label": "The Frontlines",
       "body": [
-        "Founded in 2013, <strong>FIH</strong> delivers evidence-based primary healthcare solutions across rural West Bengal and Bihar. The foundation equips rural youth—particularly women—with employment-oriented health education while deploying digital clinics directly to vulnerable communities."
-      ]
-    },
-    {
-      "divider": false,
-      "label": "The Challenge",
-      "body": [
+        "The Sundarbans — the world's largest delta and mangrove forest — is FIH's proving ground. Spanning 9,630 sq. km across 102 islands (54 of them inhabited), it is home to more than <strong>4.4 million people</strong>, many living in extreme isolation with limited access to essential services. The region sits on the frontlines of climate change: cyclones such as Amphan, Yaas, Fani and Bulbul have caused widespread devastation — loss of lives, large-scale displacement, and economic damage of nearly <strong>USD 20 billion</strong> — while rising sea levels, salinity and tidal flooding intensify poverty and disrupt public health.",
         "Communicating complex, field-tested healthcare methodologies requires more than a static brochure site. FIH needed a digital flagship that could accomplish three critical objectives simultaneously:"
       ],
       "layout": "grid-3",
@@ -54,17 +49,17 @@
         {
           "num": "01",
           "title": "Institutional Trust",
-          "body": "Instilling visual confidence for major CSR donors, government partners, and academic institutions like the IITs."
+          "body": "Instilling visual confidence for major CSR donors, government partners, and academic institutions like IIT Kharagpur and NIT Meghalaya."
         },
         {
           "num": "02",
           "title": "Frugal Tech Showcase",
-          "body": "Demonstrating how digital clinics, floating healthcare units, and decision-support software operate on the ground."
+          "body": "Demonstrating how digital clinics, the floating healthcare boat, and clinical decision-support software operate on the ground."
         },
         {
           "num": "03",
           "title": "Dynamic Operations",
-          "body": "Empowering non-technical staff to publish real-time notifications, event updates, and healthcare stories effortlessly."
+          "body": "Empowering non-technical field staff to publish real-time notifications, event updates, and healthcare stories effortlessly."
         }
       ]
     },
@@ -72,7 +67,7 @@
       "heading": "The Core Methodology: The 3T Model",
       "label": "Proprietary Healthcare Framework",
       "body": [
-        "At the heart of FIH's operations is its proprietary <strong>3T Model</strong>—a scalable strategy engineered to solve the shortage of doctors in remote communities. We translated this methodology into an intuitive, interactive visual breakdown on the digital platform:"
+        "At the heart of FIH's operations is its proprietary <strong>3T Model</strong> — a scalable strategy engineered to solve the shortage of doctors in remote communities. We translated this methodology into an intuitive, interactive visual breakdown on the digital platform:"
       ],
       "layout": "grid-3",
       "cards": [
@@ -82,28 +77,93 @@
           "body": "Training rural youth and women to become certified allied health professionals and frontline health workers."
         },
         {
+          "num": "Task-Shift",
+          "title": "Frontline Empowerment",
+          "body": "Shifting specific primary-health tasks from overburdened doctors to trained community workers, bringing care directly to the doorstep."
+        },
+        {
           "num": "Technology",
           "title": "Frugal Health-Tech",
           "body": "Deploying data-driven diagnostic tools, digital clinics, and clinical decision-support software tailored for low-resource settings."
-        },
-        {
-          "num": "Task-Shift",
-          "title": "Frontline Empowerment",
-          "body": "Shifting specific primary health tasks from overburdened doctors to trained community workers, bringing care directly to the doorstep."
         }
+      ]
+    },
+    {
+      "heading": "Uday — Doctor at the Doorstep",
+      "label": "The Digital Clinic Model",
+      "body": [
+        "<strong>\"Uday\" — doctor at the doorstep</strong> is FIH's model of digital clinic, delivering primary care and public health services to underserved rural populations through <strong>15 centres</strong> (fixed and cycle-based mobile) in Birbhum district, West Bengal, and one motor-boat in the Sundarbans. It is led by remote doctors, delivered by community health workers (CHWs), and supported by two sets of innovative technologies: a clinical algorithm-driven <strong>Electronic Health Record</strong> (FIH's own copyrighted software) and clinical-grade diagnostic devices from IIT Kharagpur's Common Research & Technology Development Hub.",
+        "A single-visit, one-stop episode of care — consultation, tests, medicines, physiotherapy, injections and dressing — costs an average of <strong>Rs. 250</strong>, and the platform is engineered for ultra-low-bandwidth environments with high scalability. The site walks readers through the complete cycle of care in five steps:"
+      ],
+      "list": [
+        "<strong>Clinical Data Entry</strong> — the CHW records patient data as directed by the software algorithm triggered by the symptom.",
+        "<strong>Real-Time Sharing</strong> — history and examination data are shared with the remote doctor in real time.",
+        "<strong>Remote Consultation</strong> — the doctor reviews the data, consults the patient over video, records advice and shares it with the CHW.",
+        "<strong>Medical Action</strong> — the CHW undertakes tests and dispenses medicines as advised, sharing reports with the doctor in real time.",
+        "<strong>Documentation</strong> — the patient receives a printed prescription signed by the doctor, along with a follow-up appointment where required."
+      ]
+    },
+    {
+      "heading": "The Floating Digital Clinic",
+      "label": "Special Project Spotlight",
+      "body": [
+        "To bridge the healthcare gap in the Sundarbans, FIH introduced the <strong>Floating Digital Clinic</strong> — a purpose-modified, fully equipped medical boat that travels across <strong>six remote islands</strong>, delivering accessible primary healthcare directly to underserved communities. Onboard, professionally certified health workers trained from local SC/ST communities deliver essential care, supported by real-time consultations with qualified doctors and specialists through the digital platform.",
+        "Beyond service delivery, the model creates local employment, builds community capacity, and strengthens resilience in one of the most climate-vulnerable regions in the world — a story the platform tells through immersive photography and field reports."
       ]
     },
     {
       "heading": "Digital Architecture & Interface Design",
       "label": "Engineering & Technology",
       "body": [
-        "To deliver a lightning-fast, resilient experience, Studio 1947 built the flagship application using <strong>Next.js 16 (App Router)</strong>, <strong>Tailwind CSS v4</strong>, and <strong>Sanity CMS v5</strong>. The system provides real-time content synchronization, responsive accessibility, and zero-latency page transitions."
+        "To deliver a lightning-fast, resilient experience, Studio 1947 built the flagship application using <strong>Next.js 16 (App Router)</strong>, <strong>Tailwind CSS v4</strong>, and <strong>Sanity CMS</strong>. The system provides real-time content synchronization, responsive accessibility, and zero-latency page transitions — including a live notification bell that surfaces field updates straight from the CMS."
       ],
       "media": [
         {
-          "src": "/assets/img/work/fih/screenshot.webp",
-          "alt": "Foundation for Innovations in Health digital platform interface",
-          "caption": "Digital platform interface designed by Studio 1947 for Foundation for Innovations in Health (click to expand full screenshot in lightbox)",
+          "src": "/assets/img/work/fih/page-home.webp",
+          "alt": "Foundation for Innovations in Health homepage — the 'Health for a billion' hero with donation and story pathways",
+          "caption": "The FIH homepage: 'Health for a billion' hero, program pathways, board, scale metrics, and live news (click to expand in lightbox)",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
+      "heading": "A Walk Through the Platform",
+      "label": "Interface Highlights",
+      "body": [
+        "Four views that carry the institution's story — the Uday care journey, the floating clinic spotlight, live notifications from the CMS, and the field stories behind the numbers."
+      ],
+      "layout": "grid-2",
+      "media": [
+        {
+          "src": "/assets/img/work/fih/page-uday.webp",
+          "alt": "The Uday care journey on the FIH platform — a circular five-step walkthrough of a patient visit, from data entry to printed prescription",
+          "caption": "Uday Journey — the five-step care cycle, from clinical data entry to the printed prescription",
+          "zoom": true,
+          "pad": true,
+          "ratio": "5/4"
+        },
+        {
+          "src": "/assets/img/work/fih/page-clinic.webp",
+          "alt": "FIH 'Our Work' page — the Floating Digital Clinic spotlight on the Sundarbans medical boat",
+          "caption": "Floating Digital Clinic — the Sundarbans medical boat and its six-island care route",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/fih/page-bell.webp",
+          "alt": "The notification bell on the FIH platform — live field updates pulled straight from the Sanity CMS",
+          "caption": "Notification bell — live field updates surfaced from the CMS, with unread-state persistence",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/fih/page-stories.webp",
+          "alt": "FIH 'Stories of Change' page — testimonials from placed graduates and clinic beneficiaries",
+          "caption": "Stories of Change — real testimonies from placed graduates and clinic beneficiaries",
           "zoom": true,
           "pad": true,
           "ratio": "16/9"
@@ -121,19 +181,19 @@
       "cards": [
         {
           "title": "Real-time Notification Bell & Lightbox",
-          "body": "Built a custom client notification bell fetching live Sanity CMS data, unread state persistence via localStorage, and high-res image lightboxes for urgent field updates."
+          "body": "A custom client notification bell fetching live Sanity CMS data, unread-state persistence via localStorage, and high-res image lightboxes for urgent field updates."
         },
         {
           "title": "Floating Digital Clinics & Stories",
-          "body": "Immersive media showcases highlighting mobile clinic boats, cancer screening initiatives, and rural health worker training stories."
+          "body": "Immersive media showcases highlighting the mobile clinic boat, cancer screening initiatives, and rural health worker training stories."
         },
         {
           "title": "CSR & 80G Tax-Exempt Information Hub",
-          "body": "Clear showcase of corporate CSR partnership frameworks, academic collaborations (IITs), and Section 80G tax-exemption compliance guidelines for prospective donors."
+          "body": "A clear showcase of corporate CSR partnership frameworks, academic collaborations (IIT Kharagpur, NIT Meghalaya), and Section 80G tax-exemption compliance guidelines for prospective donors."
         },
         {
           "title": "Micro-Animations & Accessible Typography",
-          "body": "Configured motion-driven scroll reveals (Framer Motion) paired with high-legibility Google Fonts (Poppins, Lato) for inclusive reading."
+          "body": "Motion-driven scroll reveals (Framer Motion) paired with high-legibility Google Fonts (Poppins for headings, Lato for body) for inclusive reading."
         }
       ]
     },
@@ -148,11 +208,25 @@
           "note": "Used for callouts, buttons, notifications, and active states"
         },
         {
-          "hex": "#0E0F11",
-          "name": "Deep Midnight Slate",
+          "hex": "#1A1A1A",
+          "name": "Deep Charcoal",
           "role": "Dark Structural Panels",
-          "note": "Provides high contrast for footer and navigation"
+          "note": "Provides high contrast for navigation, footer, and hero surfaces"
         }
+      ]
+    },
+    {
+      "heading": "Recognition & Institutional Partnerships",
+      "divider": true,
+      "label": "Proof of Trust",
+      "body": [
+        "FIH's model has earned recognition that the platform surfaces prominently to build donor and partner confidence — including a <strong>Stanford University</strong> listing among the top 40 global changemakers, an MoU engaging FIH as <strong>'Skill and Knowledge Partner'</strong> for the Allied Health Professional program at the IIT Kharagpur teaching hospital, and an MoU with NIT Meghalaya and DOT Inc. (Seoul) to train 15 visually impaired individuals as software programmers."
+      ],
+      "list": [
+        "<strong>Stanford University</strong> — FIH's work recognized among the top 40 global changemakers.",
+        "<strong>IIT Kharagpur</strong> — MoU engaging FIH as Skill and Knowledge Partner for AHP education at the IIT KGP teaching hospital.",
+        "<strong>NIT Meghalaya</strong> — MoU with DOT Inc. (Seoul) to train visually impaired individuals as software programmers.",
+        "<strong>CSR partners</strong> — Mahanagar Gas Limited (330 youth as General Duty Assistants), Balmer Lawrie (Uday — Healthcare at the Doorstep), Essel Mining (mobile dental van), Ambuja Neotia (floating clinic)."
       ]
     },
     {
@@ -160,16 +234,17 @@
       "divider": true,
       "label": "Measuring Success",
       "list": [
-        "<strong>Unified Digital Presence:</strong> Replaced fragmented static messaging with a modern, performant flagship application.",
-        "<strong>Empowered Field Staff:</strong> Enabled real-time publishing of health camps, emergency alerts, and training outcomes via Sanity CMS without developer intervention.",
-        "<strong>Accelerated Partnerships:</strong> Strengthened corporate CSR engagement and academic collaboration visibility for long-term health initiative funding."
+        "<strong>15 digital clinics + 1 floating clinic:</strong> a documented model of care at a single-visit average cost of Rs. 250 per episode.",
+        "<strong>Real livelihoods:</strong> placed graduates now work at Apollo Hospitals (Chennai), Tata Medical Centre (Kolkata), Cloud Nine (Vashi, Bangalore), and Ratna Memorial (Pune) — with salaries up to Rs. 20,000/month.",
+        "<strong>Empowered field staff:</strong> real-time publishing of health camps, emergency alerts, and training outcomes via Sanity CMS without developer intervention.",
+        "<strong>Accelerated partnerships:</strong> strengthened corporate CSR engagement and academic collaboration visibility for long-term health initiative funding."
       ]
     }
   ],
   "credits": [
     {
       "role": "UI/UX Design",
-      "members": "Soumyajit"
+      "members": "Soumajit"
     },
     {
       "role": "Website Development & Engineering",

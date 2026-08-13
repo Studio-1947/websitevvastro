@@ -41,15 +41,21 @@ body.page-case-modular {
     height: 80vh;
   }
 }
-/* Scrim so the wordmark stays legible over any photograph. */
+/* Scrim so the wordmark stays legible over any photograph. Cases that carry
+   a `scrim` colour override this with a flat brand tint (--case-scrim, set on
+   the hero); the default is a black gradient, darkest at the base where the
+   title sits. */
 .case-hero__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.8),
-    rgba(0, 0, 0, 0.2) 45%,
-    transparent
+  background: var(
+    --case-scrim,
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.2) 45%,
+      transparent
+    )
   );
   pointer-events: none;
 }
@@ -96,6 +102,12 @@ body.page-case-modular {
 .case-hero--logo {
   background: var(--brand-fill, var(--brand));
   padding-top: 96px;
+}
+/* Clean light panel for logo lockups that read muddy against their own fill
+   (hero.background: 'light' — e.g. FIH's dark-ink lockup on its amber fill).
+   Ink/title/meta already derive from --brand-ink, so only the panel changes. */
+.case-hero--logo.case-hero--light {
+  background: var(--bg);
 }
 .case-hero--logo .case-hero__img {
   height: clamp(200px, 30vw, 360px);
@@ -510,6 +522,18 @@ body.page-case-modular {
   object-position: top;
   max-width: none;
 }
+/* Padded ratio figures: the pad's 89px side gutters shrink the content box
+   wider-than-16:9, so `cover` shears the artwork's sides. Let the image carry
+   its own ratio instead — the pair stays level because same-ratio assets make
+   equal heights, and nothing gets cropped. */
+.case-figure--pad.case-figure--ratio {
+  aspect-ratio: auto;
+}
+.case-figure--pad.case-figure--ratio img {
+  height: auto;
+  aspect-ratio: var(--ratio);
+  object-fit: cover;
+}
 
 .case-figure__caption {
   padding: 12px 18px 16px;
@@ -580,6 +604,19 @@ body.page-case-modular {
   font-size: clamp(14px, 1vw, 15px);
   line-height: 1.6;
   color: var(--grey-700);
+}
+/* Team members are links to their About page profile — underlined brand
+   accent like the body prose links, so they read as navigable without
+   screaming over the credits' quiet type. External collaborators stay plain. */
+.case-credit__members a {
+  color: var(--brand-text, var(--brand));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  transition: color 0.25s var(--ease);
+}
+.case-credit__members a:hover {
+  color: var(--grey-900);
 }
 
 /* ── CTA ──────────────────────────────────────────────────────────────────── */

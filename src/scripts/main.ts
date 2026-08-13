@@ -99,6 +99,7 @@ function init(): void {
   when('[data-commit]', () => import('./carousel').then((m) => m.commitmentCarousel()));
   when('.cocreate__line', () => import('./cocreate').then((m) => m.cocreateCycle()));
   when('.team-card[data-person]', () => import('./personModal').then((m) => m.personModal()));
+  when('[data-search-open]', () => import('./siteSearch').then((m) => m.siteSearch()));
   when('.case-figure--zoom', () => import('./lightbox').then((m) => m.caseLightbox()));
 }
 
