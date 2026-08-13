@@ -13,3 +13,4 @@ test-results/
 playwright-report/
 # os
 .DS_Store
+.agents

@@ -15,10 +15,7 @@
     "UI/UX Design",
     "One-Pager Site"
   ],
-  "solutions": [
-    "data-design-tech",
-    "communication-campaign"
-  ],
+  "solutions": ["data-design-tech", "communication-campaign"],
   "active": true,
   "hero": {
     "src": "/assets/img/work/kulam-homestay/hero-header.png",
@@ -70,16 +67,16 @@
       ],
       "media": [
         {
-          "src": "/assets/img/work/kulam-homestay/rooted-tradition.png",
-          "alt": "Rooted in tradition section showing Kulam hill cottage architecture and 4 culture pillars",
+          "src": "/assets/img/work/kulam-homestay/design-development-1.png",
+          "alt": "Design & Development - Cultural Pillars and Architectural Identity",
           "caption": "Cultural Pillars: Warm Hospitality, Tea Garden Life, Peaceful Nature, and Local Lifestyle",
           "zoom": true,
           "pad": true
         },
         {
-          "src": "/assets/img/work/kulam-homestay/rooms-comfort.png",
-          "alt": "Stay in Comfort rooms section with cozy interior photo gallery and amenity badges",
-          "caption": "Stay in Comfort: Highlight cozy wooden room interiors, plush mountain view suites, and guest amenities (WiFi, Parking, Restaurant, Hot Water, Bonfire)",
+          "src": "/assets/img/work/kulam-homestay/design-development-2.png",
+          "alt": "Design & Development - Stay in Comfort rooms and amenities",
+          "caption": "Stay in Comfort: Highlight cozy wooden room interiors, plush mountain view suites, and guest amenities",
           "zoom": true,
           "pad": true
         }
@@ -105,16 +102,26 @@
     {
       "heading": "Mobile Responsiveness & Journey Beyond",
       "label": "Mobile-First UX",
+      "layout": "grid-2",
       "body": [
         "Over 85% of homestay inquiries originate from mobile users. The application was engineered for zero-lag mobile performance, quick location maps, and high-visibility contact triggers."
       ],
       "media": [
         {
-          "src": "/assets/img/work/kulam-homestay/journey-beyond.png",
-          "alt": "A journey beyond section featuring mobile device mockups and feature matrix",
-          "caption": "Mobile UX: Seamless mobile responsiveness, location map guidance, and instant host inquiry triggers",
-          "zoom": true,
-          "pad": true
+          "src": "/assets/img/work/kulam-homestay/mobile-only-responsive.gif",
+          "alt": "Mobile view interactive scrolling experience for Kulam Homestay",
+          "caption": "Mobile UX: Smooth scrolling interface optimized for handheld devices",
+          "zoom": false,
+          "pad": true,
+          "loop": true
+        },
+        {
+          "src": "/assets/img/work/kulam-homestay/responsive-gif.gif",
+          "alt": "Responsive layout demonstration across screen breakpoints for Kulam Homestay",
+          "caption": "Responsive Design: Fluid adaptive layout across mobile, tablet, and desktop viewports",
+          "zoom": false,
+          "pad": true,
+          "loop": true
         }
       ]
     },
@@ -145,7 +152,7 @@
       ],
       "media": [
         {
-          "src": "/assets/img/work/kulam-homestay/guest-testimonials.png",
+          "src": "/assets/img/work/kulam-homestay/clienttestominialclean.png",
           "alt": "What our guests say testimonials section with 4.9 star rating",
           "caption": "Guest Reviews & Location Map: Highlighting guest ratings (4.9★) and Google Maps navigation",
           "zoom": true,
@@ -167,11 +174,11 @@
   "credits": [
     {
       "role": "Website Design & Development",
-      "members": "Studio 1947"
+      "members": "Soumajit"
     },
     {
-      "role": "Brand Identity & Content Strategy",
-      "members": "Studio 1947"
+      "role": "Project Management",
+      "members": "Nikhil Subba"
     }
   ]
 }

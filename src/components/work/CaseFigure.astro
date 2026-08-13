@@ -12,35 +12,64 @@ interface Props {
   ratio?: string;
   /** Hero-adjacent images should load eagerly; everything else defers. */
   eager?: boolean;
+  loop?: boolean;
+  autoplay?: boolean;
 }
-const { src, alt, caption, zoom = true, pad = false, ratio, eager = false } = Astro.props;
+const { src, alt, caption, zoom = true, pad = false, ratio, eager = false, loop = false, autoplay = false } = Astro.props;
 const isVideo = src.endsWith('.mp4') || src.endsWith('.webm');
-const isReel = isVideo || ratio === '9/16' || ratio === '3/4' || ratio === '9/20' || ratio === '1/1';
+const isGif = src.endsWith('.gif');
+const isLoopingVideo = isVideo && (loop || autoplay || src.includes('responsive'));
+const isReel = (isVideo && !isLoopingVideo) || ratio === '9/16' || ratio === '3/4' || ratio === '9/20' || ratio === '1/1';
 const cls = [
   'case-figure',
   pad && 'case-figure--pad',
   !isReel && ratio && 'case-figure--ratio',
-  !isVideo && zoom && 'case-figure--zoom',
+  !isVideo && zoom && !isGif && 'case-figure--zoom',
   isReel && 'case-figure--reel',
 ]
   .filter(Boolean)
   .join(' ');
+
+// Derive webp alternative for gifs if available
+const webpSrc = isGif ? src.replace(/\.gif$/, '.webp') : null;
 ---
 
 <figure class={cls} style={!isReel && ratio ? `--ratio: ${ratio}` : undefined}>
   {
     isVideo ? (
-      <div class="case-reel-frame">
+      isLoopingVideo ? (
         <video
           src={src}
-          controls
+          autoplay
+          loop
+          muted
           playsinline
-          preload="metadata"
-          class="case-figure__video"
-        >
-          <track kind="captions" />
-        </video>
-      </div>
+          preload="auto"
+          class="case-figure__video case-figure__video--loop"
+        />
+      ) : (
+        <div class="case-reel-frame">
+          <video
+            src={src}
+            controls
+            playsinline
+            preload="metadata"
+            class="case-figure__video"
+          >
+            <track kind="captions" />
+          </video>
+        </div>
+      )
+    ) : isGif ? (
+      <picture>
+        {webpSrc && <source srcset={webpSrc} type="image/webp" />}
+        <img
+          src={src}
+          alt={alt}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      </picture>
     ) : (
       <img
         src={src}
