@@ -22,7 +22,9 @@
 
 /* The footer block sits ~87px below <main>; without this the white <body>
    shows through as a band between the CTA and the footer. */
-body.page-case-modular { background: var(--bg-alt); }
+body.page-case-modular {
+  background: var(--bg-alt);
+}
 
 /* ── Hero ─────────────────────────────────────────────────────────────────── */
 .case-hero {
@@ -35,13 +37,20 @@ body.page-case-modular { background: var(--bg-alt); }
   display: block;
 }
 @media (min-width: 768px) {
-  .case-hero__img { height: 80vh; }
+  .case-hero__img {
+    height: 80vh;
+  }
 }
 /* Scrim so the wordmark stays legible over any photograph. */
 .case-hero__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2) 45%, transparent);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.2) 45%,
+    transparent
+  );
   pointer-events: none;
 }
 .case-hero__body {
@@ -84,7 +93,10 @@ body.page-case-modular { background: var(--bg-alt); }
    ink rather than white — a scrim over a light logo just muddies it. */
 /* --brand-fill is the brand (or a hair-darkened twin for mid-tone brands)
    that lets --brand-ink clear 4.5:1 — see CaseLayout. */
-.case-hero--logo { background: var(--brand-fill, var(--brand)); padding-top: 96px; }
+.case-hero--logo {
+  background: var(--brand-fill, var(--brand));
+  padding-top: 96px;
+}
 .case-hero--logo .case-hero__img {
   height: clamp(200px, 30vw, 360px);
   object-fit: contain;
@@ -96,7 +108,9 @@ body.page-case-modular { background: var(--bg-alt); }
 }
 /* --brand-ink is contrast-picked per brand (white for dark brands, near-black
    for light ones) — white on a light brand fails WCAG AA. */
-.case-hero--logo .case-hero__title { color: var(--brand-ink, #fff); }
+.case-hero--logo .case-hero__title {
+  color: var(--brand-ink, #fff);
+}
 /* The tag chip must not lighten the fill: a translucent-white wash raises
    the surface luminance and drags white ink under 4.5:1 on mid-tone brands
    (green #5b965b → 3.5:1, orange #d44f28 → 4.2:1). A translucent-black wash
@@ -124,7 +138,9 @@ body.page-case-modular { background: var(--bg-alt); }
   border-radius: 999px;
   padding: 11px 26px 11px 14px;
   margin-bottom: clamp(32px, 4vw, 56px);
-  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  transition:
+    border-color 0.3s var(--ease),
+    color 0.3s var(--ease);
 }
 .case-back .arrow {
   display: grid;
@@ -134,10 +150,20 @@ body.page-case-modular { background: var(--bg-alt); }
   border-radius: 50%;
   border: 1.5px solid var(--brand);
   color: var(--brand);
-  transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    transform 0.3s var(--ease);
 }
-.case-back:hover { border-color: var(--brand); color: var(--brand); }
-.case-back:hover .arrow { background: var(--brand); color: #fff; transform: translateX(-2px); }
+.case-back:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+.case-back:hover .arrow {
+  background: var(--brand);
+  color: #fff;
+  transform: translateX(-2px);
+}
 
 /* ── Shell ────────────────────────────────────────────────────────────────── */
 .case-body {
@@ -145,10 +171,17 @@ body.page-case-modular { background: var(--bg-alt); }
   margin: 0 auto;
   padding-inline: var(--gutter);
 }
-.case-section { padding-bottom: clamp(28px, 4vw, 52px); }
+.case-section {
+  padding-bottom: clamp(28px, 4vw, 52px);
+}
 .case-section:first-of-type,
-.case-section--first { padding-top: clamp(48px, 6vw, 84px); }
-.case-section--divided { border-top: 1px solid var(--line); padding-top: clamp(32px, 4.5vw, 64px); }
+.case-section--first {
+  padding-top: clamp(48px, 6vw, 84px);
+}
+.case-section--divided {
+  border-top: 1px solid var(--line);
+  padding-top: clamp(32px, 4.5vw, 64px);
+}
 
 .case-section__heading {
   font-family: var(--font-display);
@@ -173,7 +206,9 @@ body.page-case-modular { background: var(--bg-alt); }
   color: var(--brand-text, var(--brand));
   margin-bottom: 14px;
 }
-.case-section:not(.case-section--divided) .case-section__subheading { margin-top: clamp(20px, 2.4vw, 36px); }
+.case-section:not(.case-section--divided) .case-section__subheading {
+  margin-top: clamp(20px, 2.4vw, 36px);
+}
 
 /* Brand-tinted pill — the one place per-brand colour reads strongly. */
 .case-label {
@@ -201,9 +236,18 @@ body.page-case-modular { background: var(--bg-alt); }
   line-height: 1.7;
   color: var(--grey-700);
 }
-.case-prose p + p { margin-top: 16px; }
-.case-prose strong { color: var(--brand-text, var(--brand)); font-weight: 500; }
-.case-prose a { color: var(--brand-text, var(--brand)); text-decoration: underline; text-underline-offset: 3px; }
+.case-prose p + p {
+  margin-top: 16px;
+}
+.case-prose strong {
+  color: var(--brand-text, var(--brand));
+  font-weight: 500;
+}
+.case-prose a {
+  color: var(--brand-text, var(--brand));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 
 /* ── Lists ────────────────────────────────────────────────────────────────── */
 /* Brand-ringed markers, matching the legacy case studies' .case-list idiom. */
@@ -223,7 +267,7 @@ body.page-case-modular { background: var(--bg-alt); }
   color: var(--grey-700);
 }
 .case-list li::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0.52em;
@@ -232,7 +276,10 @@ body.page-case-modular { background: var(--bg-alt); }
   border: 2px solid var(--brand);
   border-radius: 50%;
 }
-.case-list li strong { color: var(--grey-900); font-weight: 500; }
+.case-list li strong {
+  color: var(--grey-900);
+  font-weight: 500;
+}
 
 /* ── Swatches ─────────────────────────────────────────────────────────────── */
 /* The source draws palette chips in CSS rather than exporting images, so they
@@ -268,7 +315,9 @@ body.page-case-modular { background: var(--bg-alt); }
   max-width: 30ch;
 }
 /* Pushes the identity block to the bottom edge (the source's justify-end). */
-.case-swatch__foot { margin-top: auto; }
+.case-swatch__foot {
+  margin-top: auto;
+}
 .case-swatch__row {
   display: flex;
   align-items: flex-end;
@@ -306,16 +355,25 @@ body.page-case-modular { background: var(--bg-alt); }
   display: grid;
   gap: clamp(16px, 1.8vw, 26px);
 }
-.case-cards--grid-2 { grid-template-columns: repeat(2, 1fr); }
-.case-cards--grid-3 { grid-template-columns: repeat(3, 1fr); }
-.case-cards--split { grid-template-columns: 1fr 1fr; }
+.case-cards--grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.case-cards--grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.case-cards--split {
+  grid-template-columns: 1fr 1fr;
+}
 
 .case-card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--bg);
   padding: clamp(22px, 2.2vw, 34px);
-  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease);
+  transition:
+    border-color 0.4s var(--ease),
+    box-shadow 0.4s var(--ease),
+    transform 0.4s var(--ease);
 }
 .case-card:hover {
   border-color: var(--brand-line);
@@ -345,15 +403,30 @@ body.page-case-modular { background: var(--bg-alt); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .case-card { transition: none; }
-  .case-card:hover { transform: none; }
+  .case-card {
+    transition: none;
+  }
+  .case-card:hover {
+    transform: none;
+  }
 }
 
 /* ── Media ────────────────────────────────────────────────────────────────── */
-.case-media { margin-top: clamp(22px, 3vw, 44px); display: grid; gap: clamp(16px, 2vw, 28px); }
-.case-media--grid-2 { grid-template-columns: repeat(2, 1fr); }
-.case-media--grid-3 { grid-template-columns: repeat(3, 1fr); }
-.case-media--split { grid-template-columns: 1fr 1fr; align-items: center; }
+.case-media {
+  margin-top: clamp(22px, 3vw, 44px);
+  display: grid;
+  gap: clamp(16px, 2vw, 28px);
+}
+.case-media--grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.case-media--grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.case-media--split {
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
 
 .case-figure {
   margin: 0;
@@ -402,22 +475,34 @@ body.page-case-modular { background: var(--bg-alt); }
   padding: 32px 16px 0;
 }
 @media (min-width: 768px) {
-  .case-figure--pad { padding: 65px 89px 0; }
+  .case-figure--pad {
+    padding: 65px 89px 0;
+  }
 }
 /*
  * `width: 100%` would upscale every asset to its container: the brand-governance
  * artwork is 409px wide natively and was being blown up to 1214px (~3x) and
  * going soft. Cap at the intrinsic size instead and centre what does not fill.
  */
-.case-figure img {
+.case-figure img,
+.case-figure picture img,
+.case-figure video {
   display: block;
   width: auto;
   max-width: 100%;
   height: auto;
   margin-inline: auto;
 }
+.case-figure__video--loop {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 16px;
+}
 /* Ratio-pinned figures fill and crop, so a side-by-side pair stays level. */
-.case-figure--ratio { aspect-ratio: var(--ratio); }
+.case-figure--ratio {
+  aspect-ratio: var(--ratio);
+}
 .case-figure--ratio img {
   width: 100%;
   height: 100%;
@@ -432,8 +517,13 @@ body.page-case-modular { background: var(--bg-alt); }
   font-size: clamp(13px, 1vw, 15px);
   color: var(--grey-500);
 }
-.case-figure--zoom img { cursor: zoom-in; transition: transform 0.5s var(--ease); }
-.case-figure--zoom:hover img { transform: scale(1.02); }
+.case-figure--zoom img {
+  cursor: zoom-in;
+  transition: transform 0.5s var(--ease);
+}
+.case-figure--zoom:hover img {
+  transform: scale(1.02);
+}
 
 /* Responsive 16:9 embed (aspect-ratio rather than the source's padding hack). */
 .case-embed {
@@ -444,7 +534,12 @@ body.page-case-modular { background: var(--bg-alt); }
   border: 1px solid var(--line);
   background: var(--ink);
 }
-.case-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+.case-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
 
 /* ── Credits ──────────────────────────────────────────────────────────────── */
 .case-credits {
@@ -464,8 +559,12 @@ body.page-case-modular { background: var(--bg-alt); }
   text-transform: uppercase;
   margin-bottom: 12px;
 }
-.case-credits__kicker { color: var(--grey-500); }
-.case-credit__role { color: var(--brand-text, var(--brand)); }
+.case-credits__kicker {
+  color: var(--grey-500);
+}
+.case-credit__role {
+  color: var(--brand-text, var(--brand));
+}
 .case-credits__client {
   font-family: var(--font-display);
   font-size: clamp(20px, 1.8vw, 26px);
@@ -506,10 +605,18 @@ body.page-case-modular { background: var(--bg-alt); }
   object-position: left center;
   pointer-events: none;
 }
-.case-cta__body { position: relative; z-index: 1; max-width: 46ch; }
+.case-cta__body {
+  position: relative;
+  z-index: 1;
+  max-width: 46ch;
+}
 @media (max-width: 900px) {
-  .case-cta__mark { display: none; }
-  .case-cta__body { max-width: none; }
+  .case-cta__mark {
+    display: none;
+  }
+  .case-cta__body {
+    max-width: none;
+  }
 }
 .case-cta__title {
   font-family: var(--font-display);
@@ -531,9 +638,14 @@ body.page-case-modular { background: var(--bg-alt); }
   font-family: var(--font-body);
   font-weight: 500;
   font-size: clamp(15px, 1.1vw, 18px);
-  transition: filter 0.3s var(--ease), transform 0.3s var(--ease);
+  transition:
+    filter 0.3s var(--ease),
+    transform 0.3s var(--ease);
 }
-.case-cta__btn:hover { filter: brightness(0.88); transform: translateY(-1px); }
+.case-cta__btn:hover {
+  filter: brightness(0.88);
+  transform: translateY(-1px);
+}
 
 /* ── Lightbox ─────────────────────────────────────────────────────────────── */
 .lightbox {
@@ -547,7 +659,9 @@ body.page-case-modular { background: var(--bg-alt); }
   backdrop-filter: blur(4px);
   cursor: zoom-out;
 }
-.lightbox[hidden] { display: none; }
+.lightbox[hidden] {
+  display: none;
+}
 /*
  * Most case artwork is exported with an alpha channel (11 of 13 on rajkamal
  * alone), so without an opaque backing the transparent areas show the dark
@@ -577,24 +691,38 @@ body.page-case-modular { background: var(--bg-alt); }
   cursor: pointer;
   transition: background 0.2s var(--ease);
 }
-.lightbox__close:hover { background: rgba(255, 255, 255, 0.25); }
+.lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .case-credits { grid-template-columns: 1fr; }
-  .case-credits__grid { grid-template-columns: repeat(2, 1fr); }
+  .case-credits {
+    grid-template-columns: 1fr;
+  }
+  .case-credits__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (max-width: 1024px) {
-  .case-cards--grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .case-cards--grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (max-width: 760px) {
   .case-media--grid-2,
   .case-media--grid-3,
-  .case-media--split { grid-template-columns: 1fr; }
+  .case-media--split {
+    grid-template-columns: 1fr;
+  }
   .case-cards--grid-2,
   .case-cards--grid-3,
-  .case-cards--split { grid-template-columns: 1fr; }
-  .case-credits__grid { grid-template-columns: 1fr; }
+  .case-cards--split {
+    grid-template-columns: 1fr;
+  }
+  .case-credits__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Screen-smart vertical video reel container */
@@ -612,7 +740,9 @@ body.page-case-modular { background: var(--bg-alt); }
   margin: 0 auto;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.16),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
   background: #000;
   aspect-ratio: 9 / 16;
 }
@@ -651,8 +781,12 @@ body.page-case-modular { background: var(--bg-alt); }
 @media (prefers-reduced-motion: reduce) {
   .case-figure--zoom img,
   .case-back,
-  .case-cta__btn { transition: none; }
-  .case-figure--zoom:hover img { transform: none; }
+  .case-cta__btn {
+    transition: none;
+  }
+  .case-figure--zoom:hover img {
+    transform: none;
+  }
 }
 
 /* Hero meta (location · year) — legacy case studies carry these facts in a
@@ -669,5 +803,9 @@ body.page-case-modular { background: var(--bg-alt); }
 }
 /* Full-strength ink: 0.85 opacity blends white toward mid-tone brands and
    can drop under 4.5:1 (e.g. green #3E843E → ~3.8:1). */
-.case-hero--logo .case-hero__meta { color: var(--brand-ink, var(--grey-500)); }
-.case-hero__dot { opacity: 0.5; }
+.case-hero--logo .case-hero__meta {
+  color: var(--brand-ink, var(--grey-500));
+}
+.case-hero__dot {
+  opacity: 0.5;
+}
