@@ -1,8 +1,7 @@
 ---
 /**
  * One case-study block: optional heading + brand pill + prose + media grid.
- * Mirrors the source's <SectionHeading>/<SectionLabel>/<Body> trio, but styled
- * from the site's tokens (see styles/work-case.css).
+ * Supports split layout (text left, media right).
  */
 import CaseFigure from './CaseFigure.astro';
 
@@ -12,6 +11,7 @@ interface Media {
   caption?: string;
   zoom?: boolean;
   pad?: boolean;
+  ratio?: string;
 }
 interface Card {
   num?: string;
@@ -39,19 +39,14 @@ interface Props {
   /** First section after the hero — its media loads eagerly. */
   first?: boolean;
 }
-/**
- * Pick legible ink for a filled swatch. The source hardcodes this per swatch —
- * white on Dark Cyan and Deep Green, near-black on the Fresh Lime — so derive
- * it from relative luminance rather than making every palette a manual call.
- * The 0.45 cut reproduces the source's own choices.
- */
+
 function swatchInk(hex: string): string {
   const v = (i: number) => {
     const c = parseInt(hex.slice(1 + i * 2, 3 + i * 2), 16) / 255;
     return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
   };
   const L = 0.2126 * v(0) + 0.7152 * v(1) + 0.0722 * v(2);
-  return L > 0.45 ? '#10240f' : '#ffffff';
+  return L > 0.223 ? '#10240f' : '#ffffff';
 }
 
 const {
@@ -68,89 +63,118 @@ const {
   divider = true,
   first = false,
 } = Astro.props;
+
+const SubheadingTag = subheading ? (heading ? 'h3' : 'h2') : null;
+const CardTitleTag = subheading ? (heading ? 'h4' : 'h3') : heading ? 'h3' : 'h2';
+const isSplit = layout === 'split';
 ---
 
-<section class:list={['case-section', divider && 'case-section--divided']}>
-  {heading && <h2 class="case-section__heading">{heading}</h2>}
-  {subheading && <h3 class="case-section__subheading">{subheading}</h3>}
-  {label && <span class="case-label">{label}</span>}
-
+<section class:list={['case-section', divider && 'case-section--divided', first && 'case-section--first', isSplit && 'case-section--split']}>
   {
-    body.length > 0 && (
-      <div class="case-prose">
-        {/* Body strings may carry inline <strong>/<em>/<a> from the source copy. */}
-        {body.map((p) => (
-          <p set:html={p} />
-        ))}
-      </div>
-    )
-  }
+    isSplit ? (
+      <div class="case-split">
+        <div class="case-split__content">
+          {label && <span class="case-label">{label}</span>}
+          {heading && <h2 class="case-section__heading">{heading}</h2>}
+          {SubheadingTag && <SubheadingTag class="case-section__subheading">{subheading}</SubheadingTag>}
 
-  {
-    list.length > 0 && (
-      <ul class="case-list">
-        {list.map((item) => (
-          <li set:html={item} />
-        ))}
-      </ul>
-    )
-  }
-
-  {
-    swatches.length > 0 && (
-      <div class="case-swatches">
-        {swatches.map((s) => (
-          <div class="case-swatch" style={`--sw: ${s.hex}; --sw-ink: ${swatchInk(s.hex)}`}>
-            {s.note && <p class="case-swatch__note">{s.note}</p>}
-            <div class="case-swatch__foot">
-              <div class="case-swatch__row">
-                {s.role && <span class="case-swatch__role">{s.role}</span>}
-                <span class="case-swatch__hex">{s.hex.toUpperCase()}</span>
-              </div>
-              <span class="case-swatch__name">{s.name}</span>
+          {body.length > 0 && (
+            <div class="case-prose">
+              {body.map((p) => (
+                <p set:html={p} />
+              ))}
             </div>
+          )}
+
+          {list.length > 0 && (
+            <ul class="case-list">
+              {list.map((item) => (
+                <li set:html={item} />
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {media.length > 0 && (
+          <div class="case-split__media">
+            {media.map((m) => (
+              <CaseFigure {...m} eager={first} />
+            ))}
           </div>
-        ))}
+        )}
       </div>
-    )
-  }
+    ) : (
+      <>
+        {heading && <h2 class="case-section__heading">{heading}</h2>}
+        {SubheadingTag && <SubheadingTag class="case-section__subheading">{subheading}</SubheadingTag>}
+        {label && <span class="case-label">{label}</span>}
 
-  {
-    cards.length > 0 && (
-      <div class:list={['case-cards', `case-cards--${layout === 'stack' ? 'grid-3' : layout}`]}>
-        {cards.map((c) => (
-          <div class="case-card">
-            {c.num && <div class="case-card__num">{c.num}</div>}
-            <h4 class="case-card__title">{c.title}</h4>
-            {c.body && <p class="case-card__body" set:html={c.body} />}
+        {body.length > 0 && (
+          <div class="case-prose">
+            {body.map((p) => (
+              <p set:html={p} />
+            ))}
           </div>
-        ))}
-      </div>
-    )
-  }
+        )}
 
-  {
-    media.length > 0 && (
-      <div class:list={['case-media', `case-media--${layout}`]}>
-        {media.map((m) => (
-          <CaseFigure {...m} eager={first} />
-        ))}
-      </div>
-    )
-  }
+        {list.length > 0 && (
+          <ul class="case-list">
+            {list.map((item) => (
+              <li set:html={item} />
+            ))}
+          </ul>
+        )}
 
-  {
-    embed && (
-      <div class="case-embed">
-        <iframe
-          src={embed.src}
-          title={embed.title}
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        />
-      </div>
+        {swatches.length > 0 && (
+          <div class="case-swatches">
+            {swatches.map((s) => (
+              <div class="case-swatch" style={`--sw: ${s.hex}; --sw-ink: ${swatchInk(s.hex)}`}>
+                {s.note && <p class="case-swatch__note">{s.note}</p>}
+                <div class="case-swatch__foot">
+                  <div class="case-swatch__row">
+                    {s.role && <span class="case-swatch__role">{s.role}</span>}
+                    <span class="case-swatch__hex">{s.hex.toUpperCase()}</span>
+                  </div>
+                  <span class="case-swatch__name">{s.name}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {cards.length > 0 && (
+          <div class:list={['case-cards', `case-cards--${layout === 'stack' ? 'grid-3' : layout}`]}>
+            {cards.map((c) => (
+              <div class="case-card">
+                {c.num && <div class="case-card__num">{c.num}</div>}
+                <CardTitleTag class="case-card__title">{c.title}</CardTitleTag>
+                {c.body && <p class="case-card__body" set:html={c.body} />}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {media.length > 0 && (
+          <div class:list={['case-media', `case-media--${layout}`]}>
+            {media.map((m) => (
+              <CaseFigure {...m} eager={first} />
+            ))}
+          </div>
+        )}
+
+        {embed && (
+          <div class="case-embed">
+            <iframe
+              src={embed.src}
+              title={embed.title}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            />
+          </div>
+        )}
+      </>
     )
   }
 </section>

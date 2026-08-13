@@ -26,7 +26,9 @@
     .page-our-work .work-card__body { padding: clamp(20px, 1.8vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1; }
     .page-our-work .work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .page-our-work .work-tag {
-      font-size: 13px; color: var(--red); line-height: 1;
+      /* Slightly deepened red: --red on #fff5f5 measured 4.49:1, a hair under
+         the 4.5:1 AA bar. 88% keeps the hue, gains the margin. */
+      font-size: 13px; color: color-mix(in srgb, var(--red) 88%, #000); line-height: 1;
       border: 1px solid #f2c9c9; background: #fff5f5;
       border-radius: 999px; padding: 6px 12px; letter-spacing: .01em;
     }

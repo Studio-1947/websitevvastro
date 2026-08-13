@@ -1,8 +1,6 @@
 ---
 /**
- * A single case-study image. Zoomable figures are picked up by the delegated
- * lightbox (scripts/lightbox.ts) via the `.case-figure--zoom` class — no
- * per-image JS, unlike the source's per-page React handlers.
+ * A single case-study image or video figure.
  */
 interface Props {
   src: string;
@@ -16,22 +14,41 @@ interface Props {
   eager?: boolean;
 }
 const { src, alt, caption, zoom = true, pad = false, ratio, eager = false } = Astro.props;
+const isVideo = src.endsWith('.mp4') || src.endsWith('.webm');
+const isReel = isVideo || ratio === '9/16' || ratio === '3/4' || ratio === '9/20' || ratio === '1/1';
 const cls = [
   'case-figure',
   pad && 'case-figure--pad',
-  ratio && 'case-figure--ratio',
-  zoom && 'case-figure--zoom',
+  !isReel && ratio && 'case-figure--ratio',
+  !isVideo && zoom && 'case-figure--zoom',
+  isReel && 'case-figure--reel',
 ]
   .filter(Boolean)
   .join(' ');
 ---
 
-<figure class={cls} style={ratio ? `--ratio: ${ratio}` : undefined}>
-  <img
-    src={src}
-    alt={alt}
-    loading={eager ? 'eager' : 'lazy'}
-    decoding="async"
-  />
+<figure class={cls} style={!isReel && ratio ? `--ratio: ${ratio}` : undefined}>
+  {
+    isVideo ? (
+      <div class="case-reel-frame">
+        <video
+          src={src}
+          controls
+          playsinline
+          preload="metadata"
+          class="case-figure__video"
+        >
+          <track kind="captions" />
+        </video>
+      </div>
+    ) : (
+      <img
+        src={src}
+        alt={alt}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+      />
+    )
+  }
   {caption && <figcaption class="case-figure__caption">{caption}</figcaption>}
 </figure>
