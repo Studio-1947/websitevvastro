@@ -23,7 +23,13 @@ interface Props {
     location?: string;
     year?: string;
     tags?: string[];
-    hero?: { src: string; alt: string; style?: 'photo' | 'logo' };
+    hero?: {
+      src: string;
+      alt: string;
+      style?: 'photo' | 'logo';
+      scrim?: string;
+      background?: 'brand' | 'light';
+    };
     sections?: any[];
     credits?: { role: string; members: string }[];
   };
@@ -61,6 +67,36 @@ const mixBrand = (t: number) =>
     .map((i) => Math.round(parseInt(brand!.slice(1 + i * 2, 3 + i * 2), 16) * t).toString(16).padStart(2, '0'))
     .join('');
 
+/* Darken the brand preserving its hue and saturation. Scaling RGB channels
+   (mixBrand) drags light brands toward mud — amber #FBBF24 becomes olive
+   #8c6a14 because saturation collapses as channels converge. Dropping only
+   lightness keeps e.g. amber amber. */
+function brandHsl(hex: string): [number, number, number] {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  if (max === min) return [0, 0, l];
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h = 0;
+  if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+  else if (max === g) h = (b - r) / d + 2;
+  else h = (r - g) / d + 4;
+  return [(h * 60) % 360, s, l];
+}
+function hslToHex(h: number, s: number, l: number): string {
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  const [r, g, b] =
+    h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+  return '#' + [r, g, b]
+    .map((v) => Math.round((v + m) * 255).toString(16).padStart(2, '0'))
+    .join('');
+}
+
 const brandL = brand ? relLum(brand) : 0;
 let brandInk = '#ffffff';
 if (brand) brandInk = contrast(1, brandL) >= contrast(relLum(INK), brandL) ? '#ffffff' : INK;
@@ -92,12 +128,17 @@ if (brand) {
   const worstL = Math.min(relLum('#f5f5f5'), relLum(tintHex));
   const need = (worstL + 0.05) / 4.6 - 0.05;
   if (brandL > need) {
+    // Find the highest lightness that still clears 4.6:1 — the closest the
+    // text can stay to the brand while remaining readable. Hue + saturation
+    // are untouched, so the darkening reads as "the brand, darker" rather
+    // than a different colour.
+    const [h, s] = brandHsl(brand);
     let lo = 0, hi = 1;
     for (let i = 0; i < 24; i++) {
       const mid = (lo + hi) / 2;
-      if (relLum(mixBrand(mid)) <= need) lo = mid; else hi = mid;
+      if (relLum(hslToHex(h, s, mid)) <= need) lo = mid; else hi = mid;
     }
-    brandText = mixBrand(lo);
+    brandText = hslToHex(h, s, lo);
   }
 }
 ---
@@ -123,6 +164,8 @@ if (brand) {
           title={headline}
           tags={tags}
           style={hero.style}
+          scrim={hero.scrim}
+          background={hero.background}
           location={location}
           year={year}
         />

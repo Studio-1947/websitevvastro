@@ -8,10 +8,32 @@
  */
 import { lockScroll, unlockScroll } from './scrollLock';
 
+interface TeamProject {
+  href: string;
+  label: string;
+}
+
+/**
+ * Member → portfolio projects, generated at build time from the work
+ * collection's credits (see src/pages/about-us/index.astro). Keyed by the
+ * same resolved name as the dialog below (data-fullname, else card name).
+ */
+function readTeamProjects(): Map<string, TeamProject[]> {
+  const el = document.getElementById('team-projects-data');
+  if (!el) return new Map();
+  try {
+    return new Map<string, TeamProject[]>(Object.entries(JSON.parse(el.textContent || '{}')));
+  } catch {
+    return new Map();
+  }
+}
+
 export function personModal(): void {
   const modal = document.getElementById('person-modal');
   const cards = document.querySelectorAll<HTMLElement>('.team-card[data-person]');
   if (!modal || !cards.length) return;
+
+  const teamProjects = readTeamProjects();
 
   const media = modal.querySelector('[data-pm-media]');
   const nameEl = modal.querySelector('[data-pm-name]');
@@ -133,6 +155,31 @@ export function personModal(): void {
     blocks!.appendChild(b);
   }
 
+  /** Portfolio projects the member has contributed to, as links to the case studies. */
+  function addTeamProjects(card: HTMLElement): void {
+    const key = (card.getAttribute('data-fullname') || text(card, '.team-card__name'))
+      .trim()
+      .toLowerCase();
+    const projects = teamProjects.get(key);
+    if (!projects || !projects.length) return;
+    const b = document.createElement('div');
+    b.className = 'pm-block pm-projects';
+    const h = document.createElement('h4');
+    h.textContent = 'Portfolio';
+    b.appendChild(h);
+    const list = document.createElement('ul');
+    projects.forEach((p) => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = p.href;
+      a.textContent = p.label;
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+    b.appendChild(list);
+    blocks!.appendChild(b);
+  }
+
   function open(card: HTMLElement): void {
     const name = text(card, '.team-card__name');
     nameEl!.textContent = card.getAttribute('data-fullname') || name;
@@ -165,6 +212,9 @@ export function personModal(): void {
     } else {
       addBlock('About', card.getAttribute('data-about'));
     }
+    // The member's project history sits after the bio — it answers "what have
+    // they worked on?", which reads best once the reader knows who they are.
+    addTeamProjects(card);
 
     audioFor(card);
 
@@ -204,4 +254,17 @@ export function personModal(): void {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
   });
+
+  // Deep link: case study credits point here as /about-us/?member=<key>, so a
+  // member's dialog opens straight from a portfolio page. The key is the same
+  // resolved name the dialog uses (data-fullname, else card name).
+  const member = new URLSearchParams(window.location.search).get('member');
+  if (member) {
+    const target = Array.from(cards).find((c) => {
+      return (c.getAttribute('data-fullname') || text(c, '.team-card__name'))
+        .trim()
+        .toLowerCase() === member;
+    });
+    if (target) open(target);
+  }
 }
