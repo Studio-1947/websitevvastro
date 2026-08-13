@@ -16,6 +16,9 @@ export const TEAM_CREDIT_KEYS: Record<string, string[]> = {
   'soumic sarkar': ['soumic'],
   'nikhil raj subba': ['nikhil subba', 'nikhil raj'],
   'nikhil rai': ['nikhil rai'],
+  // Rahul's card has no data-fullname, so the modal resolves his key from the
+  // card name itself.
+  rahul: ['rahul'],
 };
 
 /**

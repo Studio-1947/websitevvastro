@@ -1,0 +1,298 @@
+{
+  "title": "Sundargaan — Songs of the Sundarbans | Studio 1947",
+  "description": "Studio 1947 travelled into the Sundarbans to record its vanishing folk music, then built Sundargaan — a living digital archive where the songs of the delta's artists find a home, a voice, and fair pay.",
+  "ogTitle": "Sundargaan — Songs of the Sundarbans | Studio 1947",
+  "ogDescription": "Field recordings from the Sundarbans, preserved in a living digital archive — where every listen sustains the artists who carry the delta's songs.",
+  "ogType": "article",
+  "brand": "#CB460C",
+  "client": "Sundargaan",
+  "location": "Sundarbans, West Bengal",
+  "year": "2026",
+  "tags": [
+    "Music Archive",
+    "Field Recording",
+    "Digital Platform",
+    "Cultural Heritage"
+  ],
+  "solutions": [
+    "data-design-tech",
+    "communication-campaign"
+  ],
+  "active": true,
+  "hero": {
+    "src": "/assets/img/work/sundargaan/hero.webp",
+    "alt": "A frame from the Sundargaan hero footage — the dark tidal creeks and mangroves of the Sundarbans delta",
+    "style": "photo",
+    "scrim": "#1A1005"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "Where mangroves meet the restless tide, and the land quietly holds its stories — that is where <strong>Sundargaan</strong> begins. The Sundarbans, the world's largest mangrove delta, is also one of its richest songbooks: <strong>Bhatiyali</strong> boat songs rowed against the current, <strong>Baul</strong> mystic airs carried on a single-string ektara, <strong>Lok Geet</strong> of harvest and household, <strong>Manasha</strong> ritual verses sung for the snake goddess. None of it is written down. It lives only in memory — and every generation that passes, part of it passes away.",
+        "Sundargaan is a living archive and cultural platform rooted in the Sundarbans, built by Studio 1947 in collaboration with <strong>The Eco Logical Foundation</strong> and <strong>Sundarbaan Unayan Bhavan</strong>. We didn't design a website first. We went to the delta, sat with the artists, and recorded the songs — then built the digital sanctuary those recordings deserved."
+      ]
+    },
+    {
+      "heading": "The Music That Was Never Written Down",
+      "label": "Why It Matters",
+      "body": [
+        "The delta's oral traditions are endangered — not by neglect, but by time itself. Their bearers are aging, the young are migrating toward the cities, and the rituals, work-songs and laments that once structured life along the creeks are thinning with each season. There is no staff notation for a boatman's call. No score for a potter's song. If a voice stops singing, the song is gone.",
+        "Sundargaan's mission is to change that: rigorous field documentation of endangered folk traditions across <strong>50+ blocks</strong>, building a comprehensive digital archive of <strong>50,000+ songs, stories and artefacts</strong> — with the people who carry them kept at the centre, and fairly paid."
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "num": "50+",
+          "title": "Blocks",
+          "body": "The delta's inhabited islands and riverine blocks, from Hingalganj to Namkhana, each with its own musical dialect."
+        },
+        {
+          "num": "50K+",
+          "title": "Songs",
+          "body": "The scale of the archive Sundargaan is built to hold — songs, oral histories and artefacts, documented in the field."
+        },
+        {
+          "num": "5K+",
+          "title": "Artists",
+          "body": "The musicians and artisans whose craft Sundargaan is designed to sustain — through pay, credit, and reach."
+        }
+      ]
+    },
+    {
+      "heading": "The Expedition: Recording the Delta",
+      "label": "Field Recording",
+      "body": [
+        "Before a single screen was designed, Studio 1947 travelled into the Sundarbans with The Eco Logical Foundation's field team. We reached villages that sit hours beyond the last road — <strong>Kalitala</strong>, <strong>Gobindakati</strong>, <strong>Jogeshganj</strong>, <strong>Sahebkhali</strong> — where the archive's first <strong>38 artists</strong> across <strong>9 art forms</strong> live and sing.",
+        "The recordings themselves are the project's beating heart: a <strong>Baul</strong> master of thirty-five years coaxing a century-old tune from his ektara, a <strong>Bhatiyali</strong> singer recalling the boat-songs his grandfather rowed by, the clay-potters of Hingalganj working to a rhythm older than any clock. Every track in the archive carries the singer's name, village and craft — the recording is the gift; the archive is how it is kept."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/sundargaan/page-archive.webp",
+          "alt": "The Sundargaan archive — a grid of field-recorded artists from the villages of the Sundarbans",
+          "caption": "The archive grid — every record a field recording, every name a real voice from the delta (click to expand)",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
+      "heading": "Nine Genres, One Delta",
+      "label": "The Sound of the Sundarbans",
+      "body": [
+        "Each block of the delta sings its own music. Sundargaan documents nine distinct genres — searchable, filterable, and each given its proper Bengali name and context."
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "num": "Bhatiyali",
+          "title": "Boat Songs of the Tide",
+          "body": "The rowing songs of boatmen and fishermen — long, unhurried melodies shaped by the ebb and flow of the creeks."
+        },
+        {
+          "num": "Baul",
+          "title": "The Mystic Ektara",
+          "body": "Wandering singer-mystics of Bengal, their single-string ektara and devotional verse probing the divine in the everyday."
+        },
+        {
+          "num": "Lok Geet",
+          "title": "Songs of the People",
+          "body": "The everyday music of the delta — work songs, wedding songs, songs of the field and the household."
+        },
+        {
+          "num": "Manasha",
+          "title": "Ritual Verse",
+          "body": "Ceremonial songs for the snake goddess — among the oldest living traditions in the Sundarbans, tied to the land's dangers."
+        },
+        {
+          "num": "Palagaan",
+          "title": "Epic Narrative Ballads",
+          "body": "The great sung epics of the region — hours-long performances telling the delta's founding stories, including the Bonbibi Johuranama."
+        },
+        {
+          "num": "Lalon Geet",
+          "title": "The Baul Canon",
+          "body": "Songs in the lineage of Fakir Lalon Shah, carrying the Bauls' philosophy of the body, the soul, and the search for truth."
+        }
+      ]
+    },
+    {
+      "heading": "Press Play: Songs from the Field",
+      "label": "The Recordings",
+      "body": [
+        "This is what the project is really about. These are the actual field recordings — the voices of the delta's artists, captured in their villages, preserved for anyone, anywhere, to hear. Every play supports the artist who sang it."
+      ],
+      "audio": [
+        {
+          "title": "Bagdhar Pona",
+          "artist": "Atiyar Gazi",
+          "origin": "Hingalganj",
+          "duration": "6:09",
+          "src": "/assets/audio/sundargaan/atiyar-bagdhar-pona.mp3"
+        },
+        {
+          "title": "Hai Ree Naya Jaiban",
+          "artist": "Rafikul Islam Gazi",
+          "origin": "Hingalganj",
+          "duration": "2:52",
+          "src": "/assets/audio/sundargaan/rafikul-hai-ree-naya-jaiban.mp3"
+        }
+      ]
+    },
+    {
+      "heading": "A Walk Through the Platform",
+      "label": "Page by Page",
+      "body": [
+        "The website is the vessel, not the story. It is built to get out of the way — warm, editorial, and fast — so that the songs, the artists and the places stay at the centre."
+      ],
+      "layout": "grid-2",
+      "media": [
+        {
+          "src": "/assets/img/work/sundargaan/page-home.webp",
+          "alt": "The Sundargaan homepage — serif wordmark over drifting delta footage, with featured artist portraits",
+          "caption": "Home — the delta's footage and a roll of artist names, in English and বাংলা",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/sundargaan/page-artists.webp",
+          "alt": "The Sundargaan artists page — a searchable grid of the delta's musicians with their genres and villages",
+          "caption": "Meet the Artists — 38 voices, searchable by name, song or instrument",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/sundargaan/page-archive.webp",
+          "alt": "The Sundargaan digital archive — field recordings organised by genre, location and craft",
+          "caption": "The Digital Archive — songs, stories and artefacts of the delta, filterable by block and genre",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/sundargaan/page-impact.webp",
+          "alt": "The Sundargaan impact page — how every contribution flows back to the artists",
+          "caption": "Impact — radical transparency on where every rupee and every listen goes",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
+      "heading": "Design & Engineering for the Delta",
+      "label": "The Digital Sanctuary",
+      "body": [
+        "The platform is a modern <strong>React</strong> single-page application — engineered for the real conditions of its audience: low-bandwidth connections, Bengali-language users, and mobile-first access from the villages themselves. The interface is fully bilingual (<strong>English / বাংলা</strong>), with a serif display face for song titles that echoes the region's printed heritage and a clean sans for reading.",
+        "The palette is drawn from the delta itself — the burnt-sienna of sun-baked clay, warm cream, and deep earth ink. Search reaches across names, songs and instruments; every record, artist and artefact can be filtered by block and genre; and the full archive can be experienced in an immersive screen."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/sundargaan/page-home.webp",
+          "alt": "The Sundargaan wordmark over the delta's drifting tidal footage",
+          "caption": "The home hero — shot on location, not in a studio",
+          "zoom": true,
+          "pad": true,
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Brand Colour Palette",
+      "swatches": [
+        {
+          "hex": "#CB460C",
+          "name": "Delta Clay",
+          "role": "Primary Accent",
+          "note": "Burnt sienna drawn from the sun-baked mud of the delta — used for accents, buttons and the wordmark"
+        },
+        {
+          "hex": "#F7EAE5",
+          "name": "Tide Cream",
+          "role": "Structural Background",
+          "note": "Warm cream that carries the page's light, echoing hand-thrown clay and river sand"
+        },
+        {
+          "hex": "#1A1005",
+          "name": "Earth Ink",
+          "role": "Text & Depth",
+          "note": "Deep near-black brown for reading — softer than pure black, warmer than charcoal"
+        },
+        {
+          "hex": "#E5D5CD",
+          "name": "Mangrove Line",
+          "role": "Borders & Dividers",
+          "note": "The quiet hairlines that hold cards and grids together without shouting"
+        }
+      ]
+    },
+    {
+      "heading": "The Ripple of Every Contribution",
+      "divider": true,
+      "label": "Sustainability Model",
+      "body": [
+        "Sundargaan operates on a principle of radical transparency: the money the platform generates flows back to the people who make the music. Contributions, streaming revenue and festival fees are distributed through a clear, published model — with the largest share going directly to the artists."
+      ],
+      "layout": "grid-2",
+      "cards": [
+        {
+          "num": "60%",
+          "title": "Artist Share",
+          "body": "Direct financial support, project fees and fair wages for recordings and performances — the singers, players and artisans themselves."
+        },
+        {
+          "num": "20%",
+          "title": "Community",
+          "body": "Insurance, health support and emergency funds for the artist community — and collective practice spaces that keep traditions alive."
+        },
+        {
+          "num": "15%",
+          "title": "Operations",
+          "body": "Sustaining the infrastructure that records and preserves the heritage — Studio 1947 and the Eco Logical Foundation's field work."
+        },
+        {
+          "num": "5%",
+          "title": "Security & Health",
+          "body": "A safety net for the bearers of the tradition — because a living archive depends on living artists."
+        }
+      ]
+    },
+    {
+      "heading": "Client Impact & Outcomes",
+      "divider": true,
+      "label": "Measuring Success",
+      "list": [
+        "<strong>Songs Saved From Silence:</strong> The delta's first comprehensive digital archive — field recordings of endangered genres, each credited to its singer, village and craft.",
+        "<strong>Artists at the Centre:</strong> Every track carries its artist's name and story, and the platform's revenue model routes the largest share back to them — dignity and pay, not just preservation.",
+        "<strong>Built for the Delta, Not the Metropolis:</strong> A bilingual, low-bandwidth, mobile-first platform that works in the very villages where the music was recorded.",
+        "<strong>One Voice, Two Languages:</strong> Full English / বাংলা interface honouring the community the archive exists to serve."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Overall Direction",
+      "members": "Rabi"
+    },
+    {
+      "role": "Website Development & Engineering",
+      "members": "Soumic"
+    },
+    {
+      "role": "Data Management",
+      "members": "Sankadipa"
+    },
+    {
+      "role": "Recording & Sound",
+      "members": "Rahul, Eman"
+    },
+    {
+      "role": "Song",
+      "members": "Various Artists"
+    }
+  ]
+}

@@ -4,6 +4,16 @@
  * Supports split layout (text left, media right).
  */
 import CaseFigure from './CaseFigure.astro';
+import CaseAudio from './CaseAudio.astro';
+
+interface AudioTrack {
+  title: string;
+  artist?: string;
+  origin?: string;
+  genre?: string;
+  duration?: string;
+  src: string;
+}
 
 interface Media {
   src: string;
@@ -34,6 +44,8 @@ interface Props {
   cards?: Card[];
   media?: Media[];
   embed?: { src: string; title: string };
+  /** Playable field recordings (Sundargaan) — rendered as a track-list player. */
+  audio?: AudioTrack[];
   layout?: 'stack' | 'split' | 'grid-2' | 'grid-3';
   divider?: boolean;
   /** First section after the hero — its media loads eagerly. */
@@ -59,6 +71,7 @@ const {
   cards = [],
   media = [],
   embed,
+  audio = [],
   layout = 'stack',
   divider = true,
   first = false,
@@ -174,6 +187,8 @@ const isSplit = layout === 'split';
             />
           </div>
         )}
+
+        {audio.length > 0 && <CaseAudio tracks={audio} />}
       </>
     )
   }

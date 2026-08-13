@@ -1,0 +1,136 @@
+---
+/**
+ * Playable track list for case studies — built for Sundargaan, where the
+ * field-recorded songs ARE the story and the website is the vessel.
+ *
+ * Each row is one recording: title, artist, village/genre meta, duration, and
+ * a play/pause toggle. One shared <audio> plays the active track; progress is
+ * drawn on a slim bar under the active row. Files that don't exist yet fall
+ * back to a graceful "recording arriving soon" state (the recordings land
+ * after the case ships), so the player is never a broken control.
+ */
+interface Track {
+  title: string;
+  artist?: string;
+  origin?: string;
+  genre?: string;
+  duration?: string;
+  src: string;
+}
+interface Props {
+  intro?: string;
+  tracks: Track[];
+}
+const { intro, tracks = [] } = Astro.props;
+const hasMeta = tracks.some((t) => t.artist || t.origin || t.genre);
+---
+
+{
+  tracks.length > 0 && (
+    <div class="case-audio">
+      {intro && <p class="case-audio__intro">{intro}</p>}
+      <div class="case-audio__list" data-case-audio>
+        {tracks.map((t, i) => (
+          <div class="case-audio__track" data-src={t.src}>
+            <button
+              type="button"
+              class="case-audio__play"
+              aria-label={`Play ${t.title}`}
+              data-play
+            >
+              <svg class="case-audio__icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5.14v13.72c0 .8.87 1.3 1.56.88l11-6.86a1.05 1.05 0 0 0 0-1.76l-11-6.86A1.03 1.03 0 0 0 8 5.14z" />
+              </svg>
+              <svg class="case-audio__icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <rect x="6" y="4" width="4" height="16" rx="1" />
+                <rect x="14" y="4" width="4" height="16" rx="1" />
+              </svg>
+              <span class="case-audio__bars" aria-hidden="true">
+                <i></i><i></i><i></i><i></i>
+              </span>
+            </button>
+
+            <div class="case-audio__meta">
+              <span class="case-audio__title">{t.title}</span>
+              {
+                hasMeta && (
+                  <span class="case-audio__by">
+                    {[t.artist, t.origin, t.genre].filter(Boolean).join(' · ')}
+                  </span>
+                )
+              }
+            </div>
+
+            <span class="case-audio__duration">{t.duration || '—'}</span>
+            <div class="case-audio__bar" data-bar aria-hidden="true"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+<script>
+  /**
+   * One shared <audio> per player; clicking a row toggles play/pause and the
+   * progress bar tracks the active track. A failed fetch (recording not wired
+   * yet) swaps the play button for the "arriving soon" state instead of erroring.
+   */
+  function initPlayer(list: HTMLElement): void {
+    const audio = new Audio();
+    let active: HTMLElement | null = null;
+
+    const setActive = (row: HTMLElement | null): void => {
+      list.querySelectorAll<HTMLElement>('.case-audio__track').forEach((r) => {
+        r.classList.toggle('is-active', r === row);
+        if (r !== row) r.classList.remove('is-playing');
+      });
+      active = row;
+    };
+
+    const updateBar = (): void => {
+      if (!active || !audio.duration) return;
+      const bar = active.querySelector<HTMLElement>('[data-bar]');
+      if (bar) bar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+    };
+
+    audio.addEventListener('play', () => active?.classList.add('is-playing'));
+    audio.addEventListener('pause', () => active?.classList.remove('is-playing'));
+    audio.addEventListener('timeupdate', updateBar);
+    audio.addEventListener('ended', () => {
+      setActive(null);
+      audio.removeAttribute('src');
+      audio.load();
+    });
+
+    list.addEventListener('click', (e) => {
+      const row = (e.target as HTMLElement).closest<HTMLElement>('[data-src]');
+      if (!row) return;
+      const src = row.getAttribute('data-src') || '';
+
+      // Same track → toggle pause.
+      if (active === row && !audio.paused) {
+        audio.pause();
+        return;
+      }
+      // Resume the paused active track from where it stopped.
+      if (active === row && audio.paused) {
+        audio.play().catch(() => {});
+        return;
+      }
+
+      audio.src = src;
+      audio.load();
+      audio.play().catch(() => {
+        // File missing — the recording hasn't landed yet. Mark the row so it
+        // reads as intentional rather than broken.
+        row.classList.add('is-coming');
+        setActive(null);
+        audio.removeAttribute('src');
+      });
+      setActive(row);
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-case-audio]').forEach(initPlayer);
+</script>
