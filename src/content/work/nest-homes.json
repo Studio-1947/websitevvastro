@@ -1,7 +1,7 @@
 {
-  "title": "Nest Homes — Himalayan Brand Identity & Collateral | Studio 1947",
-  "description": "How Studio 1947 crafted the brand identity, color theory, typography system, and marketing collateral for Nest Homes — a premier eco-conscious tourist and homestay network across the Himalayas.",
-  "ogTitle": "Nest Homes — Brand Identity & Collateral | Studio 1947",
+  "title": "Nest Homes: Himalayan Brand Identity & Collateral | Studio 1947",
+  "description": "How Studio 1947 crafted the brand identity, color theory, typography system, and marketing collateral for Nest Homes, a premier eco-conscious tourist and homestay network across the Himalayas.",
+  "ogTitle": "Nest Homes: Brand Identity & Collateral | Studio 1947",
   "ogDescription": "Branding, color psychology, and collateral design for Nest Homes across Darjeeling, Sikkim, and Himachal Pradesh.",
   "ogType": "article",
   "brand": "#004D57",
@@ -21,16 +21,18 @@
   ],
   "active": true,
   "hero": {
-    "src": "/assets/img/work/nest-homes/hero-banner-top.png",
-    "alt": "Nest Homes Himalayan mountain sunset banner with floating stay photo object showcase",
-    "style": "photo"
+    "src": "/assets/video/work/nest-homes-hero.mp4",
+    "alt": "The Nest Homes identity in motion: the woven nest emblem across signage, print and the mountain properties it belongs to",
+    "poster": "/assets/img/work/nest-homes/hero-poster.jpg",
+    "scrim": "#004D57",
+    "scrimOpacity": 0.4
   },
   "sections": [
     {
       "divider": false,
       "body": [
-        "<strong>Nest Homes</strong> is a premier curated travel and homestay brand operating across 20+ pristine properties in the Himalayan belt — spanning Darjeeling, Sikkim, and Himachal Pradesh. With a proven record of over 1.5 Lakh+ happy travelers, 900+ Google Reviews (4.8★), and 1,000+ JustDial Reviews (4.8★), Nest Homes offers travelers authentic, nature-driven Himalayan stays and curated offbeat tours.",
-        "Studio 1947 was entrusted with transforming Nest Homes' visual identity — reimagining its logo, defining a comprehensive color psychology and typography system, and crafting high-impact print collateral and brand assets to reflect eco-conscious hospitality and Himalayan harmony."
+        "<strong>Nest Homes</strong> is a premier curated travel and homestay brand operating across 20+ pristine properties in the Himalayan belt, spanning Darjeeling, Sikkim, and Himachal Pradesh. With a proven record of over 1.5 Lakh+ happy travelers, 900+ Google Reviews (4.8★), and 1,000+ JustDial Reviews (4.8★), Nest Homes offers travelers authentic, nature-driven Himalayan stays and curated offbeat tours.",
+        "Studio 1947 was entrusted with transforming Nest Homes' visual identity, reimagining its logo, defining a comprehensive color psychology and typography system, and crafting high-impact print collateral and brand assets to reflect eco-conscious hospitality and Himalayan harmony."
       ]
     },
     {
@@ -41,7 +43,7 @@
       "divider": false,
       "label": "The Challenge",
       "body": [
-        "As Nest Homes expanded its presence across offbeat mountain destinations — including Sittong, Tinchuley, Chatakpur, Sandakphu, Kolakham, and Rishikhola — its existing brand identity required a refresh to reflect its growing footprint.",
+        "As Nest Homes expanded its presence across offbeat mountain destinations (including Sittong, Tinchuley, Chatakpur, Sandakphu, Kolakham, and Rishikhola) its existing brand identity required a refresh to reflect its growing footprint.",
         "The brand needed a unified visual language that captured both the calming serenity of Himalayan rivers and the raw adventure of untamed mountain forests, while communicating institutional trust to modern, mobile-first travelers."
       ],
       "layout": "grid-3",
@@ -64,30 +66,41 @@
       ]
     },
     {
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/nest-homes/mood-board.webp",
+          "alt": "Nest Homes mood board: Himalayan snow roads, sunrise on Kanchenjunga, forest wildlife, homestay rooms and a hill town at night",
+          "zoom": false,
+          "pad": false,
+          "blend": true
+        }
+      ]
+    },
+    {
       "heading": "Logo Redesign & Anatomy of a Nest",
       "label": "Thought Process & Emblem Design",
       "body": [
-        "We reimagined the Nest Homes logo from a legacy blocky layout into a unified, perfectly balanced circular emblem. The design draws directly from the fundamental anatomy of a nest — the organic, interlocking weave of twigs and grasses.",
+        "We reimagined the Nest Homes logo from a legacy blocky layout into a unified, perfectly balanced circular emblem. The design draws directly from the fundamental anatomy of a nest, the organic, interlocking weave of twigs and grasses.",
         "At the center of the emblem, two birds face each other in a protective, nurturing gesture inside a circular ring of woven branches, crowned by elegant serif typography. The symbol represents sanctuary, warmth, safety, and homecoming in the pristine Himalayan landscape."
       ],
       "media": [
         {
           "src": "/assets/img/work/nest-homes/logo update.png",
           "alt": "Before and After comparison of the Nest Homes logo redesign",
-          "caption": "Transition from the legacy logo layout (left) to the refined circular nest emblem (right)",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
+          "zoom": false,
+          "pad": false,
+          "blend": true
         },
         {
-          "src": "/assets/img/work/nest-homes/logo formation.png",
+          "src": "/assets/img/work/nest-homes/logo-formation.gif",
           "alt": "Anatomy of a Nest emblem creation process",
-          "caption": "Thought Process: Interlocking twigs and grasses + brand typography = the final unified emblem",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
+          "zoom": false,
+          "pad": false,
+          "blend": true
         }
-      ]
+      ],
+      "gap": "none"
     },
     {
       "heading": "Architectural & Environmental Signage",
@@ -100,20 +113,18 @@
         {
           "src": "/assets/img/work/nest-homes/logo.png",
           "alt": "Nest Homes logo dual light and dark variations",
-          "caption": "Dual contrast lockups on clean white and atmospheric misty teal backgrounds",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
+          "zoom": false,
+          "pad": false,
+          "blend": true
         },
         {
-          "src": "/assets/img/work/nest-homes/mockuplogo.png",
+          "src": "/assets/img/work/nest-homes/mockuplogo.webp",
           "alt": "Nest Homes circular hanging wooden storefront signage mockup",
-          "caption": "Physical storefront application featuring hanging circular signage set against warm wooden architectural louvers",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
+          "zoom": false,
+          "pad": false
         }
-      ]
+      ],
+      "gap": "none"
     },
     {
       "heading": "Colour Psychology: Harmony between Earth & Water",
@@ -126,38 +137,89 @@
         {
           "hex": "#0B2C34",
           "name": "Deep Forest Teal",
-          "role": "Primary Brand Anchor",
-          "note": "Evokes untamed Himalayan woods, misty mountain depths, and grounding structure"
+          "role": "Primary",
+          "note": "Untamed Himalayan woods and misty mountain depth"
         },
         {
           "hex": "#004D57",
           "name": "Dark Himalayan Teal",
-          "role": "Secondary Accent",
-          "note": "Symbolises the earthy balance of fertile valleys and deep forest foliage"
+          "role": "Primary Variant",
+          "note": "The fertile valley floor under forest cover"
+        },
+        {
+          "hex": "#007888",
+          "name": "Lake Teal",
+          "role": "Primary Variant",
+          "note": "Mirik water at midday"
         },
         {
           "hex": "#00AEC6",
           "name": "Glacial Cyan",
-          "role": "Vibrant Brand Accent",
-          "note": "Represents the crisp purity of Himalayan rivers, alpine lakes, and mountain skies"
+          "role": "Secondary",
+          "note": "River melt and alpine sky"
+        },
+        {
+          "hex": "#00E0FF",
+          "name": "Snowmelt Cyan",
+          "role": "Secondary Variant",
+          "note": "The brightest point of the cold family"
         },
         {
           "hex": "#5EECFF",
-          "name": "Stream Ice Highlight",
-          "role": "Light Callout Tone",
-          "note": "Provides high contrast and refreshing highlights across digital & print touchpoints"
+          "name": "Stream Ice",
+          "role": "Highlight",
+          "note": "Callouts and active states"
+        },
+        {
+          "hex": "#C2F8FF",
+          "name": "Frost",
+          "role": "Surface",
+          "note": "Backgrounds and quiet panels"
+        },
+        {
+          "hex": "#621A01",
+          "name": "Ember Brown",
+          "role": "Accent Anchor",
+          "note": "The warm counterweight to the teal"
+        },
+        {
+          "hex": "#C23200",
+          "name": "Sunset Red",
+          "role": "Accent",
+          "note": "First light on Kanchenjunga"
+        },
+        {
+          "hex": "#D45E00",
+          "name": "Kindled Orange",
+          "role": "Accent Variant",
+          "note": "Lamplight in a homestay window"
+        },
+        {
+          "hex": "#FF4200",
+          "name": "Signal Orange",
+          "role": "Accent",
+          "note": "Reserved for moments that must be seen"
+        },
+        {
+          "hex": "#FF8A00",
+          "name": "Marigold",
+          "role": "Accent Variant",
+          "note": "Festival colour across the hills"
+        },
+        {
+          "hex": "#FFAB00",
+          "name": "Amber",
+          "role": "Highlight",
+          "note": "Warm callouts"
+        },
+        {
+          "hex": "#FFDA57",
+          "name": "Butter Lamp",
+          "role": "Surface",
+          "note": "The lightest warm tone"
         }
       ],
-      "media": [
-        {
-          "src": "/assets/img/work/nest-homes/ccolour  theory.png",
-          "alt": "Color psychology chart showing forest mist teal vs warm golden sunset spectrums",
-          "caption": "Color psychology visualization: Balancing cold misty forest teals with warm golden sunset earth tones",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
-        }
-      ]
+      "swatchBackdrop": "/assets/img/work/nest-homes/colour-source.webp"
     },
     {
       "heading": "Typography System: Legibility & Warmth",
@@ -169,12 +231,12 @@
       "cards": [
         {
           "num": "01",
-          "title": "Roboto Serif — Editorial Warmth",
+          "title": "Roboto Serif: Editorial Warmth",
           "body": "Used for main brand headlines, taglines ('Take Rest in your NEST'), and editorial callouts, bringing literary authority, heritage warmth, and welcoming hospitality."
         },
         {
           "num": "02",
-          "title": "Roboto Sans-Serif — Modern Clarity",
+          "title": "Roboto Sans-Serif: Modern Clarity",
           "body": "Used for body text, tour itineraries, price charts, and mobile UI elements to ensure high legibility across digital devices and printed brochures."
         }
       ]
@@ -188,31 +250,41 @@
       ],
       "media": [
         {
-          "src": "/assets/img/work/nest-homes/banner-hero-image.png",
-          "alt": "Nest Homes full Explore Darjeeling brand banner poster",
-          "caption": "Full brand banner poster layout featuring Kanchenjunga sunset panorama and curated homestay highlights",
-          "zoom": true,
-          "pad": true,
-          "ratio": "4/5"
+          "src": "/assets/img/work/nest-homes/banner-hero-image.webp",
+          "alt": "Three Nest Homes campaign posters: North Sikkim, Explore Darjeeling and West Sikkim",
+          "zoom": false,
+          "pad": false
         },
         {
-          "src": "/assets/img/work/nest-homes/brochure_mockup.png",
+          "src": "/assets/img/work/nest-homes/brochure_mockup.webp",
           "alt": "Nest Homes brochure and visiting cards mockup",
-          "caption": "Complete collateral showcase: tri-fold brochure, visiting cards, tour package itineraries, and illustrated mountain art cover",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
+          "zoom": false,
+          "pad": false
         }
-      ]
+      ],
+      "gap": "none"
     },
     {
       "heading": "Client Impact & Outcomes",
       "divider": true,
       "label": "Measuring Success",
-      "list": [
-        "<strong>Unified Brand Experience:</strong> Transformed scattered promotional material into a sleek, cohesive brand identity across print, digital, and architectural touchpoints.",
-        "<strong>Trust & Performance:</strong> Prominently featured high trust markers (1.5 Lakh+ happy travelers, 900+ Google reviews) to convert prospective travelers into direct homestay bookings.",
-        "<strong>Eco-Conscious Market Positioning:</strong> Successfully aligned Nest Homes with authentic, nature-focused, and sustainable tourism across Bengal, Sikkim, and Himachal Pradesh."
+      "layout": "grid-3",
+      "cards": [
+        {
+          "icon": "layers",
+          "title": "One brand, every surface",
+          "body": "Scattered promotional material became a single identity that holds up in print, on screen, and on a signboard outside a mountain property."
+        },
+        {
+          "icon": "star",
+          "title": "Trust that travellers can see",
+          "body": "1.5 lakh happy travellers and 900+ Google reviews now sit where a guest looks before booking, which turns browsing into direct bookings."
+        },
+        {
+          "icon": "leaf",
+          "title": "A place in sustainable travel",
+          "body": "Nest Homes reads as a nature-first stay across Bengal, Sikkim and Himachal, alongside the travellers it wants to attract."
+        }
       ]
     }
   ],

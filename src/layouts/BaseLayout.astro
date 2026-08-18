@@ -1,6 +1,6 @@
 ---
 /**
- * BaseLayout — the shell every page uses. Renders <head> (SEO), the shared
+ * BaseLayout: the shell every page uses. Renders <head> (SEO), the shared
  * Header, the page's <main> (via <slot/>), the Footer, the ContactModal, and
  * the single bundled client entry. Matches the original page skeleton exactly,
  * componentized.
@@ -49,7 +49,7 @@ const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
       import '../scripts/main.ts';
     </script>
 
-    {/* Vercel Web Analytics — cookieless and privacy-preserving, so it keeps the
+    {/* Vercel Web Analytics: cookieless and privacy-preserving, so it keeps the
         site's "no cookie banner needed" position. No-ops in local dev. */}
     <script>
       import { inject } from '@vercel/analytics';

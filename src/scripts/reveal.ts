@@ -61,16 +61,37 @@ export function scrollReveal(): void {
   setTimeout(() => targets.forEach(revealEl), 4000);
 }
 
+/**
+ * Count-ups. Beyond the original whole-number counter these also read
+ * `data-decimals` (1.5 lakh), `data-group` (1,50,000 in Indian digit grouping)
+ * and `data-prefix` (the rupee sign), so a money figure can roll up the same
+ * way a plain tally does.
+ */
 export function countUps(): void {
   const nums = document.querySelectorAll<HTMLElement>('[data-count]');
   if (!nums.length) return;
-  const fmt = (n: number, pad: boolean): string => (pad && n < 10 ? '0' + n : '' + n);
   const run = (el: HTMLElement): void => {
-    const target = parseInt(el.getAttribute('data-count') || '', 10) || 0;
+    const target = parseFloat(el.getAttribute('data-count') || '') || 0;
+    const prefix = el.getAttribute('data-prefix') || '';
     const suffix = el.getAttribute('data-suffix') || '';
     const pad = el.getAttribute('data-pad') === 'true';
+    const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10) || 0;
+    const group = el.getAttribute('data-group');
+    const fmt = (n: number): string => {
+      let body: string;
+      if (group) {
+        body = n.toLocaleString(group === 'in' ? 'en-IN' : 'en-US', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        });
+      } else {
+        body = decimals ? n.toFixed(decimals) : '' + Math.round(n);
+      }
+      if (pad && n < 10 && !decimals) body = '0' + body;
+      return prefix + body + suffix;
+    };
     if (reduceMotion()) {
-      el.textContent = fmt(target, pad) + suffix;
+      el.textContent = fmt(target);
       return;
     }
     let start: number | null = null;
@@ -79,7 +100,7 @@ export function countUps(): void {
       if (!start) start = ts;
       const p = Math.min((ts - start) / dur, 1);
       const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = fmt(Math.round(target * eased), pad) + suffix;
+      el.textContent = fmt(target * eased);
       if (p < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);

@@ -17,7 +17,12 @@
   --brand: var(--red); /* overridden inline per entry */
   --brand-tint: color-mix(in srgb, var(--brand) 8%, #fff);
   --brand-line: color-mix(in srgb, var(--brand) 28%, transparent);
-  background: var(--bg-alt);
+  /* Every case is a different kind of project, so each page is washed in its
+     own colour instead of sharing one neutral grey. The wash is deliberately
+     faint: enough that two cases opened side by side read as different
+     projects, light enough that body copy keeps its contrast. */
+  --brand-wash: color-mix(in srgb, var(--brand) 5%, var(--bg-alt));
+  background: var(--brand-wash);
 }
 
 /* The footer block sits ~87px below <main>; without this the white <body>
@@ -178,9 +183,30 @@ body.page-case-modular {
 }
 
 /* ── Shell ────────────────────────────────────────────────────────────────── */
+/*
+ * The body no longer constrains its children — the text grid is applied to the
+ * pieces that are text, which leaves media free to run the full width of the
+ * page without a 100vw breakout (and without the horizontal overflow a
+ * breakout costs once a scrollbar is on screen).
+ */
 .case-body {
+  max-width: none;
+  margin: 0;
+  padding-inline: 0;
+}
+/*
+ * One shell, one left edge. Every piece of text in a case (label, heading,
+ * prose, list, cards, numbers) sits inside .case-shell, so headings and
+ * paragraphs start on exactly the same line down the whole page. Only full
+ * width media steps outside it.
+ */
+.case-shell,
+.case-body > :not(.case-section, .case-colophon),
+.case-section > .case-media--grid-2,
+.case-section > .case-media--grid-3,
+.case-section > .case-media--split {
   max-width: 1400px;
-  margin: 0 auto;
+  margin-inline: auto;
   padding-inline: var(--gutter);
 }
 .case-section {
@@ -191,7 +217,7 @@ body.page-case-modular {
   padding-top: clamp(48px, 6vw, 84px);
 }
 .case-section--divided {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--brand-line, var(--line));
   padding-top: clamp(32px, 4.5vw, 64px);
 }
 
@@ -226,6 +252,7 @@ body.page-case-modular {
 .case-label {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
   padding: 9px 20px;
   border-radius: 999px;
   background: var(--brand-tint);
@@ -293,75 +320,85 @@ body.page-case-modular {
   font-weight: 500;
 }
 
-/* ── Swatches ─────────────────────────────────────────────────────────────── */
-/* The source draws palette chips in CSS rather than exporting images, so they
-   have to be rebuilt as real swatches or the palette reads as a spec list. */
-/*
- * Reproduces the source's swatch panel: the card IS the colour, the usage note
- * sits at the top, and the role + hex sit on one baseline at the bottom with
- * the colour name beneath. Source: `bg-[#293C53] rounded-3xl p-8 aspect-[4/3]
- * flex flex-col justify-end`, role at text-xl/3xl bold, hex in mono at 20%
- * opacity, colour name at 60%.
+/* ── Swatches ─────────────────────────────────────────────────────────────
+ * Flat blocks of colour butted against each other, the way a palette sheet
+ * shows a system: the role and the name at the top, a numbered chip and the
+ * hex at the foot, and the colour itself doing all the rest of the work.
+ * Every piece of type is drawn in whichever of near-black or white clears
+ * contrast on that colour (swatchInk in CaseSection.astro).
  */
 .case-swatches {
   margin-top: clamp(22px, 3vw, 40px);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: clamp(16px, 1.8vw, 26px);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+/* The photograph the palette was pulled from, sitting directly above the grid
+   as its header band: the colours read as taken from somewhere real rather
+   than picked in a colour wheel. */
+.case-swatches--backdrop {
+  position: relative;
+  padding-top: clamp(200px, 26vw, 420px);
+  background-image: var(--swatch-bg);
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
 }
 .case-swatch {
   background: var(--sw);
   color: var(--sw-ink);
-  border-radius: var(--radius-lg);
-  padding: clamp(24px, 2.4vw, 34px);
-  min-height: clamp(240px, 26vw, 380px);
+  min-height: clamp(150px, 13vw, 200px);
+  padding: clamp(16px, 1.5vw, 22px);
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
-.case-swatch__note {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: clamp(18px, 1.5vw, 24px);
-  line-height: 1.3;
-  color: inherit;
-  max-width: 30ch;
-}
-/* Pushes the identity block to the bottom edge (the source's justify-end). */
-.case-swatch__foot {
-  margin-top: auto;
-}
-.case-swatch__row {
+.case-swatch__head {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 6px;
+  flex-direction: column;
+  gap: 2px;
 }
 .case-swatch__role {
   font-family: var(--font-body);
-  font-weight: 700;
-  font-size: clamp(20px, 2vw, 30px);
-  line-height: 1.05;
-  color: inherit;
-}
-/* Full-strength ink: the source's 20% opacity fails WCAG AA at this size, and
-   the swatch ink is now contrast-picked per palette (see swatchInk in
-   CaseSection.astro), so solid text reads correctly on every swatch. */
-.case-swatch__hex {
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-weight: 700;
-  font-size: clamp(15px, 1.7vw, 26px);
-  line-height: 1.05;
-  color: inherit;
+  font-weight: 600;
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.25;
 }
 .case-swatch__name {
   font-family: var(--font-body);
+  font-size: clamp(12px, 0.9vw, 13px);
+  line-height: 1.3;
+  opacity: 0.72;
+}
+/* The block is shorter now that it carries no note, so it keeps its own
+   proportions rather than stretching to fit copy that is no longer there. */
+/* The foot is pinned to the bottom of the block, so the hexes line up along
+   the row however long the notes above them run. */
+.case-swatch__foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.case-swatch__num {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sw-ink);
+  color: var(--sw);
+  font-family: var(--font-num);
+  font-size: 12px;
+  line-height: 1;
+}
+.case-swatch__hex {
+  font-family: var(--font-num);
   font-size: clamp(13px, 1vw, 15px);
-  color: inherit;
+  letter-spacing: 0.02em;
 }
 
-/* ── Cards ────────────────────────────────────────────────────────────────── */
-/* Bordered panel grids from the source (grid-cols-2/3 of rounded boxes). */
 .case-cards {
   margin-top: clamp(22px, 3vw, 40px);
   display: grid;
@@ -377,26 +414,59 @@ body.page-case-modular {
   grid-template-columns: 1fr 1fr;
 }
 
+/*
+ * Spotlight cards. Each card sits on a dark shade of the case's own colour and
+ * carries a soft highlight that follows the pointer across it (the pointer
+ * position arrives as --mouse-x / --mouse-y from scripts/spotlight.ts). With
+ * no pointer the highlight rests off the top-left corner, so the card still
+ * has a lit edge on touch screens and in reduced-motion.
+ */
 .case-card {
-  border: 1px solid var(--line);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--brand) 30%, transparent);
   border-radius: var(--radius);
-  background: var(--bg);
+  /* Each card in a row sits a step further into the brand, so a group reads
+     as one family in several shades rather than as three identical boxes. */
+  background: color-mix(in srgb, var(--brand) var(--card-mix, 18%), #0d0f0f);
+  color: #fff;
   padding: clamp(22px, 2.2vw, 34px);
   transition:
     border-color 0.4s var(--ease),
     box-shadow 0.4s var(--ease),
     transform 0.4s var(--ease);
 }
+.case-card:nth-child(4n + 1) { --card-mix: 14%; }
+.case-card:nth-child(4n + 2) { --card-mix: 22%; }
+.case-card:nth-child(4n + 3) { --card-mix: 30%; }
+.case-card:nth-child(4n + 4) { --card-mix: 38%; }
+.case-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    circle at var(--mouse-x, 15%) var(--mouse-y, 0%),
+    color-mix(in srgb, var(--brand) 55%, #fff) 0%,
+    transparent 62%
+  );
+  opacity: 0.28;
+  transition: opacity 0.4s var(--ease);
+}
 .case-card:hover {
-  border-color: var(--brand-line);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.06);
+  border-color: color-mix(in srgb, var(--brand) 60%, transparent);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
   transform: translateY(-3px);
 }
+.case-card:hover::before {
+  opacity: 0.45;
+}
 .case-card__num {
-  font-family: var(--font-display);
+  font-family: var(--font-num);
   font-size: clamp(26px, 2.4vw, 38px);
   line-height: 1;
-  color: var(--brand-text, var(--brand));
+  color: color-mix(in srgb, var(--brand) 70%, #fff);
   margin-bottom: 14px;
 }
 .case-card__title {
@@ -404,14 +474,14 @@ body.page-case-modular {
   font-weight: 400;
   font-size: clamp(19px, 1.6vw, 25px);
   line-height: 1.15;
-  color: var(--grey-900);
+  color: #fff;
   margin-bottom: 10px;
 }
 .case-card__body {
   font-family: var(--font-body);
   font-size: clamp(15px, 1.05vw, 17px);
   line-height: 1.6;
-  color: var(--grey-700);
+  color: rgba(255, 255, 255, 0.76);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -440,106 +510,126 @@ body.page-case-modular {
   align-items: center;
 }
 
+/*
+ * ── Figures: edge to edge, no frame ──────────────────────────────────────
+ * The artwork carries these pages, so nothing is allowed to frame it: no
+ * card, no border, no inner padding, no corner radius. A figure in the
+ * default stacked flow breaks out of the 1400px body and runs the full
+ * width of the viewport; a figure inside a grid or a split fills its cell
+ * completely. Captions stay on the text grid so they still read as text.
+ */
 .case-figure {
   margin: 0;
-  /* rounded-3xl in the source (24px), not this site's 28px --radius-lg. */
-  border-radius: 24px;
+  border-radius: 0;
   overflow: hidden;
-  background: var(--bg);
+  /* No white plate under the artwork: a figure shows the page's own wash
+     wherever the image does not reach. */
+  background: transparent;
+}
+/* Line art that was drawn on a white ground. Multiplying it into the page
+   turns that ground into the page colour, so the drawing sits on the page
+   instead of on a white rectangle. */
+.case-figure--blend img,
+.case-figure--blend picture img {
+  mix-blend-mode: multiply;
+}
+
+/* Stacked media is already outside the text grid, so a figure simply fills the
+   page from edge to edge. */
+.case-media--stack {
+  width: 100%;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+.case-media--stack .case-figure,
+.case-figure--bleed {
+  width: 100%;
+  max-width: none;
+}
+/* Grid and split cells fill their own column instead — they are already
+   narrower than the body, and bleeding them would collapse the grid. */
+.case-media--grid-2 .case-figure,
+.case-media--grid-3 .case-figure,
+.case-media--split .case-figure,
+.case-split__media .case-figure {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  transform: none;
+}
+/* Below the grid breakpoint every figure is single-column, so grids and splits
+   drop their gutters too and every figure runs edge to edge. */
+@media (max-width: 767px) {
+  .case-section > .case-media--grid-2,
+  .case-section > .case-media--grid-3,
+  .case-section > .case-media--split {
+    max-width: none;
+    padding-inline: 0;
+  }
+  .case-split__media {
+    margin-inline: calc(var(--gutter) * -1);
+  }
 }
 
 /*
- * Mobile full-bleed. The dominant source treatment is
- * `-mx-6 md:mx-0 rounded-none md:rounded-3xl` — 32 of ~45 figures — so below
- * the md breakpoint the artwork breaks out of the gutter edge-to-edge and
- * drops its radius, then becomes a contained rounded card at desktop. Grids
- * are already single-column at this width, so pulling the margins is safe.
- */
-@media (max-width: 767px) {
-  .case-figure {
-    margin-inline: calc(var(--gutter) * -1);
-    border-radius: 0;
-  }
-  /* The inset panel keeps its card shape at every width in the source. */
-  .case-figure--pad {
-    margin-inline: 0;
-    border-radius: 30px;
-  }
-}
-/*
- * Inset panel. The source has exactly two figure treatments and they must not
- * be collapsed into one:
- *
- *   full-bleed  `-mx-6 md:mx-0 rounded-none md:rounded-3xl overflow-hidden`
- *               — no frame, no padding. The default above.
- *   inset panel `rounded-[30px] border border-[#EEE] bg-white
- *                pt-8 px-4 md:pt-[65px] md:px-[89px] overflow-hidden`
- *               — reproduced here.
- *
- * Note the padding is asymmetric on purpose: top and sides only, none at the
- * bottom, so the artwork rises out of the bottom edge of the card. Only the
- * AIcrowd challenge visuals use this in the source.
+ * `pad` in the content files used to render an inset white card with a 1px
+ * border and 65px/89px of breathing room. That card is exactly the box the
+ * artwork is no longer allowed to sit in, so the flag is now inert: entries
+ * keep it for provenance and it changes nothing.
  */
 .case-figure--pad {
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 30px;
-  padding: 32px 16px 0;
+  background: var(--bg);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
 }
-@media (min-width: 768px) {
-  .case-figure--pad {
-    padding: 65px 89px 0;
-  }
-}
-/*
- * `width: 100%` would upscale every asset to its container: the brand-governance
- * artwork is 409px wide natively and was being blown up to 1214px (~3x) and
- * going soft. Cap at the intrinsic size instead and centre what does not fill.
- */
+
+/* Images fill their figure rather than sitting at intrinsic size in a pool of
+   background. */
 .case-figure img,
+.case-figure picture,
 .case-figure picture img,
 .case-figure video {
   display: block;
-  width: auto;
-  max-width: 100%;
+  width: 100%;
   height: auto;
   margin-inline: auto;
 }
 .case-figure__video--loop {
   width: 100%;
-  max-width: 520px;
+  max-width: none;
   height: auto;
-  border-radius: 16px;
+  border-radius: 0;
 }
 /* Ratio-pinned figures fill and crop, so a side-by-side pair stays level. */
 .case-figure--ratio {
   aspect-ratio: var(--ratio);
 }
-.case-figure--ratio img {
+.case-figure--ratio img,
+.case-figure--ratio picture,
+.case-figure--ratio picture img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
+  object-position: center;
   max-width: none;
 }
-/* Padded ratio figures: the pad's 89px side gutters shrink the content box
-   wider-than-16:9, so `cover` shears the artwork's sides. Let the image carry
-   its own ratio instead — the pair stays level because same-ratio assets make
-   equal heights, and nothing gets cropped. */
-.case-figure--pad.case-figure--ratio {
-  aspect-ratio: auto;
-}
-.case-figure--pad.case-figure--ratio img {
-  height: auto;
-  aspect-ratio: var(--ratio);
-  object-fit: cover;
-}
 
+/* The caption is text, so it returns to the text grid rather than trailing off
+   at the viewport edge under a bled image. */
 .case-figure__caption {
-  padding: 12px 18px 16px;
+  max-width: var(--container, 1400px);
+  margin-inline: auto;
+  padding: 12px var(--gutter) 16px;
   font-family: var(--font-body);
   font-size: clamp(13px, 1vw, 15px);
   color: var(--grey-500);
+}
+.case-media--grid-2 .case-figure__caption,
+.case-media--grid-3 .case-figure__caption,
+.case-media--split .case-figure__caption,
+.case-split__media .case-figure__caption {
+  padding-inline: 0;
 }
 .case-figure--zoom img {
   cursor: zoom-in;
@@ -732,261 +822,135 @@ body.page-case-modular {
 }
 
 /* ── Credits ──────────────────────────────────────────────────────────────── */
-.case-credits {
-  border-top: 1px solid var(--line);
-  margin-top: clamp(32px, 4vw, 56px);
-  padding-block: clamp(40px, 5vw, 68px);
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: clamp(28px, 4vw, 56px);
+/* ── Colophon ─────────────────────────────────────────────────────────────
+ * The block that closes a case: who it was for, who ran it on their side, who
+ * worked on it here and doing what, when and where, and how many people have
+ * read the page. It sits on a dark shade of the case's own colour so it reads
+ * as the end of the story rather than one more section of it.
+ */
+.case-colophon {
+  margin-top: clamp(40px, 5vw, 72px);
+  /* Runs the full width of the page like the figures do, so the case closes on
+     a band of its own colour rather than on a floating card. */
+  width: 100%;
+  /* Twice the old height: the closing band is a full stop, so it is given the
+     room to read as one. */
+  padding: clamp(80px, 10vw, 152px) 0;
+  background: color-mix(in srgb, var(--brand) 20%, #0d0f0f);
+  color: #fff;
 }
-.case-credits__kicker,
-.case-credit__role {
+/* The text inside returns to the reading grid. */
+.case-colophon > * {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.case-colophon__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+.case-colophon__grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: clamp(26px, 3.4vw, 52px);
+}
+.case-colophon__kicker {
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  color: color-mix(in srgb, var(--brand) 60%, #fff);
+  margin-bottom: 14px;
 }
-.case-credits__kicker {
-  color: var(--grey-500);
-}
-.case-credit__role {
-  color: var(--brand-text, var(--brand));
-}
-.case-credits__client {
+.case-colophon__client {
   font-family: var(--font-display);
   font-size: clamp(20px, 1.8vw, 26px);
-  color: var(--grey-900);
+  line-height: 1.15;
+  color: #fff;
 }
-.case-credits__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(26px, 3vw, 44px) clamp(20px, 2vw, 32px);
-}
-.case-credit__members {
+.case-colophon__coordinator {
+  margin-top: 14px;
   font-family: var(--font-body);
-  font-size: clamp(14px, 1vw, 15px);
-  line-height: 1.6;
-  color: var(--grey-700);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
 }
-/* Team members are links to their About page profile — underlined brand
-   accent like the body prose links, so they read as navigable without
-   screaming over the credits' quiet type. External collaborators stay plain. */
-.case-credit__members a {
-  color: var(--brand-text, var(--brand));
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  font-weight: 500;
-  transition: color 0.25s var(--ease);
+.case-colophon__label,
+.case-colophon__role {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
 }
-.case-credit__members a:hover {
-  color: var(--grey-900);
+.case-colophon__label {
+  margin-bottom: 3px;
 }
-
-/* ── CTA ──────────────────────────────────────────────────────────────────── */
-.case-cta {
-  position: relative;
-  margin-bottom: clamp(48px, 6vw, 92px);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--bg);
-  padding: clamp(32px, 5vw, 64px);
-}
-/* Half-wheel mark bleeding off the right edge. Decorative, so it yields the
-   whole card to the copy on narrow viewports. */
-.case-cta__mark {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 100%;
-  width: auto;
-  object-fit: cover;
-  object-position: left center;
-  pointer-events: none;
-}
-.case-cta__body {
-  position: relative;
-  z-index: 1;
-  max-width: 46ch;
-}
-@media (max-width: 900px) {
-  .case-cta__mark {
-    display: none;
-  }
-  .case-cta__body {
-    max-width: none;
-  }
-}
-.case-cta__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(26px, 3.2vw, 46px);
-  line-height: 1.1;
-  color: var(--brand-text, var(--brand));
-  max-width: 20ch;
-  margin-bottom: clamp(24px, 3vw, 40px);
-}
-.case-cta__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 15px 32px;
-  border-radius: 999px;
-  background: var(--brand-fill, var(--brand));
-  color: var(--brand-ink, #fff);
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: clamp(15px, 1.1vw, 18px);
-  transition:
-    filter 0.3s var(--ease),
-    transform 0.3s var(--ease);
-}
-.case-cta__btn:hover {
-  filter: brightness(0.88);
-  transform: translateY(-1px);
-}
-
-/* ── Lightbox ─────────────────────────────────────────────────────────────── */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
+.case-colophon__team {
   display: grid;
-  place-items: center;
-  padding: 16px;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(4px);
-  cursor: zoom-out;
-}
-.lightbox[hidden] {
-  display: none;
-}
-/*
- * Most case artwork is exported with an alpha channel (11 of 13 on rajkamal
- * alone), so without an opaque backing the transparent areas show the dark
- * scrim through and the diagram reads as broken. White matches how the same
- * asset sits inside .case-figure on the page.
- */
-.lightbox img {
-  max-width: 96vw;
-  max-height: 92vh;
-  object-fit: contain;
-  border-radius: 4px;
-  background: transparent;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px clamp(20px, 2.4vw, 36px);
+  list-style: none;
+  margin: 0;
   padding: 0;
 }
-.lightbox__close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+/* "Brand Design: Rabi" — the role sits with the name rather than above a
+   column of them, so a long credit list still reads as pairs. */
+.case-colophon__credit {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.5;
+}
+.case-colophon__creditRole {
+  color: rgba(255, 255, 255, 0.55);
+}
+.case-colophon__creditRole::after {
+  content: ": ";
+}
+.case-colophon__creditNames {
   color: #fff;
-  cursor: pointer;
-  transition: background 0.2s var(--ease);
 }
-.lightbox__close:hover {
-  background: rgba(255, 255, 255, 0.25);
+.case-colophon__creditNames a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--brand) 70%, #fff);
 }
-
-/* ── Responsive ───────────────────────────────────────────────────────────── */
-@media (max-width: 1024px) {
-  .case-credits {
+.case-colophon__when {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+}
+.case-colophon__views {
+  margin-top: clamp(26px, 3vw, 44px);
+  padding-top: clamp(18px, 2vw, 26px);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1vw, 16px);
+  color: rgba(255, 255, 255, 0.6);
+}
+.case-colophon__views span {
+  font-family: var(--font-num);
+  font-size: clamp(22px, 2vw, 30px);
+  color: #fff;
+  vertical-align: -0.08em;
+  margin-inline: 4px;
+}
+@media (max-width: 900px) {
+  .case-colophon__grid {
     grid-template-columns: 1fr;
   }
-  .case-credits__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 1024px) {
-  .case-cards--grid-3 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 760px) {
-  .case-media--grid-2,
-  .case-media--grid-3,
-  .case-media--split {
-    grid-template-columns: 1fr;
-  }
-  .case-cards--grid-2,
-  .case-cards--grid-3,
-  .case-cards--split {
-    grid-template-columns: 1fr;
-  }
-  .case-credits__grid {
+  .case-colophon__team {
     grid-template-columns: 1fr;
   }
 }
 
-/* Screen-smart vertical video reel container */
-.case-figure--reel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  padding: 0.5rem 0;
-}
-.case-reel-frame {
-  width: 100%;
-  max-width: 270px;
-  max-height: 480px;
-  margin: 0 auto;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow:
-    0 12px 36px rgba(0, 0, 0, 0.16),
-    0 0 0 1px rgba(0, 0, 0, 0.08);
-  background: #000;
-  aspect-ratio: 9 / 16;
-}
-.case-reel-frame .case-figure__video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* ── Split Layout (Text Left, Media Right) ─────────────────────────────── */
-.case-split {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(24px, 4vw, 48px);
-  align-items: center;
-}
-@media (min-width: 860px) {
-  .case-split {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: clamp(40px, 5vw, 80px);
-  }
-}
-.case-split__content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.case-split__media {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-/* Respect reduced-motion for the figure zoom affordance. */
 @media (prefers-reduced-motion: reduce) {
-  .case-figure--zoom img,
-  .case-back,
-  .case-cta__btn {
-    transition: none;
-  }
   .case-figure--zoom:hover img {
     transform: none;
   }
@@ -1011,4 +975,271 @@ body.page-case-modular {
 }
 .case-hero__dot {
   opacity: 0.5;
+}
+
+/* ── Number band ──────────────────────────────────────────────────────────
+ * Growth cases are carried by their figures, so the figures are set larger
+ * than anything else on the page and painted in the case's own colour. The
+ * digits roll up from zero on entry (countUps in scripts/reveal.ts) while the
+ * whole band rises into place, so the numbers read as something that happened
+ * rather than something that was always sitting there.
+ */
+.case-stats {
+  margin-top: clamp(26px, 3.4vw, 48px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(22px, 3vw, 48px);
+}
+.case-stat {
+  padding-top: clamp(18px, 2vw, 28px);
+  border-top: 2px solid var(--brand-line);
+}
+.case-stat__num {
+  white-space: nowrap;
+  font-family: var(--font-num);
+  font-weight: 400;
+  font-size: clamp(52px, 6.5vw, 104px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--brand-text, var(--brand));
+  font-variant-numeric: tabular-nums;
+  margin-bottom: clamp(10px, 1.2vw, 16px);
+}
+.case-stat__unit {
+  font-size: 0.42em;
+  letter-spacing: -0.01em;
+  margin-left: 0.12em;
+}
+.case-stat__label {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(16px, 1.2vw, 19px);
+  line-height: 1.35;
+  color: var(--grey-900);
+}
+.case-stat__note {
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.55;
+  color: var(--grey-500);
+}
+.case-stats__caption {
+  margin-top: clamp(16px, 2vw, 24px);
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1vw, 15px);
+  color: var(--grey-500);
+}
+
+/* Entry: each figure lifts and settles, 130ms apart, via [data-stagger]. */
+.case-stats[data-stagger] > .case-stat {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+.case-stats[data-stagger].is-in > .case-stat {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-stats[data-stagger] > .case-stat {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── More work ────────────────────────────────────────────────────────────
+ * The rail that closes a case study. Four cards fill the row on a desktop and
+ * the arrows page through the rest, so the reader leaves a project by walking
+ * into another one.
+ */
+.more-work {
+  max-width: 1400px;
+  margin: clamp(48px, 6vw, 88px) auto 0;
+  padding: clamp(32px, 4vw, 56px) var(--gutter) clamp(48px, 6vw, 80px);
+  border-top: 1px solid var(--brand-line, var(--line));
+}
+.more-work__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: clamp(20px, 2.4vw, 32px);
+}
+.more-work__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1.05;
+  color: var(--grey-900);
+}
+.more-work__nav {
+  display: flex;
+  gap: 10px;
+}
+.more-work__arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--brand-line, var(--line));
+  background: transparent;
+  color: var(--brand-text, var(--brand));
+  cursor: pointer;
+  transition:
+    background 0.3s var(--ease),
+    color 0.3s var(--ease),
+    opacity 0.3s var(--ease);
+}
+.more-work__arrow:hover:not(:disabled) {
+  background: var(--brand-fill, var(--brand));
+  color: var(--brand-ink, #fff);
+}
+.more-work__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.more-work__arrow:focus-visible {
+  outline: 2px solid var(--brand-text, var(--brand));
+  outline-offset: 2px;
+}
+
+/* One page of the rail is exactly four cards; the scrollbar stays hidden
+   because the arrows are the control. */
+.more-work__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 3 * clamp(14px, 1.6vw, 24px)) / 4);
+  gap: clamp(14px, 1.6vw, 24px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.more-work__track::-webkit-scrollbar {
+  display: none;
+}
+.more-work__card {
+  scroll-snap-align: start;
+  text-decoration: none;
+  display: block;
+}
+.more-work__media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--bg);
+  margin-bottom: 14px;
+}
+.more-work__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--ease);
+}
+.more-work__card:hover .more-work__media img {
+  transform: scale(1.04);
+}
+.more-work__name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(17px, 1.3vw, 21px);
+  line-height: 1.2;
+  color: var(--grey-900);
+  margin-bottom: 4px;
+}
+.more-work__tags {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1vw, 15px);
+  color: var(--grey-500);
+}
+.more-work__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: clamp(24px, 3vw, 40px);
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.1vw, 17px);
+  color: var(--brand-text, var(--brand));
+  text-decoration: none;
+}
+.more-work__all:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 1023px) {
+  .more-work__track {
+    grid-auto-columns: calc((100% - clamp(14px, 1.6vw, 24px)) / 2);
+  }
+}
+@media (max-width: 599px) {
+  .more-work__track {
+    grid-auto-columns: 78%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .more-work__media img {
+    transition: none;
+  }
+}
+
+/* An icon card leads with the mark instead of an ordinal; the icon carries the
+   case colour so a row of them reads as part of the page's palette. */
+.case-card__icon {
+  display: block;
+  color: color-mix(in srgb, var(--brand) 70%, #fff);
+  margin-bottom: clamp(14px, 1.4vw, 20px);
+}
+
+/* A video hero fills the same frame a photographic one does. */
+.case-hero__video {
+  object-fit: cover;
+  background: var(--ink);
+}
+
+/* Figures that belong together as one continuous run of artwork. */
+.case-media--flush {
+  gap: 0;
+}
+
+
+/* The mark that flags a section name. Abstract rather than illustrative: it is
+   there to catch the eye at the start of a section, not to describe it. */
+.case-label__icon {
+  flex: 0 0 auto;
+  color: var(--brand-text, var(--brand));
+  opacity: 0.85;
+}
+
+/* ── Closing wheel strip ──────────────────────────────────────────────────
+ * Sits at the foot of the colophon on the same ground as the rest of the
+ * band, so the strip reads as part of the closing block rather than as a
+ * panel dropped on top of it.
+ */
+.footer-strip {
+  margin-top: clamp(40px, 5vw, 72px);
+  width: 100%;
+}
+.footer-strip__canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* The words are drawn as dots, so the text itself is carried for screen
+   readers and search. */
+.footer-strip__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

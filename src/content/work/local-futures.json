@@ -1,8 +1,8 @@
 {
-  "title": "Local Futures — Graphics Localization | Studio 1947",
-  "description": "How Studio 1947 localised Local Futures' Hindi documentary short — translating motion graphics, infographics and on-screen callouts into Devanagari.",
-  "ogTitle": "Local Futures — Graphics Localization | Studio 1947",
-  "ogDescription": "Complete graphics localization for a Hindi-language documentary short — motion graphics, infographics and on-screen callouts re-engineered into Devanagari.",
+  "title": "Local Futures: Graphics Localization | Studio 1947",
+  "description": "How Studio 1947 localised Local Futures' Hindi documentary short, translating motion graphics, infographics and on-screen callouts into Devanagari.",
+  "ogTitle": "Local Futures: Graphics Localization | Studio 1947",
+  "ogDescription": "Complete graphics localization for a Hindi-language documentary short, motion graphics, infographics and on-screen callouts re-engineered into Devanagari.",
   "ogType": "article",
   "brand": "#045A7B",
   "client": "Local Futures",
@@ -12,7 +12,7 @@
   ],
   "hero": {
     "src": "/assets/img/work/local-futures/hero.webp",
-    "alt": "Local Futures — Trade Gone Mad documentary",
+    "alt": "Local Futures: Trade Gone Mad documentary",
     "style": "logo"
   },
   "sections": [
@@ -20,7 +20,7 @@
       "divider": false,
       "body": [
         "When an international non-profit or global think tank seeks a creative partner, they aren't looking for a simple translation service. They require high-level design consultants who understand multilingual visual systems, information architecture, and cultural localization. The challenge is to take dense, global macroeconomic data and translate it into a visual language that feels urgent, clear, and approachably native to regional communities.",
-        "This case study demonstrates how we partnered with Local Futures, a pioneer of the international economic localization movement, to execute complete Graphics Localization for their high-impact documentary short: <strong>\"अंतरराष्ट्रीय व्यापार का पागलपन — Trade Gone Mad\"</strong>."
+        "This case study demonstrates how we partnered with Local Futures, a pioneer of the international economic localization movement, to execute complete Graphics Localization for their high-impact documentary short: <strong>\"अंतरराष्ट्रीय व्यापार का पागलपन: Trade Gone Mad\"</strong>."
       ]
     },
     {
@@ -38,7 +38,7 @@
       "subheading": "The Problem: When Subtitles Aren't Enough",
       "body": [
         "To introduce their core advocacy into India's massive Hindi-speaking demographic, simple text subtitling at the bottom of the screen was insufficient. In fast-paced video production, complex infographics, data charts, and on-screen text callouts must be read instantly.",
-        "If the motion graphics remain in English while subtitles run below, the viewer faces severe cognitive splitting — trying to decode English graphs while reading Hindi translation simultaneously. This friction dilutes the emotional weight and clarity of the message."
+        "If the motion graphics remain in English while subtitles run below, the viewer faces severe cognitive splitting, trying to decode English graphs while reading Hindi translation simultaneously. This friction dilutes the emotional weight and clarity of the message."
       ]
     },
     {
@@ -63,7 +63,7 @@
       "media": [
         {
           "src": "/assets/img/work/local-futures/typography.webp",
-          "alt": "Noto Sans Devanagari — typeface weight system"
+          "alt": "Noto Sans Devanagari: typeface weight system"
         }
       ]
     },
@@ -75,7 +75,7 @@
       ],
       "embed": {
         "src": "https://www.youtube.com/embed/Q1ZPIWBs45A?si=KwCN_-KOnIzzOUJQ",
-        "title": "Trade Gone Mad — Hindi localization, Local Futures"
+        "title": "Trade Gone Mad: Hindi localization, Local Futures"
       }
     }
   ],

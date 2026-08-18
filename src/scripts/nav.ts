@@ -29,3 +29,28 @@ export function navDropdowns(): void {
   // Close on scroll so a panel never lingers detached (harmless with fixed header).
   window.addEventListener('scroll', closeAll, { passive: true });
 }
+
+/**
+ * The bar sits flat at the top of a page and lifts on a shadow once the page
+ * has moved. 8px of travel is enough to count as scrolled without the shadow
+ * flickering on a trackpad's rubber-band.
+ */
+export function headerPill(): void {
+  const header = document.querySelector<HTMLElement>('.site-header');
+  if (!header) return;
+  let ticking = false;
+  const sync = (): void => {
+    ticking = false;
+    header.classList.toggle('is-stuck', window.scrollY > 8);
+  };
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(sync);
+    },
+    { passive: true }
+  );
+  sync();
+}

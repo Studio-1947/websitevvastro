@@ -32,7 +32,7 @@
       "divider": false,
       "label": "Science",
       "body": [
-        "Immersing our team directly into the underlying mechanics of the challenge—whether it is reinforcement learning, multi-modal retrieval-augmented generation (RAG), or clinical biomedical telemetry."
+        "Immersing our team directly into the underlying mechanics of the challenge, whether it is reinforcement learning, multi-modal retrieval-augmented generation (RAG), or clinical biomedical telemetry."
       ]
     },
     {
@@ -72,7 +72,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/amazon-kdd-cup-2024.webp",
-          "alt": "Amazon KDD Cup 2024 challenge key visual — network-graph artwork mapping multi-task LLM commerce tracks",
+          "alt": "Amazon KDD Cup 2024 challenge key visual: network-graph artwork mapping multi-task LLM commerce tracks",
           "zoom": true,
           "pad": true
         }
@@ -80,7 +80,7 @@
     },
     {
       "divider": false,
-      "label": "ADDI — Alzheimer's Detection Challenge",
+      "label": "ADDI: Alzheimer's Detection Challenge",
       "subheading": "The Technical Focus:",
       "body": [
         "Utilizing advanced data science pipelines to detect and track biomarkers for early-stage Alzheimer's disease in clinical medical trials."
@@ -95,7 +95,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/addi-alzheimers-detection-challenge.webp",
-          "alt": "ADDI Alzheimer's Detection Challenge key visual — organic neural pathway composition over a typographic grid",
+          "alt": "ADDI Alzheimer's Detection Challenge key visual, organic neural pathway composition over a typographic grid",
           "zoom": true,
           "pad": true
         }
@@ -118,7 +118,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/scene-understanding-for-autonomous-drone-delivery-suadd23.webp",
-          "alt": "SUADD '23 key visual — vector tracking grids, bounding boxes and depth heatmaps over an aerial landscape",
+          "alt": "SUADD '23 key visual: vector tracking grids, bounding boxes and depth heatmaps over an aerial landscape",
           "zoom": true,
           "pad": true
         }
@@ -141,7 +141,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/data-purchasing-challenge-2022.webp",
-          "alt": "Data Purchasing Challenge 2022 key visual — geometric arrays and dark-mode data nodes evoking an algorithmic trading floor",
+          "alt": "Data Purchasing Challenge 2022 key visual: geometric arrays and dark-mode data nodes evoking an algorithmic trading floor",
           "zoom": true,
           "pad": true
         }
@@ -164,7 +164,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/multi-agent-behaviorchallenge2022.webp",
-          "alt": "Multi-Agent Behavior Challenge 2022 key visual — intersecting neon motion trajectories forming behavioural clusters",
+          "alt": "Multi-Agent Behavior Challenge 2022 key visual, intersecting neon motion trajectories forming behavioural clusters",
           "zoom": true,
           "pad": true
         }
@@ -172,7 +172,7 @@
     },
     {
       "divider": false,
-      "label": "NeurIPS 2021: AWS DeepRacer — AI Driving Olympics Challenge",
+      "label": "NeurIPS 2021: AWS DeepRacer: AI Driving Olympics Challenge",
       "subheading": "The Technical Focus:",
       "body": [
         "Advanced reinforcement learning models trained to navigate scale-model autonomous vehicles through unpredictable, high-speed physical racing tracks."
@@ -187,7 +187,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/neurips2021-awsdeepracer-aidrivingolympicschallenge.webp",
-          "alt": "NeurIPS 2021 AWS DeepRacer key visual — velocity lines, racing track grids and telemetry indicators",
+          "alt": "NeurIPS 2021 AWS DeepRacer key visual: velocity lines, racing track grids and telemetry indicators",
           "zoom": true,
           "pad": true
         }
@@ -210,7 +210,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/neurips-2020-procgen-competition.webp",
-          "alt": "NeurIPS 2020 Procgen Competition key visual — retro 8-bit game environments rebuilt as clean modular vector tiles",
+          "alt": "NeurIPS 2020 Procgen Competition key visual: retro 8-bit game environments rebuilt as clean modular vector tiles",
           "zoom": true,
           "pad": true
         }
@@ -239,7 +239,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/global-chess-challenge-2025.webp",
-          "alt": "Global Chess Challenge 2025 key visual — chessboard reimagined as a matrix field with minimalist vector piece nodes",
+          "alt": "Global Chess Challenge 2025 key visual: chessboard reimagined as a matrix field with minimalist vector piece nodes",
           "zoom": true,
           "pad": true
         }
@@ -262,7 +262,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/commonsense-persona-grounded-dialogue-challenge-2025.webp",
-          "alt": "Commonsense Persona-Grounded Dialogue Challenge 2025 key visual — typographic thought clouds over semantic matching matrices",
+          "alt": "Commonsense Persona-Grounded Dialogue Challenge 2025 key visual, typographic thought clouds over semantic matching matrices",
           "zoom": true,
           "pad": true
         }
@@ -285,7 +285,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/meta-crag-multi-modal-challenge-2025.webp",
-          "alt": "Meta CRAG Multi-Modal Challenge 2025 key visual — dark-mode data fusion of video, image and speech into one retrieval pipeline",
+          "alt": "Meta CRAG Multi-Modal Challenge 2025 key visual, dark-mode data fusion of video, image and speech into one retrieval pipeline",
           "zoom": true,
           "pad": true
         }
@@ -308,7 +308,7 @@
       "media": [
         {
           "src": "/assets/img/work/aicrowd/sounding-video-generation-svg-challenge-2024.webp",
-          "alt": "Sounding Video Generation Challenge 2024 key visual — audio frequency spectrograms blended into cinematic video strips",
+          "alt": "Sounding Video Generation Challenge 2024 key visual, audio frequency spectrograms blended into cinematic video strips",
           "zoom": true,
           "pad": true
         }

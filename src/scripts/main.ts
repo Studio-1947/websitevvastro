@@ -19,7 +19,7 @@
  */
 import { scrollReveal, countUps } from './reveal';
 import { mobileMenu } from './mobileMenu';
-import { navDropdowns } from './nav';
+import { navDropdowns, headerPill } from './nav';
 import { duplicateMarquees } from './marquee';
 import { hydrateYear, darjeelingLive } from './darjeeling';
 import { contactModal } from './contactModal';
@@ -68,6 +68,7 @@ function init(): void {
   countUps();
   mobileMenu();
   navDropdowns();
+  headerPill();
   duplicateMarquees();
   hydrateYear();
   darjeelingLive();
@@ -99,8 +100,11 @@ function init(): void {
   when('[data-commit]', () => import('./carousel').then((m) => m.commitmentCarousel()));
   when('.cocreate__line', () => import('./cocreate').then((m) => m.cocreateCycle()));
   when('.team-card[data-person]', () => import('./personModal').then((m) => m.personModal()));
-  when('[data-search-open]', () => import('./siteSearch').then((m) => m.siteSearch()));
   when('.case-figure--zoom', () => import('./lightbox').then((m) => m.caseLightbox()));
+  when('[data-work-rail]', () => import('./workRail').then((m) => m.workRail()));
+  when('[data-spotlight]', () => import('./spotlight').then((m) => m.spotlightCards()));
+  when('[data-views]', () => import('./views').then((m) => m.projectViews()));
+  when('[data-footer-strip]', () => import('./footerStrip').then((m) => m.footerStrip()));
 }
 
 if (document.readyState === 'loading') {

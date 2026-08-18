@@ -15,15 +15,15 @@ const posts = (await getCollection('blog')).sort((a, b) => a.data.order - b.data
 let card = 0;
 const datedHtml = html.replace(/<span>Jun 4<\/span>/g, () => {
   const date = posts[card++]?.data.date;
-  return date ? `<time datetime="${date}">${formatPostDate(date)}</time>` : '<span>Jun 4</span>';
+  return date ? `<time datetime="${date}">${formatPostDate(date)}</time>`: '<span>Jun 4</span>';
 });
 ---
 
 <BaseLayout
   title={"Stories, Ideas & Perspectives | Studio 1947 Blog"}
-  description={"Stories, ideas and perspectives from Studio 1947 — on traditional knowledge, design thinking, culture, craft and community from Darjeeling and beyond."}
+  description={"Stories, ideas and perspectives from Studio 1947, on traditional knowledge, design thinking, culture, craft and community from Darjeeling and beyond."}
   ogTitle={"Stories, Ideas & Perspectives | Studio 1947 Blog"}
-  ogDescription={"Stories, ideas and perspectives from Studio 1947 — on traditional knowledge, design, culture and community."}
+  ogDescription={"Stories, ideas and perspectives from Studio 1947, on traditional knowledge, design, culture and community."}
   ogType={"website"}
   bodyClass={"page-blog"}
 >

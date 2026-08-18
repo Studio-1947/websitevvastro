@@ -1,16 +1,16 @@
 ---
 /**
- * Contact popup — opened from the nav / footer "Say Hello" buttons and any
+ * Contact popup: opened from the nav / footer "Say Hello" buttons and any
  * [data-contact-open] trigger. Behaviour wired in src/scripts/contactModal.ts.
  *
  * Two columns: a looping studio reel on the left, the note form on the right.
  * The reel is a silent 9:16 H.264 clip; it autoplays muted when the popup opens
  * and pauses when it closes (contactModal.ts), and it is skipped for
  * reduced-motion users. preload="metadata" keeps the 2.8 MB off the initial
- * page load — it only fetches once the popup is opened. It is decorative
+ * page load: it only fetches once the popup is opened. It is decorative
  * (aria-hidden), so no captions or controls.
  *
- * The form posts to Web3Forms. `access_key` is Web3Forms' *public* key — it is
+ * The form posts to Web3Forms. `access_key` is Web3Forms' *public* key: it is
  * designed to sit in client-side HTML and identifies the destination inbox, so
  * the studio address itself never appears in the markup. Unlike the previous
  * FormSubmit endpoint there is no activation step, so submissions deliver from

@@ -1,8 +1,8 @@
 {
-  "title": "AWCH — Avishkar Women & Children Hospital | Studio 1947",
-  "description": "How Studio 1947 established AWCH as a premier multispeciality hospital in Asansol — brand strategy, visual identity, digital platform and social media.",
-  "ogTitle": "AWCH — Avishkar Women & Children Hospital | Studio 1947",
-  "ogDescription": "How Studio 1947 established AWCH as a modern, premier multispeciality medical institution in Asansol — brand strategy, visual identity, digital platform, and omnichannel social media system.",
+  "title": "AWCH: Avishkar Women & Children Hospital | Studio 1947",
+  "description": "How Studio 1947 established AWCH as a premier multispeciality hospital in Asansol, brand strategy, visual identity, digital platform and social media.",
+  "ogTitle": "AWCH: Avishkar Women & Children Hospital | Studio 1947",
+  "ogDescription": "How Studio 1947 established AWCH as a modern, premier multispeciality medical institution in Asansol, brand strategy, visual identity, digital platform, and omnichannel social media system.",
   "ogType": "article",
   "brand": "#BF0076",
   "client": "Avishkar Women & Children Hospital",
@@ -14,7 +14,7 @@
   ],
   "hero": {
     "src": "/assets/img/work/awch/parent-brand-architecture.webp",
-    "alt": "AWCH master brand lockup — the 'awch' wordmark with its mother-and-child symbol beside the Avishkar Women & Children Hospital signature",
+    "alt": "AWCH master brand lockup: the 'awch' wordmark with its mother-and-child symbol beside the Avishkar Women & Children Hospital signature",
     "style": "logo"
   },
   "sections": [
@@ -66,7 +66,7 @@
       "media": [
         {
           "src": "/assets/img/work/awch/frame-4.webp",
-          "alt": "AWCH brand architecture showcase — the master identity applied across the hospital's specialist wings",
+          "alt": "AWCH brand architecture showcase: the master identity applied across the hospital's specialist wings",
           "zoom": true,
           "pad": false
         }
@@ -104,7 +104,7 @@
       "media": [
         {
           "src": "/assets/img/work/awch/typographyfont.webp",
-          "alt": "The Inter typeface specimen — every weight used across the AWCH brand system",
+          "alt": "The Inter typeface specimen: every weight used across the AWCH brand system",
           "zoom": true,
           "pad": false
         }
@@ -132,7 +132,7 @@
       "media": [
         {
           "src": "/assets/img/work/awch/simplified-information-architecture.webp",
-          "alt": "The AWCH website homepage — Expert Women and Children Healthcare in Asansol, with departments and emergency contact surfaced up front",
+          "alt": "The AWCH website homepage: Expert Women and Children Healthcare in Asansol, with departments and emergency contact surfaced up front",
           "zoom": true,
           "pad": false
         }
@@ -147,7 +147,7 @@
       "media": [
         {
           "src": "/assets/img/work/awch/frictionless-appointment-ux.webp",
-          "alt": "AWCH appointment booking screen — Schedule Your Visit at AWCH, a short guided form for choosing a doctor and slot",
+          "alt": "AWCH appointment booking screen: Schedule Your Visit at AWCH, a short guided form for choosing a doctor and slot",
           "zoom": true,
           "pad": false
         }
@@ -184,7 +184,7 @@
       "media": [
         {
           "src": "/assets/img/work/awch/instant-recall01.webp",
-          "alt": "AWCH social media post built on the modular template — brand pink, bold headline hierarchy and the awch lockup",
+          "alt": "AWCH social media post built on the modular template, brand pink, bold headline hierarchy and the awch lockup",
           "zoom": true,
           "pad": false
         },

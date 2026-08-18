@@ -27,7 +27,7 @@ const url = new URL(`/blog/${entry.id}/`, Astro.site).href;
  * far heavier than its Latin, so a whole article set in them reads as bold.
  * Posts written in those scripts load the matching Noto family instead, which
  * is drawn for the script and sits at a true regular weight. Only those posts
- * pay for the extra request — a Latin post's <head> is unchanged.
+ * pay for the extra request: a Latin post's <head> is unchanged.
  */
 const script = /lang="(bn|hi|ne)"/.exec(d.html)?.[1];
 const NOTO = { bn: 'Noto+Sans+Bengali', hi: 'Noto+Sans+Devanagari', ne: 'Noto+Sans+Devanagari' };

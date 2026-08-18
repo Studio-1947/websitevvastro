@@ -1,6 +1,6 @@
 ---
 /**
- * Home hero region — the interactive aurora canvas spans the hero + featured
+ * Home hero region: the interactive aurora canvas spans the hero + featured
  * work (masked in CSS), with the logo marquee + "Featured Work" label between
  * them. Markup ported verbatim from the original index.html.
  *
@@ -9,7 +9,7 @@
  * lazy tiles resolve mid-scroll) and emits a `srcset` so a phone decodes a
  * ~400px bitmap instead of the 1600px original. Decoding a 1600×1600 source
  * costs ~10MB of main-thread work at the exact moment it scrolls into view,
- * and Lenis drives scroll from the main thread — so that decode was landing as
+ * and Lenis drives scroll from the main thread, so that decode was landing as
  * visible scroll stutter.
  *
  * <Image> (not <Picture>) on purpose: <Picture> emits a <picture> wrapper, and
@@ -32,7 +32,7 @@ const TILE_NARROW = '(max-width: 760px) 100vw, 37vw';
 const TILE_FULL = '100vw';
 
 // `.marquee img` caps at `max-width: clamp(110px, 11vw, 152px)`, and the track
-// is duplicated in JS for the seamless loop — so every logo is decoded twice.
+// is duplicated in JS for the seamless loop: so every logo is decoded twice.
 // Describing the real display width matters more here than anywhere else on the
 // page: a density srcset off the 641px source made these the single largest
 // block of decoded pixels on a retina phone.
@@ -56,7 +56,7 @@ const LOGO_WIDTHS = [160, 320, 480, 641];
         {clientLogos.map((logo) => (
           <Image
             src={logo.src}
-            class={logo.seal ? 'logo-seal' : undefined}
+            class={logo.seal ? 'logo-seal': undefined}
             alt="Client logo"
             loading="lazy"
             quality={85}

@@ -1,7 +1,7 @@
 {
-  "title": "Radha Madhav — Smart Pharmacy Dashboard | Studio 1947",
+  "title": "Radha Madhav: Smart Pharmacy Dashboard | Studio 1947",
   "description": "How Studio 1947 built a cloud-native, offline-first dashboard streamlining billing, inventory and compliance for a Mirik medical shop.",
-  "ogTitle": "Radha Madhav — Smart Pharmacy Dashboard | Studio 1947",
+  "ogTitle": "Radha Madhav: Smart Pharmacy Dashboard | Studio 1947",
   "ogDescription": "A cloud-native, offline-first dashboard unifying point-of-sale, inventory and compliance for a rural medical shop.",
   "ogType": "article",
   "brand": "#e60000",
@@ -104,10 +104,10 @@
       "label": "The Result",
       "heading": "Significant operational improvements.",
       "list": [
-        "Blazing-fast performance — point-of-sale billing latency of sub-100 milliseconds.",
-        "Increased throughput — cashier processing speed boosted to over 60 line items per minute.",
-        "Revenue growth — drove a ₹4,80,000 increase in quarterly revenue.",
-        "Reduced waste — cut near-expiry medicine write-offs to less than 0.5% of total product costs."
+        "Blazing-fast performance: point-of-sale billing latency of sub-100 milliseconds.",
+        "Increased throughput: cashier processing speed boosted to over 60 line items per minute.",
+        "Revenue growth: drove a ₹4,80,000 increase in quarterly revenue.",
+        "Reduced waste: cut near-expiry medicine write-offs to less than 0.5% of total product costs."
       ]
     },
     {

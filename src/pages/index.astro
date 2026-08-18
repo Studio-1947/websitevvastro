@@ -1,18 +1,18 @@
 ---
 /**
- * Homepage — decomposed into section components (PRD Principle #5). Markup and
+ * Homepage: decomposed into section components (PRD Principle #5). Markup and
  * section order match the original index.html exactly.
  */
 import { Image } from 'astro:assets';
 import { clientLogos } from '../assets/clientLogos';
 
 // `.marquee--lg img` runs bigger than the hero strip:
-// `max-width: clamp(130px, 13vw, 190px)`. Same rationale as HomeHero — the
+// `max-width: clamp(130px, 13vw, 190px)`. Same rationale as HomeHero: the
 // track is JS-duplicated, so each logo is decoded twice on this page too.
 const LOGO_SIZES = '(max-width: 1024px) 130px, 190px';
 // 480 rather than a tight 400 for the 2x rung: these are high-contrast line-art
 // marks where a little supersampling reads noticeably crisper, and a 480w logo
-// is ~5KB — cheap enough that exactness isn't worth the softer edges.
+// is ~5KB: cheap enough that exactness isn't worth the softer edges.
 const LOGO_WIDTHS = [200, 480, 641];
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/sections/HomeHero.astro';
@@ -29,7 +29,7 @@ const faq = faqJsonLd([
   {
     question: 'What we do?',
     answer:
-      'We design solutions that create impact. We innovate and create at the intersections of Data, Design, Technology, Communication and Research to achieve the best possible impact for our clients and partners — from evidence and strategy through to brand, product and growth.',
+      'We design solutions that create impact. We innovate and create at the intersections of Data, Design, Technology, Communication and Research to achieve the best possible impact for our clients and partners, from evidence and strategy through to brand, product and growth.',
   },
   {
     question: 'Why Darjeeling?',
@@ -44,12 +44,12 @@ const faq = faqJsonLd([
   {
     question: 'Our Vision',
     answer:
-      'Democratise innovation. Our vision is to make Data, Design, and Technology accessible, affordable, and impactful for every organisation — from grassroots communities and small local enterprises to governments, NGOs, and global institutions.',
+      'Democratise innovation. Our vision is to make Data, Design, and Technology accessible, affordable, and impactful for every organisation, from grassroots communities and small local enterprises to governments, NGOs, and global institutions.',
   },
   {
     question: 'How do we get started?',
     answer:
-      "Simpler than you think. Tell us your challenge and we'll map the solution — from first conversation to a working platform, we guide every step.",
+      "Simpler than you think. Tell us your challenge and we'll map the solution, from first conversation to a working platform, we guide every step.",
   },
   {
     question: 'Do you work with international clients?',
@@ -61,13 +61,13 @@ const faq = faqJsonLd([
 
 <BaseLayout
   title="Data, Design & Tech Consulting | Studio 1947"
-  description="Studio 1947 co-creates data, design and technology solutions from Darjeeling — helping organisations worldwide understand, design, build and grow."
+  description="Studio 1947 co-creates data, design and technology solutions from Darjeeling, helping organisations worldwide understand, design, build and grow."
   ogTitle="Data, Design & Tech Consulting | Studio 1947"
   ogDescription="Crafting & co-creating solutions from Darjeeling."
   ogType="website"
   image="/assets/img/og-home.jpg"
   imageSize={{ w: 1200, h: 628 }}
-  imageAlt="We are Studio 1947 — the studio wordmark over Mirik lake in Darjeeling"
+  imageAlt="We are Studio 1947: the studio wordmark over Mirik lake in Darjeeling"
   fontHref="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&family=Google+Sans:wght@400;500;700&display=swap"
   jsonLd={[faq]}
 >
@@ -77,10 +77,10 @@ const faq = faqJsonLd([
     <Commitment />
     <Approach />
 
-    <!-- ===== Client logos (above testimonials — larger, full colour) ===== -->
+    <!-- ===== Client logos (above testimonials: larger, full colour) ===== -->
     <div class="marquee marquee--lg" aria-label="Trusted by">
       <div class="marquee__track">
-        {/* Same marks as the hero strip, rendered larger — `.logo-seal` is
+        {/* Same marks as the hero strip, rendered larger, `.logo-seal` is
             deliberately not applied here (`.marquee--lg` sizes them all alike). */}
         {clientLogos.map((logo) => (
           <Image src={logo.src} alt="Client logo" loading="lazy" quality={85} sizes={LOGO_SIZES} widths={LOGO_WIDTHS} />

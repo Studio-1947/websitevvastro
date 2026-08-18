@@ -1,10 +1,10 @@
 ---
 /**
- * CTA + footer — one red block with the hills photo behind both, plus the live
+ * CTA + footer: one red block with the hills photo behind both, plus the live
  * Darjeeling conditions strip. Markup ported from partials/footer.html.
  *
  * Rendered exactly ONCE per page (as a single component), which by construction
- * removes source defect D1 — the duplicated/nested `.footer-block` that appeared
+ * removes source defect D1: the duplicated/nested `.footer-block` that appeared
  * on 53 of 60 original pages (see MIGRATION_AUDIT.md §8).
  *
  * Behaviour (live clock/temp/AQI + current year) is wired in
@@ -18,7 +18,7 @@ const year = new Date().getFullYear();
 
 <div class="footer-block">
   {/* Full-bleed backdrop on every page, so it carries the site-wide win.
-      Decorative (empty alt) and always below the fold — lazy, unlike the
+      Decorative (empty alt) and always below the fold, lazy, unlike the
       original eager <img>. */}
   <div class="footer-block__bg"><Image src={footerHills} sizes="100vw" quality={85} widths={[640, 960, 1280, 1600]} alt="" loading="lazy" /></div>
 
@@ -42,7 +42,7 @@ const year = new Date().getFullYear();
           <li><a href="/solutions/">Our Solutions</a></li>
           <li><a href="/about-us/">Our Journey</a></li>
           {/* Labelled for where it goes. "Press Corner" is a separate thing and
-              has no page yet — when it exists it gets its own entry here. */}
+              has no page yet: when it exists it gets its own entry here. */}
           <li><a href="/initiatives/">Initiatives</a></li>
           <li><a href="/blog/">Blogs</a></li>
         </ul>

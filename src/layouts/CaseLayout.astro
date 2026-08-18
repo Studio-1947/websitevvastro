@@ -9,7 +9,7 @@ import '../styles/work-case.css';
 import CaseHero from '../components/work/CaseHero.astro';
 import CaseSection from '../components/work/CaseSection.astro';
 import Credits from '../components/work/Credits.astro';
-import PortfolioCTA from '../components/work/PortfolioCTA.astro';
+import MoreWork from '../components/work/MoreWork.astro';
 
 interface Props {
   data: {
@@ -27,16 +27,23 @@ interface Props {
       src: string;
       alt: string;
       style?: 'photo' | 'logo';
+      poster?: string;
       scrim?: string;
+      scrimOpacity?: number;
       background?: 'brand' | 'light';
     };
     sections?: any[];
     credits?: { role: string; members: string }[];
+    coordinator?: { name: string; role?: string };
+    /** false = retired from the portfolio: no index, no sitemap entry. */
+    active?: boolean;
   };
   jsonLd?: Record<string, unknown>[];
+  /** Slug of this case, so the closing rail can leave it out of itself. */
+  slug?: string;
 }
-const { data, jsonLd = [] } = Astro.props;
-const { brand, hero, sections = [], credits = [], client, tags = [], title, location, year } = data;
+const { data, jsonLd = [], slug } = Astro.props;
+const { brand, hero, sections = [], credits = [], client, tags = [], title, location, year, coordinator, active = true } = data;
 
 // Hero headline: the <h1> text, independent of the SEO <title>.
 const headline = client ?? title;
@@ -47,28 +54,26 @@ const headline = client ?? title;
    mid-tone reds (#E52F1D) defeat both white and near-black ink on their own
    fill. Three derived vars are set on the page root and every case primitive
    uses them with the raw brand as fallback:
-     --brand-ink  — whichever of white / near-black reads better on the brand.
-     --brand-fill — the brand (or a hair-darkened version) that lets
-                    --brand-ink clear 4.5:1 on it — hero + CTA fills.
-     --brand-text — the brand darkened just enough to clear 4.6:1 on the
+     --brand-ink: whichever of white / near-black reads better on the brand.
+     --brand-fill: the brand (or a hair-darkened version) that lets
+                    --brand-ink clear 4.5:1 on it: hero + CTA fills.
+     --brand-text: the brand darkened just enough to clear 4.6:1 on the
                     lightest surface brand text sits on (the label tint).
 */
 function relLum(hex: string): number {
   const v = (i: number) => {
     const c = parseInt(hex.slice(1 + i * 2, 3 + i * 2), 16) / 255;
-    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    return c <= 0.03928 ? c / 12.92: ((c + 0.055) / 1.055) ** 2.4;
   };
   return 0.2126 * v(0) + 0.7152 * v(1) + 0.0722 * v(2);
 }
 const contrast = (a: number, b: number) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 const INK = '#10240f';
 const mixBrand = (t: number) =>
-  '#' + [0, 1, 2]
-    .map((i) => Math.round(parseInt(brand!.slice(1 + i * 2, 3 + i * 2), 16) * t).toString(16).padStart(2, '0'))
-    .join('');
+  '#' + [0, 1, 2].map((i) => Math.round(parseInt(brand!.slice(1 + i * 2, 3 + i * 2), 16) * t).toString(16).padStart(2, '0')).join('');
 
 /* Darken the brand preserving its hue and saturation. Scaling RGB channels
-   (mixBrand) drags light brands toward mud — amber #FBBF24 becomes olive
+   (mixBrand) drags light brands toward mud: amber #FBBF24 becomes olive
    #8c6a14 because saturation collapses as channels converge. Dropping only
    lightness keeps e.g. amber amber. */
 function brandHsl(hex: string): [number, number, number] {
@@ -79,9 +84,9 @@ function brandHsl(hex: string): [number, number, number] {
   const l = (max + min) / 2;
   if (max === min) return [0, 0, l];
   const d = max - min;
-  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  const s = l > 0.5 ? d / (2 - max - min): d / (max + min);
   let h = 0;
-  if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+  if (max === r) h = (g - b) / d + (g < b ? 6: 0);
   else if (max === g) h = (b - r) / d + 2;
   else h = (r - g) / d + 4;
   return [(h * 60) % 360, s, l];
@@ -91,15 +96,13 @@ function hslToHex(h: number, s: number, l: number): string {
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
   const m = l - c / 2;
   const [r, g, b] =
-    h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
-  return '#' + [r, g, b]
-    .map((v) => Math.round((v + m) * 255).toString(16).padStart(2, '0'))
-    .join('');
+    h < 60 ? [c, x, 0]: h < 120 ? [x, c, 0]: h < 180 ? [0, c, x]: h < 240 ? [0, x, c]: h < 300 ? [x, 0, c]: [c, 0, x];
+  return '#' + [r, g, b].map((v) => Math.round((v + m) * 255).toString(16).padStart(2, '0')).join('');
 }
 
-const brandL = brand ? relLum(brand) : 0;
+const brandL = brand ? relLum(brand): 0;
 let brandInk = '#ffffff';
-if (brand) brandInk = contrast(1, brandL) >= contrast(relLum(INK), brandL) ? '#ffffff' : INK;
+if (brand) brandInk = contrast(1, brandL) >= contrast(relLum(INK), brandL) ? '#ffffff': INK;
 
 let brandFill = brand ?? '#e60000';
 if (brand && contrast(relLum(brandInk), brandL) < 4.5) {
@@ -117,18 +120,16 @@ if (brand) {
   // The label pill's own surface: brand 8% + white. Brand text must clear
   // 4.6:1 on it (the tightest surface brand text sits on).
   const tintHex =
-    '#' + [0, 1, 2]
-      .map((i) => {
+    '#' + [0, 1, 2].map((i) => {
         const c = Math.round(parseInt(brand.slice(1 + i * 2, 3 + i * 2), 16) * 0.08 + 255 * 0.92);
         return c.toString(16).padStart(2, '0');
-      })
-      .join('');
-  // Brand text also sits on --bg-alt (#f5f5f5) — whichever of that and the
+      }).join('');
+  // Brand text also sits on --bg-alt (#f5f5f5): whichever of that and the
   // tint is darker is the binding surface.
   const worstL = Math.min(relLum('#f5f5f5'), relLum(tintHex));
   const need = (worstL + 0.05) / 4.6 - 0.05;
   if (brandL > need) {
-    // Find the highest lightness that still clears 4.6:1 — the closest the
+    // Find the highest lightness that still clears 4.6:1: the closest the
     // text can stay to the brand while remaining readable. Hue + saturation
     // are untouched, so the darkening reads as "the brand, darker" rather
     // than a different colour.
@@ -149,12 +150,22 @@ if (brand) {
   ogTitle={data.ogTitle}
   ogDescription={data.ogDescription}
   ogType={data.ogType ?? 'article'}
+  noindex={active === false}
   bodyClass="page-case-modular"
   jsonLd={jsonLd}
 >
+  {/* The footer sits below <main>, so the per-case wash has to reach the body
+      too or a grey band shows between the CTA and the footer. */}
+  {brand && (
+    <style
+      is:inline
+      set:html={`body.page-case-modular{background:color-mix(in srgb, ${brand} 5%, var(--bg-alt));}`}
+    />
+  )}
+
   <main
     class="case-page"
-    style={brand ? `--brand: ${brand}; --brand-ink: ${brandInk}; --brand-fill: ${brandFill}; --brand-text: ${brandText};` : undefined}
+    style={brand ? `--brand: ${brand}; --brand-ink: ${brandInk}; --brand-fill: ${brandFill}; --brand-text: ${brandText};`: undefined}
   >
     {
       hero && (
@@ -164,7 +175,9 @@ if (brand) {
           title={headline}
           tags={tags}
           style={hero.style}
+          poster={hero.poster}
           scrim={hero.scrim}
+          scrimOpacity={hero.scrimOpacity}
           background={hero.background}
           location={location}
           year={year}
@@ -174,18 +187,18 @@ if (brand) {
 
     <div class="case-body">
       {sections.map((s, i) => <CaseSection {...s} first={i === 0} />)}
-      {client && <Credits client={client} roles={credits} />}
+      {client && (
+        <Credits
+          client={client}
+          coordinator={coordinator}
+          roles={credits}
+          location={location}
+          year={year}
+          slug={slug}
+        />
+      )}
 
-      <a class="case-back" href="/our-work/">
-        <span class="arrow" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 12H5M11 6l-6 6 6 6" />
-          </svg>
-        </span>
-        View all work
-      </a>
-
-      <PortfolioCTA />
+      <MoreWork current={slug} />
     </div>
   </main>
 </BaseLayout>

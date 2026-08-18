@@ -1,6 +1,6 @@
 ---
 /**
- * Playable track list for case studies — built for Sundargaan, where the
+ * Playable track list for case studies: built for Sundargaan, where the
  * field-recorded songs ARE the story and the website is the vessel.
  *
  * Each row is one recording: title, artist, village/genre meta, duration, and
@@ -61,7 +61,7 @@ const hasMeta = tracks.some((t) => t.artist || t.origin || t.genre);
               }
             </div>
 
-            <span class="case-audio__duration">{t.duration || '—'}</span>
+            <span class="case-audio__duration">{t.duration || ': '}</span>
             <div class="case-audio__bar" data-bar aria-hidden="true"></div>
           </div>
         ))}
@@ -122,7 +122,7 @@ const hasMeta = tracks.some((t) => t.artist || t.origin || t.genre);
       audio.src = src;
       audio.load();
       audio.play().catch(() => {
-        // File missing — the recording hasn't landed yet. Mark the row so it
+        // File missing: the recording hasn't landed yet. Mark the row so it
         // reads as intentional rather than broken.
         row.classList.add('is-coming');
         setActive(null);

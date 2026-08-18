@@ -34,16 +34,16 @@ const teamProjectsJson = JSON.stringify(Object.fromEntries(projectsByMember));
 
 <BaseLayout
   title={"About Studio 1947 | Local Wisdom for Global Impact"}
-  description={"Meet Studio 1947 — designers, technologists, storytellers and researchers crafting accessible, affordable solutions from Darjeeling."}
+  description={"Meet Studio 1947: designers, technologists, storytellers and researchers crafting accessible, affordable solutions from Darjeeling."}
   ogTitle={"About Studio 1947 | Local Wisdom for Global Impact"}
-  ogDescription={"We the people of Studio 1947 — building thoughtful solutions rooted in local wisdom and designed for global impact."}
+  ogDescription={"We the people of Studio 1947: building thoughtful solutions rooted in local wisdom and designed for global impact."}
   ogType={"website"}
 >
   <style slot="head" is:global set:html={css} />
   {/* Scroll-driven "four lines make a wheel" intro, prepended before the
-      existing About content (hero, team, etc.) — nothing below is replaced. */}
+      existing About content (hero, team, etc.): nothing below is replaced. */}
   <MarkStory />
-  {/* Manifesto payoff — the four disciplines MarkStory's wheel is built from,
+  {/* Manifesto payoff: the four disciplines MarkStory's wheel is built from,
       revealed as the section scrolls (text grows and rises). */}
   <Manifesto />
   <Fragment set:html={html} />

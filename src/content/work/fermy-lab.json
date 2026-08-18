@@ -1,8 +1,8 @@
 {
-  "title": "Fermy Lab – Portfolio | Studio 1947",
-  "description": "Brand identity, packaging and omnichannel UI for Fermy Lab — a fermented food brand bridging traditional Indian culinary wisdom with modern design.",
-  "ogTitle": "Fermy Lab – Portfolio | Studio 1947",
-  "ogDescription": "Brand identity, packaging design, and omnichannel UI system for Fermy Lab — an innovative fermented food brand bridging traditional Indian culinary wisdom with modern design.",
+  "title": "Fermy Lab: Portfolio | Studio 1947",
+  "description": "Brand identity, packaging and omnichannel UI for Fermy Lab, a fermented food brand bridging traditional Indian culinary wisdom with modern design.",
+  "ogTitle": "Fermy Lab: Portfolio | Studio 1947",
+  "ogDescription": "Brand identity, packaging design, and omnichannel UI system for Fermy Lab, an innovative fermented food brand bridging traditional Indian culinary wisdom with modern design.",
   "ogType": "article",
   "brand": "#3E843E",
   "client": "Fermy Lab",
@@ -14,14 +14,14 @@
   ],
   "hero": {
     "src": "/assets/img/work/fermy-lab/the-horizontal-lockup.webp",
-    "alt": "Fermy Lab horizontal logo lockup — the wordmark in deep green and golden ochre above a row of ingredient icons",
+    "alt": "Fermy Lab horizontal logo lockup: the wordmark in deep green and golden ochre above a row of ingredient icons",
     "style": "logo"
   },
   "sections": [
     {
       "divider": false,
       "body": [
-        "When food founders and consumer brands look for a creative agency, they aren't just looking for attractive graphics. They want to see a functional commercial system — one that establishes immediate credibility on a grocery shelf, commands attention on digital delivery platforms, and smoothly adapts as the company scales.",
+        "When food founders and consumer brands look for a creative agency, they aren't just looking for attractive graphics. They want to see a functional commercial system, one that establishes immediate credibility on a grocery shelf, commands attention on digital delivery platforms, and smoothly adapts as the company scales.",
         "This case study breaks down how we transformed the foundational values of <strong>Fermy Lab</strong> into a highly polished, scalable identity system engineered for real-world business growth."
       ]
     },
@@ -47,7 +47,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/parent-brand-architect.webp",
-          "alt": "Parent-brand architecture diagram — the Fermy Lab master mark sitting above two product tracks, Breads and Condiments, each with its own product line labelling",
+          "alt": "Parent-brand architecture diagram: the Fermy Lab master mark sitting above two product tracks, Breads and Condiments, each with its own product line labelling",
           "zoom": true,
           "pad": false
         }
@@ -103,7 +103,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/the-logo-usage-visualgovernance.webp",
-          "alt": "Overview of the Fermy Lab logo usage system — the approved lockup configurations gathered into one technical standard",
+          "alt": "Overview of the Fermy Lab logo usage system: the approved lockup configurations gathered into one technical standard",
           "zoom": true,
           "pad": false
         }
@@ -118,7 +118,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/the-master-badge-lockup.webp",
-          "alt": "The master badge lockup — a circular Fermy Lab stamp ringed by an illustrated wreath of challah bread, garlic, star anise, cloves and chilis",
+          "alt": "The master badge lockup: a circular Fermy Lab stamp ringed by an illustrated wreath of challah bread, garlic, star anise, cloves and chilis",
           "zoom": true,
           "pad": false
         }
@@ -133,7 +133,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/the-horizontal-lockup.webp",
-          "alt": "The horizontal lockup — the Fermy Lab wordmark set inline above a streamlined row of ingredient icons for tight spaces",
+          "alt": "The horizontal lockup: the Fermy Lab wordmark set inline above a streamlined row of ingredient icons for tight spaces",
           "zoom": true,
           "pad": false
         }
@@ -148,7 +148,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/responsive-favicons.webp",
-          "alt": "Responsive favicon set — simplified circular badges each isolating one icon, such as the bread loaf or a clove, for micro-screen legibility",
+          "alt": "Responsive favicon set: simplified circular badges each isolating one icon, such as the bread loaf or a clove, for micro-screen legibility",
           "zoom": true,
           "pad": false
         }
@@ -163,7 +163,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/the-1-challah-clearspace-rule.webp",
-          "alt": "Clearspace diagram — the master badge surrounded by a minimum safety border measured as one challah loaf height on every side",
+          "alt": "Clearspace diagram: the master badge surrounded by a minimum safety border measured as one challah loaf height on every side",
           "zoom": true,
           "pad": false
         }
@@ -173,13 +173,13 @@
       "divider": false,
       "label": "Partner Co-Branding Safety Margin",
       "body": [
-        "When co-branding alongside external distribution partners or legacy institutions—such as locking up next to historic entities like Amul—the system enforces a strict 1-Challah safety perimeter to protect FermyLab's independent authority.",
+        "When co-branding alongside external distribution partners or legacy institutions (such as locking up next to historic entities like Amul) the system enforces a strict 1-Challah safety perimeter to protect FermyLab's independent authority.",
         "The FermyLab logo isn't just a symbol, it's a statement. Keep it clear, crisp, and confidently placed."
       ],
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/partner-co-branding-safety-margin.webp",
-          "alt": "Co-branding diagram — the Fermy Lab mark locked up beside a partner logo with the mandated 1-Challah safety perimeter between them",
+          "alt": "Co-branding diagram: the Fermy Lab mark locked up beside a partner logo with the mandated 1-Challah safety perimeter between them",
           "zoom": true,
           "pad": false
         }
@@ -193,7 +193,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/absolute-production-prohibitions.webp",
-          "alt": "Violation matrix — a checklist of prohibited treatments of the Fermy Lab mark, such as recolouring, stretching and rotating it",
+          "alt": "Violation matrix: a checklist of prohibited treatments of the Fermy Lab mark, such as recolouring, stretching and rotating it",
           "zoom": true,
           "pad": false
         }
@@ -214,7 +214,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/physical-retail-packaging.webp",
-          "alt": "Retail packaging — slow-aged condiment jars wrapped in clean Fermy Lab badge labels",
+          "alt": "Retail packaging: slow-aged condiment jars wrapped in clean Fermy Lab badge labels",
           "zoom": true,
           "pad": false
         }
@@ -229,7 +229,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/the-digital-flagship-experience.webp",
-          "alt": "The digital flagship — Fermy Lab e-commerce storefront screens carrying the identity through product and checkout pages",
+          "alt": "The digital flagship: Fermy Lab e-commerce storefront screens carrying the identity through product and checkout pages",
           "zoom": true,
           "pad": false
         }
@@ -244,7 +244,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/delivery-app-optimization.webp",
-          "alt": "Delivery app listings — Fermy Lab product cards, metadata and icons tuned for dark-mode smartphone food-delivery interfaces",
+          "alt": "Delivery app listings: Fermy Lab product cards, metadata and icons tuned for dark-mode smartphone food-delivery interfaces",
           "zoom": true,
           "pad": false
         }
@@ -259,7 +259,7 @@
       "media": [
         {
           "src": "/assets/img/work/fermy-lab/out-of-home-highway-billboards.webp",
-          "alt": "Highway billboard — oversized food photography paired with the minimal line \"No shortcuts. Just fermentation.\"",
+          "alt": "Highway billboard: oversized food photography paired with the minimal line \"No shortcuts. Just fermentation.\"",
           "zoom": true,
           "pad": false
         }

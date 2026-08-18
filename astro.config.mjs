@@ -43,7 +43,10 @@ export default defineConfig({
       // submitting a URL while asking robots to ignore it is contradictory.
       // Currently the two unwritten product pages (body copy still TODO).
       filter: (page) =>
-        !/\/products\/(aangar-erp|1-darjeeling)\/$/.test(page),
+        !/\/products\/(aangar-erp|1-darjeeling)\/$/.test(page) &&
+        // Retired case studies (active: false) are out of the portfolio, so
+        // they are not advertised here either.
+        !/\/work\/(sundargaan)\/$/.test(page),
       // Stamp each blog post's real publication date as its <lastmod>.
       serialize: (item) => {
         const m = /^https:\/\/www\.1947\.io\/blog\/([^/]+)\/$/.exec(item.url);

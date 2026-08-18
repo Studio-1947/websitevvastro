@@ -27,7 +27,7 @@ const isModular = Array.isArray(d.sections) && d.sections.length > 0;
 
 {
   isModular ? (
-    <CaseLayout data={d} jsonLd={jsonLd} />
+    <CaseLayout data={d} jsonLd={jsonLd} slug={entry.id} />
   ) : (
     <StructuredLayout data={d as typeof d & { html: string }} jsonLd={jsonLd} />
   )

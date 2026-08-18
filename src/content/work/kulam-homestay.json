@@ -1,7 +1,7 @@
 {
-  "title": "Kulam Homestay — Boutique Retreat Web Design & Digital Presence | Studio 1947",
-  "description": "How Studio 1947 designed and developed an authentic one-pager web experience and brand presence for Kulam Homestay in Mirik, Darjeeling — highlighting hill culture, local tea gardens, artisan crafts, and direct booking.",
-  "ogTitle": "Kulam Homestay — Web Design & Digital Presence | Studio 1947",
+  "title": "Kulam Homestay: Boutique Retreat Web Design & Digital Presence | Studio 1947",
+  "description": "How Studio 1947 designed and developed an authentic one-pager web experience and brand presence for Kulam Homestay in Mirik, Darjeeling, highlighting hill culture, local tea gardens, artisan crafts, and direct booking.",
+  "ogTitle": "Kulam Homestay: Web Design & Digital Presence | Studio 1947",
   "ogDescription": "An authentic one-pager digital experience for a boutique retreat in Mirik, Darjeeling.",
   "ogType": "article",
   "brand": "#1F4232",
@@ -18,7 +18,7 @@
   "solutions": ["data-design-tech", "communication-campaign"],
   "active": true,
   "hero": {
-    "src": "/assets/img/work/kulam-homestay/hero-header.png",
+    "src": "/assets/img/work/kulam-homestay/hero-header.webp",
     "alt": "Kulam Homestay boutique web interface hero header featuring pine forest and mountain lake backdrop",
     "style": "photo"
   },
@@ -26,7 +26,7 @@
     {
       "divider": false,
       "body": [
-        "<strong>Kulam Homestay</strong> is a peaceful boutique retreat situated in the picturesque hills of Mirik, Darjeeling — nestled amid lush tea gardens and serene pine forests. Established in 2025, Kulam is more than accommodation; it's a sanctuary for travelers seeking peace, authentic hill culture, and warm family hospitality.",
+        "<strong>Kulam Homestay</strong> is a peaceful boutique retreat situated in the picturesque hills of Mirik, Darjeeling, nestled amid lush tea gardens and serene pine forests. Established in 2025, Kulam is more than accommodation; it's a sanctuary for travelers seeking peace, authentic hill culture, and warm family hospitality.",
         "Studio 1947 partnered with Kulam Homestay to design and develop a high-impact, custom single-page digital flagship that transports visitors directly into the tranquil atmosphere of Mirik, highlights the homestay's unique artisan boutique, and streamlines guest reservations."
       ]
     },
@@ -63,18 +63,18 @@
       "heading": "Website Architecture & Experience Flow",
       "label": "Design & Development",
       "body": [
-        "We structured the single-page application into a smooth, narrative-driven vertical flow. Every scroll depth introduces a distinct dimension of the Kulam experience — moving from brand philosophy and room comfort to local crafts and guest reviews."
+        "We structured the single-page application into a smooth, narrative-driven vertical flow. Every scroll depth introduces a distinct dimension of the Kulam experience, moving from brand philosophy and room comfort to local crafts and guest reviews."
       ],
       "media": [
         {
-          "src": "/assets/img/work/kulam-homestay/design-development-1.png",
+          "src": "/assets/img/work/kulam-homestay/design-development-1.webp",
           "alt": "Design & Development - Cultural Pillars and Architectural Identity",
           "caption": "Cultural Pillars: Warm Hospitality, Tea Garden Life, Peaceful Nature, and Local Lifestyle",
           "zoom": true,
           "pad": true
         },
         {
-          "src": "/assets/img/work/kulam-homestay/design-development-2.png",
+          "src": "/assets/img/work/kulam-homestay/design-development-2.webp",
           "alt": "Design & Development - Stay in Comfort rooms and amenities",
           "caption": "Stay in Comfort: Highlight cozy wooden room interiors, plush mountain view suites, and guest amenities",
           "zoom": true,
@@ -91,7 +91,7 @@
       ],
       "media": [
         {
-          "src": "/assets/img/work/kulam-homestay/handcrafted-treasures.png",
+          "src": "/assets/img/work/kulam-homestay/handcrafted-treasures.webp",
           "alt": "Handcrafted Treasures section featuring organic products and WhatsApp CTA banner",
           "caption": "Handcrafted Treasures: Showcasing garden tea, wild honey, organic turmeric, bay leaves, and integrated WhatsApp order banner",
           "zoom": true,

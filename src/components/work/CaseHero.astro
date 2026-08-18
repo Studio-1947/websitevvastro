@@ -2,8 +2,8 @@
 /**
  * Case hero, in two variants:
  *
- *  photo — full-bleed image, dark scrim, tags + title overlaid in white.
- *  logo  — brand lockup contained on a tinted panel, title set below it. Some
+ *  photo: full-bleed image, dark scrim, tags + title overlaid in white.
+ *  logo: brand lockup contained on a tinted panel, title set below it. Some
  *          brands supply a logo rather than a photograph; scrimming one of
  *          those produces muddy grey and duplicates the wordmark.
  *
@@ -17,11 +17,13 @@ interface Props {
   tags?: string[];
   style?: 'photo' | 'logo';
   /**
-   * Optional overlay colour for 'photo' heroes — the case brand's own hero
+   * Optional overlay colour for 'photo' heroes: the case brand's own hero
    * treatment. Applied as a flat 80% tint over the whole image (matches the
    * source sites' `bg-<brand>/80`), replacing the default black gradient.
    */
   scrim?: string;
+  /** Strength of that tint, 0 to 1. Defaults to the source sites' 80%. */
+  scrimOpacity?: number;
   /**
    * Logo-hero surface: 'brand' (default) renders the lockup on the brand-fill
    * panel; 'light' renders it on a clean light panel for lockups that read
@@ -31,17 +33,43 @@ interface Props {
   /** Legacy case studies carry these; the React-sourced ones do not. */
   location?: string;
   year?: string;
+  /** Still frame shown while a video hero loads (and if it cannot play). */
+  poster?: string;
 }
-const { src, alt, title, tags = [], style = 'photo', scrim, background, location, year } = Astro.props;
+const { src, alt, title, tags = [], style = 'photo', scrim, scrimOpacity, background, location, year, poster } = Astro.props;
+// A hero can be a film rather than a photograph. It plays muted, loops and
+// carries no controls, so it behaves like a moving still: the poster paints
+// first, and a browser that blocks autoplay simply keeps showing it.
+const isVideo = /\.(mp4|webm)$/.test(src);
 const isLogo = style === 'logo';
 const isLight = isLogo && background === 'light';
 const meta = [location, year].filter(Boolean) as string[];
-// 'cc' = 80% alpha, the same tint strength the source sites apply.
-const scrimStyle = scrim ? { '--case-scrim': `${scrim}cc` } : undefined;
+// The tint is an 8 digit hex: 'cc' is the 80% the source sites apply, and
+// `scrimOpacity` overrides that per case.
+const alphaHex = Math.round(Math.min(Math.max(scrimOpacity ?? 0.8, 0), 1) * 255)
+  .toString(16)
+  .padStart(2, '0');
+const scrimStyle = scrim ? { '--case-scrim': `${scrim}${alphaHex}` }: undefined;
 ---
 
 <div class:list={['case-hero', isLogo && 'case-hero--logo', isLight && 'case-hero--light']} style={scrimStyle}>
-  <img class="case-hero__img" src={src} alt={alt} loading="eager" decoding="async" fetchpriority="high" />
+  {
+    isVideo ? (
+      <video
+        class="case-hero__img case-hero__video"
+        src={src}
+        poster={poster}
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+        aria-label={alt}
+      />
+    ): (
+      <img class="case-hero__img" src={src} alt={alt} loading="eager" decoding="async" fetchpriority="high" />
+    )
+  }
   {!isLogo && <div class="case-hero__scrim"></div>}
 
   <div class="case-hero__body">

@@ -1,0 +1,21 @@
+---
+/**
+ * The wheel strip that closes a case study.
+ *
+ * The Studio 1947 wheel rolls once from left to right along a rule, and as it
+ * passes each of the six practice words those words gather out of loose
+ * particles into place. It holds, scatters back, and runs again.
+ *
+ * Ported from the authored motion piece (Studio 1947 Footer): same geometry,
+ * easing and timing, drawn on a canvas rather than through React so the page
+ * ships no framework, no in-browser JSX compiler, and no per-frame DOM churn
+ * for several thousand dots. Motion lives in scripts/footerStrip.ts.
+ */
+---
+
+<div class="footer-strip" data-footer-strip>
+  <canvas class="footer-strip__canvas" aria-hidden="true"></canvas>
+  <p class="footer-strip__sr">
+    Data, Design, Technology, Communication, Research, AI-ML Integration.
+  </p>
+</div>

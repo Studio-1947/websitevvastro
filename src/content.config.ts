@@ -93,6 +93,8 @@ const caseSection = z.object({
         zoom: z.boolean().default(true),
         /** Inset the image on a tinted panel (source's --pad figures). */
         pad: z.boolean().default(false),
+        /** Multiply white-ground line art into the page instead of boxing it. */
+        blend: z.boolean().default(false),
         /**
          * Fixed aspect ratio, e.g. "4/3". The source pins a ratio on figures
          * that sit side by side (`aspect-[5/4]`, `aspect-[4/3]`) so the pair
@@ -124,6 +126,8 @@ const caseSection = z.object({
       z.object({
         /** Optional ordinal or short kicker shown above the title ("01"). */
         num: z.string().optional(),
+        /** Line icon drawn above the title ("leaf", "star"…). See CaseIcon. */
+        icon: z.string().optional(),
         title: z.string(),
         body: z.string().optional(),
       }),
@@ -146,6 +150,32 @@ const caseSection = z.object({
       }),
     )
     .default([]),
+  /**
+   * Headline figures for growth cases. Rendered oversized and counted up from
+   * zero as the band scrolls into view, because on those cases the number IS
+   * the story ("0 online bookings" to "1.5 lakh").
+   */
+  stats: z
+    .array(
+      z.object({
+        /** Numeric target the counter animates to. */
+        value: z.number(),
+        /** Symbol shown before the digits ("\u20b9"). */
+        prefix: z.string().optional(),
+        /** Unit shown after the digits ("+", " days", " lakh"). */
+        suffix: z.string().optional(),
+        /** Decimal places held while counting (1.5). */
+        decimals: z.number().int().min(0).max(2).optional(),
+        /** "in" for Indian digit grouping (1,50,000). */
+        group: z.enum(['in', 'en']).optional(),
+        label: z.string(),
+        /** Optional second line of context under the label. */
+        note: z.string().optional(),
+      }),
+    )
+    .default([]),
+  /** Footnote under a stats band (source of the numbers, period covered). */
+  statsCaption: z.string().optional(),
   /** Responsive 16:9 embed (YouTube). Only local-futures uses one. */
   embed: z
     .object({ src: z.string().url(), title: z.string() })
@@ -172,6 +202,10 @@ const caseSection = z.object({
     )
     .default([]),
   layout: z.enum(['stack', 'split', 'grid-2', 'grid-3']).default('stack'),
+  /** 'none' butts this section's figures together with no gap between them. */
+  gap: z.enum(['default', 'none']).default('default'),
+  /** Photograph shown behind the swatch grid: the source of the palette. */
+  swatchBackdrop: z.string().optional(),
   /** Draw the hairline divider above this section. Default true. */
   divider: z.boolean().default(true),
 });
@@ -241,6 +275,8 @@ const work = defineCollection({
          * scrim (dark at the base where the title sits, fading to clear).
          */
         scrim: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+        /** Strength of that tint, 0 to 1. Defaults to 0.8. */
+        scrimOpacity: z.number().min(0).max(1).optional(),
         /**
          * Logo-hero surface: 'brand' (default) renders the lockup on the
          * brand-fill panel; 'light' renders it on a clean light panel. A few
@@ -249,12 +285,23 @@ const work = defineCollection({
          * the other logo heroes. Ignored for 'photo' style.
          */
         background: z.enum(['brand', 'light']).default('brand'),
+        /**
+         * Still frame for a video hero (an .mp4/.webm `src`). It paints while
+         * the film loads and stays put wherever autoplay is blocked, so the
+         * hero is never an empty rectangle.
+         */
+        poster: z.string().optional(),
       })
       .optional(),
     sections: z.array(caseSection).optional(),
     credits: z
       .array(z.object({ role: z.string(), members: z.string() }))
       .default([]),
+    /** The client's own point of contact on the project. */
+    coordinator: z
+      .object({ name: z.string(), role: z.string().optional() })
+      .optional(),
+
   }),
 });
 

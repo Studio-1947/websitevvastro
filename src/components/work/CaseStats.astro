@@ -1,0 +1,56 @@
+---
+/**
+ * The number band for growth cases: a full-width row of figures that roll up
+ * from zero as the band scrolls into view (countUps() in scripts/reveal.ts).
+ * The numbers are the headline here, so they are set far larger than any
+ * heading on the page and carry the case's colour.
+ */
+interface Stat {
+  /** Numeric target the counter animates to. */
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  /** Decimal places to hold while counting (1.5 lakh). */
+  decimals?: number;
+  /** "in" for Indian digit grouping (1,50,000). */
+  group?: 'in' | 'en';
+  label: string;
+  note?: string;
+}
+interface Props {
+  stats: Stat[];
+  caption?: string;
+}
+const { stats, caption } = Astro.props;
+
+// A suffix that is a word ("lakh", "days") is set beside the digits at a
+// smaller size instead of inside the counter, so a figure like "1.5 lakh"
+// stays one legible unit rather than a giant word wrapping under a giant
+// number. Tight symbols ("+", "%") stay welded to the last digit.
+const wordUnit = (suffix?: string): string | null =>
+  suffix && /^\s/.test(suffix) ? suffix.trim() : null;
+---
+
+<div class="case-stats" data-stagger>
+  {
+    stats.map((s) => (
+      <div class="case-stat">
+        <div class="case-stat__num">
+          <span
+            data-count={String(s.value)}
+            data-prefix={s.prefix}
+            data-suffix={wordUnit(s.suffix) ? undefined : s.suffix}
+            data-decimals={s.decimals ? String(s.decimals) : undefined}
+            data-group={s.group}
+          >
+            {s.prefix ?? ''}0{wordUnit(s.suffix) ? '' : (s.suffix ?? '')}
+          </span>
+          {wordUnit(s.suffix) && <span class="case-stat__unit">{wordUnit(s.suffix)}</span>}
+        </div>
+        <p class="case-stat__label">{s.label}</p>
+        {s.note && <p class="case-stat__note">{s.note}</p>}
+      </div>
+    ))
+  }
+</div>
+{caption && <p class="case-stats__caption">{caption}</p>}

@@ -1,8 +1,8 @@
 {
   "title": "Rajkamal Prakashan | Studio 1947",
-  "description": "How Studio 1947 rebuilt the brand infrastructure of India's largest Hindi literary publisher — governance, digital product and event execution.",
+  "description": "How Studio 1947 rebuilt the brand infrastructure of India's largest Hindi literary publisher, governance, digital product and event execution.",
   "ogTitle": "Rajkamal Prakashan | Studio 1947",
-  "ogDescription": "How Studio 1947 rebuilt the brand infrastructure of India's largest Hindi literary publisher — brand governance, enterprise digital product, and nation-wide event execution.",
+  "ogDescription": "How Studio 1947 rebuilt the brand infrastructure of India's largest Hindi literary publisher, brand governance, enterprise digital product, and nation-wide event execution.",
   "ogType": "article",
   "brand": "#E52F1D",
   "client": "Rajkamal Prakashan",
@@ -14,7 +14,7 @@
   ],
   "hero": {
     "src": "/assets/img/work/rajkamal-prakashan/rajkamal-hero.webp",
-    "alt": "Rajkamal Prakashan — brand identity in context",
+    "alt": "Rajkamal Prakashan: brand identity in context",
     "style": "photo"
   },
   "sections": [
@@ -41,7 +41,7 @@
         },
         {
           "title": "Algorithmic Disconnect",
-          "body": "In modern digital marketplaces, algorithms classify brands based on consistent pattern recognition—color ratios, layout grids, and visual rhythm. The rapid changes across various campaigns were resetting algorithmic learning loops, directly choking organic digital reach and eroding long-term brand equity."
+          "body": "In modern digital marketplaces, algorithms classify brands based on consistent pattern recognition, color ratios, layout grids, and visual rhythm. The rapid changes across various campaigns were resetting algorithmic learning loops, directly choking organic digital reach and eroding long-term brand equity."
         }
       ]
     },
@@ -191,7 +191,7 @@
       "media": [
         {
           "src": "/assets/img/work/rajkamal-prakashan/high-pressure-omnichannel-scaling.webp",
-          "alt": "Sub-brand logo family for Rajkamal's book-fair events — Kitab Desh, Kitab Tera, Kitab Utsav and Stri Varsh",
+          "alt": "Sub-brand logo family for Rajkamal's book-fair events, Kitab Desh, Kitab Tera, Kitab Utsav and Stri Varsh",
           "zoom": true,
           "pad": false
         }

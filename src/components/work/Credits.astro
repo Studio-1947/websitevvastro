@@ -1,46 +1,108 @@
 ---
 import { teamMemberHref, teamMemberKeyForCreditName } from '../../lib/team';
+import FooterStrip from './FooterStrip.astro';
 
 /**
- * Project credits. The source linked each name to /team/<slug>; this site has
- * no /team routes, so credited names that are current team members link to the
- * member's profile on /about-us/ (which opens their person modal). External
- * collaborators (Tanisha, Mohanty, Zahid, …) stay plain text — they have no
- * profile here. Role kickers take the per-brand accent via --brand.
+ * The colophon that closes every case study: who the work was for, who ran it
+ * on their side, who worked on it here and in what role, when and where it
+ * happened, and how many people have read the page.
+ *
+ * Names that belong to current team members link to their profile on
+ * /about-us/ (which opens their person modal). External collaborators stay
+ * plain text: they have no profile here.
  */
 interface Props {
   client: string;
+  /** The client's own point of contact on the project. */
+  coordinator?: { name: string; role?: string };
   roles?: { role: string; members: string }[];
+  location?: string;
+  year?: string;
+  /** This case's slug, used to read and increment its own view tally. */
+  slug?: string;
 }
-const { client, roles = [] } = Astro.props;
+const { client, coordinator, roles = [], location, year, slug } = Astro.props;
+
+const when = [location, year].filter(Boolean).join(', ');
+
+/** Split a credit line into names, each with the profile link it deserves. */
+function creditNames(list: string) {
+  return list
+    .split(',')
+    .map((raw) => raw.trim())
+    .filter(Boolean)
+    .map((name, i, arr) => ({
+      name,
+      href: teamMemberKeyForCreditName(name)
+        ? teamMemberHref(teamMemberKeyForCreditName(name)!)
+        : null,
+      // Separator sits outside the link: it is punctuation between names, not
+      // part of the linked name.
+      sep: i < arr.length - 1 ? ', ' : '',
+    }));
+}
 ---
 
-{
-  roles.length > 0 && (
-    <section class="case-credits">
-      <div>
-        <h3 class="case-credits__kicker">Client</h3>
-        <p class="case-credits__client">{client}</p>
-      </div>
-      <div class="case-credits__grid">
-        {roles.map((r) => (
-          <div>
-            <h4 class="case-credit__role">{r.role}</h4>
-            <p class="case-credit__members">
-              {r.members.split(',').map((raw, i, arr) => {
-                const name = raw.trim();
-                if (!name) return null;
-                // Separator sits outside the link — it is punctuation between
-                // names, not part of the linked name.
-                const sep = i < arr.length - 1 ? ', ' : '';
-                const key = teamMemberKeyForCreditName(name);
-                const node = key ? <a href={teamMemberHref(key)}>{name}</a> : name;
-                return [node, sep];
-              })}
-            </p>
-          </div>
-        ))}
-      </div>
-    </section>
-  )
-}
+<section class="case-colophon">
+  <h2 class="case-colophon__title">Project credits</h2>
+
+  <div class="case-colophon__grid">
+    <div class="case-colophon__block">
+      <h3 class="case-colophon__kicker">Client</h3>
+      <p class="case-colophon__client">{client}</p>
+      {
+        coordinator && (
+          <p class="case-colophon__coordinator">
+            <span class="case-colophon__label">Coordinated by</span>
+            {coordinator.name}
+            {coordinator.role && <span class="case-colophon__role">{coordinator.role}</span>}
+          </p>
+        )
+      }
+    </div>
+
+    {
+      roles.length > 0 && (
+        <div class="case-colophon__block case-colophon__block--team">
+          <h3 class="case-colophon__kicker">Studio 1947</h3>
+          <ul class="case-colophon__team">
+            {roles.map((r) => (
+              <li class="case-colophon__credit">
+                <span class="case-colophon__creditRole">{r.role}</span>
+                <span class="case-colophon__creditNames">
+                  {creditNames(r.members).map((n) => (
+                    <>
+                      {n.href ? <a href={n.href}>{n.name}</a> : n.name}
+                      {n.sep}
+                    </>
+                  ))}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      when && (
+        <div class="case-colophon__block">
+          <h3 class="case-colophon__kicker">Time and place</h3>
+          <p class="case-colophon__when">{when}</p>
+        </div>
+      )
+    }
+  </div>
+
+  {/* Filled in by scripts/views.ts from this project's own counter; hidden
+      until a real number comes back. */}
+  {
+    slug && (
+      <p class="case-colophon__views" data-views={slug} hidden>
+        Viewed <span data-views-num>0</span> times
+      </p>
+    )
+  }
+
+  <FooterStrip />
+</section>

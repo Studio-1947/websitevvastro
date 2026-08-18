@@ -1,6 +1,6 @@
 ---
 /**
- * <head> for every page — SEO meta, OG/Twitter, canonical, fonts, favicon,
+ * <head> for every page: SEO meta, OG/Twitter, canonical, fonts, favicon,
  * JSON-LD. Mirrors the original static site's head, componentized.
  */
 import { SITE, DEFAULT_FONT_HREF, SYNE_LATIN_URL, canonicalUrl, absoluteUrl, organizationJsonLd, type SeoProps } from '../../lib/seo';
@@ -28,7 +28,7 @@ const structured = [organizationJsonLd(), ...jsonLd];
 // Each page loads the EXACT Google Fonts set its original counterpart loaded
 // (3 variants across the site). Weight sets matter: the ERP product pages load
 // Google Sans weight 400 only, which changes how the 500-weight footer wordmark
-// resolves — loading extra weights broke parity (see MIGRATION_REPORT). "Google
+// resolves: loading extra weights broke parity (see MIGRATION_REPORT). "Google
 // Sans" is not a public family; behaviour is reproduced verbatim.
 const fontsHref = fontHref;
 ---
@@ -58,7 +58,7 @@ const fontsHref = fontHref;
 {ogImage && <meta property="og:image" content={ogImage} />}
 {
   /* Declaring the dimensions lets crawlers lay the card out without first
-     fetching the image to measure it — the difference between a card that
+     fetching the image to measure it: the difference between a card that
      renders immediately and one that appears blank on first share. */
   ogImage && imageSize && (
     <>
@@ -78,7 +78,7 @@ const fontsHref = fontHref;
 <!-- Fonts
      The Google Fonts stylesheet is deliberately NOT render-blocking: it ships
      90+ @font-face blocks (three families, several subsets each), and in the
-     original head it sat between the page and first paint — delaying the LCP
+     original head it sat between the page and first paint, delaying the LCP
      (the hero title) by a full CSS round-trip plus parse. Every face here uses
      font-display: swap, so text paints immediately in the fallback face and
      swaps when ready; the `preload as=style` + `media=print` onload pattern

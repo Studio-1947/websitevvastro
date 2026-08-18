@@ -1,8 +1,8 @@
 {
   "title": "Remodel UN | Studio 1947",
-  "description": "Brand strategy and visual identity system for ReModelUN — a high-profile AI podcast initiative featuring global UN-affiliated thought leaders.",
+  "description": "Brand strategy and visual identity system for ReModelUN, a high-profile AI podcast initiative featuring global UN-affiliated thought leaders.",
   "ogTitle": "Remodel UN | Studio 1947",
-  "ogDescription": "Brand strategy and visual identity system for ReModelUN — a high-profile AI podcast initiative featuring global UN-affiliated thought leaders.",
+  "ogDescription": "Brand strategy and visual identity system for ReModelUN, a high-profile AI podcast initiative featuring global UN-affiliated thought leaders.",
   "ogType": "article",
   "brand": "#00E357",
   "client": "ReModelUN",
@@ -33,7 +33,7 @@
     },
     {
       "heading": "Brand Strategy & Visual Architecture",
-      "label": "The \"re\" Loop — Continuous Iteration",
+      "label": "The \"re\" Loop: Continuous Iteration",
       "layout": "grid-2",
       "body": [
         "AI is not a static destination, it is an iterative process. The 're' loop represents continuous remodeling, adaptation, and forward momentum. By framing this within an intentional, self-contained cycle, the visual language mirrors the podcast's core theme: endlessly auditing, rethinking, and improving global systems through technology."
@@ -57,9 +57,9 @@
     },
     {
       "divider": false,
-      "label": "The Center Core — The Variable Engine",
+      "label": "The Center Core: The Variable Engine",
       "body": [
-        "The center of the logo acts as the functional bridge. For the flagship brand, the microphone icon anchors the mark firmly in the audio and broadcasting space. However, this slot is designed as a variable container. By making the icon interchangeable, the architecture allows the core wordmark to adapt dynamically for sister ventures — shifting to a podium for conferences or a cap for scholarships — without losing its structural integrity."
+        "The center of the logo acts as the functional bridge. For the flagship brand, the microphone icon anchors the mark firmly in the audio and broadcasting space. However, this slot is designed as a variable container. By making the icon interchangeable, the architecture allows the core wordmark to adapt dynamically for sister ventures (shifting to a podium for conferences or a cap for scholarships) without losing its structural integrity."
       ],
       "media": [
         {
@@ -72,9 +72,9 @@
     },
     {
       "divider": false,
-      "label": "The \"UN\" Chat Bubble — Diplomatic Dialogue",
+      "label": "The \"UN\" Chat Bubble: Diplomatic Dialogue",
       "body": [
-        "Global change doesn't happen in a vacuum — it happens through conversation. The '<strong>UN</strong>' terminal is deliberately shaped as a speech bubble to emphasize dialogue, cross-border collaboration, and human-first storytelling. It anchors the institutional authority of UN-affiliated organizations into a warm, approachable, and highly communicative digital asset."
+        "Global change doesn't happen in a vacuum: it happens through conversation. The '<strong>UN</strong>' terminal is deliberately shaped as a speech bubble to emphasize dialogue, cross-border collaboration, and human-first storytelling. It anchors the institutional authority of UN-affiliated organizations into a warm, approachable, and highly communicative digital asset."
       ],
       "media": [
         {
@@ -116,7 +116,7 @@
       "label": "Secondary Color",
       "subheading": "AI Innovation & Bias toward Action",
       "body": [
-        "If Dark Cyan represents the institutional problem, Fresh Lime is the technological solution. This color is injected into the design system to represent the spark of artificial intelligence, digital efficiency, and forward-looking optimism. It acts as a deliberate disruption against the deep primary base, pulling the user's eye to interactive UI components, actionable resources, and critical insights. It ensures the platform never feels stagnant or overly bureaucratic — it feels alive, modern, and driven by high-energy innovation."
+        "If Dark Cyan represents the institutional problem, Fresh Lime is the technological solution. This color is injected into the design system to represent the spark of artificial intelligence, digital efficiency, and forward-looking optimism. It acts as a deliberate disruption against the deep primary base, pulling the user's eye to interactive UI components, actionable resources, and critical insights. It ensures the platform never feels stagnant or overly bureaucratic, it feels alive, modern, and driven by high-energy innovation."
       ]
     },
     {
@@ -128,11 +128,11 @@
       ],
       "cards": [
         {
-          "title": "Primary — Dark Cyan",
+          "title": "Primary: Dark Cyan",
           "body": "Establishes visual stability and high-contrast readability for body text and system structures."
         },
         {
-          "title": "Secondary — Fresh Lime",
+          "title": "Secondary: Fresh Lime",
           "body": "Serves as the high-visibility callout for active states, key data metrics, and dynamic branding nodes."
         }
       ]
@@ -157,7 +157,7 @@
       "heading": "Multi-Platform UI/UX Experience",
       "label": "Extending the System Across Digital Realities",
       "body": [
-        "A robust brand identity must effortlessly transition across diverse digital ecosystems without fracturing its core message. For ReModelUN, the UI/UX architecture translates static brand guidelines into dynamic, highly functional touchpoints — mapping the system across video production, dedicated audio players, and micro-screen environments."
+        "A robust brand identity must effortlessly transition across diverse digital ecosystems without fracturing its core message. For ReModelUN, the UI/UX architecture translates static brand guidelines into dynamic, highly functional touchpoints, mapping the system across video production, dedicated audio players, and micro-screen environments."
       ]
     },
     {
@@ -216,7 +216,7 @@
         {
           "src": "/assets/img/work/remodel-un/the-human-first-thumbnail-system.webp",
           "alt": "Square podcast cover-art templates built around full-bleed guest portraits with episode titles set over a Dark Cyan base",
-          "caption": "Faces tell stories — human-first designs make every conversation feel personal and every voice truly heard.",
+          "caption": "Faces tell stories: human-first designs make every conversation feel personal and every voice truly heard.",
           "zoom": true,
           "pad": false
         }
@@ -239,7 +239,7 @@
       "label": "The Proportional Clearspace Standard",
       "body": [
         "To safeguard the mastermark's visual prominence, it must always be protected from surrounding text, layout margins, and competing graphics. We defined the absolute minimum clearspace perimeter as exactly equal to a \"1 mic distance,\" calculated dynamically from the height of the internal microphone graphic.",
-        "By binding the breathing room proportionally to an internal element of the logo itself, we ensure that the safety boundary scales flawlessly — maintaining brand integrity whether the logo is rendered on a massive event banner or a small smartphone interface."
+        "By binding the breathing room proportionally to an internal element of the logo itself, we ensure that the safety boundary scales flawlessly, maintaining brand integrity whether the logo is rendered on a massive event banner or a small smartphone interface."
       ],
       "media": [
         {
@@ -256,7 +256,7 @@
       "label": "Co-Branding & Partnership Dynamics",
       "body": [
         "High-profile global initiatives naturally demand collaborative co-branding layouts. When locking up the mastermark alongside close corporate stakeholders or media affiliates such as Sony, stricter spatial boundaries must be strictly enforced.",
-        "By doubling the standard safety padding threshold to a 2-mic buffer for partner integrations, we protect the logo from crowding — guaranteeing that <strong>ReModelUN</strong> shares the stage with global entities equitably while fully preserving its independent structural authority."
+        "By doubling the standard safety padding threshold to a 2-mic buffer for partner integrations, we protect the logo from crowding, guaranteeing that <strong>ReModelUN</strong> shares the stage with global entities equitably while fully preserving its independent structural authority."
       ],
       "media": [
         {
@@ -273,12 +273,12 @@
       "label": "Logo Law 101",
       "body": [
         "To completely eliminate guesswork for production and engineering teams, we codified a definitive matrix of visual violations. These constraints prevent common layout mistakes and insulate the identity from arbitrary modification.",
-        "By explicitly defining these implementation laws, we show prospective clients that we don't just deliver loose graphic artwork — we hand over a highly disciplined, enterprise-grade brand asset utility. This meticulous attention to technical precision proves that our design frameworks are engineered to withstand real-world production demands."
+        "By explicitly defining these implementation laws, we show prospective clients that we don't just deliver loose graphic artwork, we hand over a highly disciplined, enterprise-grade brand asset utility. This meticulous attention to technical precision proves that our design frameworks are engineered to withstand real-world production demands."
       ],
       "media": [
         {
           "src": "/assets/img/work/remodel-un/logo-law.webp",
-          "alt": "Matrix of prohibited logo treatments — stretching, recolouring, rotating and adding effects to the ReModelUN mark",
+          "alt": "Matrix of prohibited logo treatments: stretching, recolouring, rotating and adding effects to the ReModelUN mark",
           "caption": "The reModelUN logo isn't just a symbol, it's a statement. Keep it clear, crisp, and confidently placed.",
           "zoom": true,
           "pad": false

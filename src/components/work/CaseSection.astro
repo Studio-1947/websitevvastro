@@ -5,6 +5,8 @@
  */
 import CaseFigure from './CaseFigure.astro';
 import CaseAudio from './CaseAudio.astro';
+import CaseStats from './CaseStats.astro';
+import CaseIcon from './CaseIcon.astro';
 
 interface AudioTrack {
   title: string;
@@ -25,8 +27,19 @@ interface Media {
 }
 interface Card {
   num?: string;
+  /** Line icon drawn above the title (see CaseIcon for the set). */
+  icon?: string;
   title: string;
   body?: string;
+}
+interface Stat {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  decimals?: number;
+  group?: 'in' | 'en';
+  label: string;
+  note?: string;
 }
 interface Swatch {
   hex: string;
@@ -41,24 +54,33 @@ interface Props {
   body?: string[];
   list?: string[];
   swatches?: Swatch[];
+  /** Headline figures, counted up on scroll, growth cases lead with these. */
+  stats?: Stat[];
+  statsCaption?: string;
   cards?: Card[];
   media?: Media[];
   embed?: { src: string; title: string };
-  /** Playable field recordings (Sundargaan) — rendered as a track-list player. */
+  /** Playable field recordings (Sundargaan): rendered as a track-list player. */
   audio?: AudioTrack[];
   layout?: 'stack' | 'split' | 'grid-2' | 'grid-3';
+  /** 'none' butts the section's figures together with no gap between them. */
+  gap?: 'default' | 'none';
+  /** Mark drawn inside the section label (see CaseIcon for the set). */
+  labelIcon?: string;
+  /** Photograph shown behind the swatch grid: where the palette came from. */
+  swatchBackdrop?: string;
   divider?: boolean;
-  /** First section after the hero — its media loads eagerly. */
+  /** First section after the hero: its media loads eagerly. */
   first?: boolean;
 }
 
 function swatchInk(hex: string): string {
   const v = (i: number) => {
     const c = parseInt(hex.slice(1 + i * 2, 3 + i * 2), 16) / 255;
-    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    return c <= 0.03928 ? c / 12.92: ((c + 0.055) / 1.055) ** 2.4;
   };
   const L = 0.2126 * v(0) + 0.7152 * v(1) + 0.0722 * v(2);
-  return L > 0.223 ? '#10240f' : '#ffffff';
+  return L > 0.223 ? '#10240f': '#ffffff';
 }
 
 const {
@@ -68,26 +90,36 @@ const {
   body = [],
   list = [],
   swatches = [],
+  stats = [],
+  statsCaption,
   cards = [],
   media = [],
   embed,
   audio = [],
   layout = 'stack',
+  gap = 'default',
+  labelIcon,
+  swatchBackdrop,
   divider = true,
   first = false,
 } = Astro.props;
 
-const SubheadingTag = subheading ? (heading ? 'h3' : 'h2') : null;
-const CardTitleTag = subheading ? (heading ? 'h4' : 'h3') : heading ? 'h3' : 'h2';
+const SubheadingTag = subheading ? (heading ? 'h3': 'h2'): null;
+const CardTitleTag = subheading ? (heading ? 'h4': 'h3'): heading ? 'h3': 'h2';
 const isSplit = layout === 'split';
 ---
 
 <section class:list={['case-section', divider && 'case-section--divided', first && 'case-section--first', isSplit && 'case-section--split']}>
   {
     isSplit ? (
-      <div class="case-split">
+      <div class="case-split case-shell">
         <div class="case-split__content">
-          {label && <span class="case-label">{label}</span>}
+          {label && (
+            <span class="case-label">
+              <CaseIcon name={labelIcon ?? 'spark'} class="case-label__icon" size={15} />
+              {label}
+            </span>
+          )}
           {heading && <h2 class="case-section__heading">{heading}</h2>}
           {SubheadingTag && <SubheadingTag class="case-section__subheading">{subheading}</SubheadingTag>}
 
@@ -116,11 +148,17 @@ const isSplit = layout === 'split';
           </div>
         )}
       </div>
-    ) : (
+    ): (
       <>
+        <div class="case-shell">
         {heading && <h2 class="case-section__heading">{heading}</h2>}
         {SubheadingTag && <SubheadingTag class="case-section__subheading">{subheading}</SubheadingTag>}
-        {label && <span class="case-label">{label}</span>}
+        {label && (
+          <span class="case-label">
+            <CaseIcon name={labelIcon ?? 'spark'} class="case-label__icon" size={15} />
+            {label}
+          </span>
+        )}
 
         {body.length > 0 && (
           <div class="case-prose">
@@ -138,27 +176,40 @@ const isSplit = layout === 'split';
           </ul>
         )}
 
+        {/* Two lines at most in a swatch: the role it plays and what it is
+            called. The longer note rides along as the block's title, so the
+            grid reads as colour rather than as copy. */}
         {swatches.length > 0 && (
-          <div class="case-swatches">
-            {swatches.map((s) => (
-              <div class="case-swatch" style={`--sw: ${s.hex}; --sw-ink: ${swatchInk(s.hex)}`}>
-                {s.note && <p class="case-swatch__note">{s.note}</p>}
-                <div class="case-swatch__foot">
-                  <div class="case-swatch__row">
-                    {s.role && <span class="case-swatch__role">{s.role}</span>}
-                    <span class="case-swatch__hex">{s.hex.toUpperCase()}</span>
-                  </div>
+          <div
+            class:list={['case-swatches', swatchBackdrop && 'case-swatches--backdrop']}
+            style={swatchBackdrop ? `--swatch-bg: url('${swatchBackdrop}')` : undefined}
+          >
+            {swatches.map((s, i) => (
+              <div
+                class="case-swatch"
+                style={`--sw: ${s.hex}; --sw-ink: ${swatchInk(s.hex)}`}
+                title={s.note}
+              >
+                <div class="case-swatch__head">
+                  {s.role && <span class="case-swatch__role">{s.role}</span>}
                   <span class="case-swatch__name">{s.name}</span>
+                </div>
+                <div class="case-swatch__foot">
+                  <span class="case-swatch__num">{i + 1}</span>
+                  <span class="case-swatch__hex">{s.hex.toUpperCase()}</span>
                 </div>
               </div>
             ))}
           </div>
         )}
 
+        {stats.length > 0 && <CaseStats stats={stats} caption={statsCaption} />}
+
         {cards.length > 0 && (
-          <div class:list={['case-cards', `case-cards--${layout === 'stack' ? 'grid-3' : layout}`]}>
+          <div class:list={['case-cards', `case-cards--${layout === 'stack' ? 'grid-3': layout}`]}>
             {cards.map((c) => (
-              <div class="case-card">
+              <div class:list={['case-card', c.icon && 'case-card--icon']} data-spotlight>
+                {c.icon && <CaseIcon name={c.icon} />}
                 {c.num && <div class="case-card__num">{c.num}</div>}
                 <CardTitleTag class="case-card__title">{c.title}</CardTitleTag>
                 {c.body && <p class="case-card__body" set:html={c.body} />}
@@ -167,14 +218,17 @@ const isSplit = layout === 'split';
           </div>
         )}
 
+        </div>
+
         {media.length > 0 && (
-          <div class:list={['case-media', `case-media--${layout}`]}>
+          <div class:list={['case-media', `case-media--${layout}`, gap === 'none' && 'case-media--flush']}>
             {media.map((m) => (
               <CaseFigure {...m} eager={first} />
             ))}
           </div>
         )}
 
+        <div class="case-shell">
         {embed && (
           <div class="case-embed">
             <iframe
@@ -189,6 +243,7 @@ const isSplit = layout === 'split';
         )}
 
         {audio.length > 0 && <CaseAudio tracks={audio} />}
+        </div>
       </>
     )
   }

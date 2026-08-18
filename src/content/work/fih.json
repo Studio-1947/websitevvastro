@@ -1,18 +1,18 @@
 {
-  "title": "Foundation for Innovations in Health — FIH | Studio 1947",
-  "description": "How Studio 1947 engineered a digital platform and CMS ecosystem for Foundation for Innovations in Health to scale rural healthcare interventions, training, and the 3T model across India.",
-  "ogTitle": "Foundation for Innovations in Health — FIH | Studio 1947",
-  "ogDescription": "How Studio 1947 engineered a digital platform and CMS ecosystem for Foundation for Innovations in Health to scale rural healthcare interventions, training, and the 3T model across India.",
+  "title": "Foundation for Innovations in Health: Website Rebuild | Studio 1947",
+  "description": "We rebuilt fihruralhealth.org for a rural health non-profit: one clear route through the work, pages that open in under a second, photography from the field, and a design system the team can run without us.",
+  "ogTitle": "Foundation for Innovations in Health: Website Rebuild | Studio 1947",
+  "ogDescription": "A rural health non-profit's website, rebuilt around one question: can a donor understand this work in ninety seconds?",
   "ogType": "article",
   "brand": "#FBBF24",
   "client": "Foundation for Innovations in Health",
   "location": "Kolkata & Rural India",
   "year": "2026",
   "tags": [
-    "Digital Platform",
+    "Website",
     "UX/UI Design",
-    "Sanity CMS",
-    "Frugal Health Tech"
+    "Design System",
+    "Sanity CMS"
   ],
   "solutions": [
     "data-design-tech",
@@ -26,221 +26,6 @@
     "style": "logo",
     "background": "light"
   },
-  "sections": [
-    {
-      "divider": false,
-      "body": [
-        "Healthcare delivery in underserved rural regions faces systemic barriers: a severe shortage of medical professionals, fragmented communication, and geographical isolation. <strong>Foundation for Innovations in Health (FIH)</strong> is a not-for-profit social impact enterprise operating out of Kolkata, working to mitigate Multi-Dimensional Poverty (MDP) and build rural resilience through twin interventions — employment-oriented education for rural youth, and improved access to public health and primary care for last-mile communities. Its unifying purpose: <strong>\"Health for a billion.\"</strong>",
-        "Studio 1947 was brought in to engineer a modern, highly accessible digital platform and headless content ecosystem. Our goal was to articulate FIH's transformative mission, empower rural youth and female health workers, and build institutional trust for corporate CSR and academic partnerships."
-      ]
-    },
-    {
-      "heading": "Strategic Context & The Rural Health Gap"
-    },
-    {
-      "divider": false,
-      "label": "The Frontlines",
-      "body": [
-        "The Sundarbans — the world's largest delta and mangrove forest — is FIH's proving ground. Spanning 9,630 sq. km across 102 islands (54 of them inhabited), it is home to more than <strong>4.4 million people</strong>, many living in extreme isolation with limited access to essential services. The region sits on the frontlines of climate change: cyclones such as Amphan, Yaas, Fani and Bulbul have caused widespread devastation — loss of lives, large-scale displacement, and economic damage of nearly <strong>USD 20 billion</strong> — while rising sea levels, salinity and tidal flooding intensify poverty and disrupt public health.",
-        "Communicating complex, field-tested healthcare methodologies requires more than a static brochure site. FIH needed a digital flagship that could accomplish three critical objectives simultaneously:"
-      ],
-      "layout": "grid-3",
-      "cards": [
-        {
-          "num": "01",
-          "title": "Institutional Trust",
-          "body": "Instilling visual confidence for major CSR donors, government partners, and academic institutions like IIT Kharagpur and NIT Meghalaya."
-        },
-        {
-          "num": "02",
-          "title": "Frugal Tech Showcase",
-          "body": "Demonstrating how digital clinics, the floating healthcare boat, and clinical decision-support software operate on the ground."
-        },
-        {
-          "num": "03",
-          "title": "Dynamic Operations",
-          "body": "Empowering non-technical field staff to publish real-time notifications, event updates, and healthcare stories effortlessly."
-        }
-      ]
-    },
-    {
-      "heading": "The Core Methodology: The 3T Model",
-      "label": "Proprietary Healthcare Framework",
-      "body": [
-        "At the heart of FIH's operations is its proprietary <strong>3T Model</strong> — a scalable strategy engineered to solve the shortage of doctors in remote communities. We translated this methodology into an intuitive, interactive visual breakdown on the digital platform:"
-      ],
-      "layout": "grid-3",
-      "cards": [
-        {
-          "num": "Train",
-          "title": "Employment-Oriented Education",
-          "body": "Training rural youth and women to become certified allied health professionals and frontline health workers."
-        },
-        {
-          "num": "Task-Shift",
-          "title": "Frontline Empowerment",
-          "body": "Shifting specific primary-health tasks from overburdened doctors to trained community workers, bringing care directly to the doorstep."
-        },
-        {
-          "num": "Technology",
-          "title": "Frugal Health-Tech",
-          "body": "Deploying data-driven diagnostic tools, digital clinics, and clinical decision-support software tailored for low-resource settings."
-        }
-      ]
-    },
-    {
-      "heading": "Uday — Doctor at the Doorstep",
-      "label": "The Digital Clinic Model",
-      "body": [
-        "<strong>\"Uday\" — doctor at the doorstep</strong> is FIH's model of digital clinic, delivering primary care and public health services to underserved rural populations through <strong>15 centres</strong> (fixed and cycle-based mobile) in Birbhum district, West Bengal, and one motor-boat in the Sundarbans. It is led by remote doctors, delivered by community health workers (CHWs), and supported by two sets of innovative technologies: a clinical algorithm-driven <strong>Electronic Health Record</strong> (FIH's own copyrighted software) and clinical-grade diagnostic devices from IIT Kharagpur's Common Research & Technology Development Hub.",
-        "A single-visit, one-stop episode of care — consultation, tests, medicines, physiotherapy, injections and dressing — costs an average of <strong>Rs. 250</strong>, and the platform is engineered for ultra-low-bandwidth environments with high scalability. The site walks readers through the complete cycle of care in five steps:"
-      ],
-      "list": [
-        "<strong>Clinical Data Entry</strong> — the CHW records patient data as directed by the software algorithm triggered by the symptom.",
-        "<strong>Real-Time Sharing</strong> — history and examination data are shared with the remote doctor in real time.",
-        "<strong>Remote Consultation</strong> — the doctor reviews the data, consults the patient over video, records advice and shares it with the CHW.",
-        "<strong>Medical Action</strong> — the CHW undertakes tests and dispenses medicines as advised, sharing reports with the doctor in real time.",
-        "<strong>Documentation</strong> — the patient receives a printed prescription signed by the doctor, along with a follow-up appointment where required."
-      ]
-    },
-    {
-      "heading": "The Floating Digital Clinic",
-      "label": "Special Project Spotlight",
-      "body": [
-        "To bridge the healthcare gap in the Sundarbans, FIH introduced the <strong>Floating Digital Clinic</strong> — a purpose-modified, fully equipped medical boat that travels across <strong>six remote islands</strong>, delivering accessible primary healthcare directly to underserved communities. Onboard, professionally certified health workers trained from local SC/ST communities deliver essential care, supported by real-time consultations with qualified doctors and specialists through the digital platform.",
-        "Beyond service delivery, the model creates local employment, builds community capacity, and strengthens resilience in one of the most climate-vulnerable regions in the world — a story the platform tells through immersive photography and field reports."
-      ]
-    },
-    {
-      "heading": "Digital Architecture & Interface Design",
-      "label": "Engineering & Technology",
-      "body": [
-        "To deliver a lightning-fast, resilient experience, Studio 1947 built the flagship application using <strong>Next.js 16 (App Router)</strong>, <strong>Tailwind CSS v4</strong>, and <strong>Sanity CMS</strong>. The system provides real-time content synchronization, responsive accessibility, and zero-latency page transitions — including a live notification bell that surfaces field updates straight from the CMS."
-      ],
-      "media": [
-        {
-          "src": "/assets/img/work/fih/page-home.webp",
-          "alt": "Foundation for Innovations in Health homepage — the 'Health for a billion' hero with donation and story pathways",
-          "caption": "The FIH homepage: 'Health for a billion' hero, program pathways, board, scale metrics, and live news (click to expand in lightbox)",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
-        }
-      ]
-    },
-    {
-      "heading": "A Walk Through the Platform",
-      "label": "Interface Highlights",
-      "body": [
-        "Four views that carry the institution's story — the Uday care journey, the floating clinic spotlight, live notifications from the CMS, and the field stories behind the numbers."
-      ],
-      "layout": "grid-2",
-      "media": [
-        {
-          "src": "/assets/img/work/fih/page-uday.webp",
-          "alt": "The Uday care journey on the FIH platform — a circular five-step walkthrough of a patient visit, from data entry to printed prescription",
-          "caption": "Uday Journey — the five-step care cycle, from clinical data entry to the printed prescription",
-          "zoom": true,
-          "pad": true,
-          "ratio": "5/4"
-        },
-        {
-          "src": "/assets/img/work/fih/page-clinic.webp",
-          "alt": "FIH 'Our Work' page — the Floating Digital Clinic spotlight on the Sundarbans medical boat",
-          "caption": "Floating Digital Clinic — the Sundarbans medical boat and its six-island care route",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
-        },
-        {
-          "src": "/assets/img/work/fih/page-bell.webp",
-          "alt": "The notification bell on the FIH platform — live field updates pulled straight from the Sanity CMS",
-          "caption": "Notification bell — live field updates surfaced from the CMS, with unread-state persistence",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
-        },
-        {
-          "src": "/assets/img/work/fih/page-stories.webp",
-          "alt": "FIH 'Stories of Change' page — testimonials from placed graduates and clinic beneficiaries",
-          "caption": "Stories of Change — real testimonies from placed graduates and clinic beneficiaries",
-          "zoom": true,
-          "pad": true,
-          "ratio": "16/9"
-        }
-      ]
-    },
-    {
-      "heading": "Key Platform Capabilities & Design Highlights",
-      "divider": true
-    },
-    {
-      "divider": false,
-      "label": "Key Features",
-      "layout": "grid-2",
-      "cards": [
-        {
-          "title": "Real-time Notification Bell & Lightbox",
-          "body": "A custom client notification bell fetching live Sanity CMS data, unread-state persistence via localStorage, and high-res image lightboxes for urgent field updates."
-        },
-        {
-          "title": "Floating Digital Clinics & Stories",
-          "body": "Immersive media showcases highlighting the mobile clinic boat, cancer screening initiatives, and rural health worker training stories."
-        },
-        {
-          "title": "CSR & 80G Tax-Exempt Information Hub",
-          "body": "A clear showcase of corporate CSR partnership frameworks, academic collaborations (IIT Kharagpur, NIT Meghalaya), and Section 80G tax-exemption compliance guidelines for prospective donors."
-        },
-        {
-          "title": "Micro-Animations & Accessible Typography",
-          "body": "Motion-driven scroll reveals (Framer Motion) paired with high-legibility Google Fonts (Poppins for headings, Lato for body) for inclusive reading."
-        }
-      ]
-    },
-    {
-      "divider": false,
-      "label": "Brand Color Palette",
-      "swatches": [
-        {
-          "hex": "#FBBF24",
-          "name": "Amber Gold",
-          "role": "Primary Brand Accent",
-          "note": "Used for callouts, buttons, notifications, and active states"
-        },
-        {
-          "hex": "#1A1A1A",
-          "name": "Deep Charcoal",
-          "role": "Dark Structural Panels",
-          "note": "Provides high contrast for navigation, footer, and hero surfaces"
-        }
-      ]
-    },
-    {
-      "heading": "Recognition & Institutional Partnerships",
-      "divider": true,
-      "label": "Proof of Trust",
-      "body": [
-        "FIH's model has earned recognition that the platform surfaces prominently to build donor and partner confidence — including a <strong>Stanford University</strong> listing among the top 40 global changemakers, an MoU engaging FIH as <strong>'Skill and Knowledge Partner'</strong> for the Allied Health Professional program at the IIT Kharagpur teaching hospital, and an MoU with NIT Meghalaya and DOT Inc. (Seoul) to train 15 visually impaired individuals as software programmers."
-      ],
-      "list": [
-        "<strong>Stanford University</strong> — FIH's work recognized among the top 40 global changemakers.",
-        "<strong>IIT Kharagpur</strong> — MoU engaging FIH as Skill and Knowledge Partner for AHP education at the IIT KGP teaching hospital.",
-        "<strong>NIT Meghalaya</strong> — MoU with DOT Inc. (Seoul) to train visually impaired individuals as software programmers.",
-        "<strong>CSR partners</strong> — Mahanagar Gas Limited (330 youth as General Duty Assistants), Balmer Lawrie (Uday — Healthcare at the Doorstep), Essel Mining (mobile dental van), Ambuja Neotia (floating clinic)."
-      ]
-    },
-    {
-      "heading": "Client Impact & Outcomes",
-      "divider": true,
-      "label": "Measuring Success",
-      "list": [
-        "<strong>15 digital clinics + 1 floating clinic:</strong> a documented model of care at a single-visit average cost of Rs. 250 per episode.",
-        "<strong>Real livelihoods:</strong> placed graduates now work at Apollo Hospitals (Chennai), Tata Medical Centre (Kolkata), Cloud Nine (Vashi, Bangalore), and Ratna Memorial (Pune) — with salaries up to Rs. 20,000/month.",
-        "<strong>Empowered field staff:</strong> real-time publishing of health camps, emergency alerts, and training outcomes via Sanity CMS without developer intervention.",
-        "<strong>Accelerated partnerships:</strong> strengthened corporate CSR engagement and academic collaboration visibility for long-term health initiative funding."
-      ]
-    }
-  ],
   "credits": [
     {
       "role": "UI/UX Design",
@@ -249,6 +34,219 @@
     {
       "role": "Website Development & Engineering",
       "members": "Santam"
+    }
+  ],
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "The Foundation for Innovations in Health runs digital clinics in Birbhum, a medical boat in the Sundarbans, and training programmes that put rural young people into hospital jobs. It is complicated work, done in places most donors will never visit.",
+        "All of that had to fit on a website, and the earlier one asked visitors to do the assembling themselves. Our brief was simple to say and hard to do. A CSR head with ninety seconds should be able to understand what FIH does, believe it is real, and know how to fund it."
+      ]
+    },
+    {
+      "label": "The rebuilt site",
+      "heading": "fihruralhealth.org",
+      "body": [
+        "One sentence carries the whole organisation, and everything below it is proof. Health for a billion sits alone at the top of the page, followed immediately by the two things FIH actually does."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fih/ui-home-hero.webp",
+          "alt": "FIH homepage hero: the headline Health for a billion beside an illustration of hands holding a map of India",
+          "caption": "The homepage opens with the mission and two buttons, not a slideshow",
+          "zoom": true
+        },
+        {
+          "src": "/assets/img/work/fih/ui-programs.webp",
+          "alt": "Two programme cards on the FIH homepage: Accessible Primary Care and Employment-Oriented Education",
+          "caption": "The whole organisation as two doors: healthcare and education. Everything else lives behind one of them",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "heading": "Cutting it down",
+      "label": "Simplification",
+      "body": [
+        "The hardest part of this project was not building anything. It was deciding what to leave out.",
+        "FIH does a great deal, and every part of it matters to someone inside the organisation. But a visitor is not reading a report. They are scanning, deciding whether to trust you, and leaving. So we made a rule for the whole site. One idea per screen, and no screen that exists only to introduce another screen."
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "icon": "layers",
+          "title": "Two paths, not twelve",
+          "body": "Healthcare and education. Every programme, project and story hangs off one of those two, so nobody has to hold a menu in their head."
+        },
+        {
+          "icon": "chart",
+          "title": "Numbers where the claim is",
+          "body": "Clinic counts, cost per visit and placement figures sit next to the sentence they support, instead of collecting in a statistics page nobody opens."
+        },
+        {
+          "icon": "spark",
+          "title": "Plain words",
+          "body": "Task-shifting became what it actually means: a trained health worker does the visit, a doctor joins by video. The jargon stayed for the people who need it, further down."
+        }
+      ]
+    },
+    {
+      "heading": "The work, shown as work",
+      "label": "Visual ethnography",
+      "body": [
+        "Non-profit websites tend to fill up with stock photography, and it costs them the one thing they cannot buy back, which is being believed. Nothing on this site is bought.",
+        "Every image is from the field. The boat clinic pulling into a bank in the Sundarbans, a health worker with a tablet, a classroom of trainees, a scan room. We treated the photography as evidence rather than decoration, so we kept the frames wide, left the ordinary details in, and wrote captions that say where you are and what is happening.",
+        "The same rule shaped Stories of Change. Real faces, real names, real jobs, laid out as a wall of portraits you can scroll through. It reads like a village, which is what it is."
+      ],
+      "layout": "grid-2",
+      "media": [
+        {
+          "src": "/assets/img/work/fih/ui-our-work.webp",
+          "alt": "The FIH Our Work page opening on the floating digital clinic spotlight",
+          "caption": "Our Work opens on the boat, because the boat is the thing people remember",
+          "zoom": true
+        },
+        {
+          "src": "/assets/img/work/fih/ui-sundarbans.webp",
+          "alt": "A full-width pull quote about the Floating Digital Clinic being a lifeline in the Sundarbans",
+          "caption": "A field quote given a full screen of its own, in the brand's amber",
+          "zoom": true
+        },
+        {
+          "src": "/assets/img/work/fih/ui-stories.webp",
+          "alt": "The Stories of Change page, a dark wall of portraits from FIH programmes",
+          "caption": "Stories of Change: portraits of people from the programmes, not stock imagery",
+          "zoom": true
+        },
+        {
+          "src": "/assets/img/work/fih/ui-board.webp",
+          "alt": "The FIH mentor group carousel showing named board members with their roles",
+          "caption": "The people behind the foundation, named and shown, which is what institutional partners look for first",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "heading": "Built to open fast",
+      "label": "Performance",
+      "body": [
+        "A lot of this site's audience is on a phone on a rural network. A page that takes six seconds does not get read, however good it is. So speed was a design constraint from the first day, not a cleanup task at the end.",
+        "The site is a Next.js application on the App Router with Tailwind, serving pre-rendered pages, modern image formats sized to their slot, and fonts that never block the first paint. Measured from a cold load on a desktop connection, here is where it lands."
+      ],
+      "stats": [
+        {
+          "value": 0.3,
+          "suffix": "s",
+          "decimals": 1,
+          "label": "Server response",
+          "note": "Time to first byte across the six main pages, measured cold."
+        },
+        {
+          "value": 0.6,
+          "suffix": "s",
+          "decimals": 1,
+          "label": "First paint",
+          "note": "Typical first contentful paint on interior pages."
+        },
+        {
+          "value": 1,
+          "suffix": "s",
+          "label": "Fully loaded",
+          "note": "Most pages finish loading inside a second, images included."
+        },
+        {
+          "value": 6,
+          "label": "Pages measured",
+          "note": "Home, Our Work, About, Stories of Change, CSR Projects and Donate."
+        }
+      ],
+      "statsCaption": "Measured with a headless Chrome run against the live site, cold cache, 1440px desktop viewport. Real-world timings on a rural mobile connection will be slower, which is exactly why the budget is this tight."
+    },
+    {
+      "heading": "One kit, many pages",
+      "label": "Design system",
+      "body": [
+        "Everything on the site is assembled from a small set of parts, so a new programme page can be built in an afternoon and still look like it belongs.",
+        "Amber is the only accent colour and it is reserved for one job, which is telling you where to act. Every donate button, every active state, every eyebrow label. Black carries structure, white carries reading. Poppins for headings, Lato for body text, both chosen for how they hold up at small sizes on a cheap screen."
+      ],
+      "list": [
+        "<strong>Programme card.</strong> Image, label, title, one line, one button. Used for healthcare, education, projects and campaigns.",
+        "<strong>Spotlight band.</strong> A full-width photograph with a story panel beside it, for the boat clinic and other flagship projects.",
+        "<strong>Pull quote.</strong> A single amber screen with a field quote, used sparingly so it keeps its force.",
+        "<strong>Portrait wall.</strong> The layout behind both Stories of Change and the mentor group.",
+        "<strong>Notification bell.</strong> Live field updates from the CMS, with unread state remembered between visits.",
+        "<strong>Donate block.</strong> The same form and the same 80G assurances everywhere it appears."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fih/ui-donate.webp",
+          "alt": "The FIH donation page with a one-time and monthly toggle and a short form",
+          "caption": "Giving is one screen: pick an amount, enter four fields, done. The 80G note sits under the button where the doubt is",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "label": "Brand colours",
+      "swatches": [
+        {
+          "hex": "#FBBF24",
+          "name": "Amber",
+          "role": "Action",
+          "note": "Reserved for the thing you are meant to click"
+        },
+        {
+          "hex": "#1A1A1A",
+          "name": "Charcoal",
+          "role": "Structure",
+          "note": "Navigation, footers and the dark storytelling bands"
+        }
+      ]
+    },
+    {
+      "heading": "Made for a phone first",
+      "label": "Responsive",
+      "layout": "split",
+      "body": [
+        "The mobile layout is not the desktop one squeezed. The headline breaks to fit the width it actually has, the menu collapses to a single button, the notification bell stays reachable with a thumb, and the two programme doors stack in the order they matter.",
+        "Type sizes were set by reading the site outdoors on a mid-range Android phone, which is closer to how it gets used than any lab test."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fih/ui-mobile.webp",
+          "alt": "The FIH homepage on an iPhone, showing the collapsed navigation and stacked hero",
+          "caption": "The homepage on a phone",
+          "zoom": true,
+          "ratio": "9/16"
+        }
+      ]
+    },
+    {
+      "heading": "The team runs it now",
+      "label": "Handover",
+      "body": [
+        "The site is wired to Sanity, so field staff publish health camps, alerts and new stories themselves. Nobody has to file a ticket with a developer to announce a camp that is happening on Saturday.",
+        "That was the real deliverable. A website a non-profit needs a studio to update is a website that goes stale by the second month."
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "icon": "users",
+          "title": "Published by the people who were there",
+          "body": "Field teams post updates and photographs from their own phones, and the notification bell surfaces them across the site."
+        },
+        {
+          "icon": "shield",
+          "title": "Trust made visible",
+          "body": "Board members, academic partners, CSR funders and 80G status are all one click from the homepage, where partners look for them."
+        },
+        {
+          "icon": "clock",
+          "title": "Fast enough for the last mile",
+          "body": "Pages open in about a second on desktop and stay light on mobile data, which is where most of this audience actually is."
+        }
+      ]
     }
   ]
 }

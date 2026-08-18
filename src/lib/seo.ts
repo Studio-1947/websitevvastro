@@ -25,7 +25,7 @@ export const SITE = {
  * override this with their own exact set via the `fontHref` prop.
  */
 export const DEFAULT_FONT_HREF =
-  'https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Google+Sans:wght@400;500;700&display=swap';
+  'https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Google+Sans:wght@400;500;700&family=Google+Sans+Flex:wght@400..700&family=Archivo:wght@800&display=swap';
 
 /**
  * The latin subset of Syne — a variable font, so this ONE file covers every

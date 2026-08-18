@@ -26,7 +26,7 @@
 
     .page-solcat .cat-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 1.8vw, 30px); }
     .page-solcat .cat-step { border-top: 2px solid var(--red); padding-top: clamp(18px, 2vw, 28px); }
-    .page-solcat .cat-step__num { font-family: "Google Sans", var(--font-body); font-size: clamp(30px, 3vw, 46px); color: var(--red); line-height: 1; letter-spacing: -0.03em; }
+    .page-solcat .cat-step__num { font-family: var(--font-num); font-size: clamp(30px, 3vw, 46px); color: var(--red); line-height: 1; letter-spacing: -0.03em; }
     .page-solcat .cat-step__title { font-family: "Google Sans", var(--font-body); font-weight: 500; font-size: clamp(19px, 1.5vw, 24px); color: var(--grey-900); margin: 14px 0 10px; }
     .page-solcat .cat-step__desc { color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); }
 
