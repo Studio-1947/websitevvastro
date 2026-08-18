@@ -16,10 +16,11 @@ const M = 80;
 const LIGHT = '#f3f2f2';
 const ACCENT = '#ec3013';
 
-const WORDS = ['DATA', 'DESIGN', 'TECHNOLOGY', 'COMMUNICATION', 'RESEARCH', 'AI-ML INTEGRATION'];
-// The site's own numeral and display face, so the strip is set in the same
-// voice as the figures elsewhere on the page. 700 is the top of its range.
-const FACE = '700 %spx "Google Sans Flex", "Google Sans", Arial, sans-serif';
+const WORDS = ['Data', 'Design', 'Technology', 'Communication', 'Research', 'AI-ML Integration'];
+// Google Sans bold, in ordinary sentence case. Google Sans is not served
+// publicly, so Google Sans Flex at the same weight stands behind it and the
+// strip stays in the site's own voice either way.
+const FACE = '700 %spx "Google Sans", "Google Sans Flex", Arial, sans-serif';
 const FS = 36;
 const GAP = 3;
 const DOT_GAP = 56;
@@ -63,7 +64,7 @@ function sampleWord(text: string): Word {
   const probe = document.createElement('canvas').getContext('2d')!;
   probe.font = FACE.replace('%s', String(FS));
   const w = Math.ceil(probe.measureText(text).width) + 8;
-  const h = Math.ceil(FS * 1.3);
+  const h = Math.ceil(FS * 1.45);
 
   const c = document.createElement('canvas');
   c.width = w;
