@@ -150,15 +150,17 @@ export function footerStrip(): void {
       ctx.setTransform(scale, 0, 0, scale, -M * scale, 0);
       ctx.clearRect(M, 0, W, H);
 
-      // the roll, and the rule it rolls along
+      // the roll
       const p = clamp((t - 0.2) / (RUN - 0.2), 0, 1);
       const wx = -140 + (W + 280) * easeInOutSine(p);
-      const ruleGrow = easeOutCubic(clamp(t / 0.8, 0, 1));
       const out = t >= RUN + HOLD ? clamp((t - RUN - HOLD) / 1.1, 0, 1) : 0;
 
+      // The rule is laid down by the wheel rather than drawn ahead of it: it
+      // runs from the left edge to wherever the wheel has reached, so the line
+      // only exists behind it and is complete once it has rolled off.
       ctx.globalAlpha = out > 0 ? 1 - out : 1;
       ctx.fillStyle = LIGHT;
-      ctx.fillRect(M, RULE_Y, (W - 2 * M) * ruleGrow, 2);
+      ctx.fillRect(M, RULE_Y, clamp(wx - M, 0, W - 2 * M), 2);
 
       ctx.font = FACE.replace('%s', String(FS));
       ctx.textBaseline = 'alphabetic';
