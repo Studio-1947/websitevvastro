@@ -1,10 +1,9 @@
 /**
  * The closing wheel strip (see components/work/FooterStrip.astro).
  *
- * The word particles are sampled once from a hidden canvas, then every frame
- * is drawn as arcs on a single canvas: a few thousand SVG circles re-rendered
- * per frame is what makes this kind of piece stutter, and none of it needs to
- * be in the DOM.
+ * The words are set as ordinary type, not as a particle field: the wheel wipes
+ * each one in as it rolls past, they hold, then they fade back out and the
+ * loop restarts. Drawn on one canvas so the whole strip is a single element.
  *
  * Timing, geometry and easing match the authored piece exactly:
  *   Run 7s (the roll), Hold 3.5s (settled), Scatter 1.5s (back to particles).
@@ -22,15 +21,12 @@ const WORDS = ['Data', 'Design', 'Technology', 'Communication', 'Research', 'AI-
 // strip stays in the site's own voice either way.
 const FACE = '700 %spx "Google Sans", "Google Sans Flex", Arial, sans-serif';
 const FS = 36;
-const GAP = 3;
 const DOT_GAP = 56;
 const R = 40;
 const RULE_Y = 248;
 const BASE_Y = RULE_Y - 26;
 const LEAD = 50;
 const SPAN = 260;
-const SCATTER = 160;
-const DOT = 1.7;
 
 const RUN = 7;
 const HOLD = 3.5;
@@ -45,57 +41,7 @@ const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 const easeInCubic = (t: number) => t * t * t;
 const easeInOutSine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
 
-/** Deterministic jitter, so the particle field is identical on every load. */
-function mulberry32(a: number) {
-  return function () {
-    a |= 0;
-    a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-interface Pt { x: number; y: number; dx: number; dy: number; j: number; a: boolean }
-interface Word { w: number; pts: Pt[] }
-
-/** Draw a word once, then read its pixels back as a field of dots. */
-function sampleWord(text: string): Word {
-  const probe = document.createElement('canvas').getContext('2d')!;
-  probe.font = FACE.replace('%s', String(FS));
-  const w = Math.ceil(probe.measureText(text).width) + 8;
-  const h = Math.ceil(FS * 1.45);
-
-  const c = document.createElement('canvas');
-  c.width = w;
-  c.height = h;
-  const cx = c.getContext('2d', { willReadFrequently: true })!;
-  cx.font = FACE.replace('%s', String(FS));
-  const base = Math.ceil(FS * 1.02);
-  cx.fillStyle = '#000';
-  cx.fillText(text, 4, base);
-
-  const img = cx.getImageData(0, 0, w, h).data;
-  const rng = mulberry32(text.length * 131 + FS);
-  const pts: Pt[] = [];
-  for (let y = 0; y < h; y += GAP) {
-    for (let x = 0; x < w; x += GAP) {
-      if (img[(y * w + x) * 4 + 3] > 128) {
-        const ang = rng() * Math.PI * 2;
-        const rad = 0.35 + rng() * 0.65;
-        pts.push({
-          x: x - 4,
-          y: y - base,
-          dx: Math.cos(ang) * rad,
-          dy: Math.sin(ang) * rad,
-          j: rng(),
-          a: rng() < 0.1, // one dot in ten carries the accent colour
-        });
-      }
-    }
-  }
-  return { w: w - 8, pts };
-}
+interface Word { text: string; w: number }
 
 export function footerStrip(): void {
   const hosts = document.querySelectorAll<HTMLElement>('[data-footer-strip]');
@@ -126,21 +72,15 @@ export function footerStrip(): void {
     };
 
     const build = (): void => {
-      words = WORDS.map(sampleWord);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.font = FACE.replace('%s', String(FS));
+      words = WORDS.map((text) => ({ text, w: ctx.measureText(text).width }));
       xs = [];
       let x = M;
       for (const d of words) {
         xs.push(x);
         x += d.w + DOT_GAP;
       }
-    };
-
-    const dot = (x: number, y: number, r: number, accent: boolean, alpha: number): void => {
-      ctx.globalAlpha = alpha;
-      ctx.fillStyle = accent ? ACCENT : LIGHT;
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fill();
     };
 
     const frame = (t: number): void => {
@@ -161,41 +101,37 @@ export function footerStrip(): void {
       ctx.fillStyle = LIGHT;
       ctx.fillRect(M, RULE_Y, (W - 2 * M) * ruleGrow, 2);
 
+      ctx.font = FACE.replace('%s', String(FS));
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillStyle = LIGHT;
+
       for (let i = 0; i < words.length; i++) {
         const d = words[i];
         const x0 = xs[i];
-        const settled = out === 0 && wx > x0 + d.w + LEAD + SPAN + 40;
 
-        for (const q of d.pts) {
-          const px = x0 + q.x;
-          const py = BASE_Y + q.y;
-          const r = q.a ? DOT * 1.2 : DOT;
-
-          if (settled) {
-            dot(px, py, r, q.a, 1);
-            continue;
-          }
-          if (out > 0) {
-            // scattering back out, staggered by each dot's own jitter
-            const s = clamp(out - q.j * 0.25, 0, 1);
-            if (s >= 1) continue;
-            const e = easeInCubic(s);
-            dot(px + q.dx * SCATTER * e, py + q.dy * SCATTER * e, r, q.a, 1 - e);
-            continue;
-          }
-          // gathering: the wheel's leading edge pulls each dot into place
-          const pr = clamp((wx - px + LEAD) / SPAN - q.j * 0.25, 0, 1);
-          if (pr <= 0) continue;
-          const e = easeOutCubic(pr);
-          dot(
-            px + q.dx * SCATTER * (1 - e),
-            py + q.dy * SCATTER * (1 - e),
-            r,
-            q.a,
-            clamp(pr * 2.2, 0, 1),
-          );
+        if (out > 0) {
+          // fading back out, each word a beat behind the one before it, so the
+          // strip clears in the same direction the wheel travelled
+          const e = easeInCubic(clamp(out - i * 0.06, 0, 1));
+          if (e >= 1) continue;
+          ctx.globalAlpha = 1 - e;
+          ctx.fillText(d.text, x0, BASE_Y - e * 10);
+          continue;
         }
+
+        // the wheel's leading edge wipes the word in, left to right
+        const pr = clamp((wx - x0 + LEAD) / (d.w + SPAN * 0.5), 0, 1);
+        if (pr <= 0) continue;
+        const e = easeOutCubic(pr);
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(x0 - 2, BASE_Y - FS * 1.2, (d.w + 4) * e, FS * 1.7);
+        ctx.clip();
+        ctx.globalAlpha = clamp(e * 1.6, 0, 1);
+        ctx.fillText(d.text, x0, BASE_Y);
+        ctx.restore();
       }
+      ctx.globalAlpha = 1;
 
       // the wheel itself, rotating at the rate it is travelling
       if (logo && wx > -139 && wx < W + 139) {
@@ -251,8 +187,8 @@ export function footerStrip(): void {
       });
     };
 
-    // Sampling before the face lands would trace the fallback, so the field is
-    // built once the real font is in.
+    // Measuring before the face lands would size the words to the fallback,
+    // so the layout is built once the real font is in.
     if (document.fonts?.load) {
       document.fonts
         .load(`700 ${FS}px "Google Sans Flex"`)
