@@ -1,9 +1,11 @@
 /**
  * The closing wheel strip (see components/work/FooterStrip.astro).
  *
- * The words are set as ordinary type, not as a particle field: the wheel wipes
- * each one in as it rolls past, they hold, then they fade back out and the
- * loop restarts. Drawn on one canvas so the whole strip is a single element.
+ * Two renderings of the same words, crossfaded. The wheel throws a field of
+ * dots that converge into each word's letterforms; over the last stretch of
+ * that convergence the dots hand off to the word set as real type, so what
+ * holds on screen is crisp text rather than a pixel mosaic. On the way out the
+ * type hands back to the dots, which scatter and fade.
  *
  * Timing, geometry and easing match the authored piece exactly:
  *   Run 7s (the roll), Hold 3.5s (settled), Scatter 1.5s (back to particles).
@@ -22,6 +24,9 @@ const WORDS = ['Data', 'Design', 'Technology', 'Communication', 'Research', 'AI-
 const FACE = '700 %spx "Google Sans", "Google Sans Flex", Arial, sans-serif';
 const FS = 36;
 const DOT_GAP = 56;
+const GAP = 3;        // sampling step across the letterforms
+const SCATTER = 160;  // how far a dot flies from its home position
+const DOT = 1.7;
 const R = 40;
 const RULE_Y = 248;
 const BASE_Y = RULE_Y - 26;
@@ -41,7 +46,57 @@ const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 const easeInCubic = (t: number) => t * t * t;
 const easeInOutSine = (t: number) => -(Math.cos(Math.PI * t) - 1) / 2;
 
-interface Word { text: string; w: number }
+interface Pt { x: number; y: number; dx: number; dy: number; j: number; a: boolean }
+interface Word { text: string; w: number; pts: Pt[] }
+
+/** Deterministic jitter, so the dot field is identical on every load. */
+function mulberry32(a: number) {
+  return function () {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/** Draw a word off screen once, then read its pixels back as a field of dots. */
+function sampleWord(text: string): Pt[] {
+  const probe = document.createElement('canvas').getContext('2d')!;
+  probe.font = FACE.replace('%s', String(FS));
+  const w = Math.ceil(probe.measureText(text).width) + 8;
+  const h = Math.ceil(FS * 1.45);
+
+  const c = document.createElement('canvas');
+  c.width = w;
+  c.height = h;
+  const cx = c.getContext('2d', { willReadFrequently: true })!;
+  cx.font = FACE.replace('%s', String(FS));
+  const base = Math.ceil(FS * 1.02);
+  cx.fillStyle = '#000';
+  cx.fillText(text, 4, base);
+
+  const img = cx.getImageData(0, 0, w, h).data;
+  const rng = mulberry32(text.length * 131 + FS);
+  const pts: Pt[] = [];
+  for (let y = 0; y < h; y += GAP) {
+    for (let x = 0; x < w; x += GAP) {
+      if (img[(y * w + x) * 4 + 3] > 128) {
+        const ang = rng() * Math.PI * 2;
+        const rad = 0.35 + rng() * 0.65;
+        pts.push({
+          x: x - 4,
+          y: y - base,
+          dx: Math.cos(ang) * rad,
+          dy: Math.sin(ang) * rad,
+          j: rng(),
+          a: rng() < 0.1, // one dot in ten carries the accent colour
+        });
+      }
+    }
+  }
+  return pts;
+}
 
 export function footerStrip(): void {
   const hosts = document.querySelectorAll<HTMLElement>('[data-footer-strip]');
@@ -74,7 +129,11 @@ export function footerStrip(): void {
     const build = (): void => {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.font = FACE.replace('%s', String(FS));
-      words = WORDS.map((text) => ({ text, w: ctx.measureText(text).width }));
+      words = WORDS.map((text) => ({
+        text,
+        w: ctx.measureText(text).width,
+        pts: sampleWord(text),
+      }));
       xs = [];
       let x = M;
       for (const d of words) {
@@ -103,33 +162,50 @@ export function footerStrip(): void {
 
       ctx.font = FACE.replace('%s', String(FS));
       ctx.textBaseline = 'alphabetic';
-      ctx.fillStyle = LIGHT;
 
       for (let i = 0; i < words.length; i++) {
         const d = words[i];
         const x0 = xs[i];
 
-        if (out > 0) {
-          // fading back out, each word a beat behind the one before it, so the
-          // strip clears in the same direction the wheel travelled
-          const e = easeInCubic(clamp(out - i * 0.06, 0, 1));
-          if (e >= 1) continue;
-          ctx.globalAlpha = 1 - e;
-          ctx.fillText(d.text, x0, BASE_Y - e * 10);
-          continue;
-        }
+        // How far this word is through its arrival (0 before the wheel gets
+        // here, 1 once it has passed), and how solid the type is: the dots do
+        // the travelling, the type takes over for the last quarter of it.
+        const arrive = clamp((wx - x0 + LEAD) / (d.w + SPAN), 0, 1);
+        const solid = out > 0 ? 1 - clamp(out * 2.4, 0, 1) : clamp((arrive - 0.72) / 0.28, 0, 1);
 
-        // the wheel's leading edge wipes the word in, left to right
-        const pr = clamp((wx - x0 + LEAD) / (d.w + SPAN * 0.5), 0, 1);
-        if (pr <= 0) continue;
-        const e = easeOutCubic(pr);
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(x0 - 2, BASE_Y - FS * 1.2, (d.w + 4) * e, FS * 1.7);
-        ctx.clip();
-        ctx.globalAlpha = clamp(e * 1.6, 0, 1);
-        ctx.fillText(d.text, x0, BASE_Y);
-        ctx.restore();
+        if (solid > 0) {
+          ctx.globalAlpha = solid;
+          ctx.fillStyle = LIGHT;
+          ctx.fillText(d.text, x0, BASE_Y - (out > 0 ? (1 - solid) * 8 : 0));
+        }
+        if (solid >= 1) continue;
+
+        // the dot field: flying in ahead of the type, or scattering after it
+        for (const q of d.pts) {
+          const px = x0 + q.x;
+          const py = BASE_Y + q.y;
+          const r = q.a ? DOT * 1.2 : DOT;
+          ctx.fillStyle = q.a ? ACCENT : LIGHT;
+
+          if (out > 0) {
+            const sc = clamp(out - q.j * 0.25, 0, 1);
+            if (sc >= 1) continue;
+            const e = easeInCubic(sc);
+            ctx.globalAlpha = (1 - e) * (1 - solid);
+            ctx.beginPath();
+            ctx.arc(px + q.dx * SCATTER * e, py + q.dy * SCATTER * e, r, 0, Math.PI * 2);
+            ctx.fill();
+            continue;
+          }
+
+          const pr = clamp((wx - px + LEAD) / SPAN - q.j * 0.25, 0, 1);
+          if (pr <= 0) continue;
+          const e = easeOutCubic(pr);
+          ctx.globalAlpha = clamp(pr * 2.2, 0, 1) * (1 - solid);
+          ctx.beginPath();
+          ctx.arc(px + q.dx * SCATTER * (1 - e), py + q.dy * SCATTER * (1 - e), r, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
       ctx.globalAlpha = 1;
 
