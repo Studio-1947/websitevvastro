@@ -106,27 +106,34 @@
       ]
     },
     {
-      "heading": "Uncovering the Human Barriers: The Grassroots Field Audit",
+      "heading": "Digital Literacy Workshop with Communities",
+      "label": "Bali Island, Sunderbans",
+      "labelIcon": "users",
       "body": [
-        "In tier-4 rural landscapes, introducing social media tools requires understanding unique cultural anxieties. Many design agencies make the mistake of handing over complex digital manuals that create frustration. Through a structured diagnostic discussion on-site, we uncovered the real psychological and technical bottlenecks holding the local community back:"
+        "We ran the workshop in the villages themselves, sitting with the people who would have to use any of this after we left. Guides, homestay hosts, women running small enterprises, a few young people who already had phones and no idea what to do with them.",
+        "The first morning was not about phones at all. It was about finding out what actually stops someone here from posting a photograph of their own work, because it is never the thing an agency assumes it is. Four things came up again and again."
       ],
       "layout": "grid-2",
       "cards": [
         {
-          "title": "Social Anxiety & Fear of Judgment",
-          "body": "A deep hesitation regarding public exposure and low confidence when interacting in open digital spaces."
+          "icon": "users",
+          "title": "Being seen",
+          "body": "A real hesitation about putting yourself in front of strangers, and very little confidence that what you have to say is worth their attention."
         },
         {
-          "title": "Production Nervousness",
-          "body": "High levels of performance anxiety when asked to speak or record directly on camera."
+          "icon": "spark",
+          "title": "The camera makes people freeze",
+          "body": "People who talk beautifully across a table go stiff the moment a phone is pointed at them and they are asked to perform."
         },
         {
-          "title": "Linguistic Isolation",
-          "body": "Language barriers deeply impacted day-to-day business interactions, especially for local tour guides and homestay operators trying to communicate value to urban travelers."
+          "icon": "map",
+          "title": "Language gets in the way",
+          "body": "Guides and homestay owners lose business every season simply because they cannot explain in a traveller's language what they are offering."
         },
         {
-          "title": "Technical Deficit",
-          "body": "Limited baseline knowledge of creative digital apps, software structures, and content algorithms."
+          "icon": "clock",
+          "title": "Nobody had been taught",
+          "body": "Not a lack of ability. Just that no one had ever shown them how any of these apps work, or what the feed does with what you post."
         }
       ]
     },
