@@ -7,6 +7,7 @@ import CaseFigure from './CaseFigure.astro';
 import CaseAudio from './CaseAudio.astro';
 import CaseStats from './CaseStats.astro';
 import CaseIcon from './CaseIcon.astro';
+import CaseCardArt from './CaseCardArt.astro';
 
 interface AudioTrack {
   title: string;
@@ -207,9 +208,11 @@ const isSplit = layout === 'split';
 
         {cards.length > 0 && (
           <div class:list={['case-cards', `case-cards--${layout === 'stack' ? 'grid-3': layout}`]}>
-            {cards.map((c) => (
+            {cards.map((c, i) => (
               <div class:list={['case-card', c.icon && 'case-card--icon']} data-spotlight>
-                {c.icon && <CaseIcon name={c.icon} />}
+                {/* A card carries either a mark of its own or the house line
+                    motif; never both, and never nothing. */}
+                {c.icon ? <CaseIcon name={c.icon} /> : <CaseCardArt index={i} />}
                 {c.num && <div class="case-card__num">{c.num}</div>}
                 <CardTitleTag class="case-card__title">{c.title}</CardTitleTag>
                 {c.body && <p class="case-card__body" set:html={c.body} />}

@@ -17,6 +17,9 @@ const LIGHT = '#f3f2f2';
 const ACCENT = '#ec3013';
 
 const WORDS = ['DATA', 'DESIGN', 'TECHNOLOGY', 'COMMUNICATION', 'RESEARCH', 'AI-ML INTEGRATION'];
+// The site's own numeral and display face, so the strip is set in the same
+// voice as the figures elsewhere on the page. 700 is the top of its range.
+const FACE = '700 %spx "Google Sans Flex", "Google Sans", Arial, sans-serif';
 const FS = 36;
 const GAP = 3;
 const DOT_GAP = 56;
@@ -58,7 +61,7 @@ interface Word { w: number; pts: Pt[] }
 /** Draw a word once, then read its pixels back as a field of dots. */
 function sampleWord(text: string): Word {
   const probe = document.createElement('canvas').getContext('2d')!;
-  probe.font = `800 ${FS}px Archivo, sans-serif`;
+  probe.font = FACE.replace('%s', String(FS));
   const w = Math.ceil(probe.measureText(text).width) + 8;
   const h = Math.ceil(FS * 1.3);
 
@@ -66,7 +69,7 @@ function sampleWord(text: string): Word {
   c.width = w;
   c.height = h;
   const cx = c.getContext('2d', { willReadFrequently: true })!;
-  cx.font = `800 ${FS}px Archivo, sans-serif`;
+  cx.font = FACE.replace('%s', String(FS));
   const base = Math.ceil(FS * 1.02);
   cx.fillStyle = '#000';
   cx.fillText(text, 4, base);
@@ -247,11 +250,11 @@ export function footerStrip(): void {
       });
     };
 
-    // Sampling before Archivo lands would trace the fallback face, so the
-    // field is built once the real font is in.
+    // Sampling before the face lands would trace the fallback, so the field is
+    // built once the real font is in.
     if (document.fonts?.load) {
       document.fonts
-        .load(`800 ${FS}px Archivo`)
+        .load(`700 ${FS}px "Google Sans Flex"`)
         .then(() => document.fonts.ready)
         .then(init)
         .catch(init);
