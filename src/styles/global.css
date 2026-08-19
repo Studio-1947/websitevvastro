@@ -996,3 +996,30 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
   .astep__stringrow { height: 14px; cursor: default; }
   .astep__mute { display: none; }
 }
+
+/* ── Wheel strip ──────────────────────────────────────────────────────────
+ * The rolling-wheel canvas, used at the foot of the site footer on every page
+ * and inside the colophon on case studies. Colours come from --strip-ink and
+ * --strip-accent on whichever block hosts it.
+ */
+.footer-strip { width: 100%; }
+.footer-strip__canvas { display: block; width: 100%; height: auto; }
+/* The words are painted, so the text itself is carried for screen readers and
+   for search. */
+.footer-strip__sr {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Wheel strip in the site footer: white type and a dark wheel, since the red
+   brand mark would disappear into the red block behind it. */
+.footer .footer-strip {
+  --strip-ink: #ffffff;
+  --strip-accent: #10240f;
+  margin-top: clamp(30px, 4vw, 56px);
+}

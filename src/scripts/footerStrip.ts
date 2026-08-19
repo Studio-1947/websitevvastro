@@ -16,6 +16,8 @@ const H = 360;
 const M = 80;
 const LIGHT = '#f3f2f2';
 const ACCENT = '#ec3013';
+// Each host can override these (--strip-ink / --strip-accent), so the strip
+// works on the dark colophon and on the red site footer alike.
 
 const WORDS = ['Data', 'Design', 'Technology', 'Communication', 'Research', 'AI-ML Integration'];
 // Google Sans bold, in ordinary sentence case. Google Sans is not served
@@ -109,6 +111,12 @@ export function footerStrip(): void {
     const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const logo = typeof Path2D === 'function' ? new Path2D(LOGO_D) : null;
 
+    // Colours come from the block the strip sits in, so the same piece works on
+    // the dark project colophon and on the red site footer.
+    const css = getComputedStyle(host);
+    const ink = css.getPropertyValue('--strip-ink').trim() || LIGHT;
+    const accent = css.getPropertyValue('--strip-accent').trim() || ACCENT;
+
     let words: Word[] = [];
     let xs: number[] = [];
     let scale = 1;
@@ -160,7 +168,7 @@ export function footerStrip(): void {
       // runs from the left edge to wherever the wheel has reached, so the line
       // only exists behind it and is complete once it has rolled off.
       ctx.globalAlpha = out > 0 ? 1 - out : 1;
-      ctx.fillStyle = LIGHT;
+      ctx.fillStyle = ink;
       ctx.fillRect(M, RULE_Y, clamp(wx - M, 0, W - 2 * M), 2);
 
       ctx.font = FACE.replace('%s', String(FS));
@@ -178,7 +186,7 @@ export function footerStrip(): void {
 
         if (solid > 0) {
           ctx.globalAlpha = solid;
-          ctx.fillStyle = LIGHT;
+          ctx.fillStyle = ink;
           ctx.fillText(d.text, x0, BASE_Y - (out > 0 ? (1 - solid) * 8 : 0));
         }
         if (solid >= 1) continue;
@@ -224,7 +232,7 @@ export function footerStrip(): void {
         ctx.translate(39, 39);
         ctx.rotate(rot);
         ctx.translate(-39, -39);
-        ctx.fillStyle = ACCENT;
+        ctx.fillStyle = accent;
         ctx.fill(logo, 'evenodd');
         ctx.restore();
       }

@@ -1221,32 +1221,10 @@ body.page-case-modular {
   opacity: 0.85;
 }
 
-/* ── Closing wheel strip ──────────────────────────────────────────────────
- * Sits at the foot of the colophon on the same ground as the rest of the
- * band, so the strip reads as part of the closing block rather than as a
- * panel dropped on top of it.
- */
-.footer-strip {
+/* The strip that closes a case study sits at the foot of the colophon; its
+   shared styling lives in global.css, since the site footer carries one too. */
+.case-colophon .footer-strip {
   margin-top: clamp(40px, 5vw, 72px);
-  width: 100%;
-}
-.footer-strip__canvas {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-/* The words are drawn as dots, so the text itself is carried for screen
-   readers and search. */
-.footer-strip__sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
 
 /* House line motif, bottom right, behind the words. */
@@ -1288,4 +1266,10 @@ body.page-case-modular {
   .case-card:hover .case-card__art {
     transform: none;
   }
+}
+
+/* A case study closes on its own strip inside the colophon, so the copy in the
+   site footer below it stands down: one wheel per page. */
+body.page-case-modular .footer .footer-strip {
+  display: none;
 }
