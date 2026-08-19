@@ -150,9 +150,10 @@ export function footerStrip(): void {
       ctx.setTransform(scale, 0, 0, scale, -M * scale, 0);
       ctx.clearRect(M, 0, W, H);
 
-      // the roll
+      // The roll: in from off the left edge, stopping exactly where the rule
+      // it is drawing runs out. Wheel and line finish together.
       const p = clamp((t - 0.2) / (RUN - 0.2), 0, 1);
-      const wx = -140 + (W + 280) * easeInOutSine(p);
+      const wx = -140 + (W - M + 140) * easeInOutSine(p);
       const out = t >= RUN + HOLD ? clamp((t - RUN - HOLD) / 1.1, 0, 1) : 0;
 
       // The rule is laid down by the wheel rather than drawn ahead of it: it
@@ -211,11 +212,12 @@ export function footerStrip(): void {
       }
       ctx.globalAlpha = 1;
 
-      // the wheel itself, rotating at the rate it is travelling
-      if (logo && wx > -139 && wx < W + 139) {
+      // the wheel itself, rotating at the rate it is travelling, and parked at
+      // the end of the line until the strip clears
+      if (logo && wx > -139) {
         const k = (R * 2) / 78;
         const rot = ((wx + 140) / R);
-        ctx.globalAlpha = 1;
+        ctx.globalAlpha = out > 0 ? 1 - out : 1;
         ctx.save();
         ctx.translate(wx - 39 * k, RULE_Y - 1 - 78 * k);
         ctx.scale(k, k);
