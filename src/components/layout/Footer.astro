@@ -70,8 +70,9 @@ const year = new Date().getFullYear();
         </address>
       </div>
       <div class="footer__bar">
-        {/* Letters hop in a wave on hover, split by scripts/charShift.ts. */}
-        <span class="footer__wordmark" data-char-shift>STUDIO 1947</span>
+        {/* Each letter turns into a rough organic form on hover; the swap is
+            built in scripts/charMorph.ts. */}
+        <span class="footer__wordmark" data-char-morph>STUDIO 1947</span>
         <div class="footer__meta">
           <!-- Live Darjeeling conditions. Starts hidden and is only revealed once a
                value resolves, so a blocked or failed request leaves no broken UI. -->

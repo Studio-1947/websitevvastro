@@ -1018,10 +1018,45 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
   border: 0;
 }
 
-/* Letters split out of a word for the hover wave (scripts/charShift.ts). They
-   must be inline-block to take a transform at all. */
+/* Letters that trade places with a shape on hover (scripts/charMorph.ts). The
+   letter and its form occupy the same box, so nothing reflows during the swap:
+   the glyph shrinks away as the shape grows into its place. */
 .char {
   display: inline-block;
   position: relative;
   will-change: transform;
+}
+.char__glyph {
+  display: inline-block;
+  transition:
+    opacity 0.28s var(--ease),
+    transform 0.42s var(--ease);
+}
+.char__shape {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.86em;
+  height: 0.86em;
+  transform: translate(-50%, -50%) scale(0.35) rotate(calc(var(--tilt, 0deg) * -1));
+  opacity: 0;
+  color: inherit;
+  pointer-events: none;
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.52s cubic-bezier(0.2, 1.3, 0.4, 1);
+}
+.char.is-shape .char__glyph {
+  opacity: 0;
+  transform: scale(0.55) rotate(var(--tilt, 0deg));
+}
+.char.is-shape .char__shape {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(var(--shape-scale, 1)) rotate(var(--tilt, 0deg));
+}
+@media (prefers-reduced-motion: reduce) {
+  .char__glyph,
+  .char__shape {
+    transition-duration: 0.01ms;
+  }
 }

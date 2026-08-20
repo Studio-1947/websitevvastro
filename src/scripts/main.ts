@@ -101,7 +101,7 @@ function init(): void {
   when('.cocreate__line', () => import('./cocreate').then((m) => m.cocreateCycle()));
   when('.team-card[data-person]', () => import('./personModal').then((m) => m.personModal()));
   when('.case-figure--zoom', () => import('./lightbox').then((m) => m.caseLightbox()));
-  when('[data-char-shift]', () => import('./charShift').then((m) => m.charShift()));
+  when('[data-char-morph]', () => import('./charMorph').then((m) => m.charMorph()));
   when('[data-work-rail]', () => import('./workRail').then((m) => m.workRail()));
   when('[data-spotlight]', () => import('./spotlight').then((m) => m.spotlightCards()));
   when('[data-views]', () => import('./views').then((m) => m.projectViews()));
