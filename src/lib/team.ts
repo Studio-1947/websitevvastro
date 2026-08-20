@@ -10,6 +10,7 @@
  */
 export const TEAM_CREDIT_KEYS: Record<string, string[]> = {
   'rabi (rabiul islam)': ['rabi'],
+  pinaki: ['pinaki'],
   'anjali chetri': ['anjali'],
   'subhendu kundu': ['subhendu'],
   santam: ['santam'],

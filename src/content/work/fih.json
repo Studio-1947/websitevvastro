@@ -175,16 +175,7 @@
         "<strong>Spotlight band.</strong> A full-width photograph with a story panel beside it, for the boat clinic and other flagship projects.",
         "<strong>Pull quote.</strong> A single amber screen with a field quote, used sparingly so it keeps its force.",
         "<strong>Portrait wall.</strong> The layout behind both Stories of Change and the mentor group.",
-        "<strong>Notification bell.</strong> Live field updates from the CMS, with unread state remembered between visits.",
-        "<strong>Donate block.</strong> The same form and the same 80G assurances everywhere it appears."
-      ],
-      "media": [
-        {
-          "src": "/assets/img/work/fih/ui-donate.webp",
-          "alt": "The FIH donation page with a one-time and monthly toggle and a short form",
-          "caption": "Giving is one screen: pick an amount, enter four fields, done. The 80G note sits under the button where the doubt is",
-          "zoom": true
-        }
+        "<strong>Notification bell.</strong> Live field updates from the CMS, with unread state remembered between visits."
       ]
     },
     {
