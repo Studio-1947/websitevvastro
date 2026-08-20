@@ -12,7 +12,6 @@
  */
 import { Image } from 'astro:assets';
 import footerHills from '../../assets/img/footer-hills.webp';
-import FooterStrip from '../work/FooterStrip.astro';
 
 const year = new Date().getFullYear();
 ---
@@ -70,11 +69,6 @@ const year = new Date().getFullYear();
           Coming Soon @Plassey, Nadia
         </address>
       </div>
-      {/* The wheel strip, on every page. Case studies carry their own inside
-          the project colophon, so this one is hidden there (see work-case.css)
-          rather than played twice on one page. */}
-      <FooterStrip />
-
       <div class="footer__bar">
         <span class="footer__wordmark">STUDIO 1947</span>
         <div class="footer__meta">

@@ -1267,9 +1267,3 @@ body.page-case-modular {
     transform: none;
   }
 }
-
-/* A case study closes on its own strip inside the colophon, so the copy in the
-   site footer below it stands down: one wheel per page. */
-body.page-case-modular .footer .footer-strip {
-  display: none;
-}
