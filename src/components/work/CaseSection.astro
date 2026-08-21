@@ -25,6 +25,9 @@ interface Media {
   zoom?: boolean;
   pad?: boolean;
   ratio?: string;
+  maxWidth?: number;
+  loop?: boolean;
+  full?: string;
 }
 interface Card {
   num?: string;
@@ -63,9 +66,13 @@ interface Props {
   embed?: { src: string; title: string };
   /** Playable field recordings (Sundargaan): rendered as a track-list player. */
   audio?: AudioTrack[];
-  layout?: 'stack' | 'split' | 'grid-2' | 'grid-3';
+  layout?: 'stack' | 'split' | 'grid-2' | 'grid-3' | 'row';
   /** 'none' butts the section's figures together with no gap between them. */
   gap?: 'default' | 'none';
+  /** Opt-in: full-bleed background colour for this section (light type). */
+  band?: string;
+  /** Opt-in: image floated huge and soft behind the section's content. */
+  backdrop?: string;
   /** Mark drawn inside the section label (see CaseIcon for the set). */
   labelIcon?: string;
   /** Photograph shown behind the swatch grid: where the palette came from. */
@@ -99,6 +106,8 @@ const {
   audio = [],
   layout = 'stack',
   gap = 'default',
+  band,
+  backdrop,
   labelIcon,
   swatchBackdrop,
   divider = true,
@@ -110,7 +119,20 @@ const CardTitleTag = subheading ? (heading ? 'h4': 'h3'): heading ? 'h3': 'h2';
 const isSplit = layout === 'split';
 ---
 
-<section class:list={['case-section', divider && 'case-section--divided', first && 'case-section--first', isSplit && 'case-section--split']}>
+<section
+  class:list={[
+    'case-section',
+    divider && 'case-section--divided',
+    first && 'case-section--first',
+    isSplit && 'case-section--split',
+    band && 'case-section--band',
+    backdrop && 'case-section--backdrop',
+  ]}
+  style={band ? `--band: ${band}`: undefined}
+>
+  {backdrop && (
+    <img class="case-section__backdrop" src={backdrop} alt="" aria-hidden="true" loading="lazy" />
+  )}
   {
     isSplit ? (
       <div class="case-split case-shell">

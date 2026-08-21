@@ -221,6 +221,77 @@ body.page-case-modular {
   padding-top: clamp(32px, 4.5vw, 64px);
 }
 
+/* ── Opt-in section dressing (per-case JSON: `band` / `backdrop`) ────────── */
+/* A `band` section paints its background edge to edge and flips its type
+   light; a `backdrop` section floats a huge, soft image behind its content.
+   Both are opt-in per section in a case's JSON — absent, nothing changes. */
+.case-section--band {
+  background: var(--band);
+  padding-top: clamp(36px, 5vw, 72px);
+  padding-bottom: clamp(36px, 5vw, 72px);
+}
+.case-section--band.case-section--divided {
+  border-top: 0;
+}
+.case-section--band .case-section__heading {
+  color: #fff;
+}
+.case-section--band .case-prose p,
+.case-section--band .case-list li {
+  color: rgba(255, 255, 255, 0.82);
+}
+.case-section--band .case-label {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+}
+.case-section--band .case-figure__caption {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.case-section--backdrop {
+  position: relative;
+  overflow: hidden;
+}
+.case-section--backdrop > * {
+  position: relative;
+}
+.case-section__backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0.14;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Opt-in 'row' media layout: figures in one centred line, overlapping like a
+   fanned deck. Pair with per-image maxWidth and rotated presentation pieces;
+   each figure stays its own zoom target. */
+.case-section > .case-media--row {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.case-media.case-media--row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.case-media--row .case-figure {
+  min-width: 0;
+}
+.case-media--row .case-figure + .case-figure {
+  margin-left: -4.5%;
+}
+.case-media--row .case-figure img {
+  width: 100%;
+  height: auto;
+}
+
 .case-section__heading {
   font-family: var(--font-display);
   font-weight: 400;
@@ -546,6 +617,36 @@ body.page-case-modular {
   margin-inline: 0;
   padding-inline: 0;
 }
+/* Cases with mediaStyle: 'contained' keep stacked figures inside the text
+   shell instead — their screenshots and diagrams were not shot for a
+   full-viewport stage (see the work collection schema). */
+.case-page--contained .case-media--stack {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+/* Inside the shell the figure already sits at the text edge; the caption's own
+   gutter padding would inset it a second time. */
+.case-page--contained .case-media--stack .case-figure__caption {
+  padding-inline: 0;
+}
+/* Contained figures return to the pre-rework treatment: the image sits at its
+   intrinsic size, centred, and is never upscaled to fill the shell — a
+   1000px guideline slide stays 1000px, and a 243px clearspace diagram is not
+   blown up to fill a grid cell. Ratio-pinned figures still fill and crop
+   (their box is the design), and videos keep their own sizing. */
+.case-page--contained .case-media--stack .case-figure:not(.case-figure--ratio) img,
+.case-page--contained .case-media--stack .case-figure:not(.case-figure--ratio) picture img,
+.case-page--contained .case-media--grid-2 .case-figure:not(.case-figure--ratio) img,
+.case-page--contained .case-media--grid-2 .case-figure:not(.case-figure--ratio) picture img,
+.case-page--contained .case-media--grid-3 .case-figure:not(.case-figure--ratio) img,
+.case-page--contained .case-media--grid-3 .case-figure:not(.case-figure--ratio) picture img,
+.case-page--contained .case-split__media .case-figure:not(.case-figure--ratio, .case-figure--reel) img,
+.case-page--contained .case-split__media .case-figure:not(.case-figure--ratio, .case-figure--reel) picture img {
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+}
 .case-media--stack .case-figure,
 .case-figure--bleed {
   width: 100%;
@@ -561,6 +662,30 @@ body.page-case-modular {
   max-width: none;
   margin-left: 0;
   transform: none;
+}
+
+/* ── Split sections (text left, media right) ─────────────────────────────── */
+.case-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .case-split {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(40px, 5vw, 80px);
+  }
+}
+.case-split__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.case-split__media {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 /* Below the grid breakpoint every figure is single-column, so grids and splits
    drop their gutters too and every figure runs edge to edge. */
@@ -620,6 +745,46 @@ body.page-case-modular {
   max-width: none;
 }
 
+/* Screen-smart vertical video reel container */
+.case-figure--reel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+}
+.case-reel-frame {
+  width: 100%;
+  max-width: 270px;
+  max-height: 480px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.16),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
+  background: #000;
+  aspect-ratio: 9 / 16;
+}
+.case-reel-frame .case-figure__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* A reel-shaped image (a phone screenshot with ratio 9/16 and kin) gets the
+   same phone frame as a reel video, at its own natural height. */
+.case-figure--reel img,
+.case-figure--reel picture img {
+  width: 100%;
+  max-width: 270px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.16),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
 /* The caption is text, so it returns to the text grid rather than trailing off
    at the viewport edge under a bled image. */
 .case-figure__caption {
@@ -659,13 +824,20 @@ body.page-case-modular {
 .lightbox[hidden] {
   display: none;
 }
+/*
+ * Much of the case artwork is exported with an alpha channel (11 of 13 on
+ * rajkamal alone), so without an opaque backing the transparent areas show
+ * the dark scrim through and a zoomed diagram reads as broken. White matches
+ * how the same asset sits inside .case-figure on the page; opaque photographs
+ * simply cover it.
+ */
 .lightbox img {
   max-width: 96vw;
   max-height: 92vh;
   object-fit: contain;
   border-radius: 4px;
-  background: transparent;
-  padding: 0;
+  background: #fff;
+  padding: 12px;
 }
 .lightbox__close {
   position: absolute;
@@ -1045,7 +1217,10 @@ body.page-case-modular {
   white-space: nowrap;
   font-family: var(--font-num);
   font-weight: 400;
-  font-size: clamp(52px, 6.5vw, 104px);
+  /* Sized so the longest figure in use ("₹1,502") still fits a four-across
+     column — at 6.5vw it overflowed its cell and collided with the next
+     stat's digits. */
+  font-size: clamp(44px, 5vw, 84px);
   line-height: 0.95;
   letter-spacing: -0.03em;
   color: var(--brand-text, var(--brand));

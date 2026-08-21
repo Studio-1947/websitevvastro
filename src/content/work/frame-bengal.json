@@ -1,0 +1,163 @@
+{
+  "title": "Frame Bengal: Data Storytelling for the Frame Fellowship | Studio 1947",
+  "description": "How Studio 1947 turned the Frame Fellowship's selection data — 34 candidates, 13 districts, mentors on three continents — into posters, candidate cards and a district map Bengal could share with pride.",
+  "ogTitle": "Frame Bengal: Fellowship Data Storytelling | Studio 1947",
+  "ogDescription": "Posters, candidate cards and a district map that turned fellowship selection data into a story worth sharing.",
+  "ogType": "article",
+  "mediaStyle": "contained",
+  "brand": "#0FA3B8",
+  "client": "Frame Bengal",
+  "location": "West Bengal",
+  "year": "2026",
+  "tags": [
+    "Data Visualization",
+    "Data Storytelling",
+    "Social Media"
+  ],
+  "solutions": [
+    "data-design-tech",
+    "communication-campaign"
+  ],
+  "active": true,
+  "hero": {
+    "src": "/assets/img/work/frame-bengal/logo.webp",
+    "alt": "The FRAME logo: a teal script F inside a charcoal frame, with a graduation cap resting on its corner",
+    "style": "logo",
+    "background": "light"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "<strong>Frame Bengal</strong> (<a href=\"https://framebengal.com\" target=\"_blank\" rel=\"noopener noreferrer\">framebengal.com</a>) mentors students at West Bengal's state-level public colleges and universities, connecting them one-to-one with researchers in academia and industry, and funding summer internships at institutions across India and beyond. The Frame Fellowship 2026 selected <strong>34 candidates</strong> from thirteen districts of Bengal — and placed them with project mentors in India, the USA, Germany and France.",
+        "Studio 1947 was asked to make that result public. Not as an announcement, but as a story: who these students are, where they come from, and how far the fellowship reaches."
+      ]
+    },
+    {
+      "heading": "The Brief: Make the Data Tell the Journey",
+      "divider": true
+    },
+    {
+      "divider": false,
+      "label": "The Challenge",
+      "body": [
+        "The raw material was a spreadsheet: 34 names, home districts, home colleges, host institutions. The work of the design was understanding that data deeply enough to find the story inside it — that a student from Bangabasi College is headed to the University of North Dakota, that Purulia and Cooch Behar are on the same map as Harvard and CNRS Montpellier.",
+        "Every design decision followed from one framing: the fellowship is not a list of winners, it is a set of journeys — from a district, through a public college, to a lab somewhere in the world."
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "num": "01",
+          "title": "Data Read Deeply",
+          "body": "Districts, colleges and host institutions studied until the pattern emerged: local roots, global reach."
+        },
+        {
+          "num": "02",
+          "title": "The Journey as the Unit",
+          "body": "Each candidate is drawn as a route — home college at the start, mentor institution at the arrow's end."
+        },
+        {
+          "num": "03",
+          "title": "Districts on the Map",
+          "body": "Jalpaiguri's one fellowship matters as much as Kolkata's seven, so every district is named and counted."
+        }
+      ]
+    },
+    {
+      "heading": "A Map of 34 Futures",
+      "label": "Data Visualization",
+      "layout": "split",
+      "backdrop": "/assets/img/work/frame-bengal/map-sketch.webp",
+      "body": [
+        "The anchor poster puts the whole fellowship on one glowing map of Bengal. Thirteen districts are labelled with their fellowship counts — seven in Kolkata, seven in South 24 Parganas, one each in Purulia, Jalpaiguri and Cooch Behar — while a header band tallies where the mentors work: 18 in India, 13 in the USA, 2 in Germany, 1 in France.",
+        "One image answers the three questions every reader brings: how many, from where, and going how far."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/frame-bengal/fellowship-map.webp",
+          "alt": "Frame Fellowship 2026 poster: district-by-district fellowship counts on a glowing map of West Bengal, with mentor affiliations across India, USA, Germany and France",
+          "caption": "The selection, in one poster: 34 candidates across thirteen districts, with mentors on three continents"
+        }
+      ]
+    },
+    {
+      "heading": "34 Journeys, Card by Card",
+      "label": "Candidate Cards",
+      "body": [
+        "A ten-page carousel introduces every fellow by name. Each card carries the same quiet diagram: a dotted route that starts at the candidate's home college and ends, at the arrowhead, at their host institution — Jadavpur University to IIT Gandhinagar, Ramakrishna Mission Residential College to CNRS Montpellier, Bidhannagar College to Harvard.",
+        "The glassmorphic cards sit over the district map, so even in a name-by-name listing, the geography of the fellowship never leaves the frame."
+      ],
+      "band": "#0B1D2C",
+      "layout": "row",
+      "media": [
+        {
+          "src": "/assets/img/work/frame-bengal/fan-01.webp",
+          "full": "/assets/img/work/frame-bengal/candidates-01.webp",
+          "alt": "Carousel page one: candidate cards for Adhiraj Saha, Pratyush Biswas, Swastik Sahoo and Arkaparno Das, each showing home college and host institution",
+          "maxWidth": 360
+        },
+        {
+          "src": "/assets/img/work/frame-bengal/fan-02.webp",
+          "full": "/assets/img/work/frame-bengal/candidates-02.webp",
+          "alt": "Carousel page two of Frame Fellowship candidate cards with home colleges and destination institutions",
+          "maxWidth": 360
+        },
+        {
+          "src": "/assets/img/work/frame-bengal/fan-03.webp",
+          "full": "/assets/img/work/frame-bengal/candidates-03.webp",
+          "alt": "Carousel page three of Frame Fellowship candidate cards over the glowing district map of Bengal",
+          "maxWidth": 360
+        },
+        {
+          "src": "/assets/img/work/frame-bengal/fan-04.webp",
+          "full": "/assets/img/work/frame-bengal/candidates-04.webp",
+          "alt": "Carousel page four: candidate cards for Somiddhya Banerjee, Pratik Majumdar, Prothoma Dutta and Rupam Nandy",
+          "maxWidth": 360
+        }
+      ]
+    },
+    {
+      "heading": "The Cards in Motion",
+      "label": "College Cards",
+      "layout": "split",
+      "body": [
+        "One card per fellow, all drawn to the same quiet grammar: a name, a district, and a dotted route that starts at a Bengal college and ends at the institution the fellowship leads to — with the host campus itself as the card's ground.",
+        "The repetition is the design. Because every card holds the same structure, what changes between them is exactly what matters: the names, and how far the routes reach."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/frame-bengal/college-cards.webm",
+          "alt": "Animated loop of Frame Fellowship candidate cards, each showing the journey from a Bengal college to a host institution abroad",
+          "caption": "The candidate cards, journey by journey",
+          "zoom": false,
+          "loop": true,
+          "maxWidth": 480
+        }
+      ]
+    },
+    {
+      "heading": "Client Impact & Outcomes",
+      "divider": true,
+      "label": "Measuring Success",
+      "layout": "grid-3",
+      "cards": [
+        {
+          "icon": "map",
+          "title": "Every district visible",
+          "body": "The map gives the whole state a stake in the fellowship — a single fellowship in Purulia reads as proudly as seven in Kolkata."
+        },
+        {
+          "icon": "growth",
+          "title": "Data made shareable",
+          "body": "A selection spreadsheet became posters and cards that candidates, colleges and districts could post as their own good news."
+        },
+        {
+          "icon": "star",
+          "title": "34 names, not a number",
+          "body": "Every fellow is introduced individually, with their college given equal billing to the institution they are headed to."
+        }
+      ]
+    }
+  ],
+  "credits": []
+}
