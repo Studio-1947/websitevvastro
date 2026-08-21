@@ -105,6 +105,24 @@ const caseSection = z.object({
           .string()
           .regex(/^\d+\/\d+$/)
           .optional(),
+        /**
+         * Cap this figure's rendered width (px), centred in its slot. Opt-in,
+         * per image — for assets that read best at a modest size (a tall
+         * social poster, a card loop) without shrinking the source file the
+         * lightbox zooms into. Absent → the layout's normal sizing.
+         */
+        maxWidth: z.number().int().positive().optional(),
+        /**
+         * Video figures only: play as a silent autoplaying loop (a moving
+         * image) instead of a framed player with controls.
+         */
+        loop: z.boolean().default(false),
+        /**
+         * Full-resolution source the lightbox zooms to, when the displayed
+         * file is a presentation variant (rotated, composited). Absent → the
+         * displayed file zooms as-is.
+         */
+        full: z.string().optional(),
       }),
     )
     .default([]),
@@ -201,7 +219,17 @@ const caseSection = z.object({
       }),
     )
     .default([]),
-  layout: z.enum(['stack', 'split', 'grid-2', 'grid-3']).default('stack'),
+  layout: z.enum(['stack', 'split', 'grid-2', 'grid-3', 'row']).default('stack'),
+  /**
+   * Opt-in, per section: paint this section's background edge to edge in the
+   * given colour and flip its type light. Absent → the page wash as usual.
+   */
+  band: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+  /**
+   * Opt-in, per section: an image floated huge and soft behind the section's
+   * content (partially visible, clipped by the section). Absent → nothing.
+   */
+  backdrop: z.string().optional(),
   /** 'none' butts this section's figures together with no gap between them. */
   gap: z.enum(['default', 'none']).default('default'),
   /** Photograph shown behind the swatch grid: the source of the palette. */
@@ -257,6 +285,14 @@ const work = defineCollection({
      * still missing and a placeholder would otherwise ship.
      */
     active: z.boolean().default(true),
+    /**
+     * How this case presents its stacked media: 'full' bleeds each figure
+     * edge to edge (the nest-homes treatment), 'contained' keeps figures
+     * inside the 1400px text shell — for cases whose screenshots and diagrams
+     * were not shot for a full-viewport stage. Grids and splits sit in the
+     * shell either way.
+     */
+    mediaStyle: z.enum(['full', 'contained']).default('full'),
     hero: z
       .object({
         src: z.string(),
