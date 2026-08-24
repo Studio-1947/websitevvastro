@@ -80,6 +80,9 @@ interface Props {
   divider?: boolean;
   /** First section after the hero: its media loads eagerly. */
   first?: boolean;
+  /** Opt-in: run this section's media edge-to-edge even on a
+      `mediaStyle: 'contained'` case. */
+  bleed?: boolean;
 }
 
 function swatchInk(hex: string): string {
@@ -112,6 +115,7 @@ const {
   swatchBackdrop,
   divider = true,
   first = false,
+  bleed = false,
 } = Astro.props;
 
 const SubheadingTag = subheading ? (heading ? 'h3': 'h2'): null;
@@ -127,6 +131,7 @@ const isSplit = layout === 'split';
     isSplit && 'case-section--split',
     band && 'case-section--band',
     backdrop && 'case-section--backdrop',
+    bleed && 'case-section--bleed',
   ]}
   style={band ? `--band: ${band}`: undefined}
 >
