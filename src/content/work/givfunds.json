@@ -1,0 +1,143 @@
+{
+  "title": "Givfunds: Social Media Storytelling for Financial Inclusion | Studio 1947",
+  "description": "How Studio 1947 turned Givfunds' work in grassroots financial literacy into a social media system of Exemplar Awards and awareness posters — built to be shared as a badge of honour, not just posted as a statistic.",
+  "ogTitle": "Givfunds: Financial Inclusion Storytelling | Studio 1947",
+  "ogDescription": "Exemplar Award posters and awareness statistics that made Givfunds' financial literacy mission shareable.",
+  "ogType": "article",
+  "mediaStyle": "contained",
+  "brand": "#BC0000",
+  "client": "Givfunds",
+  "location": "India",
+  "year": "2025",
+  "tags": [
+    "Social Media",
+    "Campaign Design",
+    "Capacity Building"
+  ],
+  "solutions": [
+    "communication-campaign"
+  ],
+  "active": true,
+  "hero": {
+    "src": "/assets/img/work/givfunds/logo.webp",
+    "alt": "The givfunds logo: a white lowercase wordmark with an infinity mark over the g and v, underlined, on brand red",
+    "style": "logo"
+  },
+  "sections": [
+    {
+      "divider": false,
+      "body": [
+        "<strong>Givfunds</strong> (<a href=\"https://givfunds.org\" target=\"_blank\" rel=\"noopener noreferrer\">givfunds.org</a>) works at the ground level of financial inclusion in India — funding the educators, community organisers and everyday changemakers who close the gap a spreadsheet of statistics never quite closes on its own.",
+        "This is one of Studio 1947's oldest working relationships: the design work began with our founder, Rabi, before Studio 1947 existed as a studio. What follows is part of that ongoing, pre-founding collaboration — a running social media system built one poster at a time."
+      ]
+    },
+    {
+      "heading": "The Brief: Two Kinds of Post, One Voice",
+      "divider": true
+    },
+    {
+      "divider": false,
+      "label": "The Challenge",
+      "body": [
+        "Givfunds needed its feed to do two different jobs without reading as two different accounts: honour the people doing the work of financial inclusion on the ground, and make the scale of the problem — a country where three in four adults aren't financially literate — land in a single scroll-past glance.",
+        "Recognition and statistics are opposite moods. One is warm and personal, the other is blunt and numeric. The brief was to hold both inside one red-and-white identity."
+      ],
+      "layout": "grid-3",
+      "cards": [
+        {
+          "num": "01",
+          "icon": "heart",
+          "title": "Recognition, Not a Certificate",
+          "body": "Exemplar Award posters built to feel like a share-worthy honour, not an official document nobody reposts."
+        },
+        {
+          "num": "02",
+          "icon": "chart",
+          "title": "Statistics With a Sting",
+          "body": "National-scale numbers on financial literacy, redrawn so the headline figure is the first and only thing you read."
+        },
+        {
+          "num": "03",
+          "icon": "spark",
+          "title": "One Identity, One Red",
+          "body": "Every post — portrait or pure typography — carries the same givfunds red, wordmark and globe-and-link header."
+        }
+      ]
+    },
+    {
+      "heading": "The Exemplar Awards",
+      "label": "Recognition Posters",
+      "layout": "grid-2",
+      "body": [
+        "Two of the people Givfunds' work touches: Varsha Patil, honoured for changing classrooms one student at a time, and Alamelu V, honoured for rebuilding her community's resilience after it broke. Each portrait sits on the brand red, framed in laurel, with a pull-quote in a light card at the base — built so the subject, not the logo, is the first thing anyone sees.",
+        "The template repeats deliberately: name, title, portrait, laurel, quote. Once, it reads as one story. As a running series, it reads as an award."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/givfunds/exemplar-varsha.webp",
+          "alt": "Givfunds Exemplar Award poster for Varsha Patil, Exemplar in Education, with a portrait framed in gold laurel on red and the quote 'Changing classrooms, one student at a time'",
+          "caption": "Varsha Patil, Exemplar in Education",
+          "ratio": "4/5"
+        },
+        {
+          "src": "/assets/img/work/givfunds/exemplar-alamelu.webp",
+          "alt": "Givfunds Exemplar Award poster for Alamelu V, Exemplar in Community Resilience, with a portrait framed in gold laurel on red and the quote 'When her community was broken, she built it back stronger'",
+          "caption": "Alamelu V, Exemplar in Community Resilience",
+          "ratio": "4/5"
+        }
+      ]
+    },
+    {
+      "heading": "Making the Numbers Land",
+      "label": "Awareness Statistics",
+      "layout": "grid-2",
+      "body": [
+        "Where the award posters slow down for one person, the statistic posters are built to be read in under two seconds. \"Only 27%\" and \"900 million\" are set at a scale nothing else on the page competes with — the rest of the sentence exists to give that number its context, not its emphasis.",
+        "The 900 million poster pushes the idea further: the word \"FINANCE\" is redrawn as its own rising trend line, so the missing subject of the sentence is also the graphic that explains why it matters."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/givfunds/stat-27-percent.webp",
+          "alt": "Givfunds awareness poster reading 'Only 27% of adults in India are financially literate, that's 1 out of 4', with a woman holding a chalkboard drawn with a rising bar chart",
+          "caption": "1 in 4: the literal reading of a financial literacy statistic",
+          "ratio": "4/5"
+        },
+        {
+          "src": "/assets/img/work/givfunds/stat-900-million.webp",
+          "alt": "Givfunds awareness poster reading '900 million are left behind by a language they were never taught: FINANCE', with the F drawn as a rising red trend-line arrow",
+          "caption": "The missing word doubles as the chart",
+          "ratio": "4/5"
+        }
+      ]
+    },
+    {
+      "heading": "Client Impact & Outcomes",
+      "divider": true,
+      "label": "Measuring Success",
+      "layout": "grid-3",
+      "cards": [
+        {
+          "icon": "users",
+          "title": "People, named and framed",
+          "body": "Exemplar Award posters give Givfunds' field partners a portrait worth sharing themselves, not just a client sharing about them."
+        },
+        {
+          "icon": "book",
+          "title": "A statistic you don't scroll past",
+          "body": "National financial-literacy numbers redrawn to read in one glance, so the scale of the problem survives the scroll."
+        },
+        {
+          "icon": "star",
+          "title": "A relationship older than the studio",
+          "body": "One of the longest-running collaborations Studio 1947 carries forward — design work that began before the studio had a name."
+        }
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Design",
+      "members": "Rabi"
+    }
+  ]
+}

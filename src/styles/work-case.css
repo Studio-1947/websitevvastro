@@ -291,6 +291,24 @@ body.page-case-modular {
   width: 100%;
   height: auto;
 }
+/* Opt-in per-section override: run this section's media edge-to-edge even on
+   a `mediaStyle: 'contained'` case (per-case JSON section flag: `bleed`). */
+.case-section.case-section--bleed > .case-media--row {
+  max-width: none;
+  padding-inline: 0;
+}
+/* On large screens a bled row grows its figures to fill the full viewport
+   width in one line; below that they fall back to shrink-to-fit so the fan
+   doesn't get squeezed into slivers on small screens. */
+@media (min-width: 1024px) {
+  .case-section.case-section--bleed > .case-media--row .case-figure {
+    flex: 1 1 0;
+  }
+}
+/* A bled row butts its figures flush, edge to edge, with no fan overlap. */
+.case-section.case-section--bleed > .case-media--row .case-figure + .case-figure {
+  margin-left: 0;
+}
 
 .case-section__heading {
   font-family: var(--font-display);

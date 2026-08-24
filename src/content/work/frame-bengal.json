@@ -89,30 +89,23 @@
       ],
       "band": "#0B1D2C",
       "layout": "row",
+      "bleed": true,
       "media": [
         {
-          "src": "/assets/img/work/frame-bengal/fan-01.webp",
-          "full": "/assets/img/work/frame-bengal/candidates-01.webp",
-          "alt": "Carousel page one: candidate cards for Adhiraj Saha, Pratyush Biswas, Swastik Sahoo and Arkaparno Das, each showing home college and host institution",
-          "maxWidth": 360
+          "src": "/assets/img/work/frame-bengal/candidates-01.webp",
+          "alt": "Carousel page one: candidate cards for Adhiraj Saha, Pratyush Biswas, Swastik Sahoo and Arkaparno Das, each showing home college and host institution"
         },
         {
-          "src": "/assets/img/work/frame-bengal/fan-02.webp",
-          "full": "/assets/img/work/frame-bengal/candidates-02.webp",
-          "alt": "Carousel page two of Frame Fellowship candidate cards with home colleges and destination institutions",
-          "maxWidth": 360
+          "src": "/assets/img/work/frame-bengal/candidates-02.webp",
+          "alt": "Carousel page two of Frame Fellowship candidate cards with home colleges and destination institutions"
         },
         {
-          "src": "/assets/img/work/frame-bengal/fan-03.webp",
-          "full": "/assets/img/work/frame-bengal/candidates-03.webp",
-          "alt": "Carousel page three of Frame Fellowship candidate cards over the glowing district map of Bengal",
-          "maxWidth": 360
+          "src": "/assets/img/work/frame-bengal/candidates-03.webp",
+          "alt": "Carousel page three of Frame Fellowship candidate cards over the glowing district map of Bengal"
         },
         {
-          "src": "/assets/img/work/frame-bengal/fan-04.webp",
-          "full": "/assets/img/work/frame-bengal/candidates-04.webp",
-          "alt": "Carousel page four: candidate cards for Somiddhya Banerjee, Pratik Majumdar, Prothoma Dutta and Rupam Nandy",
-          "maxWidth": 360
+          "src": "/assets/img/work/frame-bengal/candidates-04.webp",
+          "alt": "Carousel page four: candidate cards for Somiddhya Banerjee, Pratik Majumdar, Prothoma Dutta and Rupam Nandy"
         }
       ]
     },

@@ -236,6 +236,11 @@ const caseSection = z.object({
   swatchBackdrop: z.string().optional(),
   /** Draw the hairline divider above this section. Default true. */
   divider: z.boolean().default(true),
+  /**
+   * Opt-in, per section: run this section's media edge-to-edge even on a
+   * `mediaStyle: 'contained'` case. Absent → the page's mediaStyle applies as usual.
+   */
+  bleed: z.boolean().default(false),
 });
 
 /**
