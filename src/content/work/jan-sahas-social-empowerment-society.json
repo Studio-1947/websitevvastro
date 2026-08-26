@@ -121,6 +121,21 @@
       ]
     },
     {
+      "heading": "The Platform in Motion",
+      "label": "Live Walkthrough",
+      "layout": "stack",
+      "body": [
+        "The homepage and its mobile counterpart, scrolling in sync, over a portrait of the JSSES team the platform was built to represent."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/jan-sahas-social-empowerment-society/platform-walkthrough.webp",
+          "alt": "Screen recording of the JSSES platform homepage scrolling on laptop and mobile mockups, over a photo of the JSSES team",
+          "zoom": false
+        }
+      ]
+    },
+    {
       "heading": "A Walk Through the Platform",
       "divider": true,
       "label": "Page-by-Page",

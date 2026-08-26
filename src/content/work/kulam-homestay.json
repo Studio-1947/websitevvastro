@@ -109,19 +109,17 @@
       ],
       "media": [
         {
-          "src": "/assets/img/work/kulam-homestay/mobile-only-responsive.gif",
+          "src": "/assets/img/work/kulam-homestay/mobile-only-responsive.mp4",
           "alt": "Mobile view interactive scrolling experience for Kulam Homestay",
           "caption": "Mobile UX: Smooth scrolling interface optimized for handheld devices",
           "zoom": false,
-          "pad": true,
           "loop": true
         },
         {
-          "src": "/assets/img/work/kulam-homestay/responsive-gif.gif",
+          "src": "/assets/img/work/kulam-homestay/responsive-gif.mp4",
           "alt": "Responsive layout demonstration across screen breakpoints for Kulam Homestay",
           "caption": "Responsive Design: Fluid adaptive layout across mobile, tablet, and desktop viewports",
           "zoom": false,
-          "pad": true,
           "loop": true
         }
       ]
@@ -140,7 +138,6 @@
           "alt": "Kulam Homestay client feedback video reel",
           "caption": "Client Feedback Reel: Authentic host testimonial video from Kulam Homestay in Mirik",
           "zoom": false,
-          "pad": true,
           "ratio": "9/16"
         }
       ]

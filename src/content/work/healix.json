@@ -1,97 +1,73 @@
 {
-  "mediaStyle": "contained",
-  "title": "Healix: Branding for Rural Healthcare | Studio 1947",
-  "description": "Healix case study: Studio 1947 crafted a trustworthy, progressive brand identity for a community-centric rural healthcare initiative in Baruipur, India.",
-  "ogTitle": "Healix: Branding for Rural Healthcare | Studio 1947",
-  "ogDescription": "A cohesive brand identity built on trust, innovation and accessibility for rural healthcare.",
+  "title": "Healix: Brand Identity for a Pharmacy | Studio 1947",
+  "description": "Studio 1947 designed the brand identity for Healix, a Kolkata pharmacy — a wordmark built from a medical cross and capsule shapes, carried across logo, collateral and a motion mark.",
+  "ogTitle": "Healix: Pharmacy Brand Identity | Studio 1947",
+  "ogDescription": "Logo, wordmark and brand collateral for Healix, a Kolkata pharmacy.",
   "ogType": "article",
-  "brand": "#e60000",
-  "client": "Healix",
-  "location": "Baruipur, India",
+  "mediaStyle": "contained",
+  "brand": "#7700D9",
+  "client": "MG Healix Pvt. Ltd.",
+  "location": "Kolkata, India",
   "year": "2026",
   "tags": [
-    "Creators",
     "Branding",
-    "Brand Identity"
+    "Brand Identity",
+    "Pharmacy"
   ],
+  "solutions": [
+    "communication-campaign"
+  ],
+  "active": true,
   "hero": {
-    "src": "/assets/img/work/healix/cae547e4969f4e97ad4bc0472fd64435.webp",
-    "alt": "Misty forested hillside evoking Healix's community-rooted rural healthcare mission"
+    "src": "/assets/img/work/healix/logo-mark.svg",
+    "alt": "The Healix wordmark: a medical cross forming the H, in white, on brand purple",
+    "style": "logo"
   },
   "sections": [
     {
       "divider": false,
-      "label": "Introduction",
-      "heading": "Bridging the healthcare divide in rural India.",
       "body": [
-        "Healix is a forward-thinking healthcare initiative focused on improving medical access in rural India. With community-centric solutions, Healix is addressing healthcare gaps in underserved villages and preparing to launch a nursing home to deliver comprehensive, affordable care to these communities."
+        "Healix is a pharmacy in Kolkata. Studio 1947 designed its brand identity: a wordmark that draws its H from a medical cross, carried across a single brand purple."
       ]
     },
     {
-      "label": "The Objective",
-      "heading": "A brand built on trust, innovation and access.",
-      "body": [
-        "Healix sought a cohesive brand identity that embodies trust, innovation, and accessibility while aligning with its mission to bridge the healthcare divide in rural India."
-      ]
-    },
-    {
-      "label": "Our Process",
-      "heading": "From values to a consistent visual identity.",
+      "label": "Identity",
       "layout": "grid-3",
-      "cards": [
-        {
-          "num": "01",
-          "title": "Client Collaboration",
-          "body": "We began by understanding Healix's values and aspirations, ensuring the design reflected their goals and community-driven ethos."
-        },
-        {
-          "num": "02",
-          "title": "Logo Design",
-          "body": "A clean, modern logo symbolizing trust, healing, and inclusivity became the centerpiece of their identity."
-        },
-        {
-          "num": "03",
-          "title": "Visiting Card Design",
-          "body": "We extended this identity into a professional, well-designed visiting card to reinforce brand consistency."
-        }
-      ]
-    },
-    {
-      "divider": false,
       "media": [
         {
-          "src": "/assets/img/work/healix/55d98a_3287270d83ef4efabfdd1f52d0dc6ec2.webp",
-          "alt": "Warm, open landscape reflecting Healix's progressive, forward-looking brand direction"
+          "src": "/assets/img/work/healix/brand-on-photo.webp",
+          "alt": "The Healix wordmark set over a purple-duotone portrait, logo on colour background"
+        },
+        {
+          "src": "/assets/img/work/healix/kolkata-poster.webp",
+          "alt": "Healix brand poster: an oversized H behind a duotone portrait, reading 'MG Healix Kolkata. Where Healing Begins.'"
+        },
+        {
+          "src": "/assets/img/work/healix/logo-exploration.webp",
+          "alt": "Healix logo exploration: capsule-and-cross mark variants alongside the MG Healix Pvt. Ltd. lockup"
         }
       ]
     },
     {
-      "label": "The Result",
-      "heading": "A trustworthy, progressive image.",
-      "body": [
-        "Our designs encapsulate Healix's dedication to rural healthcare and future growth. The logo and collateral establish a trustworthy and progressive image, empowering Healix to make a deeper impact while expanding operations."
-      ]
-    },
-    {
-      "label": "Client Impact",
-      "heading": "With a refined visual identity, Healix can now:",
-      "list": [
-        "Enhance trust among rural communities and stakeholders.",
-        "Communicate their mission visually and effectively.",
-        "Expand their presence with a professional brand foundation."
-      ]
-    },
-    {
-      "label": "Why Studio 1947?",
-      "heading": "We transform visions into impactful designs.",
-      "body": [
-        "At Studio 1947, we transform visions into impactful designs. Our collaboration with Healix highlights our commitment to crafting meaningful, professional brand identities that resonate with purpose and inspire growth."
+      "label": "Motion Mark",
+      "layout": "stack",
+      "media": [
+        {
+          "src": "/assets/img/work/healix/logo-animation.mp4",
+          "alt": "The Healix logo animating into its final wordmark",
+          "loop": true
+        }
       ]
     }
   ],
-  "solutions": [
-    "capacity-building",
-    "data-design-tech"
-  ],
-  "active": false
+  "credits": [
+    {
+      "role": "Branding",
+      "members": "Rabi"
+    },
+    {
+      "role": "Animation",
+      "members": "Nikhil Rai"
+    }
+  ]
 }
