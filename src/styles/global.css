@@ -373,13 +373,10 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .commit__card {
   background: rgba(230,0,0,.06); border-radius: var(--radius-lg);
   padding: clamp(24px, 2.4vw, 40px);
-  display: grid; grid-template-columns: 1fr auto;
-  grid-template-areas: "title nav" "body body";
+  display: grid; grid-template-columns: 1fr;
+  grid-template-areas: "title" "body";
   gap: clamp(26px, 4vw, 56px) 20px; align-content: start;
 }
-.commit__nav { grid-area: nav; display: flex; gap: 12px; }
-.commit__nav button { width: 40px; height: 40px; border: 1px solid var(--grey-300); border-radius: 50%; display: grid; place-items: center; color: var(--grey-900); transition: background .3s, color .3s, border-color .3s; }
-.commit__nav button:hover { background: var(--red); color: #fff; border-color: var(--red); }
 .commit__slides { display: contents; }
 .commit__title { grid-area: title; align-self: start; font-size: clamp(24px, 2.2vw, 34px); color: var(--grey-900); letter-spacing: -0.02em; }
 .commit__body { grid-area: body; color: var(--grey-700); font-size: clamp(15px, 1.1vw, 17px); max-width: 46ch; }
