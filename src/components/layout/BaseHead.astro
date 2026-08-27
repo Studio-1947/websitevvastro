@@ -36,6 +36,16 @@ const fontsHref = fontHref;
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<!-- Google tag (gtag.js) -->
+<script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-Q1S9K42RXD"></script>
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q1S9K42RXD');
+</script>
+
 <title>{title}</title>
 <meta name="description" content={description} />
 {/* Pages that build and resolve by URL but are not ready to be found. */}
