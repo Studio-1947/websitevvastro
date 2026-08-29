@@ -72,13 +72,13 @@
       "layout": "grid-3",
       "media": [
         {
-          "src": "/assets/img/work/walking-project/campaign-azadi-yellow.webp",
-          "alt": "Marigold campaign poster: an elderly woman in a pink suit walks across the Mumbai skyline under the question 'Chalne ki azadi hai kya?'",
+          "src": "/assets/img/work/walking-project/campaign-azadi-red-girl.webp",
+          "alt": "Red campaign poster: a schoolgirl with a yellow backpack walks beneath the hand-lettered question 'Chalne ki azadi hai kya?'",
           "ratio": "4/5"
         },
         {
-          "src": "/assets/img/work/walking-project/campaign-azadi-red-girl.webp",
-          "alt": "Red campaign poster: a schoolgirl with a yellow backpack walks beneath the hand-lettered question 'Chalne ki azadi hai kya?'",
+          "src": "/assets/img/work/walking-project/campaign-azadi-yellow.webp",
+          "alt": "Marigold campaign poster: an elderly woman in a pink suit walks across the Mumbai skyline under the question 'Chalne ki azadi hai kya?'",
           "ratio": "4/5"
         },
         {
@@ -98,11 +98,6 @@
       ],
       "layout": "grid-2",
       "media": [
-        {
-          "src": "/assets/img/work/walking-project/stat-46-blue.webp",
-          "alt": "Blue social media post with a giant 46% in Devanagari numerals asking in Marathi whether Mumbai's footpaths are safe",
-          "ratio": "4/5"
-        },
         {
           "src": "/assets/img/work/walking-project/stat-46-red.webp",
           "alt": "Red variant of the 46% Marathi statistic post",

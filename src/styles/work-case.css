@@ -46,71 +46,77 @@ body.page-case-modular {
     height: 80vh;
   }
 }
-/* Scrim so the wordmark stays legible over any photograph. Cases that carry
-   a `scrim` colour override this with a flat brand tint (--case-scrim, set on
-   the hero); the default is a black gradient, darkest at the base where the
-   title sits. */
+/* A case may tint its cover with its brand colour (`hero.scrim`, set as
+   --case-scrim on the hero). With nothing overlaid on the image there is no
+   default scrim any more. */
 .case-hero__scrim {
   position: absolute;
   inset: 0;
-  background: var(
-    --case-scrim,
-    linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.8),
-      rgba(0, 0, 0, 0.2) 45%,
-      transparent
-    )
-  );
+  background: var(--case-scrim, transparent);
   pointer-events: none;
 }
-.case-hero__body {
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  padding: 0 var(--gutter) clamp(28px, 4vw, 56px);
+
+/* ── Heading block ────────────────────────────────────────────────────────
+ * Tags, title and location · year sit under the cover, in ink on the page
+ * background, on the same left edge as the rest of the case. */
+.case-heading {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: clamp(28px, 4vw, 56px) var(--gutter) clamp(8px, 1.5vw, 20px);
 }
-.case-hero__tags {
+.case-heading__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: clamp(16px, 2vw, 24px);
 }
+/* The portfolio card's pill: same red on the same blush, so a case and its
+   card read as one thing. */
 .case-tag {
   display: inline-flex;
   align-items: center;
-  padding: 6px 16px;
+  padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: #fff5f5;
+  border: 1px solid #f2c9c9;
+  color: color-mix(in srgb, var(--red) 88%, #000);
   font-family: var(--font-body);
-  font-size: clamp(12px, 0.9vw, 14px);
-  letter-spacing: 0.02em;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.01em;
 }
 /* Site theme: Syne 400, not the source's font-black. Size carries the weight. */
-.case-hero__title {
+.case-heading__title {
   font-family: var(--font-display);
   font-weight: 400;
-  color: #fff;
-  font-size: clamp(44px, 8vw, 118px);
+  color: var(--grey-900);
+  font-size: clamp(40px, 6.5vw, 96px);
   line-height: 0.98;
   letter-spacing: -0.02em;
 }
+.case-heading__meta {
+  margin-top: clamp(12px, 1.4vw, 20px);
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.05vw, 17px);
+  color: var(--grey-500);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.case-heading__dot {
+  opacity: 0.5;
+}
 
 /* ── Hero: logo variant ───────────────────────────────────────────────────── */
-/* Brand lockups are contained on a tinted panel and the title sits below, in
-   ink rather than white — a scrim over a light logo just muddies it. */
-/* --brand-fill is the brand (or a hair-darkened twin for mid-tone brands)
-   that lets --brand-ink clear 4.5:1 — see CaseLayout. */
+/* Brand lockups are contained on a tinted panel. --brand-fill is the brand
+   (or a hair-darkened twin for mid-tone brands) — see CaseLayout. */
 .case-hero--logo {
   background: var(--brand-fill, var(--brand));
   padding-top: 96px;
 }
 /* Clean light panel for logo lockups that read muddy against their own fill
-   (hero.background: 'light' — e.g. FIH's dark-ink lockup on its amber fill).
-   Ink/title/meta already derive from --brand-ink, so only the panel changes. */
+   (hero.background: 'light' — e.g. FIH's dark-ink lockup on its amber fill). */
 .case-hero--logo.case-hero--light {
   background: var(--bg);
 }
@@ -118,27 +124,6 @@ body.page-case-modular {
   height: clamp(200px, 30vw, 360px);
   object-fit: contain;
   padding: clamp(20px, 4vw, 56px) var(--gutter);
-}
-.case-hero--logo .case-hero__body {
-  position: static;
-  padding: 0 var(--gutter) clamp(24px, 3vw, 44px);
-}
-/* --brand-ink is contrast-picked per brand (white for dark brands, near-black
-   for light ones) — white on a light brand fails WCAG AA. */
-.case-hero--logo .case-hero__title {
-  color: var(--brand-ink, #fff);
-}
-/* The tag chip must not lighten the fill: a translucent-white wash raises
-   the surface luminance and drags white ink under 4.5:1 on mid-tone brands
-   (green #5b965b → 3.5:1, orange #d44f28 → 4.2:1). A translucent-black wash
-   instead darkens the chip, which improves contrast for both inks — white on
-   dark fills and near-black on light ones — while keeping the chip distinct
-   from the fill. The border mirrors the ink so it reads on light fills too. */
-.case-hero--logo .case-tag {
-  background: color-mix(in srgb, var(--brand-fill, var(--brand)) 78%, #000);
-  border-color: color-mix(in srgb, var(--brand-ink, #fff) 35%, transparent);
-  color: var(--brand-ink, #fff);
-  backdrop-filter: none;
 }
 
 /* Back control. The source floated a red circle over the hero; that collides
@@ -1191,27 +1176,6 @@ body.page-case-modular {
   .case-figure--zoom:hover img {
     transform: none;
   }
-}
-
-/* Hero meta (location · year) — legacy case studies carry these facts in a
-   meta row; the React-sourced pages simply omit them. */
-.case-hero__meta {
-  margin-top: clamp(12px, 1.4vw, 20px);
-  font-family: var(--font-body);
-  font-size: clamp(14px, 1.05vw, 17px);
-  color: rgba(255, 255, 255, 0.75);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-/* Full-strength ink: 0.85 opacity blends white toward mid-tone brands and
-   can drop under 4.5:1 (e.g. green #3E843E → ~3.8:1). */
-.case-hero--logo .case-hero__meta {
-  color: var(--brand-ink, var(--grey-500));
-}
-.case-hero__dot {
-  opacity: 0.5;
 }
 
 /* ── Number band ──────────────────────────────────────────────────────────

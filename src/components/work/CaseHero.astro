@@ -1,11 +1,14 @@
 ---
 /**
- * Case hero, in two variants:
+ * Case hero: the cover image, then a heading block below it.
  *
- *  photo: full-bleed image, dark scrim, tags + title overlaid in white.
- *  logo: brand lockup contained on a tinted panel, title set below it. Some
- *          brands supply a logo rather than a photograph; scrimming one of
- *          those produces muddy grey and duplicates the wordmark.
+ *  photo: full-bleed image (or film). Nothing is overlaid, so it carries no
+ *          scrim unless the case sets a brand `scrim` tint.
+ *  logo: brand lockup contained on a tinted panel. Some brands supply a logo
+ *          rather than a photograph.
+ *
+ * Tags, the title and the location/year meta sit under the cover in ink, on
+ * the page background, for both variants.
  *
  * Per the theme decision the title renders in Syne 400 (not the source's
  * font-black Bricolage) and lets size carry the emphasis.
@@ -70,30 +73,30 @@ const scrimStyle = scrim ? { '--case-scrim': `${scrim}${alphaHex}` }: undefined;
       <img class="case-hero__img" src={src} alt={alt} loading="eager" decoding="async" fetchpriority="high" />
     )
   }
-  {!isLogo && <div class="case-hero__scrim"></div>}
+  {!isLogo && scrim && <div class="case-hero__scrim"></div>}
+</div>
 
-  <div class="case-hero__body">
-    {
-      tags.length > 0 && (
-        <div class="case-hero__tags">
-          {tags.map((t) => (
-            <span class="case-tag">{t}</span>
-          ))}
-        </div>
-      )
-    }
-    <h1 class="case-hero__title" set:html={title} />
-    {
-      meta.length > 0 && (
-        <p class="case-hero__meta">
-          {meta.map((m, i) => (
-            <>
-              {i > 0 && <span class="case-hero__dot" aria-hidden="true">·</span>}
-              <span>{m}</span>
-            </>
-          ))}
-        </p>
-      )
-    }
-  </div>
+<div class="case-heading">
+  {
+    tags.length > 0 && (
+      <div class="case-heading__tags">
+        {tags.map((t) => (
+          <span class="case-tag">{t}</span>
+        ))}
+      </div>
+    )
+  }
+  <h1 class="case-heading__title" set:html={title} />
+  {
+    meta.length > 0 && (
+      <p class="case-heading__meta">
+        {meta.map((m, i) => (
+          <>
+            {i > 0 && <span class="case-heading__dot" aria-hidden="true">·</span>}
+            <span>{m}</span>
+          </>
+        ))}
+      </p>
+    )
+  }
 </div>
