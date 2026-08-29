@@ -7,10 +7,10 @@
  *  logo: brand lockup contained on a tinted panel. Some brands supply a logo
  *          rather than a photograph.
  *
- * The cover is one fixed height for every case. Tags sit on top of the cover;
- * the title straddles its bottom edge, half on the cover and half on the page,
- * set in a box painted with the case's contrast-checked brand colours. Meta
- * and the live-project button follow underneath.
+ * The cover is one fixed height for every case. The title straddles its
+ * bottom edge, half on the cover and half on the page, set in a box painted
+ * with the case's contrast-checked brand colours. Tags, place · date and the
+ * live-project button follow underneath.
  *
  * Per the theme decision the title renders in Syne 400 (not the source's
  * font-black Bricolage) and lets size carry the emphasis.
@@ -78,19 +78,19 @@ const scrimStyle = scrim ? { '--case-scrim': `${scrim}${alphaHex}` }: undefined;
     )
   }
   {!isLogo && scrim && <div class="case-hero__scrim"></div>}
+</div>
+
+<div class="case-heading">
+  <h1 class="case-heading__title"><span class="case-heading__box" set:html={title} /></h1>
   {
     tags.length > 0 && (
-      <div class="case-hero__tags">
+      <div class="case-heading__tags">
         {tags.map((t) => (
           <span class="case-tag">{t}</span>
         ))}
       </div>
     )
   }
-</div>
-
-<div class="case-heading">
-  <h1 class="case-heading__title"><span class="case-heading__box" set:html={title} /></h1>
   {
     meta.length > 0 && (
       <p class="case-heading__meta">

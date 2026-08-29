@@ -32,7 +32,7 @@
     },
     {
       "label": "Identity",
-      "layout": "grid-3",
+      "layout": "grid-2",
       "media": [
         {
           "src": "/assets/img/work/healix/brand-on-photo.webp",
@@ -41,10 +41,6 @@
         {
           "src": "/assets/img/work/healix/kolkata-poster.webp",
           "alt": "Healix brand poster: an oversized H behind a duotone portrait, reading 'MG Healix Kolkata. Where Healing Begins.'"
-        },
-        {
-          "src": "/assets/img/work/healix/logo-exploration.webp",
-          "alt": "Healix logo exploration: capsule-and-cross mark variants alongside the MG Healix Pvt. Ltd. lockup"
         }
       ]
     },

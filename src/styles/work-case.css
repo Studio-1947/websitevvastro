@@ -62,24 +62,14 @@ body.page-case-modular {
   background: var(--case-scrim, transparent);
   pointer-events: none;
 }
-/* Tags pin to the top of the cover, under the floating header. */
-.case-hero__tags {
-  position: absolute;
-  top: 112px;
-  left: var(--gutter);
-  right: var(--gutter);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-/* The portfolio card's pill, so a case and its card read as one thing. Solid
-   white so it stays legible over any cover. */
+/* The portfolio card's pill, exactly: same blush, border and red, so a case
+   and its card read as one thing. */
 .case-tag {
   display: inline-flex;
   align-items: center;
   padding: 6px 12px;
   border-radius: 999px;
-  background: #fff;
+  background: #fff5f5;
   border: 1px solid #f2c9c9;
   color: color-mix(in srgb, var(--red) 88%, #000);
   font-family: var(--font-body);
@@ -124,8 +114,14 @@ body.page-case-modular {
   background: var(--brand-ink, #fff);
   color: var(--brand-fill, var(--grey-900));
 }
+.case-heading__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: clamp(14px, 1.6vw, 20px);
+}
 .case-heading__meta {
-  margin-top: clamp(16px, 1.8vw, 24px);
+  margin-top: clamp(12px, 1.4vw, 18px);
   font-family: var(--font-body);
   font-size: clamp(14px, 1.05vw, 17px);
   color: var(--grey-500);
@@ -205,9 +201,6 @@ body.page-case-modular {
   padding: 150px var(--gutter) clamp(44px, 6vw, 72px);
 }
 @media (max-width: 767px) {
-  .case-hero__tags {
-    top: 92px;
-  }
   .case-hero--logo .case-hero__img {
     padding-top: 128px;
   }
