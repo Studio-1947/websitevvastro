@@ -107,6 +107,56 @@ body.page-case-modular {
 .case-heading__dot {
   opacity: 0.5;
 }
+/* "View Live Project": the one action on the page, so it is the site's red
+   pill at full strength, sized to be found without looking for it. */
+.case-heading__cta {
+  margin-top: clamp(24px, 3vw, 40px);
+}
+.case-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 14px 14px 28px;
+  border-radius: 999px;
+  background: var(--red);
+  border: 1px solid var(--red);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: clamp(16px, 1.2vw, 18px);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    color 0.35s var(--ease),
+    transform 0.35s var(--ease);
+}
+.case-live__arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: var(--red);
+  transition:
+    transform 0.35s var(--ease),
+    background 0.35s var(--ease),
+    color 0.35s var(--ease);
+}
+.case-live:hover {
+  background: var(--grey-900);
+  border-color: var(--grey-900);
+  transform: translateY(-2px);
+}
+.case-live:hover .case-live__arrow {
+  color: var(--grey-900);
+  transform: translate(2px, -2px);
+}
+.case-live:focus-visible {
+  outline: 2px solid var(--grey-900);
+  outline-offset: 3px;
+}
 
 /* ── Hero: logo variant ───────────────────────────────────────────────────── */
 /* Brand lockups are contained on a tinted panel. --brand-fill is the brand

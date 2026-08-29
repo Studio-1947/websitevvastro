@@ -45,7 +45,7 @@ interface Props {
   slug?: string;
 }
 const { data, jsonLd = [], slug } = Astro.props;
-const { brand, hero, sections = [], credits = [], client, tags = [], title, location, year, coordinator, active = true, mediaStyle = 'full' } = data;
+const { brand, hero, sections = [], credits = [], client, tags = [], title, location, year, coordinator, active = true, mediaStyle = 'full', liveUrl } = data;
 
 // Hero headline: the <h1> text, independent of the SEO <title>.
 const headline = client ?? title;
@@ -183,6 +183,7 @@ if (brand) {
           background={hero.background}
           location={location}
           year={year}
+          liveUrl={liveUrl}
         />
       )
     }

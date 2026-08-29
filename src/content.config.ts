@@ -342,6 +342,12 @@ const work = defineCollection({
     coordinator: z
       .object({ name: z.string(), role: z.string().optional() })
       .optional(),
+    /**
+     * The shipped product, if it is public: the site, app or campaign page.
+     * Renders a "View Live Project" button under the case heading. Absent →
+     * no button (print work, internal tools, sites no longer up).
+     */
+    liveUrl: z.string().url().optional(),
 
   }),
 });

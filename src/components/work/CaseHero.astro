@@ -38,8 +38,10 @@ interface Props {
   year?: string;
   /** Still frame shown while a video hero loads (and if it cannot play). */
   poster?: string;
+  /** The shipped product's public URL; renders the "View Live Project" button. */
+  liveUrl?: string;
 }
-const { src, alt, title, tags = [], style = 'photo', scrim, scrimOpacity, background, location, year, poster } = Astro.props;
+const { src, alt, title, tags = [], style = 'photo', scrim, scrimOpacity, background, location, year, poster, liveUrl } = Astro.props;
 // A hero can be a film rather than a photograph. It plays muted, loops and
 // carries no controls, so it behaves like a moving still: the poster paints
 // first, and a browser that blocks autoplay simply keeps showing it.
@@ -97,6 +99,20 @@ const scrimStyle = scrim ? { '--case-scrim': `${scrim}${alphaHex}` }: undefined;
           </>
         ))}
       </p>
+    )
+  }
+  {
+    liveUrl && (
+      <div class="case-heading__cta">
+        <a class="case-live" href={liveUrl} target="_blank" rel="noopener noreferrer">
+          View Live Project
+          <span class="case-live__arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M8 7h9v9" />
+            </svg>
+          </span>
+        </a>
+      </div>
     )
   }
 </div>
