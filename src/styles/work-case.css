@@ -54,112 +54,114 @@ body.page-case-modular {
   object-fit: cover;
   display: block;
 }
-/* A case may tint its cover with its brand colour (`hero.scrim`, set as
-   --case-scrim on the hero). There is no default scrim. */
+/* Photo covers carry a soft gradient at the base so the white title reads
+   over any picture. A case may replace it with a flat brand tint
+   (`hero.scrim`, set as --case-scrim on the hero). */
 .case-hero__scrim {
   position: absolute;
   inset: 0;
-  background: var(--case-scrim, transparent);
+  background: var(
+    --case-scrim,
+    linear-gradient(to top, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.18) 45%, transparent 70%)
+  );
   pointer-events: none;
 }
-/* The portfolio card's pill, exactly: same blush, border and red, so a case
-   and its card read as one thing. */
+/* Title, tags and place / date stack bottom-left inside the cover, on the
+   same 1400px shell as the text below. */
+.case-hero__stack {
+  position: absolute;
+  z-index: 1;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: clamp(24px, 3.5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+@media (min-width: 1400px) {
+  .case-hero__stack {
+    left: calc((100% - 1400px) / 2 + var(--gutter));
+    right: calc((100% - 1400px) / 2 + var(--gutter));
+  }
+}
+/* The title: Google Sans Flex (the case page's display face), large, white
+   over photo covers. */
+.case-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(44px, 7.2vw, 112px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+}
+/* On a brand-fill logo panel the title takes the brand's contrast ink; on a
+   light panel it is plain ink. */
+.case-hero--logo .case-hero__title {
+  color: var(--brand-ink, #fff);
+  text-shadow: none;
+}
+.case-hero--logo.case-hero--light .case-hero__title {
+  color: var(--grey-900);
+}
+.case-hero__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+/* Tags carry the case's own theme: a light pill tinted with the brand fill,
+   the brand's contrast-checked text colour (--brand-text, see CaseLayout)
+   and a brand edge. Cases without a brand fall back to the site red. */
 .case-tag {
   display: inline-flex;
   align-items: center;
   padding: 6px 12px;
   border-radius: 999px;
-  background: #fff5f5;
-  border: 1px solid #f2c9c9;
-  color: color-mix(in srgb, var(--red) 88%, #000);
+  background: color-mix(in srgb, var(--brand-fill, var(--red)) 14%, #fff);
+  border: 1px solid color-mix(in srgb, var(--brand-fill, var(--red)) 45%, transparent);
+  color: var(--brand-text, color-mix(in srgb, var(--red) 88%, #000));
   font-family: var(--font-body);
   font-size: 13px;
   line-height: 1;
   letter-spacing: 0.01em;
 }
-
-/* The title sits inside the cover, bottom-left, in a frosted pane painted
-   with the case's brand fill and its contrast-checked ink (see CaseLayout),
-   so the text clears 4.5:1 over the cover. */
-.case-hero__title {
-  position: absolute;
-  left: var(--gutter);
-  right: var(--gutter);
-  bottom: clamp(24px, 3.5vw, 48px);
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(34px, 5vw, 72px);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+/* Place and date are a different kind of fact from the tags, so a different
+   pill: dark glass with white text, legible over any cover. */
+.case-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
-/* Wide covers keep the title on the same 1400px shell as the text below. */
-@media (min-width: 1400px) {
-  .case-hero__title {
-    left: calc((100% - 1400px) / 2 + var(--gutter));
-    right: calc((100% - 1400px) / 2 + var(--gutter));
-  }
+.case-tag + .case-meta-pill {
+  margin-left: 10px;
 }
 /* ── Heading block ────────────────────────────────────────────────────────
- * Tags, place · date and the live-project button, under the cover. */
+ * Only the live-project button lives here now. */
 .case-heading {
   max-width: 1400px;
   margin-inline: auto;
-  padding: clamp(20px, 2.6vw, 36px) var(--gutter) clamp(8px, 1.5vw, 20px);
+  padding: 0 var(--gutter) clamp(8px, 1.5vw, 20px);
 }
-/* Frosted glass: the brand fill at 78% over a backdrop blur, with a faint
-   ink-tinted edge so the pane reads as a surface on both the cover and the
-   page. 78% keeps the ink close to its full-strength contrast; the blur
-   flattens whatever sits behind so the text does not fight the picture. */
-.case-heading__box {
-  display: inline-block;
-  padding: 0.2em 0.55em;
-  border-radius: 0.55em;
-  background: color-mix(in srgb, var(--brand-fill, var(--grey-900)) 78%, transparent);
-  color: var(--brand-ink, #fff);
-  border: 1px solid color-mix(in srgb, var(--brand-ink, #fff) 22%, transparent);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(16px) saturate(1.3);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-/* Over a brand-fill logo panel the fill pane would vanish into the panel, so
-   the colours flip: ink pane, fill text. Still the same contrast pair. */
-.case-hero--logo:not(.case-hero--light) .case-heading__box {
-  background: color-mix(in srgb, var(--brand-ink, #fff) 80%, transparent);
-  color: var(--brand-fill, var(--grey-900));
-  border-color: color-mix(in srgb, var(--brand-fill, var(--grey-900)) 22%, transparent);
-}
-/* Tags and place · date share one line under the title; they wrap onto two
-   only when the viewport is too narrow for both. */
-.case-heading__row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 22px;
-}
-.case-heading__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.case-heading__meta {
-  font-family: var(--font-body);
-  font-size: clamp(14px, 1.05vw, 17px);
-  color: var(--grey-500);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-.case-heading__dot {
-  opacity: 0.5;
+.case-heading:empty {
+  display: none;
 }
 /* "View Live Project": the one action on the page, so it is the site's red
    pill at full strength, sized to be found without looking for it. */
 .case-heading__cta {
-  margin-top: clamp(24px, 3vw, 40px);
+  margin-top: clamp(20px, 2.6vw, 36px);
 }
 .case-live {
   display: inline-flex;
@@ -219,9 +221,11 @@ body.page-case-modular {
 .case-hero--logo.case-hero--light {
   background: var(--bg);
 }
+/* The lockup sits in the upper part of the panel; the title stack owns the
+   base, so the two never overlap. */
 .case-hero--logo .case-hero__img {
   object-fit: contain;
-  padding: 150px var(--gutter) clamp(44px, 6vw, 72px);
+  padding: 130px var(--gutter) clamp(190px, 26vh, 250px);
 }
 @media (max-width: 767px) {
   .case-hero--logo .case-hero__img {
