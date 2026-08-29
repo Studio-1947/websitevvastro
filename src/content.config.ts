@@ -348,6 +348,11 @@ const work = defineCollection({
      * no button (print work, internal tools, sites no longer up).
      */
     liveUrl: z.string().url().optional(),
+    /**
+     * Page headline (the <h1>) when it should differ from the client name,
+     * e.g. "FIH Website Redesign". Absent → the client name (or the title).
+     */
+    headline: z.string().optional(),
 
   }),
 });
