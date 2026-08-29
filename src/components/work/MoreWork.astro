@@ -65,7 +65,7 @@ const Card = workCardsLinked ? 'a' : 'div';
             <div class="more-work__body">
               {c.tags.length > 0 && (
                 <div class="more-work__tags">
-                  {c.tags.slice(0, 3).map((t) => (
+                  {c.tags.map((t) => (
                     <span class="more-work__tag">{t}</span>
                   ))}
                 </div>
