@@ -280,15 +280,11 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 }
 .hero-fx > .hero, .hero-fx > #featured-work { position: relative; z-index: 1; }
 .hero { padding-top: clamp(150px, 20vh, 240px); padding-bottom: clamp(30px, 5vw, 60px); }
-/* The eyebrow and the title are one three-line block: same face, size,
-   weight, colour and line height, no gap between them. */
-.hero__eyebrow, .hero__title {
-  font-family: var(--font-display);
+.hero__eyebrow { font-family: var(--font-body); font-size: clamp(20px, 1.95vw, 27px); color: var(--grey-700); margin-bottom: clamp(20px, 4vw, 48px); }
+.hero__title {
   font-size: clamp(40px, 6.4vw, 108px);
-  font-weight: 400;
   line-height: 1.2; color: var(--grey-700); letter-spacing: -0.01em;
   max-width: none;
-  margin: 0;
 }
 .hero__foot { display: flex; justify-content: flex-end; margin-top: -0.4em; }
 .hero__scroll {
