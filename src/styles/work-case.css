@@ -41,52 +41,45 @@ body.page-case-modular {
 }
 
 /* ── Hero ─────────────────────────────────────────────────────────────────── */
+/* One height for every case, photo or logo, so the pages line up. The fixed
+   site header floats over the top of it. */
 .case-hero {
   position: relative;
+  --case-hero-h: clamp(300px, 42vh, 440px);
+  height: var(--case-hero-h);
 }
 .case-hero__img {
   width: 100%;
-  height: clamp(360px, 60vh, 520px);
+  height: 100%;
   object-fit: cover;
   display: block;
 }
-@media (min-width: 768px) {
-  .case-hero__img {
-    height: 80vh;
-  }
-}
 /* A case may tint its cover with its brand colour (`hero.scrim`, set as
-   --case-scrim on the hero). With nothing overlaid on the image there is no
-   default scrim any more. */
+   --case-scrim on the hero). There is no default scrim. */
 .case-hero__scrim {
   position: absolute;
   inset: 0;
   background: var(--case-scrim, transparent);
   pointer-events: none;
 }
-
-/* ── Heading block ────────────────────────────────────────────────────────
- * Tags, title and location · year sit under the cover, in ink on the page
- * background, on the same left edge as the rest of the case. */
-.case-heading {
-  max-width: 1400px;
-  margin-inline: auto;
-  padding: clamp(28px, 4vw, 56px) var(--gutter) clamp(8px, 1.5vw, 20px);
-}
-.case-heading__tags {
+/* Tags pin to the top of the cover, under the floating header. */
+.case-hero__tags {
+  position: absolute;
+  top: 112px;
+  left: var(--gutter);
+  right: var(--gutter);
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: clamp(16px, 2vw, 24px);
 }
-/* The portfolio card's pill: same red on the same blush, so a case and its
-   card read as one thing. */
+/* The portfolio card's pill, so a case and its card read as one thing. Solid
+   white so it stays legible over any cover. */
 .case-tag {
   display: inline-flex;
   align-items: center;
   padding: 6px 12px;
   border-radius: 999px;
-  background: #fff5f5;
+  background: #fff;
   border: 1px solid #f2c9c9;
   color: color-mix(in srgb, var(--red) 88%, #000);
   font-family: var(--font-body);
@@ -94,17 +87,45 @@ body.page-case-modular {
   line-height: 1;
   letter-spacing: 0.01em;
 }
-/* Site theme: Syne 400, not the source's font-black. Size carries the weight. */
+
+/* ── Heading block ────────────────────────────────────────────────────────
+ * The title straddles the cover's bottom edge: the box is pulled up by half
+ * its own height, so half sits on the cover and half on the page. The box
+ * is painted in the case's brand fill with its contrast-checked ink (see
+ * CaseLayout), so the text clears 4.5:1 over both the cover and the page. */
+.case-heading {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: 0 var(--gutter) clamp(8px, 1.5vw, 20px);
+}
 .case-heading__title {
   font-family: var(--font-display);
   font-weight: 400;
-  color: var(--grey-900);
-  font-size: clamp(40px, 6.5vw, 96px);
-  line-height: 0.98;
+  font-size: clamp(34px, 5vw, 72px);
+  line-height: 1.04;
   letter-spacing: -0.02em;
+  transform: translateY(-50%);
+  /* Pull the following content up by the half that now overlaps the cover
+     (one line of title plus its padding). */
+  margin-bottom: calc(-0.5 * (1.04em + 0.36em));
+}
+.case-heading__box {
+  display: inline-block;
+  padding: 0.18em 0.5em;
+  border-radius: 0.22em;
+  background: var(--brand-fill, var(--grey-900));
+  color: var(--brand-ink, #fff);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+/* Over a brand-fill logo panel the fill box would vanish into the panel, so
+   the colours flip: ink box, fill text. Still the same contrast pair. */
+.case-hero--logo:not(.case-hero--light) + .case-heading .case-heading__box {
+  background: var(--brand-ink, #fff);
+  color: var(--brand-fill, var(--grey-900));
 }
 .case-heading__meta {
-  margin-top: clamp(12px, 1.4vw, 20px);
+  margin-top: clamp(16px, 1.8vw, 24px);
   font-family: var(--font-body);
   font-size: clamp(14px, 1.05vw, 17px);
   color: var(--grey-500);
@@ -168,21 +189,28 @@ body.page-case-modular {
 }
 
 /* ── Hero: logo variant ───────────────────────────────────────────────────── */
-/* Brand lockups are contained on a tinted panel. --brand-fill is the brand
-   (or a hair-darkened twin for mid-tone brands) - see CaseLayout. */
+/* Brand lockups are contained on a tinted panel of the same height as a
+   photo cover. --brand-fill is the brand (or a hair-darkened twin for
+   mid-tone brands), see CaseLayout. */
 .case-hero--logo {
   background: var(--brand-fill, var(--brand));
-  padding-top: 96px;
 }
-/* Clean light panel for logo lockups that read muddy against their own fill
-   (hero.background: 'light' - e.g. FIH's dark-ink lockup on its amber fill). */
+/* Clean light panel for lockups that read muddy against their own fill
+   (hero.background: 'light'). */
 .case-hero--logo.case-hero--light {
   background: var(--bg);
 }
 .case-hero--logo .case-hero__img {
-  height: clamp(200px, 30vw, 360px);
   object-fit: contain;
-  padding: clamp(20px, 4vw, 56px) var(--gutter);
+  padding: 150px var(--gutter) clamp(44px, 6vw, 72px);
+}
+@media (max-width: 767px) {
+  .case-hero__tags {
+    top: 92px;
+  }
+  .case-hero--logo .case-hero__img {
+    padding-top: 128px;
+  }
 }
 
 /* Back control. The source floated a red circle over the hero; that collides
