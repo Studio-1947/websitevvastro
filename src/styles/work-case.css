@@ -94,10 +94,11 @@ body.page-case-modular {
   font-size: clamp(34px, 5vw, 72px);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  transform: translateY(-50%);
-  /* Pull the following content up by the half that now overlaps the cover
+  /* A little more of the pane sits on the cover than on the page. */
+  transform: translateY(-62%);
+  /* Pull the following content up by the part that now overlaps the cover
      (one line of title plus its padding). */
-  margin-bottom: calc(-0.5 * (1.04em + 0.36em));
+  margin-bottom: calc(-0.62 * (1.04em + 0.4em));
 }
 /* Frosted glass: the brand fill at 78% over a backdrop blur, with a faint
    ink-tinted edge so the pane reads as a surface on both the cover and the
