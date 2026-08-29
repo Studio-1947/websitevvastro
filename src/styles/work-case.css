@@ -45,7 +45,7 @@ body.page-case-modular {
    site header floats over the top of it. */
 .case-hero {
   position: relative;
-  --case-hero-h: clamp(420px, 66vh, 700px);
+  --case-hero-h: clamp(480px, 78vh, 820px);
   height: var(--case-hero-h);
 }
 .case-hero__img {
