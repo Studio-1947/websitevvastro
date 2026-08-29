@@ -45,7 +45,7 @@ body.page-case-modular {
    site header floats over the top of it. */
 .case-hero {
   position: relative;
-  --case-hero-h: clamp(360px, 56vh, 600px);
+  --case-hero-h: clamp(420px, 66vh, 700px);
   height: var(--case-hero-h);
 }
 .case-hero__img {
@@ -78,27 +78,34 @@ body.page-case-modular {
   letter-spacing: 0.01em;
 }
 
-/* ── Heading block ────────────────────────────────────────────────────────
- * The title straddles the cover's bottom edge: the box is pulled up by half
- * its own height, so half sits on the cover and half on the page. The box
- * is painted in the case's brand fill with its contrast-checked ink (see
- * CaseLayout), so the text clears 4.5:1 over both the cover and the page. */
-.case-heading {
-  max-width: 1400px;
-  margin-inline: auto;
-  padding: 0 var(--gutter) clamp(8px, 1.5vw, 20px);
-}
-.case-heading__title {
+/* The title sits inside the cover, bottom-left, in a frosted pane painted
+   with the case's brand fill and its contrast-checked ink (see CaseLayout),
+   so the text clears 4.5:1 over the cover. */
+.case-hero__title {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: clamp(24px, 3.5vw, 48px);
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(34px, 5vw, 72px);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  /* A little more of the pane sits on the cover than on the page. */
-  transform: translateY(-62%);
-  /* Pull the following content up by the part that now overlaps the cover
-     (one line of title plus its padding). */
-  margin-bottom: calc(-0.62 * (1.04em + 0.4em));
+}
+/* Wide covers keep the title on the same 1400px shell as the text below. */
+@media (min-width: 1400px) {
+  .case-hero__title {
+    left: calc((100% - 1400px) / 2 + var(--gutter));
+    right: calc((100% - 1400px) / 2 + var(--gutter));
+  }
+}
+/* ── Heading block ────────────────────────────────────────────────────────
+ * Tags, place · date and the live-project button, under the cover. */
+.case-heading {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: clamp(20px, 2.6vw, 36px) var(--gutter) clamp(8px, 1.5vw, 20px);
 }
 /* Frosted glass: the brand fill at 78% over a backdrop blur, with a faint
    ink-tinted edge so the pane reads as a surface on both the cover and the
@@ -119,7 +126,7 @@ body.page-case-modular {
 }
 /* Over a brand-fill logo panel the fill pane would vanish into the panel, so
    the colours flip: ink pane, fill text. Still the same contrast pair. */
-.case-hero--logo:not(.case-hero--light) + .case-heading .case-heading__box {
+.case-hero--logo:not(.case-hero--light) .case-heading__box {
   background: color-mix(in srgb, var(--brand-ink, #fff) 80%, transparent);
   color: var(--brand-fill, var(--grey-900));
   border-color: color-mix(in srgb, var(--brand-fill, var(--grey-900)) 22%, transparent);
@@ -131,7 +138,6 @@ body.page-case-modular {
   flex-wrap: wrap;
   align-items: center;
   gap: 10px 22px;
-  margin-top: clamp(14px, 1.6vw, 20px);
 }
 .case-heading__tags {
   display: flex;
