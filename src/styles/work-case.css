@@ -123,14 +123,21 @@ body.page-case-modular {
   color: var(--brand-fill, var(--grey-900));
   border-color: color-mix(in srgb, var(--brand-fill, var(--grey-900)) 22%, transparent);
 }
+/* Tags and place · date share one line under the title; they wrap onto two
+   only when the viewport is too narrow for both. */
+.case-heading__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+  margin-top: clamp(14px, 1.6vw, 20px);
+}
 .case-heading__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: clamp(14px, 1.6vw, 20px);
 }
 .case-heading__meta {
-  margin-top: clamp(12px, 1.4vw, 18px);
   font-family: var(--font-body);
   font-size: clamp(14px, 1.05vw, 17px);
   color: var(--grey-500);

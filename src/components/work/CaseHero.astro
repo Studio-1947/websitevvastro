@@ -83,24 +83,26 @@ const scrimStyle = scrim ? { '--case-scrim': `${scrim}${alphaHex}` }: undefined;
 <div class="case-heading">
   <h1 class="case-heading__title"><span class="case-heading__box" set:html={title} /></h1>
   {
-    tags.length > 0 && (
-      <div class="case-heading__tags">
-        {tags.map((t) => (
-          <span class="case-tag">{t}</span>
-        ))}
+    (tags.length > 0 || meta.length > 0) && (
+      <div class="case-heading__row">
+        {tags.length > 0 && (
+          <div class="case-heading__tags">
+            {tags.map((t) => (
+              <span class="case-tag">{t}</span>
+            ))}
+          </div>
+        )}
+        {meta.length > 0 && (
+          <p class="case-heading__meta">
+            {meta.map((m, i) => (
+              <>
+                {i > 0 && <span class="case-heading__dot" aria-hidden="true">·</span>}
+                <span>{m}</span>
+              </>
+            ))}
+          </p>
+        )}
       </div>
-    )
-  }
-  {
-    meta.length > 0 && (
-      <p class="case-heading__meta">
-        {meta.map((m, i) => (
-          <>
-            {i > 0 && <span class="case-heading__dot" aria-hidden="true">·</span>}
-            <span>{m}</span>
-          </>
-        ))}
-      </p>
     )
   }
   {
