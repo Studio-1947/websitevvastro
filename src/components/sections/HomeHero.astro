@@ -1,8 +1,8 @@
 ---
 /**
  * Home hero region: the interactive aurora canvas spans the hero + featured
- * work (masked in CSS), with the full-width logo marquee and then the
- * "Featured Work" label between
+ * work (masked in CSS), with the logo marquee (left edge to the middle of
+ * the page) and the "Featured Work" label on the right between
  * them. Markup ported verbatim from the original index.html.
  *
  * Images go through <Image> (astro:assets) rather than raw <img> pointing at
@@ -67,8 +67,6 @@ const LOGO_WIDTHS = [160, 320, 480, 641];
         ))}
       </div>
     </div>
-  </div>
-  <div class="container fw-featured-row reveal">
     <a class="hero__scroll fw-featured" href="#featured-work">Featured Work <span class="down" aria-hidden="true">&#8595;</span></a>
   </div>
 

@@ -297,13 +297,14 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 /* =====================================================================
    Featured work - masonry gallery
    ===================================================================== */
-/* Horizontal logo marquee running the full width of the viewport, fading out
-   at both edges; the Featured Work label sits on its own line beneath, on the
-   right. */
-.fw-logos-row { width: 100%; }
-.fw-logos-row .marquee { padding-block: clamp(20px, 3vw, 40px); }
-.fw-featured-row { display: flex; justify-content: flex-end; margin-top: calc(-1 * clamp(8px, 1vw, 16px)); }
-.fw-featured { flex: 0 0 auto; white-space: nowrap; }
+/* Horizontal logo marquee from the left edge of the viewport to the middle of
+   the page, fading out at both ends; the Featured Work label sits on the
+   right of the same row, on the content edge. */
+.fw-logos-row { display: flex; align-items: center; width: 100%; padding-inline: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); }
+/* From the content's left edge (where the hero text starts) to the middle of
+   the page, on the same row as the Featured Work label. */
+.fw-logos-row .marquee { flex: 0 0 calc(50vw - max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)))); min-width: 0; padding-block: clamp(20px, 3vw, 40px); }
+.fw-featured { flex: 0 0 auto; margin-left: auto; white-space: nowrap; }
 
 .work-gallery { display: flex; flex-direction: column; gap: clamp(16px, 1.6vw, 24px); }
 .work-row { display: flex; gap: clamp(16px, 1.6vw, 24px); }
