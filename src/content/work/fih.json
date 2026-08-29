@@ -22,10 +22,9 @@
   ],
   "active": true,
   "hero": {
-    "src": "/assets/img/work/fih/frame-12.webp",
-    "alt": "Foundation for Innovations in Health master brand lockup",
-    "style": "logo",
-    "background": "light"
+    "src": "/assets/img/work/fih/hero.webp",
+    "alt": "The Foundation for Innovations in Health website on desktop and mobile: the Health for a billion homepage beside the contact screen, on an olive ground",
+    "style": "photo"
   },
   "credits": [
     {

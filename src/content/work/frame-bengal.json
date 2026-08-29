@@ -20,10 +20,9 @@
   ],
   "active": true,
   "hero": {
-    "src": "/assets/img/work/frame-bengal/logo.webp",
-    "alt": "The FRAME logo: a teal script F inside a charcoal frame, with a graduation cap resting on its corner",
-    "style": "logo",
-    "background": "light"
+    "src": "/assets/img/work/frame-bengal/hero.webp",
+    "alt": "The Frame Fellowship 2026 campaign: Instagram carousel slides with a district map of Bengal and candidate cards, fanned around a phone on a deep teal ground",
+    "style": "photo"
   },
   "sections": [
     {
