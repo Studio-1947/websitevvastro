@@ -1,7 +1,7 @@
 {
   "mediaStyle": "contained",
   "title": "Bhagirath Homestays: From Zero Online to ₹1.5 Lakh | Studio 1947",
-  "description": "A homestay in Mirik had no online presence at all. Six months after we listed it, it had sold over 100 room nights and earned more than ₹1.5 lakh in room revenue.",
+  "description": "A homestay in Mirik had no online presence at all. Six months after we listed it, it had sold over 100 room nights and earned more than ₹1.5 lakh.",
   "ogTitle": "Bhagirath Homestays: A Growth Story | Studio 1947",
   "ogDescription": "Zero online bookings to ₹1.5 lakh in room revenue in six months, through OTA listings and the data they gave back.",
   "ogType": "article",
@@ -24,7 +24,7 @@
       "divider": false,
       "body": [
         "Bhagirath Homestays sits on a quiet slope above Mirik lake. Good rooms, good food, a family that has hosted guests for years. And until 2025, a traveller looking for a place to stay in Mirik could not find it anywhere online.",
-        "Not on Booking.com. Not on MakeMyTrip. Not on a map, not in a search result, not in a single review. Every guest arrived because someone in town pointed them up the hill. That is the whole story of the problem, and it is a common one in the hills."
+        "Not on Booking.com. Not on MakeMyTrip. Not on a map, not in a search result, not in a single review. Every guest arrived because someone in town pointed them up the hill. That is the whole problem, and it is a common one in the hills."
       ]
     },
     {
@@ -37,7 +37,7 @@
           "suffix": " lakh",
           "decimals": 1,
           "label": "Room revenue",
-          "note": "Earned in the first six months of being online, from a property that had never taken a digital booking."
+          "note": "Earned in the first six months online, from a property that had never taken a digital booking."
         },
         {
           "value": 100,
@@ -58,13 +58,13 @@
           "note": "No profile, no photographs, no reviews, no way to book a room without a phone number."
         }
       ],
-      "statsCaption": "Figures cover the first six months after the listings went live, measured from the booking dashboards of the platforms themselves."
+      "statsCaption": "Figures cover the first six months after the listings went live, taken from the platforms' own booking dashboards."
     },
     {
       "heading": "Starting from nothing",
       "label": "Where we began",
       "body": [
-        "The family had never turned down the idea of going online. They simply had no route in. Listing a homestay means photographs that show a room honestly, a rate that holds up against a hundred others on the same page, a cancellation policy, tax details, bank details, and a set of forms that assume you already know the words they use.",
+        "The family had never said no to going online. They simply had no way in. Listing a homestay means photographs that show a room honestly, a rate that holds up against a hundred others on the same page, a cancellation policy, tax details, bank details, and forms that assume you already know the words they use.",
         "So the first month was not marketing. It was paperwork, a camera, and a lot of sitting at the kitchen table working out what the property was actually worth."
       ]
     },
@@ -74,7 +74,7 @@
       "list": [
         "<strong>We photographed the place as it is.</strong> Morning light in the rooms, the view from the balcony, the shared table where breakfast happens. No wide-angle tricks, because a guest who feels misled writes the review that costs you the next ten bookings.",
         "<strong>We wrote the rooms in plain language.</strong> What is in them, what is not, how far the walk from the road is, whether the hot water is reliable. Being straight about the small things is what earned the early five-star reviews.",
-        "<strong>We priced against the actual competition.</strong> We read what comparable rooms in Mirik and Darjeeling were charging, and set a rate the property could defend rather than the lowest number on the page.",
+        "<strong>We priced against the actual competition.</strong> We read what similar rooms in Mirik and Darjeeling were charging, and set a rate the property could defend rather than the lowest number on the page.",
         "<strong>We went live one platform at a time.</strong> Booking.com first, then the others, so the family could learn one dashboard before facing four.",
         "<strong>We handled the first bookings with them.</strong> Confirmations, guest messages, the awkward questions about check-in times. After a few weeks they were doing it without us.",
         "<strong>Then we let the reviews do the work.</strong> Each honest review pushed the listing higher in search, which brought the next guest, who wrote the next review."
@@ -87,7 +87,7 @@
         "Once the rooms were selling, the dashboards started answering questions the family had never been able to ask before. Who is actually coming? When do they book? What do they search for?"
       ],
       "list": [
-        "Every single reservation came from a domestic traveller. The homestay had been quietly imagining foreign guests, and the data pointed somewhere much closer to home.",
+        "Every single reservation came from a domestic traveller. The homestay had been quietly imagining foreign guests, and the data pointed much closer to home.",
         "Almost all of it happened on a phone, usually in the evening, usually a few days before the trip.",
         "Couples on short getaways, not large family groups. That changed which room was worth improving first.",
         "Weekends filled on their own. Weekdays needed a reason, which is where the rate and the small offers went."
@@ -98,7 +98,7 @@
       "label": "Client impact",
       "body": [
         "The homestay went from earning nothing online to a booking calendar that fills itself, and the family runs it. They update their own rates, answer their own guests, and read their own numbers.",
-        "That is the part that matters more than the revenue figure. A homestay that depends on an agency to stay visible has swapped one dependency for another. This one does not."
+        "That matters more than the revenue figure. A homestay that depends on an agency to stay visible has swapped one dependency for another. This one does not."
       ]
     },
     {

@@ -1,6 +1,6 @@
 {
   "title": "Givfunds: Social Media Storytelling for Financial Inclusion | Studio 1947",
-  "description": "How Studio 1947 turned Givfunds' work in grassroots financial literacy into a social media system of Exemplar Awards and awareness posters — built to be shared as a badge of honour, not just posted as a statistic.",
+  "description": "How Studio 1947 turned Givfunds' grassroots financial literacy work into Exemplar Award and awareness posters, made to be shared as a badge of honour.",
   "ogTitle": "Givfunds: Financial Inclusion Storytelling | Studio 1947",
   "ogDescription": "Exemplar Award posters and awareness statistics that made Givfunds' financial literacy mission shareable.",
   "ogType": "article",
@@ -28,8 +28,8 @@
     {
       "divider": false,
       "body": [
-        "<strong>Givfunds</strong> (<a href=\"https://givfunds.org\" target=\"_blank\" rel=\"noopener noreferrer\">givfunds.org</a>) works at the ground level of financial inclusion in India — funding the educators, community organisers and everyday changemakers who close the gap a spreadsheet of statistics never quite closes on its own.",
-        "This is one of Studio 1947's oldest working relationships: the design work began with our founder, Rabi, before Studio 1947 existed as a studio. What follows is part of that ongoing, pre-founding collaboration — a running social media system built one poster at a time."
+        "<strong>Givfunds</strong> (<a href=\"https://givfunds.org\" target=\"_blank\" rel=\"noopener noreferrer\">givfunds.org</a>) works at the ground level of financial inclusion in India. It funds the educators, community organisers and everyday changemakers who close the gap a spreadsheet of statistics never quite closes on its own.",
+        "This is one of Studio 1947's oldest working relationships. The design work began with our founder, Rabi, before Studio 1947 existed as a studio. What follows is part of that ongoing collaboration: a running social media system built one poster at a time."
       ]
     },
     {
@@ -40,7 +40,7 @@
       "divider": false,
       "label": "The Challenge",
       "body": [
-        "Givfunds needed its feed to do two different jobs without reading as two different accounts: honour the people doing the work of financial inclusion on the ground, and make the scale of the problem — a country where three in four adults aren't financially literate — land in a single scroll-past glance.",
+        "Givfunds needed its feed to do two different jobs without reading as two different accounts. Honour the people doing the work of financial inclusion on the ground. And make the scale of the problem land in a single glance: a country where three in four adults aren't financially literate.",
         "Recognition and statistics are opposite moods. One is warm and personal, the other is blunt and numeric. The brief was to hold both inside one red-and-white identity."
       ],
       "layout": "grid-3",
@@ -61,7 +61,7 @@
           "num": "03",
           "icon": "spark",
           "title": "One Identity, One Red",
-          "body": "Every post — portrait or pure typography — carries the same givfunds red, wordmark and globe-and-link header."
+          "body": "Every post, portrait or pure typography, carries the same givfunds red, wordmark and globe-and-link header."
         }
       ]
     },
@@ -70,7 +70,7 @@
       "label": "Recognition Posters",
       "layout": "grid-2",
       "body": [
-        "Two of the people Givfunds' work touches: Varsha Patil, honoured for changing classrooms one student at a time, and Alamelu V, honoured for rebuilding her community's resilience after it broke. Each portrait sits on the brand red, framed in laurel, with a pull-quote in a light card at the base — built so the subject, not the logo, is the first thing anyone sees.",
+        "Two of the people Givfunds' work touches: Varsha Patil, honoured for changing classrooms one student at a time, and Alamelu V, honoured for rebuilding her community's resilience after it broke. Each portrait sits on the brand red, framed in laurel, with a pull-quote in a light card at the base. The subject, not the logo, is the first thing anyone sees.",
         "The template repeats deliberately: name, title, portrait, laurel, quote. Once, it reads as one story. As a running series, it reads as an award."
       ],
       "media": [
@@ -93,8 +93,8 @@
       "label": "Awareness Statistics",
       "layout": "grid-2",
       "body": [
-        "Where the award posters slow down for one person, the statistic posters are built to be read in under two seconds. \"Only 27%\" and \"900 million\" are set at a scale nothing else on the page competes with — the rest of the sentence exists to give that number its context, not its emphasis.",
-        "The 900 million poster pushes the idea further: the word \"FINANCE\" is redrawn as its own rising trend line, so the missing subject of the sentence is also the graphic that explains why it matters."
+        "Where the award posters slow down for one person, the statistic posters are made to be read in under two seconds. \"Only 27%\" and \"900 million\" are set at a scale nothing else on the page competes with. The rest of the sentence is there to give that number its context, not its emphasis.",
+        "The 900 million poster pushes the idea further. The word \"FINANCE\" is redrawn as its own rising trend line, so the missing subject of the sentence is also the graphic that explains why it matters."
       ],
       "media": [
         {
@@ -130,7 +130,7 @@
         {
           "icon": "star",
           "title": "A relationship older than the studio",
-          "body": "One of the longest-running collaborations Studio 1947 carries forward — design work that began before the studio had a name."
+          "body": "One of the longest-running collaborations Studio 1947 carries forward. The design work began before the studio had a name."
         }
       ]
     }

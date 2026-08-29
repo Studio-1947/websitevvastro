@@ -76,7 +76,7 @@ const STATIC_PAGES: Array<Omit<SearchDoc, 'text'>> = [
     type: 'Page',
     title: 'About Studio 1947',
     description:
-      'Meet Studio 1947 — designers, technologists, storytellers and researchers crafting accessible, affordable solutions from Darjeeling.',
+      'Meet Studio 1947: designers, technologists, storytellers and researchers making accessible, affordable solutions from Darjeeling.',
     keywords: 'about team people story values founders studio 1947',
   },
   {
@@ -84,7 +84,7 @@ const STATIC_PAGES: Array<Omit<SearchDoc, 'text'>> = [
     type: 'Page',
     title: 'Our Work',
     description:
-      'Selected Studio 1947 projects — branding, marketing, web design, research and growth work for organisations across India and beyond.',
+      'Selected Studio 1947 projects: branding, marketing, web design, research and growth work for organisations across India and beyond.',
     keywords: 'portfolio work case studies projects showcase',
   },
   {
@@ -92,7 +92,7 @@ const STATIC_PAGES: Array<Omit<SearchDoc, 'text'>> = [
     type: 'Page',
     title: 'Blog',
     description:
-      'Stories, ideas and perspectives from Studio 1947 — on traditional knowledge, design thinking, culture, craft and community from Darjeeling and beyond.',
+      'Stories, ideas and perspectives from Studio 1947 on traditional knowledge, design thinking, culture, craft and community from Darjeeling and beyond.',
     keywords: 'blog stories ideas perspectives articles writings',
   },
   {
@@ -100,7 +100,7 @@ const STATIC_PAGES: Array<Omit<SearchDoc, 'text'>> = [
     type: 'Page',
     title: 'Products',
     description:
-      'Doptor Campus, Office and NGO Manager, Aangan ERP, 1 Darjeeling and Pharma ERP — digital products crafted by Studio 1947 from Darjeeling.',
+      'Doptor Campus, Office and NGO Manager, Aangan ERP, 1 Darjeeling and Pharma ERP: digital products made by Studio 1947 in Darjeeling.',
     keywords: 'products erp dashboards software tools saas',
   },
   {
@@ -124,7 +124,7 @@ const STATIC_PAGES: Array<Omit<SearchDoc, 'text'>> = [
     type: 'Page',
     title: 'Initiatives',
     description:
-      'Sirf Local and Local Archives — Studio 1947 initiatives empowering businesses and artisans across the Darjeeling hills with affordable data-design.',
+      'Sirf Local and Local Archives: Studio 1947 initiatives that help businesses and artisans across the Darjeeling hills with affordable data and design.',
     keywords: 'initiatives sirf local local archives community artisans',
   },
   {
@@ -132,7 +132,7 @@ const STATIC_PAGES: Array<Omit<SearchDoc, 'text'>> = [
     type: 'Page',
     title: 'Say Hello',
     description:
-      "Say hello to Studio 1947 — let's co-create meaningful data, design and technology solutions. Reach our studio in Mirik, Darjeeling.",
+      "Say hello to Studio 1947. Let's build meaningful data, design and technology solutions together. Reach our studio in Mirik, Darjeeling.",
     keywords: 'contact say hello get in touch reach out',
   },
   {

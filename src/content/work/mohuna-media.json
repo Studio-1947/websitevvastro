@@ -1,9 +1,9 @@
 {
   "mediaStyle": "contained",
   "title": "Mohuna Media: Branding for an Assam News Channel | Studio 1947",
-  "description": "How Studio 1947 crafted a culturally rooted brand identity and business card system for Mohuna Media, an independent Assam news channel documenting Brahmaputra river livelihoods.",
+  "description": "How Studio 1947 designed a culturally rooted brand identity and business cards for Mohuna Media, an Assam news channel covering Brahmaputra river livelihoods.",
   "ogTitle": "Mohuna Media: Branding for an Assam News Channel | Studio 1947",
-  "ogDescription": "A cohesive brand identity built on confluence, community and storytelling from the heart of Assam, honoring Brahmaputra river livelihoods.",
+  "ogDescription": "A brand identity built on confluence, community and storytelling from the heart of Assam, honoring Brahmaputra river livelihoods.",
   "ogType": "article",
   "brand": "#CC3002",
   "client": "Mohuna Media",
@@ -30,16 +30,16 @@
     {
       "divider": false,
       "body": [
-        "Studio 1947 collaborated with <strong>Mohuna Media</strong> (<u><a href=\"https://muhonamedia.com/\" target=\"_blank\" rel=\"noopener noreferrer\">muhonamedia.com</a></u>) to develop a compelling visual brand identity and physical collateral system for an independent Assam-based news channel.",
-        "The name \"Mohuna\" signifies the confluence where rivers meet: a powerful metaphor for the intersection of climate, culture, and human stories that form the core of their journalistic mission. Our mandate was to craft a memorable logo and business card system that honors the heritage of the Brahmaputra region while asserting broadcast authority."
+        "Studio 1947 worked with <strong>Mohuna Media</strong> (<u><a href=\"https://muhonamedia.com/\" target=\"_blank\" rel=\"noopener noreferrer\">muhonamedia.com</a></u>) to build a visual brand identity and printed collateral for an independent news channel based in Assam.",
+        "The name \"Mohuna\" means the confluence where rivers meet. It is a fitting metaphor for the meeting of climate, culture, and human stories at the heart of their journalism. Our brief was to create a memorable logo and business card system that honors the heritage of the Brahmaputra region while carrying the authority of a broadcaster."
       ]
     },
     {
-      "heading": "Logo Symbolism & Narrative Architecture",
+      "heading": "What the Logo Means",
       "label": "The Mission",
       "body": [
-        "The logo represents the livelihoods of people living around the Brahmaputra River. It highlights key activities such as agriculture, fishery, local artisanship, and water transport that sustain the community.",
-        "Each element reflects how the river supports farming, fishing, traditional crafts, and movement of people and goods. Overall, the design symbolizes the strong connection between the river and the everyday lives of the people."
+        "The logo represents the livelihoods of people living around the Brahmaputra River. It highlights the activities that sustain the community: agriculture, fishing, local crafts, and water transport.",
+        "Each element shows how the river supports farming, fishing, traditional crafts, and the movement of people and goods. Together, the design stands for the strong bond between the river and everyday life."
       ]
     },
     {
@@ -50,22 +50,22 @@
         {
           "num": "01",
           "title": "Agriculture & Farming",
-          "body": "Honoring the fertile riverbanks and agricultural rhythms that feed riverine communities across Assam."
+          "body": "Honoring the fertile riverbanks and farming rhythms that feed river communities across Assam."
         },
         {
           "num": "02",
           "title": "Fishery & River Ecology",
-          "body": "Celebrating the traditional fishing practices and aquatic harmony sustaining families along the Brahmaputra."
+          "body": "Celebrating the traditional fishing practices and river life that sustain families along the Brahmaputra."
         },
         {
           "num": "03",
           "title": "Local Artisanship",
-          "body": "Weaving traditional crafts, silk handlooms, and indigenous technical knowledge into the visual identity."
+          "body": "Weaving traditional crafts, silk handlooms, and local technical knowledge into the visual identity."
         },
         {
           "num": "04",
           "title": "Water Transport & Confluence",
-          "body": "Reflecting boats, ferries, and riverways that connect isolated islands (Char areas) to mainstream economic life."
+          "body": "Reflecting the boats, ferries, and riverways that connect isolated islands (Char areas) to the wider economy."
         }
       ]
     },
@@ -73,7 +73,7 @@
       "heading": "Brand Collateral & Business Cards",
       "label": "Collateral Design",
       "body": [
-        "We engineered a clean business card system that balances journalistic authority with regional warmth. Featuring balanced white space and riverine motifs, the stationery makes a lasting impression during field reporting and press engagements."
+        "We built a clean business card system that balances journalistic authority with regional warmth. With generous white space and river motifs, the stationery leaves a lasting impression during field reporting and press events."
       ],
       "layout": "grid-2",
       "media": [
@@ -108,9 +108,9 @@
       "divider": true,
       "label": "Measuring Success",
       "list": [
-        "<strong>Authentic Regional Authority:</strong> Built a logo and brand language that immediately connects with audiences across Assam and the Northeast.",
-        "<strong>Unified Touchpoints:</strong> Created consistent brand representation across their web platform (<u><a href=\"https://muhonamedia.com/\" target=\"_blank\" rel=\"noopener noreferrer\">muhonamedia.com</a></u>), social channels, and physical press passes/business cards.",
-        "<strong>Credibility in Journalism:</strong> Established a professional visual identity that commands trust among readers, interviewees, and field sources."
+        "<strong>Authentic Regional Authority:</strong> A logo and brand language that connects at once with audiences across Assam and the Northeast.",
+        "<strong>Unified Touchpoints:</strong> Consistent branding across their website (<u><a href=\"https://muhonamedia.com/\" target=\"_blank\" rel=\"noopener noreferrer\">muhonamedia.com</a></u>), social channels, and physical press passes and business cards.",
+        "<strong>Credibility in Journalism:</strong> A professional visual identity that earns trust from readers, interviewees, and field sources."
       ]
     }
   ],

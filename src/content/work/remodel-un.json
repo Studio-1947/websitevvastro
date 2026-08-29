@@ -1,9 +1,9 @@
 {
   "mediaStyle": "contained",
   "title": "Remodel UN | Studio 1947",
-  "description": "Brand strategy and visual identity system for ReModelUN, a high-profile AI podcast initiative featuring global UN-affiliated thought leaders.",
+  "description": "Brand strategy and visual identity for ReModelUN, an AI podcast with thought leaders from UN-affiliated groups around the world.",
   "ogTitle": "Remodel UN | Studio 1947",
-  "ogDescription": "Brand strategy and visual identity system for ReModelUN, a high-profile AI podcast initiative featuring global UN-affiliated thought leaders.",
+  "ogDescription": "Brand strategy and visual identity for ReModelUN, an AI podcast with thought leaders from UN-affiliated groups around the world.",
   "ogType": "article",
   "brand": "#00E357",
   "client": "ReModelUN",
@@ -22,22 +22,22 @@
       "heading": "Context & The Challenge",
       "label": "The Mission",
       "body": [
-        "ReModelUN is a high-profile podcast initiative featuring global thought leaders from UN-affiliated groups discussing ethical, AI-driven solutions for social good."
+        "ReModelUN is a high-profile podcast featuring thought leaders from UN-affiliated groups around the world. They discuss ethical, AI-driven solutions for social good."
       ]
     },
     {
       "divider": false,
       "label": "Core Problem",
       "body": [
-        "The brand needed an identity system that felt authoritative enough for international diplomats, yet agile enough to match cutting-edge AI discourse. It required a <strong>\"sustainable framework\"</strong> to spawn future conferences and scholarships seamlessly without breaking core brand equity."
+        "The brand needed an identity that felt serious enough for international diplomats, yet quick enough to keep up with AI. It also needed a <strong>\"sustainable framework\"</strong>: a system that could spin off future conferences and scholarships without weakening the core brand."
       ]
     },
     {
-      "heading": "Brand Strategy & Visual Architecture",
+      "heading": "Brand Strategy & Logo System",
       "label": "The \"re\" Loop: Continuous Iteration",
       "layout": "grid-2",
       "body": [
-        "AI is not a static destination, it is an iterative process. The 're' loop represents continuous remodeling, adaptation, and forward momentum. By framing this within an intentional, self-contained cycle, the visual language mirrors the podcast's core theme: endlessly auditing, rethinking, and improving global systems through technology."
+        "AI is not a fixed destination. It is a process that keeps going. The 're' loop stands for constant remodeling, adaptation and forward movement. Set inside a deliberate, closed cycle, the visual language mirrors the podcast's core theme: keep checking, rethinking and improving global systems through technology."
       ],
       "media": [
         {
@@ -60,7 +60,7 @@
       "divider": false,
       "label": "The Center Core: The Variable Engine",
       "body": [
-        "The center of the logo acts as the functional bridge. For the flagship brand, the microphone icon anchors the mark firmly in the audio and broadcasting space. However, this slot is designed as a variable container. By making the icon interchangeable, the architecture allows the core wordmark to adapt dynamically for sister ventures (shifting to a podium for conferences or a cap for scholarships) without losing its structural integrity."
+        "The center of the logo works as a bridge. For the main brand, the microphone icon places the mark firmly in audio and broadcasting. But this slot is built to change. Because the icon can be swapped, the same wordmark adapts for sister ventures (a podium for conferences, a cap for scholarships) without losing its shape."
       ],
       "media": [
         {
@@ -75,7 +75,7 @@
       "divider": false,
       "label": "The \"UN\" Chat Bubble: Diplomatic Dialogue",
       "body": [
-        "Global change doesn't happen in a vacuum: it happens through conversation. The '<strong>UN</strong>' terminal is deliberately shaped as a speech bubble to emphasize dialogue, cross-border collaboration, and human-first storytelling. It anchors the institutional authority of UN-affiliated organizations into a warm, approachable, and highly communicative digital asset."
+        "Global change doesn't happen in a vacuum. It happens through conversation. So the '<strong>UN</strong>' at the end is shaped as a speech bubble, to stress dialogue, cross-border collaboration and human-first storytelling. It takes the authority of UN-affiliated organizations and makes it warm, approachable and open to talk."
       ],
       "media": [
         {
@@ -89,7 +89,7 @@
     {
       "heading": "Color Theory",
       "body": [
-        "The identity system for ReModelUN operates at a unique crossroads: it must respect the gravity and prestige of international diplomacy while capturing the electric, rapidly changing landscape of artificial intelligence. The palette is a deliberate, high-contrast pairing engineered to bridge these two worlds seamlessly."
+        "The ReModelUN identity sits at a crossroads. It has to respect the weight and prestige of international diplomacy, and also catch the fast-changing energy of artificial intelligence. The palette is a deliberate, high-contrast pairing chosen to bridge those two worlds."
       ],
       "swatches": [
         {
@@ -109,7 +109,7 @@
       "label": "Primary Color",
       "subheading": "Institutional Authority & Grounded Trust",
       "body": [
-        "Dark Cyan serves as the structural foundation of the entire brand environment. It is an intentional departure from the traditional, high-saturation corporate blues typically associated with global bureaucracies. Instead, this deep, muted tone introduces a sophisticated, academic weight. It signals deep wisdom, research-backed integrity, and the calm composure required when tackling massive global challenges. By utilizing this as our primary backdrop tone, we establish immediate credibility with UN-affiliated thought leaders and global organizations."
+        "Dark Cyan is the foundation of the whole brand. It is a deliberate step away from the bright corporate blues usually linked with global bureaucracies. This deep, muted tone brings a calm, academic weight instead. It signals wisdom, research-backed integrity and the composure needed for big global challenges. Using it as the main backdrop gives us instant credibility with UN-affiliated thought leaders and global organizations."
       ]
     },
     {
@@ -117,7 +117,7 @@
       "label": "Secondary Color",
       "subheading": "AI Innovation & Bias toward Action",
       "body": [
-        "If Dark Cyan represents the institutional problem, Fresh Lime is the technological solution. This color is injected into the design system to represent the spark of artificial intelligence, digital efficiency, and forward-looking optimism. It acts as a deliberate disruption against the deep primary base, pulling the user's eye to interactive UI components, actionable resources, and critical insights. It ensures the platform never feels stagnant or overly bureaucratic, it feels alive, modern, and driven by high-energy innovation."
+        "If Dark Cyan stands for the institutional problem, Fresh Lime is the technological answer. This color brings the spark of artificial intelligence, digital speed and forward-looking optimism. It cuts against the deep primary base and pulls your eye to interactive UI parts, useful resources and key insights. It keeps the platform from ever feeling stale or bureaucratic. It feels alive, modern and full of energy."
       ]
     },
     {
@@ -125,40 +125,40 @@
       "label": "Chromatic Harmony in Digital Layouts",
       "layout": "grid-2",
       "body": [
-        "When these two colors meet, they create a highly scannable visual hierarchy perfect for premium, dark-mode user interfaces."
+        "When these two colors meet, they create a clear, easy-to-scan hierarchy that suits premium dark-mode interfaces."
       ],
       "cards": [
         {
           "title": "Primary: Dark Cyan",
-          "body": "Establishes visual stability and high-contrast readability for body text and system structures."
+          "body": "Gives the layout stability and high-contrast readability for body text and structure."
         },
         {
           "title": "Secondary: Fresh Lime",
-          "body": "Serves as the high-visibility callout for active states, key data metrics, and dynamic branding nodes."
+          "body": "The high-visibility callout for active states, key numbers and dynamic brand elements."
         }
       ]
     },
     {
       "divider": false,
       "body": [
-        "By maintaining a strict ratio where the deep canvas of Dark Cyan dominates <strong>80%</strong> of the brand space and Fresh Lime strikes intensely at <strong>20%</strong>, the brand successfully commands authority while remaining undeniably tech-forward."
+        "We keep a strict ratio: Dark Cyan covers <strong>80%</strong> of the brand space and Fresh Lime hits hard at <strong>20%</strong>. That way the brand carries authority while staying clearly tech-forward."
       ]
     },
     {
       "heading": "The Typography System",
       "body": [
-        "Legible both in Print and Digital Space, ensuring a seamless visual transition across every possible medium.",
-        "When a brand handles dense, highly academic global challenges alongside fast-evolving artificial intelligence discourse, the typeface cannot afford to be decorative or distracting. It must serve as an invisible, high-performance vehicle for ideas.",
-        "We anchored the entire brand ecosystem to <strong>Roboto</strong>. Chosen for its neo-grotesque, geometric discipline, Roboto features friendly, open curves that make highly technical content feel accessible and easy to digest. By selecting a variable type system globally available in the open-source Google Font Library, we eliminated licensing friction for ReModelUN entirely.",
-        "Beyond aesthetics, choosing a typeface is an operational business decision. By selecting a variable type system globally available in the open-source Google Font Library, we eliminated a major logistical hurdle for <strong>ReModelUN</strong>.",
-        "Future internal teams, international chapter organizers, and external web developers can scale the brand infinitely across the globe without ever encountering licensing friction, missing font errors, or recurring seat-cost liabilities. This proves to prospective clients that your agency designs with their long-term budget and operational workflow in mind."
+        "Legible in print and on screen, so the brand looks the same in every medium.",
+        "When a brand deals with dense, academic global challenges alongside fast-moving AI discussion, the typeface cannot be decorative or distracting. It has to be an invisible, hard-working carrier for ideas.",
+        "We built the whole brand on <strong>Roboto</strong>. We chose it for its neo-grotesque, geometric discipline. Its friendly, open curves make technical content feel approachable and easy to read.",
+        "Beyond looks, choosing a typeface is a business decision. Roboto is a variable type system, freely available in the open-source Google Font Library. Picking it removed a big practical hurdle for <strong>ReModelUN</strong>.",
+        "Future internal teams, international chapter organizers and outside web developers can grow the brand anywhere in the world without licensing friction, missing-font errors or recurring seat costs. It shows prospective clients that we design with their long-term budget and daily workflow in mind."
       ]
     },
     {
       "heading": "Multi-Platform UI/UX Experience",
       "label": "Extending the System Across Digital Realities",
       "body": [
-        "A robust brand identity must effortlessly transition across diverse digital ecosystems without fracturing its core message. For ReModelUN, the UI/UX architecture translates static brand guidelines into dynamic, highly functional touchpoints, mapping the system across video production, dedicated audio players, and micro-screen environments."
+        "A strong brand identity has to move across many digital platforms without losing its core message. For ReModelUN, the UI/UX work turns static brand guidelines into working, practical touchpoints: video production, dedicated audio players and small-screen environments."
       ]
     },
     {
@@ -168,15 +168,15 @@
       "cards": [
         {
           "title": "The Component",
-          "body": "Streamlined, high-contrast video overlay templates designed for multi-host and guest configurations."
+          "body": "Simple, high-contrast video overlay templates for multi-host and guest setups."
         },
         {
           "title": "The UX Challenge",
-          "body": "Video backgrounds are inherently unpredictable. Overlays must command immediate legibility regardless of the speaker's lighting, studio framing, or background complexity."
+          "body": "Video backgrounds are unpredictable. Overlays have to stay readable no matter the speaker's lighting, framing or background."
         },
         {
           "title": "The Solution",
-          "body": "We created a pill-shaped, dual-toned frame using the brand's color palette. The speaker's photo is in a circular frame, with a Fresh Lime container for their name. Dark-toned flags categorize their designation and topic, like 'AI & Sustainability.'"
+          "body": "We made a pill-shaped, two-tone frame in the brand colors. The speaker's photo sits in a circle, with a Fresh Lime container for their name. Dark flags label their role and topic, like 'AI & Sustainability.'"
         }
       ]
     },
@@ -199,15 +199,15 @@
       "cards": [
         {
           "title": "The Component",
-          "body": "A modular, highly scalable cover art and thumbnail template system engineered for major global audio streaming platforms (Spotify, Apple Podcasts, Google Podcasts)."
+          "body": "A modular cover art and thumbnail template system built for the big audio streaming platforms (Spotify, Apple Podcasts, Google Podcasts)."
         },
         {
           "title": "The UX Challenge",
-          "body": "In competitive audio streaming, cover art must disrupt a user's scroll in under a second. The challenge was to create a template that maintains brand consistency while differentiating episodes and highlighting guests."
+          "body": "In audio streaming, cover art has to stop a scroll in under a second. We needed a template that keeps the brand consistent while making each episode and guest stand out."
         },
         {
           "title": "The Solution",
-          "body": "This asset system uses a square thumbnail layout as a premium card. It prioritizes high-resolution guest photography over abstract graphics, blending the speaker's portrait into the background for a clean surface for text."
+          "body": "The system uses a square thumbnail laid out like a premium card. It leads with high-resolution guest photography rather than abstract graphics, blending the portrait into the background to leave a clean surface for text."
         }
       ]
     },
@@ -226,21 +226,21 @@
     {
       "divider": false,
       "body": [
-        "By delivering a standardized layout template rather than loose, one-off graphics, we equipped the <strong>ReModelUN</strong> marketing team with a plug-and-play production engine. They can scale the podcast indefinitely, swapping guest assets and text fields instantly while maintaining a uniform, premium look across all streaming networks."
+        "By handing over one standard layout template instead of loose one-off graphics, we gave the <strong>ReModelUN</strong> marketing team a plug-and-play production kit. They can keep the podcast growing, swapping guest photos and text in moments while the look stays uniform and premium on every streaming network."
       ]
     },
     {
       "heading": "Design Philosophy",
       "body": [
-        "A visual identity system is only as durable as its real-world implementation. When corporate assets are distributed across internal marketing teams, development hubs, and international event organizers, they face the risk of visual dilution. To ensure that <strong>ReModelUN</strong> commands an authoritative, uniform presence across every single touchpoint, we established a strict framework of asset governance. This section demonstrates our commitment to technical precision, ensuring the primary visual marks remain pristine, standardized, and structurally uncompromised in any digital or physical ecosystem."
+        "A visual identity is only as strong as its real-world use. When brand assets are spread across marketing teams, developers and international event organizers, they risk being watered down. To make sure <strong>ReModelUN</strong> looks the same and speaks with authority at every touchpoint, we set clear rules for how assets are used. This section shows that care: the main marks stay clean, standard and intact wherever they appear, on screen or in print."
       ]
     },
     {
       "divider": false,
       "label": "The Proportional Clearspace Standard",
       "body": [
-        "To safeguard the mastermark's visual prominence, it must always be protected from surrounding text, layout margins, and competing graphics. We defined the absolute minimum clearspace perimeter as exactly equal to a \"1 mic distance,\" calculated dynamically from the height of the internal microphone graphic.",
-        "By binding the breathing room proportionally to an internal element of the logo itself, we ensure that the safety boundary scales flawlessly, maintaining brand integrity whether the logo is rendered on a massive event banner or a small smartphone interface."
+        "To keep the mastermark prominent, it must always be protected from nearby text, margins and other graphics. We set the minimum clearspace at exactly \"1 mic distance\", measured from the height of the microphone inside the logo.",
+        "Because the breathing room is tied to a part of the logo itself, the safe zone scales with it. The brand stays intact whether the logo sits on a huge event banner or a small phone screen."
       ],
       "media": [
         {
@@ -256,8 +256,8 @@
       "divider": false,
       "label": "Co-Branding & Partnership Dynamics",
       "body": [
-        "High-profile global initiatives naturally demand collaborative co-branding layouts. When locking up the mastermark alongside close corporate stakeholders or media affiliates such as Sony, stricter spatial boundaries must be strictly enforced.",
-        "By doubling the standard safety padding threshold to a 2-mic buffer for partner integrations, we protect the logo from crowding, guaranteeing that <strong>ReModelUN</strong> shares the stage with global entities equitably while fully preserving its independent structural authority."
+        "Big global initiatives naturally call for co-branded layouts. When the mastermark sits next to close partners or media affiliates such as Sony, the spacing rules get stricter.",
+        "We double the usual padding to a 2-mic buffer for partner lockups. This keeps the logo from being crowded, so <strong>ReModelUN</strong> shares the stage fairly with global partners while keeping its own presence."
       ],
       "media": [
         {
@@ -273,8 +273,8 @@
       "divider": false,
       "label": "Logo Law 101",
       "body": [
-        "To completely eliminate guesswork for production and engineering teams, we codified a definitive matrix of visual violations. These constraints prevent common layout mistakes and insulate the identity from arbitrary modification.",
-        "By explicitly defining these implementation laws, we show prospective clients that we don't just deliver loose graphic artwork, we hand over a highly disciplined, enterprise-grade brand asset utility. This meticulous attention to technical precision proves that our design frameworks are engineered to withstand real-world production demands."
+        "To remove guesswork for production and engineering teams, we wrote a clear matrix of what not to do. These rules prevent common layout mistakes and protect the identity from random changes.",
+        "By spelling out these rules, we show prospective clients that we don't just hand over loose artwork. We hand over a disciplined, ready-to-use brand asset kit built to stand up to real-world production."
       ],
       "media": [
         {

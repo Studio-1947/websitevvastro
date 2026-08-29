@@ -1,7 +1,7 @@
 {
   "mediaStyle": "contained",
   "title": "Foundation for Innovations in Health: Website Rebuild | Studio 1947",
-  "description": "We rebuilt fihruralhealth.org for a rural health non-profit: one clear route through the work, pages that open in under a second, photography from the field, and a design system the team can run without us.",
+  "description": "We rebuilt fihruralhealth.org for a rural health non-profit: one clear route through the work, pages that open in under a second, and a site the team runs itself.",
   "ogTitle": "Foundation for Innovations in Health: Website Rebuild | Studio 1947",
   "ogDescription": "A rural health non-profit's website, rebuilt around one question: can a donor understand this work in ninety seconds?",
   "ogType": "article",
@@ -42,14 +42,14 @@
       "divider": false,
       "body": [
         "The Foundation for Innovations in Health runs digital clinics in Birbhum, a medical boat in the Sundarbans, and training programmes that put rural young people into hospital jobs. It is complicated work, done in places most donors will never visit.",
-        "All of that had to fit on a website, and the earlier one asked visitors to do the assembling themselves. Our brief was simple to say and hard to do. A CSR head with ninety seconds should be able to understand what FIH does, believe it is real, and know how to fund it."
+        "All of that had to fit on a website, and the old one left visitors to piece it together themselves. Our brief was simple to say and hard to do. A CSR head with ninety seconds should be able to understand what FIH does, believe it is real, and know how to fund it."
       ]
     },
     {
       "label": "The rebuilt site",
       "heading": "fihruralhealth.org",
       "body": [
-        "One sentence carries the whole organisation, and everything below it is proof. Health for a billion sits alone at the top of the page, followed immediately by the two things FIH actually does."
+        "One sentence carries the whole organisation, and everything below it is proof. Health for a billion sits alone at the top of the page, followed straight away by the two things FIH actually does."
       ],
       "media": [
         {
@@ -83,7 +83,7 @@
         {
           "icon": "chart",
           "title": "Numbers where the claim is",
-          "body": "Clinic counts, cost per visit and placement figures sit next to the sentence they support, instead of collecting in a statistics page nobody opens."
+          "body": "Clinic counts, cost per visit and placement figures sit next to the sentence they support, not in a statistics page nobody opens."
         },
         {
           "icon": "spark",
@@ -96,8 +96,8 @@
       "heading": "The work, shown as work",
       "label": "Visual ethnography",
       "body": [
-        "Non-profit websites tend to fill up with stock photography, and it costs them the one thing they cannot buy back, which is being believed. Nothing on this site is bought.",
-        "Every image is from the field. The boat clinic pulling into a bank in the Sundarbans, a health worker with a tablet, a classroom of trainees, a scan room. We treated the photography as evidence rather than decoration, so we kept the frames wide, left the ordinary details in, and wrote captions that say where you are and what is happening.",
+        "Non-profit websites tend to fill up with stock photography. It costs them the one thing they cannot buy back: being believed. Nothing on this site is bought.",
+        "Every image is from the field. The boat clinic pulling into a bank in the Sundarbans, a health worker with a tablet, a classroom of trainees, a scan room. We treated the photography as evidence, not decoration. So we kept the frames wide, left the ordinary details in, and wrote captions that say where you are and what is happening.",
         "The same rule shaped Stories of Change. Real faces, real names, real jobs, laid out as a wall of portraits you can scroll through. It reads like a village, which is what it is."
       ],
       "layout": "grid-2",
@@ -132,8 +132,8 @@
       "heading": "Built to open fast",
       "label": "Performance",
       "body": [
-        "A lot of this site's audience is on a phone on a rural network. A page that takes six seconds does not get read, however good it is. So speed was a design constraint from the first day, not a cleanup task at the end.",
-        "The site is a Next.js application on the App Router with Tailwind, serving pre-rendered pages, modern image formats sized to their slot, and fonts that never block the first paint. Measured from a cold load on a desktop connection, here is where it lands."
+        "A lot of this site's audience is on a phone on a rural network. A page that takes six seconds does not get read, however good it is. So speed was a design constraint from day one, not a cleanup task at the end.",
+        "The site is a Next.js application on the App Router with Tailwind. It serves pre-rendered pages, modern image formats sized to their slot, and fonts that never block the first paint. Measured from a cold load on a desktop connection, here is where it lands."
       ],
       "stats": [
         {
@@ -168,8 +168,8 @@
       "heading": "One kit, many pages",
       "label": "Design system",
       "body": [
-        "Everything on the site is assembled from a small set of parts, so a new programme page can be built in an afternoon and still look like it belongs.",
-        "Amber is the only accent colour and it is reserved for one job, which is telling you where to act. Every donate button, every active state, every eyebrow label. Black carries structure, white carries reading. Poppins for headings, Lato for body text, both chosen for how they hold up at small sizes on a cheap screen."
+        "Everything on the site is built from a small set of parts. A new programme page can be made in an afternoon and still look like it belongs.",
+        "Amber is the only accent colour and it has one job: telling you where to act. Every donate button, every active state, every eyebrow label. Black carries structure, white carries reading. Poppins for headings, Lato for body text, both chosen for how they hold up at small sizes on a cheap screen."
       ],
       "list": [
         "<strong>Programme card.</strong> Image, label, title, one line, one button. Used for healthcare, education, projects and campaigns.",
@@ -201,8 +201,8 @@
       "label": "Responsive",
       "layout": "split",
       "body": [
-        "The mobile layout is not the desktop one squeezed. The headline breaks to fit the width it actually has, the menu collapses to a single button, the notification bell stays reachable with a thumb, and the two programme doors stack in the order they matter.",
-        "Type sizes were set by reading the site outdoors on a mid-range Android phone, which is closer to how it gets used than any lab test."
+        "The mobile layout is not the desktop one squeezed. The headline breaks to fit the width it actually has, the menu collapses to a single button, the notification bell stays within reach of a thumb, and the two programme doors stack in the order they matter.",
+        "We set the type sizes by reading the site outdoors on a mid-range Android phone. That is closer to how it gets used than any lab test."
       ],
       "media": [
         {

@@ -11,8 +11,8 @@
 @tailwind utilities;
 
 /* =====================================================================
-   Studio 1947 — clone stylesheet (design system)
-   Fonts: Syne (display) + Google Sans (body) — Google Fonts
+   Studio 1947 - clone stylesheet (design system)
+   Fonts: Syne (display) + Google Sans (body) - Google Fonts
    ===================================================================== */
 
 /* ---------- Design tokens ---------- */
@@ -75,13 +75,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height
   letter-spacing: .01em;
 }
 .text-red { color: var(--red); }
-/* Links inside running text must not rely on colour alone — the underline is
+/* Links inside running text must not rely on colour alone - the underline is
    what passes Lighthouse's link-in-text-block audit. */
 a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Skip to content ----------
    Off-screen until focused, then lands as a normal-looking pill above the nav.
-   Not display:none — that would take it out of the tab order entirely, which
+   Not display:none - that would take it out of the tab order entirely, which
    defeats the point. */
 .skip-link {
   position: fixed; top: 8px; left: 8px; z-index: 400;
@@ -97,7 +97,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 #main-content:focus { outline: none; }
 
 /* =====================================================================
-   Header — floating white pill nav (sticky)
+   Header - floating white pill nav (sticky)
    ===================================================================== */
 .site-header {
   position: fixed; inset: 0 0 auto 0; z-index: 100;
@@ -160,7 +160,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   transition: opacity .3s var(--ease), transform .3s var(--ease);
 }
 /* When any submenu is open, the nav becomes a solid white, flat-bottomed box so
-   it reads as one surface with the dropdown — no separation or seam. */
+   it reads as one surface with the dropdown - no separation or seam. */
 .nav:has(.nav__item.is-open) {
   background: #fff;
   /* Top corners match the dropdown's bottom corners (--radius-lg); bottom squared. */
@@ -182,7 +182,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 /* Products carries seven entries, so it splits into two columns; the other
    dropdowns have four and stay in a single column. To buy that second column
    room, Products also drops the divider rule and its indent and gives the intro
-   a narrower share of the panel — the list starts noticeably further left than
+   a narrower share of the panel - the list starts noticeably further left than
    in the About / Solutions menus. */
 #dd-products { grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: clamp(20px, 3vw, 44px); }
 #dd-products .dd__list {
@@ -235,9 +235,9 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   .dd__intro h3 { max-width: none; margin-bottom: 20px; }
   .dd__list { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 26px; }
 }
-/* Say Hello button — on hover the whole pill fills red, text turns white, and
+/* Say Hello button - on hover the whole pill fills red, text turns white, and
    the arrow circle inverts to a white fill with a red arrow. */
-/* Search trigger — a round icon button beside Say Hello, always visible
+/* Search trigger - a round icon button beside Say Hello, always visible
    (the pill keeps it when the links collapse on mobile). */
 .nav__search {
   flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%;
@@ -294,7 +294,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 @keyframes nudge { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(6px);} }
 
 /* =====================================================================
-   Featured work — masonry gallery
+   Featured work - masonry gallery
    ===================================================================== */
 /* Horizontal logo marquee that leaves room on the right for the Featured Work label. */
 .fw-logos-row { display: flex; align-items: center; gap: clamp(20px, 3vw, 52px); }
@@ -346,9 +346,9 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .marquee__track { display: flex; align-items: center; gap: clamp(48px, 6vw, 96px); width: max-content; animation: marquee 38s linear infinite; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 .marquee img { height: clamp(30px, 3vw, 46px); width: auto; max-width: clamp(110px, 11vw, 152px); object-fit: contain; opacity: 1; transition: transform .3s var(--ease); }
-/* Compact circular-seal logos read small in a fixed height — nudge them up so the row is evenly weighted. */
+/* Compact circular-seal logos read small in a fixed height - nudge them up so the row is evenly weighted. */
 .marquee img.logo-seal { height: clamp(40px, 4vw, 60px); }
-/* Larger, full-colour variant (above testimonials) — bigger and evenly prominent. */
+/* Larger, full-colour variant (above testimonials) - bigger and evenly prominent. */
 .marquee--lg .marquee__track { gap: clamp(56px, 7vw, 112px); }
 .marquee--lg img { height: clamp(44px, 4.6vw, 66px); max-width: clamp(130px, 13vw, 190px); filter: none; opacity: 1; }
 @keyframes marquee { to { transform: translateX(-50%); } }
@@ -368,7 +368,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .commit__lead { color: var(--red); margin-top: auto; padding-top: clamp(28px, 4vw, 62px); font-size: clamp(15px, 1.1vw, 17px); max-width: 46ch; }
 .commit__cta { margin-top: clamp(16px, 1.8vw, 26px); align-self: flex-start; border-color: var(--red); }
 
-/* Carousel card — slides use display:contents so the active title/body become
+/* Carousel card - slides use display:contents so the active title/body become
    grid items of the card itself, letting the nav sit beside the title. */
 .commit__card {
   background: rgba(230,0,0,.06); border-radius: var(--radius-lg);
@@ -386,7 +386,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .commit__slide.is-active { display: contents; }
 
 /* =====================================================================
-   Approach — scroll-fill headings
+   Approach - scroll-fill headings
    ===================================================================== */
 .approach__eyebrow { margin-bottom: clamp(30px, 4vw, 60px); }
 .approach__row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 80px); align-items: center; padding-block: clamp(34px, 4vw, 60px); border-bottom: 1px solid var(--line); }
@@ -400,12 +400,12 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .approach__desc { color: var(--grey-700); font-size: clamp(16px, 1.15vw, 19px); }
 .approach__desc strong { color: var(--grey-900); font-weight: 400; }
 
-/* Highlighted band behind the whole "Our Approach" section — vibrant red gradient. */
+/* Highlighted band behind the whole "Our Approach" section - vibrant red gradient. */
 .approach-band { position: relative; background:
     radial-gradient(120% 120% at 100% 0%, #ff3b30 0%, var(--red) 42%, #b00505 100%); }
 .approach-band .approach__eyebrow { color: rgba(255,255,255,.85); }
 
-/* "Our approach" — animated vertical stepper (pill rail, active step expands). */
+/* "Our approach" - animated vertical stepper (pill rail, active step expands). */
 .astep { list-style: none; margin: 0; padding: 0; position: relative; max-width: none; }
 /* Number-rail shading removed: the strings provide the structure now. */
 .astep__item { position: relative; }
@@ -432,7 +432,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
    Testimonials
    ===================================================================== */
 .testi__eyebrow { margin-bottom: clamp(30px, 4vw, 56px); }
-/* Six testimonials laid out as a static 3 x 2 grid — no carousel. */
+/* Six testimonials laid out as a static 3 x 2 grid - no carousel. */
 .testi__track { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2vw, 30px); }
 /* Image bleeds to the card's top/left/right edges, so padding lives on the text
    rather than the card itself. */
@@ -487,7 +487,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 
 .cta { color: #fff; text-align: left; padding-block: clamp(70px, 8vw, 120px) 0; }
 .cta__title { color: #fff; font-size: clamp(34px, 5vw, 82px); line-height: 1.06; letter-spacing: -0.03em; max-width: none; }
-/* Footer "Say Hello" — resting state is a dark-red fill with white; hover reverses
+/* Footer "Say Hello" - resting state is a dark-red fill with white; hover reverses
    it to a white pill with a red-outline arrow. */
 .cta__btn { display: inline-flex; align-items: center; gap: 12px; margin-top: clamp(28px, 4vw, 40px); border: 1px solid #5e0d0d; border-radius: 999px; padding: 13px 14px 13px 26px; font-size: 17px; color: #fff; background: #5e0d0d; transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease), transform .35s var(--ease); }
 .cta__btn .arrow { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid #fff; color: #5e0d0d; background: #fff; display: grid; place-items: center; transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease); }
@@ -517,7 +517,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 
 .footer__bar { margin-top: clamp(34px, 4.5vw, 70px); display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; color: #fff; }
 .footer__wordmark { display: block; font-family: "Google Sans", var(--font-body); font-weight: 500; font-size: clamp(36px, 8.4vw, 125px); line-height: .9; letter-spacing: -0.01em; color: #fff; white-space: nowrap; }
-/* Spin just the wheel that forms the "o" — rotates around its own centre. */
+/* Spin just the wheel that forms the "o" - rotates around its own centre. */
 .footer__wheel { transform-box: fill-box; transform-origin: center; animation: logo-spin 9s linear infinite; }
 /* Live conditions + copyright: icon chips, generously spaced, on one line. */
 .footer__meta { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 14px 26px; padding-bottom: clamp(6px, 1vw, 14px); }
@@ -531,7 +531,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 /* =====================================================================
    Scroll reveal utility
    Content is VISIBLE BY DEFAULT. Hidden-start state applies only when JS
-   is active (html.js) and is always guaranteed to be revealed — so a
+   is active (html.js) and is always guaranteed to be revealed - so a
    stalled script or blocked CDN can never leave content invisible.
    ===================================================================== */
 /* Entrance duration kept short enough to finish before an a11y snapshot can
@@ -544,7 +544,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .js [data-stagger] > * { opacity: 0; transform: translateY(30px); transition: opacity 0.45s var(--ease), transform 0.45s var(--ease); }
 .js [data-stagger].is-in > * { opacity: 1; transform: none; }
 /* The hero is the page's LCP: it slides in (transform only) rather than
-   fading from opacity 0 — a fade pins LCP to the end of the transition on
+   fading from opacity 0 - a fade pins LCP to the end of the transition on
    every load. The stagger delays set inline by reveal.ts still apply. */
 .js .hero[data-stagger] > * { opacity: 1; transform: translateY(30px); transition: transform .65s var(--ease); }
 .js .hero[data-stagger].is-in > * { opacity: 1; transform: none; }
@@ -607,8 +607,8 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 
 /* The reel is a 9:16 portrait clip, so the media column takes the video's exact
    aspect ratio and derives its width from its (form-matched) height. That way
-   the whole frame shows — object-fit: cover fills an aspect-matched box with no
-   crop and no letterbox — instead of the taller column slicing the sides off.
+   the whole frame shows - object-fit: cover fills an aspect-matched box with no
+   crop and no letterbox - instead of the taller column slicing the sides off.
    The light backing matches the clip's own background so any sub-pixel edge is
    invisible. */
 /* The reel is a 9:16 portrait clip. Rather than crop it into a taller column,
@@ -624,7 +624,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 620px) {
   /* Stack: a compact centred reel card as a header (full-frame, not cropped),
      with the form filling the rest and scrolling. The panel is capped to the
-     viewport so nothing clips off the top or bottom — the portrait reel plus a
+     viewport so nothing clips off the top or bottom - the portrait reel plus a
      full form is otherwise taller than a phone screen. The video is sized by a
      capped height so it stays a modest header rather than a full-height card. */
   .contact-modal__panel { flex-direction: column; width: min(440px, 100%); max-height: 90vh; }
@@ -654,7 +654,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 /* ── Contact form feedback (scripts/formSubmit.ts) ─────────────────────────
    Submissions used to navigate away to the form provider's own page; they now post
    in the background, so the outcome has to be shown here instead. Not scoped to
-   .contact-modal — the /sayhello/ page uses the same markup and endpoint. */
+   .contact-modal - the /sayhello/ page uses the same markup and endpoint. */
 .cm-error {
   margin-top: 6px;
   font-size: 13px;
@@ -708,7 +708,7 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
 .search-modal.is-open .search-modal__panel { transform: translateY(0) scale(1); }
 .search-modal__panel:focus { outline: none; }
 
-/* Input row — icon, field, close. The field is a real <input type=search> so
+/* Input row - icon, field, close. The field is a real <input type=search> so
    mobile keyboards offer the search key; its native clear button is enough. */
 .search-modal__bar {
   display: flex; align-items: center; gap: 12px;
@@ -730,7 +730,7 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
 .search-modal__close:hover { background: var(--red); color: #fff; }
 .search-modal__close:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 
-/* Results list — scrolls independently of the input row. */
+/* Results list - scrolls independently of the input row. */
 .search-modal__results { overflow-y: auto; padding: 10px; }
 .search-result {
   display: flex; align-items: flex-start; gap: 14px;
@@ -763,7 +763,7 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
 }
 
 /* =====================================================================
-   Product detail page (PDP) — fresh SaaS-style design system
+   Product detail page (PDP) - fresh SaaS-style design system
    ===================================================================== */
 .pdp { --pdp-soft: #fff5f5; }
 .pdp-crumb { padding-top: clamp(118px, 15vh, 176px); font-size: 14px; color: var(--grey-500); display: flex; gap: 8px; align-items: center; }
@@ -873,7 +873,7 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
   .pdp-stats, .pdp-features { grid-template-columns: 1fr; }
 }
 
-/* Solution "approach" as a non-linear connected cycle — start anywhere. */
+/* Solution "approach" as a non-linear connected cycle - start anywhere. */
 .page-solcat .cat-cycle { display: flex; align-items: stretch; flex-wrap: wrap; gap: 8px; }
 .page-solcat .cat-cycle__node { flex: 1 1 190px; min-width: 168px; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(20px,2vw,30px); background: #fff; transition: box-shadow .4s var(--ease), transform .4s var(--ease), border-color .4s var(--ease); }
 .page-solcat .cat-cycle__node:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.06); border-color: var(--red); }
@@ -904,7 +904,7 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
 .page-solcat .cat-work__media--contain img { object-fit: contain; padding: clamp(10px, 1.2vw, 20px); }
 .page-solcat .cat-work:hover .cat-work__media--contain img { transform: scale(1.02); }
 
-/* Solutions overview — the heading pins on the left while sharp portrait
+/* Solutions overview - the heading pins on the left while sharp portrait
    cards scroll past on the right, matching the industries strip above. */
 .page-solutions .sol-section { display: grid; grid-template-columns: 1fr minmax(300px, 400px); gap: clamp(30px, 6vw, 100px); align-items: start; }
 .page-solutions .solutions__head { position: sticky; top: clamp(110px, 16vh, 180px); margin-bottom: 0; max-width: none; }
@@ -933,7 +933,7 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
 }
 
 /* ── Pluckable strings on the Approach steps (scripts/approachStrings.ts) ────
-   Five full-width strings run edge to edge across the stepper — one above each
+   Five full-width strings run edge to edge across the stepper - one above each
    step plus one closing the set. They are <li> elements inside the existing
    <ol>, so they move with the layout as panels expand instead of having to
    chase those transitions. Injected by script and decorative; without JS the
@@ -942,7 +942,7 @@ button[aria-busy="true"] { opacity: 0.65; cursor: progress; }
   display: block;
   position: relative;
   width: 100%;
-  /* Generous hit area — a hairline is almost impossible to aim at. */
+  /* Generous hit area - a hairline is almost impossible to aim at. */
   height: 26px;
   margin: 2px 0;
   cursor: grab;

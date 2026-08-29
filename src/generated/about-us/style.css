@@ -14,7 +14,7 @@
     .page-about-us .team-card:hover { box-shadow: 0 18px 44px rgba(0,0,0,.08); transform: translateY(-4px); }
     .page-about-us .team-card__img { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-alt); }
     /*
-      Shared portrait backdrop — a slow drifting brand wash, identical on every
+      Shared portrait backdrop - a slow drifting brand wash, identical on every
       card and offset per column so the grid does not pulse in unison.
 
       The portraits are shot in fourteen different places, so the backgrounds
@@ -45,13 +45,13 @@
     }
     /* Per-person focus point (--y) and zoom (--z) so faces sit at the same level and equally close. */
     .page-about-us .team-card__img img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: 50% var(--y, 38%); transform: scale(var(--z, 1)); transform-origin: 50% var(--y, 38%); transition: transform .8s var(--ease); }
-    /* Stands in until a portrait is supplied — swap the div for an <img> as above. */
+    /* Stands in until a portrait is supplied - swap the div for an <img> as above. */
     .page-about-us .team-card__img--placeholder { display: grid; place-items: center; }
     .page-about-us .team-card__img--placeholder span { position: relative; z-index: 1; font-family: var(--font-display); font-size: clamp(40px, 4vw, 64px); color: var(--red); line-height: 1; }
     .page-about-us .team-card:hover .team-card__img img { transform: scale(calc(var(--z, 1) * 1.05)); }
     .page-about-us .team-card__body { position: relative; padding: clamp(16px, 1.4vw, 22px); display: flex; flex-direction: column; }
     .page-about-us .team-card__name { padding-right: 36px; }
-    /* Small arrow button aligned to the name row, top-right — no bottom row, so the card is shorter. */
+    /* Small arrow button aligned to the name row, top-right - no bottom row, so the card is shorter. */
     .page-about-us .team-card__more {
       position: absolute; top: clamp(13px, 1.2vw, 19px); right: clamp(14px, 1.3vw, 20px);
       width: 26px; height: 26px; border-radius: 50%;
@@ -64,7 +64,7 @@
 
     /* The whole card opens the profile, so the affordance has to read at card
        level: the pointer covers the card, and the arrow fills on card hover
-       rather than only on its own — otherwise it looks like the arrow is the
+       rather than only on its own - otherwise it looks like the arrow is the
        one clickable spot. It stays a real <button> for keyboard and AT. */
     .page-about-us .team-card.is-clickable { cursor: pointer; }
     .page-about-us .team-card.is-clickable:hover .team-card__more,
@@ -141,7 +141,7 @@
     }
     .person-modal__close:hover { background: var(--red); border-color: var(--red); color: #fff; }
     .person-modal__close:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
-    /* Fixed-size portrait thumbnail — identical for every member, no stretching. */
+    /* Fixed-size portrait thumbnail - identical for every member, no stretching. */
     .person-modal__media { flex: none; width: clamp(88px, 11vw, 120px); aspect-ratio: 4 / 5; background: var(--bg-alt); display: grid; place-items: center; overflow: hidden; border-radius: 16px; }
     .person-modal__media img { width: 100%; height: 100%; object-fit: cover; }
     .person-modal__media .initial { font-family: var(--font-display); font-size: clamp(34px, 4vw, 48px); color: var(--red); line-height: 1; }
@@ -159,7 +159,7 @@
     }
     .pm-audio__toggle:hover { border-color: var(--red); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
     .pm-audio__toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
-    /* One element drawn as a triangle, then swapped to two bars while playing —
+    /* One element drawn as a triangle, then swapped to two bars while playing -
        avoids shipping two icons and keeps the control the same size in both
        states, so the pill never reflows on toggle. */
     .pm-audio__icon {
@@ -210,7 +210,7 @@
     .pm-block p { color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); }
     .pm-tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .pm-tags span { border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 14px; color: var(--grey-900); }
-    /* Portfolio projects the member contributed to — pills like the tags, but
+    /* Portfolio projects the member contributed to - pills like the tags, but
        real links to the case study pages. */
     .pm-projects ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
     .pm-projects a {
@@ -246,7 +246,7 @@
     .page-about-us .value-card__media .num { font-family: var(--font-display); font-size: clamp(46px, 5vw, 76px); color: var(--red); line-height: 1; }
     .page-about-us .value-card__media img { width: 100%; height: 100%; object-fit: cover; }
     /* The value illustrations carry their own white ground and soft corner
-       glows, so they sit contained on white rather than cropped on grey —
+       glows, so they sit contained on white rather than cropped on grey -
        nothing is clipped and the SVG's own background blends with the panel. */
     .page-about-us .value-card__media--art { background: #fff; }
     .page-about-us .value-card__media--art img { object-fit: contain; }

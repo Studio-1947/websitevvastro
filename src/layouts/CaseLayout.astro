@@ -37,6 +37,8 @@ interface Props {
     coordinator?: { name: string; role?: string };
     /** false = retired from the portfolio: no index, no sitemap entry. */
     active?: boolean;
+    /** Public URL of the shipped product; renders the "View Live Project" button. */
+    liveUrl?: string;
     /** 'contained' keeps stacked media inside the text shell; 'full' bleeds it. */
     mediaStyle?: 'full' | 'contained';
   };

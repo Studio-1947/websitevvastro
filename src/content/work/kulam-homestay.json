@@ -1,9 +1,9 @@
 {
   "mediaStyle": "contained",
-  "title": "Kulam Homestay: Boutique Retreat Web Design & Digital Presence | Studio 1947",
-  "description": "How Studio 1947 designed and developed an authentic one-pager web experience and brand presence for Kulam Homestay in Mirik, Darjeeling, highlighting hill culture, local tea gardens, artisan crafts, and direct booking.",
-  "ogTitle": "Kulam Homestay: Web Design & Digital Presence | Studio 1947",
-  "ogDescription": "An authentic one-pager digital experience for a boutique retreat in Mirik, Darjeeling.",
+  "title": "Kulam Homestay: Web Design & Online Presence | Studio 1947",
+  "description": "A one-page website and brand presence for Kulam Homestay in Mirik, Darjeeling: hill culture, local tea gardens, artisan crafts, and direct booking.",
+  "ogTitle": "Kulam Homestay: Web Design & Online Presence | Studio 1947",
+  "ogDescription": "A one-page website for a boutique retreat in Mirik, Darjeeling.",
   "ogType": "article",
   "brand": "#1F4232",
   "client": "Kulam Homestay",
@@ -20,56 +20,56 @@
   "active": true,
   "hero": {
     "src": "/assets/img/work/kulam-homestay/hero-header.webp",
-    "alt": "Kulam Homestay boutique web interface hero header featuring pine forest and mountain lake backdrop",
+    "alt": "Kulam Homestay website hero header with a pine forest and mountain lake backdrop",
     "style": "photo"
   },
   "sections": [
     {
       "divider": false,
       "body": [
-        "<strong>Kulam Homestay</strong> is a peaceful boutique retreat situated in the picturesque hills of Mirik, Darjeeling, nestled amid lush tea gardens and serene pine forests. Established in 2025, Kulam is more than accommodation; it's a sanctuary for travelers seeking peace, authentic hill culture, and warm family hospitality.",
-        "Studio 1947 partnered with Kulam Homestay to design and develop a high-impact, custom single-page digital flagship that transports visitors directly into the tranquil atmosphere of Mirik, highlights the homestay's unique artisan boutique, and streamlines guest reservations."
+        "<strong>Kulam Homestay</strong> is a quiet boutique retreat in the hills of Mirik, Darjeeling, set among lush tea gardens and pine forests. It opened in 2025. Kulam is more than a place to stay. It is a refuge for travelers who want peace, real hill culture, and warm family hospitality.",
+        "Studio 1947 worked with Kulam Homestay to design and build a custom single-page website. It takes visitors straight into the calm of Mirik, shows off the homestay's artisan boutique, and makes booking simple."
       ]
     },
     {
-      "heading": "Strategic Objective & The One-Pager Vision",
+      "heading": "The Goal & The One-Pager Idea",
       "divider": true
     },
     {
       "divider": false,
       "label": "The Objective",
       "body": [
-        "Traditional hospitality websites are often cluttered with nested subpages, slow loading times, and complex navigation. Kulam Homestay needed a fast, mobile-first one-pager that could immediately communicate its calm ambiance, tell its story, showcase its local artisan boutique, and turn interested visitors into direct bookings."
+        "Many hospitality websites are cluttered with nested subpages, slow loading, and confusing navigation. Kulam Homestay needed a fast, mobile-first one-pager that could show its calm mood at once, tell its story, present its local artisan boutique, and turn interested visitors into direct bookings."
       ],
       "layout": "grid-3",
       "cards": [
         {
           "num": "01",
-          "title": "Immersive Hill Storytelling",
-          "body": "Transporting prospective guests to Mirik with full-screen video backdrops, serene typography, and high-res photography."
+          "title": "Hill Storytelling",
+          "body": "Taking future guests to Mirik with full-screen video backdrops, calm typography, and high-res photography."
         },
         {
           "num": "02",
           "title": "Artisan Boutique Showcase",
-          "body": "Creating a dedicated section for garden-fresh tea, pure wild honey, organic turmeric, and hand-picked bay leaves."
+          "body": "A dedicated section for garden-fresh tea, pure wild honey, organic turmeric, and hand-picked bay leaves."
         },
         {
           "num": "03",
           "title": "Direct WhatsApp Reservations",
-          "body": "Implementing friction-free calls-to-action connecting travelers directly with the homestay hosts."
+          "body": "Simple calls-to-action that connect travelers directly with the homestay hosts."
         }
       ]
     },
     {
-      "heading": "Website Architecture & Experience Flow",
+      "heading": "Website Structure & Flow",
       "label": "Design & Development",
       "body": [
-        "We structured the single-page application into a smooth, narrative-driven vertical flow. Every scroll depth introduces a distinct dimension of the Kulam experience, moving from brand philosophy and room comfort to local crafts and guest reviews."
+        "We built the single page as a smooth, story-led vertical flow. Each scroll brings a new side of the Kulam experience, moving from the brand's outlook and room comfort to local crafts and guest reviews."
       ],
       "media": [
         {
           "src": "/assets/img/work/kulam-homestay/design-development-1.webp",
-          "alt": "Design & Development - Cultural Pillars and Architectural Identity",
+          "alt": "Design & Development - Cultural Pillars and Visual Identity",
           "caption": "Cultural Pillars: Warm Hospitality, Tea Garden Life, Peaceful Nature, and Local Lifestyle",
           "zoom": true,
           "pad": true
@@ -77,7 +77,7 @@
         {
           "src": "/assets/img/work/kulam-homestay/design-development-2.webp",
           "alt": "Design & Development - Stay in Comfort rooms and amenities",
-          "caption": "Stay in Comfort: Highlight cozy wooden room interiors, plush mountain view suites, and guest amenities",
+          "caption": "Stay in Comfort: cozy wooden rooms, plush mountain view suites, and guest amenities",
           "zoom": true,
           "pad": true
         }
@@ -87,56 +87,56 @@
       "heading": "Handcrafted Treasures: Supporting Mirik Artisans",
       "label": "Local E-Commerce & Craft Boutique",
       "body": [
-        "A standout feature of the digital platform is the <strong>Handcrafted Treasures</strong> boutique section. Kulam Homestay supports local village farmers and craftsmen by offering organic, hand-harvested products directly to guests.",
-        "We highlighted four signature local products with custom photography and narrative cards: Garden Fresh Tea (freshly plucked from private tea gardens), Pure Hill Honey (100% wild-harvested), Organic Turmeric (sun-dried & ground), and Farm-Fresh Bay Leaves."
+        "A standout feature of the site is the <strong>Handcrafted Treasures</strong> boutique section. Kulam Homestay supports local village farmers and craftsmen by offering organic, hand-harvested products directly to guests.",
+        "We highlighted four local products with custom photography and story cards: Garden Fresh Tea (freshly plucked from private tea gardens), Pure Hill Honey (100% wild-harvested), Organic Turmeric (sun-dried & ground), and Farm-Fresh Bay Leaves."
       ],
       "media": [
         {
           "src": "/assets/img/work/kulam-homestay/handcrafted-treasures.webp",
           "alt": "Handcrafted Treasures section featuring organic products and WhatsApp CTA banner",
-          "caption": "Handcrafted Treasures: Showcasing garden tea, wild honey, organic turmeric, bay leaves, and integrated WhatsApp order banner",
+          "caption": "Handcrafted Treasures: garden tea, wild honey, organic turmeric, bay leaves, and a WhatsApp order banner",
           "zoom": true,
           "pad": true
         }
       ]
     },
     {
-      "heading": "Mobile Responsiveness & Journey Beyond",
+      "heading": "Mobile First & Beyond",
       "label": "Mobile-First UX",
       "layout": "grid-2",
       "body": [
-        "Over 85% of homestay inquiries originate from mobile users. The application was engineered for zero-lag mobile performance, quick location maps, and high-visibility contact triggers."
+        "Over 85% of homestay inquiries come from mobile users. We built the site for lag-free mobile performance, quick location maps, and easy-to-spot contact buttons."
       ],
       "media": [
         {
           "src": "/assets/img/work/kulam-homestay/mobile-only-responsive.mp4",
           "alt": "Mobile view interactive scrolling experience for Kulam Homestay",
-          "caption": "Mobile UX: Smooth scrolling interface optimized for handheld devices",
+          "caption": "Mobile UX: smooth scrolling made for handheld devices",
           "zoom": false,
           "loop": true
         },
         {
           "src": "/assets/img/work/kulam-homestay/responsive-gif.mp4",
           "alt": "Responsive layout demonstration across screen breakpoints for Kulam Homestay",
-          "caption": "Responsive Design: Fluid adaptive layout across mobile, tablet, and desktop viewports",
+          "caption": "Responsive Design: a fluid layout across mobile, tablet, and desktop screens",
           "zoom": false,
           "loop": true
         }
       ]
     },
     {
-      "heading": "Authentic Client Feedback",
+      "heading": "Client Feedback",
       "label": "Host Video Reel",
       "layout": "split",
       "body": [
-        "Hear directly from the hosts of Kulam Homestay in Mirik! Authentic video testimonials capture the passion, warm hospitality, and community spirit behind this boutique hill sanctuary.",
-        "By placing video content alongside our strategic narrative, potential guests connect immediately with the real faces and story behind the homestay."
+        "Hear directly from the hosts of Kulam Homestay in Mirik. Their video testimonials capture the passion, warm hospitality, and community spirit behind this boutique hill retreat.",
+        "With the video placed next to the story of the homestay, future guests connect straight away with the real faces behind it."
       ],
       "media": [
         {
           "src": "/assets/img/work/kulam-homestay/kulam-feedback-reel.mp4",
           "alt": "Kulam Homestay client feedback video reel",
-          "caption": "Client Feedback Reel: Authentic host testimonial video from Kulam Homestay in Mirik",
+          "caption": "Client Feedback Reel: host testimonial video from Kulam Homestay in Mirik",
           "zoom": false,
           "ratio": "9/16"
         }
@@ -146,13 +146,13 @@
       "heading": "Guest Trust & Verified Reviews",
       "label": "Guest Testimonials",
       "body": [
-        "Guest trust is the bedrock of homestay hospitality. The website features genuine guest reviews highlighting Kulam's 4.9★ average rating, alongside interactive location maps for seamless travel planning."
+        "Guest trust is the bedrock of homestay hospitality. The website features real guest reviews showing Kulam's 4.9★ average rating, alongside location maps for easy travel planning."
       ],
       "media": [
         {
           "src": "/assets/img/work/kulam-homestay/clienttestominialclean.png",
           "alt": "What our guests say testimonials section with 4.9 star rating",
-          "caption": "Guest Reviews & Location Map: Highlighting guest ratings (4.9★) and Google Maps navigation",
+          "caption": "Guest Reviews & Location Map: guest ratings (4.9★) and Google Maps directions",
           "zoom": true,
           "pad": true
         }
@@ -163,9 +163,9 @@
       "divider": true,
       "label": "Measuring Success",
       "list": [
-        "<strong>Increased Direct Inquiries:</strong> Replaced static social posts with a high-converting one-pager, driving direct WhatsApp and phone bookings.",
-        "<strong>Empowered Local Crafts:</strong> Created a dedicated digital showcase for Mirik's village farmers and artisans, opening a new revenue stream for hill tea, honey, and spices.",
-        "<strong>Authentic Brand Perception:</strong> Successfully established Kulam Homestay as a premium boutique sanctuary in Mirik, Darjeeling."
+        "<strong>More Direct Inquiries:</strong> A one-pager replaced static social posts and now drives direct WhatsApp and phone bookings.",
+        "<strong>Support for Local Crafts:</strong> A dedicated online showcase for Mirik's village farmers and artisans, opening a new income stream for hill tea, honey, and spices.",
+        "<strong>A Clear Brand Image:</strong> Kulam Homestay now stands as a premium boutique retreat in Mirik, Darjeeling."
       ]
     }
   ],

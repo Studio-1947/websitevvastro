@@ -1,9 +1,9 @@
 {
   "mediaStyle": "contained",
   "title": "AWCH: Avishkar Women & Children Hospital | Studio 1947",
-  "description": "How Studio 1947 established AWCH as a premier multispeciality hospital in Asansol, brand strategy, visual identity, digital platform and social media.",
+  "description": "How Studio 1947 helped AWCH become a leading multispeciality hospital in Asansol: brand strategy, visual identity, website and social media.",
   "ogTitle": "AWCH: Avishkar Women & Children Hospital | Studio 1947",
-  "ogDescription": "How Studio 1947 established AWCH as a modern, premier multispeciality medical institution in Asansol, brand strategy, visual identity, digital platform, and omnichannel social media system.",
+  "ogDescription": "How Studio 1947 helped AWCH become a modern, leading multispeciality hospital in Asansol: brand strategy, visual identity, website and social media.",
   "ogType": "article",
   "brand": "#BF0076",
   "client": "Avishkar Hospital",
@@ -22,8 +22,8 @@
     {
       "divider": false,
       "body": [
-        "When healthcare founders and hospital executives evaluate a creative partner, they look for design that does more than decorate a space. They seek an agency that can build deep institutional trust, shift consumer behavior, and engineer digital-first touchpoints that simplify patient care.",
-        "This case study demonstrates how we established <strong>AWCH (Avishkar Women & Children Hospital)</strong> as a modern, premier multispeciality medical institution in Asansol. By shifting regional perceptions and eliminating digital friction, we built a comprehensive communication ecosystem focused on authority, accessibility, and community impact."
+        "When hospital founders and executives look for a creative partner, they want design that does more than decorate a space. They want an agency that can build real trust, change how people behave, and make digital-first touchpoints that simplify patient care.",
+        "This case study shows how we helped <strong>AWCH (Avishkar Women & Children Hospital)</strong> become a modern, leading multispeciality hospital in Asansol. By shifting how the region saw it and removing digital friction, we built a complete communication system focused on authority, access and community impact."
       ]
     },
     {
@@ -33,15 +33,15 @@
       "divider": false,
       "label": "The Mission",
       "body": [
-        "<strong>Avishkar Women & Children Hospital (AWCH)</strong> was envisioned as a state-of-the-art multispeciality hospital bringing world-class medical infrastructure directly to families in Asansol. The institution is dedicated to delivering highly specialized, compassionate care, completely removing the need for artificial operational shortcuts in the patient experience."
+        "<strong>Avishkar Women & Children Hospital (AWCH)</strong> was planned as a state-of-the-art multispeciality hospital bringing top medical infrastructure directly to families in Asansol. It is dedicated to specialised, compassionate care, with no operational shortcuts in the patient experience."
       ]
     },
     {
       "divider": false,
       "label": "The Challenge",
       "body": [
-        "Healthcare brands in Tier-2 cities face a unique psychological hurdle: a systemic lack of digital trust and fragmented institutional communication. Historically, many families in Asansol would undergo the emotional and financial strain of traveling all the way to Kolkata for critical treatments. This flight wasn't due to a lack of local medical infrastructure, but a lack of visual confidence and awareness in local brands.",
-        "Our core strategic challenge was to bridge this confidence gap. The identity needed to balance:"
+        "Healthcare brands in Tier-2 cities face a particular hurdle: little digital trust and scattered communication. For years, many families in Asansol took on the emotional and financial strain of travelling all the way to Kolkata for critical treatment. Not because local hospitals were lacking, but because local brands lacked visual confidence and awareness.",
+        "Our main job was to close this confidence gap. The identity needed to balance:"
       ],
       "layout": "grid-3",
       "cards": [
@@ -51,18 +51,18 @@
         },
         {
           "title": "Clinical Authority",
-          "body": "Commanding absolute medical professionalism."
+          "body": "Showing absolute medical professionalism."
         },
         {
           "title": "Cultural Familiarity",
-          "body": "Ensuring the visual environment felt approachably native rather than intimidatingly corporate."
+          "body": "Making the visual environment feel approachable and local, not intimidating and corporate."
         }
       ]
     },
     {
       "heading": "Parent-Brand Architecture",
       "body": [
-        "To protect the institution from future design debt, we built an adaptable visual architecture. AWCH serves as the primary master identity under which specific wings (such as Pediatrics, Gynecology, Emergency Care, and advanced Dermatology and Skincare Treatments) operate. This cohesive blueprint ensures that as the hospital expands its services, every new department and specialized clinic instantly inherits established brand equity, saving long-term promotional costs."
+        "To protect the hospital from future design debt, we built an adaptable visual structure. AWCH is the master identity. Specific wings (such as Paediatrics, Gynaecology, Emergency Care, and advanced Dermatology and Skincare Treatments) sit under it. As the hospital adds services, every new department and clinic instantly inherits the brand's existing equity, which saves promotional costs over time."
       ],
       "media": [
         {
@@ -80,27 +80,27 @@
       "divider": false,
       "subheading": "Breaking the \"Sterile Blue\" Cliché",
       "body": [
-        "Standard corporate healthcare branding is crowded with cold, high-saturation blues that feel clinical and detached. To instantly differentiate AWCH on a regional scale, we engineered a distinct, high-contrast palette:"
+        "Standard healthcare branding is crowded with cold, saturated blues that feel clinical and distant. To set AWCH apart across the region, we built a distinct, high-contrast palette:"
       ],
       "swatches": [
         {
           "role": "Primary",
           "name": "Care Pink",
           "hex": "#BF0076",
-          "note": "Intentionally selected to evoke care, empathy, and deep compassion. This tone establishes an immediate psychological connection with women-centric and pediatric care while bringing human warmth into an industry often seen as sterile."
+          "note": "Chosen to suggest care, empathy and deep compassion. It connects at once with women's and children's care, and brings human warmth to an industry often seen as sterile."
         },
         {
           "role": "Secondary",
           "name": "Neutral",
           "hex": "#000000",
-          "note": "Sophisticated supporting tones were introduced to frame the primary care colors. These anchors maintain a clean, academic weight, ensuring the system functions perfectly across formal hospital environments, digital software, and print media."
+          "note": "Refined supporting tones frame the primary care colours. They keep a clean, serious weight, so the system works well across hospital spaces, digital software and print."
         }
       ]
     },
     {
       "heading": "Typography: Accessible and Stress-Free Readability",
       "body": [
-        "In high-stress medical environments, the typeface must serve as an invisible, high-performance tool for fast reading."
+        "In stressful medical settings, the typeface must be an invisible tool for fast reading."
       ],
       "media": [
         {
@@ -112,23 +112,23 @@
       ]
     },
     {
-      "heading": "Omnichannel System Application",
+      "heading": "Putting the System to Work",
       "body": [
-        "To demonstrate the system's ability to seamlessly connect with patients across every phase of their healthcare journey, we activated the visual assets across key physical and digital channels:"
+        "To show how the system reaches patients at every stage of their care, we applied the visual assets across key physical and digital channels:"
       ]
     },
     {
       "divider": false,
       "label": "The Friction-Free Web Experience",
       "body": [
-        "The desktop and mobile web platforms were designed as trust-building tools rather than static information walls."
+        "We designed the desktop and mobile websites as trust-building tools, not static walls of information."
       ]
     },
     {
       "divider": false,
       "subheading": "Simplified Information Architecture",
       "body": [
-        "Healthcare data is structured into highly scannable layouts, enabling anxious users to find doctors, key medical departments, and emergency contact details within seconds."
+        "Healthcare information is laid out in easy-to-scan layouts, so anxious users can find doctors, key departments and emergency contact details within seconds."
       ],
       "media": [
         {
@@ -143,7 +143,7 @@
       "divider": false,
       "subheading": "Frictionless Appointment UX",
       "body": [
-        "We designed a clean, intuitive booking flow that removes unnecessary steps. This digital pathway builds immediate brand credibility and helps reduce long dependency lines at physical hospital reception desks."
+        "We designed a clean, intuitive booking flow with no unnecessary steps. It builds credibility straight away and helps shorten the queues at the hospital's reception desks."
       ],
       "media": [
         {
@@ -158,28 +158,28 @@
       "divider": false,
       "subheading": "Accessibility-First UI",
       "body": [
-        "By pairing clean typography with generous breathing space, the layout minimizes cognitive load, making the digital experience effortless for users of varying ages and digital literacy levels."
+        "Clean typography and generous breathing space keep the layout easy on the mind. The site feels effortless for users of all ages and levels of digital confidence."
       ]
     },
     {
       "divider": false,
       "label": "The Social Media Awareness Engine",
       "body": [
-        "Social platforms serve as the primary vehicle for building local awareness in Asansol."
+        "Social platforms are the main way to build local awareness in Asansol."
       ]
     },
     {
       "divider": false,
       "subheading": "Template Scaling",
       "body": [
-        "We engineered modular graphic templates that maintain a strict visual style, recognizable brand colors, and bold typography hierarchy across all health-education posts."
+        "We built modular graphic templates that keep a strict visual style, recognisable brand colours and a bold typographic hierarchy across all health-education posts."
       ]
     },
     {
       "divider": false,
       "subheading": "Instant Recall",
       "body": [
-        "This systematic structure ensures that every piece of digital content is immediately recognizable in a crowded social feed as an authoritative, caring message from the AWCH ecosystem."
+        "This structure means every post stands out in a crowded social feed as an authoritative, caring message from AWCH."
       ],
       "layout": "grid-3",
       "media": [
@@ -197,7 +197,7 @@
         },
         {
           "src": "/assets/img/work/awch/instant-recall03.webp",
-          "alt": "A third AWCH social post, showing how the template scales to different messages while staying instantly recognizable",
+          "alt": "A third AWCH social post, showing how the template scales to different messages while staying instantly recognisable",
           "zoom": true,
           "pad": false
         }

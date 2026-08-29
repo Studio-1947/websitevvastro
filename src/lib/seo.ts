@@ -9,7 +9,7 @@ export const SITE = {
   url: 'https://www.1947.io',
   defaultTitle: 'Data, Design & Tech Consulting | Studio 1947',
   defaultDescription:
-    'Studio 1947 — crafting & co-creating data, design and technology solutions from Darjeeling. We understand, design, build and grow impactful solutions for organisations worldwide.',
+    'Studio 1947 makes data, design and technology solutions from Darjeeling. We understand, design, build and grow useful solutions for organisations worldwide.',
   locale: 'en',
   logo: 'https://www.1947.io/assets/img/brand-mark.png',
   sameAs: [

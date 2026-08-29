@@ -1,17 +1,17 @@
 /* =====================================================================
-   Blog post — one shared stylesheet for all 19 posts.
+   Blog post - one shared stylesheet for all 19 posts.
 
    The posts were ported from three different source templates, so each one
    carried its own copy of the article CSS with its own numbers: covers were
    820px on some posts and 1100px on others, the "Back to Blog" control was a
    bordered pill here, a bare link with a circled arrow there. This file owns
-   everything the three dialects have in common — header, cover, prose, meta —
+   everything the three dialects have in common - header, cover, prose, meta -
    so a post reads the same whichever template it came from. Each post's JSON
    now keeps only the CSS that is genuinely its own (pull-quotes, figure
    captions, dialogue blocks).
 
    The metrics follow Medium's reading layout: a 680px measure, Charter (with
-   Georgia as the near-universal fallback — the same stack Medium ships) for
+   Georgia as the near-universal fallback - the same stack Medium ships) for
    body prose, the site's sans for headings and furniture, 21/1.58 body type,
    and images constrained to the column rather than running wider than it.
    ===================================================================== */
@@ -21,7 +21,7 @@
   --post-w: 680px;
   /*
    * Medium's own body stack. Charter is present on macOS/iOS; Georgia covers
-   * Windows and Android. No webfont request is added for it — the difference
+   * Windows and Android. No webfont request is added for it - the difference
    * between Charter and Georgia at reading size is small next to the cost of
    * another blocking font on every article.
    */
@@ -32,8 +32,8 @@
 }
 
 /* ---------- Measure ----------
-   The three templates nest the site's .container helper in different places —
-   on the header, on the article, on the cover, or not at all — so each post
+   The three templates nest the site's .container helper in different places -
+   on the header, on the article, on the cover, or not at all - so each post
    ended up with its own gutter arithmetic. Neutralise it here and let the
    article's own blocks own both the measure and the gutter, so every post is
    laid out identically. Only the innermost block of each pair is padded, which
@@ -144,7 +144,7 @@
 }
 
 /* ---------- Cover + in-article images ----------
-   The complaint that images run too large came from covers set at 820–1100px
+   The complaint that images run too large came from covers set at 820-1100px
    against a 720px column. Medium sizes an inserted image to the measure, so
    that is what both the cover and body figures do here. */
 .page-post .post-cover,
@@ -155,7 +155,7 @@
   background: none;
 }
 /* Every cover ships as a 4:5 portrait, which at the 680px measure stands 850px
-   tall — the reader gets a full screen of photograph before a line of text.
+   tall - the reader gets a full screen of photograph before a line of text.
    Crop to a 3:2 band instead: same column width, a little over half the height,
    and the subject of each of these frames sits centred enough to survive it. */
 .page-post .post-cover img,
@@ -306,7 +306,7 @@
    made whole articles read as bold. Three separate causes, all fixed here:
 
      • The face. The Charter/Georgia body stack has no Indic coverage at all,
-       and the sans fallback is Latin-first — its Devanagari and Bengali are
+       and the sans fallback is Latin-first - its Devanagari and Bengali are
        drawn much heavier than its Latin. The route loads the matching Noto
        family for these posts (see pages/blog/[slug].astro) and it is named
        first below.
@@ -351,7 +351,7 @@
   font-size: 21px;
   line-height: 1.85;
 }
-/* Headings and the title too — at 700 in a Latin-first face these were the
+/* Headings and the title too - at 700 in a Latin-first face these were the
    heaviest thing on the page. Noto's 600 reads as a heading without shouting. */
 .page-post [lang="bn"] .post-title,
 .page-post [lang="ne"] .post-title,
@@ -427,7 +427,7 @@
 }
 
 /* =====================================================================
-   Article footer — back to blog + previous/next.
+   Article footer - back to blog + previous/next.
 
    Rendered by the route (components/blog/PostFooterNav.astro), not by the post
    markup, which is why it is styled on its own class rather than under

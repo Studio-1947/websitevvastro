@@ -30,8 +30,8 @@
 body.page-case-modular {
   background: var(--bg-alt);
 }
-/* Case content is set entirely in Google Sans Flex — headings, prose, tags,
-   captions, credits and the More work rail — so a case reads in one voice.
+/* Case content is set entirely in Google Sans Flex - headings, prose, tags,
+   captions, credits and the More work rail - so a case reads in one voice.
    The tokens are overridden on <main>, so the site header and footer keep
    their own faces. The face is already in DEFAULT_FONT_HREF (see lib/seo). */
 .case-page {
@@ -169,13 +169,13 @@ body.page-case-modular {
 
 /* ── Hero: logo variant ───────────────────────────────────────────────────── */
 /* Brand lockups are contained on a tinted panel. --brand-fill is the brand
-   (or a hair-darkened twin for mid-tone brands) — see CaseLayout. */
+   (or a hair-darkened twin for mid-tone brands) - see CaseLayout. */
 .case-hero--logo {
   background: var(--brand-fill, var(--brand));
   padding-top: 96px;
 }
 /* Clean light panel for logo lockups that read muddy against their own fill
-   (hero.background: 'light' — e.g. FIH's dark-ink lockup on its amber fill). */
+   (hero.background: 'light' - e.g. FIH's dark-ink lockup on its amber fill). */
 .case-hero--logo.case-hero--light {
   background: var(--bg);
 }
@@ -228,7 +228,7 @@ body.page-case-modular {
 
 /* ── Shell ────────────────────────────────────────────────────────────────── */
 /*
- * The body no longer constrains its children — the text grid is applied to the
+ * The body no longer constrains its children - the text grid is applied to the
  * pieces that are text, which leaves media free to run the full width of the
  * page without a 100vw breakout (and without the horizontal overflow a
  * breakout costs once a scrollbar is on screen).
@@ -268,7 +268,7 @@ body.page-case-modular {
 /* ── Opt-in section dressing (per-case JSON: `band` / `backdrop`) ────────── */
 /* A `band` section paints its background edge to edge and flips its type
    light; a `backdrop` section floats a huge, soft image behind its content.
-   Both are opt-in per section in a case's JSON — absent, nothing changes. */
+   Both are opt-in per section in a case's JSON - absent, nothing changes. */
 .case-section--band {
   background: var(--band);
   padding-top: clamp(36px, 5vw, 72px);
@@ -372,7 +372,7 @@ body.page-case-modular {
   font-size: clamp(20px, 1.4vw, 22px);
   line-height: 1.3;
   /* --brand-text is the brand darkened enough to clear 4.5:1 on light
-     surfaces — bright brands (lime #94c11f, neon green #00e357, orange
+     surfaces - bright brands (lime #94c11f, neon green #00e357, orange
      #ff3b00) fail as-is. */
   color: var(--brand-text, var(--brand));
   margin-bottom: 14px;
@@ -381,7 +381,7 @@ body.page-case-modular {
   margin-top: clamp(20px, 2.4vw, 36px);
 }
 
-/* Brand-tinted pill — the one place per-brand colour reads strongly. */
+/* Brand-tinted pill - the one place per-brand colour reads strongly. */
 .case-label {
   display: inline-flex;
   align-items: center;
@@ -399,7 +399,7 @@ body.page-case-modular {
   margin-bottom: clamp(14px, 1.4vw, 22px);
 }
 
-/* Fills the shell rather than capping at a measure — matches the source, where
+/* Fills the shell rather than capping at a measure - matches the source, where
    <Body> had no max-width and ran the full 1400px container. Size scales up on
    wide viewports so the longer line length still reads comfortably. */
 .case-prose p {
@@ -680,7 +680,7 @@ body.page-case-modular {
   padding-inline: 0;
 }
 /* Cases with mediaStyle: 'contained' keep stacked figures inside the text
-   shell instead — their screenshots and diagrams were not shot for a
+   shell instead - their screenshots and diagrams were not shot for a
    full-viewport stage (see the work collection schema). */
 .case-page--contained .case-media--stack {
   max-width: 1400px;
@@ -693,7 +693,7 @@ body.page-case-modular {
   padding-inline: 0;
 }
 /* Contained figures return to the pre-rework treatment: the image sits at its
-   intrinsic size, centred, and is never upscaled to fill the shell — a
+   intrinsic size, centred, and is never upscaled to fill the shell - a
    1000px guideline slide stays 1000px, and a 243px clearspace diagram is not
    blown up to fill a grid cell. Ratio-pinned figures still fill and crop
    (their box is the design), and videos keep their own sizing. */
@@ -714,7 +714,7 @@ body.page-case-modular {
   width: 100%;
   max-width: none;
 }
-/* Grid and split cells fill their own column instead — they are already
+/* Grid and split cells fill their own column instead - they are already
    narrower than the body, and bleeding them would collapse the grid. */
 .case-media--grid-2 .case-figure,
 .case-media--grid-3 .case-figure,
@@ -978,7 +978,7 @@ body.page-case-modular {
   background: var(--brand-tint);
 }
 
-/* Play toggle — brand ring that fills on hover/active. */
+/* Play toggle - brand ring that fills on hover/active. */
 .case-audio__play {
   width: 44px;
   height: 44px;
@@ -1067,7 +1067,7 @@ body.page-case-modular {
   font-variant-numeric: tabular-nums;
 }
 
-/* Progress bar — runs under the active row, 2px brand line. */
+/* Progress bar - runs under the active row, 2px brand line. */
 .case-audio__bar {
   position: absolute;
   left: 0;
@@ -1078,7 +1078,7 @@ body.page-case-modular {
   transition: width 0.2s linear;
 }
 
-/* Recording not wired yet — the row reads as intentional, not broken. */
+/* Recording not wired yet - the row reads as intentional, not broken. */
 .case-audio__track.is-coming .case-audio__play {
   border-style: dashed;
   color: var(--grey-500);
@@ -1179,7 +1179,7 @@ body.page-case-modular {
   margin: 0;
   padding: 0;
 }
-/* "Brand Design: Rabi" — the role sits with the name rather than above a
+/* "Brand Design: Rabi" - the role sits with the name rather than above a
    column of them, so a long credit list still reads as pairs. */
 .case-colophon__credit {
   font-family: var(--font-body);
@@ -1259,7 +1259,7 @@ body.page-case-modular {
   font-family: var(--font-num);
   font-weight: 400;
   /* Sized so the longest figure in use ("₹1,502") still fits a four-across
-     column — at 6.5vw it overflowed its cell and collided with the next
+     column - at 6.5vw it overflowed its cell and collided with the next
      stat's digits. */
   font-size: clamp(44px, 5vw, 84px);
   line-height: 0.95;
@@ -1411,7 +1411,7 @@ body.page-case-modular {
   border-color: #eecccc;
 }
 /* Production builds ship the rail's cards as plain cards (not links) while
-   the case studies are reworked — see lib/otherWork. */
+   the case studies are reworked - see lib/otherWork. */
 .more-work__card--soon {
   cursor: default;
   pointer-events: none;

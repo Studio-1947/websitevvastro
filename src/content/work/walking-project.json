@@ -1,6 +1,6 @@
 {
   "title": "Walking Project: Social Media Communication & Website Redesign | Studio 1947",
-  "description": "How Studio 1947 crafted bilingual social media campaigns and redesigned the website for Walking Project, Mumbai's citizen movement for safe, convenient and joyful walking.",
+  "description": "How Studio 1947 built bilingual social campaigns and a new website for Walking Project, Mumbai's citizen movement for safe, convenient and joyful walking.",
   "ogTitle": "Walking Project: Communication & Website Redesign | Studio 1947",
   "ogDescription": "Campaign design, data storytelling, and a website redesign for Mumbai's pedestrian advocacy movement.",
   "ogType": "article",
@@ -27,8 +27,8 @@
     {
       "divider": false,
       "body": [
-        "<strong>Walking Project</strong> is a citizen-led movement working to ensure that everyone in the Mumbai Metropolitan Region has a safe, convenient and joyful walking experience. Founded in 2012, the collective maps footpaths, audits pedestrian infrastructure, runs neighbourhood walkability teams across the city, and pushes civic bodies to build the sidewalks Mumbai's millions of walkers deserve — a minimum agenda for the maximum city.",
-        "Studio 1947 partnered with Walking Project on two fronts: a social media communication system that turns footpath data into campaigns people feel and share, and a redesign of their website so a decade of advocacy reads as one clear, credible movement."
+        "<strong>Walking Project</strong> is a citizen-led movement working to give everyone in the Mumbai Metropolitan Region a safe, convenient and joyful walk. Founded in 2012, the collective maps footpaths, audits pedestrian infrastructure, runs neighbourhood walkability teams across the city, and pushes civic bodies to build the sidewalks Mumbai's millions of walkers deserve. A minimum agenda for the maximum city.",
+        "Studio 1947 worked with Walking Project on two fronts: a social media system that turns footpath data into campaigns people feel and share, and a redesign of their website so a decade of advocacy reads as one clear, credible movement."
       ]
     },
     {
@@ -39,8 +39,8 @@
       "divider": false,
       "label": "The Challenge",
       "body": [
-        "Nearly half of Mumbai moves on foot, yet pedestrians are the city's most invisible constituency. Walkability data sat in reports and spreadsheets — accurate, urgent, and unread. The movement needed communication that could stop a thumb mid-scroll and a web presence that could hold the attention it won.",
-        "The work had to speak the city's languages — Hindi and Marathi first, English alongside — and stay instantly recognisable as Walking Project across every post, poster and page."
+        "Nearly half of Mumbai moves on foot, yet pedestrians are the city's most invisible group. Walkability data sat in reports and spreadsheets: accurate, urgent, and unread. The movement needed posts that could stop a thumb mid-scroll, and a website that could hold the attention it won.",
+        "The work had to speak the city's languages, Hindi and Marathi first with English alongside, and stay instantly recognisable as Walking Project across every post, poster and page."
       ],
       "layout": "grid-3",
       "cards": [
@@ -57,15 +57,15 @@
         {
           "num": "03",
           "title": "One Recognisable Voice",
-          "body": "A repeatable visual system — marigold, signal red, bold Devanagari type — that reads as Walking Project at a glance."
+          "body": "A repeatable visual system (marigold, signal red, bold Devanagari type) that reads as Walking Project at a glance."
         }
       ]
     },
     {
-      "heading": "चलने की आज़ादी है क्या? — The Campaign",
+      "heading": "The Campaign: चलने की आज़ादी है क्या?",
       "label": "Social Media Communication",
       "body": [
-        "The anchor campaign asks one question: <em>chalne ki azadi hai kya?</em> — is there freedom to walk? Borrowing the charge of the word <em>azadi</em>, the series puts the people who actually walk Mumbai at its centre: an elderly woman on her evening round, a schoolgirl with her backpack, a senior citizen on his morning walk, each striding across a silhouette of the city's skyline.",
+        "The anchor campaign asks one question: <em>chalne ki azadi hai kya?</em> Is there freedom to walk? Borrowing the charge of the word <em>azadi</em>, the series puts the people who actually walk Mumbai at its centre: an elderly woman on her evening round, a schoolgirl with her backpack, a senior citizen on his morning walk, each striding across a silhouette of the city's skyline.",
         "Hand-drawn Devanagari display type does the shouting, the walkers do the convincing, and every poster closes with the same invitation: join the movement with Walking Project."
       ],
       "layout": "grid-3",
@@ -92,8 +92,8 @@
       "heading": "Numbers That Walk",
       "label": "Data Storytelling",
       "body": [
-        "Walking Project's strongest asset is its evidence, so the feed treats statistics as heroes. <strong>46%</strong> — the share of Mumbaikars who commute on foot — is set in oversized Devanagari numerals and asked back to the city in Marathi: Mumbaikars walk, but are our footpaths safe? The same layout ships in daylight blue and alarm red, so the fact returns to the feed without repeating itself.",
-        "A city-scale map drawn from open data makes the other number tangible: 2,000 kilometres of roads, and every line of it walked. Year-end recaps carry the movement's wins back to the community that made them happen, over duotone photographs of volunteers auditing the streets."
+        "Walking Project's strongest asset is its evidence, so the feed treats statistics as heroes. <strong>46%</strong> of Mumbaikars commute on foot. That number is set in oversized Devanagari numerals and asked back to the city in Marathi: Mumbaikars walk, but are our footpaths safe? The same layout ships in daylight blue and alarm red, so the fact returns to the feed without repeating itself.",
+        "A city-scale map drawn from open data makes the other number real: 2,000 kilometres of roads, and every line of it walked. Year-end recaps carry the movement's wins back to the community that made them happen, over duotone photographs of volunteers auditing the streets."
       ],
       "layout": "grid-2",
       "media": [
@@ -119,7 +119,7 @@
       "heading": "Two Colours, One Voice",
       "label": "Visual Language",
       "body": [
-        "The identity runs on exactly two colours: the marigold of the mark — taxi-top yellow, traffic paint, high-visibility optimism — and the charcoal that carries the walking feet, the type and the city silhouette. Individual campaigns are free to change their backdrop, but the pair stays fixed, so every post reads as Walking Project before a single word is read.",
+        "The identity runs on exactly two colours. The marigold of the mark: taxi-top yellow, traffic paint, high-visibility optimism. And the charcoal that carries the walking feet, the type and the city silhouette. Individual campaigns can change their backdrop, but the pair stays fixed, so every post reads as Walking Project before you read a single word.",
         "Bold hand-lettered Devanagari headlines give the campaigns a protest-poster urgency, while clean grotesque body type keeps the data credible."
       ],
       "swatches": [
@@ -127,7 +127,7 @@
           "hex": "#FDC700",
           "name": "Marigold",
           "role": "Primary",
-          "note": "The ground the mark walks on — optimism at traffic-paint visibility"
+          "note": "The ground the mark walks on: optimism at traffic-paint visibility"
         },
         {
           "hex": "#1A1A1A",
@@ -141,14 +141,14 @@
       "heading": "A Website That Holds the Argument",
       "label": "Website Redesign",
       "body": [
-        "Social media wins the first three seconds; the website has to win the next three minutes. We restructured walkingproject.org around the movement's tagline — safe, convenient and joyful walking for all — leading with the one photograph that says everything: a Mumbai footpath at rush hour, full of people, beside a road full of cars.",
-        "The redesign organises a decade of work — footpath audits, traffic island fixes, local walkability teams, press coverage — into a navigation a first-time visitor can walk through, with joining the movement and supporting it always one click away."
+        "Social media wins the first three seconds. The website has to win the next three minutes. We rebuilt walkingproject.org around the movement's tagline, safe, convenient and joyful walking for all, leading with the one photograph that says everything: a Mumbai footpath at rush hour, full of people, beside a road full of cars.",
+        "The redesign sorts a decade of work (footpath audits, traffic island fixes, local walkability teams, press coverage) into a navigation a first-time visitor can walk through. Joining the movement and supporting it are always one click away."
       ],
       "media": [
         {
           "src": "/assets/img/work/walking-project/website-hero.webp",
           "alt": "The redesigned walkingproject.org hero: the tagline 'Safe, Convenient & Joyful Walking for All' above a photograph of a crowded Mumbai footpath at rush hour",
-          "caption": "The hero of the redesigned site: the tagline in the movement's marigold, over the daily proof — a footpath carrying more people than the road beside it"
+          "caption": "The hero of the redesigned site: the tagline in the movement's marigold, over the daily proof, a footpath carrying more people than the road beside it"
         }
       ]
     },

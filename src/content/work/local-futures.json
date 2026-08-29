@@ -1,9 +1,9 @@
 {
   "mediaStyle": "contained",
   "title": "Local Futures: Graphics Localization | Studio 1947",
-  "description": "How Studio 1947 localised Local Futures' Hindi documentary short, translating motion graphics, infographics and on-screen callouts into Devanagari.",
+  "description": "How Studio 1947 localised Local Futures' Hindi documentary short, turning motion graphics, infographics and on-screen callouts into Devanagari.",
   "ogTitle": "Local Futures: Graphics Localization | Studio 1947",
-  "ogDescription": "Complete graphics localization for a Hindi-language documentary short, motion graphics, infographics and on-screen callouts re-engineered into Devanagari.",
+  "ogDescription": "Complete graphics localization for a Hindi documentary short. Motion graphics, infographics and on-screen callouts rebuilt in Devanagari.",
   "ogType": "article",
   "brand": "#045A7B",
   "client": "Local Futures",
@@ -20,46 +20,46 @@
     {
       "divider": false,
       "body": [
-        "When an international non-profit or global think tank seeks a creative partner, they aren't looking for a simple translation service. They require high-level design consultants who understand multilingual visual systems, information architecture, and cultural localization. The challenge is to take dense, global macroeconomic data and translate it into a visual language that feels urgent, clear, and approachably native to regional communities.",
-        "This case study demonstrates how we partnered with Local Futures, a pioneer of the international economic localization movement, to execute complete Graphics Localization for their high-impact documentary short: <strong>\"अंतरराष्ट्रीय व्यापार का पागलपन: Trade Gone Mad\"</strong>."
+        "When an international non-profit or global think tank looks for a creative partner, they don't just want a translation service. They need designers who understand multilingual visual systems, information design, and cultural localization. The job is to take dense global economic data and turn it into visuals that feel urgent, clear, and native to local communities.",
+        "This case study shows how we worked with Local Futures, a pioneer of the international economic localization movement, on complete Graphics Localization for their documentary short: <strong>\"अंतरराष्ट्रीय व्यापार का पागलपन: Trade Gone Mad\"</strong>."
       ]
     },
     {
-      "heading": "Strategic Context & The Global-Local Divide"
+      "heading": "Context: The Global-Local Divide"
     },
     {
       "divider": false,
-      "subheading": "The Client Profile",
+      "subheading": "Who Local Futures Are",
       "body": [
-        "Local Futures is a globally recognized organization dedicated to renewing ecological health and human well-being by shifting away from corporate globalization toward localized, community-driven economies. Their educational media tools are distributed globally to influence international policymakers, activists, and grassroots leaders."
+        "Local Futures is a globally recognized organization working to renew ecological health and human well-being. They want to move away from corporate globalization toward local, community-led economies. Their educational media reaches policymakers, activists, and grassroots leaders around the world."
       ]
     },
     {
       "divider": false,
       "subheading": "The Problem: When Subtitles Aren't Enough",
       "body": [
-        "To introduce their core advocacy into India's massive Hindi-speaking demographic, simple text subtitling at the bottom of the screen was insufficient. In fast-paced video production, complex infographics, data charts, and on-screen text callouts must be read instantly.",
-        "If the motion graphics remain in English while subtitles run below, the viewer faces severe cognitive splitting, trying to decode English graphs while reading Hindi translation simultaneously. This friction dilutes the emotional weight and clarity of the message."
+        "To bring their core message to India's huge Hindi-speaking audience, subtitles at the bottom of the screen were not enough. In fast-paced video, complex infographics, data charts, and on-screen callouts must be read instantly.",
+        "If the motion graphics stay in English while subtitles run below, the viewer's attention splits. They try to decode English graphs while reading Hindi at the same time. That friction weakens both the emotional weight and the clarity of the message."
       ]
     },
     {
       "divider": false,
       "subheading": "The Creative Brief",
       "body": [
-        "Our agency was tasked with auditing, dismantling, and completely re-engineering the video's dynamic on-screen graphics into Hindi. The goal was to build a seamless, digital-first native experience that commands immediate authority and drives local awareness across Tier-2 and Tier-3 regional landscapes in India."
+        "Our job was to audit, take apart, and completely rebuild the video's on-screen graphics in Hindi. The goal was a native, digital-first experience that feels authoritative at once and builds local awareness across Tier-2 and Tier-3 regions of India."
       ]
     },
     {
-      "heading": "Typographic & Visual Localization Framework",
+      "heading": "Typography & Visual Localization",
       "body": [
-        "Translating text inside motion graphics requires deep layout discipline. Unlike static document translation, video graphics must account for fixed timeframes, strict screen safe-zones, and the expansion properties of regional scripts."
+        "Translating text inside motion graphics takes real layout discipline. Unlike a static document, video graphics have fixed timings, strict screen safe-zones, and regional scripts that take up more room."
       ]
     },
     {
       "divider": false,
-      "subheading": "Typographic Strategy: Engineering Flawless Readability",
+      "subheading": "Typography: Making Every Word Readable",
       "body": [
-        "We implemented a highly disciplined, clean, modern Devanagari sans-serif typeface for all on-screen callouts."
+        "We chose a clean, modern Devanagari sans-serif typeface and used it with strict discipline across all on-screen callouts."
       ],
       "media": [
         {
@@ -69,10 +69,10 @@
       ]
     },
     {
-      "heading": "Operational & Systemic Value Summary",
+      "heading": "What It Delivered",
       "body": [
-        "By delivering a complete, production-ready localized graphic system rather than loose text translations, we provided Local Futures with an enterprise-grade advocacy asset.",
-        "The resulting video successfully bridges the communication gap between high-level international economic discourse and regional ground-level reality. It positions Local Futures to effectively mobilize communities, break down social and environmental divides, and advocate for democratic, localized economic frameworks across India."
+        "Instead of loose text translations, we gave Local Futures a complete, production-ready localized graphic system: an advocacy asset built to a professional standard.",
+        "The finished video bridges the gap between high-level international economic debate and everyday reality on the ground. It helps Local Futures mobilize communities, break down social and environmental divides, and make the case for democratic, local economies across India."
       ],
       "embed": {
         "src": "https://www.youtube.com/embed/Q1ZPIWBs45A?si=KwCN_-KOnIzzOUJQ",

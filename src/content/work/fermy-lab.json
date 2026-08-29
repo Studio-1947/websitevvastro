@@ -1,9 +1,9 @@
 {
   "mediaStyle": "contained",
   "title": "Fermy Lab: Portfolio | Studio 1947",
-  "description": "Brand identity, packaging and omnichannel UI for Fermy Lab, a fermented food brand bridging traditional Indian culinary wisdom with modern design.",
+  "description": "Brand identity, packaging and UI for Fermy Lab, a fermented food brand that joins traditional Indian cooking wisdom with modern design.",
   "ogTitle": "Fermy Lab: Portfolio | Studio 1947",
-  "ogDescription": "Brand identity, packaging design, and omnichannel UI system for Fermy Lab, an innovative fermented food brand bridging traditional Indian culinary wisdom with modern design.",
+  "ogDescription": "Brand identity, packaging and a UI system for Fermy Lab, a fermented food brand that joins traditional Indian cooking wisdom with modern design.",
   "ogType": "article",
   "brand": "#3E843E",
   "client": "Fermy Lab",
@@ -22,28 +22,28 @@
     {
       "divider": false,
       "body": [
-        "When food founders and consumer brands look for a creative agency, they aren't just looking for attractive graphics. They want to see a functional commercial system, one that establishes immediate credibility on a grocery shelf, commands attention on digital delivery platforms, and smoothly adapts as the company scales.",
-        "This case study breaks down how we transformed the foundational values of <strong>Fermy Lab</strong> into a highly polished, scalable identity system engineered for real-world business growth."
+        "When food founders and consumer brands look for a creative agency, they aren't just after attractive graphics. They want a working commercial system: one that earns trust on a grocery shelf, gets noticed on delivery apps, and adapts smoothly as the company grows.",
+        "This case study shows how we turned the founding values of <strong>Fermy Lab</strong> into a polished, scalable identity system built for real business growth."
       ]
     },
     {
       "heading": "Context & The Challenge",
       "label": "The Mission",
       "body": [
-        "<strong>Fermy Lab</strong> is an innovative food brand that creates premium products using slow, natural fermentation methods. The brand seamlessly bridges traditional Indian culinary wisdom with time-tested techniques sourced from diverse cultures around the world. Their focus is on making food that is healthy, enjoyable, and environmentally responsible, completely refusing to rely on artificial preservation shortcuts."
+        "<strong>Fermy Lab</strong> is a food brand that makes premium products using slow, natural fermentation. It joins traditional Indian cooking wisdom with proven techniques from cultures around the world. The aim is food that is healthy, enjoyable and kind to the environment, with no artificial preservation shortcuts."
       ]
     },
     {
       "divider": false,
       "label": "The Creative Challenge",
       "body": [
-        "The brand's core identity operates at a distinct crossroads: balancing deep tradition with modern thinking, local roots with global ideas, and natural patience with scientific rigor. To visually express this balance, we anchored the branding in a concept of “calm confidence”. The style is engineered to look systematically clean yet warm and handcrafted, proving to consumers that slow food can be professional, clean, and world-class."
+        "The brand sits at a crossroads: deep tradition and modern thinking, local roots and global ideas, natural patience and scientific rigour. To express that balance, we anchored the branding in the idea of “calm confidence”. The style is clean and systematic, yet warm and handcrafted. It shows customers that slow food can be professional, clean and world-class."
       ]
     },
     {
       "heading": "Parent-Brand Architecture",
       "body": [
-        "To protect the client from future design costs, we built a \"parent-child\" visual system designed to accommodate future growth:"
+        "To save the client design costs later, we built a \"parent-child\" visual system with room to grow:"
       ],
       "media": [
         {
@@ -57,27 +57,27 @@
     {
       "divider": false,
       "body": [
-        "<strong>Fermy Lab</strong> functions as the overarching master identity. Under this umbrella, the brand launches with two distinct product tracks: Breads and Condiments. Each individual item carries its own product line labeling, while the corporate master-mark retains prominent authority across the entire ecosystem. This allows the business to launch new items instantly without paying for a total brand redesign."
+        "<strong>Fermy Lab</strong> is the master identity. Under it, the brand launches with two product tracks: Breads and Condiments. Each item carries its own product line labelling, while the master mark stays prominent across everything. So the business can launch new items straight away without paying for a full brand redesign."
       ]
     },
     {
       "heading": "Color & Typography Systems",
       "label": "The Palette",
       "body": [
-        "The color identity relies on a high-contrast pairing designed to command attention on store shelves:"
+        "The colour identity uses a high-contrast pairing made to stand out on store shelves:"
       ],
       "swatches": [
         {
           "role": "Primary",
           "name": "Deep Green",
           "hex": "#3E843E",
-          "note": "Represents natural fermentation cycles, organic balance, and core safety and trust."
+          "note": "Stands for natural fermentation cycles, organic balance, and safety and trust."
         },
         {
           "role": "Secondary",
           "name": "Golden Ochre",
           "hex": "#E59739",
-          "note": "Evokes warm oven-baked goodness, rich raw nourishment, and human-crafted culinary expertise."
+          "note": "Suggests warm oven-baked goodness, rich raw nourishment, and hand-crafted cooking skill."
         }
       ]
     },
@@ -88,18 +88,18 @@
       "cards": [
         {
           "title": "Space Grotesk",
-          "body": "<strong>Usage</strong><br />Structural Headlines, Packaging Titles, and Technical System Signage.<br /><br /><strong>The Strategy</strong><br />Space Grotesk introduces a clean, disciplined geometric frame that reinforces the empirical, “Lab” aspect of the brand name. It maintains flawless sharpness across physical print packaging and digital screens. Because it is freely accessible in the open-source Google Font library, internal marketing teams can build matching assets globally without licensing friction."
+          "body": "<strong>Usage</strong><br />Headlines, packaging titles and technical system signage.<br /><br /><strong>The Strategy</strong><br />Space Grotesk brings a clean, disciplined geometric frame that echoes the “Lab” in the brand name. It stays sharp on printed packaging and on screens. And because it is free in the open-source Google Fonts library, marketing teams anywhere can build matching assets without licensing trouble."
         },
         {
           "title": "Just Sans",
-          "body": "<strong>Usage</strong><br />Narrative Brand Copy, Back-of-Label Explanations, and Detailed Ingredient Lists.<br /><br /><strong>The Strategy</strong><br />To balance the technical look of the primary font, we paired it with Just Sans. This typeface introduces an endearing, modernist warmth and geometric legibility. It ensures that health labels and brand stories remain highly approachable and effortless for consumers to scan."
+          "body": "<strong>Usage</strong><br />Brand stories, back-of-label explanations and detailed ingredient lists.<br /><br /><strong>The Strategy</strong><br />To balance the technical look of the primary font, we paired it with Just Sans. It adds a friendly, modernist warmth and clear geometric shapes. Health labels and brand stories stay approachable and easy for customers to scan."
         }
       ]
     },
     {
       "heading": "The Logo Usage & Visual Governance",
       "body": [
-        "To ensure perfect consistency across entirely different physical labels and screen environments, all configurations, safety guidelines, and visual prohibitions are unified into a single technical standard."
+        "To keep the logo consistent across very different labels and screens, we gathered every configuration, safety guideline and prohibition into a single technical standard."
       ],
       "media": [
         {
@@ -114,7 +114,7 @@
       "divider": false,
       "label": "The Master Badge Lockup",
       "body": [
-        "This layout serves as the primary seal of quality, beautifully integrating the brand name, core product ingredients, and service taglines into a circular stamp. It features an organic, illustrative wreath highlighting real ingredients: twisted challah bread, garlic bulbs, star anise, cloves, and chilis."
+        "This is the main seal of quality. It brings the brand name, core ingredients and service taglines together in a circular stamp. An illustrated wreath shows real ingredients: twisted challah bread, garlic bulbs, star anise, cloves and chillies."
       ],
       "media": [
         {
@@ -129,7 +129,7 @@
       "divider": false,
       "label": "The Horizontal Lockup",
       "body": [
-        "Created specifically to guarantee high visibility within tight spatial restrictions, this inline variation seats the core wordmark directly above a streamlined row of ingredient icons."
+        "Made for tight spaces where the logo still needs to be seen. This inline version sets the wordmark directly above a simple row of ingredient icons."
       ],
       "media": [
         {
@@ -144,7 +144,7 @@
       "divider": false,
       "label": "Responsive Favicons",
       "body": [
-        "Simplified, high-contrast circular badges that isolate a single key icon, such as the mini bread loaf or an organic clove, keeping the identity sharp on micro-screens."
+        "Simple, high-contrast circular badges that pick out a single icon, such as the mini bread loaf or a clove. They keep the identity sharp on tiny screens."
       ],
       "media": [
         {
@@ -159,7 +159,7 @@
       "divider": false,
       "label": "The 1-Challah Clearspace Rule",
       "body": [
-        "To protect the mastermark from being crowded by copy or layout borders, it must always be insulated by a minimum safety border. This breathing room is defined as exactly equal to a \"1 Challah distance,\" derived from the height of the internal twisted bread illustration."
+        "So the master mark is never crowded by copy or layout edges, it always gets a minimum safety border. That breathing room is exactly one \"1 Challah distance\", taken from the height of the twisted bread illustration inside the badge."
       ],
       "media": [
         {
@@ -174,7 +174,7 @@
       "divider": false,
       "label": "Partner Co-Branding Safety Margin",
       "body": [
-        "When co-branding alongside external distribution partners or legacy institutions (such as locking up next to historic entities like Amul) the system enforces a strict 1-Challah safety perimeter to protect FermyLab's independent authority.",
+        "When the logo sits next to distribution partners or established institutions (for example, a historic name like Amul), the system keeps a strict 1-Challah safety margin to protect FermyLab's own authority.",
         "The FermyLab logo isn't just a symbol, it's a statement. Keep it clear, crisp, and confidently placed."
       ],
       "media": [
@@ -189,7 +189,7 @@
     {
       "heading": "Absolute Production Prohibitions",
       "body": [
-        "To eliminate any guesswork for third-party printers or internal developers, we codified an explicit checklist of system violations. Production environments are strictly prohibited from making the following adjustments:"
+        "To remove any guesswork for printers or developers, we wrote a clear checklist of what not to do. Production must never make the following changes:"
       ],
       "media": [
         {
@@ -201,16 +201,16 @@
       ]
     },
     {
-      "heading": "Omnichannel System Application",
+      "heading": "Putting the System to Work",
       "body": [
-        "To demonstrate how the identity smoothly wins customers across physical markets and digital platforms, we activated the brand assets across key commercial touchpoints"
+        "To show how the identity wins customers in physical shops and on digital platforms, we applied the brand assets across the key commercial touchpoints"
       ]
     },
     {
       "divider": false,
       "label": "Physical Retail Packaging",
       "body": [
-        "Clean badge labels wrap seamlessly onto slow-aged condiment jars, creating an elegant, editorial appearance that commands attention on competitive retail shelves."
+        "Clean badge labels wrap neatly around slow-aged condiment jars. The result is elegant and editorial, and it stands out on a busy retail shelf."
       ],
       "media": [
         {
@@ -225,7 +225,7 @@
       "divider": false,
       "label": "The Digital Flagship",
       "body": [
-        "Clean badge labels wrap seamlessly onto slow-aged condiment jars, creating an elegant, editorial appearance that commands attention on competitive retail shelves."
+        "Clean badge labels wrap neatly around slow-aged condiment jars. The result is elegant and editorial, and it stands out on a busy retail shelf."
       ],
       "media": [
         {
@@ -240,7 +240,7 @@
       "divider": false,
       "label": "Delivery App Optimization",
       "body": [
-        "The brand assets were optimized for dark-mode smartphone delivery interfaces. This ensures that when a consumer is quickly scrolling through restaurant choices, FermyLab’s product cards, metadata, and icons remain perfectly crisp and legible."
+        "We tuned the brand assets for dark-mode delivery apps on phones. When a customer is scrolling quickly through restaurant options, FermyLab's product cards, details and icons stay crisp and readable."
       ],
       "media": [
         {
@@ -255,7 +255,7 @@
       "divider": false,
       "label": "Out-of-Home Highway Billboards",
       "body": [
-        "High-visibility commercial billboard layouts pair massive food photography with minimalist copy (\"No shortcuts. Just fermentation.\") to rapidly establish mainstream awareness."
+        "Big highway billboards pair huge food photography with a few words (\"No shortcuts. Just fermentation.\") to build mainstream awareness fast."
       ],
       "media": [
         {
@@ -288,7 +288,7 @@
     {
       "heading": "Commercial Value Summary",
       "body": [
-        "By delivering a disciplined, complete brand utility rather than loose, disconnected graphic files, we equipped Fermy Lab with a high-performance system tool. The business is fully prepared to stand out on physical shelves, command digital interfaces, and launch entirely new sub-brands with absolute operational confidence and zero added design debt."
+        "Instead of a loose set of graphic files, we gave Fermy Lab a disciplined, complete brand toolkit. The business is ready to stand out on shelves, look sharp on screens, and launch new sub-brands with confidence and no added design debt."
       ]
     }
   ],

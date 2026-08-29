@@ -1,6 +1,6 @@
-    /* Hero is the industries strip itself — no separate hero needed */
+    /* Hero is the industries strip itself - no separate hero needed */
 
-    /* Industries strip — the heading pins on the left while a column of sharp
+    /* Industries strip - the heading pins on the left while a column of sharp
        portrait cards scrolls past it on the right. */
     .page-solutions .ind-section { display: grid; grid-template-columns: 1fr minmax(280px, 380px); gap: clamp(30px, 6vw, 100px); align-items: start; }
     .page-solutions .ind { display: flex; flex-direction: column; gap: clamp(16px, 1.8vw, 28px); max-width: none; margin: 0; }
@@ -13,7 +13,7 @@
     /* Pronounced staggered slide-up as the section scrolls into view (matches 1947.io/solutions). */
     /* Per-card reveal handled by the global .reveal + IntersectionObserver, so
        each card slides up as it scrolls into view rather than all at once. */
-    /* Pinned heading — stays in view while the cards scroll past. */
+    /* Pinned heading - stays in view while the cards scroll past. */
     .page-solutions .ind-head { position: sticky; top: clamp(110px, 16vh, 180px); text-align: left; }
     /* Red and sized to match the "Our Solutions" title below. */
     .page-solutions .ind-title { font-family: var(--font-display); font-size: clamp(40px, 6.2vw, 92px); color: var(--red); line-height: 1.02; letter-spacing: -0.03em; max-width: 13ch; }
@@ -53,7 +53,7 @@
     .page-solutions .cocreate .container { position: relative; z-index: 2; }
     .page-solutions .cocreate__title { color: #fff; font-size: clamp(30px, 4.6vw, 68px); line-height: 1.03; max-width: 20ch; }
     .page-solutions .cocreate__lines { display: grid; gap: clamp(10px, 1.2vw, 16px); margin-top: clamp(26px, 3vw, 44px); }
-    /* Lines auto-cycle a highlight and respond to hover — see cocreateCycle() in main.js. */
+    /* Lines auto-cycle a highlight and respond to hover - see cocreateCycle() in main.js. */
     .page-solutions .cocreate__line { font-family: var(--font-display); font-size: clamp(21px, 2.4vw, 40px); color: rgba(255, 255, 255, .4); display: flex; align-items: center; gap: 16px; padding-left: 0; transition: color .5s var(--ease), padding-left .5s var(--ease); cursor: default; }
     .page-solutions .cocreate__line::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,.3); flex: none; transition: transform .45s var(--ease), background .45s var(--ease); }
     .page-solutions .cocreate__line.is-active, .page-solutions .cocreate__line:hover { color: #fff; padding-left: 6px; }
