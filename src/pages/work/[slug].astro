@@ -22,7 +22,7 @@ const jsonLd = [serviceJsonLd({ name: cleanName(d.title), description: d.descrip
 
 // Entries migrated to the modular schema carry `sections`; legacy ones still
 // carry raw `html`. Both render for as long as the migration is in progress.
-const isModular = Array.isArray(d.sections) && d.sections.length > 0;
+const isModular = Array.isArray(d.sections);
 ---
 
 {
