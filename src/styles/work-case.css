@@ -91,7 +91,7 @@ body.page-case-modular {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(44px, 7.2vw, 112px);
+  font-size: clamp(50px, 8.2vw, 128px);
   line-height: 0.98;
   letter-spacing: -0.025em;
   color: #fff;
@@ -133,7 +133,8 @@ body.page-case-modular {
 .case-meta-pill {
   display: inline-flex;
   align-items: center;
-  padding: 6px 12px;
+  gap: 6px;
+  padding: 6px 12px 6px 10px;
   border-radius: 999px;
   background: rgba(17, 17, 17, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.28);
@@ -147,6 +148,12 @@ body.page-case-modular {
 }
 .case-tag + .case-meta-pill {
   margin-left: 10px;
+}
+.case-meta-pill svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.9;
 }
 /* ── Heading block ────────────────────────────────────────────────────────
  * Only the live-project button lives here now. */

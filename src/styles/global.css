@@ -12,7 +12,7 @@
 
 /* =====================================================================
    Studio 1947 - clone stylesheet (design system)
-   Fonts: Syne (display) + Google Sans (body) - Google Fonts
+   Fonts: Google Sans Flex (display and body) - Google Fonts
    ===================================================================== */
 
 /* ---------- Design tokens ---------- */
@@ -29,8 +29,9 @@
   --bg-alt: #f5f5f5;
   --blue-grey: #869bb4;
 
-  --font-display: "Syne", "Arial", sans-serif;
-  --font-body: "Google Sans", "Arial", sans-serif;
+  /* One face for the whole site: Google Sans Flex for display and body. */
+  --font-display: "Google Sans Flex", "Google Sans", "Arial", sans-serif;
+  --font-body: "Google Sans Flex", "Google Sans", "Arial", sans-serif;
   /* Every figure on the site (counters, stat numbers, ordinals, hex codes)
      is set in Google Sans Flex, so numbers read as one voice wherever they
      appear rather than borrowing whichever face surrounds them. */
@@ -279,7 +280,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 }
 .hero-fx > .hero, .hero-fx > #featured-work { position: relative; z-index: 1; }
 .hero { padding-top: clamp(150px, 20vh, 240px); padding-bottom: clamp(30px, 5vw, 60px); }
-.hero__eyebrow { font-family: "DM Sans", var(--font-body); font-size: clamp(20px, 1.95vw, 27px); color: var(--grey-700); margin-bottom: clamp(20px, 4vw, 48px); }
+.hero__eyebrow { font-family: var(--font-body); font-size: clamp(20px, 1.95vw, 27px); color: var(--grey-700); margin-bottom: clamp(20px, 4vw, 48px); }
 .hero__title {
   font-size: clamp(40px, 6.4vw, 108px);
   line-height: 1.2; color: var(--grey-700); letter-spacing: -0.01em;
