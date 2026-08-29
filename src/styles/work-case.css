@@ -1410,6 +1410,20 @@ body.page-case-modular {
   transform: translateY(-5px);
   border-color: #eecccc;
 }
+/* Production builds ship the rail's cards as plain cards (not links) while
+   the case studies are reworked — see lib/otherWork. */
+.more-work__card--soon {
+  cursor: default;
+  pointer-events: none;
+}
+.more-work__card--soon:hover {
+  box-shadow: none;
+  transform: none;
+  border-color: var(--line);
+}
+.more-work__card--soon:hover .more-work__media img {
+  transform: none;
+}
 .more-work__media {
   aspect-ratio: 3 / 2;
   overflow: hidden;

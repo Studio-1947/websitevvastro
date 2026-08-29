@@ -66,6 +66,24 @@ function allWork(): WorkCard[] {
   return cards;
 }
 
+/**
+ * The same listing with every card turned from a link into a plain card:
+ * `<a class="work-card" href>` becomes `<div class="work-card work-card--soon">`
+ * (styled as not-a-link in style.css). Applied to the production build while
+ * the case studies are reworked; `astro dev` keeps the links.
+ */
+export function unlinkWorkCards(html: string): string {
+  return html
+    .replace(
+      /<a class="work-card" href="(\/work\/[^"]+)">/g,
+      '<div class="work-card work-card--soon" data-href="$1" aria-disabled="true">',
+    )
+    .replace(/\n {8}<\/a>(?=\n)/g, '\n        </div>');
+}
+
+/** Whether case cards link through: only under `astro dev` for now. */
+export const workCardsLinked: boolean = import.meta.env.DEV;
+
 /** Every other project, in the order the portfolio index lists them. */
 export function otherWork(excludeSlug?: string): WorkCard[] {
   return allWork().filter((c) => c.slug !== excludeSlug);

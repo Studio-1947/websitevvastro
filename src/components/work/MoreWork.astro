@@ -6,7 +6,7 @@
  * pitch block, so the page ends by handing the reader somewhere else to go
  * rather than by asking them for something.
  */
-import { otherWork } from '../../lib/otherWork';
+import { otherWork, workCardsLinked } from '../../lib/otherWork';
 
 interface Props {
   /** Slug of the case being read, so it is left out of its own rail. */
@@ -15,6 +15,9 @@ interface Props {
 }
 const { current, title = 'More work' } = Astro.props;
 const cards = otherWork(current);
+// Cards link through under `astro dev` only, matching /our-work/, while the
+// case studies are reworked.
+const Card = workCardsLinked ? 'a' : 'div';
 ---
 
 {
@@ -48,7 +51,11 @@ const cards = otherWork(current);
 
       <div class="more-work__track" data-rail-track>
         {cards.map((c, i) => (
-          <a class="more-work__card" href={c.href}>
+          <Card
+            class:list={['more-work__card', !workCardsLinked && 'more-work__card--soon']}
+            href={workCardsLinked ? c.href : undefined}
+            aria-disabled={workCardsLinked ? undefined : 'true'}
+          >
             <div class="more-work__media">
               {/* The first page of the rail is on screen as soon as the reader
                   reaches it, so those four load eagerly rather than flashing
@@ -72,7 +79,7 @@ const cards = otherWork(current);
                 </p>
               )}
             </div>
-          </a>
+          </Card>
         ))}
       </div>
 
