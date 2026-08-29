@@ -23,6 +23,10 @@
        through the wordmark, so contain it on the tinted panel instead. */
     .page-our-work .work-card__media--contain img { object-fit: contain; padding: clamp(10px, 1.2vw, 20px); }
     .page-our-work .work-card:hover .work-card__media--contain img { transform: scale(1.02); }
+    /* Cards awaiting their case study: shown, but not a link. Opt-in per card. */
+    .page-our-work .work-card--soon { cursor: default; pointer-events: none; }
+    .page-our-work .work-card--soon:hover { box-shadow: none; transform: none; border-color: inherit; }
+    .page-our-work .work-card--soon:hover .work-card__media img { transform: none; }
     .page-our-work .work-card__body { padding: clamp(20px, 1.8vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1; }
     .page-our-work .work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .page-our-work .work-tag {
