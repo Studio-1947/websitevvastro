@@ -30,6 +30,15 @@
 body.page-case-modular {
   background: var(--bg-alt);
 }
+/* Case content is set entirely in Google Sans Flex — headings, prose, tags,
+   captions, credits and the More work rail — so a case reads in one voice.
+   The tokens are overridden on <main>, so the site header and footer keep
+   their own faces. The face is already in DEFAULT_FONT_HREF (see lib/seo). */
+.case-page {
+  --font-display: "Google Sans Flex", "Google Sans", "Arial", sans-serif;
+  --font-body: "Google Sans Flex", "Google Sans", "Arial", sans-serif;
+  font-family: var(--font-body);
+}
 
 /* ── Hero ─────────────────────────────────────────────────────────────────── */
 .case-hero {
