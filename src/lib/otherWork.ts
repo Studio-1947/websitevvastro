@@ -28,10 +28,16 @@ export interface WorkCard {
   img: string;
   alt: string;
   tags: string[];
+  /**
+   * The card's meta line on /our-work/ (location, reach, year), in order, as
+   * the listing's own `<svg>` + text markup so the icons travel with it. The
+   * listing is a file in this repo, so rendering it verbatim is safe.
+   */
+  meta: string[];
 }
 
 const CARD =
-  /<a class="work-card"[^>]*href="\/work\/([^/"]+)\/"[\s\S]*?<img src="([^"]+)" alt="([^"]*)"[\s\S]*?<div class="work-tags">([\s\S]*?)<\/div>[\s\S]*?<h2 class="work-card__title">([^<]+)<\/h2>/g;
+  /<a class="work-card"[^>]*href="\/work\/([^/"]+)\/"[\s\S]*?<img src="([^"]+)" alt="([^"]*)"[\s\S]*?<div class="work-tags">([\s\S]*?)<\/div>[\s\S]*?<h2 class="work-card__title">([^<]+)<\/h2>[\s\S]*?<div class="work-card__meta">([\s\S]*?)<\/div>/g;
 
 let cache: WorkCard[] | null = null;
 
@@ -43,7 +49,7 @@ function allWork(): WorkCard[] {
   );
   const cards: WorkCard[] = [];
   for (const m of html.matchAll(CARD)) {
-    const [, slug, img, alt, tagBlock, title] = m;
+    const [, slug, img, alt, tagBlock, title, metaBlock] = m;
     cards.push({
       slug,
       href: `/work/${slug}/`,
@@ -53,6 +59,7 @@ function allWork(): WorkCard[] {
       tags: [...tagBlock.matchAll(/<span class="work-tag">([^<]+)<\/span>/g)].map((t) =>
         decode(t[1].trim()),
       ),
+      meta: [...metaBlock.matchAll(/<span>([\s\S]*?)<\/span>/g)].map((t) => t[1].trim()),
     });
   }
   cache = cards;

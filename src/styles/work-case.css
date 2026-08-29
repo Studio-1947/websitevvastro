@@ -1292,8 +1292,8 @@ body.page-case-modular {
 }
 
 /* ── More work ────────────────────────────────────────────────────────────
- * The rail that closes a case study. Four cards fill the row on a desktop and
- * the arrows page through the rest, so the reader leaves a project by walking
+ * The rail that closes a case study. Three cards fill the row on a desktop,
+ * styled like the /our-work/ cards, and the arrows page through the rest, so the reader leaves a project by walking
  * into another one.
  */
 .more-work {
@@ -1348,54 +1348,110 @@ body.page-case-modular {
   outline-offset: 2px;
 }
 
-/* One page of the rail is exactly four cards; the scrollbar stays hidden
-   because the arrows are the control. */
+/* One page of the rail is exactly three cards, the same grid as /our-work/;
+   the scrollbar stays hidden because the arrows are the control. */
 .more-work__track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc((100% - 3 * clamp(14px, 1.6vw, 24px)) / 4);
-  gap: clamp(14px, 1.6vw, 24px);
+  grid-auto-columns: calc((100% - 2 * clamp(20px, 2.2vw, 40px)) / 3);
+  gap: clamp(20px, 2.2vw, 40px);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   overscroll-behavior-x: contain;
+  padding: 6px;
+  margin: -6px;
 }
 .more-work__track::-webkit-scrollbar {
   display: none;
 }
+/* The card is the /our-work/ card: bordered, rounded, 3:2 image, pill tags,
+   display title and a meta line, lifting on hover. */
 .more-work__card {
   scroll-snap-align: start;
   text-decoration: none;
-  display: block;
-}
-.more-work__media {
-  aspect-ratio: 4 / 3;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--bg);
-  margin-bottom: 14px;
+  transition:
+    box-shadow 0.4s var(--ease),
+    transform 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+.more-work__card:hover {
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+  border-color: #eecccc;
+}
+.more-work__media {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--bg-alt);
 }
 .more-work__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s var(--ease);
+  transition: transform 0.8s var(--ease);
 }
 .more-work__card:hover .more-work__media img {
   transform: scale(1.04);
 }
+.more-work__body {
+  padding: clamp(20px, 1.8vw, 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+.more-work__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.more-work__tag {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1;
+  color: color-mix(in srgb, var(--red) 88%, #000);
+  border: 1px solid #f2c9c9;
+  background: #fff5f5;
+  border-radius: 999px;
+  padding: 6px 12px;
+  letter-spacing: 0.01em;
+}
 .more-work__name {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(17px, 1.3vw, 21px);
-  line-height: 1.2;
+  font-size: clamp(23px, 2vw, 30px);
+  line-height: 1.05;
   color: var(--grey-900);
-  margin-bottom: 4px;
 }
-.more-work__tags {
+.more-work__meta {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  padding-top: 4px;
   font-family: var(--font-body);
-  font-size: clamp(13px, 1vw, 15px);
+  font-size: 14px;
   color: var(--grey-500);
+}
+.more-work__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.more-work__meta svg {
+  width: 15px;
+  height: 15px;
+  color: var(--red);
+  flex-shrink: 0;
 }
 .more-work__all {
   display: inline-flex;
@@ -1414,15 +1470,16 @@ body.page-case-modular {
 
 @media (max-width: 1023px) {
   .more-work__track {
-    grid-auto-columns: calc((100% - clamp(14px, 1.6vw, 24px)) / 2);
+    grid-auto-columns: calc((100% - clamp(20px, 2.2vw, 40px)) / 2);
   }
 }
 @media (max-width: 599px) {
   .more-work__track {
-    grid-auto-columns: 78%;
+    grid-auto-columns: 84%;
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .more-work__card,
   .more-work__media img {
     transition: none;
   }

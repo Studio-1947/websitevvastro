@@ -1,7 +1,8 @@
 ---
 /**
- * "More work" rail that closes every case study: four project thumbnails at a
- * time, with arrows that page through the rest. It replaces the old closing
+ * "More work" rail that closes every case study: three project cards at a
+ * time, styled like the /our-work/ cards, with arrows that page through the
+ * rest. It replaces the old closing
  * pitch block, so the page ends by handing the reader somewhere else to go
  * rather than by asking them for something.
  */
@@ -54,8 +55,23 @@ const cards = otherWork(current);
                   as empty frames. */}
               <img src={c.img} alt={c.alt} loading={i < 4 ? 'eager' : 'lazy'} decoding="async" />
             </div>
-            <h3 class="more-work__name">{c.title}</h3>
-            {c.tags.length > 0 && <p class="more-work__tags">{c.tags.slice(0, 2).join(' · ')}</p>}
+            <div class="more-work__body">
+              {c.tags.length > 0 && (
+                <div class="more-work__tags">
+                  {c.tags.slice(0, 3).map((t) => (
+                    <span class="more-work__tag">{t}</span>
+                  ))}
+                </div>
+              )}
+              <h3 class="more-work__name">{c.title}</h3>
+              {c.meta.length > 0 && (
+                <p class="more-work__meta">
+                  {c.meta.map((m) => (
+                    <span set:html={m} />
+                  ))}
+                </p>
+              )}
+            </div>
           </a>
         ))}
       </div>
