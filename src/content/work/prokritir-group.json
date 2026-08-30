@@ -1,0 +1,47 @@
+{
+  "title": "Prokritir Group: Portfolio | Studio 1947",
+  "description": "Brand, packaging and digital work for Prokritir Group, makers of Prokritir Jol packaged drinking water and Prokritir Moshla spices. Full case study coming soon.",
+  "ogTitle": "Prokritir Group: Portfolio | Studio 1947",
+  "ogDescription": "Brand, packaging and digital work for Prokritir Group, makers of Prokritir Jol packaged drinking water and Prokritir Moshla spices. Full case study coming soon.",
+  "ogType": "article",
+  "mediaStyle": "contained",
+  "brand": "#1F9E6E",
+  "client": "Prokritir Group",
+  "location": "West Bengal",
+  "year": "2026",
+  "tags": [
+    "Design",
+    "Marketing",
+    "Technology"
+  ],
+  "solutions": [
+    "data-design-tech"
+  ],
+  "hero": {
+    "src": "/assets/img/work/prokritir-group/hero.webp",
+    "alt": "Prokritir Jol, a 500 ml bottle of packaged drinking water by Prokritir Group, on wet rock in a rain-dark forest",
+    "style": "photo"
+  },
+  "sections": [
+    {
+      "heading": "Context & The Vision",
+      "label": "The Engagement",
+      "body": [
+        "Prokritir Group makes Prokritir Jol, packaged drinking water, and Prokritir Moshla, a range of spices. Studio 1947 is working with the group across brand, packaging and technology. This page will grow into a full case study as the work is delivered."
+      ]
+    },
+    {
+      "heading": "Status",
+      "label": "In progress",
+      "body": [
+        "Details, imagery and outcomes will be published here as the engagement progresses."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Data, Design & Technology",
+      "members": "Studio 1947"
+    }
+  ]
+}

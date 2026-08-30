@@ -1,0 +1,47 @@
+{
+  "title": "Sikkim Himal Institute: Portfolio | Studio 1947",
+  "description": "A design and technology engagement between Studio 1947 and the Sikkim Himal Institute. Full case study coming soon.",
+  "ogTitle": "Sikkim Himal Institute: Portfolio | Studio 1947",
+  "ogDescription": "A design and technology engagement between Studio 1947 and the Sikkim Himal Institute. Full case study coming soon.",
+  "ogType": "article",
+  "mediaStyle": "contained",
+  "brand": "#2B5D8C",
+  "client": "Sikkim Himal Institute",
+  "location": "Sikkim",
+  "year": "2026",
+  "tags": [
+    "Design",
+    "Technology"
+  ],
+  "solutions": [
+    "data-design-tech"
+  ],
+  "hero": {
+    "src": "/assets/img/work/sikkim-himal-institute/hero.webp",
+    "alt": "Sikkim Himal Institute wordmark",
+    "style": "logo",
+    "background": "light"
+  },
+  "sections": [
+    {
+      "heading": "Context & The Vision",
+      "label": "The Engagement",
+      "body": [
+        "Studio 1947 is working with the Sikkim Himal Institute across design and technology. This page will grow into a full case study as the work is delivered."
+      ]
+    },
+    {
+      "heading": "Status",
+      "label": "In progress",
+      "body": [
+        "Details, imagery and outcomes will be published here as the engagement progresses."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Design & Technology",
+      "members": "Studio 1947"
+    }
+  ]
+}

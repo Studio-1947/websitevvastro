@@ -1,20 +1,22 @@
 /**
- * Base smooth-scroll + ScrollTrigger integration.
+ * Site-wide smooth scroll (Lenis) + ScrollTrigger integration.
  *
- * The ORIGINAL static site had no JS smooth-scroll (native CSS
- * `scroll-behavior: smooth` only). Per the migration decision, Lenis is added
- * but tuned to a *neutral* feel so it does not visibly deviate from the source
- * (flagged for re-check in the Phase 6 visual/behaviour diff).
+ * Lenis drives the page scroll with a soft expo ease so wheel and keyboard
+ * scrolling glide instead of stepping. Touch stays native (the mobile feel
+ * people expect). In-page anchor links (`#section`, or `/page#section` on the
+ * same page) are routed through Lenis so they glide too, landing under the
+ * fixed header. A hash in the URL on load is honoured the same way.
  *
- * It also wires Lenis into GSAP ScrollTrigger so scrub animations (e.g. the
- * approach-title red fill) stay in sync when Lenis drives the scroll position.
- *
- * Respects `prefers-reduced-motion` (falls back to native scrolling) and is a
- * no-op on the server.
+ * Respects `prefers-reduced-motion` (native scrolling, no Lenis) and is a
+ * no-op on the server. Nested scrollers opt out with `data-lenis-prevent`.
  */
 import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 
 let lenis: Lenis | null = null;
+
+/** Space to leave above a scroll target so the fixed header does not cover it. */
+const HEADER_OFFSET = 110;
 
 export function initSmoothScroll(): Lenis | null {
   if (typeof window === 'undefined') return null;
@@ -23,12 +25,13 @@ export function initSmoothScroll(): Lenis | null {
   if (lenis) return lenis;
 
   lenis = new Lenis({
-    // Neutral tuning: close to native inertia so the scroll feel matches source.
-    duration: 0.9,
-    easing: (t: number) => 1 - Math.pow(1 - t, 3),
+    duration: 1.25,
+    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
-    // Never smooth touch — matches native mobile behaviour of the original.
+    wheelMultiplier: 1,
+    // Never smooth touch — matches native mobile behaviour.
     syncTouch: false,
+    anchors: false, // handled below with a header offset
   });
 
   // Keep ScrollTrigger in sync if/when GSAP is present on the page.
@@ -43,7 +46,38 @@ export function initSmoothScroll(): Lenis | null {
   };
   requestAnimationFrame(raf);
 
+  anchorLinks();
   return lenis;
+}
+
+/** Route same-page hash links (and the initial hash) through Lenis. */
+function anchorLinks(): void {
+  if (!lenis) return;
+  const go = (hash: string, immediate = false): boolean => {
+    if (!hash || hash === '#') return false;
+    let target: HTMLElement | null = null;
+    try { target = document.querySelector<HTMLElement>(hash); } catch { return false; }
+    if (!target) return false;
+    // Respect the target's own scroll-margin-top when it is larger than the header offset.
+    const margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+    lenis?.scrollTo(target, { offset: -Math.max(HEADER_OFFSET, margin), immediate });
+    return true;
+  };
+  document.addEventListener('click', (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href*="#"]');
+    if (!a || a.target === '_blank' || a.hasAttribute('data-contact-open')) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname) return;
+    if (go(url.hash)) {
+      e.preventDefault();
+      history.pushState(null, '', url.hash);
+    }
+  });
+  if (location.hash) {
+    // After layout settles (fonts, images) so the target position is right.
+    window.addEventListener('load', () => go(location.hash, true), { once: true });
+  }
 }
 
 export function getLenis(): Lenis | null {

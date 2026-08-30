@@ -1,0 +1,88 @@
+{
+  "title": "Elegant Sip: Portfolio | Studio 1947",
+  "description": "Packaging design, a direct-to-consumer store and year-round online marketing for Elegant Sip, a single-garden Darjeeling tea sold at the source in Mirik.",
+  "ogTitle": "Elegant Sip: Portfolio | Studio 1947",
+  "ogDescription": "Packaging design, a direct-to-consumer store and year-round online marketing for Elegant Sip, a single-garden Darjeeling tea sold at the source in Mirik.",
+  "ogType": "article",
+  "mediaStyle": "contained",
+  "brand": "#2F6B3A",
+  "client": "Elegant Sip",
+  "location": "Mirik, Darjeeling",
+  "year": "2026",
+  "tags": [
+    "Design",
+    "Marketing",
+    "Technology"
+  ],
+  "solutions": [
+    "data-design-tech",
+    "communication-campaign"
+  ],
+  "hero": {
+    "src": "/assets/img/work/elegant-sip/hero.webp",
+    "alt": "Darjeeling tea being poured from a glass teapot into a glass cup beside a bowl of dried leaves",
+    "style": "photo"
+  },
+  "sections": [
+    {
+      "heading": "Context & The Vision",
+      "label": "The Brand",
+      "body": [
+        "Elegant Sip sells single-garden Darjeeling tea from the Okayti estate at 8th Mile, Mirik. Its shop already does what most tea brands can only claim: visitors taste the tea where it grows, then carry it home. The brand did not need to find new customers online; it needed a way for the people already at the counter to buy again.",
+        "From August 2026, Studio 1947 is Elegant Sip's partner for <strong>packaging design, the online store and all online marketing</strong>, a multi-year collaboration rather than a one-off project."
+      ]
+    },
+    {
+      "divider": false,
+      "label": "Core Problem",
+      "body": [
+        "Two facts shaped the brief. Sales concentrate in the First and Second Flush seasons, roughly March to June, and go quiet for the rest of the year. And every delighted walk-in customer left without a way to reorder. The larger online tea brands aggregate leaves from dozens of gardens; Elegant Sip can say it lives where the tea grows, and thousands of visitors a year can vouch for it."
+      ]
+    },
+    {
+      "heading": "What We Are Building",
+      "layout": "grid-3",
+      "cards": [
+        {
+          "title": "The counter as a channel",
+          "body": "A QR reorder card in every bag and a ten-second WhatsApp ask at billing, so a tourist purchase becomes a repeat customer at the cost of a printed card."
+        },
+        {
+          "title": "A store that fills the valley",
+          "body": "A direct-to-consumer store with mobile checkout, and a gifting calendar (Diwali, Christmas, Valentine's, Rakhi) timed for the months the shop is quiet."
+        },
+        {
+          "title": "Origin over aggregation",
+          "body": "Garden-to-cup content, customer photos and reviews from the hillside itself, with packaging that carries the estate, the flush and the story on the pack."
+        }
+      ]
+    },
+    {
+      "heading": "Packaging",
+      "body": [
+        "Packaging is being designed for two moments: the shelf in Mirik, where a visitor decides in seconds, and the doorstep months later, where the pack has to bring the hillside back. Estate, flush and harvest window sit on the front; a reorder code sits inside every bag."
+      ]
+    },
+    {
+      "heading": "Status",
+      "label": "Ongoing",
+      "body": [
+        "The collaboration began in August 2026 with the first ninety days focused on reorder capture at the counter, a fully live mobile store, and the first festive gifting campaign. Results and imagery will be added as the first season completes."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Strategy & Marketing",
+      "members": "Studio 1947"
+    },
+    {
+      "role": "Packaging Design",
+      "members": "Studio 1947"
+    }
+  ],
+  "coordinator": {
+    "name": "Amit Rai",
+    "role": "Proprietor, Elegant Sip Tea"
+  }
+}

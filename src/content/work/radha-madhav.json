@@ -15,8 +15,11 @@
     "Smart Dashboard"
   ],
   "hero": {
-    "src": "/assets/img/work/radha-madhav/cae547e4969f4e97ad4bc0472fd64435.webp",
-    "alt": "Misty hillside town of Mirik, Darjeeling, home of the Radha Madhav medical shop"
+    "src": "/assets/img/work/radha-madhav/hero.webp",
+    "alt": "The Radha Madhav Medical Hall website on a laptop and phone: trusted medicines at Krishnanagar, Mirik, with doctor consultations",
+    "style": "photo",
+    "scrim": "#0B1A18",
+    "scrimOpacity": 0.45
   },
   "sections": [
     {
@@ -134,5 +137,6 @@
   "solutions": [
     "data-design-tech"
   ],
-  "active": false
+  "active": true,
+  "headline": "Radha Madhav Medical Hall"
 }

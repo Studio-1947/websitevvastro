@@ -1,5 +1,5 @@
     /* ===== Careers page (scoped) ===== */
-    .page-careers .careers-hero { max-width: 1100px; }
+    .page-careers .careers-hero { max-width: none; }
     .page-careers .careers-hero__title {
       font-family: var(--font-display);
       font-size: clamp(38px, 6vw, 86px);
@@ -8,7 +8,7 @@
     }
     .page-careers .careers-hero__lede {
       color: var(--grey-700); font-size: clamp(16px, 1.25vw, 20px);
-      line-height: 1.7; max-width: 68ch;
+      line-height: 1.7; max-width: 110ch;
     }
     .page-careers .jobs-head { margin-bottom: clamp(28px, 3.5vw, 48px); }
 
@@ -51,6 +51,8 @@
       font-family: var(--font-display); font-size: clamp(24px, 2vw, 30px);
       color: var(--grey-900); line-height: 1.12;
     }
+    .page-careers .job-card__salary { display: flex; align-items: baseline; gap: 8px; font-family: var(--font-display); font-weight: 600; font-size: clamp(15px, 1.15vw, 18px); color: var(--grey-900); }
+    .page-careers .job-card__salary-label { font-family: var(--font-body); font-weight: 400; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--grey-500); }
     .page-careers .job-card__more {
       margin-top: auto; display: inline-flex; align-items: center; gap: 9px;
       color: var(--red); font-size: 16px;

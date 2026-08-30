@@ -45,3 +45,8 @@
     @media (max-width: 1024px) { .page-our-work .work-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px)  { .page-our-work .work-grid { grid-template-columns: 1fr; } }
   
+
+    /* Motion thumbnails: a muted looping clip in place of the still. */
+    .page-our-work .work-card__media video, .page-our-work .work-card__video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
+    .page-our-work .work-card:hover .work-card__video { transform: scale(1.05); }
+    @media (prefers-reduced-motion: reduce) { .page-our-work .work-card__video { display: none; } }

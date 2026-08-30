@@ -2,23 +2,29 @@
 
     /* Industries strip - the heading pins on the left while a column of sharp
        portrait cards scrolls past it on the right. */
-    .page-solutions .ind-section { display: grid; grid-template-columns: 1fr minmax(280px, 380px); gap: clamp(30px, 6vw, 100px); align-items: start; }
-    .page-solutions .ind { display: flex; flex-direction: column; gap: clamp(16px, 1.8vw, 28px); max-width: none; margin: 0; }
-    /* Sharp rectangle, taller than wide. */
-    .page-solutions .ind__card { border: none; border-radius: 2px; background: #f4f4f4; padding: clamp(26px, 2.2vw, 38px); aspect-ratio: 4 / 5; width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; transition: background .4s var(--ease), box-shadow .4s var(--ease), transform .5s var(--ease); }
-    /* Interactive: each industry card fills red on hover, its content turns white. */
-    .page-solutions .ind__card:hover { background: var(--red); box-shadow: 0 24px 55px rgba(230, 0, 0, .22); transform: translateY(-6px); }
-    .page-solutions .ind__ico, .page-solutions .ind__num, .page-solutions .ind__plus, .page-solutions .ind__label { transition: color .4s var(--ease); }
-    .page-solutions .ind__card:hover .ind__ico, .page-solutions .ind__card:hover .ind__num, .page-solutions .ind__card:hover .ind__plus, .page-solutions .ind__card:hover .ind__label { color: #fff; }
+    .page-solutions .ind-section { display: grid; grid-template-columns: 1fr; justify-items: center; }
+    /* Scroll-driven: the heading is pinned in the background at the middle
+       of the viewport; the cards sit in a centred column in the foreground
+       and roll up over it with the page. Both occupy the same grid cell. */
+    .page-solutions .ind-section { grid-template-areas: "stack"; }
+    .page-solutions .ind-head, .page-solutions .ind { grid-area: stack; }
+    .page-solutions .ind-head { align-self: start; position: sticky; top: 50vh; transform: translateY(-50%); z-index: 0; width: 100%; pointer-events: none; will-change: opacity; }
+    .page-solutions .ind { position: relative; z-index: 1; display: flex; flex-direction: column; width: min(100%, 380px); max-width: none; margin: 0; padding-top: 58vh; padding-bottom: 2vh; }
+    .page-solutions .ind__group { display: flex; flex-direction: column; gap: clamp(16px, 1.8vw, 24px); }
+    .page-solutions .ind__card { box-shadow: 0 18px 50px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9); }
+
+    /* Frosted glass: the pinned heading shows through as the card passes over it. */
+    .page-solutions .ind__card { border: 1px solid rgba(255,255,255,.75); border-radius: 18px; background: rgba(255,255,255,.42); -webkit-backdrop-filter: blur(18px) saturate(1.2); backdrop-filter: blur(18px) saturate(1.2); padding: clamp(24px, 2vw, 32px); aspect-ratio: 5 / 4; width: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 18px; transition: background .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease), transform .5s var(--ease); }
+    /* Hover: the card lifts off the background; no colour change. */
+    .page-solutions .ind__card:hover { background: rgba(255,255,255,.6); border-color: rgba(255,255,255,.95); box-shadow: 0 30px 70px rgba(0,0,0,.12); transform: translateY(-8px) scale(1.02); }
     /* Pronounced staggered slide-up as the section scrolls into view (matches 1947.io/solutions). */
     /* Per-card reveal handled by the global .reveal + IntersectionObserver, so
        each card slides up as it scrolls into view rather than all at once. */
     /* Pinned heading - stays in view while the cards scroll past. */
-    .page-solutions .ind-head { position: sticky; top: clamp(110px, 16vh, 180px); text-align: left; }
+    .page-solutions .ind-head { text-align: center; }
     /* Red and sized to match the "Our Solutions" title below. */
-    .page-solutions .ind-title { font-family: var(--font-display); font-size: clamp(40px, 6.2vw, 92px); color: var(--red); line-height: 1.02; letter-spacing: -0.03em; max-width: 13ch; }
+    .page-solutions .ind-title { font-family: var(--font-display); font-size: clamp(40px, 6.2vw, 92px); color: var(--red); line-height: 1.02; letter-spacing: -0.03em; max-width: 14ch; margin-inline: auto; }
     /* Large screens: rest the pinned heading a little lower down the viewport. */
-    @media (min-width: 1200px) { .page-solutions .ind-head { top: 240px; } }
     /* Portrait card fills top-to-bottom: icon up top, count and label below. */
     .page-solutions .ind__ico { color: var(--red); display: flex; justify-content: flex-start; line-height: 0; margin-bottom: auto; }
     .page-solutions .ind__ico svg { width: clamp(26px, 2.2vw, 34px); height: auto; }
@@ -46,51 +52,38 @@
     .page-solutions .svc__desc { font-size: clamp(14px, 1vw, 16px); color: var(--grey-700); }
 
     /* Co-create band */
-    .page-solutions .cocreate { position: relative; overflow: hidden; color: #fff; }
-    .page-solutions .cocreate__bg { position: absolute; inset: 0; z-index: 0; }
-    .page-solutions .cocreate__bg img { width: 100%; height: 100%; object-fit: cover; }
-    .page-solutions .cocreate::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13, 13, 13, .72), rgba(13, 13, 13, .84)); z-index: 1; }
-    .page-solutions .cocreate .container { position: relative; z-index: 2; }
-    .page-solutions .cocreate__title { color: #fff; font-size: clamp(30px, 4.6vw, 68px); line-height: 1.03; max-width: 20ch; }
-    .page-solutions .cocreate__lines { display: grid; gap: clamp(10px, 1.2vw, 16px); margin-top: clamp(26px, 3vw, 44px); }
-    /* Lines auto-cycle a highlight and respond to hover - see cocreateCycle() in main.js. */
-    .page-solutions .cocreate__line { font-family: var(--font-display); font-size: clamp(21px, 2.4vw, 40px); color: rgba(255, 255, 255, .4); display: flex; align-items: center; gap: 16px; padding-left: 0; transition: color .5s var(--ease), padding-left .5s var(--ease); cursor: default; }
-    .page-solutions .cocreate__line::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: rgba(255,255,255,.3); flex: none; transition: transform .45s var(--ease), background .45s var(--ease); }
-    .page-solutions .cocreate__line.is-active, .page-solutions .cocreate__line:hover { color: #fff; padding-left: 6px; }
-    .page-solutions .cocreate__line.is-active::before, .page-solutions .cocreate__line:hover::before { background: var(--red); transform: scale(1.6); }
-    .page-solutions .cocreate .cta__btn { margin-top: clamp(30px, 3.6vw, 52px); }
 
     /* Contact / experts form */
-    .page-solutions .contact { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(30px, 4vw, 72px); align-items: center; }
-    .page-solutions .contact__eyebrow { margin-bottom: 16px; }
-    .page-solutions .contact__title { font-size: clamp(32px, 4.4vw, 64px); color: var(--red); line-height: 1.02; }
-    .page-solutions .contact__sub { margin-top: 16px; font-size: clamp(17px, 1.25vw, 20px); color: var(--grey-700); max-width: 40ch; }
-    .page-solutions .form-card { position: relative; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--line); background: var(--bg-alt); padding: clamp(26px, 3vw, 50px); }
-    .page-solutions .form-card__bg { position: absolute; inset: 0; z-index: 0; }
-    .page-solutions .form-card__bg img { width: 100%; height: 100%; object-fit: cover; opacity: .5; }
-    .page-solutions .form-card form { position: relative; z-index: 1; }
-    .page-solutions .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
-    .page-solutions .form-row { display: grid; gap: 8px; margin-bottom: 20px; }
-    .page-solutions .form-row--full { grid-column: 1 / -1; }
-    .page-solutions .form-row label { font-size: 14px; color: var(--grey-700); }
-    .page-solutions .form-row input,
-    .page-solutions .form-row textarea { font-family: var(--font-body); font-size: 16px; color: var(--grey-900); background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; width: 100%; }
-    .page-solutions .form-row textarea { min-height: 120px; resize: vertical; }
-    .page-solutions .form-row input:focus,
-    .page-solutions .form-row textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(230, 0, 0, .12); }
-    .page-solutions .btn-submit { display: inline-flex; align-items: center; gap: 12px; margin-top: 6px; background: var(--red); color: #fff; border-radius: 999px; padding: 14px 18px 14px 28px; font-size: 17px; transition: transform .3s var(--ease), background .3s var(--ease); }
-    .page-solutions .btn-submit .arrow { width: 34px; height: 34px; border-radius: 50%; background: #fff; color: var(--red); display: grid; place-items: center; }
-    .page-solutions .btn-submit:hover { transform: translateY(-3px); background: var(--red-dark); }
 
     @media (max-width: 860px) {
       /* Stack: heading on top (no longer pinned), portrait cards below. */
-      .page-solutions .ind-section { grid-template-columns: 1fr; gap: clamp(28px, 7vw, 52px); }
-      .page-solutions .ind-head { position: static; text-align: center; }
       .page-solutions .ind-title { max-width: none; }
-      .page-solutions .ind { max-width: 380px; margin-inline: auto; }
-      .page-solutions .contact { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
-      .page-solutions .form-grid { grid-template-columns: 1fr; }
     }
   
+
+
+    /* ===== "We craft / write / ensure / integrate" ticker =====
+       Two rows of large display type running in opposite directions; the
+       first row carries the text for readers (the second is decorative and
+       hidden from assistive tech, as are the duplicate groups that make the
+       loop seamless). */
+    .page-solutions .craft { padding-block: clamp(56px, 8vw, 120px); overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .page-solutions .craft__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .page-solutions .craft__row { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+    .page-solutions .craft__row + .craft__row { margin-top: clamp(6px, 1vw, 14px); }
+    .page-solutions .craft__track { display: flex; width: max-content; animation: craft-run 48s linear infinite; }
+    .page-solutions .craft__row--rtl .craft__track { animation-direction: reverse; animation-duration: 56s; }
+    .page-solutions .craft:hover .craft__track { animation-play-state: paused; }
+    .page-solutions .craft__group { display: flex; align-items: center; white-space: nowrap; }
+    .page-solutions .craft__item { font-family: var(--font-display); font-weight: 500; font-size: clamp(38px, 6.4vw, 108px); line-height: 1.1; letter-spacing: -0.03em; color: var(--grey-900); padding-inline: clamp(14px, 1.6vw, 28px); }
+    .page-solutions .craft__group--outline .craft__item { color: var(--grey-900); }
+    .page-solutions .craft__sep { width: clamp(14px, 1.4vw, 22px); height: clamp(14px, 1.4vw, 22px); color: var(--red); flex: none; }
+    .page-solutions .craft__sep svg { width: 100%; height: 100%; display: block; }
+    @keyframes craft-run { to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) {
+      .page-solutions .craft__track { animation: none; }
+      .page-solutions .craft__row--rtl { display: none; }
+      .page-solutions .craft__row { -webkit-mask-image: none; mask-image: none; }
+    }

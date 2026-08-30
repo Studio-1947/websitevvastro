@@ -15,7 +15,11 @@
     .page-solcat .cat-section__title { font-size: clamp(30px, 3.6vw, 56px); color: var(--grey-900); line-height: 1.04; letter-spacing: -0.02em; }
     .page-solcat .cat-section__sub { margin-top: 16px; color: var(--grey-700); font-size: clamp(16px, 1.2vw, 19px); }
 
-    .page-solcat .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: clamp(16px, 1.6vw, 26px); }
+    /* Four solutions per row on desktop; 3 / 2 / 1 as the viewport narrows. */
+    .page-solcat .cat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 1.6vw, 26px); }
+    @media (max-width: 1100px) { .page-solcat .cat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 820px) { .page-solcat .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 520px) { .page-solcat .cat-grid { grid-template-columns: 1fr; } }
     .page-solcat .cat-svc { border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg); display: flex; flex-direction: column; transition: box-shadow .4s var(--ease), transform .4s var(--ease); }
     .page-solcat .cat-svc:hover { box-shadow: 0 20px 50px rgba(0,0,0,.07); transform: translateY(-5px); }
     .page-solcat .cat-svc__media { aspect-ratio: 5 / 4; background: #fff; display: grid; place-items: center; border-bottom: 1px solid var(--line); }

@@ -1,0 +1,66 @@
+{
+  "title": "Bhagyam Arts & Aesthetic: Portfolio | Studio 1947",
+  "description": "Promotional design for the cultural programmes of Bhagyam Arts & Aesthetic: posters, invitations and social creatives built around visual storytelling.",
+  "ogTitle": "Bhagyam Arts & Aesthetic: Portfolio | Studio 1947",
+  "ogDescription": "Promotional design for the cultural programmes of Bhagyam Arts & Aesthetic: posters, invitations and social creatives built around visual storytelling.",
+  "ogType": "article",
+  "mediaStyle": "contained",
+  "brand": "#8A2BE2",
+  "client": "Bhagyam Arts & Aesthetic",
+  "location": "New Delhi",
+  "year": "2025",
+  "tags": [
+    "Design",
+    "Marketing"
+  ],
+  "solutions": [
+    "communication-campaign"
+  ],
+  "hero": {
+    "src": "/assets/img/work/bhagyam-arts/hero.webp",
+    "alt": "Madly in Love: promotional cover for a Bhagyam Arts programme, a dancer in gold jewellery against a carved jali screen",
+    "style": "photo",
+    "scrim": "#3A352B",
+    "scrimOpacity": 0.45
+  },
+  "sections": [
+    {
+      "heading": "Context & The Vision",
+      "label": "The Brief",
+      "body": [
+        "Bhagyam Arts & Aesthetic stages cultural programmes that bring classical and contemporary performance to new audiences. Each programme needed promotional material that did more than announce a date and a venue: it had to carry the mood of the performance itself.",
+        "Studio 1947 designed the promotional campaigns for these programmes, with <strong>visual storytelling</strong> at the centre: posters, invitations and social creatives that give each event an artistic identity of its own."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/bhagyam-arts/madly-in-love-cover.webp",
+          "alt": "Madly in Love: promotional cover for a Bhagyam Arts programme, a dancer in gold jewellery against a carved jali screen",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "heading": "What the Client Said",
+      "body": [
+        "<em>\"Studio 1947 delivered exceptional promotional designs for our cultural programmes. Their unique emphasis on visual storytelling added a fascinating, artistic layer to our work that we hadn't seen before.\"</em> &mdash; Suranya Aiyar, CEO, Bhagyam Arts &amp; Aesthetic"
+      ]
+    },
+    {
+      "heading": "Status",
+      "label": "Case study in progress",
+      "body": [
+        "Programme artwork and outcomes will be added to this page shortly."
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Design",
+      "members": "Studio 1947"
+    }
+  ],
+  "coordinator": {
+    "name": "Suranya Aiyar",
+    "role": "CEO, Bhagyam Arts & Aesthetic"
+  }
+}

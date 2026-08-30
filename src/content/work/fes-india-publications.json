@@ -1,0 +1,131 @@
+{
+  "title": "Friedrich Ebert Stiftung India: Publication Design | Studio 1947",
+  "description": "Publication design for Friedrich Ebert Stiftung India: the India, EU & Just Energy Transitions conference report with Manipal Academy of Higher Education, and the twelve-volume Artificial Intelligence in India series.",
+  "ogTitle": "Friedrich Ebert Stiftung India: Publication Design | Studio 1947",
+  "ogDescription": "Publication design for Friedrich Ebert Stiftung India: the India, EU & Just Energy Transitions conference report with Manipal Academy of Higher Education, and the twelve-volume Artificial Intelligence in India series.",
+  "ogType": "article",
+  "mediaStyle": "contained",
+  "brand": "#1B2A4A",
+  "client": "Friedrich Ebert Stiftung India",
+  "headline": "Friedrich Ebert Foundation India: Publication Design",
+  "location": "New Delhi",
+  "year": "2019 – 2025",
+  "tags": [
+    "Publication Design",
+    "Infographics"
+  ],
+  "solutions": [
+    "communication-campaign"
+  ],
+  "hero": {
+    "src": "/assets/img/work/fes-india-publications/hero.webp",
+    "alt": "Seven covers from the Artificial Intelligence in India series for Friedrich Ebert Stiftung, each a robotic hand holding a sphere with the volume's own icon",
+    "style": "photo",
+    "scrim": "#1B2A4A",
+    "scrimOpacity": 0.55
+  },
+  "sections": [
+    {
+      "divider": false,
+      "label": "FES Report",
+      "body": [
+        "Friedrich Ebert Stiftung India asked us to turn an international conference into a publication people would keep. <em>India, EU &amp; Just Energy Transitions: Strengthening Climate Diplomacy for Sustainable Futures</em> was organised by the Manipal Academy of Higher Education with FES, in association with UNESCO, and brought together policymakers, academics and civil society on India–EU cooperation, carbon neutrality and just transitions.",
+        "FES India provided the base content. Studio 1947 took it from raw proceedings to a finished report: concept and direction, the illustration system, layout, and print production."
+      ]
+    },
+    {
+      "heading": "The Report",
+      "body": [
+        "The cover carries the whole argument in one image: two hands holding a green city, wired to wind, solar, hydro and a coal plant below, plugged into a handshake. Inside, the report is organised as numbered recommendations, from mobilising climate finance to ensuring equity and social responsibility, each opened with a full illustration so a busy reader can follow the structure by pictures alone."
+      ],
+      "layout": "grid-2",
+      "media": [
+        {
+          "src": "/assets/img/work/fes-india-publications/report-back-and-spread.webp",
+          "alt": "The report's blue back cover beside an open spread with orange watercolour speech-bubble illustrations",
+          "zoom": true,
+          "ratio": "1/1"
+        },
+        {
+          "src": "/assets/img/work/fes-india-publications/report-cover.webp",
+          "alt": "Front cover of India, EU and Just Energy Transitions: hands holding a green city wired to renewable and coal energy, with the Manipal, UNESCO and FES marks",
+          "zoom": true,
+          "ratio": "1/1"
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "subheading": "Illustration as structure",
+      "body": [
+        "Bidisha and Pragya drew the report in a loose watercolour-and-ink style, deliberately unlike the stock-photo look of most policy documents. Wind turbines, coal barrels bleeding red smoke, a mountain village, a market crowd: each image sits with its recommendation and names the place the policy is meant to reach."
+      ]
+    },
+    {
+      "heading": "Reach",
+      "stats": [
+        {
+          "value": 123,
+          "suffix": "+",
+          "label": "Copies printed",
+          "note": "placeholder until FES India confirms the print run"
+        },
+        {
+          "value": 123,
+          "suffix": "+",
+          "label": "People reached online",
+          "note": "placeholder until confirmed"
+        },
+        {
+          "value": 123,
+          "suffix": "+",
+          "label": "Downloads from the website",
+          "note": "placeholder until confirmed"
+        }
+      ],
+      "statsCaption": "Figures to be confirmed with FES India.",
+      "media": [
+        {
+          "src": "/assets/img/work/fes-india-publications/report-executive-summary.webp",
+          "alt": "Close-up of the report open at the executive summary, with orange illustrations on the left page and the Day 01 highlights on the right",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "heading": "Also for FES India: Artificial Intelligence in India",
+      "body": [
+        "The report sits within a longer relationship. Since 2019 Rabi has designed FES India's <em>Artificial Intelligence in India</em> paper series: twelve volumes on AI and democracy, governance, education, sustainability, cities and ports, held together by one cover system, a robotic hand offering a sphere, with a single line icon and a solid colour per volume."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/fes-india-publications/series-covers.webp",
+          "alt": "Seven covers from the Artificial Intelligence in India series, each a robotic hand holding a sphere with the volume's icon",
+          "zoom": true
+        }
+      ]
+    }
+  ],
+  "credits": [
+    {
+      "role": "Concept & Direction",
+      "members": "Rabi (Rabiul Islam)"
+    },
+    {
+      "role": "Layout Design",
+      "members": "Zahid"
+    },
+    {
+      "role": "Illustrations",
+      "members": "Bidisha, Pragya"
+    },
+    {
+      "role": "Base Content",
+      "members": "FES-India"
+    },
+    {
+      "role": "Print",
+      "members": "Medialine"
+    }
+  ]
+}

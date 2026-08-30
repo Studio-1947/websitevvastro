@@ -19,6 +19,7 @@ interface Props extends SeoProps {
   fontHref?: string;
 }
 
+import { RELEASED_WORK } from '../lib/portfolioRelease';
 const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
 ---
 
@@ -31,7 +32,7 @@ const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
       <slot name="head" />
     </BaseHead>
   </head>
-  <body class={bodyClass}>
+  <body class={bodyClass} data-work-released={RELEASED_WORK.join(',')}>
     {/* Skip link: first thing in the tab order, so keyboard and screen-reader
         users can jump the nav. Pages render their own <main> through the slot,
         so the target is this zero-size anchor rather than an id we cannot reach

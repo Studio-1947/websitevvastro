@@ -25,6 +25,7 @@ import { hydrateYear, darjeelingLive } from './darjeeling';
 import { contactModal } from './contactModal';
 import { contactForms } from './formSubmit';
 import { initSmoothScroll } from './smoothScroll';
+import { workGate } from './workGate';
 
 /** Import `load` only when `sel` exists on this page. */
 function when(sel: string, load: () => Promise<void>): void {
@@ -74,6 +75,8 @@ function init(): void {
   darjeelingLive();
   contactModal();
   contactForms();
+  // Portfolio release gate: unreleased case studies show 'Coming soon' on the live host.
+  workGate();
 
   // ── Lazy: homepage "Our Approach" section ────────────────────────────────
   // GSAP fills the section titles; reduced-motion visitors get the final
@@ -93,6 +96,10 @@ function init(): void {
   // The pluckable strings live in the same section, gated on their own
   // markup so a page without the section never fetches the audio engine.
   whenNear('[data-approach] .astep', () => import('./approachStrings').then((m) => m.approachStrings()));
+  // Solutions page: the pinned industries heading fades as cards pass over it.
+  when('.ind-head', () => import('./industriesFade').then((m) => m.industriesFade()));
+  // Solutions overview: particle backdrop behind the practice cards.
+  whenNear('[data-sol-particles]', () => import('./solutionsParticles').then((m) => m.solutionsParticles()));
 
   // ── Lazy: page-specific modules, gated on their own markup ───────────────
   when('[data-hero-aurora]', () => import('./heroAurora').then((m) => m.heroAurora()));

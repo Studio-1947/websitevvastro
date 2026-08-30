@@ -1,8 +1,21 @@
 /**
  * Hero backdrop — an amorphous colour bulge trailing the cursor with a field of
- * 0s and 1s over it (faint grey, turning white over the bulge). Purely
- * decorative; a still frame for reduced-motion. Ported verbatim from js/main.js.
+ * small glyphs over it (faint grey, turning white over the bulge): design,
+ * coding, technology and research symbols, half of them 0/1 pairs. Purely
+ * decorative; a still frame for reduced-motion. Ported from js/main.js.
  */
+// Glyphs for the field. Each entry is one text character so it draws with
+// fillText at the same cell size as the original 0/1 field. Half the cells
+// are binary, laid down as side-by-side "0 1" / "1 0" pairs; the other half
+// are discipline icons (design, coding, technology, research).
+const ICONS = [
+  '✎', '△', '◐', '✦',           // design: pencil, triangle, half circle, star
+  '{', '}', '<', '>', '/', '#',                    // coding
+  '⚙', '⬡', '⌘', '⟲',           // technology: gear, hexagon, command, cycle
+  '∑', '◎', '⌕',                     // research: sigma, target, magnifier
+];
+const pickIcon = (): string => ICONS[(Math.random() * ICONS.length) | 0];
+
 export function heroAurora(): void {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-aurora]');
@@ -26,7 +39,9 @@ export function heroAurora(): void {
     rows = 0;
   let chars: string[] = [],
     sizes: number[] = [],
-    flip: number[] = [];
+    flip: number[] = [],
+    // Index of the other half of a 0/1 pair, or -1 for an icon cell.
+    partner: number[] = [];
   function smooth(t: number): number {
     t = t < 0 ? 0 : t > 1 ? 1 : t;
     return t * t * (3 - 2 * t);
@@ -35,13 +50,30 @@ export function heroAurora(): void {
   function buildGrid(): void {
     cols = Math.ceil(W / cell) + 1;
     rows = Math.ceil(H / cell) + 1;
-    chars = [];
+    const n = cols * rows;
+    chars = new Array<string>(n).fill('');
     sizes = [];
     flip = [];
-    for (let k = 0; k < cols * rows; k++) {
-      chars.push(Math.random() < 0.5 ? '0' : '1');
+    partner = new Array<number>(n).fill(-1);
+    for (let k = 0; k < n; k++) {
       sizes.push(6 + Math.random() * Math.random() * 8);
       flip.push(Math.random() * 6000);
+    }
+    for (let k = 0; k < n; k++) {
+      if (chars[k]) continue; // already filled as the right half of a pair
+      const x = k % cols;
+      // A pair needs a free cell to its right on the same row. The pair takes
+      // two cells, so pairing every other free cell keeps the binary/icon
+      // split at roughly half the cells each.
+      if (Math.random() < 0.5 && x < cols - 1 && !chars[k + 1]) {
+        const zeroFirst = Math.random() < 0.5;
+        chars[k] = zeroFirst ? '0' : '1';
+        chars[k + 1] = zeroFirst ? '1' : '0';
+        partner[k] = k + 1;
+        partner[k + 1] = k;
+      } else {
+        chars[k] = pickIcon();
+      }
     }
   }
   function resize(): void {
@@ -127,7 +159,15 @@ export function heroAurora(): void {
         const idx = y * cols + x;
         const gx = x * cell + cell / 2,
           gy = y * cell + cell / 2;
-        if ((now + flip[idx]) % 6000 < 16) chars[idx] = chars[idx] === '0' ? '1' : '0';
+        if ((now + flip[idx]) % 6000 < 16) {
+          const q = partner[idx];
+          if (q >= 0) {
+            // Swap the pair so it stays a 0 beside a 1.
+            const t = chars[idx];
+            chars[idx] = chars[q];
+            chars[q] = t;
+          } else chars[idx] = pickIcon();
+        }
         const dxx = gx - cx,
           dyy = gy - cy;
         const inten = smooth(1 - Math.sqrt(dxx * dxx + dyy * dyy) / R);
