@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import StructuredLayout from '../../layouts/StructuredLayout.astro';
 import { productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
 // Shared scoped CSS for the 5 ERP/SaaS product pages (byte-identical in source).
-// 1-darjeeling uses the global .pdp-* system and simply ignores these selectors.
+// aangan uses the global .pdp-* system and simply ignores these selectors.
 import productCss from '../../styles/product.css?raw';
 
 export async function getStaticPaths() {

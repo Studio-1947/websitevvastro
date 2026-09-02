@@ -100,7 +100,7 @@ const STATIC_PAGES: Array<Omit<SearchDoc, 'text'>> = [
     type: 'Page',
     title: 'Products',
     description:
-      'Doptor Campus, Office and NGO Manager, Aangan ERP, 1 Darjeeling and Pharma ERP: digital products made by Studio 1947 in Darjeeling.',
+      'Doptor Campus, Office and NGO Manager, Aangan and Pharma ERP: digital products made by Studio 1947 in Darjeeling.',
     keywords: 'products erp dashboards software tools saas',
   },
   {

@@ -72,8 +72,8 @@
 }
 .sf-hero h1{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(2.9rem,8.2vw,7rem);line-height:.94;letter-spacing:-.018em;
-  margin:.5em 0 0;max-width:14ch;
+  font-size:clamp(1.9rem,8.2vw,7rem);line-height:.94;letter-spacing:-.018em;
+  margin:.5em 0 0;white-space:nowrap;
 }
 .sf-hero h1 .w{color:var(--red)}
 .sf-hero .lede{margin-top:2rem}
@@ -292,17 +292,17 @@
 </svg>
 <!-- ── HERO ─────────────────────────────────────────────────────── -->
 <section class="sf-hero">
-  <p class="eyebrow">Data · Design · Technology · Communication</p>
-  <h1>Four lines make a <span class="w">wheel</span>.</h1>
+  <p class="eyebrow" data-i18n="about.story.eyebrow">Data · Design · Technology · Communication</p>
+  <h1 data-i18n="about.story.heroTitle">Four lines make a <span class="w">wheel</span>.</h1>
   <div class="sf-hero-lines"><i></i><i></i><i></i><i></i></div>
-  <p class="lede">Our logo is not a drawing of a wheel. It is four straight lines,
+  <p class="lede" data-i18n="about.story.heroLede">Our logo is not a drawing of a wheel. It is four straight lines,
      pinned at one point and set turning: in Darjeeling, at 2,042 metres.
      Scroll to build it, then follow where it rolls.</p>
-  <div class="sf-cue"><b></b> Scroll to build the mark</div>
+  <div class="sf-cue"><b></b> <span data-i18n="about.story.cue">Scroll to build the mark</span></div>
 </section>
 
 <div class="sf-chapter">
-  <hr class="rule"><span>Act one: <b>The build</b></span><hr class="rule">
+  <hr class="rule"><span data-i18n="about.story.act1">Act one: <b>The build</b></span><hr class="rule">
 </div>
 
 <!-- ── SCROLLY ──────────────────────────────────────────────────── -->
@@ -346,10 +346,10 @@
 
         <!-- travelling name tags -->
         <g id="sf-tags">
-          <text class="sf-tag" id="sf-t0" opacity="0">Data</text>
-          <text class="sf-tag" id="sf-t1" opacity="0">Design</text>
-          <text class="sf-tag" id="sf-t2" opacity="0">Technology</text>
-          <text class="sf-tag" id="sf-t3" opacity="0">Communication</text>
+          <text class="sf-tag" id="sf-t0" opacity="0" data-i18n="about.disc.data">Data</text>
+          <text class="sf-tag" id="sf-t1" opacity="0" data-i18n="about.disc.design">Design</text>
+          <text class="sf-tag" id="sf-t2" opacity="0" data-i18n="about.disc.tech">Technology</text>
+          <text class="sf-tag" id="sf-t3" opacity="0" data-i18n="about.disc.comm">Communication</text>
         </g>
 
         <!-- wordmark -->
@@ -362,51 +362,51 @@
 
     <div class="sf-caps">
       <article class="sf-cap" data-i="0">
-        <span class="num">Line 01</span>
-        <span class="kind"><s></s> Ruled: measured in increments</span>
-        <h2>Data</h2>
-        <p class="lede">The first line is a measurement. Evidence set end to end: what happened,
+        <span class="num" data-i18n="about.build.num1">Line 01</span>
+        <span class="kind"><s></s> <span data-i18n="about.build.kind1">Ruled: measured in increments</span></span>
+        <h2 data-i18n="about.disc.data">Data</h2>
+        <p class="lede" data-i18n="about.build.lede1">The first line is a measurement. Evidence set end to end: what happened,
           how often, to whom. Read it and you know exactly one thing, and it points in exactly
           one direction.</p>
       </article>
 
       <article class="sf-cap" data-i="1">
-        <span class="num">Line 02</span>
-        <span class="kind"><s class="node"></s> Handled: a line with tension</span>
-        <h2>Design</h2>
-        <p class="lede">The second line gives the first a shape worth following. It decides where
+        <span class="num" data-i18n="about.build.num2">Line 02</span>
+        <span class="kind"><s class="node"></s> <span data-i18n="about.build.kind2">Handled: a line with tension</span></span>
+        <h2 data-i18n="about.disc.design">Design</h2>
+        <p class="lede" data-i18n="about.build.lede2">The second line gives the first a shape worth following. It decides where
           the eye starts, what it can skip, where it rests. Beautiful, and still just an edge.</p>
       </article>
 
       <article class="sf-cap" data-i="2">
-        <span class="num">Line 03</span>
-        <span class="kind"><s class="dash"></s> Sampled: repeatable, discrete</span>
-        <h2>Technology</h2>
-        <p class="lede">The third line makes it run. It takes what was measured and drawn and
+        <span class="num" data-i18n="about.build.num3">Line 03</span>
+        <span class="kind"><s class="dash"></s> <span data-i18n="about.build.kind3">Sampled: repeatable, discrete</span></span>
+        <h2 data-i18n="about.disc.tech">Technology</h2>
+        <p class="lede" data-i18n="about.build.lede3">The third line makes it run. It takes what was measured and drawn and
           repeats it a thousand times a second without tiring. On its own it has nowhere to go.</p>
       </article>
 
       <article class="sf-cap" data-i="3">
-        <span class="num">Line 04</span>
-        <span class="kind"><s class="chev"></s> Directed: carries both ways</span>
-        <h2>Communication</h2>
-        <p class="lede">The fourth line is the one that leaves the building. It decides what gets
+        <span class="num" data-i18n="about.build.num4">Line 04</span>
+        <span class="kind"><s class="chev"></s> <span data-i18n="about.build.kind4">Directed: carries both ways</span></span>
+        <h2 data-i18n="about.disc.comm">Communication</h2>
+        <p class="lede" data-i18n="about.build.lede4">The fourth line is the one that leaves the building. It decides what gets
           said, to whom, and in what order, and whether the other three are ever noticed at all.
           On its own it has nothing to carry.</p>
       </article>
 
       <article class="sf-cap" data-i="4">
-        <span class="num">The crossing</span>
-        <h2>One centre</h2>
-        <p class="lede">Lay all four through a single point, forty-five degrees apart. Four lines,
+        <span class="num" data-i18n="about.build.numCrossing">The crossing</span>
+        <h2 data-i18n="about.build.headingCentre">One centre</h2>
+        <p class="lede" data-i18n="about.build.ledeCentre">Lay all four through a single point, forty-five degrees apart. Four lines,
           eight ends: the exact spoke count of the finished mark. Nothing is added to reach it.
           The hub is simply the circle they all turn around.</p>
       </article>
 
       <article class="sf-cap" data-i="5">
-        <span class="num">The rim</span>
-        <h2>One circle</h2>
-        <p class="lede">Draw a single circle across the eight ends and the lines stop being lines.
+        <span class="num" data-i18n="about.build.numRim">The rim</span>
+        <h2 data-i18n="about.build.headingCircle">One circle</h2>
+        <p class="lede" data-i18n="about.build.ledeCircle">Draw a single circle across the eight ends and the lines stop being lines.
           They're spokes. Nothing is dropped and nothing is invented. The wheel just closes, and
           reads the same however it turns.</p>
       </article>
@@ -415,7 +415,7 @@
 </section>
 
 <div class="sf-chapter">
-  <hr class="rule"><span>Act two: <b>The journey</b></span><hr class="rule">
+  <hr class="rule"><span data-i18n="about.story.act2">Act two: <b>The journey</b></span><hr class="rule">
 </div>
 
 <!-- ── JOURNEY ──────────────────────────────────────────────────── -->
@@ -442,55 +442,55 @@
           <b id="jr-pos"></b>
         </div>
         <div class="jr-stops">
-          <span style="left:9.5%">Darjeeling</span>
-          <span style="left:28.5%">The plains</span>
-          <span style="left:46.5%">The metros</span>
-          <span style="left:68.5%">The world</span>
-          <span style="left:91%">Darjeeling</span>
+          <span style="left:9.5%" data-i18n="about.jr.headingDarjeeling">Darjeeling</span>
+          <span style="left:28.5%" data-i18n="about.jr.headingPlains">The plains</span>
+          <span style="left:46.5%" data-i18n="about.jr.headingMetros">The metros</span>
+          <span style="left:68.5%" data-i18n="about.jr.headingWorld">The world</span>
+          <span style="left:91%" data-i18n="about.jr.headingDarjeeling">Darjeeling</span>
         </div>
         <div class="jr-tele">
-          <span>Elevation <var id="jr-alt">2,042 m</var></span>
-          <span>Rolled <var id="jr-rev">0.0 rev</var></span>
+          <span><span data-i18n="about.jr.elevation">Elevation</span> <var id="jr-alt">2,042 m</var></span>
+          <span><span data-i18n="about.jr.rolled">Rolled</span> <var id="jr-rev">0.0 rev</var></span>
         </div>
       </div>
     </div>
 
     <div class="sf-caps">
       <article class="sf-cap" data-i="0">
-        <span class="num">Stop 01</span>
-        <h2>Darjeeling</h2>
-        <p class="lede">Two thousand and forty-two metres up, where the road bends back on
+        <span class="num" data-i18n="about.jr.num1">Stop 01</span>
+        <h2 data-i18n="about.jr.headingDarjeeling">Darjeeling</h2>
+        <p class="lede" data-i18n="about.jr.lede1">Two thousand and forty-two metres up, where the road bends back on
           itself every hundred yards and nothing arrives quickly. A place that teaches you
           to make things that travel light.</p>
       </article>
 
       <article class="sf-cap" data-i="1">
-        <span class="num">Stop 02</span>
-        <h2>The plains</h2>
-        <p class="lede">The first stretch is short. Siliguri, Kalimpong, Gangtok, the corridor
+        <span class="num" data-i18n="about.jr.num2">Stop 02</span>
+        <h2 data-i18n="about.jr.headingPlains">The plains</h2>
+        <p class="lede" data-i18n="about.jr.lede2">The first stretch is short. Siliguri, Kalimpong, Gangtok, the corridor
           where the hills hand over to the plains. Work made up there starts turning up down
           here, on shopfronts and signboards, in hands that never asked where it came from.</p>
       </article>
 
       <article class="sf-cap" data-i="2">
-        <span class="num">Stop 03</span>
-        <h2>The metros</h2>
-        <p class="lede">Then the buildings get taller and the briefs get longer. Kolkata, Delhi,
+        <span class="num" data-i18n="about.jr.num3">Stop 03</span>
+        <h2 data-i18n="about.jr.headingMetros">The metros</h2>
+        <p class="lede" data-i18n="about.jr.lede3">Then the buildings get taller and the briefs get longer. Kolkata, Delhi,
           Bengaluru, Mumbai. Same four lines, same wheel, just further to roll between stops.</p>
       </article>
 
       <article class="sf-cap" data-i="3">
-        <span class="num">Stop 04</span>
-        <h2>The world</h2>
-        <p class="lede">Roll far enough in one direction and the ground stops being flat.
+        <span class="num" data-i18n="about.jr.num4">Stop 04</span>
+        <h2 data-i18n="about.jr.headingWorld">The world</h2>
+        <p class="lede" data-i18n="about.jr.lede4">Roll far enough in one direction and the ground stops being flat.
           Time zones turn into a scheduling detail, a studio in the hills turns out to be a
           studio anywhere, and the horizon closes into a circle.</p>
       </article>
 
       <article class="sf-cap" data-i="4">
-        <span class="num">Full circle</span>
-        <h2>Darjeeling</h2>
-        <p class="lede">A circle only goes one place. Back up the switchbacks, past the tea,
+        <span class="num" data-i18n="about.jr.numCircle">Full circle</span>
+        <h2 data-i18n="about.jr.headingDarjeeling">Darjeeling</h2>
+        <p class="lede" data-i18n="about.jr.lede5">A circle only goes one place. Back up the switchbacks, past the tea,
           to the people who built it, taught it, and are still standing on that ridge.
           The wheel doesn't finish anywhere. It comes home.</p>
       </article>
@@ -501,23 +501,23 @@
 <!-- ── INTERACTIVE ──────────────────────────────────────────────── -->
 <section class="sf-play">
   <div>
-    <p class="eyebrow">Take it for a turn</p>
-    <h2>Drag the wheel.</h2>
-    <p class="lede">The construction never really leaves. Pick a line to lay it back over
+    <p class="eyebrow" data-i18n="about.play.eyebrow">Take it for a turn</p>
+    <h2 data-i18n="about.play.heading">Drag the wheel.</h2>
+    <p class="lede" data-i18n="about.play.lede">The construction never really leaves. Pick a line to lay it back over
       the mark, or just grab the wheel and spin it. Arrow keys work too.</p>
 
     <ul class="sf-chips">
-      <li><button class="sf-chip" data-iso="0" aria-pressed="false">Data</button></li>
-      <li><button class="sf-chip" data-iso="1" aria-pressed="false">Design</button></li>
-      <li><button class="sf-chip" data-iso="2" aria-pressed="false">Technology</button></li>
-      <li><button class="sf-chip" data-iso="3" aria-pressed="false">Communication</button></li>
-      <li><button class="sf-chip" data-iso="-1" aria-pressed="true">Just the mark</button></li>
+      <li><button class="sf-chip" data-iso="0" aria-pressed="false" data-i18n="about.disc.data">Data</button></li>
+      <li><button class="sf-chip" data-iso="1" aria-pressed="false" data-i18n="about.disc.design">Design</button></li>
+      <li><button class="sf-chip" data-iso="2" aria-pressed="false" data-i18n="about.disc.tech">Technology</button></li>
+      <li><button class="sf-chip" data-iso="3" aria-pressed="false" data-i18n="about.disc.comm">Communication</button></li>
+      <li><button class="sf-chip" data-iso="-1" aria-pressed="true" data-i18n="about.play.justTheMark">Just the mark</button></li>
     </ul>
 
     <div class="sf-readout">
-      <span>Lines <var>4</var></span>
-      <span>Spokes <var>8</var></span>
-      <span>Rotation <var id="sf-deg">0°</var></span>
+      <span><span data-i18n="about.play.lines">Lines</span> <var>4</var></span>
+      <span><span data-i18n="about.play.spokes">Spokes</span> <var>8</var></span>
+      <span><span data-i18n="about.play.rotation">Rotation</span> <var id="sf-deg">0°</var></span>
     </div>
   </div>
 

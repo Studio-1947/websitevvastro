@@ -24,9 +24,9 @@ const year = new Date().getFullYear();
 
   <section class="cta">
     <div class="container">
-      <h2 class="cta__title">Let's co-create something<br />meaningful &amp; impactful together.</h2>
+      <h2 class="cta__title" data-i18n="global.footer.ctaTitle">Let's co-create something<br />meaningful &amp; impactful together.</h2>
       <a class="cta__btn" href="/sayhello/" data-contact-open>
-        Say Hello
+        <span data-i18n="global.nav.sayHello">Say Hello</span>
         <span class="arrow" aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
@@ -38,20 +38,20 @@ const year = new Date().getFullYear();
     <div class="container">
       <div class="footer__grid">
         <ul class="footer__col">
-          <li><a href="/products/">Our Products</a></li>
-          <li><a href="/solutions/">Our Solutions</a></li>
-          <li><a href="/about-us/">Our Journey</a></li>
+          <li><a href="/products/" data-i18n="global.footer.ourProducts">Our Products</a></li>
+          <li><a href="/solutions/" data-i18n="global.footer.ourSolutions">Our Solutions</a></li>
+          <li><a href="/about-us/" data-i18n="global.footer.ourJourney">Our Journey</a></li>
           {/* Labelled for where it goes. "Press Corner" is a separate thing and
               has no page yet: when it exists it gets its own entry here. */}
-          <li><a href="/initiatives/">Initiatives</a></li>
-          <li><a href="/blog/">Blogs</a></li>
+          <li><a href="/initiatives/" data-i18n="global.footer.initiatives">Initiatives</a></li>
+          <li><a href="/blog/" data-i18n="global.footer.blogs">Blogs</a></li>
         </ul>
         <ul class="footer__col">
-          <li><a href="/accessibility-statement/">Accessibility</a></li>
-          <li><a href="/privacy-policy/">Privacy Policy</a></li>
-          <li><a href="/terms-of-service/">Terms of Service</a></li>
-          <li><a href="/labour-employment-policy/">Labour &amp; Employment Policy</a></li>
-          <li><a href="/careers/">Career</a></li>
+          <li><a href="/accessibility-statement/" data-i18n="global.footer.accessibility">Accessibility</a></li>
+          <li><a href="/privacy-policy/" data-i18n="global.footer.privacyPolicy">Privacy Policy</a></li>
+          <li><a href="/terms-of-service/" data-i18n="global.footer.termsOfService">Terms of Service</a></li>
+          <li><a href="/labour-employment-policy/" data-i18n="global.footer.labourPolicy">Labour &amp; Employment Policy</a></li>
+          <li><a href="/careers/" data-i18n="global.footer.career">Career</a></li>
         </ul>
         <ul class="footer__col">
           <li><a href="https://www.instagram.com/1947.io/" target="_blank" rel="noopener">Instagram</a></li>
@@ -61,7 +61,7 @@ const year = new Date().getFullYear();
         </ul>
         <address class="footer__addr">
           <div class="footer__addr-head">
-            <strong>Headquarter<br />@&nbsp;Mirik, Darjeeling</strong>
+            <strong data-i18n="global.footer.hqLine">Headquarter<br />@&nbsp;Mirik, Darjeeling</strong>
             <a class="footer__map" href="https://maps.app.goo.gl/mNnNQbUaWLFf5Xw79" target="_blank" rel="noopener" aria-label="Open our Mirik office in Google Maps"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a>
           </div>
           Studio 1947, 1/149 Manbir Thapa Road,<br />
@@ -80,7 +80,7 @@ const year = new Date().getFullYear();
             <span class="footer__live-item" data-live-temp-wrap hidden><svg class="footer__live-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V5a2 2 0 1 0-4 0v9.76a4 4 0 1 0 4 0z"/></svg><span data-live-temp></span></span>
             <span class="footer__live-item" data-live-aqi-wrap hidden><svg class="footer__live-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h8a2.5 2.5 0 1 1-2.5 2.5"/></svg><span data-live-aqi></span></span>
           </p>
-          <span class="footer__copy">&copy; <span data-year>{year}</span> by Studio 1947</span>
+          <span class="footer__copy">&copy; <span data-year>{year}</span> <span data-i18n="global.footer.copyBy">by</span> Studio 1947</span>
         </div>
       </div>
     </div>

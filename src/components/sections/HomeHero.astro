@@ -46,7 +46,7 @@ const LOGO_WIDTHS = [160, 320, 480, 641];
 
   <!-- ===== Hero ===== -->
   <section class="hero container" data-stagger>
-    <h1 class="hero__title">We are Studio 1947.<br />Crafting and Co-Creating<br /><span class="hero__type" data-words="Data Solutions|Design Solutions|Tech Solutions|Communication Solutions|Marketing Solutions|Research Solutions">Data Solutions</span>.</h1>
+    <h1 class="hero__title"><span data-i18n="home.hero.line1">We are Studio 1947.</span><br /><span data-i18n="home.hero.line2">Crafting and Co-Creating</span><br /><span class="hero__type" data-words="Data Solutions|Design Solutions|Tech Solutions|Communication Solutions|Marketing Solutions" data-words-i18n="home.hero.words">Data Solutions</span>.</h1>
   </section>
 
   <!-- ===== Logo marquee + Featured Work label on the right ===== -->
@@ -66,7 +66,7 @@ const LOGO_WIDTHS = [160, 320, 480, 641];
         ))}
       </div>
     </div>
-    <a class="hero__scroll fw-featured" href="#featured-work"><span class="hero__scroll-text">Featured Work</span> <span class="down" aria-hidden="true"><i>&rsaquo;</i><i>&rsaquo;</i></span></a>
+    <a class="hero__scroll fw-featured" href="#featured-work"><span class="hero__scroll-text" data-i18n="home.hero.featuredWork">Featured Work</span> <span class="down" aria-hidden="true"><i>&rsaquo;</i><i>&rsaquo;</i></span></a>
   </div>
 
   <!-- ===== Featured work ===== -->
@@ -78,7 +78,7 @@ const LOGO_WIDTHS = [160, 320, 480, 641];
       </div>
       <div class="work-row work-row--b">
         <a class="tile" href="/work/rajkamal-prakashan/"><Image src={workRajkamal} sizes={TILE_WIDE} quality={85} widths={[640, 960, 1280, 1600]} alt="Rajkamal Prakashan campaign" loading="lazy" /></a>
-        <a class="tile" href="/work/local-futures/"><Image src={workFes} sizes={TILE_NARROW} quality={85} widths={[480, 720, 1080, 1401]} alt="Climate Justice in Action publication" loading="lazy" /></a>
+        <a class="tile" href="/work/fes-india-publications/"><Image src={workFes} sizes={TILE_NARROW} quality={85} widths={[480, 720, 1080, 1401]} alt="Climate Justice in Action publication" loading="lazy" /></a>
       </div>
       <div class="work-row work-row--full">
         <a class="tile" href="/work/mirik-college/"><Image src={workMirikSurvey} sizes={TILE_FULL} quality={85} widths={[640, 960, 1280]} alt="Mirik College survey" loading="lazy" /></a>
@@ -89,24 +89,36 @@ const LOGO_WIDTHS = [160, 320, 480, 641];
 
 <script>
   // Typewriter for the hero heading: cycles through the solution areas.
+  // Restartable via a `words-updated` event so a language switch (which
+  // rewrites data-words, see ../../scripts/i18n.ts) picks up the new list
+  // instead of finishing out the language it started in.
   const el = document.querySelector<HTMLElement>('.hero__type');
   if (el && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const words = (el.dataset.words || '').split('|').filter(Boolean);
-    let w = 0, i = words[0].length, deleting = false;
-    const tick = () => {
-      const word = words[w];
-      if (!deleting) {
-        i++;
-        el.textContent = word.slice(0, i);
-        if (i >= word.length) { deleting = true; setTimeout(tick, 2200); return; }
-        setTimeout(tick, 70);
-      } else {
-        i--;
-        el.textContent = word.slice(0, i);
-        if (i <= 0) { deleting = false; w = (w + 1) % words.length; setTimeout(tick, 350); return; }
-        setTimeout(tick, 40);
-      }
+    let gen = 0;
+    const start = () => {
+      const myGen = ++gen;
+      const words = (el.dataset.words || '').split('|').filter(Boolean);
+      if (!words.length) return;
+      let w = 0, i = words[0].length, deleting = false;
+      el.textContent = words[0];
+      const tick = () => {
+        if (myGen !== gen) return; // superseded by a newer language's word list
+        const word = words[w];
+        if (!deleting) {
+          i++;
+          el.textContent = word.slice(0, i);
+          if (i >= word.length) { deleting = true; setTimeout(tick, 2200); return; }
+          setTimeout(tick, 70);
+        } else {
+          i--;
+          el.textContent = word.slice(0, i);
+          if (i <= 0) { deleting = false; w = (w + 1) % words.length; setTimeout(tick, 350); return; }
+          setTimeout(tick, 40);
+        }
+      };
+      setTimeout(tick, 2200);
     };
-    setTimeout(tick, 2200);
+    start();
+    el.addEventListener('words-updated', start);
   }
 </script>
