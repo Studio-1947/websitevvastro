@@ -16,12 +16,16 @@ interface Props {
   /** The client's own point of contact on the project. */
   coordinator?: { name: string; role?: string };
   roles?: { role: string; members: string }[];
+  /** Whether the role list is a two-up grid (default) or one column. */
+  layout?: 'grid' | 'stack';
+  /** Profile-link treatment: underline by default, arrow button when opted in. */
+  linkStyle?: 'underline' | 'arrow';
   location?: string;
   year?: string;
   /** This case's slug, used to read and increment its own view tally. */
   slug?: string;
 }
-const { client, coordinator, roles = [], location, year, slug } = Astro.props;
+const { client, coordinator, roles = [], layout = 'grid', linkStyle = 'underline', location, year, slug } = Astro.props;
 
 const when = [location, year].filter(Boolean).join(', ');
 
@@ -65,14 +69,23 @@ function creditNames(list: string) {
       roles.length > 0 && (
         <div class="case-colophon__block case-colophon__block--team">
           <h3 class="case-colophon__kicker">Studio 1947</h3>
-          <ul class="case-colophon__team">
+          <ul class:list={['case-colophon__team', layout === 'stack' && 'case-colophon__team--stack']}>
             {roles.map((r) => (
               <li class="case-colophon__credit">
                 <span class="case-colophon__creditRole">{r.role}</span>
                 <span class="case-colophon__creditNames">
                   {creditNames(r.members).map((n) => (
                     <>
-                      {n.href ? <a href={n.href}>{n.name}</a> : n.name}
+                      {n.href ? (
+                        <a class:list={['case-colophon__creditLink', linkStyle === 'arrow' && 'case-colophon__creditLink--arrow']} href={n.href}>
+                          <span>{n.name}</span>
+                          {linkStyle === 'arrow' && (
+                            <span class="case-colophon__creditArrow" aria-hidden="true">
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19 19 5M9 5h10v10" /></svg>
+                            </span>
+                          )}
+                        </a>
+                      ) : n.name}
                       {n.sep}
                     </>
                   ))}

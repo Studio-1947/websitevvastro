@@ -20,8 +20,9 @@ interface Stat {
 interface Props {
   stats: Stat[];
   caption?: string;
+  i18nKey?: string;
 }
-const { stats, caption } = Astro.props;
+const { stats, caption, i18nKey } = Astro.props;
 
 // A suffix that is a word ("lakh", "days") is set beside the digits at a
 // smaller size instead of inside the counter, so a figure like "1.5 lakh"
@@ -33,7 +34,7 @@ const wordUnit = (suffix?: string): string | null =>
 
 <div class="case-stats" data-stagger>
   {
-    stats.map((s) => (
+    stats.map((s, i) => (
       <div class="case-stat">
         <div class="case-stat__num">
           <span
@@ -47,10 +48,10 @@ const wordUnit = (suffix?: string): string | null =>
           </span>
           {wordUnit(s.suffix) && <span class="case-stat__unit">{wordUnit(s.suffix)}</span>}
         </div>
-        <p class="case-stat__label">{s.label}</p>
-        {s.note && <p class="case-stat__note">{s.note}</p>}
+        <p class="case-stat__label" data-i18n={i18nKey && `${i18nKey}.stat${i}.label`}>{s.label}</p>
+        {s.note && <p class="case-stat__note" data-i18n={i18nKey && `${i18nKey}.stat${i}.note`}>{s.note}</p>}
       </div>
     ))
   }
 </div>
-{caption && <p class="case-stats__caption">{caption}</p>}
+{caption && <p class="case-stats__caption" data-i18n={i18nKey && `${i18nKey}.statsCaption`}>{caption}</p>}

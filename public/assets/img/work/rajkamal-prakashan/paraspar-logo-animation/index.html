@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Paraspar identity construction</title>
+    <style>
+      :root { background: #fff; color: #7c2600; }
+      * { box-sizing: border-box; }
+      html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+      main { position: relative; display: grid; width: 100%; height: 100%; place-items: center; background: #fff; }
+      .stage { position: absolute; width: min(44vw, 600px); height: min(44vw, 600px); object-fit: contain; opacity: 0; transform: scale(.98); transition: opacity 260ms ease, transform 260ms ease; }
+      .stage.is-active { opacity: 1; transform: scale(1); }
+      @media (max-width: 680px) { .stage { width: min(72vw, 460px); height: min(72vw, 460px); } }
+    </style>
+  </head>
+  <body>
+    <main aria-label="Animated construction of the Paraspar identity">
+      <img class="stage is-active" src="./step-1.webp" alt="" />
+      <img class="stage" src="./step-2.webp" alt="" />
+      <img class="stage" src="./step-3.webp" alt="" />
+      <img class="stage" src="./step-4.webp" alt="" />
+      <img class="stage" src="./step-5.webp" alt="" />
+      <img class="stage" src="./step-6.webp" alt="" />
+    </main>
+    <script>
+      const frames = [...document.querySelectorAll('.stage')];
+      let current = 0;
+      setInterval(() => {
+        frames[current].classList.remove('is-active');
+        current = (current + 1) % frames.length;
+        frames[current].classList.add('is-active');
+      }, 1500);
+    </script>
+  </body>
+</html>

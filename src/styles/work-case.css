@@ -303,6 +303,7 @@ body.page-case-modular {
 .case-body > :not(.case-section, .case-colophon),
 .case-section > .case-media--grid-2,
 .case-section > .case-media--grid-3,
+.case-section > .case-media--grid-4,
 .case-section > .case-media--split {
   max-width: 1400px;
   margin-inline: auto;
@@ -403,6 +404,13 @@ body.page-case-modular {
   .case-section.case-section--bleed > .case-media--row .case-figure {
     flex: 1 1 0;
   }
+}
+/* Same opt-in edge-to-edge override, for a bled grid section. */
+.case-section.case-section--bleed > .case-media--grid-2,
+.case-section.case-section--bleed > .case-media--grid-3,
+.case-section.case-section--bleed > .case-media--grid-4 {
+  max-width: none;
+  padding-inline: 0;
 }
 /* A bled row butts its figures flush, edge to edge, with no fan overlap. */
 .case-section.case-section--bleed > .case-media--row .case-figure + .case-figure {
@@ -698,6 +706,17 @@ body.page-case-modular {
 .case-media--grid-3 {
   grid-template-columns: repeat(3, 1fr);
 }
+/* Four across: a set meant to be read in sequence (the frames of one social
+   carousel). Below the wide breakpoint it folds to two so the frames stay
+   legible rather than becoming slivers. */
+.case-media--grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 900px) {
+  .case-media--grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 .case-media--split {
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -758,11 +777,26 @@ body.page-case-modular {
 .case-page--contained .case-media--grid-2 .case-figure:not(.case-figure--ratio) picture img,
 .case-page--contained .case-media--grid-3 .case-figure:not(.case-figure--ratio) img,
 .case-page--contained .case-media--grid-3 .case-figure:not(.case-figure--ratio) picture img,
+.case-page--contained .case-media--grid-4 .case-figure:not(.case-figure--ratio) img,
+.case-page--contained .case-media--grid-4 .case-figure:not(.case-figure--ratio) picture img,
 .case-page--contained .case-split__media .case-figure:not(.case-figure--ratio, .case-figure--reel) img,
 .case-page--contained .case-split__media .case-figure:not(.case-figure--ratio, .case-figure--reel) picture img {
   width: auto;
   max-width: 100%;
   margin-inline: auto;
+}
+/* Opt-in per-section override: run a stacked, contained case's media edge to
+   edge too (per-case JSON section flag: `bleed`), matching the row/grid-N
+   bleed overrides above. */
+.case-page--contained .case-section--bleed > .case-media--stack {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+.case-page--contained .case-section--bleed > .case-media--stack .case-figure:not(.case-figure--ratio) img,
+.case-page--contained .case-section--bleed > .case-media--stack .case-figure:not(.case-figure--ratio) picture img {
+  width: 100%;
+  max-width: none;
 }
 .case-media--stack .case-figure,
 .case-figure--bleed {
@@ -773,6 +807,7 @@ body.page-case-modular {
    narrower than the body, and bleeding them would collapse the grid. */
 .case-media--grid-2 .case-figure,
 .case-media--grid-3 .case-figure,
+.case-media--grid-4 .case-figure,
 .case-media--split .case-figure,
 .case-split__media .case-figure {
   width: 100%;
@@ -809,6 +844,7 @@ body.page-case-modular {
 @media (max-width: 767px) {
   .case-section > .case-media--grid-2,
   .case-section > .case-media--grid-3,
+  .case-section > .case-media--grid-4,
   .case-section > .case-media--split {
     max-width: none;
     padding-inline: 0;
@@ -914,6 +950,7 @@ body.page-case-modular {
 }
 .case-media--grid-2 .case-figure__caption,
 .case-media--grid-3 .case-figure__caption,
+.case-media--grid-4 .case-figure__caption,
 .case-media--split .case-figure__caption,
 .case-split__media .case-figure__caption {
   padding-inline: 0;
@@ -989,6 +1026,15 @@ body.page-case-modular {
   height: 100%;
   border: 0;
   display: block;
+}
+/* Opt-in: motion pieces that should meet the viewport edges rather than
+   inherit the case-study text column. */
+.case-embed--bleed {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  border: 0;
+  border-radius: 0;
 }
 
 /* ── Audio player (field recordings) ─────────────────────────────────────── */
@@ -1234,6 +1280,9 @@ body.page-case-modular {
   margin: 0;
   padding: 0;
 }
+.case-colophon__team--stack {
+  grid-template-columns: 1fr;
+}
 /* "Brand Design: Rabi" - the role sits with the name rather than above a
    column of them, so a long credit list still reads as pairs. */
 .case-colophon__credit {
@@ -1250,11 +1299,30 @@ body.page-case-modular {
 .case-colophon__creditNames {
   color: #fff;
 }
-.case-colophon__creditNames a {
+.case-colophon__creditLink {
   color: #fff;
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: color-mix(in srgb, var(--brand) 70%, #fff);
+}
+.case-colophon__creditLink--arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+}
+.case-colophon__creditArrow {
+  display: inline-flex;
+  width: 15px;
+  height: 15px;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s ease;
+}
+.case-colophon__creditArrow svg { width: 15px; height: 15px; }
+.case-colophon__creditLink--arrow:hover .case-colophon__creditArrow,
+.case-colophon__creditLink--arrow:focus-visible .case-colophon__creditArrow {
+  transform: translate(2px, -2px);
 }
 .case-colophon__when {
   font-family: var(--font-body);
@@ -1650,4 +1718,130 @@ body.page-case-modular {
   .case-card:hover .case-card__art {
     transform: none;
   }
+}
+
+/* ── Scroller media (opt-in per section: `layout: 'scroller'`) ─────────────
+   Two horizontally scrolling rows of equal cards, paged by a shared pair of
+   arrows. Used where a section carries a large uniform set of pieces (a
+   creatives rail) that would otherwise stack into an endless column. Every
+   rule here is scoped under .case-scroller, so no other layout is touched. */
+.case-scroller {
+  --scroller-card: clamp(208px, 22vw, 330px);
+  display: flex;
+  flex-direction: column;
+  /* The rows carry their own vertical padding so the card shadows have room
+     to fall inside the scroll container instead of being clipped by it; this
+     gap is only what is left to add on top of that. */
+  gap: clamp(4px, 0.6vw, 10px);
+}
+.case-scroller__row {
+  display: flex;
+  gap: clamp(18px, 1.9vw, 28px);
+  overflow-x: auto;
+  padding-inline: var(--gutter);
+  padding-block: clamp(8px, 0.9vw, 12px);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+}
+.case-scroller__row::-webkit-scrollbar {
+  display: none;
+}
+.case-scroller__row > .case-figure,
+.case-scroller__row > .case-scroller__clone {
+  flex: 0 0 var(--scroller-card);
+  width: var(--scroller-card);
+  max-width: none;
+  margin: 0;
+}
+.case-scroller__clone > .case-figure {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+/* Each piece is shown in the card the live site actually puts it in: a
+   coupon-shaped tile, artwork on top, a dashed tear line notched at both
+   edges, then the offer name and its call to action. Reproducing the real
+   component is the point - the reader sees the piece as a shopper met it,
+   not as a picture with a caption under it. */
+.case-scroller__row .case-figure {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #fff;
+  /* Light enough to lift the card off the page wash and no further: a wide
+     soft drop reads as a stain on the wash rather than as a raised card. */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 5px 12px rgba(0, 0, 0, 0.06);
+}
+.case-scroller__row .case-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.case-scroller__row .case-figure__caption {
+  position: relative;
+  max-width: none;
+  margin: 0;
+  padding: 18px 18px 20px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.22);
+  font-size: clamp(16px, 1.2vw, 20px);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--grey-900);
+}
+/* The two ticket notches: one circle in the page wash, centred on the card's
+   left edge, and a second drawn by a box-shadow offset by the card's width
+   onto the right edge. The card clips both to half discs. */
+.case-scroller__row .case-figure__caption::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--brand-wash);
+  box-shadow: var(--scroller-card) 0 0 0 var(--brand-wash);
+}
+.case-scroller__row .case-figure__caption::after {
+  content: 'Shop this offer \2192';
+  display: block;
+  margin-top: 10px;
+  color: var(--brand);
+  font-size: clamp(12px, 0.86vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Boxed sections (opt-in per section: `boxed: true`) ────────────────────
+   Draws the section's content inside a panel on the page wash, so a split
+   that pairs one diagram with its explanation reads as a single object
+   rather than as text that happens to sit beside a picture. Scoped under
+   .case-section--boxed, so no other section is affected. */
+.case-section--boxed .case-split {
+  background: #fff;
+  border: 1px solid var(--brand-line);
+  border-radius: 20px;
+  padding: clamp(22px, 3vw, 44px);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .case-section--boxed .case-split {
+    gap: clamp(32px, 4vw, 64px);
+  }
+}
+.case-section--boxed .case-split__media .case-figure {
+  margin: 0;
+}
+
+/* A bled row of figures each carrying its own caption: the caption belongs to
+   the picture above it, so it stays in that column instead of returning to
+   the page's text grid the way a single bled figure's caption does. */
+.case-section--bleed > .case-media--row .case-figure__caption {
+  max-width: none;
+  margin: 0;
+  padding: 12px var(--gutter) 0;
+  text-align: center;
 }

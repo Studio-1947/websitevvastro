@@ -20,6 +20,7 @@
 import { scrollReveal, countUps } from './reveal';
 import { mobileMenu } from './mobileMenu';
 import { navDropdowns, headerPill } from './nav';
+import { i18n } from './i18n';
 import { duplicateMarquees } from './marquee';
 import { hydrateYear, darjeelingLive } from './darjeeling';
 import { contactModal } from './contactModal';
@@ -70,6 +71,7 @@ function init(): void {
   mobileMenu();
   navDropdowns();
   headerPill();
+  i18n();
   duplicateMarquees();
   hydrateYear();
   darjeelingLive();
@@ -109,6 +111,7 @@ function init(): void {
   when('.team-card[data-person]', () => import('./personModal').then((m) => m.personModal()));
   when('.case-figure--zoom', () => import('./lightbox').then((m) => m.caseLightbox()));
   when('[data-work-rail]', () => import('./workRail').then((m) => m.workRail()));
+  when('[data-case-scroller]', () => import('./caseScroller').then((m) => m.caseScroller()));
   when('[data-spotlight]', () => import('./spotlight').then((m) => m.spotlightCards()));
   when('[data-views]', () => import('./views').then((m) => m.projectViews()));
   when('[data-footer-strip]', () => import('./footerStrip').then((m) => m.footerStrip()));

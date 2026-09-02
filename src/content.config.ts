@@ -198,6 +198,10 @@ const caseSection = z.object({
   embed: z
     .object({ src: z.string().url(), title: z.string() })
     .optional(),
+  /** Local, same-origin responsive iframe. Opt-in for self-contained motion pieces. */
+  localEmbed: z
+    .object({ src: z.string().startsWith('/'), title: z.string(), bleed: z.boolean().default(false) })
+    .optional(),
   /**
    * Playable track list (the Sundargaan case — a field-recorded song archive).
    * Rendered as a small audio player with play/pause + progress; missing files
@@ -219,7 +223,15 @@ const caseSection = z.object({
       }),
     )
     .default([]),
-  layout: z.enum(['stack', 'split', 'grid-2', 'grid-3', 'row']).default('stack'),
+  /**
+   * How this section's media is arranged. 'scroller' is opt-in: it lays the
+   * figures out as two horizontally scrolling rows (a creatives rail) driven
+   * by arrows, for sections carrying a large uniform set of pieces that would
+   * otherwise stack into an endless column.
+   */
+  layout: z
+    .enum(['stack', 'split', 'grid-2', 'grid-3', 'grid-4', 'row', 'scroller'])
+    .default('stack'),
   /**
    * Opt-in, per section: paint this section's background edge to edge in the
    * given colour and flip its type light. Absent → the page wash as usual.
@@ -230,8 +242,11 @@ const caseSection = z.object({
    * content (partially visible, clipped by the section). Absent → nothing.
    */
   backdrop: z.string().optional(),
-  /** 'none' butts this section's figures together with no gap between them. */
-  gap: z.enum(['default', 'none']).default('default'),
+  /**
+   * 'none' butts this section's figures together with no gap between them.
+   * An explicit CSS length (e.g. "4px") sets a specific gap instead.
+   */
+  gap: z.union([z.enum(['default', 'none']), z.string()]).default('default'),
   /** Photograph shown behind the swatch grid: the source of the palette. */
   swatchBackdrop: z.string().optional(),
   /** Draw the hairline divider above this section. Default true. */
@@ -241,6 +256,13 @@ const caseSection = z.object({
    * `mediaStyle: 'contained'` case. Absent → the page's mediaStyle applies as usual.
    */
   bleed: z.boolean().default(false),
+  /**
+   * Opt-in, per section: draw this section's content inside a bordered panel
+   * (a card on the page wash) instead of sitting directly on it. For a split
+   * section that pairs one diagram with its explanation and wants to read as
+   * one object. Absent → content sits on the wash as usual.
+   */
+  boxed: z.boolean().default(false),
 });
 
 /**
@@ -338,6 +360,10 @@ const work = defineCollection({
     credits: z
       .array(z.object({ role: z.string(), members: z.string() }))
       .default([]),
+    /** Opt-in: stack this case's Studio 1947 role credits in one column. */
+    creditsLayout: z.enum(['grid', 'stack']).default('grid'),
+    /** Opt-in: show profile links as a name followed by a circular arrow. */
+    creditLinkStyle: z.enum(['underline', 'arrow']).default('underline'),
     /** The client's own point of contact on the project. */
     coordinator: z
       .object({ name: z.string(), role: z.string().optional() })

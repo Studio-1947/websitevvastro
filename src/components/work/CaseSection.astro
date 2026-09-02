@@ -64,11 +64,13 @@ interface Props {
   cards?: Card[];
   media?: Media[];
   embed?: { src: string; title: string };
+  /** Same-origin iframe for a locally shipped motion piece. */
+  localEmbed?: { src: string; title: string; bleed?: boolean };
   /** Playable field recordings (Sundargaan): rendered as a track-list player. */
   audio?: AudioTrack[];
   layout?: 'stack' | 'split' | 'grid-2' | 'grid-3' | 'row';
   /** 'none' butts the section's figures together with no gap between them. */
-  gap?: 'default' | 'none';
+  gap?: 'default' | 'none' | string;
   /** Opt-in: full-bleed background colour for this section (light type). */
   band?: string;
   /** Opt-in: image floated huge and soft behind the section's content. */
@@ -80,9 +82,14 @@ interface Props {
   divider?: boolean;
   /** First section after the hero: its media loads eagerly. */
   first?: boolean;
+  /** `work.<slug>.s<index>` prefix for this section's structural data-i18n
+      keys (heading, subheading, label, card titles, stat/swatch labels).
+      Narrative prose (body, list, card bodies) is intentionally excluded. */
+  i18nKey?: string;
   /** Opt-in: run this section's media edge-to-edge even on a
       `mediaStyle: 'contained'` case. */
   bleed?: boolean;
+  boxed?: boolean;
 }
 
 function swatchInk(hex: string): string {
@@ -106,6 +113,7 @@ const {
   cards = [],
   media = [],
   embed,
+  localEmbed,
   audio = [],
   layout = 'stack',
   gap = 'default',
@@ -116,11 +124,21 @@ const {
   divider = true,
   first = false,
   bleed = false,
+  boxed = false,
+  i18nKey,
 } = Astro.props;
 
 const SubheadingTag = subheading ? (heading ? 'h3': 'h2'): null;
 const CardTitleTag = subheading ? (heading ? 'h4': 'h3'): heading ? 'h3': 'h2';
 const isSplit = layout === 'split';
+const isScroller = layout === 'scroller';
+// The scroller reads as two rails: the first half of the figures on top, the
+// rest beneath, so the set keeps its authored order left to right, row by row.
+const scrollerRows = isScroller
+  ? [media.slice(0, Math.ceil(media.length / 2)), media.slice(Math.ceil(media.length / 2))].filter(
+      (r) => r.length > 0,
+    )
+  : [];
 ---
 
 <section
@@ -132,6 +150,7 @@ const isSplit = layout === 'split';
     band && 'case-section--band',
     backdrop && 'case-section--backdrop',
     bleed && 'case-section--bleed',
+    boxed && 'case-section--boxed',
   ]}
   style={band ? `--band: ${band}`: undefined}
 >
@@ -145,11 +164,11 @@ const isSplit = layout === 'split';
           {label && (
             <span class="case-label">
               <CaseIcon name={labelIcon ?? 'spark'} class="case-label__icon" size={15} />
-              {label}
+              <span data-i18n={i18nKey && `${i18nKey}.label`}>{label}</span>
             </span>
           )}
-          {heading && <h2 class="case-section__heading">{heading}</h2>}
-          {SubheadingTag && <SubheadingTag class="case-section__subheading">{subheading}</SubheadingTag>}
+          {heading && <h2 class="case-section__heading" data-i18n={i18nKey && `${i18nKey}.heading`}>{heading}</h2>}
+          {SubheadingTag && <SubheadingTag class="case-section__subheading" data-i18n={i18nKey && `${i18nKey}.subheading`}>{subheading}</SubheadingTag>}
 
           {body.length > 0 && (
             <div class="case-prose">
@@ -179,12 +198,12 @@ const isSplit = layout === 'split';
     ): (
       <>
         <div class="case-shell">
-        {heading && <h2 class="case-section__heading">{heading}</h2>}
-        {SubheadingTag && <SubheadingTag class="case-section__subheading">{subheading}</SubheadingTag>}
+        {heading && <h2 class="case-section__heading" data-i18n={i18nKey && `${i18nKey}.heading`}>{heading}</h2>}
+        {SubheadingTag && <SubheadingTag class="case-section__subheading" data-i18n={i18nKey && `${i18nKey}.subheading`}>{subheading}</SubheadingTag>}
         {label && (
           <span class="case-label">
             <CaseIcon name={labelIcon ?? 'spark'} class="case-label__icon" size={15} />
-            {label}
+            <span data-i18n={i18nKey && `${i18nKey}.label`}>{label}</span>
           </span>
         )}
 
@@ -219,8 +238,8 @@ const isSplit = layout === 'split';
                 title={s.note}
               >
                 <div class="case-swatch__head">
-                  {s.role && <span class="case-swatch__role">{s.role}</span>}
-                  <span class="case-swatch__name">{s.name}</span>
+                  {s.role && <span class="case-swatch__role" data-i18n={i18nKey && `${i18nKey}.swatch${i}.role`}>{s.role}</span>}
+                  <span class="case-swatch__name" data-i18n={i18nKey && `${i18nKey}.swatch${i}.name`}>{s.name}</span>
                 </div>
                 <div class="case-swatch__foot">
                   <span class="case-swatch__num">{i + 1}</span>
@@ -231,7 +250,7 @@ const isSplit = layout === 'split';
           </div>
         )}
 
-        {stats.length > 0 && <CaseStats stats={stats} caption={statsCaption} />}
+        {stats.length > 0 && <CaseStats stats={stats} caption={statsCaption} i18nKey={i18nKey} />}
 
         {cards.length > 0 && (
           <div class:list={['case-cards', `case-cards--${layout === 'stack' ? 'grid-3': layout}`]}>
@@ -241,7 +260,7 @@ const isSplit = layout === 'split';
                     motif; never both, and never nothing. */}
                 {c.icon ? <CaseIcon name={c.icon} /> : <CaseCardArt index={i} />}
                 {c.num && <div class="case-card__num">{c.num}</div>}
-                <CardTitleTag class="case-card__title">{c.title}</CardTitleTag>
+                <CardTitleTag class="case-card__title" data-i18n={i18nKey && `${i18nKey}.card${i}.title`}>{c.title}</CardTitleTag>
                 {c.body && <p class="case-card__body" set:html={c.body} />}
               </div>
             ))}
@@ -251,19 +270,45 @@ const isSplit = layout === 'split';
         </div>
 
         {media.length > 0 && (
-          <div class:list={['case-media', `case-media--${layout}`, gap === 'none' && 'case-media--flush']}>
-            {media.map((m) => (
-              <CaseFigure {...m} eager={first} />
-            ))}
-          </div>
+          isScroller ? (
+            /* Two horizontally scrolling rows, arrows paging both together.
+               Opt-in per section (`layout: 'scroller'`) for a large uniform
+               set of pieces that would stack into an endless column. */
+            <div class="case-scroller" data-case-scroller>
+              {scrollerRows.map((row, r) => (
+                <div class="case-scroller__row" data-scroller-track data-scroller-dir={r % 2 === 0 ? '1': '-1'}>
+                  {/* The set is laid down twice so the drift can wrap at the
+                      halfway mark and read as one endless rail. The second
+                      pass is decorative: same pictures, hidden from readers. */}
+                  {row.map((m) => (
+                    <CaseFigure {...m} eager={false} />
+                  ))}
+                  {row.map((m) => (
+                    <div class="case-scroller__clone" aria-hidden="true">
+                      <CaseFigure {...m} eager={false} zoom={false} />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div
+              class:list={['case-media', `case-media--${layout}`, gap === 'none' && 'case-media--flush']}
+              style={gap !== 'default' && gap !== 'none' ? `gap: ${gap}` : undefined}
+            >
+              {media.map((m) => (
+                <CaseFigure {...m} eager={first} />
+              ))}
+            </div>
+          )
         )}
 
         <div class="case-shell">
-        {embed && (
-          <div class="case-embed">
+        {(embed || localEmbed) && (
+          <div class:list={['case-embed', localEmbed?.bleed && 'case-embed--bleed']}>
             <iframe
-              src={embed.src}
-              title={embed.title}
+              src={(embed || localEmbed)!.src}
+              title={(embed || localEmbed)!.title}
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin"

@@ -17,49 +17,329 @@
     "alt": "Rajkamal Prakashan: brand identity in context",
     "style": "photo"
   },
-  "sections": [],
+  "sections": [
+    {
+      "layout": "row",
+      "bleed": true,
+      "gap": "none",
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/saath-juden-saath-padhen.webp",
+          "alt": "साथ जुड़ें, साथ पढ़ें: the Rajkamal Prakashan campaign lockup",
+          "zoom": false
+        }
+      ]
+    },
+    {
+      "heading": "साथ जुड़ें, साथ पढ़ें",
+      "label": "The central narrative",
+      "divider": false,
+      "body": [
+        "This line already belonged to Rajkamal. It had lived quietly in the house for years, on a poster here, a bookmark there, but no one had said it out loud. Our job wasn't to invent a new line. It was to make this one loud."
+      ]
+    },
+    {
+      "layout": "split",
+      "boxed": true,
+      "divider": false,
+      "subheading": "One invitation, many tongues",
+      "body": [
+        "India doesn't speak in one language. A reader in Patna reads in Hindi, another in Kolkata reads in Bangla, a third in Kochi reads in Malayalam, and for all three, a book means exactly the same thing.",
+        "So the invitation couldn't stay in Hindi alone. <strong>साथ जुड़ें, साथ पढ़ें</strong> (Join together, read together) was said in every language it could be said in: সাথে জুড়ুন সাথে পড়ুন, ਸੰਗ ਜੁੜੋ ਸੰਗ ਪੜ੍ਹੋ, संयुज्धवम् संपठध्वम्, ஒன்றாகக் இணைவோம் ஒன்றாகப் படிப்போம், Tread Along Read Along, and many more.",
+        "And all of them sat inside one circle, with none placed above the others. A circle has no first line and no last. The design said exactly what the words did: coming together means coming as equals."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/many-languages-circle.webp",
+          "alt": "साथ जुड़ें, साथ पढ़ें set in more than a dozen Indian languages and scripts, the lines packed into a circle with no language placed above another"
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "body": [
+        "And the moment it goes big, red and unmissable, the meaning shifts. <strong>साथ जुड़ें, साथ पढ़ें</strong> stops reading like a tagline and starts reading like an invitation. Two verbs, both plural, both asking you to bring somebody along. A publisher that sells books becomes a community that reads together, and that is an entirely different thing."
+      ]
+    },
+    {
+      "layout": "row",
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/pillar-safdar-hashmi.webp",
+          "alt": "Pillar panel at the fair: a Safdar Hashmi poem in white over a red-washed portrait of the poet",
+          "ratio": "9/8"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/pillar-dushyant-kumar.webp",
+          "alt": "Pillar panel at the fair: a Dushyant Kumar couplet in white over a red-washed portrait of the poet",
+          "ratio": "9/8"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/pillar-bhavaniprasad-mishra.webp",
+          "alt": "Pillar panel at the fair: a Bhavaniprasad Mishra couplet in white over a red-washed portrait of the poet",
+          "ratio": "9/8"
+        }
+      ],
+      "bleed": true,
+      "gap": "none"
+    },
+    {
+      "divider": false,
+      "body": [
+        "So we moved it from the corner of a poster to the centre of the system. The identity, the type, the digital product, the events calendar all carry the same idea. Whether the reader is holding a book, scrolling a feed, or standing in a launch hall, the invitation stays the same."
+      ]
+    },
+    {
+      "layout": "row",
+      "bleed": true,
+      "gap": "none",
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/stall-branding-strip.webp",
+          "alt": "साथ जुड़ें, साथ पढ़ें across the Rajkamal Prakashan stall: the arch, a wall of the line set in a dozen Indian scripts, the social corner and the stage"
+        }
+      ]
+    },
+    {
+      "divider": false,
+      "body": [
+        "It also gave the brand a filter for what to say. If something brings readers closer to one another, it's in. If it only announces the publishing house, it stays out.",
+        "The loudest it has been so far was the 2026 National Book Festival in Delhi, where the line ran across the stall at full scale and did most of the talking for us."
+      ]
+    },
+    {
+      "heading": "The line in use",
+      "body": [
+        "The same invitation, everywhere. आज़ादी के रंग, किताबों के संग (Colours of freedom, in the company of books): the festival offer that ran the campaign, with a set of illustrated readers, young and old, carrying it across the site, the feeds and the stall walls. Same voice, same red, a different reader each time.",
+        "Each card belongs to a section: Freedom Sale, Rachanawali, Pratinidhi Kavitayan, gifting sets, children's books, the slow movers that needed a push. One system, twelve doors into the catalogue, so a reader always lands somewhere that is already for them."
+      ]
+    },
+    {
+      "layout": "row",
+      "bleed": true,
+      "gap": "none",
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/azaadi-ke-rang-banner.webp",
+          "alt": "आज़ादी के रंग, किताबों के संग: Rajkamal Prakashan home page banner offering 25 to 40 percent off all books from 8 to 23 August",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "heading": "Freedom Sale",
+      "label": "8 to 23 August",
+      "divider": false,
+      "body": [
+        "Every August, everyone talks about freedom. For Rajkamal, that conversation comes from somewhere else. Reading itself is a kind of freedom: whoever reads forms their own opinion, not one borrowed from somebody else. So the sale was never really about the discount. The discount was only the door in.",
+        "That is what the 8 to 23 August window was built around. <strong>आज़ादी के रंग, किताबों के संग.</strong> A reader who might not buy a book all year gets one chance a year to choose something for themselves. The aspiration is not the price. It is the person you become after the book.",
+        "The design language shifted the same way. We started where every August campaign in India starts, with the three colours: saffron, white, green. But three shades alone don't make a sale feel like a celebration. They only announce the date; they don't build the mood.",
+        "So the palette opened up. The tricolour stayed as the spine, and around it came the festive layer: bunting across the top, sparklers, warm paper grounds, blue and green and orange sitting together the way they sit at a fair. Every card carries an illustrated reader, from grandmother to child, so the page shows the person before it shows the book. From flag to festival, that was the whole move."
+      ]
+    },
+    {
+      "layout": "row",
+      "bleed": true,
+      "gap": "none",
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/azaadi-ads-banner.webp",
+          "alt": "आज़ादी के रंग, किताबों के संग: the campaign ad banner, a family of illustrated readers behind stacks of books with the 25 to 40 percent offer",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "layout": "scroller",
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-13.webp",
+          "alt": "Rajkamal Prakashan Freedom Sale card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Freedom Sale"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-14.webp",
+          "alt": "Rajkamal Prakashan Non Selling Products card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Non Selling Products"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-15.webp",
+          "alt": "Rajkamal Prakashan New Arrival card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "New Arrival"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-16.webp",
+          "alt": "Rajkamal Prakashan Best Selling Book card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Best Selling Book"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-17.webp",
+          "alt": "Rajkamal Prakashan Rachanawali card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Rachanawali"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-18.webp",
+          "alt": "Rajkamal Prakashan Pratinidhi Kavitayan card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Pratinidhi Kavitayan"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-19.webp",
+          "alt": "Rajkamal Prakashan Pratinidhi Kahaniya card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Pratinidhi Kahaniya"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-20.webp",
+          "alt": "Rajkamal Prakashan All Time Best card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "All Time Best"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-21.webp",
+          "alt": "Rajkamal Prakashan Gifting Sets card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Gifting Sets"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-22.webp",
+          "alt": "Rajkamal Prakashan Special Collection card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Special Collection"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-23.webp",
+          "alt": "Rajkamal Prakashan Children Books card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Children Books"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/creative-24.webp",
+          "alt": "Rajkamal Prakashan Other Publication Combo card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Other Publication Combo"
+        }
+      ]
+    },
+    {
+      "heading": "परस्पर",
+      "label": "Identity for a joint initiative by Rajkamal Prakashan Samuh and Arthashila Patna",
+      "body": [
+        "A joint initiative between Rajkamal Prakashan Samuh and Arthashila Patna. The name says it all: paraspar means with one another, towards one another.",
+        "The mark is built inside a single rounded square. A page curling back on itself, and from that same fold, the letterform emerges. Not two separate things; one stroke that can be read two ways.",
+        "The wordmark is set in Devanagari, in the same weight and the same rounded corners, so the name and the mark feel like they came from the same hand. White on deep brown. <strong>संवाद की सबरंगी दुनिया.</strong> (A world of many-coloured conversation.)"
+      ]
+    },
+    {
+      "layout": "row",
+      "bleed": true,
+      "gap": "none",
+      "divider": false,
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/paraspar-identity.webp",
+          "alt": "परस्पर identity: a white mark of a page curling back on itself inside a rounded square, with the Devanagari wordmark below, on a deep brown ground",
+          "zoom": false
+        }
+      ]
+    },
+    {
+      "label": "Book launch, Patna",
+      "layout": "grid-3",
+      "divider": false,
+      "body": [
+        "A launch poster has one job: make the date stick. So the date became the picture. The 18 was blown up so large that almost nothing else fits on the poster, and through the middle of it, the author's eye looks out. The same torn-paper strip that runs across the book's cover runs straight through the numeral, so the poster and the book read as one thing.",
+        "18 जुलाई, शाम 5 बजे, अर्थशिला, पटना (18 July, 5 PM, Arthashila, Patna). Every other detail stayed small beneath that one number, exactly as it should."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/ar-book-release-poster.webp",
+          "alt": "Launch poster for Arundhati Roy's Hindi edition: a giant torn-paper 18 over the author's eye, with 18 जुलाई लोकार्पण, शाम 5 बजे, अर्थशिला, पटना",
+          "maxWidth": 620
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/paraspar-poster-2.webp",
+          "alt": "Paraspar joint initiative poster with Rajkamal Prakashan Samuh and Arthshila Patna logos, a large brown identity mark, and the line संवाद की सबरंगी दुनिया",
+          "maxWidth": 620
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/paraspar-poster-1.webp",
+          "alt": "Paraspar identity embossed on textured paper, with Rajkamal Prakashan Samuh and Arthshila Patna logos above",
+          "maxWidth": 620
+        }
+      ]
+    },
+    {
+      "heading": "मेरी माँ मेरी गैंगस्टर",
+      "label": "Launch carousel",
+      "body": [
+        "Arundhati Roy's <em>Mother Mary Comes to Me</em> arrived in Hindi, translated by Prabhat Singh. The question was how to build a launch post that wouldn't feel tired across four slides.",
+        "Breaking a poster into four pieces on its own doesn't achieve much. So one image was kept running behind all of them: the author's portrait, dissolved into cream, sitting behind every frame. Swipe through, and it feels like the camera is drifting across that one face, rather than four separate posters flipping past.",
+        "The reason to keep moving was also built into the frame itself. A moth flies out of one slide and lands in the next, and a thin arrow guides the finger to the edge. The moths came from the book's own world, so they read as part of the story, not as decoration.",
+        "The sequence was deliberate. The first frame only announces that the book has arrived, <strong>उपलब्ध</strong> (Available). The second and third take the reader to where the book already is, Amazon and Flipkart. And the last frame calls them home, to rajkamalprakashan.com. The marketplaces come first because that's where trust is built; the studio's own site comes last because that's where the relationship is built."
+      ],
+      "layout": "grid-4",
+      "bleed": true,
+      "gap": "4px",
+      "media": [
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/mmmg-carousel-1.webp",
+          "alt": "Carousel frame one: the cover of मेरी माँ मेरी गैंगस्टर with उपलब्ध set below it, over a ghosted portrait of Arundhati Roy",
+          "caption": "उपलब्ध",
+          "ratio": "4/5"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/mmmg-carousel-2.webp",
+          "alt": "Carousel frame two: the Amazon listing card for the Hindi paperback, with moths drifting across the ghosted portrait",
+          "caption": "Amazon",
+          "ratio": "4/5"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/mmmg-carousel-3.webp",
+          "alt": "Carousel frame three: the Flipkart listing card for the Hindi paperback, with two moths and a swipe arrow",
+          "caption": "Flipkart",
+          "ratio": "4/5"
+        },
+        {
+          "src": "/assets/img/work/rajkamal-prakashan/mmmg-carousel-4.webp",
+          "alt": "Carousel frame four: an arrow curving down to the rajkamalprakashan.com button, a single moth beneath it and उपलब्ध below",
+          "caption": "rajkamalprakashan.com",
+          "ratio": "4/5"
+        }
+      ]
+    }
+  ],
   "credits": [
     {
-      "role": "Client Handling",
+      "role": "Creative Direction & Strategy",
       "members": "Rabi"
-    },
-    {
-      "role": "Creative Direction",
-      "members": "Rabi"
-    },
-    {
-      "role": "Design",
-      "members": "Zahid, Soumajit"
-    },
-    {
-      "role": "Strategy",
-      "members": "Studio 1947 Team"
-    },
-    {
-      "role": "Data",
-      "members": "Sankhadipta"
-    },
-    {
-      "role": "Technology Build",
-      "members": "Soumic"
-    },
-    {
-      "role": "Ads Management",
-      "members": "Sankhadipta, Santam"
     },
     {
       "role": "Internal Communication",
       "members": "Santam"
     },
     {
-      "role": "3D Character",
-      "members": "Nikhil Rai"
+      "role": "Technology Building",
+      "members": "Soumic"
     },
     {
-      "role": "Brand Guideline",
-      "members": "Soumajit"
+      "role": "Design",
+      "members": "Zahid, Nikhil Raj Subba & Saumajit"
+    },
+    {
+      "role": "Data Analysis",
+      "members": "Sankhadipta"
+    },
+    {
+      "role": "Ads Management",
+      "members": "Santam"
+    },
+    {
+      "role": "2D & 3D Art",
+      "members": "Nikhil Rai"
     }
   ],
+  "creditsLayout": "stack",
+  "creditLinkStyle": "arrow",
   "solutions": [
     "communication-campaign",
     "data-design-tech"
