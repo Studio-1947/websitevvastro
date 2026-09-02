@@ -12,7 +12,7 @@
  */
 export const RELEASED_WORK: string[] = [
   'nest-homes',
-  'bhagirath-homestays',
+  'rajkamal-prakashan',
 ];
 
 /** Hostnames where the gate is switched off. */
