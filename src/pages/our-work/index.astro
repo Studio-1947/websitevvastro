@@ -2,12 +2,11 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import html from '../../generated/our-work/main.html?raw';
 import css from '../../generated/our-work/style.css?raw';
-import { unlinkWorkCards } from '../../lib/otherWork';
 
-// The case studies are being reworked. Under `astro dev` the cards link
-// through so the pages can be edited and checked; the production build ships
-// them as plain (non-link) cards until the rework is done.
-const listing = import.meta.env.DEV ? html : unlinkWorkCards(html);
+// Cards always render as real links; the portfolio release gate
+// (src/lib/portfolioRelease.ts + src/scripts/workGate.ts) decides per case,
+// at click time, whether a card opens or shows the "Coming soon" popup.
+const listing = html;
 ---
 
 <BaseLayout
