@@ -13,6 +13,8 @@
 export const RELEASED_WORK: string[] = [
   'nest-homes',
   'rajkamal-prakashan',
+  'fermy-lab',
+  'awch',
 ];
 
 /** Hostnames where the gate is switched off. */

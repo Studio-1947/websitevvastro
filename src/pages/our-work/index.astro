@@ -2,11 +2,17 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import html from '../../generated/our-work/main.html?raw';
 import css from '../../generated/our-work/style.css?raw';
+import { RELEASED_WORK } from '../../lib/portfolioRelease';
 
 // Cards always render as real links; the portfolio release gate
 // (src/lib/portfolioRelease.ts + src/scripts/workGate.ts) decides per case,
 // at click time, whether a card opens or shows the "Coming soon" popup.
-const listing = html;
+// Not-yet-released cards also get a `work-card--soon` class here so their
+// thumbnail reads as inactive (greyed out) at a glance.
+const listing = html.replace(
+  /<a class="work-card" href="\/work\/([^/"]+)\/">/g,
+  (tag, slug) => (RELEASED_WORK.includes(slug) ? tag : tag.replace('class="work-card"', 'class="work-card work-card--soon"')),
+);
 ---
 
 <BaseLayout
