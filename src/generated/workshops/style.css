@@ -1,6 +1,15 @@
     /* ===== Hero banner: full-bleed image ahead of the text hero ===== */
-    .page-workshops .ws-hero-banner { margin: 0 0 clamp(40px, 5vw, 72px); width: 100%; }
-    .page-workshops .ws-hero-banner img { width: 100%; height: clamp(320px, 56vw, 760px); object-fit: cover; display: block; }
+    .page-workshops .ws-hero-banner { position: relative; margin: 0 0 clamp(40px, 5vw, 72px); width: 100%; }
+    .page-workshops .ws-hero-banner img { width: 100%; height: clamp(420px, 68vw, 900px); object-fit: cover; display: block; }
+    .page-workshops .ws-hero-banner__badge {
+      position: absolute; left: clamp(20px, 4vw, 48px); bottom: clamp(20px, 4vw, 48px);
+      font-family: var(--font-display); font-size: clamp(22px, 3.2vw, 42px); color: #fff;
+      background: rgba(255, 255, 255, 0.14);
+      -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px; padding: clamp(14px, 1.6vw, 22px) clamp(28px, 3.2vw, 44px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
 
     /* ===== Workshops: hero ===== */
     .page-workshops .ws-hero { padding-top: clamp(40px, 5vw, 72px); padding-bottom: clamp(48px, 6vw, 84px); max-width: 760px; }
