@@ -1,5 +1,11 @@
     /* ===== Fellowship: hero ===== */
     .page-fellowship .fw-hero { padding-top: clamp(140px, 18vh, 220px); padding-bottom: clamp(48px, 6vw, 84px); max-width: 760px; }
+    .page-fellowship .fw-hero__ico {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--bg-alt); color: var(--red);
+      margin-bottom: clamp(20px, 2.4vw, 32px);
+    }
     .page-fellowship .fw-hero__eyebrow { font-size: clamp(15px, 1.2vw, 18px); color: var(--red); margin-bottom: 20px; }
     .page-fellowship .fw-hero__title { font-size: clamp(38px, 6vw, 74px); line-height: 1.02; letter-spacing: -0.02em; color: var(--grey-900); }
     .page-fellowship .fw-hero__lead { margin-top: clamp(18px, 2vw, 28px); font-size: clamp(17px, 1.3vw, 21px); line-height: 1.5; color: var(--grey-700); max-width: 56ch; }
@@ -13,13 +19,43 @@
 
     /* ===== Origin story ===== */
     .page-fellowship .fw-origin { max-width: 760px; }
+    .page-fellowship .fw-origin__ico {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--bg-alt); color: var(--red);
+      margin-bottom: clamp(18px, 2vw, 26px);
+    }
     .page-fellowship .fw-origin__title { margin-top: 16px; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.1; color: var(--grey-900); }
     .page-fellowship .fw-origin__body { margin-top: clamp(16px, 2vw, 24px); font-size: clamp(16px, 1.15vw, 19px); line-height: 1.6; color: var(--grey-700); }
+
+    /* ===== How it works: three steps ===== */
+    .page-fellowship .fw-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 3vw, 48px); position: relative; }
+    .page-fellowship .fw-step { position: relative; }
+    /* A connecting line running behind the icons, evoking a learning path. */
+    .page-fellowship .fw-steps::before {
+      content: ""; position: absolute; top: 27px; left: 8%; right: 8%; height: 1px;
+      background: repeating-linear-gradient(90deg, var(--line) 0 8px, transparent 8px 14px);
+      z-index: 0;
+    }
+    .page-fellowship .fw-step__ico {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #fff; border: 1px solid var(--line); color: var(--red);
+    }
+    .page-fellowship .fw-step__num { display: block; margin-top: clamp(16px, 1.8vw, 24px); font-size: 13px; letter-spacing: .12em; color: var(--grey-500); }
+    .page-fellowship .fw-step__title { margin-top: 6px; font-size: clamp(19px, 1.5vw, 23px); color: var(--grey-900); line-height: 1.15; }
+    .page-fellowship .fw-step__desc { margin-top: 10px; font-size: clamp(14px, 1vw, 16px); color: var(--grey-700); line-height: 1.55; }
 
     /* ===== What fellows get: numbered pillars ===== */
     .page-fellowship .fw-pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 2.6vw, 40px); }
     .page-fellowship .fw-pillar { border-top: 1px solid var(--line); padding-top: clamp(20px, 2.2vw, 32px); }
-    .page-fellowship .fw-pillar__num { font-family: var(--font-display); font-size: clamp(26px, 2.6vw, 36px); color: var(--red); line-height: 1; display: block; margin-bottom: clamp(12px, 1.4vw, 18px); }
+    .page-fellowship .fw-pillar__ico {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--bg-alt); color: var(--red);
+      margin-bottom: clamp(12px, 1.4vw, 18px);
+    }
     .page-fellowship .fw-pillar__title { font-size: clamp(19px, 1.5vw, 23px); color: var(--grey-900); line-height: 1.15; }
     .page-fellowship .fw-pillar__desc { margin-top: 10px; font-size: clamp(14px, 1vw, 16px); color: var(--grey-700); line-height: 1.55; }
 
@@ -33,6 +69,8 @@
     @media (max-width: 900px) {
       .page-fellowship .fw-stats { grid-template-columns: 1fr; gap: 20px; }
       .page-fellowship .fw-pillars { grid-template-columns: 1fr 1fr; }
+      .page-fellowship .fw-steps { grid-template-columns: 1fr; }
+      .page-fellowship .fw-steps::before { display: none; }
     }
     @media (max-width: 560px) {
       .page-fellowship .fw-pillars { grid-template-columns: 1fr; }
