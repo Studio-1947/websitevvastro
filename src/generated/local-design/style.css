@@ -1,5 +1,9 @@
+    /* ===== Hero banner: full-bleed image ahead of the text hero ===== */
+    .page-local-design .ld-hero-banner { margin: 0 0 clamp(40px, 5vw, 72px); width: 100%; }
+    .page-local-design .ld-hero-banner img { width: 100%; height: clamp(280px, 46vw, 620px); object-fit: cover; display: block; }
+
     /* ===== Local Design: hero ===== */
-    .page-local-design .ld-hero { padding-top: clamp(140px, 18vh, 220px); padding-bottom: clamp(48px, 6vw, 84px); max-width: 760px; }
+    .page-local-design .ld-hero { padding-top: clamp(40px, 5vw, 72px); padding-bottom: clamp(48px, 6vw, 84px); max-width: 760px; }
     .page-local-design .ld-hero__eyebrow { font-size: clamp(15px, 1.2vw, 18px); color: var(--red); margin-bottom: 20px; }
     .page-local-design .ld-hero__title { font-size: clamp(38px, 6vw, 74px); line-height: 1.02; letter-spacing: -0.02em; color: var(--grey-900); }
     .page-local-design .ld-hero__lead { margin-top: clamp(18px, 2vw, 28px); font-size: clamp(17px, 1.3vw, 21px); line-height: 1.5; color: var(--grey-700); max-width: 56ch; }
@@ -8,16 +12,37 @@
     /* ===== What we do: three individual cards ===== */
     .page-local-design .ld-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.4vw, 34px); }
     .page-local-design .ld-pillar {
+      position: relative; overflow: hidden;
       display: flex; flex-direction: column;
       border: 1px solid var(--line); border-radius: var(--radius-lg);
       padding: clamp(24px, 2.4vw, 36px);
-      transition: box-shadow .4s var(--ease), transform .4s var(--ease);
+      transition: box-shadow .4s var(--ease), transform .4s var(--ease), border-color .4s var(--ease);
     }
-    .page-local-design .ld-pillar:hover { box-shadow: 0 20px 50px rgba(0,0,0,.07); transform: translateY(-4px); }
-    .page-local-design .ld-pillar__num { font-family: var(--font-display); font-size: clamp(30px, 3vw, 42px); color: var(--red); line-height: 1; display: block; margin-bottom: clamp(14px, 1.6vw, 22px); }
-    .page-local-design .ld-pillar__title { font-size: clamp(20px, 1.6vw, 25px); color: var(--grey-900); line-height: 1.15; }
-    .page-local-design .ld-pillar__desc { margin-top: 12px; font-size: clamp(15px, 1.05vw, 17px); color: var(--grey-700); line-height: 1.55; }
+    /* Gloss: a soft blurred highlight that sweeps in from the top-left on hover. */
+    .page-local-design .ld-pillar::before {
+      content: ""; position: absolute; top: -60%; left: -30%;
+      width: 75%; height: 160%;
+      background: radial-gradient(circle, rgba(230, 0, 0, .22) 0%, rgba(230, 0, 0, 0) 70%);
+      filter: blur(28px);
+      opacity: 0; transform: translate(-16px, -16px);
+      transition: opacity .5s var(--ease), transform .6s var(--ease);
+      pointer-events: none;
+    }
+    .page-local-design .ld-pillar:hover {
+      box-shadow: 0 20px 50px rgba(0,0,0,.07); transform: translateY(-4px); border-color: transparent;
+    }
+    .page-local-design .ld-pillar:hover::before { opacity: 1; transform: translate(0, 0); }
+    .page-local-design .ld-pillar__ico {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--bg-alt); color: var(--red);
+      margin-bottom: clamp(16px, 1.8vw, 24px);
+    }
+    .page-local-design .ld-pillar__title { position: relative; z-index: 1; font-size: clamp(20px, 1.6vw, 25px); color: var(--grey-900); line-height: 1.15; }
+    .page-local-design .ld-pillar__desc { position: relative; z-index: 1; margin-top: 12px; font-size: clamp(15px, 1.05vw, 17px); color: var(--grey-700); line-height: 1.55; }
     .page-local-design .ld-pillar__link {
+      position: relative; z-index: 1;
       margin-top: clamp(20px, 2.2vw, 28px); align-self: flex-start;
       display: inline-flex; align-items: center; gap: 10px;
       font-size: 14px; font-weight: 600; color: var(--red); text-decoration: none;
