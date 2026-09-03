@@ -118,6 +118,7 @@ function init(): void {
   when('[data-spotlight]', () => import('./spotlight').then((m) => m.spotlightCards()));
   when('[data-views]', () => import('./views').then((m) => m.projectViews()));
   when('[data-footer-strip]', () => import('./footerStrip').then((m) => m.footerStrip()));
+  when('#story-modal', () => import('./storyModal').then((m) => m.storyModal()));
 }
 
 if (document.readyState === 'loading') {
