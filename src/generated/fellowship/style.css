@@ -51,14 +51,19 @@
     .page-fellowship .fw-step__title { margin-top: 6px; font-size: clamp(19px, 1.5vw, 23px); color: var(--grey-900); line-height: 1.15; }
     .page-fellowship .fw-step__desc { margin-top: 10px; font-size: clamp(14px, 1vw, 16px); color: var(--grey-700); line-height: 1.55; }
 
-    /* ===== What fellows get: numbered pillars ===== */
-    .page-fellowship .fw-pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 2.6vw, 40px); }
-    .page-fellowship .fw-pillar { border-top: 1px solid var(--line); padding-top: clamp(20px, 2.2vw, 32px); }
+    /* ===== What fellows get: 2x2 box cards ===== */
+    .page-fellowship .fw-pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2.4vw, 34px); }
+    .page-fellowship .fw-pillar {
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: clamp(24px, 2.4vw, 36px);
+      transition: box-shadow .4s var(--ease), transform .4s var(--ease);
+    }
+    .page-fellowship .fw-pillar:hover { box-shadow: 0 20px 50px rgba(0,0,0,.07); transform: translateY(-4px); }
     .page-fellowship .fw-pillar__ico {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 44px; height: 44px; border-radius: 50%;
+      width: 48px; height: 48px; border-radius: 50%;
       background: var(--bg-alt); color: var(--red);
-      margin-bottom: clamp(12px, 1.4vw, 18px);
+      margin-bottom: clamp(14px, 1.6vw, 20px);
     }
     .page-fellowship .fw-pillar__title { font-size: clamp(19px, 1.5vw, 23px); color: var(--grey-900); line-height: 1.15; }
     .page-fellowship .fw-pillar__desc { margin-top: 10px; font-size: clamp(14px, 1vw, 16px); color: var(--grey-700); line-height: 1.55; }
