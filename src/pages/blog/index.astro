@@ -11,7 +11,9 @@ import css from '../../generated/blog-index/style.css?raw';
  * collection sorted by order and swap each placeholder for its post's real
  * date, stamped as a <time> to match the visible date on the post page.
  */
-const posts = (await getCollection('blog')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('blog', ({ data }) => !data.hidden)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 let card = 0;
 const datedHtml = html.replace(/<span>Jun 4<\/span>/g, () => {
   const date = posts[card++]?.data.date;

@@ -7,7 +7,6 @@ import CaseFigure from './CaseFigure.astro';
 import CaseAudio from './CaseAudio.astro';
 import CaseStats from './CaseStats.astro';
 import CaseIcon from './CaseIcon.astro';
-import CaseCardArt from './CaseCardArt.astro';
 
 interface AudioTrack {
   title: string;
@@ -90,6 +89,9 @@ interface Props {
       `mediaStyle: 'contained'` case. */
   bleed?: boolean;
   boxed?: boolean;
+  /** Opt-in: a light-on-white card treatment instead of the default dark,
+      brand-tinted card. */
+  cardsTheme?: 'dark' | 'light';
 }
 
 function swatchInk(hex: string): string {
@@ -125,8 +127,13 @@ const {
   first = false,
   bleed = false,
   boxed = false,
+  cardsTheme = 'dark',
   i18nKey,
 } = Astro.props;
+
+/* A card without an icon of its own still gets a mark: the set cycles by
+   position so a row of three never repeats itself. */
+const FALLBACK_CARD_ICONS = ['spark', 'layers', 'chart', 'star', 'growth', 'shield'];
 
 const SubheadingTag = subheading ? (heading ? 'h3': 'h2'): null;
 const CardTitleTag = subheading ? (heading ? 'h4': 'h3'): heading ? 'h3': 'h2';
@@ -187,11 +194,23 @@ const scrollerRows = isScroller
           )}
         </div>
 
-        {media.length > 0 && (
+        {(media.length > 0 || embed || localEmbed) && (
           <div class="case-split__media">
             {media.map((m) => (
               <CaseFigure {...m} eager={first} />
             ))}
+            {(embed || localEmbed) && (
+              <div class="case-embed">
+                <iframe
+                  src={(embed || localEmbed)!.src}
+                  title={(embed || localEmbed)!.title}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -253,12 +272,12 @@ const scrollerRows = isScroller
         {stats.length > 0 && <CaseStats stats={stats} caption={statsCaption} i18nKey={i18nKey} />}
 
         {cards.length > 0 && (
-          <div class:list={['case-cards', `case-cards--${layout === 'stack' ? 'grid-3': layout}`]}>
+          <div class:list={['case-cards', `case-cards--${layout === 'stack' ? 'grid-3': layout}`, cardsTheme === 'light' && 'case-cards--light']}>
             {cards.map((c, i) => (
               <div class:list={['case-card', c.icon && 'case-card--icon']} data-spotlight>
-                {/* A card carries either a mark of its own or the house line
-                    motif; never both, and never nothing. */}
-                {c.icon ? <CaseIcon name={c.icon} /> : <CaseCardArt index={i} />}
+                {/* Every card carries a mark: its own when named, otherwise
+                    one from the shared set, picked by position. */}
+                <CaseIcon name={c.icon ?? FALLBACK_CARD_ICONS[i % FALLBACK_CARD_ICONS.length]} />
                 {c.num && <div class="case-card__num">{c.num}</div>}
                 <CardTitleTag class="case-card__title" data-i18n={i18nKey && `${i18nKey}.card${i}.title`}>{c.title}</CardTitleTag>
                 {c.body && <p class="case-card__body" set:html={c.body} />}

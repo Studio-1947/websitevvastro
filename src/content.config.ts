@@ -61,6 +61,9 @@ const blog = defineCollection({
     date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     cover: z.string().optional(),
     section: z.string().optional(),
+    /** Opt-in: unpublish a post without deleting it. Excluded from the index
+     * grid, prev/next neighbours, and its own page stops building (404s). */
+    hidden: z.boolean().default(false),
   }),
 });
 
@@ -263,6 +266,11 @@ const caseSection = z.object({
    * one object. Absent → content sits on the wash as usual.
    */
   boxed: z.boolean().default(false),
+  /**
+   * Opt-in, per section: a light-on-white card treatment instead of the
+   * default dark, brand-tinted card. Absent → dark as usual.
+   */
+  cardsTheme: z.enum(['dark', 'light']).default('dark'),
 });
 
 /**
@@ -364,6 +372,10 @@ const work = defineCollection({
     creditsLayout: z.enum(['grid', 'stack']).default('grid'),
     /** Opt-in: show profile links as a name followed by a circular arrow. */
     creditLinkStyle: z.enum(['underline', 'arrow']).default('underline'),
+    /** Credits that belong to the client's side, listed under the client. */
+    clientCredits: z
+      .array(z.object({ role: z.string(), members: z.string() }))
+      .default([]),
     /** The client's own point of contact on the project. */
     coordinator: z
       .object({ name: z.string(), role: z.string().optional() })

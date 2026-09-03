@@ -592,10 +592,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   .testi__track { grid-template-columns: 1fr; }
   .nav__links { display: none; }
   .nav { padding: 10px 12px 10px 18px; }
-  .nav__burger { display: grid; place-items: center; width: 42px; height: 42px; margin-left: auto; }
-  .nav__burger span { width: 20px; height: 2px; background: var(--grey-900); position: relative; }
-  .nav__burger span::before, .nav__burger span::after { content:""; position:absolute; left:0; width:20px; height:2px; background: var(--grey-900); }
-  .nav__burger span::before { top: -6px; } .nav__burger span::after { top: 6px; }
+  .nav__burger { display: grid; place-items: center; width: 42px; height: 42px; margin-left: auto; border: 0; background: transparent; color: var(--grey-900); }
   .btn-hello { display: none; }
   .btn-hello.commit__team { display: inline-flex; }
   .fw-logos-row { flex-direction: column; align-items: stretch; gap: 14px; }

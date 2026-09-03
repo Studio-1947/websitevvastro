@@ -8,7 +8,9 @@ import { articleJsonLd, cleanName, DEFAULT_FONT_HREF, formatPostDate } from '../
 import postCss from '../../styles/blog-post.css?raw';
 
 export async function getStaticPaths() {
-  const entries = (await getCollection('blog')).sort((a, b) => a.data.order - b.data.order);
+  const entries = (await getCollection('blog', ({ data }) => !data.hidden)).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
   const neighbour = (e: (typeof entries)[number] | undefined) =>
     e && { slug: e.id, title: e.data.heading ?? cleanName(e.data.title) };
 

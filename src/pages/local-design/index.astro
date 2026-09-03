@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/local-design/main.html?raw';
+import css from '../../generated/local-design/style.css?raw';
+---
+
+<BaseLayout
+  title={"Local Design | An Initiative by Studio 1947"}
+  description={"Local Design is a Studio 1947 initiative that discovers young creators, preserves local design knowledge, and brings free design-thinking workshops to rural India."}
+  ogTitle={"Local Design | An Initiative by Studio 1947"}
+  ogDescription={"Discovering young creators, preserving local design knowledge, and bringing free design-thinking workshops to rural India."}
+  ogType={"website"}
+  bodyClass={"page-local-design"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>

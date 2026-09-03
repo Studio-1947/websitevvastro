@@ -16,6 +16,8 @@ interface Props {
   /** The client's own point of contact on the project. */
   coordinator?: { name: string; role?: string };
   roles?: { role: string; members: string }[];
+  /** Credits belonging to the client's side, listed under the client name. */
+  clientRoles?: { role: string; members: string }[];
   /** Whether the role list is a two-up grid (default) or one column. */
   layout?: 'grid' | 'stack';
   /** Profile-link treatment: underline by default, arrow button when opted in. */
@@ -25,7 +27,7 @@ interface Props {
   /** This case's slug, used to read and increment its own view tally. */
   slug?: string;
 }
-const { client, coordinator, roles = [], layout = 'grid', linkStyle = 'underline', location, year, slug } = Astro.props;
+const { client, coordinator, roles = [], clientRoles = [], layout = 'grid', linkStyle = 'underline', location, year, slug } = Astro.props;
 
 const when = [location, year].filter(Boolean).join(', ');
 
@@ -61,6 +63,18 @@ function creditNames(list: string) {
             {coordinator.name}
             {coordinator.role && <span class="case-colophon__role">{coordinator.role}</span>}
           </p>
+        )
+      }
+      {
+        clientRoles.length > 0 && (
+          <ul class="case-colophon__team case-colophon__team--stack">
+            {clientRoles.map((r) => (
+              <li class="case-colophon__credit">
+                <span class="case-colophon__creditRole">{r.role}</span>
+                <span class="case-colophon__creditNames">{r.members}</span>
+              </li>
+            ))}
+          </ul>
         )
       }
     </div>

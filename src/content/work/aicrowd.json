@@ -1,9 +1,9 @@
 {
   "mediaStyle": "contained",
   "title": "AIcrowd | Studio 1947",
-  "description": "Making machine learning challenges legible: one picture per problem, for AIcrowd competitions run at NeurIPS, CVPR, ICCV, ISMIR and the KDD Cup.",
+  "description": "One picture per problem: how we turn AIcrowd's AI research challenges into visuals anyone can understand, for competitions run with Sony, AWS, AGI House and Meta.",
   "ogTitle": "AIcrowd | Studio 1947",
-  "ogDescription": "Making machine learning challenges legible: one picture per problem, for AIcrowd competitions run at NeurIPS, CVPR, ICCV, ISMIR and the KDD Cup.",
+  "ogDescription": "One picture per problem: how we turn AIcrowd's AI research challenges into visuals anyone can understand, for competitions run with Sony, AWS, AGI House and Meta.",
   "ogType": "article",
   "brand": "#D60000",
   "client": "AIcrowd",
@@ -19,395 +19,158 @@
   },
   "sections": [
     {
-      "divider": false,
-      "body": [
-        "Making machine learning challenges legible: one picture per problem, for competitions run at NeurIPS, CVPR, ICCV, ISMIR and the KDD Cup.",
-        "AIcrowd runs open machine learning challenges. Our work with them is the longest technical design relationship in the studio's history: our CEO, Rabiul Islam, started it years before Studio 1947 formally existed, and the studio now carries it. When AI researchers and enterprise data teams look for a creative partner they do not want a traditional graphic agency; they need someone comfortable with abstract maths, clear communication and data visualisation."
-      ]
-    },
-    {
-      "heading": "The problem",
-      "body": [
-        "A challenge arrives as a paragraph of research language and a dataset. It has to leave as something a person will stop scrolling for, without misrepresenting the science underneath it."
-      ],
-      "layout": "grid-3",
-      "cards": [
-        {
-          "num": "01",
-          "title": "Rule",
-          "body": "The picture carries the problem rather than decorating it. No stock circuit boards, no glowing brains, no blue hexagons. Where a field already has an object that means something to its people, the design uses that object."
-        },
-        {
-          "num": "02",
-          "title": "Method",
-          "body": "The clock a clinician asks a patient to draw; the dataset's own column names; the pose skeleton a researcher sees in their annotations. Recognition does the work a headline cannot."
-        },
-        {
-          "num": "03",
-          "title": "Series",
-          "body": "For multi-part events, one scene held constant and one element changed per task, so five puzzles read as five parts of one thing."
-        }
-      ]
-    },
-    {
-      "heading": "Outcome",
-      "stats": [
-        {
-          "value": 30,
-          "suffix": "+",
-          "label": "Challenges designed",
-          "note": "for NeurIPS, CVPR, ICCV, ISMIR and the KDD Cup, among others"
-        },
-        {
-          "value": 800,
-          "suffix": "K+",
-          "label": "Views",
-          "note": "counted by the platform across the pieces shown here"
-        },
-        {
-          "value": 5,
-          "suffix": "+",
-          "label": "Years",
-          "note": "of continuous collaboration, from 2020 to 2025"
-        }
-      ],
-      "body": [
-        "Almost none of these were AIcrowd's alone. A challenge is run with the group that owns the problem and the data, and the work was made at AIcrowd for them: the Alzheimer's Disease Data Initiative on clock drawings, OpenAI on generalisation, Amazon on shopping queries, ZEW on data purchasing, Meta on multi-modal retrieval. Whose challenge it is decides the register the picture is allowed to use, which is why the Alzheimer's banner refuses to be excited about itself. Each panel below names both."
-      ]
-    },
-    {
-      "heading": "The work, one at a time",
-      "body": [
-        "The set below runs in order, each with a note on what that particular problem was and why it was drawn the way it was."
-      ]
-    },
-    {
       "divider": true,
+      "heading": "Sounding Video Generation (SVG) Challenge 2024",
+      "label": "For Sony",
+      "body": [
+        "Video and sound that actually match up, not just play side by side."
+      ]
+    },
+    {
+      "divider": false,
+      "layout": "stack",
+      "bleed": true,
       "media": [
         {
-          "src": "/assets/img/work/aicrowd/neurips-2020-procgen-competition.webp",
-          "alt": "NeurIPS 2020 Procgen Competition key visual: retro 8-bit game environments rebuilt as clean modular vector tiles",
+          "src": "/assets/img/work/aicrowd/svg-challenge-banner-combined.webp",
+          "alt": "Sounding Video Generation Challenge banner set: the wide banner and the square link-preview banner side by side, Sony and AIcrowd marks, the challenge title, an audio waveform blending into a glowing play button, $35,000 USD cash prize",
           "zoom": true
         }
       ]
     },
     {
       "divider": false,
-      "subheading": "NeurIPS 2020: Procgen Competition",
       "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Made for <strong>OpenAI</strong> &middot; Concept &amp; design <strong>Rabi</strong> &middot; <a href=\"https://www.aicrowd.com/challenges/neurips-2020-procgen-competition\" target=\"_blank\" rel=\"noopener\">Open on AIcrowd</a>"
+        "Sony asked AI teams to build models that create video and sound together, so a bark lands exactly when the dog barks on screen. It's a hard problem, and $35,000 went to the teams who cracked it best.",
+        "The visual choice is simple: a soundwave flows straight into a play button, right at the point sound becomes picture. That's the whole idea in one image.",
+        "<strong>For the technical audience:</strong> entries were scored on two tracks, temporal alignment (matching an audio event to the exact video frame, using the SVGTA24 dataset built on Greatest Hits) and spatial alignment (stereo audio placement, using the SVGSA24 dataset derived from STARSS23). Both baselines used diffusion models: AnimateDiff paired with AudioLDM for temporal generation, and MM-Diffusion for spatial generation.",
+        "<a class=\"btn-hello\" href=\"https://www.aicrowd.com/challenges/sounding-video-generation-svg-challenge-2024\" target=\"_blank\" rel=\"noopener\">See the challenge on AIcrowd <span class=\"arrow\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></a>"
       ],
       "layout": "grid-2",
+      "cardsTheme": "light",
       "cards": [
         {
           "title": "Art direction",
-          "body": "The subject has no natural picture, so the picture is ascent. Sixteen procedurally generated worlds, each a real frame from the benchmark, are stacked into a rising staircase and the agent climbs it, so the sample efficiency and the generalisation named in the subhead are the same movement upward. The frames are shown as themselves rather than stylised, because a researcher recognises the environments and that recognition is the fastest way to say this challenge is yours. OpenAI's mark sits beside AIcrowd's at the same weight."
+          "body": "The same wave-into-play-button artwork appears everywhere: the site banner, the link preview, even the entry cards. Wherever someone comes across this challenge, it looks and feels the same."
         },
         {
-          "title": "Science communication",
-          "body": "Procgen asks a narrow, difficult question: can an agent that has mastered some levels of a game handle levels it has never seen? The subject is generalisation."
+          "title": "Why it works",
+          "body": "You understand the challenge before you've read a word. The picture already says it: sound and video, meeting perfectly."
         }
       ]
     },
     {
       "divider": true,
-      "media": [
-        {
-          "src": "/assets/img/work/aicrowd/neurips2021-awsdeepracer-aidrivingolympicschallenge.webp",
-          "alt": "NeurIPS 2021 AWS DeepRacer key visual: velocity lines, racing track grids and telemetry indicators",
-          "zoom": true
-        }
+      "heading": "Global Chess Challenge 2025",
+      "label": "For AWS Trainium & AGI House",
+      "body": [
+        "Can a small AI still play solid chess, and explain its own moves?"
       ]
     },
     {
       "divider": false,
-      "subheading": "NeurIPS 2021: AWS DeepRacer AI Driving Olympics",
-      "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Made for <strong>Amazon Web Services</strong> &middot; Concept &amp; design <strong>Rabi</strong>"
-      ],
-      "layout": "grid-2",
-      "cards": [
-        {
-          "title": "Art direction",
-          "body": "The image is one continuous road that begins as a wireframe mesh, the way a simulator renders ground, and then lifts off that mesh and curls upward into open space, solid and lit, with the car at the point of transition. Nothing else moves. Sim-to-real is usually explained in a paragraph; here it is one line going up off its own grid."
-        },
-        {
-          "title": "Science communication",
-          "body": "The hard part of this challenge is the sim-to-real gap: a policy is trained in simulation and then has to drive a physical car on a physical track, where friction and light and tyre wear are all real."
-        }
-      ]
-    },
-    {
-      "divider": true,
-      "media": [
-        {
-          "src": "/assets/img/work/aicrowd/multi-agent-behaviorchallenge2022.webp",
-          "alt": "Multi-Agent Behavior Challenge 2022 key visual, intersecting neon motion trajectories forming behavioural clusters",
-          "zoom": true
-        }
-      ]
-    },
-    {
-      "divider": false,
-      "subheading": "Multi-Agent Behavior Challenge 2022",
-      "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Made for <strong>Northwestern, Google, Amazon and Janelia</strong> &middot; Concept &amp; design <strong>Rabi</strong>"
-      ],
-      "layout": "grid-2",
-      "cards": [
-        {
-          "title": "Art direction",
-          "body": "The mice and the flies here are not drawn and then covered in dots: they are built out of the keypoints, so each animal exists only as the tracked points a model would ever receive, and the eye assembles the creature the way the model has to. It is as close as a still image gets to showing the machine's view rather than ours. Northwestern, Google, Amazon and Janelia across the top."
-        },
-        {
-          "title": "Science communication",
-          "body": "Learning behavioural representations from animal poses in video: the dataset is footage of interacting animals annotated frame by frame, and the task is to represent and classify what they are doing."
-        }
-      ]
-    },
-    {
-      "divider": true,
-      "media": [
-        {
-          "src": "/assets/img/work/aicrowd/data-purchasing-challenge-2022.webp",
-          "alt": "Data Purchasing Challenge 2022 key visual: geometric arrays and dark-mode data nodes evoking an algorithmic trading floor",
-          "zoom": true
-        }
-      ]
-    },
-    {
-      "divider": false,
-      "subheading": "Data Purchasing Challenge 2022",
-      "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Made for <strong>ZEW, Leibniz Centre for European Economic Research</strong> &middot; Concept &amp; design <strong>Rabi</strong>"
-      ],
-      "layout": "grid-2",
-      "cards": [
-        {
-          "title": "Art direction",
-          "body": "The image is a balance, tipped. A purse sits on one pan and on the other a spray of unlabelled points fans up and falls back into the dish, the quantity you might buy. What is being weighed is money against information, and a scale states that trade in the second the picture gets before someone scrolls past."
-        },
-        {
-          "title": "Science communication",
-          "body": "This one is an economics problem wearing machine learning clothes: given a fixed budget, which unlabelled data should you pay to have labelled? Nothing about model architecture will answer it."
-        }
-      ]
-    },
-    {
-      "divider": true,
-      "media": [
-        {
-          "src": "/assets/img/work/aicrowd/addi-alzheimers-detection-challenge.webp",
-          "alt": "ADDI Alzheimer's Detection Challenge key visual, organic neural pathway composition over a typographic grid",
-          "zoom": true
-        }
-      ]
-    },
-    {
-      "divider": false,
-      "subheading": "ADDI: Alzheimer's Detection Challenge",
-      "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Made for <strong>Alzheimer's Disease Data Initiative</strong> &middot; Concept &amp; design <strong>Rabi</strong> &middot; <a href=\"https://www.aicrowd.com/challenges/addi-alzheimers-detection-challenge\" target=\"_blank\" rel=\"noopener\">Open on AIcrowd</a>"
-      ],
-      "layout": "grid-2",
-      "cards": [
-        {
-          "title": "Art direction",
-          "body": "The banner refuses the usual brain scan and uses the instrument itself. A clock face disperses into particles from the right, and beneath it a line of figures walks left to right through a whole life, child to stooped elder with a stick, the last of them already inside the dispersal. Two things are being lost at once and they are drawn as one event. The prize list underneath is deliberately plain: this is a medical problem and the design should not be excited about it."
-        },
-        {
-          "title": "Science communication",
-          "body": "Early Alzheimer's is screened with the clock-drawing test: a patient is asked to draw a clock showing a given time, and what a clinician reads is not the clock but the way the drawing fails. Numbers crowd into one quadrant, hands go missing, the circle does not close."
-        }
-      ]
-    },
-    {
-      "divider": true,
-      "media": [
-        {
-          "src": "/assets/img/work/aicrowd/scene-understanding-for-autonomous-drone-delivery-suadd23.webp",
-          "alt": "SUADD '23 key visual: vector tracking grids, bounding boxes and depth heatmaps over an aerial landscape",
-          "zoom": true
-        }
-      ]
-    },
-    {
-      "divider": false,
-      "subheading": "Scene Understanding for Autonomous Drone Delivery (SUADD '23)",
-      "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Concept &amp; design <strong>Rabi</strong>"
-      ],
-      "layout": "grid-2",
-      "cards": [
-        {
-          "title": "Art direction",
-          "body": "We made machine vision itself the key visual. We laid bright vector tracking grids, bounding boxes and pixel-level depth heatmaps over scenic aerial landscapes. Developers scanning the page could see the exact goal of the computer vision model straight away."
-        },
-        {
-          "title": "Science communication",
-          "body": "Computer vision models trained for real-time semantic segmentation, depth estimation and obstacle avoidance in flight routing."
-        }
-      ]
-    },
-    {
-      "divider": true,
-      "media": [
-        {
-          "src": "/assets/img/work/aicrowd/amazon-kdd-cup-2024.webp",
-          "alt": "Amazon KDD Cup 2024 challenge key visual: network-graph artwork mapping multi-task LLM commerce tracks",
-          "zoom": true
-        }
-      ]
-    },
-    {
-      "divider": false,
-      "subheading": "Amazon KDD Cup 2024: Multi-Task Online Shopping for LLMs",
-      "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Made for <strong>Amazon</strong> &middot; Concept &amp; design <strong>Rabi</strong>"
-      ],
-      "layout": "grid-2",
-      "cards": [
-        {
-          "title": "Art direction",
-          "body": "No single object depicts four jobs at once, so the composition splits the work between subject and ground. The subject is a shopping bag whose handle is Amazon's own arrow, whose body is a knowledge graph of connected nodes, and whose tab is a search field, with the assistant standing inside it as though the bag were the shop. The ground is the tasks themselves, drawn faintly and evenly across the field."
-        },
-        {
-          "title": "Science communication",
-          "body": "The word carrying this title is multi-task: one language model has to answer product questions, rank results, reason about a basket and hold a conversation, all inside the same shop."
-        }
-      ]
-    },
-    {
-      "divider": true,
-      "media": [
-        {
-          "src": "/assets/img/work/aicrowd/sounding-video-generation-svg-challenge-2024.webp",
-          "alt": "Sounding Video Generation Challenge 2024 key visual, audio frequency spectrograms blended into cinematic video strips",
-          "zoom": true
-        }
-      ]
-    },
-    {
-      "divider": false,
-      "subheading": "Sounding Video Generation (SVG) Challenge 2024",
-      "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Concept &amp; design <strong>Rabi</strong>"
-      ],
-      "layout": "grid-2",
-      "cards": [
-        {
-          "title": "Art direction",
-          "body": "A masterclass in cross-modal visualisation. We built a striking grid system that blends audio frequency spectrograms with cinematic video strip layouts. The design maps how sound waves rise directly out of motion. It gives generative media researchers a beautiful, harmonious challenge interface."
-        },
-        {
-          "title": "Science communication",
-          "body": "Generative models that analyse video feeds and produce matching high-fidelity spatial audio, perfectly in sync with the visual timeline."
-        }
-      ]
-    },
-    {
-      "divider": true,
+      "layout": "stack",
+      "bleed": true,
       "media": [
         {
           "src": "/assets/img/work/aicrowd/global-chess-challenge-2025.webp",
-          "alt": "Global Chess Challenge 2025 key visual: chessboard reimagined as a matrix field with minimalist vector piece nodes",
+          "alt": "Global Chess Challenge 2025 banner set: AWS Trainium, AGI House and AIcrowd marks, a chess king on a microchip wafer, Train LLMs to Play Chess, USD 60,000 cash prize, alongside a square link-preview crop of the same artwork",
           "zoom": true
         }
       ]
     },
     {
       "divider": false,
-      "subheading": "Global Chess Challenge 2025",
       "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Concept &amp; design <strong>Rabi</strong>"
+        "AGI House wanted to know if small, lightweight AI models can play real chess, legally and well, and explain their thinking in plain words. Hundreds of teams tried, and $60,000 went to the best of them.",
+        "<strong>For the technical audience:</strong> entries were text-only chess agents under 8.5 billion parameters, running on AWS Trainium with no external chess engine, search or tool calls allowed. Each move had to be legal UCI notation paired with a one-sentence explanation, scored on Average Centipawn Loss against Stockfish before a final Swiss-system tournament."
       ],
       "layout": "grid-2",
+      "cardsTheme": "light",
       "cards": [
         {
           "title": "Art direction",
-          "body": "We completely reimagined the traditional chessboard as a mathematical matrix field. Physical chess pieces became minimal vector nodes projecting calculated paths. The creative direction linked timeless human strategy with the depth of modern AI processing."
+          "body": "We turned the chessboard into a circuit board. Each piece became a glowing node on a microchip, so the board reads as both a game and a machine thinking."
         },
         {
-          "title": "Science communication",
-          "body": "Deep-learning neural networks trained to evaluate non-traditional board structures, graph networks and complex predictive game trees."
-        }
-      ]
-    },
-    {
-      "divider": true,
-      "media": [
-        {
-          "src": "/assets/img/work/aicrowd/commonsense-persona-grounded-dialogue-challenge-2025.webp",
-          "alt": "Commonsense Persona-Grounded Dialogue Challenge 2025 key visual, typographic thought clouds over semantic matching matrices",
-          "zoom": true
+          "title": "Why it works",
+          "body": "It says what the challenge is really about at a glance: not just chess, but how a machine reasons."
         }
       ]
     },
     {
       "divider": false,
-      "subheading": "Commonsense Persona-Grounded Dialogue Challenge 2025",
+      "embed": {
+        "src": "https://www.youtube.com/embed/xLpfY-5vXLk?start=1020",
+        "title": "Global Chess Challenge 2025 session recording"
+      }
+    },
+    {
+      "divider": false,
       "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Concept &amp; design <strong>Rabi</strong>"
-      ],
-      "layout": "grid-2",
-      "cards": [
-        {
-          "title": "Art direction",
-          "body": "Showing human personality through code takes several abstract layers. We built a system of overlapping typographic thought clouds and semantic matching matrices. It shows how an algorithm weighs context, empathy and logic while generating text in conversation with a person."
-        },
-        {
-          "title": "Science communication",
-          "body": "Pushing conversational NLP engines to keep logical consistency, common-sense reasoning and careful persona tracking across multi-turn dialogues."
-        }
+        "The video's thumbnail uses the same chess-piece-on-a-chip artwork, so it stands out instantly in a crowded feed.",
+        "Made at <strong>AIcrowd</strong> &middot; Concept &amp; design <strong>Rabi</strong>",
+        "<a class=\"btn-hello\" href=\"https://www.aicrowd.com/challenges/global-chess-challenge-2025\" target=\"_blank\" rel=\"noopener\">See the challenge on AIcrowd <span class=\"arrow\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></a>"
       ]
     },
     {
       "divider": true,
+      "heading": "Meta CRAG-MM Challenge 2025",
+      "label": "For Meta",
+      "body": [
+        "Can an AI answer a question just by looking at a photo, the way a person would?"
+      ]
+    },
+    {
+      "divider": false,
+      "layout": "stack",
+      "bleed": true,
       "media": [
         {
           "src": "/assets/img/work/aicrowd/meta-crag-multi-modal-challenge-2025.webp",
-          "alt": "Meta CRAG Multi-Modal Challenge 2025 key visual, dark-mode data fusion of video, image and speech into one retrieval pipeline",
+          "alt": "Meta CRAG-MM Challenge 2025 banner: KDD Cup 2025 CRAG-MM Challenge, Improve RAG with Real-World Benchmarks, a pair of smart glasses whose lenses show a chat exchange about a cafe rating and a city skyline with question marks, USD 33000 prize",
           "zoom": true
         }
       ]
     },
     {
       "divider": false,
-      "subheading": "Meta CRAG Multi-Modal Challenge 2025",
       "body": [
-        "Made at <strong>AIcrowd</strong> &middot; Made for <strong>Meta</strong> &middot; Concept &amp; design <strong>Rabi</strong>"
+        "Meta wanted AI that could look at a picture and answer real questions about it correctly, without making things up. Many of the photos were shot from a first-person view, like you're wearing the camera yourself.",
+        "So that's exactly what the key visual shows: a pair of glasses, with the conversation happening right inside the lenses. You're not looking at the idea, you're looking through it.",
+        "<strong>For the technical audience:</strong> CRAG-MM (Comprehensive RAG Benchmark for Multi-modal, Multi-turn) tested retrieval-augmented generation across 5,000 images, including egocentric shots from Ray-Ban Meta smart glasses, over three progressively harder tasks: single-source retrieval, multi-source web search, and multi-turn conversations up to six turns. Submissions were scored on a truthfulness scale that penalises hallucination more than an honest \"I don't know.\"",
+        "Made at <strong>AIcrowd</strong> &middot; Made for <strong>Meta</strong> &middot; Concept &amp; design <strong>Rabi</strong>",
+        "<a class=\"btn-hello\" href=\"https://www.aicrowd.com/challenges/meta-crag-mm-challenge-2025\" target=\"_blank\" rel=\"noopener\">See the challenge on AIcrowd <span class=\"arrow\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></a>"
       ],
       "layout": "grid-2",
+      "cardsTheme": "light",
       "cards": [
         {
           "title": "Art direction",
-          "body": "Working within strict institutional rules, we built a premium, dark-mode visual framework for data fusion. It shows separate raw media formats dissolving into a single, high-performance retrieval pipeline. The result is a polished visual presence that matches Meta's engineering standards."
+          "body": "The chat and the skyline sit inside the lenses themselves, not beside them. It's a small choice with a big effect: you're seeing the world exactly as the AI does."
         },
         {
-          "title": "Science communication",
-          "body": "Taking Retrieval-Augmented Generation (RAG) further by asking engineers to fuse real-time web text with complex video, image and speech inputs, under Meta's technical guidelines."
+          "title": "Why it works",
+          "body": "One glance and you understand: this is AI that sees what you see."
         }
       ]
     },
     {
       "heading": "What this taught the studio",
       "body": [
-        "Our long-running work with AIcrowd shows our biggest advantage: we speak deep-tech fluently. We avoid generic, shallow tech templates. Instead, Studio 1947 delivers rigorous, data-faithful visual design that respects the intelligence of the scientific community. Every challenge interface, dataset callout and enterprise brand asset looks authoritative and inspiring, and ready to rally the world's finest algorithmic minds."
+        "Years of working with AIcrowd taught us something simple: even the most technical idea can be told as a picture anyone understands. Every banner we make, whether it's about sound, chess or smart glasses, starts with one question: what's the simplest image that tells this story?"
       ]
     }
   ],
+  "creditsLayout": "stack",
   "credits": [
     {
+      "role": "Creative Direction",
+      "members": "Rabi"
+    },
+    {
       "role": "Concept & Design",
-      "members": "Rabi (Rabiul Islam)"
-    },
-    {
-      "role": "Partner Collaboration",
-      "members": "Sneha"
-    },
-    {
-      "role": "Special Thanks",
-      "members": "Mr. Mohanty, CEO of AIcrowd"
+      "members": "Rabi & Nikhil Subbah"
     }
   ],
   "_sourceSections": [
@@ -718,5 +481,15 @@
     }
   ],
   "headline": "AIcrowd Science Communication",
-  "year": "2020 – 2025"
+  "year": "2025 – 2026",
+  "clientCredits": [
+    {
+      "role": "Partner Collaboration",
+      "members": "Sneha (AIcrowd Team)"
+    },
+    {
+      "role": "Special Thanks",
+      "members": "Mr. Mohanty (CEO of AIcrowd)"
+    }
+  ]
 }

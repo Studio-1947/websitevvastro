@@ -40,6 +40,84 @@ const teamProjectsJson = JSON.stringify(Object.fromEntries(projectsByMember));
   ogType={"website"}
 >
   <style slot="head" is:global set:html={css} />
+  {/* The Wheel: our logo story, moved to the top of the page ahead of the
+      scroll-driven intro below. Wrapped in .page-about-us so it picks up
+      the about-us stylesheet, which is scoped to that class (the class
+      otherwise only lives on the raw <main> fragment further down). */}
+  <div class="page-about-us">
+    <figure class="wheel-banner reveal">
+      <img
+        src="/assets/img/about-us/bullock-cart-wheel.webp"
+        alt="A wooden cart wheel leaning against a bench beside a farmhouse and kitchen garden"
+        loading="lazy"
+      />
+    </figure>
+    <section
+      class="section container"
+      id="the-wheel"
+      style="padding-top: 0; scroll-margin-top: 120px"
+    >
+      <div class="wheel reveal">
+        <div class="wheel__media" aria-hidden="true">
+          <img
+            class="wheel__mark"
+            src="/assets/img/brand-mark.svg"
+            alt=""
+            width="78"
+            height="78"
+            loading="lazy"
+          />
+        </div>
+        <div class="wheel__body">
+          <p class="eyebrow" data-i18n="about.wheel.eyebrow">The Wheel</p>
+          <h2 class="wheel__title" data-i18n="about.wheel.title">
+            Local wisdom.<br />Global solutions.
+          </h2>
+          <p class="wheel__lead">
+            1947 was not simply the end of one chapter. It was the beginning of
+            the possibility to build our own, and the cart wheel in Studio 1947
+            represents that movement.
+          </p>
+          <div class="wheel__prose">
+            <p>
+              Long before highways, algorithms and digital networks, the wheel
+              connected people, villages, markets, ideas and opportunities. It
+              was simple technology built around a fundamental human need: to
+              move forward.
+            </p>
+            <p>
+              We see Studio 1947 the same way. We work at the intersection of
+              data, design, technology and communication, but technology for us
+              is never only about what is new. It is about what helps people
+              move: from information to understanding, from complexity to
+              clarity, and from an idea to something useful.
+            </p>
+            <h3 class="wheel__sub" data-i18n="about.wheel.col2title">Hub and spokes</h3>
+            <p data-i18n="about.wheel.col2body">
+              A wheel only works when every spoke shares the load. Our spokes
+              are strategy, design, technology, communication and research; the
+              hub is the community or organisation we work with. Co-creation
+              is what keeps the wheel true.
+            </p>
+            <p>
+              The wheel also reminds us where innovation begins: not
+              necessarily in sophisticated systems, but in solving real
+              problems with intelligence, craft and purpose.
+            </p>
+          </div>
+          <div class="wheel__triplet">
+            <p>1947 represents a beginning.</p>
+            <p>The wheel represents movement.</p>
+            <p>Studio 1947 represents building what comes next.</p>
+          </div>
+          <p class="wheel__tagline">
+            Rooted in <span class="text-red">Local Wisdom</span>, designed for
+            global impact.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
   {/* Scroll-driven "four lines make a wheel" intro, prepended before the
       existing About content (hero, team, etc.): nothing below is replaced. */}
   <MarkStory />
@@ -49,7 +127,8 @@ const teamProjectsJson = JSON.stringify(Object.fromEntries(projectsByMember));
   <Fragment set:html={html} />
   {/* Member → portfolio projects, derived from the work collection's credits.
       The person modal reads this and renders "Portfolio" links under each
-      member's details. */}
+      member's details. Also duplicated on /people/, which carries the same
+      team/values/join content as its own page. */}
   <script
     type="application/json"
     id="team-projects-data"

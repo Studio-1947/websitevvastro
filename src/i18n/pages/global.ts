@@ -8,6 +8,7 @@ export const global: Record<string, Entry> = {
   'global.nav.solutions': { hi: 'समाधान', bn: 'সমাধান', ne: 'समाधानहरू' },
   'global.nav.products': { hi: 'उत्पाद', bn: 'পণ্য', ne: 'उत्पादनहरू' },
   'global.nav.blogs': { hi: 'ब्लॉग', bn: 'ব্লগ', ne: 'ब्लगहरू' },
+  'global.nav.localDesign': { hi: 'लोकल डिज़ाइन', bn: 'লোকাল ডিজাইন', ne: 'लोकल डिजाइन' },
   'global.nav.sayHello': { hi: 'नमस्ते कहें', bn: 'হ্যালো বলুন', ne: 'नमस्ते भन्नुहोस्' },
 
   // ── About Us dropdown ────────────────────────────────────────────────
@@ -79,7 +80,7 @@ export const global: Record<string, Entry> = {
   'global.footer.ourSolutions': { hi: 'हमारे समाधान', bn: 'আমাদের সমাধান', ne: 'हाम्रा समाधानहरू' },
   'global.footer.ourJourney': { hi: 'हमारी यात्रा', bn: 'আমাদের যাত্রা', ne: 'हाम्रो यात्रा' },
   'global.footer.initiatives': { hi: 'पहल', bn: 'উদ্যোগ', ne: 'पहलहरू' },
-  'global.footer.blogs': { hi: 'ब्लॉग', bn: 'ব্লগ', ne: 'ब्लगहरू' },
+  'global.footer.people': { hi: 'लोग', bn: 'মানুষ', ne: 'मानिसहरू' },
   'global.footer.accessibility': { hi: 'सुगमता', bn: 'অ্যাক্সেসিবিলিটি', ne: 'पहुँचयोग्यता' },
   'global.footer.privacyPolicy': { hi: 'गोपनीयता नीति', bn: 'গোপনীয়তা নীতি', ne: 'गोपनीयता नीति' },
   'global.footer.termsOfService': { hi: 'सेवा की शर्तें', bn: 'পরিষেবার শর্তাবলী', ne: 'सेवाका सर्तहरू' },

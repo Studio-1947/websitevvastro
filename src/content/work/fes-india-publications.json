@@ -18,8 +18,8 @@
     "communication-campaign"
   ],
   "hero": {
-    "src": "/assets/img/work/fes-india-publications/hero.webp",
-    "alt": "Seven covers from the Artificial Intelligence in India series for Friedrich Ebert Stiftung, each a robotic hand holding a sphere with the volume's own icon",
+    "src": "/assets/img/work/fes-india-publications/climate-justice-in-action.webp",
+    "alt": "A hand holding a fanned set of Climate Justice in Action booklets for FES, the top cover showing a figure balancing a globe between a polluted cliffside and a green renewable-powered village",
     "style": "photo",
     "scrim": "#1B2A4A",
     "scrimOpacity": 0.55
@@ -31,6 +31,19 @@
       "body": [
         "Friedrich Ebert Stiftung India asked us to turn an international conference into a publication people would keep. <em>India, EU &amp; Just Energy Transitions: Strengthening Climate Diplomacy for Sustainable Futures</em> was organised by the Manipal Academy of Higher Education with FES, in association with UNESCO, and brought together policymakers, academics and civil society on India–EU cooperation, carbon neutrality and just transitions.",
         "FES India provided the base content. Studio 1947 took it from raw proceedings to a finished report: concept and direction, the illustration system, layout, and print production."
+      ],
+      "layout": "stack",
+      "media": [
+        {
+          "src": "/assets/img/work/fes-india-publications/report-covers-fanned.webp",
+          "alt": "Two copies of the India, EU and Just Energy Transitions report fanned open on a pink-to-blue gradient, showing the front cover illustration and an inside recommendations spread",
+          "zoom": true
+        },
+        {
+          "src": "/assets/img/work/fes-india-publications/executive-summary-closeup.webp",
+          "alt": "Close-up of the report open at the executive summary and the credits page, with orange watercolour illustrations on the facing page",
+          "zoom": true
+        }
       ]
     },
     {
@@ -59,35 +72,19 @@
       "subheading": "Illustration as structure",
       "body": [
         "Bidisha and Pragya drew the report in a loose watercolour-and-ink style, deliberately unlike the stock-photo look of most policy documents. Wind turbines, coal barrels bleeding red smoke, a mountain village, a market crowd: each image sits with its recommendation and names the place the policy is meant to reach."
-      ]
-    },
-    {
-      "heading": "Reach",
-      "stats": [
-        {
-          "value": 123,
-          "suffix": "+",
-          "label": "Copies printed",
-          "note": "placeholder until FES India confirms the print run"
-        },
-        {
-          "value": 123,
-          "suffix": "+",
-          "label": "People reached online",
-          "note": "placeholder until confirmed"
-        },
-        {
-          "value": 123,
-          "suffix": "+",
-          "label": "Downloads from the website",
-          "note": "placeholder until confirmed"
-        }
       ],
-      "statsCaption": "Figures to be confirmed with FES India.",
+      "layout": "grid-2",
+      "bleed": true,
+      "gap": "none",
       "media": [
         {
-          "src": "/assets/img/work/fes-india-publications/report-executive-summary.webp",
-          "alt": "Close-up of the report open at the executive summary, with orange illustrations on the left page and the Day 01 highlights on the right",
+          "src": "/assets/img/work/fes-india-publications/programme-agenda-spread.webp",
+          "alt": "Programme agenda spread: an illustrated handshake of hands in different skin tones beside the red Programme Agenda page with UN Sustainable Development Goal icons",
+          "zoom": true
+        },
+        {
+          "src": "/assets/img/work/fes-india-publications/recommendations-spread.webp",
+          "alt": "Spread showing recommendations 03 to 06 on mobilising climate finance, fostering just transitions, governance and equity, each with its own watercolour illustration",
           "zoom": true
         }
       ]
@@ -99,8 +96,8 @@
       ],
       "media": [
         {
-          "src": "/assets/img/work/fes-india-publications/series-covers.webp",
-          "alt": "Seven covers from the Artificial Intelligence in India series, each a robotic hand holding a sphere with the volume's icon",
+          "src": "/assets/img/work/fes-india-publications/climate-justice-in-action.webp",
+          "alt": "A hand holding a fanned set of Climate Justice in Action booklets for FES, the top cover showing a figure balancing a globe between a polluted cliffside and a green renewable-powered village",
           "zoom": true
         }
       ]
@@ -114,10 +111,6 @@
     {
       "role": "Layout Design",
       "members": "Zahid"
-    },
-    {
-      "role": "Illustrations",
-      "members": "Bidisha, Pragya"
     },
     {
       "role": "Base Content",
