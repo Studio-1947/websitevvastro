@@ -43,7 +43,7 @@
       "body": [
         "Sony asked AI teams to build models that create video and sound together, so a bark lands exactly when the dog barks on screen. It's a hard problem, and $35,000 went to the teams who cracked it best.",
         "The visual choice is simple: a soundwave flows straight into a play button, right at the point sound becomes picture. That's the whole idea in one image.",
-        "<strong>For the technical audience:</strong> entries were scored on two tracks, temporal alignment (matching an audio event to the exact video frame, using the SVGTA24 dataset built on Greatest Hits) and spatial alignment (stereo audio placement, using the SVGSA24 dataset derived from STARSS23). Both baselines used diffusion models: AnimateDiff paired with AudioLDM for temporal generation, and MM-Diffusion for spatial generation.",
+        "Entries were judged on two things: matching a sound to the exact video frame it belongs to, and placing that sound realistically in space. Most teams built on diffusion models trained to generate video and audio together.",
         "<a class=\"btn-hello\" href=\"https://www.aicrowd.com/challenges/sounding-video-generation-svg-challenge-2024\" target=\"_blank\" rel=\"noopener\">See the challenge on AIcrowd <span class=\"arrow\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></a>"
       ],
       "layout": "grid-2",
@@ -83,7 +83,7 @@
       "divider": false,
       "body": [
         "AGI House wanted to know if small, lightweight AI models can play real chess, legally and well, and explain their thinking in plain words. Hundreds of teams tried, and $60,000 went to the best of them.",
-        "<strong>For the technical audience:</strong> entries were text-only chess agents under 8.5 billion parameters, running on AWS Trainium with no external chess engine, search or tool calls allowed. Each move had to be legal UCI notation paired with a one-sentence explanation, scored on Average Centipawn Loss against Stockfish before a final Swiss-system tournament."
+        "Entries were small AI models, no chess engine or lookup allowed, that had to play a legal move and explain it in one plain sentence. Each was scored on how close its moves came to a top chess engine's, before the best went head to head in a final tournament."
       ],
       "layout": "grid-2",
       "cardsTheme": "light",
@@ -138,7 +138,7 @@
       "body": [
         "Meta wanted AI that could look at a picture and answer real questions about it correctly, without making things up. Many of the photos were shot from a first-person view, like you're wearing the camera yourself.",
         "So that's exactly what the key visual shows: a pair of glasses, with the conversation happening right inside the lenses. You're not looking at the idea, you're looking through it.",
-        "<strong>For the technical audience:</strong> CRAG-MM (Comprehensive RAG Benchmark for Multi-modal, Multi-turn) tested retrieval-augmented generation across 5,000 images, including egocentric shots from Ray-Ban Meta smart glasses, over three progressively harder tasks: single-source retrieval, multi-source web search, and multi-turn conversations up to six turns. Submissions were scored on a truthfulness scale that penalises hallucination more than an honest \"I don't know.\"",
+        "The challenge used thousands of real photos, many shot first-person through smart glasses, and scored answers on getting it right, and on honestly saying \"I don't know\" rather than guessing.",
         "Made at <strong>AIcrowd</strong> &middot; Made for <strong>Meta</strong> &middot; Concept &amp; design <strong>Rabi</strong>",
         "<a class=\"btn-hello\" href=\"https://www.aicrowd.com/challenges/meta-crag-mm-challenge-2025\" target=\"_blank\" rel=\"noopener\">See the challenge on AIcrowd <span class=\"arrow\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></a>"
       ],
