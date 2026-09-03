@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/fellowship/main.html?raw';
+import css from '../../generated/fellowship/style.css?raw';
+---
+
+<BaseLayout
+  title={"Studio 1947 Fellowship | Paid Fellowship for Local Talent"}
+  description={"The Studio 1947 Fellowship gives young people from local communities paid, hands-on exposure to data, design, technology and communication. Started as the Himal Nagarik Fellowship."}
+  ogTitle={"Studio 1947 Fellowship | Paid Fellowship for Local Talent"}
+  ogDescription={"A paid fellowship giving local talent real exposure to data, design, technology and communication, with mentorship and a stipend."}
+  ogType={"website"}
+  bodyClass={"page-fellowship"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>
