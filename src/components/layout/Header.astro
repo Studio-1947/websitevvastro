@@ -168,9 +168,33 @@
         </div>
       </div>
 
-      <a href="/blog/" data-i18n="global.nav.blogs">Blogs</a>
+      <div class="nav__item has-dropdown">
+        <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-initiatives">
+          <span data-i18n="global.nav.initiatives">Initiatives</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav__dropdown" id="dd-initiatives">
+          <div class="dd__intro">
+            <p class="eyebrow" data-i18n="global.dd.initiatives.eyebrow">Studio 1947 Initiatives</p>
+            <h3 data-i18n="global.dd.initiatives.heading">Giving back to the community</h3>
+            <a class="dd__cta" href="/initiatives/" data-i18n="global.dd.cta">See overview</a>
+          </div>
+          <div class="dd__list">
+            <p class="dd__label" data-i18n="global.dd.initiatives.label">Programs</p>
+            <a class="dd__item" href="/local-design/">
+              <span class="dd__ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 12l9 5 9-5M3 16l9 5 9-5"/></svg></span>
+              <span data-i18n="global.dd.initiatives.localDesign">Local Design</span>
+            </a>
+            <span class="dd__item dd__item--soon">
+              <span class="dd__ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/><path d="M8.5 13.5 6 21l6-3 6 3-2.5-7.5"/></svg></span>
+              <span data-i18n="global.dd.initiatives.fellowship">Studio 1947 Fellowship</span>
+              <em class="dd__soon" data-i18n="global.dd.products.soon">Coming Soon</em>
+            </span>
+          </div>
+        </div>
+      </div>
 
-      <a href="/local-design/" data-i18n="global.nav.localDesign">Local Design</a>
+      <a href="/blog/" data-i18n="global.nav.blogs">Blogs</a>
     </div>
     <a class="btn-hello" href="/sayhello/">
       <span data-i18n="global.nav.sayHello">Say Hello</span>
@@ -195,8 +219,8 @@
   <a href="/our-work/" data-i18n="global.nav.portfolio">Portfolio</a>
   <a href="/solutions/" data-i18n="global.nav.solutions">Solutions</a>
   <a href="/products/" data-i18n="global.nav.products">Products</a>
+  <a href="/initiatives/" data-i18n="global.nav.initiatives">Initiatives</a>
   <a href="/blog/" data-i18n="global.nav.blogs">Blogs</a>
-  <a href="/local-design/" data-i18n="global.nav.localDesign">Local Design</a>
   <a href="/sayhello/" data-i18n="global.nav.sayHello">Say Hello</a>
   <div class="mobile-menu__language">
     <p class="mobile-menu__languageLabel">Language</p>

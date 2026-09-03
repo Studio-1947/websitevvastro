@@ -9,6 +9,12 @@ export const global: Record<string, Entry> = {
   'global.nav.products': { hi: 'उत्पाद', bn: 'পণ্য', ne: 'उत्पादनहरू' },
   'global.nav.blogs': { hi: 'ब्लॉग', bn: 'ব্লগ', ne: 'ब्लगहरू' },
   'global.nav.localDesign': { hi: 'लोकल डिज़ाइन', bn: 'লোকাল ডিজাইন', ne: 'लोकल डिजाइन' },
+  'global.nav.initiatives': { hi: 'पहल', bn: 'উদ্যোগ', ne: 'पहलहरू' },
+  'global.dd.initiatives.eyebrow': { hi: 'स्टूडियो 1947 पहल', bn: 'স্টুডিও ১৯৪৭ উদ্যোগ', ne: 'स्टुडियो १९४७ पहलहरू' },
+  'global.dd.initiatives.heading': { hi: 'समुदाय को वापस देना', bn: 'সম্প্রদায়কে ফিরিয়ে দেওয়া', ne: 'समुदायलाई फर्काएर दिने' },
+  'global.dd.initiatives.label': { hi: 'कार्यक्रम', bn: 'প্রোগ্রাম', ne: 'कार्यक्रमहरू' },
+  'global.dd.initiatives.localDesign': { hi: 'लोकल डिज़ाइन', bn: 'লোকাল ডিজাইন', ne: 'लोकल डिजाइन' },
+  'global.dd.initiatives.fellowship': { hi: 'स्टूडियो 1947 फ़ेलोशिप', bn: 'স্টুডিও ১৯৪৭ ফেলোশিপ', ne: 'स्टुडियो १९४७ फेलोशिप' },
   'global.nav.sayHello': { hi: 'नमस्ते कहें', bn: 'হ্যালো বলুন', ne: 'नमस्ते भन्नुहोस्' },
 
   // ── About Us dropdown ────────────────────────────────────────────────
