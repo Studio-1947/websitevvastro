@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import html from '../../generated/workshops/main.html?raw';
+import css from '../../generated/workshops/style.css?raw';
+---
+
+<BaseLayout
+  title={"Community Workshops | Studio 1947"}
+  description={"Free community workshops from Studio 1947 on Digital Literacy and Digital Marketing Basics, practical digital skills for local communities."}
+  ogTitle={"Community Workshops | Studio 1947"}
+  ogDescription={"Free, hands-on workshops on Digital Literacy and Digital Marketing Basics, run with local communities."}
+  ogType={"website"}
+  bodyClass={"page-workshops"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={html} />
+</BaseLayout>
