@@ -119,6 +119,7 @@ function init(): void {
   when('[data-views]', () => import('./views').then((m) => m.projectViews()));
   when('[data-footer-strip]', () => import('./footerStrip').then((m) => m.footerStrip()));
   when('#story-modal', () => import('./storyModal').then((m) => m.storyModal()));
+  when('[data-yt-play]', () => import('./ytInlinePlay').then((m) => m.ytInlinePlay()));
 }
 
 if (document.readyState === 'loading') {
