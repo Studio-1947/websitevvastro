@@ -85,6 +85,13 @@
     }
     .page-local-design .ld-videos__channel:hover .arrow { background: var(--red); color: #fff; transform: translateX(2px); }
 
+    /* ===== For artists: submit a story ===== */
+    .page-local-design .ld-story { max-width: 720px; border-top: 1px solid var(--line); padding-top: clamp(28px, 3.4vw, 48px); }
+    .page-local-design .ld-story__eyebrow { color: var(--red); }
+    .page-local-design .ld-story__title { margin-top: 16px; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.1; color: var(--grey-900); }
+    .page-local-design .ld-story__body { margin-top: clamp(14px, 1.6vw, 22px); font-size: clamp(16px, 1.1vw, 18px); line-height: 1.6; color: var(--grey-700); }
+    .page-local-design .ld-story .cta__btn { margin-top: clamp(24px, 3vw, 36px); }
+
     /* ===== Closing CTA band ===== */
     .page-local-design .ld-cta { text-align: center; border-top: 1px solid var(--line); padding-top: clamp(48px, 6vw, 84px); }
     .page-local-design .ld-cta__eyebrow { color: var(--red); margin-bottom: 16px; }
