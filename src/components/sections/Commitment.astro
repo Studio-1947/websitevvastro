@@ -1,16 +1,21 @@
 ---
 /** Home "Our Commitment" carousel + team photo. */
 import { Image } from 'astro:assets';
-import teamPhoto from '../../assets/img/team-photo.webp';
-import teamPhoto2 from '../../assets/img/team-photo-2.webp';
-import teamPhoto3 from '../../assets/img/team-photo-3.webp';
-import teamPhoto4 from '../../assets/img/team-photo-4.webp';
-import teamPhoto5 from '../../assets/img/team-photo-5.webp';
-import teamPhoto6 from '../../assets/img/team-photo-6.webp';
-import teamPhoto7 from '../../assets/img/team-photo-7.webp';
-import teamPhoto8 from '../../assets/img/team-photo-8.webp';
 
-const teamPhotos = [teamPhoto, teamPhoto2, teamPhoto3, teamPhoto4, teamPhoto5, teamPhoto6, teamPhoto7, teamPhoto8];
+// team-photo.webp, team-photo-2.webp, team-photo-3.webp, ... — every photo
+// in the set is picked up automatically, sorted numerically so adding a new
+// one is just dropping the file in and running the image script.
+const teamPhotoModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/img/team-photo*.webp',
+  { eager: true },
+);
+const teamPhotos = Object.keys(teamPhotoModules)
+  .sort((a, b) => {
+    const numA = Number(a.match(/-(\d+)\.webp$/)?.[1] ?? 1);
+    const numB = Number(b.match(/-(\d+)\.webp$/)?.[1] ?? 1);
+    return numA - numB;
+  })
+  .map((key) => teamPhotoModules[key].default);
 ---
 
 <section class="section container">
