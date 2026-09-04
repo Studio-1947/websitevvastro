@@ -11,10 +11,29 @@
  * deploy. Nothing else changes.
  */
 export const RELEASED_WORK: string[] = [
-  'nest-homes',
-  'rajkamal-prakashan',
-  'fermy-lab',
+  'aicrowd',
   'awch',
+  'bhagirath-homestays',
+  'bhagyam-arts',
+  'fermy-lab',
+  'fes-india-publications',
+  'fih',
+  'frame-bengal',
+  'givfunds',
+  'healix',
+  'jan-sahas-social-empowerment-society',
+  'kulam-homestay',
+  'local-futures',
+  'mirik-college',
+  'mohuna-media',
+  'nest-homes',
+  'radha-madhav',
+  'rajkamal-prakashan',
+  'remodel-un',
+  'sikkim-himal-institute',
+  'sundargaan',
+  'village-ways',
+  'walking-project',
 ];
 
 /** Hostnames where the gate is switched off. */
