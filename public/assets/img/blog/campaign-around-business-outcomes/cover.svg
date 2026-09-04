@@ -1,23 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
   <title id="title">Campaign funnel from awareness to action diagram</title>
   <desc id="desc">A campaign funnel narrowing from broad awareness through consideration to a real action, with likes and impressions shown as a thin, easily inflated top layer.</desc>
-  <rect width="1600" height="1000" fill="#f5f5f5"/>
+  <rect width="1600" height="1000" fill="#1a1a1a"/>
 
-  <text x="800" y="130" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#454545">Likes are the easiest number to inflate and the least useful to report.</text>
+  <text x="800" y="130" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#e5e5e5">Likes are the easiest number to inflate and the least useful to report.</text>
 
   <g font-family="Arial, Helvetica, sans-serif" font-weight="700" text-anchor="middle">
-    <polygon points="260,200 1340,200 1160,330 440,330" fill="#e4e4e4"/>
-    <text x="800" y="272" font-size="20" fill="#6b6b6b">Likes &amp; impressions</text>
+    <polygon points="260,200 1340,200 1160,330 440,330" fill="#333333"/>
+    <text x="800" y="272" font-size="20" fill="#9a9a9a">Likes &amp; impressions</text>
 
-    <polygon points="440,340 1160,340 1010,470 590,470" fill="#f5f5f5" stroke="#b8b8b8" stroke-width="2"/>
-    <text x="800" y="412" font-size="22" fill="#111111">Awareness</text>
+    <polygon points="440,340 1160,340 1010,470 590,470" fill="#262626" stroke="#3a3a3a" stroke-width="2"/>
+    <text x="800" y="412" font-size="22" fill="#f5f5f5">Awareness</text>
 
-    <polygon points="590,480 1010,480 900,610 700,610" fill="#ffffff" stroke="#e60000" stroke-width="2"/>
-    <text x="800" y="552" font-size="22" fill="#111111">Consideration</text>
+    <polygon points="590,480 1010,480 900,610 700,610" fill="#262626" stroke="#e60000" stroke-width="2"/>
+    <text x="800" y="552" font-size="22" fill="#f5f5f5">Consideration</text>
 
     <polygon points="700,620 900,620 840,750 760,750" fill="#e60000"/>
     <text x="800" y="700" font-size="20" fill="#ffffff">Action</text>
   </g>
 
-  <text x="800" y="870" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#454545">Plan the campaign around the bottom, not the top.</text>
+  <text x="800" y="870" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#e5e5e5">Plan the campaign around the bottom, not the top.</text>
 </svg>
