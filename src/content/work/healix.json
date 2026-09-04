@@ -31,27 +31,19 @@
       ]
     },
     {
-      "label": "Identity",
+      "label": "Identity & Motion Mark",
       "layout": "grid-2",
       "media": [
         {
           "src": "/assets/img/work/healix/brand-on-photo.webp",
-          "alt": "The Healix wordmark set over a purple-duotone portrait, logo on colour background"
+          "alt": "The Healix wordmark set over a purple-duotone portrait, logo on colour background",
+          "ratio": "1280/2020"
         },
-        {
-          "src": "/assets/img/work/healix/kolkata-poster.webp",
-          "alt": "Healix brand poster: an oversized H behind a duotone portrait, reading 'MG Healix Kolkata. Where Healing Begins.'"
-        }
-      ]
-    },
-    {
-      "label": "Motion Mark",
-      "layout": "stack",
-      "media": [
         {
           "src": "/assets/img/work/healix/logo-animation.mp4",
           "alt": "The Healix logo animating into its final wordmark",
-          "loop": true
+          "loop": true,
+          "ratio": "1280/2020"
         }
       ]
     },
