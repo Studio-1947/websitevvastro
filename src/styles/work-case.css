@@ -1305,8 +1305,17 @@ body.page-case-modular {
   margin: 0;
   padding: 0;
 }
+/* Stacked credit lists read as one flowing paragraph rather than a column
+   of separate lines: each "Role: Name" pair sits inline, dot-separated. */
 .case-colophon__team--stack {
-  grid-template-columns: 1fr;
+  display: block;
+}
+.case-colophon__team--stack .case-colophon__credit {
+  display: inline;
+}
+.case-colophon__team--stack .case-colophon__credit:not(:last-child)::after {
+  content: "   \00b7   ";
+  color: rgba(255, 255, 255, 0.3);
 }
 /* "Brand Design: Rabi" - the role sits with the name rather than above a
    column of them, so a long credit list still reads as pairs. */

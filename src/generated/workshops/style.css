@@ -45,19 +45,46 @@
       padding: 8px 16px;
     }
 
-    /* ===== Who it's for ===== */
+    /* ===== Who it's for: boxed panel with a scattered, softly-animated
+       line-art crowd behind the text, standing in for the mixed cohort
+       (students, shopkeepers, homemakers, ...) each workshop draws. ===== */
     .page-workshops .ws-for {
+      position: relative; overflow: hidden; isolation: isolate;
       display: grid; grid-template-columns: minmax(200px, 1fr) minmax(0, 1.7fr);
       gap: clamp(24px, 4vw, 64px); align-items: start;
-      border-top: 1px solid var(--line); padding-top: clamp(28px, 3.4vw, 48px);
+      background: var(--bg-alt); border-radius: var(--radius-lg);
+      padding: clamp(32px, 4.4vw, 64px);
     }
-    .page-workshops .ws-for__title { margin-top: 16px; font-size: clamp(24px, 2.4vw, 34px); line-height: 1.15; color: var(--grey-900); white-space: nowrap; }
+    .page-workshops .ws-for__bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .page-workshops .ws-for__face {
+      position: absolute; width: clamp(46px, 5.6vw, 74px); height: auto;
+      color: var(--red); opacity: .1;
+      animation: ws-face-float 9s ease-in-out infinite;
+    }
+    .page-workshops .ws-for__face--1 { top: 6%; left: 4%; animation-delay: 0s; }
+    .page-workshops .ws-for__face--2 { top: 58%; left: 10%; animation-delay: 1.1s; animation-duration: 10.5s; }
+    .page-workshops .ws-for__face--3 { top: 14%; left: 34%; animation-delay: .5s; animation-duration: 8s; }
+    .page-workshops .ws-for__face--4 { top: 66%; left: 42%; animation-delay: 2.2s; animation-duration: 11s; }
+    .page-workshops .ws-for__face--5 { top: 4%; left: 62%; animation-delay: 1.7s; animation-duration: 9.5s; }
+    .page-workshops .ws-for__face--6 { top: 60%; left: 74%; animation-delay: .8s; animation-duration: 10s; }
+    .page-workshops .ws-for__face--7 { top: 20%; left: 90%; animation-delay: 2.6s; animation-duration: 8.5s; }
+    @keyframes ws-face-float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(-3deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .page-workshops .ws-for__face { animation: none; }
+    }
+    .page-workshops .ws-for__head,
+    .page-workshops .ws-for__col { position: relative; z-index: 1; }
+    .page-workshops .ws-for__title { margin-top: 16px; max-width: 11ch; font-size: clamp(24px, 2.4vw, 34px); font-weight: 700; line-height: 1.15; color: var(--grey-900); }
     .page-workshops .ws-for__col { display: flex; flex-direction: column; gap: clamp(14px, 1.6vw, 22px); }
     .page-workshops .ws-for__body { font-size: clamp(16px, 1.1vw, 18px); line-height: 1.6; color: var(--grey-700); }
 
     @media (max-width: 900px) {
       .page-workshops .ws-for { grid-template-columns: 1fr; }
       .page-workshops .ws-for__title { white-space: normal; }
+      .page-workshops .ws-for__face { display: none; }
     }
 
     /* ===== Closing CTA band ===== */

@@ -377,7 +377,7 @@ const work = defineCollection({
       .array(z.object({ role: z.string(), members: z.string() }))
       .default([]),
     /** Opt-in: stack this case's Studio 1947 role credits in one column. */
-    creditsLayout: z.enum(['grid', 'stack']).default('grid'),
+    creditsLayout: z.enum(['grid', 'stack']).default('stack'),
     /** Opt-in: show profile links as a name followed by a circular arrow. */
     creditLinkStyle: z.enum(['underline', 'arrow']).default('underline'),
     /** Credits that belong to the client's side, listed under the client. */
