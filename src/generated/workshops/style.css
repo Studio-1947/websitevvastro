@@ -1,24 +1,21 @@
-    /* ===== Hero banner: full-bleed image ahead of the text hero ===== */
+    /* ===== Hero banner: full-bleed image, bottom-to-top scrim, text overlaid ===== */
     .page-workshops .ws-hero-banner { position: relative; margin: 0 0 clamp(40px, 5vw, 72px); width: 100%; }
     .page-workshops .ws-hero-banner img { width: 100%; height: clamp(480px, 82vw, 1080px); object-fit: cover; display: block; }
-    .page-workshops .ws-hero-banner__badge {
-      position: absolute; left: clamp(16px, 4vw, 48px); bottom: clamp(16px, 4vw, 48px);
-      max-width: calc(100% - clamp(32px, 8vw, 96px));
-      font-family: var(--font-display); font-size: clamp(18px, 3.2vw, 42px); line-height: 1.15; color: #fff;
-      white-space: normal;
-      background: rgba(255, 255, 255, 0.14);
-      -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: clamp(18px, 2.4vw, 28px); padding: clamp(12px, 1.6vw, 22px) clamp(20px, 3.2vw, 44px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    .page-workshops .ws-hero-banner__scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.45) 40%, rgba(0, 0, 0, 0) 75%);
+      pointer-events: none;
+    }
+    .page-workshops .ws-hero-banner__content {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+      padding-bottom: clamp(32px, 5vw, 72px); max-width: 780px; text-align: left;
     }
 
-    /* ===== Workshops: hero ===== */
-    .page-workshops .ws-hero { padding-top: clamp(40px, 5vw, 72px); padding-bottom: clamp(48px, 6vw, 84px); max-width: 760px; }
-    .page-workshops .ws-hero__eyebrow { font-size: clamp(15px, 1.2vw, 18px); color: var(--red); margin-bottom: 20px; }
-    .page-workshops .ws-hero__title { font-size: clamp(38px, 6vw, 74px); line-height: 1.02; letter-spacing: -0.02em; color: var(--grey-900); }
-    .page-workshops .ws-hero__lead { margin-top: clamp(18px, 2vw, 28px); font-size: clamp(17px, 1.3vw, 21px); line-height: 1.5; color: var(--grey-700); max-width: 56ch; }
-    .page-workshops .ws-hero .cta__btn { margin-top: clamp(28px, 3vw, 40px); }
+    /* ===== Workshops: hero text, overlaid on the banner ===== */
+    .page-workshops .ws-hero__eyebrow { font-size: clamp(15px, 1.2vw, 18px); color: #ff9d9d; margin-bottom: 20px; }
+    .page-workshops .ws-hero__title { font-size: clamp(34px, 5.4vw, 66px); line-height: 1.02; letter-spacing: -0.02em; color: #fff; }
+    .page-workshops .ws-hero__lead { margin-top: clamp(18px, 2vw, 28px); font-size: clamp(16px, 1.2vw, 20px); line-height: 1.5; color: rgba(255, 255, 255, 0.85); max-width: 56ch; }
+    .page-workshops .ws-hero-banner__content .cta__btn { margin-top: clamp(24px, 3vw, 36px); }
 
     /* ===== The workshops we do: 2x2 box cards ===== */
     .page-workshops .ws-components { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2.4vw, 34px); }

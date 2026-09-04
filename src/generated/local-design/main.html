@@ -1,29 +1,27 @@
 <main class="page-local-design">
-  <!-- ===== Hero banner: full-bleed, edge to edge ===== -->
+  <!-- ===== Hero banner: full-bleed image, bottom-to-top scrim, text overlaid ===== -->
   <figure class="ld-hero-banner reveal">
     <img
       src="/assets/img/local-design/hero-banner.webp"
       alt="Abstract illustration of two faces in profile, facing each other, in a bold red, orange, yellow and black palette"
       loading="lazy"
     />
-    <span class="ld-hero-banner__badge">Local Design</span>
+    <div class="ld-hero-banner__scrim" aria-hidden="true"></div>
+    <div class="ld-hero-banner__content container" data-stagger>
+      <p class="ld-hero__eyebrow">An Initiative by Studio 1947</p>
+      <h1 class="ld-hero__title">Local Design Wisdom.<br />For Global Impact.</h1>
+      <p class="ld-hero__lead">
+        A platform we built to discover young creators, preserve local design
+        knowledge, and bring free design-thinking workshops to rural India.
+      </p>
+      <a class="cta__btn" href="https://www.localdesign.in/" target="_blank" rel="noopener" style="background: var(--red); color: #fff">
+        <span>Visit Local Design</span>
+        <span class="arrow" aria-hidden="true" style="background: #fff; color: var(--red)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg>
+        </span>
+      </a>
+    </div>
   </figure>
-
-  <!-- ===== Hero ===== -->
-  <section class="ld-hero container" data-stagger>
-    <p class="ld-hero__eyebrow">An Initiative by Studio 1947</p>
-    <h1 class="ld-hero__title">Local Design Wisdom.<br />For Global Impact.</h1>
-    <p class="ld-hero__lead">
-      A platform we built to discover young creators, preserve local design
-      knowledge, and bring free design-thinking workshops to rural India.
-    </p>
-    <a class="cta__btn" href="https://www.localdesign.in/" target="_blank" rel="noopener" style="background: var(--red); color: #fff">
-      <span>Visit Local Design</span>
-      <span class="arrow" aria-hidden="true" style="background: #fff; color: var(--red)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg>
-      </span>
-    </a>
-  </section>
 
   <!-- ===== What we do: the three pillars ===== -->
   <section class="section container">

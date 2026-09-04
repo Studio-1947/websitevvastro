@@ -1,33 +1,28 @@
 <main class="page-fellowship">
-  <!-- ===== Hero banner: full-bleed, edge to edge ===== -->
+  <!-- ===== Hero banner: full-bleed image, bottom-to-top scrim, text overlaid ===== -->
   <figure class="fw-hero-banner reveal">
     <img
       src="/assets/img/fellowship/hero-banner.webp"
       alt="Abstract illustration of five young people looking upward together toward a starry sky, in a bold red, orange, yellow and navy palette"
       loading="lazy"
     />
-    <span class="fw-hero-banner__badge">Studio 1947 Fellowship</span>
+    <div class="fw-hero-banner__scrim" aria-hidden="true"></div>
+    <div class="fw-hero-banner__content container" data-stagger>
+      <p class="fw-hero__eyebrow">An Initiative by Studio 1947</p>
+      <h1 class="fw-hero__title">The Studio 1947 Fellowship.</h1>
+      <p class="fw-hero__lead">
+        A paid fellowship for young people from local communities, hands-on
+        exposure to data, design, technology and communication, real project
+        work, mentorship, and a stipend while they learn.
+      </p>
+      <a class="cta__btn" href="/careers/" style="background: var(--red); color: #fff">
+        <span>See open roles</span>
+        <span class="arrow" aria-hidden="true" style="background: #fff; color: var(--red)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </span>
+      </a>
+    </div>
   </figure>
-
-  <!-- ===== Hero ===== -->
-  <section class="fw-hero container" data-stagger>
-    <span class="fw-hero__ico" aria-hidden="true">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z" /><path d="M6 12v5c0 1 2.7 2 6 2s6-1 6-2v-5" /><path d="M22 10v6" /></svg>
-    </span>
-    <p class="fw-hero__eyebrow">An Initiative by Studio 1947</p>
-    <h1 class="fw-hero__title">The Studio 1947 Fellowship.</h1>
-    <p class="fw-hero__lead">
-      A paid fellowship for young people from local communities, hands-on
-      exposure to data, design, technology and communication, real project
-      work, mentorship, and a stipend while they learn.
-    </p>
-    <a class="cta__btn" href="/careers/" style="background: var(--red); color: #fff">
-      <span>See open roles</span>
-      <span class="arrow" aria-hidden="true" style="background: #fff; color: var(--red)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-      </span>
-    </a>
-  </section>
 
   <!-- ===== The numbers: first cohort ===== -->
   <section class="section container">
