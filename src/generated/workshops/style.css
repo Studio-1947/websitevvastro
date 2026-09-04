@@ -8,7 +8,7 @@
     }
     .page-workshops .ws-hero-banner__content {
       position: absolute; left: 0; right: auto; bottom: 0; z-index: 1;
-      margin-inline: 0; padding-inline: var(--gutter) 0;
+      margin-inline: 0; padding-inline-start: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); padding-inline-end: 0;
       padding-bottom: clamp(32px, 5vw, 72px); max-width: 780px; text-align: left;
     }
 
