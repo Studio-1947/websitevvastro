@@ -1,6 +1,6 @@
     /* ===== Hero banner: full-bleed image, bottom-to-top scrim, text overlaid ===== */
     .page-workshops .ws-hero-banner { position: relative; margin: 0 0 clamp(40px, 5vw, 72px); width: 100%; }
-    .page-workshops .ws-hero-banner img { width: 100%; height: clamp(480px, 82vw, 1080px); object-fit: cover; display: block; }
+    .page-workshops .ws-hero-banner img { width: 100%; height: clamp(420px, min(78vw, calc(100svh - 96px)), 860px); object-fit: cover; display: block; }
     .page-workshops .ws-hero-banner__scrim {
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.45) 40%, rgba(0, 0, 0, 0) 75%);
