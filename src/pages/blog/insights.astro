@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { formatPostDate } from '../../lib/seo';
+import html from '../../generated/blog-insights/main.html?raw';
+// Insights hub reuses the blog index's stylesheet — same .page-blog classes,
+// same post-grid/post-card styling, no need to duplicate it.
+import css from '../../generated/blog-index/style.css?raw';
+
+/*
+ * Full Insights list (unlike the /blog/ index, which caps its Insights
+ * section to a 3-card preview). Cards carry a placeholder date
+ * ("<span>Jun 4</span>") in `order` sequence, same positional-walk approach
+ * used everywhere else in the blog templates.
+ */
+const posts = (
+  await getCollection('blog', ({ data }) => !data.hidden && data.content_track === 'insights')
+).sort((a, b) => a.data.order - b.data.order);
+
+let i = 0;
+const datedHtml = html.replace(/<span>Jun 4<\/span>/g, () => {
+  const date = posts[i++]?.data.date;
+  return date ? `<time datetime="${date}">${formatPostDate(date)}</time>` : '<span>Jun 4</span>';
+});
+---
+
+<BaseLayout
+  title={"Insights | Studio 1947 Blog"}
+  description={"Practical articles from Studio 1947 on the data, design, technology, research and communication problems we work on with organisations, NGOs, hospitals, colleges and businesses."}
+  ogTitle={"Insights | Studio 1947 Blog"}
+  ogDescription={"Practical notes from our work: data, design, technology, research and communication."}
+  ogType={"website"}
+  bodyClass={"page-blog"}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={datedHtml} />
+</BaseLayout>
