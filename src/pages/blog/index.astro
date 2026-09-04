@@ -6,19 +6,33 @@ import html from '../../generated/blog-index/main.html?raw';
 import css from '../../generated/blog-index/style.css?raw';
 
 /*
- * The ported index markup pins every card to a placeholder date
- * ("<span>Jun 4</span>"). The cards sit in `order` sequence, so walk the
- * collection sorted by order and swap each placeholder for its post's real
- * date, stamped as a <time> to match the visible date on the post page.
+ * The generated markup has two independent sections — Insights and Journal —
+ * split by a marker comment, each with its own post-grid. Cards within a
+ * section carry a placeholder date ("<span>Jun 4</span>") in that section's
+ * card order, so each section is walked separately against its own
+ * order-sorted, content_track-filtered slice of the collection.
  */
-const posts = (await getCollection('blog', ({ data }) => !data.hidden)).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-let card = 0;
-const datedHtml = html.replace(/<span>Jun 4<\/span>/g, () => {
-  const date = posts[card++]?.data.date;
-  return date ? `<time datetime="${date}">${formatPostDate(date)}</time>`: '<span>Jun 4</span>';
-});
+const allPosts = await getCollection('blog', ({ data }) => !data.hidden);
+const byOrder = (a: (typeof allPosts)[number], b: (typeof allPosts)[number]) => a.data.order - b.data.order;
+const insightPosts = allPosts.filter((p) => p.data.content_track === 'insights').sort(byOrder);
+const journalPosts = allPosts.filter((p) => p.data.content_track !== 'insights').sort(byOrder);
+
+function stampDates(section: string, posts: typeof allPosts) {
+  let i = 0;
+  return section.replace(/<span>Jun 4<\/span>/g, () => {
+    const date = posts[i++]?.data.date;
+    return date ? `<time datetime="${date}">${formatPostDate(date)}</time>` : '<span>Jun 4</span>';
+  });
+}
+
+/*
+ * The Insights section here is a 3-card preview (see the comment in
+ * blog-index/main.html) — the full list lives at /blog/insights/. Slice to
+ * match however many cards main.html actually carries, so this stays correct
+ * even after the Insights track grows past 3 posts.
+ */
+const [insightsSection, journalSection] = html.split('<!-- ===== SECTION SPLIT ===== -->');
+const datedHtml = stampDates(insightsSection, insightPosts.slice(0, 3)) + stampDates(journalSection, journalPosts);
 ---
 
 <BaseLayout

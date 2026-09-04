@@ -19,8 +19,66 @@
       </div>
     </section>
 
-    <!-- ===== Post grid ===== -->
-    <section class="section container" style="padding-top: clamp(32px, 4vw, 56px)">
+    <!-- ===== Insights section =====
+         Preview only — cap this grid at 3 cards, newest/most relevant first.
+         The full list (all Insights, however many exist) lives at
+         /blog/insights/ (src/generated/blog-insights/main.html). When adding
+         a post here beyond the 3rd, add it there instead and just link it
+         from the "See all Insights" pill below. -->
+    <section class="section container blog-section" style="padding-top: clamp(32px, 4vw, 56px)">
+      <div class="blog-section__head">
+        <p class="blog-section__eyebrow">Insights</p>
+        <h2 class="blog-section__title">Practical notes from our work.</h2>
+        <p class="blog-section__sub">Articles on the data, design, technology, research and communication problems we work on with organisations, NGOs, hospitals, colleges and businesses.</p>
+      </div>
+      <div class="post-grid" data-stagger>
+
+        <a class="post-card" href="/blog/how-to-plan-website-redesign/">
+          <div class="post-card__media"><img src="/assets/img/blog/how-to-plan-website-redesign/cover.svg" alt="A website interface shown as the visible layer, resting on the users, content, technology, accessibility, analytics and organisational goals beneath it" loading="lazy"></div>
+          <div class="post-card__body">
+            <span class="post-card__cat">Web &amp; Digital Products</span>
+            <h2 class="post-card__title">How to Plan a Website Redesign</h2>
+            <p class="post-card__excerpt">A practical guide for NGOs, colleges and growing organisations: what to audit, what to keep, and how to protect search visibility during the move.</p>
+            <div class="post-card__meta"><span class="post-card__author">Rabi</span><span class="post-card__dot"></span><span>Jun 4</span><span class="post-card__dot"></span><span>9 min read</span></div>
+          </div>
+        </a>
+
+        <a class="post-card" href="/blog/ngo-website-design-india/">
+          <div class="post-card__media"><img src="/assets/img/blog/ngo-website-design-india/cover.svg" alt="Six layers a nonprofit website's credibility rests on, stacked: governance, impact, people, evidence, contact and security" loading="lazy"></div>
+          <div class="post-card__body">
+            <span class="post-card__cat">Web &amp; Digital Products</span>
+            <h2 class="post-card__title">NGO Website Design in India</h2>
+            <p class="post-card__excerpt">What a high-trust nonprofit website actually needs: evidence, clear audiences, accessible reports and a donation journey built on confidence.</p>
+            <div class="post-card__meta"><span class="post-card__author">Rabi</span><span class="post-card__dot"></span><span>Jun 4</span><span class="post-card__dot"></span><span>8 min read</span></div>
+          </div>
+        </a>
+
+        <a class="post-card" href="/blog/me-dashboards-for-ngos/">
+          <div class="post-card__media"><img src="/assets/img/blog/me-dashboards-for-ngos/cover.svg" alt="The pipeline from mobile field data collection through raw data, validation, a clean dataset and a database, to a live dashboard that supports a decision" loading="lazy"></div>
+          <div class="post-card__body">
+            <span class="post-card__cat">Data &amp; Dashboards</span>
+            <h2 class="post-card__title">M&amp;E Dashboards for NGOs</h2>
+            <p class="post-card__excerpt">From field data to live decision-making: the pipeline behind a monitoring dashboard programme teams can actually trust.</p>
+            <div class="post-card__meta"><span class="post-card__author">Rabi</span><span class="post-card__dot"></span><span>Jun 4</span><span class="post-card__dot"></span><span>9 min read</span></div>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="blog-more">
+        <a class="blog-more__link" href="/blog/insights/">See all Insights <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      </div>
+    </section>
+
+    <!-- ===== SECTION SPLIT ===== -->
+
+    <!-- ===== Journal section ===== -->
+    <section class="section container blog-section" style="padding-top: clamp(32px, 4vw, 56px)">
+      <div class="blog-section__head">
+        <p class="blog-section__eyebrow">Journal</p>
+        <h2 class="blog-section__title">Stories, ideas &amp; perspectives.</h2>
+        <p class="blog-section__sub">We celebrate local wisdom. Here are a few stories about traditional knowledge, design, culture &amp; communities.</p>
+      </div>
       <div class="post-grid" data-stagger>
 
         <a class="post-card" href="/blog/the-lost-art-of-bengals-nakshi-kantha-embroidery/">

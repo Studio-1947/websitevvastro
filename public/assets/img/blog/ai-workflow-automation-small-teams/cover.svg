@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">What is worth automating diagram</title>
+  <desc id="desc">A two-column comparison: repetitive, rule-based, high-volume work is worth automating; judgment calls and relationship-sensitive work are not, yet.</desc>
+  <rect width="1600" height="1000" fill="#f5f5f5"/>
+
+  <text x="800" y="140" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#454545">Not everything that repeats is worth automating.</text>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="120" y="200" width="640" height="560" rx="14" fill="#ffffff" stroke="#e60000" stroke-width="2"/>
+    <text x="440" y="260" text-anchor="middle" font-weight="700" font-size="26" fill="#e60000">Worth automating</text>
+    <g font-size="20" fill="#111111">
+      <text x="160" y="330">&#8226; Repetitive, rule-based steps</text>
+      <text x="160" y="380">&#8226; High volume, low judgment</text>
+      <text x="160" y="430">&#8226; Same input, same output</text>
+      <text x="160" y="480">&#8226; Clear, stable process</text>
+      <text x="160" y="530">&#8226; Currently done by copy-paste</text>
+    </g>
+
+    <rect x="840" y="200" width="640" height="560" rx="14" fill="#ffffff" stroke="#b8b8b8" stroke-width="2"/>
+    <text x="1160" y="260" text-anchor="middle" font-weight="700" font-size="26" fill="#454545">Not yet</text>
+    <g font-size="20" fill="#111111">
+      <text x="880" y="330">&#8226; Needs human judgment</text>
+      <text x="880" y="380">&#8226; Relationship-sensitive</text>
+      <text x="880" y="430">&#8226; Process still changing often</text>
+      <text x="880" y="480">&#8226; Low volume, one-off</text>
+      <text x="880" y="530">&#8226; Nobody has mapped it yet</text>
+    </g>
+  </g>
+
+  <text x="800" y="880" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#454545">Map the process before you automate it.</text>
+</svg>

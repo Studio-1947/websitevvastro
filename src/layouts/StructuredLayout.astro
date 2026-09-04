@@ -13,6 +13,8 @@ interface EntryData {
   ogTitle?: string;
   ogDescription?: string;
   ogType?: 'website' | 'article' | 'product';
+  /** Share-card image (e.g. a blog post's `cover`). Absent → BaseHead's brand-mark fallback. */
+  image?: string;
   bodyClass?: string;
   noindex?: boolean;
   styles?: string;
@@ -39,6 +41,7 @@ const css = [sharedStyles, data.styles].filter(Boolean).join('\n');
   ogTitle={data.ogTitle}
   ogDescription={data.ogDescription}
   ogType={data.ogType}
+  image={data.image}
   bodyClass={data.bodyClass}
   noindex={data.noindex}
   fontHref={data.fontHref}

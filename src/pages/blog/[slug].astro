@@ -61,6 +61,6 @@ const jsonLd = [
 ];
 ---
 
-<StructuredLayout data={{ ...d, html, fontHref }} sharedStyles={postCss} jsonLd={jsonLd}>
+<StructuredLayout data={{ ...d, html, fontHref, image: d.cover }} sharedStyles={postCss} jsonLd={jsonLd}>
   <PostFooterNav prev={prev} next={next} />
 </StructuredLayout>

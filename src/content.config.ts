@@ -64,6 +64,14 @@ const blog = defineCollection({
     /** Opt-in: unpublish a post without deleting it. Excluded from the index
      * grid, prev/next neighbours, and its own page stops building (404s). */
     hidden: z.boolean().default(false),
+    /**
+     * Editorial track: 'journal' is the existing cultural/community writing,
+     * 'insights' is practical, service-linked content. Defaults to 'journal'
+     * so none of the current posts need touching. Determines which of the
+     * two /blog/ index sections a post's card appears in — see
+     * blog/index.astro and generated/blog-index/main.html.
+     */
+    content_track: z.enum(['journal', 'insights']).default('journal'),
   }),
 });
 

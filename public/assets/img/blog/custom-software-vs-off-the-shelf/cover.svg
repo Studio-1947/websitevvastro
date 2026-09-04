@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Off-the-shelf to custom software spectrum diagram</title>
+  <desc id="desc">A spectrum from off-the-shelf tools to fully custom software, with common scenarios placed along it depending on how standard or unique the workflow is.</desc>
+  <rect width="1600" height="1000" fill="#f5f5f5"/>
+
+  <text x="800" y="140" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#454545">Most organisations need a mix, not a single answer.</text>
+
+  <line x1="160" y1="500" x2="1440" y2="500" stroke="#e4e4e4" stroke-width="10" stroke-linecap="round"/>
+
+  <text x="160" y="440" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="22" fill="#111111">Off-the-shelf</text>
+  <text x="1440" y="440" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="22" fill="#111111">Custom-built</text>
+
+  <g font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" text-anchor="middle">
+    <circle cx="280" cy="500" r="14" fill="#111111"/>
+    <text x="280" y="560">Email &amp;</text>
+    <text x="280" y="584">calendar</text>
+
+    <circle cx="620" cy="500" r="14" fill="#111111"/>
+    <text x="620" y="560">Accounting</text>
+
+    <circle cx="960" cy="500" r="14" fill="#e60000"/>
+    <text x="960" y="560">Inventory with</text>
+    <text x="960" y="584">real batch rules</text>
+
+    <circle cx="1320" cy="500" r="14" fill="#e60000"/>
+    <text x="1320" y="560">A workflow</text>
+    <text x="1320" y="584">unique to you</text>
+  </g>
+
+  <text x="800" y="700" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#6b6b6b">The question is not which side wins. It's which side each workflow sits on.</text>
+</svg>
