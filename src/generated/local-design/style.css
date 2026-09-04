@@ -54,7 +54,7 @@
     .page-local-design .ld-pillar__desc { position: relative; z-index: 1; margin-top: 12px; font-size: clamp(15px, 1.05vw, 17px); color: var(--grey-700); line-height: 1.55; }
     .page-local-design .ld-pillar__link {
       position: relative; z-index: 1;
-      margin-top: clamp(20px, 2.2vw, 28px); align-self: flex-start;
+      margin-top: auto; padding-top: clamp(20px, 2.2vw, 28px); align-self: flex-start;
       display: inline-flex; align-items: center; gap: 10px;
       font-size: 14px; font-weight: 600; color: var(--red); text-decoration: none;
     }
