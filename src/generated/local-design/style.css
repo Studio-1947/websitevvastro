@@ -7,7 +7,8 @@
       pointer-events: none;
     }
     .page-local-design .ld-hero-banner__content {
-      position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+      position: absolute; left: 0; right: auto; bottom: 0; z-index: 1;
+      margin-inline: 0; padding-inline: var(--gutter) 0;
       padding-bottom: clamp(32px, 5vw, 72px); max-width: 780px; text-align: left;
     }
 
