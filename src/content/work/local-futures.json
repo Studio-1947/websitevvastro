@@ -70,6 +70,46 @@
       ]
     },
     {
+      "heading": "More Frames from the Film",
+      "label": "Localized On-Screen Graphics",
+      "body": [
+        "A closer look at the finished frames: data visualisations, storefront signage and street scenes, each rebuilt natively in Hindi rather than subtitled over the original English."
+      ],
+      "layout": "grid-3",
+      "media": [
+        {
+          "src": "/assets/img/work/local-futures/localization-frame-globe.webp",
+          "alt": "Illustrated globe surrounded by everyday goods, shirts, vegetables, a water bottle and a pig, representing the reach of global trade",
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/local-futures/localization-frame-rickshaw.webp",
+          "alt": "An auto-rickshaw carrying a family through a night-time city skyline, from the localized documentary",
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/local-futures/localization-frame-general-store.webp",
+          "alt": "Hindi signage reading 'जनरल स्टोर' (General Store), with a mother and daughter shopping at the counter",
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/local-futures/localization-frame-supermarket.webp",
+          "alt": "A supermarket aisle relabelled in Hindi with signage reading 'सस्ता' (cheap), 'तेज़' (fast) and 'आयातित' (imported)",
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/local-futures/localization-frame-rupee.webp",
+          "alt": "A giant rupee coin with a blindfolded shopper, labelled 'आयातित' (imported) and 'सस्ते में हम भरोसा करते हैं' (we trust in cheap)",
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/local-futures/localization-frame-crowd.webp",
+          "alt": "A crowd of protestors holding Hindi and English placards, with a hand-lettered Hindi banner reading 'हमारा है बहुमत' (the majority is ours)",
+          "ratio": "16/9"
+        }
+      ]
+    },
+    {
       "heading": "What It Delivered",
       "body": [
         "Instead of loose text translations, we gave Local Futures a complete, production-ready localized graphic system: an advocacy asset built to a professional standard.",
