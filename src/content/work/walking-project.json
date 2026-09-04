@@ -19,9 +19,10 @@
   ],
   "active": true,
   "hero": {
-    "src": "/assets/img/work/walking-project/logo.webp",
-    "alt": "The Walking Project mark: a pair of walking feet in white on a marigold yellow square",
-    "style": "logo"
+    "src": "/assets/img/work/walking-project/hero-cover.mp4",
+    "poster": "/assets/img/work/walking-project/hero-cover-poster.webp",
+    "alt": "Walking Project cover reel: campaign posters and city scenes for the pedestrian-advocacy movement",
+    "style": "photo"
   },
   "sections": [
     {
