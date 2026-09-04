@@ -71,13 +71,7 @@
       "divider": false,
       "subheading": "Typography: Making Every Word Readable",
       "body": [
-        "We chose a clean, modern Devanagari sans-serif typeface and used it with strict discipline across all on-screen callouts."
-      ],
-      "media": [
-        {
-          "src": "/assets/img/work/local-futures/typography.webp",
-          "alt": "Noto Sans Devanagari: typeface weight system"
-        }
+        "Every callout was hand-lettered in Devanagari rather than set in a generic system sans, so a word like <em>सस्ता</em> or <em>आयातित</em> reads with the same punch and warmth as a hand-painted shop sign, not a template dropped over the frame."
       ]
     },
     {
