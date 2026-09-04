@@ -1,6 +1,6 @@
     /* ===== Hero banner: full-bleed image ahead of the text hero ===== */
     .page-workshops .ws-hero-banner { position: relative; margin: 0 0 clamp(40px, 5vw, 72px); width: 100%; }
-    .page-workshops .ws-hero-banner img { width: 100%; height: clamp(420px, 68vw, 900px); object-fit: cover; display: block; }
+    .page-workshops .ws-hero-banner img { width: 100%; height: clamp(480px, 82vw, 1080px); object-fit: cover; display: block; }
     .page-workshops .ws-hero-banner__badge {
       position: absolute; left: clamp(16px, 4vw, 48px); bottom: clamp(16px, 4vw, 48px);
       max-width: calc(100% - clamp(32px, 8vw, 96px));
