@@ -54,6 +54,21 @@
           "loop": true
         }
       ]
+    },
+    {
+      "heading": "A Campaign in One Voice",
+      "label": "Social Media Campaign",
+      "body": [
+        "Six posters, one system: the same purple, the same cross-mark, the same short, warm line at the bottom of every frame. Trusted doctors, people-first care, a healthier tomorrow, said a different way each time but never in a different voice.",
+        "Icons carry the detail the headline doesn't have to: appointments and consultations, every life stage from child to senior, care available anytime and anywhere. The set reads as one campaign whether a viewer sees one post or all six."
+      ],
+      "layout": "row",
+      "media": [
+        {
+          "src": "/assets/img/work/healix/campaign-posters.webp",
+          "alt": "Six Healix social media posters in one grid: Better Care Brighter Days, People First Always, Expert Care Closer to You, A Healthier Tomorrow, Care at Every Stage, and Same Care New Possibilities"
+        }
+      ]
     }
   ],
   "credits": [
