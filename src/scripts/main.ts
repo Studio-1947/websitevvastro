@@ -28,6 +28,7 @@ import { contactForms } from './formSubmit';
 import { initSmoothScroll } from './smoothScroll';
 import { workGate } from './workGate';
 import { productGate } from './productGate';
+import { initiativesGate } from './initiativesGate';
 
 /** Import `load` only when `sel` exists on this page. */
 function when(sel: string, load: () => Promise<void>): void {
@@ -82,6 +83,8 @@ function init(): void {
   workGate();
   // Product release gate: unreleased products show 'Coming soon' on the live host.
   productGate();
+  // Initiatives release gate: unreleased initiative pages show 'Coming soon' on the live host.
+  initiativesGate();
 
   // ── Lazy: homepage "Our Approach" section ────────────────────────────────
   // GSAP fills the section titles; reduced-motion visitors get the final

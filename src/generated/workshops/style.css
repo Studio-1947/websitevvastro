@@ -2,12 +2,14 @@
     .page-workshops .ws-hero-banner { position: relative; margin: 0 0 clamp(40px, 5vw, 72px); width: 100%; }
     .page-workshops .ws-hero-banner img { width: 100%; height: clamp(420px, 68vw, 900px); object-fit: cover; display: block; }
     .page-workshops .ws-hero-banner__badge {
-      position: absolute; left: clamp(20px, 4vw, 48px); bottom: clamp(20px, 4vw, 48px);
-      font-family: var(--font-display); font-size: clamp(22px, 3.2vw, 42px); color: #fff;
+      position: absolute; left: clamp(16px, 4vw, 48px); bottom: clamp(16px, 4vw, 48px);
+      max-width: calc(100% - clamp(32px, 8vw, 96px));
+      font-family: var(--font-display); font-size: clamp(18px, 3.2vw, 42px); line-height: 1.15; color: #fff;
+      white-space: normal;
       background: rgba(255, 255, 255, 0.14);
       -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
       border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 999px; padding: clamp(14px, 1.6vw, 22px) clamp(28px, 3.2vw, 44px);
+      border-radius: clamp(18px, 2.4vw, 28px); padding: clamp(12px, 1.6vw, 22px) clamp(20px, 3.2vw, 44px);
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 
