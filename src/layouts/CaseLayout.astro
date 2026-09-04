@@ -52,7 +52,7 @@ interface Props {
   slug?: string;
 }
 const { data, jsonLd = [], slug } = Astro.props;
-const { brand, hero, sections = [], credits = [], creditsLayout = 'grid', creditLinkStyle = 'underline', clientCredits = [], client, tags = [], title, location, year, coordinator, active = true, mediaStyle = 'full', liveUrl, headline: headlineOverride } = data;
+const { brand, hero, sections = [], credits = [], creditsLayout = 'stack', creditLinkStyle = 'underline', clientCredits = [], client, tags = [], title, location, year, coordinator, active = true, mediaStyle = 'full', liveUrl, headline: headlineOverride } = data;
 
 // Hero headline: the <h1> text, independent of the SEO <title>.
 const headline = headlineOverride ?? client ?? title;

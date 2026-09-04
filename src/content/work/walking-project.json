@@ -69,6 +69,7 @@
         "Hand-drawn Devanagari display type does the shouting, the walkers do the convincing, and every poster closes with the same invitation: join the movement with Walking Project."
       ],
       "layout": "grid-3",
+      "bleed": true,
       "media": [
         {
           "src": "/assets/img/work/walking-project/campaign-azadi-red-girl.webp",
@@ -96,6 +97,7 @@
         "A city-scale map drawn from open data makes the other number real: 2,000 kilometres of roads, and every line of it walked. Year-end recaps carry the movement's wins back to the community that made them happen, over duotone photographs of volunteers auditing the streets."
       ],
       "layout": "grid-2",
+      "bleed": true,
       "media": [
         {
           "src": "/assets/img/work/walking-project/stat-46-red.webp",
