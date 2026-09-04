@@ -1,27 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
   <title id="title">Service blueprint frontstage and backstage diagram</title>
   <desc id="desc">A service blueprint showing the customer-visible frontstage steps above a line, and the backstage work that supports each one below it.</desc>
-  <rect width="1600" height="1000" fill="#f5f5f5"/>
+  <rect width="1600" height="1000" fill="#1a1a1a"/>
 
-  <text x="800" y="120" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#454545">What the customer sees is one line. What makes it work is another.</text>
+  <text x="800" y="120" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#e5e5e5">What the customer sees is one line. What makes it work is another.</text>
 
   <text x="80" y="240" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="18" letter-spacing="1" fill="#e60000">FRONTSTAGE &#8212; what the customer sees</text>
 
   <g font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="19" text-anchor="middle">
-    <rect x="80" y="270" width="330" height="90" rx="10" fill="#ffffff" stroke="#e60000" stroke-width="2"/>
-    <text x="245" y="322" fill="#111111">Discover</text>
-    <rect x="440" y="270" width="330" height="90" rx="10" fill="#ffffff" stroke="#e60000" stroke-width="2"/>
-    <text x="605" y="322" fill="#111111">Ask</text>
-    <rect x="800" y="270" width="330" height="90" rx="10" fill="#ffffff" stroke="#e60000" stroke-width="2"/>
-    <text x="965" y="322" fill="#111111">Wait</text>
-    <rect x="1160" y="270" width="360" height="90" rx="10" fill="#ffffff" stroke="#e60000" stroke-width="2"/>
-    <text x="1340" y="322" fill="#111111">Receive</text>
+    <rect x="80" y="270" width="330" height="90" rx="10" fill="#262626" stroke="#e60000" stroke-width="2"/>
+    <text x="245" y="322" fill="#f5f5f5">Discover</text>
+    <rect x="440" y="270" width="330" height="90" rx="10" fill="#262626" stroke="#e60000" stroke-width="2"/>
+    <text x="605" y="322" fill="#f5f5f5">Ask</text>
+    <rect x="800" y="270" width="330" height="90" rx="10" fill="#262626" stroke="#e60000" stroke-width="2"/>
+    <text x="965" y="322" fill="#f5f5f5">Wait</text>
+    <rect x="1160" y="270" width="360" height="90" rx="10" fill="#262626" stroke="#e60000" stroke-width="2"/>
+    <text x="1340" y="322" fill="#f5f5f5">Receive</text>
   </g>
 
-  <line x1="60" y1="410" x2="1560" y2="410" stroke="#b8b8b8" stroke-width="2" stroke-dasharray="6 8"/>
-  <text x="80" y="470" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="18" letter-spacing="1" fill="#454545">BACKSTAGE &#8212; what makes it work</text>
+  <line x1="60" y1="410" x2="1560" y2="410" stroke="#808080" stroke-width="2" stroke-dasharray="6 8"/>
+  <text x="80" y="470" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="18" letter-spacing="1" fill="#e5e5e5">BACKSTAGE &#8212; what makes it work</text>
 
-  <g stroke="#b8b8b8" stroke-width="2">
+  <g stroke="#808080" stroke-width="2">
     <line x1="245" y1="360" x2="245" y2="500"/>
     <line x1="605" y1="360" x2="605" y2="500"/>
     <line x1="965" y1="360" x2="965" y2="500"/>
@@ -29,15 +29,15 @@
   </g>
 
   <g font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="18" text-anchor="middle">
-    <rect x="80" y="500" width="330" height="90" rx="10" fill="#ffffff" stroke="#e4e4e4" stroke-width="2"/>
-    <text x="245" y="552" fill="#111111">Marketing</text>
-    <rect x="440" y="500" width="330" height="90" rx="10" fill="#ffffff" stroke="#e4e4e4" stroke-width="2"/>
-    <text x="605" y="552" fill="#111111">Front desk</text>
-    <rect x="800" y="500" width="330" height="90" rx="10" fill="#ffffff" stroke="#e4e4e4" stroke-width="2"/>
-    <text x="965" y="552" fill="#111111">Processing</text>
-    <rect x="1160" y="500" width="360" height="90" rx="10" fill="#ffffff" stroke="#e4e4e4" stroke-width="2"/>
-    <text x="1340" y="552" fill="#111111">Fulfilment</text>
+    <rect x="80" y="500" width="330" height="90" rx="10" fill="#262626" stroke="#3a3a3a" stroke-width="2"/>
+    <text x="245" y="552" fill="#f5f5f5">Marketing</text>
+    <rect x="440" y="500" width="330" height="90" rx="10" fill="#262626" stroke="#3a3a3a" stroke-width="2"/>
+    <text x="605" y="552" fill="#f5f5f5">Front desk</text>
+    <rect x="800" y="500" width="330" height="90" rx="10" fill="#262626" stroke="#3a3a3a" stroke-width="2"/>
+    <text x="965" y="552" fill="#f5f5f5">Processing</text>
+    <rect x="1160" y="500" width="360" height="90" rx="10" fill="#262626" stroke="#3a3a3a" stroke-width="2"/>
+    <text x="1340" y="552" fill="#f5f5f5">Fulfilment</text>
   </g>
 
-  <text x="800" y="720" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#454545">A slow "Wait" step usually has a broken box underneath it.</text>
+  <text x="800" y="720" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#e5e5e5">A slow "Wait" step usually has a broken box underneath it.</text>
 </svg>
