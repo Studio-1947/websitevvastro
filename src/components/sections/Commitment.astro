@@ -2,6 +2,11 @@
 /** Home "Our Commitment" carousel + team photo. */
 import { Image } from 'astro:assets';
 import teamPhoto from '../../assets/img/team-photo.webp';
+import teamPhoto2 from '../../assets/img/team-photo-2.webp';
+import teamPhoto3 from '../../assets/img/team-photo-3.webp';
+import teamPhoto4 from '../../assets/img/team-photo-4.webp';
+
+const teamPhotos = [teamPhoto, teamPhoto2, teamPhoto3, teamPhoto4];
 ---
 
 <section class="section container">
@@ -33,14 +38,17 @@ import teamPhoto from '../../assets/img/team-photo.webp';
         </div>
       </div>
     </div>
-    <div class="commit__media">
-      <Image
-        src={teamPhoto}
-        sizes="(max-width: 760px) 100vw, 50vw"
-        quality={85} widths={[640, 960, 1280, 1600]}
-        alt="The Studio 1947 team"
-        loading="lazy"
-      />
+    <div class="commit__media" data-commit-photos>
+      {teamPhotos.map((photo, i) => (
+        <Image
+          class:list={['commit__photo', i === 0 && 'is-active']}
+          src={photo}
+          sizes="(max-width: 760px) 100vw, 50vw"
+          quality={85} widths={[640, 960, 1280, 1600]}
+          alt="The Studio 1947 team"
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+      ))}
     </div>
   </div>
 </section>

@@ -113,6 +113,7 @@ function init(): void {
   when('[data-hero-aurora]', () => import('./heroAurora').then((m) => m.heroAurora()));
   when('.faq__item', () => import('./faq').then((m) => m.accordion()));
   when('[data-commit]', () => import('./carousel').then((m) => m.commitmentCarousel()));
+  when('[data-commit-photos]', () => import('./commitPhotoCarousel').then((m) => m.commitPhotoCarousel()));
   when('.cocreate__line', () => import('./cocreate').then((m) => m.cocreateCycle()));
   when('.team-card[data-person]', () => import('./personModal').then((m) => m.personModal()));
   when('.case-figure--zoom', () => import('./lightbox').then((m) => m.caseLightbox()));
