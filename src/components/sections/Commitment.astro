@@ -1,21 +1,7 @@
 ---
 /** Home "Our Commitment" carousel + team photo. */
 import { Image } from 'astro:assets';
-
-// team-photo.webp, team-photo-2.webp, team-photo-3.webp, ... — every photo
-// in the set is picked up automatically, sorted numerically so adding a new
-// one is just dropping the file in and running the image script.
-const teamPhotoModules = import.meta.glob<{ default: ImageMetadata }>(
-  '../../assets/img/team-photo*.webp',
-  { eager: true },
-);
-const teamPhotos = Object.keys(teamPhotoModules)
-  .sort((a, b) => {
-    const numA = Number(a.match(/-(\d+)\.webp$/)?.[1] ?? 1);
-    const numB = Number(b.match(/-(\d+)\.webp$/)?.[1] ?? 1);
-    return numA - numB;
-  })
-  .map((key) => teamPhotoModules[key].default);
+import teamPhoto from '../../assets/img/team-photo.webp';
 ---
 
 <section class="section container">
@@ -47,17 +33,14 @@ const teamPhotos = Object.keys(teamPhotoModules)
         </div>
       </div>
     </div>
-    <div class="commit__media" data-commit-photos>
-      {teamPhotos.map((photo, i) => (
-        <Image
-          class:list={['commit__photo', i === 0 && 'is-active']}
-          src={photo}
-          sizes="(max-width: 760px) 100vw, 50vw"
-          quality={85} widths={[640, 960, 1280, 1600]}
-          alt="The Studio 1947 team"
-          loading={i === 0 ? 'eager' : 'lazy'}
-        />
-      ))}
+    <div class="commit__media">
+      <Image
+        src={teamPhoto}
+        sizes="(max-width: 760px) 100vw, 50vw"
+        quality={85} widths={[640, 960, 1280, 1600]}
+        alt="The Studio 1947 team"
+        loading="lazy"
+      />
     </div>
   </div>
 </section>

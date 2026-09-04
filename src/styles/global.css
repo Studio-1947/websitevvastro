@@ -403,10 +403,8 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .commit__title { grid-area: title; align-self: start; font-size: clamp(24px, 2.2vw, 34px); color: var(--grey-900); letter-spacing: -0.02em; }
 .commit__team { grid-area: cta; justify-self: start; align-self: end; margin-top: calc(clamp(26px, 4vw, 56px) * -0.5); border-color: var(--red); }
 .commit__body { grid-area: body; color: var(--grey-700); font-size: clamp(15px, 1.1vw, 17px); max-width: 46ch; }
-.commit__media { position: relative; border-radius: var(--radius-lg); overflow: hidden; }
+.commit__media { border-radius: var(--radius-lg); overflow: hidden; }
 .commit__media img { width: 100%; height: 100%; object-fit: cover; }
-.commit__photo { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s var(--ease); }
-.commit__photo.is-active { opacity: 1; }
 .commit__slide { display: none; }
 .commit__slide.is-active { display: contents; }
 
