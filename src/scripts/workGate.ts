@@ -76,7 +76,14 @@ export function workGate(): void {
     document.title = 'Coming soon | Studio 1947';
   }
 
-  // 2. Any link to a gated case anywhere on the site: popup instead.
+  // 2. Portfolio cards linking to a gated case: mark them visually inactive
+  // (greyscale thumbnail) so it reads as "coming soon" before the click.
+  document.querySelectorAll<HTMLAnchorElement>('a.work-card[href]').forEach((card) => {
+    const slug = slugOf(card.href);
+    if (slug && gated(slug)) card.classList.add('work-card--soon');
+  });
+
+  // 3. Any link to a gated case anywhere on the site: popup instead.
   document.addEventListener('click', (e) => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href]');
