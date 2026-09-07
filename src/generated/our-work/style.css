@@ -26,9 +26,25 @@
     /* Not-yet-released cases (see lib/portfolioRelease): still a real,
        clickable link - the portfolio release gate shows a "Coming soon"
        popup on click - but the thumbnail reads as inactive at a glance. */
-    .page-our-work .work-card--soon .work-card__media img { filter: grayscale(1); opacity: .55; }
-    .page-our-work .work-card--soon:hover .work-card__media img { transform: none; }
-    .page-our-work .work-card--soon:hover { box-shadow: none; border-color: inherit; }
+    .page-our-work .work-card--soon {
+      background: #f1f1f1;
+      border-color: #d5d5d5;
+    }
+    .page-our-work .work-card--soon .work-card__media img,
+    .page-our-work .work-card--soon .work-card__media video {
+      filter: grayscale(1);
+      opacity: .45;
+    }
+    .page-our-work .work-card--soon .work-card__title,
+    .page-our-work .work-card--soon .work-card__meta { color: var(--grey-500); }
+    .page-our-work .work-card--soon .work-tag {
+      color: var(--grey-500);
+      border-color: #d5d5d5;
+      background: #e7e7e7;
+    }
+    .page-our-work .work-card--soon:hover .work-card__media img,
+    .page-our-work .work-card--soon:hover .work-card__media video { transform: none; }
+    .page-our-work .work-card--soon:hover { box-shadow: none; border-color: #d5d5d5; }
     .page-our-work .work-card__body { padding: clamp(20px, 1.8vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1; }
     .page-our-work .work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .page-our-work .work-tag {
