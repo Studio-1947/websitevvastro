@@ -209,7 +209,10 @@
   </nav>
 </header>
 
-<div class="mobile-menu" inert>
+{/* data-lenis-prevent: Lenis preventDefaults wheel events document-wide, which
+    swallowed the wheel here and left the menu unscrollable on short viewports.
+    The attribute hands this subtree back to native scrolling. */}
+<div class="mobile-menu" inert data-lenis-prevent>
   <button class="mobile-menu__close" aria-label="Close menu">&times;</button>
   <a href="/about-us/" data-i18n="global.nav.aboutUs">About Us</a>
   <a href="/our-work/" data-i18n="global.nav.portfolio">Portfolio</a>
