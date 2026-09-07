@@ -347,6 +347,22 @@ body.page-case-modular {
 .case-section--band .case-figure__caption {
   color: rgba(255, 255, 255, 0.55);
 }
+/* Opt-in per-section override (`bandLight: true`): a white/near-white band
+   keeps dark type instead of the default light-on-dark band styling. */
+.case-section--band-light .case-section__heading {
+  color: var(--grey-900);
+}
+.case-section--band-light .case-prose p,
+.case-section--band-light .case-list li {
+  color: var(--grey-700);
+}
+.case-section--band-light .case-label {
+  background: var(--bg-alt);
+  color: var(--grey-700);
+}
+.case-section--band-light .case-figure__caption {
+  color: var(--grey-500);
+}
 
 .case-section--backdrop {
   position: relative;
@@ -391,6 +407,27 @@ body.page-case-modular {
   width: 100%;
   height: auto;
 }
+/* Opt-in 'row-fit' media layout: figures sit side by side at one shared
+   height, each keeping its own aspect ratio (via per-image `ratio`) rather
+   than being stretched to equal-width columns. A portrait photo next to a
+   16:9 video, for example, renders narrow-tall next to wide-tall. */
+.case-media.case-media--row-fit {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 8px;
+  height: clamp(320px, 40vw, 620px);
+}
+.case-media--row-fit .case-figure {
+  height: 100%;
+  width: auto;
+  flex: 0 0 auto;
+}
+.case-media--row-fit .case-figure--ratio {
+  height: 100%;
+  width: auto;
+}
+
 /* Opt-in per-section override: run this section's media edge-to-edge even on
    a `mediaStyle: 'contained'` case (per-case JSON section flag: `bleed`). */
 .case-section.case-section--bleed > .case-media--row {

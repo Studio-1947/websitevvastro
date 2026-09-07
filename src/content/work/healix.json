@@ -19,11 +19,26 @@
   ],
   "active": true,
   "hero": {
-    "src": "/assets/img/work/healix/logo-mark.svg",
-    "alt": "The Healix wordmark: a medical cross forming the H, in white, on brand purple",
-    "style": "logo"
+    "src": "/assets/img/work/healix/hero-storefront.webp",
+    "alt": "The Healix clinic storefront in Bhangar Balijada, tinted in brand purple",
+    "style": "photo"
   },
   "sections": [
+    {
+      "heading": "On the Ground in Bhangar Balijada",
+      "label": "Storefront",
+      "body": [
+        "The identity had to work outdoors too: a storefront signboard in Bengali and English, bilingual service icons on the entryway, and the wordmark on the glass door, all in the same brand purple that carries through the cards, the coats and the social feed."
+      ],
+      "layout": "row",
+      "bleed": true,
+      "media": [
+        {
+          "src": "/assets/img/work/healix/storefront.webp",
+          "alt": "The Healix clinic storefront in Bhangar Balijada: a bilingual Bengali and English signboard, service icons on the entrance wall, and the wordmark on the glass door"
+        }
+      ]
+    },
     {
       "divider": false,
       "body": [
@@ -32,7 +47,7 @@
     },
     {
       "label": "Identity & Motion Mark",
-      "layout": "grid-2",
+      "layout": "row-fit",
       "media": [
         {
           "src": "/assets/img/work/healix/brand-on-photo.webp",
@@ -40,10 +55,15 @@
           "ratio": "1280/2020"
         },
         {
-          "src": "/assets/img/work/healix/logo-animation.mp4",
+          "src": "/assets/img/work/healix/campaign-posters.webp",
+          "alt": "Six Healix social media posters in one grid: Better Care Brighter Days, People First Always, Expert Care Closer to You, A Healthier Tomorrow, Care at Every Stage, and Same Care New Possibilities",
+          "ratio": "1254/1254"
+        },
+        {
+          "src": "/assets/img/work/healix/logo-reel.mp4",
           "alt": "The Healix logo animating into its final wordmark",
           "loop": true,
-          "ratio": "1280/2020"
+          "ratio": "1080/1920"
         }
       ]
     },
@@ -71,11 +91,12 @@
         "Icons carry the detail the headline doesn't have to: appointments and consultations, every life stage from child to senior, care available anytime and anywhere. The set reads as one campaign whether a viewer sees one post or all six."
       ],
       "layout": "row",
-      "band": "#7700D9",
+      "band": "#FFFFFF",
+      "bandLight": true,
       "media": [
         {
-          "src": "/assets/img/work/healix/campaign-posters.webp",
-          "alt": "Six Healix social media posters in one grid: Better Care Brighter Days, People First Always, Expert Care Closer to You, A Healthier Tomorrow, Care at Every Stage, and Same Care New Possibilities"
+          "src": "/assets/img/work/healix/campaign-posters-row.webp",
+          "alt": "Three Healix social media posters in one row: Better Care Brighter Days, People First Always, and Expert Care Closer to You"
         }
       ]
     }

@@ -241,13 +241,16 @@ const caseSection = z.object({
    * otherwise stack into an endless column.
    */
   layout: z
-    .enum(['stack', 'split', 'grid-2', 'grid-3', 'grid-4', 'row', 'scroller'])
+    .enum(['stack', 'split', 'grid-2', 'grid-3', 'grid-4', 'row', 'row-fit', 'scroller'])
     .default('stack'),
   /**
    * Opt-in, per section: paint this section's background edge to edge in the
    * given colour and flip its type light. Absent → the page wash as usual.
    */
   band: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+  /** Opt-in: a light `band` (white or near-white) keeps dark text instead of
+      the default light-on-dark band styling. Ignored without `band`. */
+  bandLight: z.boolean().default(false),
   /**
    * Opt-in, per section: an image floated huge and soft behind the section's
    * content (partially visible, clipped by the section). Absent → nothing.
