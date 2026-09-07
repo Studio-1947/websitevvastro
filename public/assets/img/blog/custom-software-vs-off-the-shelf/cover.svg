@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" role="img" aria-labelledby="title desc">
   <title id="title">Off-the-shelf to custom software spectrum diagram</title>
   <desc id="desc">A spectrum from off-the-shelf tools to fully custom software, with common scenarios placed along it depending on how standard or unique the workflow is.</desc>
-  <rect width="1600" height="1000" fill="#f5f5f5"/>
+  <rect width="1600" height="1067" fill="#f5f5f5"/>
+
+  <g transform="translate(0,33.5)">
 
   <text x="800" y="140" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#454545">Most organisations need a mix, not a single answer.</text>
 
@@ -28,4 +30,5 @@
   </g>
 
   <text x="800" y="700" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#6b6b6b">The question is not which side wins. It's which side each workflow sits on.</text>
+  </g>
 </svg>

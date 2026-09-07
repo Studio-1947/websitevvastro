@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" role="img" aria-labelledby="title desc">
   <title id="title">Pharmacy inventory cycle diagram</title>
   <desc id="desc">The pharmacy inventory cycle shown as a loop: purchase, batch, shelf, sale, return and expiry, feeding back into purchasing.</desc>
-  <rect width="1600" height="1000" fill="#1a1a1a"/>
+  <rect width="1600" height="1067" fill="#1a1a1a"/>
+
+  <g transform="translate(0,33.5)">
 
   <defs>
     <marker id="pharm-arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
@@ -42,5 +44,6 @@
     <text x="800" y="470" font-size="26" font-weight="700" fill="#e5e5e5">FEFO</text>
     <text x="800" y="500" font-size="17" fill="#9a9a9a">first expiry,</text>
     <text x="800" y="522" font-size="17" fill="#9a9a9a">first out</text>
+  </g>
   </g>
 </svg>

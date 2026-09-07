@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" role="img" aria-labelledby="title desc">
   <title id="title">Listen, understand, decide diagram</title>
   <desc id="desc">A three-stage sequence: listen to what people are already saying, understand what it means, then decide what to launch.</desc>
-  <rect width="1600" height="1000" fill="#1a1a1a"/>
+  <rect width="1600" height="1067" fill="#1a1a1a"/>
+
+  <g transform="translate(0,33.5)">
 
   <text x="800" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="30" fill="#e5e5e5">People are already talking. Are you listening first?</text>
 
@@ -25,4 +27,5 @@
   </g>
 
   <text x="800" y="660" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#9a9a9a">Skip straight to launch, and you find out what people think after it's too late to change course.</text>
+  </g>
 </svg>

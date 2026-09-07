@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" role="img" aria-labelledby="title desc">
   <title id="title">What analytics tells you versus what interviews tell you diagram</title>
   <desc id="desc">A two-column comparison: analytics shows what happened and where people dropped off; interviews explain why, in the user's own words.</desc>
-  <rect width="1600" height="1000" fill="#f5f5f5"/>
+  <rect width="1600" height="1067" fill="#f5f5f5"/>
+
+  <g transform="translate(0,33.5)">
 
   <text x="800" y="140" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#454545">Analytics shows where. Interviews explain why.</text>
 
@@ -28,4 +30,5 @@
   </g>
 
   <text x="800" y="880" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#454545">You need both to fix it, not guess at it.</text>
+  </g>
 </svg>

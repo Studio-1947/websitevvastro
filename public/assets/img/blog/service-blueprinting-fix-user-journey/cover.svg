@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" role="img" aria-labelledby="title desc">
   <title id="title">Service blueprint frontstage and backstage diagram</title>
   <desc id="desc">A service blueprint showing the customer-visible frontstage steps above a line, and the backstage work that supports each one below it.</desc>
-  <rect width="1600" height="1000" fill="#1a1a1a"/>
+  <rect width="1600" height="1067" fill="#1a1a1a"/>
+
+  <g transform="translate(0,33.5)">
 
   <text x="800" y="120" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#e5e5e5">What the customer sees is one line. What makes it work is another.</text>
 
@@ -40,4 +42,5 @@
   </g>
 
   <text x="800" y="720" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#e5e5e5">A slow "Wait" step usually has a broken box underneath it.</text>
+  </g>
 </svg>

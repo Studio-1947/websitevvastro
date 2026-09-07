@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" role="img" aria-labelledby="title desc">
   <title id="title">Baseline to endline evaluation diagram</title>
   <desc id="desc">The evaluation sequence from problem and indicators through a baseline survey, the programme itself, an endline survey, and interpretation.</desc>
-  <rect width="1600" height="1000" fill="#1a1a1a"/>
+  <rect width="1600" height="1067" fill="#1a1a1a"/>
+
+  <g transform="translate(0,33.5)">
 
   <text x="800" y="260" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="30" fill="#e5e5e5">A comparison only means something if both ends were built the same way.</text>
 
@@ -50,4 +52,5 @@
   </g>
 
   <text x="800" y="640" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#9a9a9a">Same indicators, same methods, same care, both times.</text>
+  </g>
 </svg>

@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" role="img" aria-labelledby="title desc">
   <title id="title">What is worth automating diagram</title>
   <desc id="desc">A two-column comparison: repetitive, rule-based, high-volume work is worth automating; judgment calls and relationship-sensitive work are not, yet.</desc>
-  <rect width="1600" height="1000" fill="#f5f5f5"/>
+  <rect width="1600" height="1067" fill="#f5f5f5"/>
+
+  <g transform="translate(0,33.5)">
 
   <text x="800" y="140" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" fill="#454545">Not everything that repeats is worth automating.</text>
 
@@ -28,4 +30,5 @@
   </g>
 
   <text x="800" y="880" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#454545">Map the process before you automate it.</text>
+  </g>
 </svg>

@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" role="img" aria-labelledby="title desc">
   <title id="title">NGO website trust stack diagram</title>
   <desc id="desc">Six layers a nonprofit website's credibility rests on, stacked: governance, impact, people, evidence, contact and security.</desc>
-  <rect width="1600" height="1000" fill="#1a1a1a"/>
+  <rect width="1600" height="1067" fill="#1a1a1a"/>
+
+  <g transform="translate(0,33.5)">
 
   <text x="800" y="130" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="28" letter-spacing="2" fill="#e60000">WHAT MAKES A VISITOR TRUST YOU</text>
 
@@ -27,4 +29,5 @@
 
   <text x="800" y="900" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#e5e5e5">Trust is not one feature.</text>
   <text x="800" y="938" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#9a9a9a">It is what a visitor sees when every layer holds.</text>
+  </g>
 </svg>

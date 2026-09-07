@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" role="img" aria-labelledby="title desc">
   <title id="title">College digital ecosystem diagram</title>
   <desc id="desc">A college digital ecosystem connecting the public website, admissions, student records, attendance, fees and reports into one flow.</desc>
-  <rect width="1600" height="1000" fill="#1a1a1a"/>
+  <rect width="1600" height="1067" fill="#1a1a1a"/>
+
+  <g transform="translate(0,33.5)">
 
   <text x="800" y="260" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="30" fill="#e5e5e5">Six systems that need to agree with each other.</text>
 
@@ -51,4 +53,5 @@
   </g>
 
   <text x="800" y="640" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#9a9a9a">Replacing one box without mapping the rest just moves the gap.</text>
+  </g>
 </svg>
