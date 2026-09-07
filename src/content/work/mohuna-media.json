@@ -22,9 +22,10 @@
   ],
   "active": true,
   "hero": {
-    "src": "/assets/img/work/mohuna-media/logo.webp",
-    "alt": "Mohuna Media master brand mark representing the Brahmaputra river and community livelihoods",
-    "style": "logo"
+    "src": "/assets/img/work/mohuna-media/hero-cover.webp",
+    "alt": "Red-tinted illustrated landscape of the Brahmaputra river, surrounding farms, boats, wildlife and river communities",
+    "style": "photo",
+    "scrimOpacity": 0.12
   },
   "sections": [
     {
@@ -40,6 +41,19 @@
       "body": [
         "The logo represents the livelihoods of people living around the Brahmaputra River. It highlights the activities that sustain the community: agriculture, fishing, local crafts, and water transport.",
         "Each element shows how the river supports farming, fishing, traditional crafts, and the movement of people and goods. Together, the design stands for the strong bond between the river and everyday life."
+      ],
+      "layout": "stack",
+      "media": [
+        {
+          "src": "/assets/img/work/mohuna-media/logo-concept.webp",
+          "alt": "Mohuna Media logo concept showing the Brahmaputra river map combined with figures representing people and culture, followed by the Mohuna Media name",
+          "caption": "The identity brings together the Brahmaputra, the people and cultures along its banks, and the Mohuna Media name"
+        },
+        {
+          "src": "/assets/img/work/mohuna-media/logo-lockup.webp",
+          "alt": "Finished Mohuna Media horizontal logo lockup in white on a red-tinted Brahmaputra landscape",
+          "caption": "The finished Mohuna Media mark and wordmark"
+        }
       ]
     },
     {
