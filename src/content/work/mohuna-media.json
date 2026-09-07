@@ -84,6 +84,17 @@
       ]
     },
     {
+      "divider": false,
+      "layout": "stack",
+      "media": [
+        {
+          "src": "/assets/img/work/mohuna-media/river-livelihoods.webp",
+          "alt": "Collage of Brahmaputra river livelihoods showing fishing boats, tea harvesting, bamboo basket weaving, rice planting and fishery",
+          "caption": "River, field, garden and craft: the livelihoods brought together in the Mohuna Media identity"
+        }
+      ]
+    },
+    {
       "heading": "Brand Collateral & Business Cards",
       "label": "Collateral Design",
       "body": [
