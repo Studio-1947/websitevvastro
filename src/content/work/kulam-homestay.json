@@ -9,6 +9,7 @@
   "client": "Kulam Homestay",
   "location": "Mirik, Darjeeling",
   "year": "2026",
+  "liveUrl": "https://www.kulamhomestay.in/",
   "tags": [
     "Creators",
     "Branding",
@@ -19,9 +20,11 @@
   "solutions": ["data-design-tech", "communication-campaign"],
   "active": true,
   "hero": {
-    "src": "/assets/img/work/kulam-homestay/hero-header.webp",
-    "alt": "Kulam Homestay website hero header with a pine forest and mountain lake backdrop",
-    "style": "photo"
+    "src": "/assets/img/work/kulam-homestay/hero-exterior.webp",
+    "alt": "Exterior of Kulam Homestay in Mirik, a white hillside house with blue balcony railings, garden plants and forest behind",
+    "style": "photo",
+    "scrim": "#1F4232",
+    "scrimOpacity": 0.32
   },
   "sections": [
     {
@@ -29,6 +32,24 @@
       "body": [
         "<strong>Kulam Homestay</strong> is a quiet boutique retreat in the hills of Mirik, Darjeeling, set among lush tea gardens and pine forests. It opened in 2025. Kulam is more than a place to stay. It is a refuge for travelers who want peace, real hill culture, and warm family hospitality.",
         "Studio 1947 worked with Kulam Homestay to design and build a custom single-page website. It takes visitors straight into the calm of Mirik, shows off the homestay's artisan boutique, and makes booking simple."
+      ]
+    },
+    {
+      "heading": "Client Feedback",
+      "label": "Host Video Reel",
+      "layout": "split",
+      "body": [
+        "Hear directly from the hosts of Kulam Homestay in Mirik. Their video testimonials capture the passion, warm hospitality, and community spirit behind this boutique hill retreat.",
+        "With the video placed next to the story of the homestay, future guests connect straight away with the real faces behind it."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/kulam-homestay/kulam-feedback-reel.mp4",
+          "alt": "Kulam Homestay client feedback video reel",
+          "caption": "Client Feedback Reel: host testimonial video from Kulam Homestay in Mirik",
+          "zoom": false,
+          "ratio": "9/16"
+        }
       ]
     },
     {
@@ -121,24 +142,6 @@
           "caption": "Responsive Design: a fluid layout across mobile, tablet, and desktop screens",
           "zoom": false,
           "loop": true
-        }
-      ]
-    },
-    {
-      "heading": "Client Feedback",
-      "label": "Host Video Reel",
-      "layout": "split",
-      "body": [
-        "Hear directly from the hosts of Kulam Homestay in Mirik. Their video testimonials capture the passion, warm hospitality, and community spirit behind this boutique hill retreat.",
-        "With the video placed next to the story of the homestay, future guests connect straight away with the real faces behind it."
-      ],
-      "media": [
-        {
-          "src": "/assets/img/work/kulam-homestay/kulam-feedback-reel.mp4",
-          "alt": "Kulam Homestay client feedback video reel",
-          "caption": "Client Feedback Reel: host testimonial video from Kulam Homestay in Mirik",
-          "zoom": false,
-          "ratio": "9/16"
         }
       ]
     },

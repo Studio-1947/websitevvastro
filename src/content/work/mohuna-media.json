@@ -45,6 +45,11 @@
       "layout": "stack",
       "media": [
         {
+          "src": "/assets/img/work/mohuna-media/river-livelihoods.webp",
+          "alt": "Collage of Brahmaputra river livelihoods showing fishing boats, tea harvesting, bamboo basket weaving, rice planting and fishery",
+          "caption": "River, field, garden and craft: the livelihoods brought together in the Mohuna Media identity"
+        },
+        {
           "src": "/assets/img/work/mohuna-media/logo-concept.webp",
           "alt": "Mohuna Media logo concept showing the Brahmaputra river map combined with figures representing people and culture, followed by the Mohuna Media name",
           "caption": "The identity brings together the Brahmaputra, the people and cultures along its banks, and the Mohuna Media name"
@@ -80,17 +85,6 @@
           "num": "04",
           "title": "Water Transport & Confluence",
           "body": "Reflecting the boats, ferries, and riverways that connect isolated islands (Char areas) to the wider economy."
-        }
-      ]
-    },
-    {
-      "divider": false,
-      "layout": "stack",
-      "media": [
-        {
-          "src": "/assets/img/work/mohuna-media/river-livelihoods.webp",
-          "alt": "Collage of Brahmaputra river livelihoods showing fishing boats, tea harvesting, bamboo basket weaving, rice planting and fishery",
-          "caption": "River, field, garden and craft: the livelihoods brought together in the Mohuna Media identity"
         }
       ]
     },
