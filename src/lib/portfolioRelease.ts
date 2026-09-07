@@ -18,7 +18,6 @@ export const RELEASED_WORK: string[] = [
   'fes-india-publications',
   'fih',
   'frame-bengal',
-  'givfunds',
   'healix',
   'jan-sahas-social-empowerment-society',
   'kulam-homestay',
