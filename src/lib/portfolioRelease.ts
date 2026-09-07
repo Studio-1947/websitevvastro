@@ -17,6 +17,7 @@ export const RELEASED_WORK: string[] = [
   'fermy-lab',
   'fes-india-publications',
   'fih',
+  'frame-bengal',
   'givfunds',
   'healix',
   'jan-sahas-social-empowerment-society',
