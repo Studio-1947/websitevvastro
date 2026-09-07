@@ -55,6 +55,7 @@
       ],
       "layout": "row",
       "band": "#7700D9",
+      "bleed": true,
       "media": [
         {
           "src": "/assets/img/work/healix/brand-collateral.webp",
