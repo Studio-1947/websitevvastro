@@ -17,7 +17,7 @@
   "solutions": [
     "communication-campaign"
   ],
-  "active": true,
+  "active": false,
   "hero": {
     "src": "/assets/img/work/givfunds/logo.webp",
     "alt": "The givfunds logo: a white lowercase wordmark with an infinity mark over the g and v, underlined, on brand red",
