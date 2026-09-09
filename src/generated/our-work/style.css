@@ -16,27 +16,12 @@
       transition: box-shadow .4s var(--ease), transform .4s var(--ease), border-color .4s var(--ease);
     }
     .page-our-work .work-card:hover { box-shadow: 0 22px 50px rgba(0,0,0,.08); transform: translateY(-5px); border-color: #eecccc; }
-    .page-our-work .work-card__media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-alt); }
+    .page-our-work .work-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-alt); }
     .page-our-work .work-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
-    /* Location + view-count strip, overlaid on the thumbnail. Views fill in
-       client-side (scripts/views.ts pattern) and the badge stays hidden
-       until a real count comes back - no placeholder, no guess. */
-    .page-our-work .work-card__meta-overlay {
-      position: absolute; inset: 0 0 auto 0; z-index: 1;
-      display: flex; align-items: center; justify-content: space-between; gap: 8px;
-      padding: 10px 12px;
-      background: linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,0));
-    }
-    .page-our-work .work-card__location,
-    .page-our-work .work-card__views {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 12px; font-weight: 500; color: #fff;
-      text-shadow: 0 1px 2px rgba(0,0,0,.4);
-    }
-    .page-our-work .work-card__location svg,
-    .page-our-work .work-card__views svg { width: 13px; height: 13px; flex-shrink: 0; opacity: .9; }
-    .page-our-work .work-card__views[hidden] { display: none; }
     .page-our-work .work-card:hover .work-card__media img { transform: scale(1.04); }
+    /* Views fill in client-side (see scripts/cardViews.ts) and stay hidden
+       until a real count comes back - no placeholder, no guess. */
+    .page-our-work .work-card__views[hidden] { display: none; }
     /* Brands whose only art is a wide logo lockup: a 3:2 centre crop would cut
        through the wordmark, so contain it on the tinted panel instead. */
     .page-our-work .work-card__media--contain img { object-fit: contain; padding: clamp(10px, 1.2vw, 20px); }
