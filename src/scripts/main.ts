@@ -117,6 +117,7 @@ function init(): void {
   when('.team-card[data-person]', () => import('./personModal').then((m) => m.personModal()));
   when('.case-figure--zoom', () => import('./lightbox').then((m) => m.caseLightbox()));
   when('[data-work-rail]', () => import('./workRail').then((m) => m.workRail()));
+  when('[data-card-views]', () => import('./cardViews').then((m) => m.cardViews()));
   when('[data-case-scroller]', () => import('./caseScroller').then((m) => m.caseScroller()));
   when('[data-spotlight]', () => import('./spotlight').then((m) => m.spotlightCards()));
   when('[data-views]', () => import('./views').then((m) => m.projectViews()));
