@@ -76,11 +76,13 @@ export function workGate(): void {
     document.title = 'Coming soon | Studio 1947';
   }
 
-  // 2. Portfolio cards linking to a gated case: mark them visually inactive
-  // (greyscale thumbnail) so it reads as "coming soon" before the click.
-  document.querySelectorAll<HTMLAnchorElement>('a.work-card[href]').forEach((card) => {
+  // 2. Portfolio cards linking to a gated case: remove them from the /our-work/
+  // grid and the "More work" rail entirely, rather than showing a greyed-out
+  // placeholder. Unpublished work simply does not appear on the live site;
+  // localhost (see isLocal above) always sees every card, gated or not.
+  document.querySelectorAll<HTMLAnchorElement>('a.work-card[href], a.more-work__card[href]').forEach((card) => {
     const slug = slugOf(card.href);
-    if (slug && gated(slug)) card.classList.add('work-card--soon');
+    if (slug && gated(slug)) card.remove();
   });
 
   // 3. Any link to a gated case anywhere on the site: popup instead.
