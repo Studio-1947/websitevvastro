@@ -28,6 +28,11 @@
     .page-initiatives .init-card__title { font-size: clamp(20px, 1.5vw, 24px); color: var(--grey-900); }
     .page-initiatives .init-card__desc { color: var(--grey-700); font-size: clamp(14px, 1vw, 16px); line-height: 1.55; }
     .page-initiatives .init-card .btn-hello { margin-top: auto; align-self: flex-start; }
+    /* global.css hides the header's .btn-hello ("Say Hello") below 760px for
+       the burger menu; these card CTAs share that class incidentally and
+       were vanishing on mobile along with it, leaving the cards with no
+       visible link. Reassert visibility here. */
+    .page-initiatives .init-card .btn-hello { display: inline-flex; }
 
     .page-initiatives .init-feature { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(24px, 3vw, 56px); align-items: center; }
     .page-initiatives .init-feature__media { border-radius: var(--radius-lg); overflow: hidden; }
