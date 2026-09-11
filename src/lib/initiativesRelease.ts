@@ -11,7 +11,7 @@
  * Slugs match the top-level route: /local-design/, /fellowship/,
  * /workshops/. To release one: add its slug here and deploy.
  */
-export const RELEASED_INITIATIVES: string[] = [];
+export const RELEASED_INITIATIVES: string[] = ['local-design'];
 
 /** The gated top-level routes. */
 export const INITIATIVE_SLUGS = ['local-design', 'fellowship', 'workshops'];
