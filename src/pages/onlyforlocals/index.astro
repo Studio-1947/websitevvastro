@@ -1,0 +1,99 @@
+---
+/**
+ * Internal rate card, reachable only by direct link (/onlyforlocals/).
+ * Not linked from any nav, listing, or sitemap - see astro.config.mjs's
+ * sitemap filter for the exclusion.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Rate Card | Studio 1947"
+  description="Studio 1947 rate card."
+  ogType="website"
+  bodyClass="page-onlyforlocals"
+  noindex={true}
+>
+  <main class="page-onlyforlocals">
+    <section class="section container">
+      <p class="eyebrow">Studio 1947</p>
+      <h1 class="rc-title">Rate Card</h1>
+      <p class="rc-lead">A straightforward breakdown of one-time setup costs and ongoing packages.</p>
+
+      <div class="rc-block">
+        <p class="rc-block__eyebrow">One-Time Costs</p>
+        <ol class="rc-list">
+          <li>
+            <div class="rc-list__head">
+              <h3>Logo + Visiting Card + Sign Board &amp; Poster Design</h3>
+              <span class="rc-price">₹5K</span>
+            </div>
+            <p class="rc-note">Designs only, printing not included.</p>
+          </li>
+          <li>
+            <div class="rc-list__head">
+              <h3>Website</h3>
+              <span class="rc-price">₹5K – ₹10K</span>
+            </div>
+            <p class="rc-note">1 page: ₹5K. Up to 3–4 pages: ₹10K.</p>
+          </li>
+          <li>
+            <div class="rc-list__head">
+              <h3>Domain Cost</h3>
+              <span class="rc-price">₹2K – ₹3K</span>
+            </div>
+            <p class="rc-note">For 5 years, based on actual domain cost.</p>
+          </li>
+          <li>
+            <div class="rc-list__head">
+              <h3>OTA Listing</h3>
+              <span class="rc-price">₹5K</span>
+            </div>
+            <p class="rc-note">MakeMyTrip, Booking.com, Agoda, Airbnb — plus free onboarding onto our own booking portal (no commission on bookings through it, only the one-time onboarding applies).</p>
+          </li>
+        </ol>
+        <p class="rc-total">Total, one-time: <strong>₹22K</strong> (5 + 10 + 2 + 5, approximately)</p>
+      </div>
+
+      <div class="rc-block">
+        <p class="rc-block__eyebrow">Ongoing: Social Media Marketing</p>
+        <p class="rc-monthly">Packages start from <strong>₹10K / month</strong></p>
+        <ul class="rc-bullets">
+          <li>12 posts a month total: 8 static posts + 4 reels</li>
+          <li>3 posts a week, across Instagram &amp; Facebook</li>
+        </ul>
+      </div>
+
+      <div class="rc-block">
+        <p class="rc-block__eyebrow">Also Available</p>
+        <p class="rc-note rc-note--large">Influencer marketing and professional digital marketing — happy to go through these in detail whenever you're at our office.</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page-onlyforlocals { padding-top: clamp(120px, 16vh, 190px); padding-bottom: clamp(60px, 8vw, 100px); }
+  .page-onlyforlocals .eyebrow { color: var(--red); font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+  .rc-title { margin-top: 14px; font-family: var(--font-display); font-size: clamp(36px, 5vw, 56px); line-height: 1.05; color: var(--grey-900); }
+  .rc-lead { margin-top: 16px; max-width: 60ch; color: var(--grey-700); font-size: clamp(16px, 1.2vw, 19px); }
+
+  .rc-block { margin-top: clamp(40px, 5vw, 64px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--line); }
+  .rc-block:first-of-type { border-top: none; }
+  .rc-block__eyebrow { color: var(--red); font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 20px; }
+
+  .rc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
+  .rc-list li { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(20px, 2vw, 28px); }
+  .rc-list__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .rc-list__head h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(19px, 1.6vw, 23px); color: var(--grey-900); line-height: 1.2; }
+  .rc-price { flex-shrink: 0; font-family: var(--font-display); font-size: clamp(19px, 1.6vw, 23px); color: var(--red); white-space: nowrap; }
+  .rc-note { margin-top: 10px; color: var(--grey-500); font-size: 15px; line-height: 1.55; }
+  .rc-note--large { font-size: clamp(15px, 1.05vw, 17px); max-width: 62ch; }
+
+  .rc-total { margin-top: 22px; font-size: clamp(16px, 1.1vw, 18px); color: var(--grey-900); }
+  .rc-total strong { color: var(--red); }
+
+  .rc-monthly { font-size: clamp(18px, 1.4vw, 22px); color: var(--grey-900); }
+  .rc-monthly strong { color: var(--red); }
+  .rc-bullets { margin-top: 14px; padding-left: 20px; color: var(--grey-700); font-size: 15px; line-height: 1.7; }
+</style>

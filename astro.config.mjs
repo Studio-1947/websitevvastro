@@ -46,7 +46,9 @@ export default defineConfig({
         !/\/products\/(aangar-erp|1-darjeeling)\/$/.test(page) &&
         // Retired case studies (active: false) are out of the portfolio, so
         // they are not advertised here either.
-        !/\/work\/(sundargaan)\/$/.test(page),
+        !/\/work\/(sundargaan)\/$/.test(page) &&
+        // Internal rate card, reachable only by direct link - not a public page.
+        !/\/onlyforlocals\/$/.test(page),
       // Stamp each blog post's real publication date as its <lastmod>.
       serialize: (item) => {
         const m = /^https:\/\/www\.1947\.io\/blog\/([^/]+)\/$/.exec(item.url);
