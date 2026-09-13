@@ -283,8 +283,21 @@ const testimonials = [
     <!-- ===== Why this rate card exists: full-bleed, edge to edge ===== -->
     <section class="rc-why">
       <div class="container">
-        <p class="eyebrow rc-eyebrow">Why This Rate Card Exists</p>
-        <h2 class="rc-h2">Built for the businesses<br />close to home.</h2>
+        <div class="rc-why__top">
+          <div class="rc-why__headtext">
+            <p class="eyebrow rc-eyebrow">Why This Rate Card Exists</p>
+            <h2 class="rc-h2">Built for the businesses<br />close to home.</h2>
+          </div>
+          <div class="marquee rc-clients-marquee rc-clients-marquee--why">
+            <div class="marquee__track">
+              <span class="rc-clients-marquee__name">Bhagirath Homestay</span>
+              <span class="rc-clients-marquee__name">Kulam Homestay</span>
+              <span class="rc-clients-marquee__name">Mohuna Media</span>
+              <span class="rc-clients-marquee__name">AIMS Coaching Institute</span>
+              <span class="rc-clients-marquee__name">Easy Stay</span>
+            </div>
+          </div>
+        </div>
         <div class="rc-why__grid">
           <article class="rc-why__card">
             <span class="rc-why__icon" aria-hidden="true">
@@ -313,16 +326,6 @@ const testimonials = [
               <p>Larger campaigns, custom platforms and projects with broader requirements need a different scope. Businesses, startups and NGOs with dedicated project funding or more extensive needs can work with Studio 1947 through our <a href="/solutions/">regular solutions</a>. This keeps the local programme focused on the small businesses it was built to support.</p>
             </div>
           </article>
-        </div>
-
-        <div class="marquee rc-clients-marquee rc-clients-marquee--why">
-          <div class="marquee__track">
-            <span class="rc-clients-marquee__name">Bhagirath Homestay</span>
-            <span class="rc-clients-marquee__name">Kulam Homestay</span>
-            <span class="rc-clients-marquee__name">Mohuna Media</span>
-            <span class="rc-clients-marquee__name">AIMS Coaching Institute</span>
-            <span class="rc-clients-marquee__name">Easy Stay</span>
-          </div>
         </div>
       </div>
     </section>
@@ -690,10 +693,12 @@ const testimonials = [
           </a>
         ))}
         <a class="work-card work-card--cta" href="/our-work/">
-          <div class="work-card__body work-card__body--cta">
+          <div class="work-card__media work-card__media--cta">
             <span class="work-card__cta-arrow" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
+          </div>
+          <div class="work-card__body work-card__body--cta">
             <h3 class="work-card__title">Explore Overall Studio Portfolio</h3>
           </div>
         </a>
@@ -1001,8 +1006,9 @@ const testimonials = [
   .work-tag { font-size: 12px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: .03em; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
   .work-card__title { font-family: var(--font-display); font-size: clamp(19px, 1.5vw, 23px); color: var(--grey-900); line-height: 1.1; }
   .work-card__meta { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px 18px; color: var(--grey-500); font-size: 14px; padding-top: 4px; }
-  .work-card--cta { background: linear-gradient(135deg, #fff 0%, #ffe1e1 45%, var(--red) 100%); border-color: var(--red); }
+  .work-card--cta { background: var(--bg); border-color: var(--red); }
   .work-card--cta:hover { border-color: var(--red); }
+  .work-card__media--cta { display: flex; align-items: center; justify-content: center; background: #fdf3f3; }
   .work-card__body--cta { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; }
   .work-card__body--cta .work-card__title { color: var(--grey-900); }
   .work-card__cta-arrow { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); display: grid; place-items: center; transition: transform .35s var(--ease); }
@@ -1167,7 +1173,7 @@ const testimonials = [
   .rc-team-card__name { font-family: var(--font-display); font-size: clamp(19px, 1.5vw, 24px); color: var(--grey-900); line-height: 1.08; padding-right: 36px; }
   .rc-team-card__role { color: var(--red); font-size: 14px; margin-top: 8px; }
   .rc-team-card__spec { color: var(--grey-500); font-size: 14px; margin-top: 4px; }
-  .rc-team-card--cta { align-items: stretch; justify-content: stretch; text-decoration: none; background: linear-gradient(135deg, #fff 0%, #ffe1e1 45%, var(--red) 100%); border-color: var(--red); }
+  .rc-team-card--cta { align-items: stretch; justify-content: stretch; text-decoration: none; background: #fdf3f3; border-color: var(--red); }
   .rc-team-card--cta:hover { border-color: var(--red); }
   .rc-team-card__cta-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: clamp(24px, 2.4vw, 32px); text-align: center; }
   .rc-team-card__cta-icon { width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); display: grid; place-items: center; transition: transform .35s var(--ease); }
@@ -1309,7 +1315,16 @@ const testimonials = [
   .rc-intro { position: relative; z-index: 2; margin-top: clamp(-220px, -19vw, -170px); padding-bottom: clamp(16px, 2vw, 28px); }
   .rc-clients-marquee { padding-block: clamp(10px, 1.4vw, 16px); max-width: 560px; margin-left: auto; margin-right: var(--gutter); }
   @media (max-width: 700px) { .rc-clients-marquee { max-width: 100%; margin-right: 0; } }
-  .rc-clients-marquee--why { margin-left: 0; margin-right: auto; margin-top: clamp(12px, 2vw, 24px); }
+  .rc-why__top { display: flex; align-items: center; justify-content: space-between; gap: clamp(20px, 3vw, 40px); }
+  .rc-why__headtext { flex: 0 0 auto; }
+  .rc-clients-marquee--why {
+    flex: 1 1 auto; min-width: 0; max-width: none; margin: 0;
+    margin-right: calc(-1 * max(var(--gutter), (100vw - var(--container)) / 2));
+  }
+  @media (max-width: 900px) {
+    .rc-why__top { flex-direction: column; align-items: flex-start; }
+    .rc-clients-marquee--why { width: 100%; margin-right: calc(-1 * max(var(--gutter), (100vw - var(--container)) / 2)); }
+  }
   .rc-clients-marquee--full { max-width: none; margin-left: 0; margin-right: 0; width: 100%; }
   .rc-clients-marquee__name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .02em; font-size: clamp(20px, 2vw, 28px); color: var(--grey-300); white-space: nowrap; }
   .rc-why { position: relative; width: 100%; padding: clamp(32px, 4vw, 56px) 0 clamp(48px, 6vw, 90px); background: #fff; }
