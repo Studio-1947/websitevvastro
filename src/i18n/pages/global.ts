@@ -16,6 +16,7 @@ export const global: Record<string, Entry> = {
   'global.dd.initiatives.localDesign': { hi: 'लोकल डिज़ाइन', bn: 'লোকাল ডিজাইন', ne: 'लोकल डिजाइन' },
   'global.dd.initiatives.fellowship': { hi: 'स्टूडियो 1947 फ़ेलोशिप', bn: 'স্টুডিও ১৯৪৭ ফেলোশিপ', ne: 'स्टुडियो १९४७ फेलोशिप' },
   'global.dd.initiatives.workshops': { hi: 'कार्यशालाएं', bn: 'কর্মশালা', ne: 'कार्यशालाहरू' },
+  'global.dd.initiatives.localBusinesses': { hi: 'स्थानीय व्यवसायों के लिए समाधान', bn: 'স্থানীয় ব্যবসার জন্য সমাধান', ne: 'स्थानीय व्यवसायका लागि समाधान' },
   'global.nav.sayHello': { hi: 'नमस्ते कहें', bn: 'হ্যালো বলুন', ne: 'नमस्ते भन्नुहोस्' },
 
   // ── About Us dropdown ────────────────────────────────────────────────
