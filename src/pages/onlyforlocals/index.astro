@@ -280,17 +280,6 @@ const testimonials = [
       </div>
     </section>
 
-    <div class="marquee rc-clients-marquee">
-      <div class="marquee__track">
-        <span class="rc-clients-marquee__name">Bhagirath Homestay</span>
-        <span class="rc-clients-marquee__name">Kulam Homestay</span>
-        <span class="rc-clients-marquee__name">Mohuna Media</span>
-        <span class="rc-clients-marquee__name">AIMS Coaching Institute</span>
-        <span class="rc-clients-marquee__name">Easy Stay</span>
-      </div>
-    </div>
-
-
     <!-- ===== Why this rate card exists: full-bleed, edge to edge ===== -->
     <section class="rc-why">
       <div class="container">
@@ -324,6 +313,16 @@ const testimonials = [
               <p>Larger campaigns, custom platforms and projects with broader requirements need a different scope. Businesses, startups and NGOs with dedicated project funding or more extensive needs can work with Studio 1947 through our <a href="/solutions/">regular solutions</a>. This keeps the local programme focused on the small businesses it was built to support.</p>
             </div>
           </article>
+        </div>
+
+        <div class="marquee rc-clients-marquee rc-clients-marquee--why">
+          <div class="marquee__track">
+            <span class="rc-clients-marquee__name">Bhagirath Homestay</span>
+            <span class="rc-clients-marquee__name">Kulam Homestay</span>
+            <span class="rc-clients-marquee__name">Mohuna Media</span>
+            <span class="rc-clients-marquee__name">AIMS Coaching Institute</span>
+            <span class="rc-clients-marquee__name">Easy Stay</span>
+          </div>
         </div>
       </div>
     </section>
@@ -1307,6 +1306,7 @@ const testimonials = [
   .rc-intro { position: relative; z-index: 2; margin-top: clamp(-220px, -19vw, -170px); padding-bottom: clamp(16px, 2vw, 28px); }
   .rc-clients-marquee { padding-block: clamp(10px, 1.4vw, 16px); max-width: 560px; margin-left: auto; margin-right: var(--gutter); }
   @media (max-width: 700px) { .rc-clients-marquee { max-width: 100%; margin-right: 0; } }
+  .rc-clients-marquee--why { margin-left: 0; margin-right: auto; margin-top: clamp(12px, 2vw, 24px); }
   .rc-clients-marquee__name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .02em; font-size: clamp(20px, 2vw, 28px); color: var(--grey-300); white-space: nowrap; }
   .rc-why { position: relative; width: 100%; padding: clamp(32px, 4vw, 56px) 0 clamp(48px, 6vw, 90px); background: #fff; }
   .rc-why__heading {
