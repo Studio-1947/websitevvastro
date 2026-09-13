@@ -192,10 +192,10 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: row dense; gap: 2px 36px; align-content: start;
   border-left: 0; padding-left: 0;
 }
-/* Keep the three Doptor products stacked together in the first column
+/* First 3 products in the left column, remaining 2 in the right,
    instead of interleaving across both columns in DOM order. */
-#dd-products .dd__item:nth-of-type(-n+4) { grid-column: 1; }
-#dd-products .dd__item:nth-of-type(n+5) { grid-column: 2; }
+#dd-products .dd__item:nth-of-type(-n+3) { grid-column: 1; }
+#dd-products .dd__item:nth-of-type(n+4) { grid-column: 2; }
 #dd-products .dd__label { grid-column: 1 / -1; }
 .dd__label { font-size: 13px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
 .dd__item {

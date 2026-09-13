@@ -5,95 +5,1332 @@
  * sitemap filter for the exclusion.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const oneTime = [
+  {
+    id: 'branding',
+    title: 'Branding & Signage',
+    icon: 'brand',
+    thumb: '/assets/img/onlyforlocals/thumb-branding-illustration.webp',
+    price: '₹5,000',
+    priceValue: 5000,
+    provides: ['Logo design (2 Options)', 'Visiting card design (2 Options)', 'Signboard & poster design (2 Options)', 'Print-ready files'],
+    clientProvides: [],
+    notIncluded: ['Printing itself'],
+  },
+  {
+    id: 'website',
+    title: 'Website',
+    icon: 'website',
+    thumb: '/assets/img/onlyforlocals/thumb-website-1page-illustration.webp',
+    price: '₹5,000 – ₹10,000',
+    provides: ['A static website, one page for ₹5,000', 'Services & contact section, built around your content'],
+    clientProvides: ['Property Photographs'],
+    notIncluded: [],
+    options: [
+      { label: '1 page', value: 5000, desc: 'A static website, one page for ₹5,000' },
+      { label: 'Up to 3–4 pages', value: 10000, desc: 'A static website, up to 3–4 pages for ₹10,000' },
+    ],
+  },
+  {
+    id: 'booking',
+    title: 'Booking System (within Website)',
+    icon: 'booking',
+    thumb: '/assets/img/onlyforlocals/thumb-booking-illustration.webp',
+    price: '₹20,000',
+    priceValue: 20000,
+    provides: ['A booking/reservation form built into your website', 'Enquiries land straight in your email or WhatsApp'],
+    clientProvides: [],
+    notIncluded: ['Payment gateway setup'],
+  },
+  {
+    id: 'domain',
+    title: 'Domain Registration',
+    icon: 'domain',
+    thumb: '/assets/img/onlyforlocals/thumb-domain-illustration.webp',
+    price: '₹2,000 – ₹3,000',
+    priceValue: 2500,
+    provides: ['5 years of your own domain name', 'Priced at the registrar’s rate, no markup'],
+    clientProvides: [],
+    notIncluded: ['Renewal after 5 years'],
+  },
+  {
+    id: 'ota',
+    title: 'OTA Listing',
+    icon: 'ota',
+    thumb: '/assets/img/onlyforlocals/thumb-ota-illustration.webp',
+    price: '₹5,000',
+    priceValue: 5000,
+    provides: ['Listing on MakeMyTrip, Booking.com, Agoda & Airbnb', 'Free onboarding onto our own booking portal, no commission on bookings, ever'],
+    clientProvides: [],
+    notIncluded: [],
+  },
+  {
+    id: 'gmaps',
+    title: 'Google Maps Listing',
+    icon: 'maps',
+    thumb: '/assets/img/onlyforlocals/thumb-maps-illustration.webp',
+    price: '₹2,000',
+    priceValue: 2000,
+    provides: ['Business verification & listing setup', 'Location accuracy, so nearby searches find you'],
+    clientProvides: [],
+    notIncluded: [],
+  },
+  {
+    id: 'whatsapp',
+    title: 'WhatsApp Catalogue Shop',
+    icon: 'whatsapp',
+    thumb: '/assets/img/onlyforlocals/thumb-whatsapp-illustration.webp',
+    price: '₹3,000',
+    priceValue: 3000,
+    provides: ['Products set up as a browsable WhatsApp catalogue', 'Automatic replies for common questions'],
+    clientProvides: ['Product list, prices & photos'],
+    notIncluded: [],
+  },
+  {
+    id: 'packaging',
+    title: 'Product Packaging',
+    icon: 'packaging',
+    thumb: '/assets/img/onlyforlocals/thumb-packaging-illustration.webp',
+    price: '₹3,500',
+    priceValue: 3500,
+    provides: ['Label or box design, print-ready'],
+    clientProvides: [],
+    notIncluded: ['Printing itself'],
+  },
+];
+
+const icons: Record<string, string> = {
+  brand: '<path d="M4 8V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2"/><path d="M4 8h16l-1.4 3.2a1 1 0 0 1-.9.6H6.3a1 1 0 0 1-.9-.6L4 8Z"/><path d="M6 11.8V21M18 11.8V21"/><path d="M9 15.5h6"/>',
+  website: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8h20"/><circle cx="5" cy="6" r=".5" fill="currentColor" stroke="none"/><circle cx="7.5" cy="6" r=".5" fill="currentColor" stroke="none"/><rect x="5" y="11.5" width="6" height="5.5" rx=".5"/><path d="M13.5 12h5M13.5 14.5h5M13.5 17h3"/>',
+  domain: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.8 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.8-4-9s1.5-6.5 4-9Z"/>',
+  ota: '<rect x="3" y="8.5" width="18" height="11.5" rx="2"/><path d="M8.5 8.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2.5"/><path d="M3 14h18"/><path d="M10 14v2M14 14v2"/>',
+  booking: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="16.5" cy="16.5" r="3.2"/><path d="M16.5 15v1.5l1 .8"/>',
+  maps: '<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  whatsapp: '<path d="M21 11.5a8.5 8.5 0 0 1-12.9 7.3L3 20l1.3-5A8.5 8.5 0 1 1 21 11.5Z"/><circle cx="8.7" cy="11.5" r=".5" fill="currentColor" stroke="none"/><circle cx="12" cy="11.5" r=".5" fill="currentColor" stroke="none"/><circle cx="15.3" cy="11.5" r=".5" fill="currentColor" stroke="none"/>',
+  packaging: '<path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v9l9 5 9-5V8M12 13v9"/><path d="M7.5 5.5 16.5 10.5"/>',
+};
+
+const relatedWork = [
+  {
+    slug: 'kulam-homestay',
+    title: 'Kulam Homestay',
+    tag: 'Website',
+    location: 'Mirik, Darjeeling',
+    year: '2026',
+    img: '/assets/img/our-work/kulam-homestay-thumbnail.webp',
+    alt: 'Kulam Homestay: the white two-storey homestay with blue balconies and potted flowers, pine forest behind',
+  },
+  {
+    slug: 'healix',
+    title: 'Healix',
+    tag: 'Branding',
+    location: 'Kolkata, India',
+    year: '2026',
+    img: '/assets/img/our-work/healix-thumbnail.webp',
+    alt: 'The Healix wordmark: a medical cross forming the H, in white, on brand purple',
+  },
+  {
+    slug: 'bhagirath-homestays',
+    title: 'Bhagirath Homestays',
+    tag: 'Website & OTA',
+    location: 'Mirik, Darjeeling',
+    year: '2025',
+    img: '/assets/img/our-work/bhs-thumbnail.webp',
+    alt: 'Bhagirath Homestays, from zero online presence to ₹1.5 lakh in bookings',
+  },
+];
+
+const socialTiers = [
+  {
+    name: 'Starter',
+    tagline: 'For getting your basics posted, consistently.',
+    price: '₹10,000',
+    priceValue: 10000,
+    body: '12 posts a month: 8 static posts and 4 reels. 3 posts a week, across Instagram and Facebook.',
+    engagement: 'Comments and DMs monitored on posting days.',
+    deliverables: [
+      '12 posts a month (8 static + 4 reels)',
+      'Posted 3x a week, Instagram & Facebook',
+      'Captions & hashtags for every post',
+      '6-month content calendar',
+    ],
+  },
+  {
+    name: 'Growth',
+    tagline: 'Our most popular plan, for businesses ready to grow.',
+    price: '₹18,000',
+    priceValue: 18000,
+    body: '16 posts a month: 10 static posts and 6 reels. Festive and seasonal campaign creatives, plus a monthly performance summary.',
+    engagement: 'Daily comment and DM replies, plus a monthly performance summary.',
+    featured: true,
+    basePlan: 'Starter',
+    deliverables: [
+      '16 posts a month (10 static + 6 reels)',
+      'Daily posting cadence, tuned to the season',
+      'Festive & seasonal campaign creatives',
+      'Daily comment & DM replies',
+      'Monthly performance summary',
+    ],
+  },
+];
+
+const advanced = [
+  {
+    id: 'research',
+    title: 'Tourism Research',
+    thumb: '/assets/img/onlyforlocals/thumb-research-illustration.webp',
+    body: 'Short surveys and interviews with past guests and travellers, so you know what people actually want, before you spend on branding, a website or a new room. Comes back as a plain-language report with clear recommendations.',
+  },
+  {
+    id: 'dashboards',
+    title: 'Booking & Inventory Dashboards',
+    thumb: '/assets/img/onlyforlocals/thumb-dashboards-illustration.webp',
+    body: 'A simple live dashboard pulling together occupancy, stock levels and sales, so you can see how the business is doing at a glance instead of checking three different registers or apps.',
+  },
+  {
+    id: 'campaigns',
+    title: 'Marketing Campaigns',
+    thumb: '/assets/img/onlyforlocals/thumb-campaigns-illustration.webp',
+    body: 'A focused push for a specific season or launch, planned creatives, captions and posting schedule bundled together, on top of (not instead of) the monthly social media package.',
+  },
+  {
+    id: 'graphicdesign',
+    title: 'Graphic Design',
+    thumb: '/assets/img/onlyforlocals/thumb-graphicdesign-illustration.webp',
+    body: 'Ongoing design support beyond the one-time starter set, menus, offer creatives, festival posts, print material, whenever you need something designed and don’t want to start from scratch each time.',
+  },
+  {
+    id: 'literacy',
+    title: 'Digital Literacy Training',
+    thumb: '/assets/img/onlyforlocals/thumb-literacy-illustration.webp',
+    body: 'A hands-on session for you or your staff on running your own Instagram, Facebook and WhatsApp accounts confidently, posting, replying, and reading basic insights, without depending on us for every post.',
+  },
+  {
+    id: 'workshops',
+    title: 'Design Thinking Workshops',
+    thumb: '/assets/img/onlyforlocals/thumb-workshops-illustration.webp',
+    body: 'A guided half-day session for your team to work through a real problem you are facing, using structured exercises rather than an open-ended brainstorm, and leave with a concrete next step.',
+  },
+];
+
+const testimonials = [
+  {
+    type: 'video' as const,
+    src: '/assets/video/testimonials/kulam-review.mp4',
+    poster: '/assets/img/onlyforlocals/testimonial-kulam-poster.webp',
+    client: 'Kulam Homestay',
+  },
+  {
+    type: 'video' as const,
+    src: '/assets/video/testimonials/healix-review.mp4',
+    poster: '/assets/img/onlyforlocals/testimonial-healix-poster.webp',
+    client: 'Healix',
+  },
+  {
+    type: 'video' as const,
+    src: '/assets/video/testimonials/studio1947-review.mp4',
+    poster: '/assets/img/onlyforlocals/testimonial-studio1947-poster.webp',
+    client: 'Studio 1947',
+  },
+];
 ---
 
 <BaseLayout
   title="Rate Card | Studio 1947"
-  description="Studio 1947 rate card."
+  description="Studio 1947 rate card for local businesses."
   ogType="website"
   bodyClass="page-onlyforlocals"
   noindex={true}
 >
   <main class="page-onlyforlocals">
-    <section class="section container">
-      <p class="eyebrow">Studio 1947</p>
-      <h1 class="rc-title">Rate Card</h1>
-      <p class="rc-lead">A straightforward breakdown of one-time setup costs and ongoing packages.</p>
+    <!-- ===== Hero ===== -->
+    <figure class="rc-hero">
+      <h1 class="sr-only">Global Standard Solutions for Local Businesses</h1>
+      <img src="/assets/img/onlyforlocals/hero-lineart.webp" alt="Global Standard Solutions for Local Businesses: a couple outside their small hillside home and shop, with a jeep on the mountain road" loading="eager" />
+    </figure>
 
-      <div class="rc-block">
-        <p class="rc-block__eyebrow">One-Time Costs</p>
-        <ol class="rc-list">
-          <li>
-            <div class="rc-list__head">
-              <h3>Logo + Visiting Card + Sign Board &amp; Poster Design</h3>
-              <span class="rc-price">₹5K</span>
-            </div>
-            <p class="rc-note">Designs only, printing not included.</p>
-          </li>
-          <li>
-            <div class="rc-list__head">
-              <h3>Website</h3>
-              <span class="rc-price">₹5K – ₹10K</span>
-            </div>
-            <p class="rc-note">1 page: ₹5K. Up to 3–4 pages: ₹10K.</p>
-          </li>
-          <li>
-            <div class="rc-list__head">
-              <h3>Domain Cost</h3>
-              <span class="rc-price">₹2K – ₹3K</span>
-            </div>
-            <p class="rc-note">For 5 years, based on actual domain cost.</p>
-          </li>
-          <li>
-            <div class="rc-list__head">
-              <h3>OTA Listing</h3>
-              <span class="rc-price">₹5K</span>
-            </div>
-            <p class="rc-note">MakeMyTrip, Booking.com, Agoda, Airbnb — plus free onboarding onto our own booking portal (no commission on bookings through it, only the one-time onboarding applies).</p>
-          </li>
-        </ol>
-        <p class="rc-total">Total, one-time: <strong>₹22K</strong> (5 + 10 + 2 + 5, approximately)</p>
-      </div>
 
-      <div class="rc-block">
-        <p class="rc-block__eyebrow">Ongoing: Social Media Marketing</p>
-        <p class="rc-monthly">Packages start from <strong>₹10K / month</strong></p>
-        <ul class="rc-bullets">
-          <li>12 posts a month total: 8 static posts + 4 reels</li>
-          <li>3 posts a week, across Instagram &amp; Facebook</li>
-        </ul>
-      </div>
-
-      <div class="rc-block">
-        <p class="rc-block__eyebrow">Also Available</p>
-        <p class="rc-note rc-note--large">Influencer marketing and professional digital marketing — happy to go through these in detail whenever you're at our office.</p>
+    <!-- ===== Why this rate card exists: full-bleed, edge to edge ===== -->
+    <section class="rc-why">
+      <div class="container">
+        <div class="rc-why__heading">
+          <p class="eyebrow rc-eyebrow">Why This Rate Card Exists</p>
+          <h2 class="rc-h2">Not a discount.<br />A support system for local businesses.</h2>
+        </div>
+        <div class="rc-why__grid">
+          <article class="rc-why__card">
+            <span class="rc-why__icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+            </span>
+            <div class="rc-why__card-body">
+              <h3>Why we built this</h3>
+              <p>Most homestays, shops and family-run services around Mirik and Darjeeling never get a website, a Google listing or a proper OTA presence, not because they don't need one, but because agency pricing is built for city businesses with marketing budgets and in-house teams. This rate card closes that gap: the same standard of work, priced at what it actually costs us to deliver.</p>
+              <a class="rc-why__cta" href="#one-time-setup">
+                <span>Explore our Services</span>
+                <span class="rc-why__cta-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </a>
+            </div>
+          </article>
+          <article class="rc-why__card">
+            <span class="rc-why__icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </span>
+            <div class="rc-why__card-body">
+              <h3>What counts as "local"</h3>
+              <p>A business rooted in and run from Mirik, Darjeeling or the surrounding hills: a homestay owner renting out rooms in their own house, a shopkeeper who has run the same store for years, a driver, guide or small service run by one person or one family. Deliberately a rural, small-town focused solution, for businesses mainstream agencies overlook.</p>
+              <a class="rc-why__cta" href="#one-time-setup">
+                <span>Explore our Services</span>
+                <span class="rc-why__cta-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </a>
+            </div>
+          </article>
+          <article class="rc-why__card">
+            <span class="rc-why__icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg>
+            </span>
+            <div class="rc-why__card-body">
+              <h3>Why not startups or NGOs</h3>
+              <p>Startups, NGOs and funded ventures already have, or can raise, budgets sized for standard agency rates. Routing them through this card would mean a genuinely small local shop or homestay loses a seat meant for them. They're welcome to work with Studio 1947 through our <a href="/solutions/">regular solutions</a>, priced for what that work actually involves.</p>
+              <a class="rc-why__cta" href="/solutions/">
+                <span>Know Studio 1947 Overall Solutions</span>
+                <span class="rc-why__cta-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
+
+    <div class="rc-layout container">
+    <div class="rc-layout__main">
+    <!-- ===== One-time costs: thumbnail cards ===== -->
+    <section id="one-time-setup" class="section">
+      <p class="eyebrow rc-eyebrow">One-Time Setup</p>
+      <h2 class="rc-h2">Get online, once, properly.</h2>
+      <div class="rc-cards" data-calc-onetime>
+        {oneTime.map((s, idx) => (
+          <article class="rc-card" id={s.id}>
+            <div class="rc-card__media">
+              {s.thumb ? (
+                <img src={s.thumb} alt={`${s.title} illustration`} loading="lazy" />
+              ) : (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={icons[s.icon]} />
+              )}
+            </div>
+            <div class="rc-card__body">
+              <span class="rc-card__id">S47 LOCAL SERVICE {String(idx + 1).padStart(2, '0')}</span>
+              <div class="rc-card__head">
+                <h3>{s.title}</h3>
+              </div>
+              <div class="rc-card__pricebox">
+                <span class="rc-card__price">{s.options ? `₹${s.options[0].value.toLocaleString('en-IN')}` : s.price}</span>
+                <span class="rc-card__gst">
+                  {(() => {
+                    const base = s.options ? s.options[0].value : s.priceValue;
+                    return base ? `+ ₹${Math.round(base * 0.18).toLocaleString('en-IN')} GST (18%)` : '+ 18% GST';
+                  })()}
+                </span>
+              </div>
+              {s.options && (
+                <div class="rc-card__toggle">
+                  {s.options.map((o, i) => (
+                    <label class="rc-card__toggle-opt">
+                      <input type="radio" name={`calc-${s.id}`} value={o.value} data-desc={o.desc} checked={i === 0} />
+                      <span>{o.label}</span>
+                    </label>
+                  ))}
+                </div>
+              )}
+              <div class="rc-card__terms">
+                <p class="rc-card__terms-label">Studio 1947 provides</p>
+                <ul class="rc-card__list rc-card__list--yes">
+                  {s.provides.map((i, idx) => <li data-calc-provide={s.options && idx === 0 ? '' : undefined}>{i}</li>)}
+                </ul>
+                {s.clientProvides.length > 0 && (
+                  <>
+                    <p class="rc-card__terms-label">You provide</p>
+                    <ul class="rc-card__list rc-card__list--you">
+                      {s.clientProvides.map((c) => <li>{c}</li>)}
+                    </ul>
+                  </>
+                )}
+                {s.notIncluded.length > 0 && (
+                  <>
+                    <p class="rc-card__terms-label">Not included</p>
+                    <ul class="rc-card__list rc-card__list--no">
+                      {s.notIncluded.map((e) => <li>{e}</li>)}
+                    </ul>
+                  </>
+                )}
+              </div>
+              <label class="rc-card__add">
+                <input type="checkbox" data-calc-item={s.options ? s.options[0].value : s.priceValue} value={s.options ? s.options[0].value : s.priceValue} />
+                <span class="rc-card__add-on">Add this Service <span class="rc-card__add-icon">+</span></span>
+                <span class="rc-card__add-off">Remove this Service <span class="rc-card__add-icon">✕</span></span>
+              </label>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ===== Social media marketing: 3 tiers ===== -->
+    <section class="section">
+      <p class="eyebrow rc-eyebrow">Monthly Commitment</p>
+      <h2 class="rc-h2">Social Media Marketing</h2>
+      <p class="rc-lead-body">Two starting packages. The exact scope adjusts to what a season actually needs.</p>
+      <div class="rc-tiers">
+        {socialTiers.map((t, i) => (
+          <article class:list={['rc-tier', t.featured && 'rc-tier--featured']}>
+            {t.featured && <span class="rc-tier__badge">Most popular</span>}
+            <div class="rc-tier__body">
+              <h3 class="rc-tier__name">{t.name}</h3>
+              <p class="rc-tier__tagline">{t.tagline}</p>
+              <p class="rc-tier__price">{t.price}<span>/month</span></p>
+              <div class="rc-tier__divider"></div>
+              <p class="rc-tier__terms-label">{t.basePlan ? `Everything in ${t.basePlan}, plus` : "What's included"}</p>
+              <ul class="rc-card__list rc-card__list--yes rc-tier__list">
+                {t.deliverables.map((d) => <li>{d}</li>)}
+              </ul>
+              <div class="rc-tier__pick">
+                <label class:list={['rc-tier__cta', t.featured && 'rc-tier__cta--solid']}>
+                  <input type="radio" name="calc-social" data-calc-item={`monthly:${t.priceValue}`} checked={i === 0} />
+                  <span class="rc-tier__cta-on">Add this plan</span>
+                  <span class="rc-tier__cta-off">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                    Selected
+                  </span>
+                </label>
+                <button type="button" class="rc-tier__remove" data-calc-remove-tier>
+                  Remove this Service <span class="rc-card__add-icon">✕</span>
+                </button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+    </div>
+
+    <!-- ===== Live calculator: sticky on desktop, bottom on mobile ===== -->
+    <aside class="rc-layout__aside">
+      <div class="rc-calc">
+        <div class="rc-calc__head">
+          <h2 class="rc-h2">Your Package Calculator</h2>
+        </div>
+        <div class="rc-calc__totals">
+          <div class="rc-calc__col">
+            <span class="rc-calc__label">One-time</span>
+            <div class="rc-calc__row"><span>Subtotal</span><span data-calc-onetime-sub>₹0</span></div>
+            <div class="rc-calc__row"><span>GST (18%)</span><span data-calc-onetime-gst>₹0</span></div>
+            <div class="rc-calc__row rc-calc__row--grand"><span>Grand Total</span><span data-calc-onetime-total>₹0</span></div>
+          </div>
+          <div class="rc-calc__col">
+            <span class="rc-calc__label">Monthly</span>
+            <div class="rc-calc__row"><span>Subtotal</span><span data-calc-monthly-sub>₹0</span></div>
+            <div class="rc-calc__row"><span>GST (18%)</span><span data-calc-monthly-gst>₹0</span></div>
+            <div class="rc-calc__row rc-calc__row--grand"><span>Grand Total</span><span data-calc-monthly-total>₹0</span></div>
+          </div>
+        </div>
+        <div class="rc-calc__interest" data-calc-interest-wrap hidden>
+          <span class="rc-calc__label">Also Interested In</span>
+          <ul class="rc-calc__interest-list" data-calc-interest-list></ul>
+        </div>
+        <div class="rc-calc__cta-block">
+          <p class="rc-calc__cta-heading">Send this straight to the Studio 1947 team on WhatsApp.</p>
+          <div class="rc-calc__actions">
+            <button type="button" class="rc-calc__book" data-calc-whatsapp>
+              <span>WhatsApp</span>
+              <span class="rc-calc__book-arrow" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </button>
+            <a class="rc-calc__book rc-calc__book--outline" href="https://maps.app.goo.gl/mNnNQbUaWLFf5Xw79" target="_blank" rel="noopener">
+              <span>Visit our Office</span>
+              <span class="rc-calc__book-arrow" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+              </span>
+            </a>
+          </div>
+          <p class="rc-calc__note">Tick or choose whatever you want above, this updates on its own. Prices shown are exclusive of GST.</p>
+        </div>
+      </div>
+    </aside>
+    </div>
+
+    <!-- ===== Also available ===== -->
+    <figure class="rc-also">
+      <img class="rc-also__banner" src="/assets/img/onlyforlocals/also-available-banner.webp" alt="A local creator filming a product with a ring light while a marketing analyst reviews campaign performance" loading="lazy" />
+      <div class="rc-also__body container">
+        <p class="eyebrow rc-eyebrow">Also Available</p>
+        <p class="rc-note-large">Influencer marketing and professional digital marketing. Happy to go through these in detail whenever you're at our office.</p>
+      </div>
+    </figure>
+
+    <!-- ===== Client testimonials: proof of work ===== -->
+    <section class="section container">
+      <p class="eyebrow rc-eyebrow">Proof, Not Promises</p>
+      <h2 class="rc-h2">Hear it from businesses we've worked with.</h2>
+      <p class="rc-lead-body">Most local businesses lose bookings and customers simply because they're hard to find or trust online. That's the gap we're closing, and here's what it looked like for a few of them.</p>
+      <div class="rc-testi-grid">
+        {testimonials.map((t) => (
+          <div class="rc-testi">
+            {t.type === 'video' ? (
+              <video
+                class="rc-testi__media"
+                data-testi-video
+                src={t.src}
+                poster={t.poster}
+                controls
+                controlsList="nodownload noremoteplayback"
+                disablePictureInPicture
+                playsinline
+                preload="metadata"
+                oncontextmenu="return false"
+              ></video>
+            ) : (
+              <div class="rc-testi__embed-wrap">
+                <blockquote
+                  class="instagram-media rc-testi__embed"
+                  data-instgrm-permalink={`${t.url}?utm_source=ig_embed`}
+                  data-instgrm-version="14"
+                ></blockquote>
+              </div>
+            )}
+            <p class="rc-testi__label">{t.client}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+    <script is:inline src="https://www.instagram.com/embed.js"></script>
+
+    <!-- ===== Working on this project: real team cards ===== -->
+    <section class="section container">
+      <p class="eyebrow rc-eyebrow">Empowering Locals</p>
+      <h2 class="rc-h2">People Behind This Project</h2>
+      <div class="rc-team-grid" data-stagger>
+        <article class="team-card rc-team-card" data-person data-fullname="Rabi (Rabiul Islam)">
+          <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/rabi.webp" alt="Portrait of Rabi, Founder &amp; CEO at Studio 1947" loading="lazy" /></div>
+          <div class="team-card__body rc-team-card__body">
+            <div class="team-card__name rc-team-card__name">Rabi</div>
+            <div class="team-card__role rc-team-card__role">Founder &amp; CEO</div>
+            <div class="team-card__spec rc-team-card__spec">Design &amp; Philosophy</div>
+            <button class="team-card__more" type="button" aria-label="More about Rabi" aria-haspopup="dialog">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        <div class="team-bio" hidden><p class="team-bio__lead"> From Farmer to Designer: a journey rooted in local wisdom, shaped by global practice. </p> <p> Rabi is the founder of Studio 1947, a consulting and innovation studio working across Data, Design, Technology, Communication and Research. He started the studio in 2025 with a simple belief: the most meaningful design doesn't choose between local wisdom and global relevance. It builds from both. Under his direction, Studio 1947 works with organisations to turn complex, human problems into solutions that are as thoughtful as they are useful. </p> <p> Rabi's path into design wasn't the usual one. He began by studying Philosophy at Presidency University in Kolkata. There he spent his time on Indian and Western thought, logic, ethics and socio-political theory. On the side, he designed posters for college events, first by hand, then digitally. That early urge to visualise ideas eventually pulled him fully into design. He went on to earn his MA at the Srishti Institute of Art, Design and Technology in Bengaluru. There he sharpened a human-centred, ethnographic approach to UI/UX, grounded as much in listening to people as in shaping interfaces. </p> <p> His career since has covered an unusually wide range of work. As Head of Design at AIcrowd in Geneva, he led visual design and product experience for AI research challenges. He worked alongside partners like OpenAI, Facebook AI, Sony, Amazon, EPFL and Carnegie Mellon University, and helped shape experiences for a global community of over 60,000 developers and AI researchers. That journey took him from Artist in Residence to the top of the design team. As Design Director at Inclusive Minds in Bengaluru, he turned to design for democracy and civic voice. He built conversation-based campaigns, design systems and data-centric dashboards for socio-political engagement. Alongside this, he has spent years as a design consultant to the Friedrich Ebert Stiftung. There he made publication layouts and cover designs for a twelve-volume research series on Artificial Intelligence, along with branding and social media work to widen its public reach. </p> <p> Rabi describes his practice as sitting <em>between</em> product and communication design. He is equally at home mapping a user journey or building the story and visual identity around it. His toolkit covers design strategy, UI/UX design, information architecture, design systems, wireframing and prototyping, user research and journey mapping, ethnographic research, data storytelling, dashboard design, brand and packaging design, and strategic presentations. He has brought this range to organisations as varied as Tata Motors, Bosch, Room to Read, Bihar Tourism, the Seerave Foundation, and grassroots initiatives like Know Your Neighbour and the Jharkhand Government. He moves easily between global technology companies and community-rooted social impact work. </p> <p> For Rabi, design and social responsibility go together. Since 2024, he has run free design workshops on design thinking, digital literacy and AI awareness, mentoring students, youth and grassroots communities. In 2020, during the Covid pandemic and the Amphan super-cyclone, he helped the Quarantine Student Youth Network raise over &euro;300,000 to support affected families. For him, design and organising for people are part of the same practice. </p> <p> At the core of it all is a simple philosophy: <em>he believes in people and nature</em>. He sees design not as beauty for its own sake, but as a tool for connection, storytelling and problem-solving. It holds local tradition and global systems in the same frame, and balances function with emotional depth. With Studio 1947, he's building a home for exactly that kind of work: design that aims to be meaningful first. </p></div>
+          </article>
+        <article class="team-card rc-team-card" data-person data-fullname="Dipam">
+          <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/dipam.webp" alt="Portrait of Dipam, Co-founder at Studio 1947" loading="lazy" /></div>
+          <div class="team-card__body rc-team-card__body">
+            <div class="team-card__name rc-team-card__name">Dipam</div>
+            <div class="team-card__role rc-team-card__role">Co-founder</div>
+            <div class="team-card__spec rc-team-card__spec">Software &amp; AI Engineer</div>
+            <button class="team-card__more" type="button" aria-label="More about Dipam" aria-haspopup="dialog">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        <div class="team-bio" hidden><p> Dipam is a Co-founder and Software &amp; AI Engineer at Studio 1947. His work sits where artificial intelligence, software engineering and digital systems meet. </p> <p> <a href="https://scholar.google.com/citations?user=8joRMD8AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar Profile &rarr;</a> </p></div>
+          </article>
+        <article class="team-card rc-team-card" data-person data-fullname="Anjali Chetri">
+          <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/anjali.webp" alt="Portrait of Anjali, Co-founder at Studio 1947" loading="lazy" /></div>
+          <div class="team-card__body rc-team-card__body">
+            <div class="team-card__name rc-team-card__name">Anjali</div>
+            <div class="team-card__role rc-team-card__role">Co-founder</div>
+            <div class="team-card__spec rc-team-card__spec">Human Resource &amp; Accounts</div>
+            <button class="team-card__more" type="button" aria-label="More about Anjali" aria-haspopup="dialog">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        <div class="team-bio" hidden><p> Anjali Chetri comes from the quiet hills of Mirik, Darjeeling, and brings a deep sensitivity to people and systems. She graduated from Mirik College, where she studied History, Political Science, English and Environmental Studies, and she blends empathy with clear thinking. She is currently pursuing an MBA from IGNOU, which deepens the business grounding she brings to the studio. She has hands-on experience managing three retail shops, including team coordination and account handling. So Anjali understands the human side of business as much as its day-to-day running. At Studio 1947, she nurtures a culture where people feel seen, heard and trusted, making HR the heart of the studio. </p></div>
+          </article>
+        <article class="team-card rc-team-card" data-person data-fullname="Subhendu Kundu">
+          <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/subhendu.webp" alt="Portrait of Subhendu, Co-founder at Studio 1947" loading="lazy" /></div>
+          <div class="team-card__body rc-team-card__body">
+            <div class="team-card__name rc-team-card__name">Subhendu</div>
+            <div class="team-card__role rc-team-card__role">Co-founder</div>
+            <div class="team-card__spec rc-team-card__spec">Regional Collaborations</div>
+            <button class="team-card__more" type="button" aria-label="More about Subhendu" aria-haspopup="dialog">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        <div class="team-bio" hidden><p> Subhendu Kundu is an experienced Ayurvedic medical practitioner with over 10 years of experience. He currently practices at Mirik Hospital. Subhendu is also a passionate curriculum designer focused on children’s health in rural communities. With a strong background in medicine and public health, he designs psychologically grounded curricula for children and teenagers. </p> <p> As an advisor at Studio 1947, Subhendu helps us design better programs and curricula for skill development and capacity building. He brings valuable experience in managing large-scale operations and communicating well. His deep understanding of rural health challenges, and his proven record in curriculum design, give our Skill Development Training Programs a different approach. </p></div>
+          </article>
+        <article class="team-card rc-team-card" data-person data-fullname="Subhayu Bhattacharjee">
+          <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/subhayu.webp" alt="Portrait of Subhayu, Academic Advisor at Studio 1947" loading="lazy" /></div>
+          <div class="team-card__body rc-team-card__body">
+            <div class="team-card__name rc-team-card__name">Subhayu</div>
+            <div class="team-card__role rc-team-card__role">Academic Advisor</div>
+            <div class="team-card__spec rc-team-card__spec">Communication &amp; Research</div>
+            <button class="team-card__more" type="button" aria-label="More about Subhayu" aria-haspopup="dialog">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        <div class="team-bio" hidden><p> Born amid the natural plenty of Darjeeling and the Duars, Subhayu Bhattacharjee continues a legacy of learning, teaching and nurturing in the foothills of the Himalayas. He is an aspiring scholar with a PhD in Cultural Studies. His wide academic experience at Presidency University, Kolkata and various IITs prepares him to teach and research across cultural subjects, from Films and Textual Cultures to Religion and more. He is especially interested in seeing culture as a dynamic 'play' of many subjectivities. </p> <p> <a href="https://scholar.google.com/citations?user=KfLP358AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar Profile &rarr;</a> </p></div>
+          </article>
+        <article class="team-card rc-team-card" data-person data-fullname="Nikhil Rai">
+          <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/nikhilrai.webp" alt="Portrait of Nikhil Rai, Digital Artist at Studio 1947" loading="lazy" /></div>
+          <div class="team-card__body rc-team-card__body">
+            <div class="team-card__name rc-team-card__name">Nikhil R</div>
+            <div class="team-card__role rc-team-card__role">Digital Artist</div>
+            <div class="team-card__spec rc-team-card__spec">2D, 3D &amp; Animation</div>
+            <button class="team-card__more" type="button" aria-label="More about Nikhil Rai" aria-haspopup="dialog">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        <div class="team-bio" hidden><p> Nikhil Rai is a creative professional from Mirik. He pairs a foundation in the Basics of Digital Marketing with self-taught skill in Digital Art, Illustrations and Animation. He has a deep love of visual storytelling and a keen sense of how marketing can amplify creative work. </p> <p> With a natural flair for engaging visuals and animations that hold attention, Nikhil bridges the gap between looks and communication. His digital marketing knowledge helps him match creative work to audience behaviour, campaign goals and brand messaging. So his work is not only good to look at but also serves a purpose. </p> <p> Rooted in the calm yet vibrant culture of Mirik, Nikhil draws inspiration from his surroundings and turns local detail into modern, relatable visual stories. Whether it’s eye-catching illustrations, dynamic animations or concept-led marketing visuals, his approach is thoughtful, detailed and focused on impact. </p> <p> In every project, Nikhil brings creative storytelling and clear thinking together. That makes him a valuable contributor to campaigns that want both emotional connection and measurable results. </p></div>
+          </article>
+        <article class="team-card rc-team-card" data-person data-fullname="Nikhil Raj Subba">
+          <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/nikhilsubba.webp" alt="Portrait of Nikhil Subba, Project Manager at Studio 1947" loading="lazy" /></div>
+          <div class="team-card__body rc-team-card__body">
+            <div class="team-card__name rc-team-card__name">Nikhil S</div>
+            <div class="team-card__role rc-team-card__role">Project Manager</div>
+            <div class="team-card__spec rc-team-card__spec">Graphics Design &amp; Video Editing</div>
+            <button class="team-card__more" type="button" aria-label="More about Nikhil Subba" aria-haspopup="dialog">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        <div class="team-bio" hidden><p> I am a creative designer from Soureni, Mirik. I work in visual communication, video production and graphic design. I graduated in English Honours from Mirik College and did my master’s degree in English Honours at the University of North Bengal. </p> <p> Alongside my studies, serving as General Secretary of my college strengthened my leadership, organisational and project management skills. My creative work draws deeply on travel, music, painting and local art traditions. That helps me make design that looks good and means something. </p></div>
+          </article>
+        <article class="team-card rc-team-card" data-person data-fullname="Rahul">
+          <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/rahul.webp" alt="Portrait of Rahul, Project Manager at Studio 1947" loading="lazy" /></div>
+          <div class="team-card__body rc-team-card__body">
+            <div class="team-card__name rc-team-card__name">Rahul</div>
+            <div class="team-card__role rc-team-card__role">Project Manager</div>
+            <div class="team-card__spec rc-team-card__spec">Film &amp; Front-End Developer</div>
+            <button class="team-card__more" type="button" aria-label="More about Rahul" aria-haspopup="dialog">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        <div class="team-bio" hidden><p> Rahul wears many hats at Studio 1947. He builds digital experiences as a full-stack developer and also shoots video and photography for the agency's client work. It's a rare mix that lets him move easily between code and camera, bringing a visual eye to his development work and technical precision to his shoots. </p> <p> On the development side, he's strong on the front end with React, TypeScript and GSAP-driven interfaces, and is growing his backend skills with Node.js, PostgreSQL, NestJS and Prisma. His projects include platforms rooted in Darjeeling and Northeast India, like the 1Darjeeling local marketplace and travel guide. His eye for cinematic, editorial design shows whether he's behind a screen or behind a lens. </p> <p> Outside the studio, he keeps that same creative energy going, picking up a camera for personal projects or playing electric guitar. </p></div>
+          </article>
+      </div>
+      <a class="rc-portfolio-cta" href="/about-us/#team">
+        <span>Know the Studio Entire Team</span>
+        <span class="rc-portfolio-cta__arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </section>
+
+    <!-- ===== Advanced / additional services from the wider solution stack ===== -->
+    <section id="advanced-services" class="section container">
+      <p class="eyebrow rc-eyebrow">Beyond the Basics</p>
+      <h2 class="rc-h2">Advanced services, from our wider solution stack.</h2>
+      <p class="rc-lead-body">Studio 1947 works across data, design, technology, research and training. A few of those services tend to matter most for a local business.</p>
+      <div class="rc-advgrid" data-calc-advanced>
+        {advanced.map((a) => (
+          <article class="rc-adv" id={a.id}>
+            <div class="rc-adv__media">
+              <img src={a.thumb} alt={`${a.title} illustration`} loading="lazy" />
+            </div>
+            <div class="rc-adv__body">
+              <h3>{a.title}</h3>
+              <p>{a.body}</p>
+              <label class="rc-card__add">
+                <input type="checkbox" data-calc-interest={a.title} />
+                <span class="rc-card__add-on">Interested <span class="rc-card__add-icon rc-card__add-icon--heart"><svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/></svg></span></span>
+                <span class="rc-card__add-off">Not Interested <span class="rc-card__add-icon">✕</span></span>
+              </label>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ===== Related portfolio work ===== -->
+    <section class="section container">
+      <p class="eyebrow rc-eyebrow">Proof, Not Promises</p>
+      <h2 class="rc-h2">See it done for a real local business.</h2>
+      <div class="work-grid rc-relgrid">
+        {relatedWork.map((w) => (
+          <a class="work-card" href={`/work/${w.slug}/`}>
+            <div class="work-card__media">
+              <img src={w.img} alt={w.alt} loading="lazy" />
+            </div>
+            <div class="work-card__body">
+              <div class="work-tags">
+                <span class="work-tag">{w.tag}</span>
+              </div>
+              <h3 class="work-card__title">{w.title}</h3>
+              <div class="work-card__meta">
+                <span>{w.location}</span>
+                <span>{w.year}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+      <a class="rc-portfolio-cta" href="/our-work/">
+        <span>See Overall Studio's Projects</span>
+        <span class="rc-portfolio-cta__arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </section>
   </main>
+
+  <div class="person-modal" id="person-modal" role="dialog" aria-modal="true" aria-labelledby="person-modal-name" aria-hidden="true">
+    <div class="person-modal__backdrop" data-close></div>
+    <div class="person-modal__panel" tabindex="-1">
+      <button class="person-modal__close" type="button" aria-label="Close" data-close>&times;</button>
+      <div class="person-modal__head">
+        <div class="person-modal__media" data-pm-media></div>
+        <div class="person-modal__id">
+          <h3 class="person-modal__name" id="person-modal-name" data-pm-name></h3>
+          <p class="person-modal__role" data-pm-role></p>
+          <div class="pm-audio" data-pm-audio hidden>
+            <button class="pm-audio__toggle" type="button" data-pm-audio-toggle aria-pressed="false">
+              <span class="pm-audio__icon" aria-hidden="true"></span>
+              <span class="pm-audio__label" data-pm-audio-label></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="person-modal__scroll" data-lenis-prevent>
+        <p class="pm-audio__note" data-pm-audio-note hidden></p>
+        <div class="person-modal__body">
+          <div data-pm-blocks></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
 
+<script>
+  function initCalc(): void {
+    const onetimeSubEl = document.querySelector<HTMLElement>('[data-calc-onetime-sub]');
+    const onetimeGstEl = document.querySelector<HTMLElement>('[data-calc-onetime-gst]');
+    const onetimeTotalEl = document.querySelector<HTMLElement>('[data-calc-onetime-total]');
+    const monthlySubEl = document.querySelector<HTMLElement>('[data-calc-monthly-sub]');
+    const monthlyGstEl = document.querySelector<HTMLElement>('[data-calc-monthly-gst]');
+    const monthlyTotalEl = document.querySelector<HTMLElement>('[data-calc-monthly-total]');
+    if (!onetimeSubEl || !onetimeGstEl || !onetimeTotalEl || !monthlySubEl || !monthlyGstEl || !monthlyTotalEl) return;
+    const fmt = (n: number) => `₹${Math.round(n).toLocaleString('en-IN')}`;
+    const GST_RATE = 0.18;
+
+    function recompute(): void {
+      let oneTime = 0;
+      let monthly = 0;
+      document.querySelectorAll<HTMLInputElement>('[data-calc-item]').forEach((input) => {
+        const raw = input.dataset.calcItem ?? input.value;
+        if (!input.checked) return;
+        if (raw.startsWith('monthly:')) {
+          monthly += Number(raw.split(':')[1]) || 0;
+        } else {
+          oneTime += Number(raw) || 0;
+        }
+      });
+      onetimeSubEl!.textContent = fmt(oneTime);
+      onetimeGstEl!.textContent = fmt(oneTime * GST_RATE);
+      onetimeTotalEl!.textContent = fmt(oneTime * (1 + GST_RATE));
+      monthlySubEl!.textContent = fmt(monthly);
+      monthlyGstEl!.textContent = fmt(monthly * GST_RATE);
+      monthlyTotalEl!.textContent = fmt(monthly * (1 + GST_RATE));
+    }
+
+    function syncPicked(): void {
+      document.querySelectorAll<HTMLInputElement>('[data-calc-item]').forEach((input) => {
+        const card = input.closest<HTMLElement>('.rc-card, .rc-tier');
+        if (card) card.classList.toggle('is-picked', input.checked);
+      });
+    }
+
+    function syncOptionPrices(): void {
+      document.querySelectorAll<HTMLElement>('.rc-card').forEach((card) => {
+        const checked = card.querySelector<HTMLInputElement>('.rc-card__toggle input:checked');
+        if (!checked) return;
+        const val = Number(checked.value) || 0;
+        const priceEl = card.querySelector<HTMLElement>('.rc-card__price');
+        const gstEl = card.querySelector<HTMLElement>('.rc-card__gst');
+        if (priceEl) priceEl.textContent = fmt(val);
+        if (gstEl) gstEl.textContent = `+ ${fmt(val * GST_RATE)} GST (18%)`;
+        const addInput = card.querySelector<HTMLInputElement>('.rc-card__add input');
+        if (addInput) {
+          addInput.value = String(val);
+          addInput.dataset.calcItem = String(val);
+        }
+        const provideEl = card.querySelector<HTMLElement>('[data-calc-provide]');
+        if (provideEl && checked.dataset.desc) provideEl.textContent = checked.dataset.desc;
+      });
+    }
+
+    document.querySelectorAll<HTMLInputElement>('[data-calc-item]').forEach((input) => {
+      input.addEventListener('change', () => {
+        syncPicked();
+        syncOptionPrices();
+        recompute();
+      });
+    });
+    document.querySelectorAll<HTMLInputElement>('.rc-card__toggle input').forEach((input) => {
+      input.addEventListener('change', () => {
+        syncOptionPrices();
+        recompute();
+      });
+    });
+
+    function syncInterest(): void {
+      const wrap = document.querySelector<HTMLElement>('[data-calc-interest-wrap]');
+      const list = document.querySelector<HTMLElement>('[data-calc-interest-list]');
+      if (!wrap || !list) return;
+      const items = Array.from(document.querySelectorAll<HTMLInputElement>('[data-calc-interest]'))
+        .filter((i) => i.checked)
+        .map((i) => i.dataset.calcInterest ?? '');
+      list.innerHTML = '';
+      items.forEach((name) => {
+        const li = document.createElement('li');
+        li.textContent = name;
+        list.appendChild(li);
+      });
+      wrap.hidden = items.length === 0;
+    }
+
+    document.querySelectorAll<HTMLInputElement>('[data-calc-interest]').forEach((input) => {
+      input.addEventListener('change', syncInterest);
+    });
+
+    const STUDIO_WHATSAPP_NUMBER = '919093277919';
+
+    function buildWhatsAppMessage(): string {
+      const lines: string[] = [];
+      lines.push('Hi Studio 1947, here is my requirement from the rate card:');
+      lines.push('');
+
+      const oneTimeItems: { title: string; price: string }[] = [];
+      document.querySelectorAll<HTMLElement>('.rc-card').forEach((card) => {
+        const input = card.querySelector<HTMLInputElement>('.rc-card__add input');
+        if (!input?.checked) return;
+        oneTimeItems.push({
+          title: card.querySelector('.rc-card__head h3')?.textContent?.trim() ?? '',
+          price: card.querySelector('.rc-card__price')?.textContent?.trim() ?? '',
+        });
+      });
+      if (oneTimeItems.length) {
+        lines.push('*One-time services*');
+        oneTimeItems.forEach((it) => lines.push(`- ${it.title}: ${it.price}`));
+        lines.push('');
+      }
+
+      let monthlyPlan: { title: string; price: string } | null = null;
+      document.querySelectorAll<HTMLElement>('.rc-tier').forEach((tier) => {
+        const input = tier.querySelector<HTMLInputElement>('.rc-tier__cta input');
+        if (!input?.checked) return;
+        monthlyPlan = {
+          title: tier.querySelector('.rc-tier__name')?.textContent?.trim() ?? '',
+          price: tier.querySelector('.rc-tier__price')?.textContent?.trim() ?? '',
+        };
+      });
+      if (monthlyPlan) {
+        const mp = monthlyPlan as { title: string; price: string };
+        lines.push('*Monthly plan*');
+        lines.push(`- ${mp.title}: ${mp.price}`);
+        lines.push('');
+      }
+
+      const interestItems = Array.from(document.querySelectorAll<HTMLInputElement>('[data-calc-interest]'))
+        .filter((i) => i.checked)
+        .map((i) => i.dataset.calcInterest ?? '');
+      if (interestItems.length) {
+        lines.push('*Also interested in*');
+        interestItems.forEach((t) => lines.push(`- ${t}`));
+        lines.push('');
+      }
+
+      lines.push('*Totals*');
+      lines.push(`One-time: ${onetimeTotalEl!.textContent} (incl. GST ${onetimeGstEl!.textContent})`);
+      lines.push(`Monthly: ${monthlyTotalEl!.textContent} (incl. GST ${monthlyGstEl!.textContent})`);
+
+      return lines.join('\n');
+    }
+
+    function sendToWhatsApp(): void {
+      const text = buildWhatsAppMessage();
+      const url = `https://wa.me/${STUDIO_WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank', 'noopener');
+    }
+
+    document.querySelector<HTMLButtonElement>('[data-calc-whatsapp]')?.addEventListener('click', sendToWhatsApp);
+
+    document.querySelectorAll<HTMLButtonElement>('[data-calc-remove-tier]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const input = btn.parentElement?.querySelector<HTMLInputElement>('.rc-tier__cta input');
+        if (!input) return;
+        input.checked = false;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    });
+
+    syncPicked();
+    syncOptionPrices();
+    syncInterest();
+    recompute();
+  }
+
+  initCalc();
+
+  function initTestiVideos(): void {
+    const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-testi-video]'));
+    videos.forEach((video) => {
+      video.addEventListener('play', () => {
+        videos.forEach((other) => {
+          if (other !== video) other.pause();
+        });
+      });
+    });
+  }
+
+  initTestiVideos();
+</script>
+
 <style>
-  .page-onlyforlocals { padding-top: clamp(120px, 16vh, 190px); padding-bottom: clamp(60px, 8vw, 100px); }
-  .page-onlyforlocals .eyebrow { color: var(--red); font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
-  .rc-title { margin-top: 14px; font-family: var(--font-display); font-size: clamp(36px, 5vw, 56px); line-height: 1.05; color: var(--grey-900); }
-  .rc-lead { margin-top: 16px; max-width: 60ch; color: var(--grey-700); font-size: clamp(16px, 1.2vw, 19px); }
+  .page-onlyforlocals { padding-bottom: clamp(60px, 8vw, 100px); }
 
-  .rc-block { margin-top: clamp(40px, 5vw, 64px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--line); }
-  .rc-block:first-of-type { border-top: none; }
-  .rc-block__eyebrow { color: var(--red); font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 20px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
-  .rc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
-  .rc-list li { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(20px, 2vw, 28px); }
-  .rc-list__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; }
-  .rc-list__head h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(19px, 1.6vw, 23px); color: var(--grey-900); line-height: 1.2; }
-  .rc-price { flex-shrink: 0; font-family: var(--font-display); font-size: clamp(19px, 1.6vw, 23px); color: var(--red); white-space: nowrap; }
-  .rc-note { margin-top: 10px; color: var(--grey-500); font-size: 15px; line-height: 1.55; }
-  .rc-note--large { font-size: clamp(15px, 1.05vw, 17px); max-width: 62ch; }
+  /* Hero: text overlaid on the image, at its real aspect ratio, no dark scrim */
+  .rc-hero { position: relative; margin: 0; width: 100%; background: #fff; }
+  .rc-hero img { width: 100%; height: auto; aspect-ratio: 1920 / 1231; object-fit: contain; display: block; }
 
-  .rc-total { margin-top: 22px; font-size: clamp(16px, 1.1vw, 18px); color: var(--grey-900); }
-  .rc-total strong { color: var(--red); }
+  .rc-eyebrow { color: var(--red); font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+  .rc-h2 { margin-top: 12px; font-family: var(--font-display); font-size: clamp(26px, 3vw, 38px); line-height: 1.1; color: var(--grey-900); }
+  .rc-lead-body { margin-top: 12px; max-width: 62ch; color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); line-height: 1.55; }
 
-  .rc-monthly { font-size: clamp(18px, 1.4vw, 22px); color: var(--grey-900); }
-  .rc-monthly strong { color: var(--red); }
-  .rc-bullets { margin-top: 14px; padding-left: 20px; color: var(--grey-700); font-size: 15px; line-height: 1.7; }
+  /* Service cards */
+  .rc-cards { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(14px, 1.6vw, 20px); }
+  .rc-card { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg); transition: background .25s var(--ease), border-color .25s var(--ease), box-shadow .3s var(--ease), transform .3s var(--ease); }
+  .rc-card:not(:has(.rc-card__add input:checked)):hover { box-shadow: 0 16px 36px rgba(0,0,0,.07); transform: translateY(-3px); border-color: #eecccc; }
+  .rc-card__media { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--bg-alt); color: var(--red); transition: background .25s var(--ease), color .25s var(--ease); }
+  .rc-card__media img { width: 100%; height: 100%; object-fit: cover; }
+  .rc-card__media svg { width: 58px; height: 58px; }
+  .rc-card__body { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+  #website .rc-card__body { min-height: 460px; }
+  .rc-card__id { display: block; font-family: monospace; font-size: 10px; letter-spacing: .02em; color: var(--grey-500); margin-bottom: 6px; }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__id { color: rgba(255,255,255,.7); }
+  .rc-card__head h3 { font-family: var(--font-display); font-weight: 400; font-size: 17px; color: var(--grey-900); }
+  .rc-card__pricebox { margin-top: 10px; padding: 10px 0; display: flex; flex-direction: column; gap: 4px; border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line); }
+  .rc-card__price { color: var(--red); font-weight: 700; font-size: 20px; }
+  .rc-card__gst { color: var(--grey-500); font-weight: 500; font-size: 12px; }
+  .rc-card__terms { margin-top: 10px; }
+  .rc-card__terms-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--grey-500); margin-top: 10px; }
+  .rc-card__terms-label:first-child { margin-top: 0; }
+  .rc-card__list { margin-top: 6px; display: flex; flex-direction: column; gap: 4px; }
+  .rc-card__list li { position: relative; padding-left: 16px; font-size: 13px; line-height: 1.45; color: var(--grey-700); }
+  .rc-card__list li::before { position: absolute; left: 0; top: 0; }
+  .rc-card__list--yes li::before { content: '✓'; color: #1a9c5b; font-weight: 700; }
+  .rc-card__list--you li::before { content: '●'; color: var(--red); font-size: 9px; top: 5px; }
+  .rc-card__list--no li::before { content: '✕'; color: var(--grey-500); font-weight: 700; }
+  .rc-card__list--no li { color: var(--grey-500); }
+  .rc-card__toggle { margin-top: 10px; display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .rc-card__toggle-opt { flex: 1; cursor: pointer; }
+  .rc-card__toggle-opt + .rc-card__toggle-opt { border-left: 1px solid var(--line); }
+  .rc-card__toggle-opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .rc-card__toggle-opt span { display: block; text-align: center; padding: 9px 8px; font-size: 13px; font-weight: 600; color: var(--grey-700); }
+  .rc-card__toggle-opt input:checked + span { background: var(--red); color: #fff; }
+
+  /* Add this Service button */
+  .rc-card__add { margin-top: auto; padding-top: 16px; display: block; cursor: pointer; align-self: flex-start; }
+  .rc-card__add input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .rc-card__add-on, .rc-card__add-off { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--red); color: var(--red); font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .rc-card__add-off { display: none; }
+  .rc-card__add input:checked ~ .rc-card__add-on { display: none; }
+  .rc-card__add input:checked ~ .rc-card__add-off { display: inline-flex; background: #fff; color: var(--red); }
+  .rc-card__add-icon { font-size: 14px; line-height: 1; }
+  .rc-card__add-icon--heart { display: inline-flex; }
+  .rc-card__add-icon--heart svg { width: 13px; height: 13px; }
+
+  /* Selected state: whole card turns red */
+  .rc-card:has(.rc-card__add input:checked) { background: var(--red); border-color: var(--red); }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__media { background: rgba(255,255,255,.16); color: #fff; }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__pricebox { border-color: rgba(255,255,255,.35); }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__head h3,
+  .rc-card:has(.rc-card__add input:checked) .rc-card__price,
+  .rc-card:has(.rc-card__add input:checked) .rc-card__gst,
+  .rc-card:has(.rc-card__add input:checked) .rc-card__terms-label,
+  .rc-card:has(.rc-card__add input:checked) .rc-card__list li { color: #fff; }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__list--yes li::before,
+  .rc-card:has(.rc-card__add input:checked) .rc-card__list--you li::before,
+  .rc-card:has(.rc-card__add input:checked) .rc-card__list--no li::before { color: #fff; }
+
+  .rc-check { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; color: var(--grey-700); cursor: pointer; }
+  .rc-check input { width: 16px; height: 16px; accent-color: var(--red); cursor: pointer; }
+  .rc-check--none { color: var(--grey-500); }
+
+
+  /* Related portfolio work: matches /our-work/ card styling */
+  .rc-relgrid { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.2vw, 32px); }
+  .work-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg); text-decoration: none; transition: box-shadow .3s var(--ease), transform .3s var(--ease); }
+  .work-card:hover { box-shadow: 0 22px 50px rgba(0,0,0,.08); transform: translateY(-5px); border-color: #eecccc; }
+  .work-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-alt); }
+  .work-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+  .work-card:hover .work-card__media img { transform: scale(1.04); }
+  .work-card__body { padding: clamp(20px, 1.8vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1; }
+  .work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .work-tag { font-size: 12px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: .03em; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+  .work-card__title { font-family: var(--font-display); font-size: clamp(19px, 1.5vw, 23px); color: var(--grey-900); line-height: 1.1; }
+  .work-card__meta { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px 18px; color: var(--grey-500); font-size: 14px; padding-top: 4px; }
+
+  @media (max-width: 900px) {
+    .rc-relgrid { grid-template-columns: 1fr; }
+  }
+
+  .rc-portfolio-cta {
+    margin: clamp(28px, 3.4vw, 44px) auto 0; display: flex; align-items: center; justify-content: center; gap: 12px;
+    width: fit-content; border: 1px solid var(--red); border-radius: 999px;
+    padding: 9px 9px 9px 22px; font-size: 15px; font-weight: 600; color: var(--red);
+    background: #fff; text-decoration: none;
+    transition: background .35s var(--ease), color .35s var(--ease);
+  }
+  .rc-portfolio-cta__arrow {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    border: 1.5px solid var(--red); color: var(--red); background: transparent;
+    display: grid; place-items: center;
+    transition: background .35s var(--ease), color .35s var(--ease), transform .35s var(--ease);
+  }
+  .rc-portfolio-cta:hover { background: var(--red); color: #fff; }
+  .rc-portfolio-cta:hover .rc-portfolio-cta__arrow { background: #fff; color: var(--red); transform: translateX(2px); }
+
+  /* Social tiers */
+  .rc-tiers { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(18px, 2vw, 28px); align-items: stretch; }
+  .rc-tier { position: relative; display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--line); border-radius: 20px; transition: background .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease); }
+  .rc-tier:not(:has(.rc-tier__cta input:checked)):hover { box-shadow: 0 16px 36px rgba(0,0,0,.07); transform: translateY(-3px); }
+  .rc-tier--featured { border: 2px solid var(--red); box-shadow: 0 20px 44px rgba(230,0,0,.1); }
+  .rc-tier__badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); z-index: 1; background: var(--red); color: #fff; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 999px; white-space: nowrap; }
+  .rc-tier__body { padding: clamp(24px, 2vw, 30px); display: flex; flex-direction: column; flex: 1; }
+  .rc-tier__name { font-family: var(--font-display); font-weight: 500; font-size: clamp(19px, 1.5vw, 22px); color: var(--grey-900); transition: color .25s var(--ease); }
+  .rc-tier__tagline { margin-top: 6px; min-height: 2.6em; font-size: 13.5px; line-height: 1.4; color: var(--grey-500); transition: color .25s var(--ease); }
+  .rc-tier__price { margin-top: 14px; font-family: var(--font-display); font-weight: 500; font-size: clamp(30px, 2.6vw, 38px); color: var(--grey-900); transition: color .25s var(--ease); }
+  .rc-tier__price span { font-family: var(--font-body); font-weight: 400; font-size: 14px; color: var(--grey-500); transition: color .25s var(--ease); }
+
+  .rc-tier__cta { display: flex; flex: 1; cursor: pointer; }
+  .rc-tier__cta input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .rc-tier__cta-on, .rc-tier__cta-off {
+    width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 11px 18px; border-radius: 999px; font-size: 14px; font-weight: 600; white-space: nowrap;
+    border: 1.5px solid var(--grey-900); color: var(--grey-900); background: transparent;
+    transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+  }
+  .rc-tier__cta--solid .rc-tier__cta-on { border-color: var(--red); background: var(--red); color: #fff; }
+  .rc-tier__cta-off { display: none; border-color: #fff; color: var(--red); background: #fff; }
+  .rc-tier__cta input:checked ~ .rc-tier__cta-on { display: none; }
+  .rc-tier__cta input:checked ~ .rc-tier__cta-off { display: inline-flex; }
+
+  .rc-tier__pick { margin-top: auto; padding-top: 20px; display: flex; gap: 10px; }
+  .rc-tier__remove {
+    display: none; flex: 1; align-items: center; justify-content: center; gap: 6px;
+    padding: 11px 14px; border-radius: 999px; font-size: 14px; font-weight: 600; white-space: nowrap;
+    border: 1.5px solid rgba(255,255,255,.7); color: #fff; background: transparent; cursor: pointer; font-family: inherit;
+    transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+  }
+  .rc-tier__remove:hover { background: rgba(255,255,255,.15); }
+  .rc-tier__pick:has(.rc-tier__cta input:checked) .rc-tier__remove { display: inline-flex; }
+
+  .rc-tier__divider { margin-top: 24px; border-top: 1px solid var(--line); transition: border-color .25s var(--ease); }
+  .rc-tier__terms-label { margin-top: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--grey-500); transition: color .25s var(--ease); }
+  .rc-tier__list.rc-card__list { margin-top: 12px; gap: 9px; }
+  .rc-tier__list li { font-size: 14px; line-height: 1.4; color: var(--grey-700); transition: color .25s var(--ease); }
+
+  /* Selected state: whole card turns red, matching the one-time service cards */
+  .rc-tier:has(.rc-tier__cta input:checked) { background: var(--red); border-color: var(--red); }
+  .rc-tier:has(.rc-tier__cta input:checked) .rc-tier__name,
+  .rc-tier:has(.rc-tier__cta input:checked) .rc-tier__tagline,
+  .rc-tier:has(.rc-tier__cta input:checked) .rc-tier__price,
+  .rc-tier:has(.rc-tier__cta input:checked) .rc-tier__price span,
+  .rc-tier:has(.rc-tier__cta input:checked) .rc-tier__terms-label,
+  .rc-tier:has(.rc-tier__cta input:checked) .rc-tier__list li { color: #fff; }
+  .rc-tier:has(.rc-tier__cta input:checked) .rc-tier__list li::before { color: #fff; }
+  .rc-tier:has(.rc-tier__cta input:checked) .rc-tier__divider { border-color: rgba(255,255,255,.25); }
+  .rc-tier:has(.rc-tier__cta input:checked) .rc-tier__cta-off { border-color: #fff; }
+
+  /* Two-column layout: main content + sticky calculator sidebar */
+  .rc-layout { padding-block: clamp(64px, 9vw, 140px); display: grid; grid-template-columns: 1fr 320px; align-items: start; gap: clamp(24px, 3vw, 48px); }
+  .rc-layout__main > .section:first-child { padding-top: 0; }
+  .rc-layout__main > .section { padding-block: clamp(40px, 5vw, 70px); }
+  .rc-layout__aside { position: sticky; top: 140px; }
+
+  @media (max-width: 1100px) {
+    .rc-layout { grid-template-columns: 1fr; }
+    .rc-layout__aside { position: static; }
+  }
+
+  /* Calculator */
+  .rc-calc { border: 1px solid var(--red); border-radius: var(--radius-lg); padding: clamp(24px, 2.6vw, 32px); background: var(--red); color: #fff; }
+  .rc-calc .rc-h2 { color: #fff; font-size: clamp(20px, 1.8vw, 24px); }
+  .rc-calc__totals { margin-top: 20px; display: flex; flex-direction: column; gap: 20px; }
+  .rc-calc__col { display: flex; flex-direction: column; gap: 6px; }
+  .rc-calc__label { font-size: 12px; color: rgba(255,255,255,.7); text-transform: uppercase; letter-spacing: .04em; }
+  .rc-calc__row { display: flex; align-items: baseline; justify-content: space-between; font-size: 14px; color: rgba(255,255,255,.85); }
+  .rc-calc__row--grand { margin-top: 4px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.25); font-family: var(--font-display); font-size: clamp(19px, 1.6vw, 23px); color: #fff; }
+  .rc-calc__advance { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.25); }
+  .rc-calc__advance .rc-calc__row { font-weight: 600; font-size: 15px; color: #fff; }
+  .rc-calc__interest { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.25); }
+  .rc-calc__interest-list { margin-top: 8px; display: flex; flex-direction: column; gap: 5px; }
+  .rc-calc__interest-list li { position: relative; padding-left: 14px; font-size: 13px; line-height: 1.4; color: rgba(255,255,255,.9); }
+  .rc-calc__interest-list li::before { content: '●'; position: absolute; left: 0; top: 0; font-size: 8px; color: rgba(255,255,255,.7); }
+  .rc-calc__cta-block { margin: 0 calc(-1 * clamp(24px, 2.6vw, 32px)) calc(-1 * clamp(24px, 2.6vw, 32px)); margin-top: 36px; padding: 20px clamp(24px, 2.6vw, 32px) clamp(24px, 2.6vw, 32px); background: #a80000; border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+  .rc-calc__cta-heading { font-size: 14px; font-weight: 600; color: #fff; line-height: 1.4; }
+  .rc-calc__actions { margin-top: 12px; display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 12px; }
+  .rc-calc__book {
+    flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+    border: 1px solid #fff; border-radius: 999px;
+    padding: 7px 7px 7px 11px; font-size: 11.5px; font-weight: 600; color: var(--red); white-space: nowrap;
+    background: #fff; text-decoration: none; font-family: inherit; cursor: pointer;
+    transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease);
+  }
+  .rc-calc__book-arrow {
+    width: 19px; height: 19px; border-radius: 50%; flex-shrink: 0;
+    border: 1.5px solid var(--red); color: var(--red); background: transparent;
+    display: grid; place-items: center;
+    transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease);
+  }
+  .rc-calc__book-arrow svg { width: 11px; height: 11px; }
+  .rc-calc__book:hover { background: transparent; border-color: #fff; color: #fff; }
+  .rc-calc__book:hover .rc-calc__book-arrow { background: #fff; border-color: #fff; color: var(--red); transform: translateX(2px); }
+  .rc-calc__book--outline { background: transparent; color: #fff; }
+  .rc-calc__book--outline .rc-calc__book-arrow { border-color: #fff; color: #fff; }
+  .rc-calc__book--outline:hover { background: #fff; color: var(--red); border-color: #fff; }
+  .rc-calc__book--outline:hover .rc-calc__book-arrow { background: var(--red); border-color: var(--red); color: #fff; }
+  .rc-calc__note { margin-top: 18px; font-size: 13px; color: rgba(255,255,255,.7); }
+
+  /* Interactive selection feedback */
+  .rc-card.is-picked, .rc-tier.is-picked { border-color: var(--red); box-shadow: 0 12px 30px rgba(230,0,0,.1); }
+
+  .rc-note-large { max-width: 62ch; color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); line-height: 1.6; }
+
+  /* Also Available: full-bleed band, text overlaid on the image */
+  .rc-also { position: relative; width: 100%; margin: 0; }
+  .rc-also__banner { width: 100%; height: auto; aspect-ratio: 1920 / 960; object-fit: cover; display: block; }
+  .rc-also::after {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(0deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.75) 45%, rgba(0,0,0,.3) 75%, rgba(0,0,0,.05) 100%);
+  }
+  .rc-also__body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding-bottom: clamp(32px, 4vw, 56px); }
+  .rc-also__body .rc-eyebrow { color: #fff; font-size: 15px; }
+  .rc-also__body .rc-note-large { color: rgba(255,255,255,.95); max-width: 70ch; font-size: clamp(18px, 1.5vw, 24px); line-height: 1.5; }
+
+  /* Team cards: "Working On This Project" */
+  .rc-team-grid { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 1.8vw, 24px); }
+  .rc-team-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg); transition: box-shadow .4s var(--ease), transform .4s var(--ease); }
+  .rc-team-card:hover { box-shadow: 0 18px 44px rgba(0,0,0,.08); transform: translateY(-4px); }
+  .rc-team-card__img { aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-alt); }
+  .rc-team-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+  .rc-team-card:hover .rc-team-card__img img { transform: scale(1.05); }
+  .rc-team-card__body { position: relative; padding: clamp(16px, 1.4vw, 22px); display: flex; flex-direction: column; }
+  .rc-team-card__name { font-family: var(--font-display); font-size: clamp(19px, 1.5vw, 24px); color: var(--grey-900); line-height: 1.08; padding-right: 36px; }
+  .rc-team-card__role { color: var(--red); font-size: 14px; margin-top: 8px; }
+  .rc-team-card__spec { color: var(--grey-500); font-size: 14px; margin-top: 4px; }
+  .rc-team-card .team-card__more {
+    position: absolute; top: clamp(13px, 1.2vw, 19px); right: clamp(14px, 1.3vw, 20px);
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 1.5px solid var(--red); color: var(--red); background: transparent;
+    display: grid; place-items: center; flex-shrink: 0;
+    transition: background .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
+  }
+  .rc-team-card .team-card__more svg { width: 12px; height: 12px; }
+  .rc-team-card .team-card__more:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+  .rc-team-card.is-clickable { cursor: pointer; }
+  .rc-team-card.is-clickable:hover .team-card__more,
+  .rc-team-card.is-clickable:focus-within .team-card__more {
+    background: var(--red); color: #fff; transform: translateX(2px);
+  }
+
+  @media (max-width: 900px) {
+    .rc-team-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .rc-team-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Person modal (ported from about-us) ---- */
+  .person-modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: clamp(16px, 4vw, 48px);
+    opacity: 0; visibility: hidden; transition: opacity .3s var(--ease), visibility 0s linear .3s; }
+  .person-modal.is-open { opacity: 1; visibility: visible; transition: opacity .3s var(--ease); }
+  .person-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .person-modal__panel {
+    position: relative; z-index: 1; background: #fff; border-radius: var(--radius-lg);
+    width: min(720px, 100%); max-height: min(88vh, 820px);
+    display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 40px 90px rgba(0,0,0,.28);
+    transform: translateY(12px) scale(.98); transition: transform .35s var(--ease);
+  }
+  .person-modal__scroll {
+    flex: 1 1 auto; min-height: 0; overflow-y: auto;
+    padding: clamp(20px, 2.4vw, 30px) clamp(24px, 3vw, 44px) clamp(24px, 3vw, 40px);
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,.2) transparent;
+  }
+  .person-modal__panel::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 60px;
+    background: linear-gradient(180deg, rgba(255,255,255,0), #fff 78%);
+    pointer-events: none; opacity: 0; transition: opacity .25s var(--ease);
+  }
+  .person-modal__panel.is-scrollable:not(.is-scroll-end)::after { opacity: 1; }
+  .person-modal__scroll::-webkit-scrollbar { width: 10px; }
+  .person-modal__scroll::-webkit-scrollbar-track { background: transparent; }
+  .person-modal__scroll::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,.16); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+  .person-modal__scroll:hover::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,.3); background-clip: content-box; }
+  .person-modal__head {
+    flex: none; display: flex; align-items: center; gap: clamp(18px, 2.2vw, 28px);
+    padding: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 44px) clamp(20px, 2.2vw, 28px);
+    padding-right: clamp(56px, 6vw, 76px);
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--bg-alt), #fff);
+  }
+  .person-modal__id { min-width: 0; }
+  .person-modal__panel:focus { outline: none; }
+  .person-modal.is-open .person-modal__panel { transform: translateY(0) scale(1); }
+  .person-modal__close {
+    position: absolute; top: clamp(14px, 1.6vw, 20px); right: clamp(14px, 1.6vw, 20px); z-index: 2;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,.82); border: 1px solid var(--line);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    font-size: 24px; line-height: 1; color: var(--grey-700); display: grid; place-items: center;
+    transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+  }
+  .person-modal__close:hover { background: var(--red); border-color: var(--red); color: #fff; }
+  .person-modal__close:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .person-modal__media { flex: none; width: clamp(88px, 11vw, 120px); aspect-ratio: 4 / 5; background: var(--bg-alt); display: grid; place-items: center; overflow: hidden; border-radius: 16px; }
+  .person-modal__media :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .person-modal__media :global(.initial) { font-family: var(--font-display); font-size: clamp(34px, 4vw, 48px); color: var(--red); line-height: 1; }
+  .person-modal__body { padding: 0; }
+
+  .person-modal :global(.pm-audio) { margin-top: 14px; }
+  .person-modal :global(.pm-audio[hidden]) { display: none; }
+  .person-modal :global(.pm-audio__toggle) {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 16px 7px 7px; border-radius: 999px;
+    border: 1px solid var(--line); background: #fff;
+    color: var(--grey-900); font-size: 13.5px; line-height: 1;
+    transition: border-color .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .person-modal :global(.pm-audio__toggle:hover) { border-color: var(--red); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+  .person-modal :global(.pm-audio__toggle:focus-visible) { outline: 2px solid var(--red); outline-offset: 2px; }
+  .person-modal :global(.pm-audio__icon) { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--red); position: relative; }
+  .person-modal :global(.pm-audio__icon::before), .person-modal :global(.pm-audio__icon::after) { content: ""; position: absolute; top: 50%; left: 50%; }
+  .person-modal :global(.pm-audio__icon::before) { transform: translate(-35%, -50%); border-style: solid; border-width: 5px 0 5px 8px; border-color: transparent transparent transparent #fff; }
+  .person-modal :global(.pm-audio__icon::after) { display: none; }
+  .person-modal :global(.pm-audio__toggle.is-playing .pm-audio__icon::before),
+  .person-modal :global(.pm-audio__toggle.is-playing .pm-audio__icon::after) { display: block; border: none; box-shadow: none; width: 3px; height: 10px; border-radius: 1px; background: #fff; }
+  .person-modal :global(.pm-audio__toggle.is-playing .pm-audio__icon::before) { transform: translate(-4px, -50%); }
+  .person-modal :global(.pm-audio__toggle.is-playing .pm-audio__icon::after) { transform: translate(1px, -50%); }
+  .person-modal :global(.pm-audio__note) { margin: 0 0 clamp(16px, 1.8vw, 22px); color: var(--grey-700); font-size: 13.5px; line-height: 1.6; font-style: italic; padding: 12px 16px; border-radius: 12px; background: var(--bg-alt); }
+  .person-modal :global(.pm-audio__note[hidden]) { display: none; }
+
+  .person-modal :global(.pm-bio .team-bio__lead) { font-family: var(--font-display); color: var(--grey-900); font-size: clamp(18px, 1.7vw, 24px); line-height: 1.25; padding-left: 16px; border-left: 3px solid var(--red); margin-bottom: clamp(20px, 2.4vw, 28px); display: block; }
+  .person-modal :global(.pm-bio p) { color: var(--grey-700); font-size: clamp(14.5px, 1.05vw, 16.5px); line-height: 1.72; margin-bottom: 16px; }
+  .person-modal :global(.pm-bio p:last-child) { margin-bottom: 0; }
+  .person-modal :global(.pm-bio em) { font-style: italic; color: var(--grey-900); }
+  .person-modal :global(.pm-bio a) { color: var(--red); text-decoration: underline; text-underline-offset: 3px; font-weight: 500; transition: color .2s var(--ease); }
+  .person-modal :global(.pm-bio a:hover) { color: var(--grey-900); }
+
+  .person-modal__name { font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 34px); color: var(--grey-900); line-height: 1.08; }
+  .person-modal__role { color: var(--red); font-size: 15px; margin-top: 6px; }
+  .person-modal :global(.pm-block) { margin-top: clamp(20px, 2.2vw, 30px); }
+  .person-modal :global(.pm-block:first-child) { margin-top: 0; }
+  .person-modal :global(.pm-block h4) { font-family: var(--font-body); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--grey-500); margin-bottom: 8px; }
+  .person-modal :global(.pm-block p) { color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); }
+  .person-modal :global(.pm-tags) { display: flex; flex-wrap: wrap; gap: 8px; }
+  .person-modal :global(.pm-tags span) { border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 14px; color: var(--grey-900); }
+  .person-modal :global(.pm-projects ul) { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .person-modal :global(.pm-projects a) {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 7px 14px; font-size: 14px; line-height: 1.4; color: var(--grey-900);
+    text-decoration: none;
+    transition: border-color .25s var(--ease), color .25s var(--ease);
+  }
+  .person-modal :global(.pm-projects a:hover) { border-color: var(--red); color: var(--red); }
+  .person-modal :global(.pm-projects a:focus-visible) { outline: 2px solid var(--red); outline-offset: 2px; }
+  @media (max-width: 480px) {
+    .person-modal__head { gap: 14px; align-items: flex-start; }
+    .person-modal__media { width: 84px; }
+    .person-modal { padding: 12px; }
+    .person-modal__panel { max-height: 92vh; }
+  }
+
+  /* Why This Rate Card Exists: full-bleed band, three cards */
+  .rc-why { position: relative; width: 100%; padding: 0 0 clamp(48px, 6vw, 90px); background: #fff; }
+  .rc-why__heading {
+    position: relative; z-index: 2; display: inline-block;
+    margin-top: clamp(-90px, -8vw, -56px); margin-bottom: clamp(28px, 3.4vw, 44px);
+    background: #fff; padding: clamp(16px, 2vw, 24px) clamp(20px, 2.4vw, 28px);
+    border: 2px solid var(--red); border-radius: 20px;
+  }
+  .rc-why__grid { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2vw, 28px); }
+  .rc-why__card {
+    position: relative; display: flex; flex-direction: column; background: #fdf3f3; border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: clamp(24px, 2.2vw, 32px);
+    transition: box-shadow .35s var(--ease), transform .35s var(--ease), border-color .35s var(--ease);
+  }
+  .rc-why__card:hover { box-shadow: 0 20px 44px rgba(0,0,0,.08); transform: translateY(-4px); border-color: #eecccc; }
+  .rc-why__icon {
+    flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%;
+    background: #fff; border: 1px solid var(--line); color: var(--red);
+    display: grid; place-items: center; margin-bottom: clamp(16px, 1.8vw, 22px);
+  }
+  .rc-why__card-body { min-width: 0; display: flex; flex-direction: column; flex: 1; }
+  .rc-why__card h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(19px, 1.5vw, 22px); color: var(--grey-900); }
+  .rc-why__card p { margin-top: 12px; font-size: 15px; line-height: 1.6; color: var(--grey-700); }
+  .rc-why__cta {
+    margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid var(--grey-300); border-radius: 999px;
+    padding: 6px 6px 6px 16px; font-size: 13.5px; font-weight: 600; color: var(--grey-900);
+    background: #fff; text-decoration: none;
+    transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease);
+  }
+  .rc-why__cta-arrow {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    border: 1.5px solid var(--red); color: var(--red); background: transparent;
+    display: grid; place-items: center;
+    transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease);
+  }
+  .rc-why__cta:hover { background: var(--red); border-color: var(--red); color: #fff; }
+  .rc-why__cta:hover .rc-why__cta-arrow { background: #fff; border-color: #fff; color: var(--red); transform: translateX(2px); }
+  .rc-why__card p a { color: var(--red); text-decoration: underline; text-underline-offset: 2px; }
+
+  @media (max-width: 900px) {
+    .rc-why__grid { grid-template-columns: 1fr; }
+  }
+
+  /* Client testimonial videos */
+  .rc-testi-grid { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .rc-testi { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--bg); margin-left: -1px; transition: box-shadow .3s var(--ease), border-color .3s var(--ease); }
+  .rc-testi:hover { box-shadow: 0 16px 36px rgba(0,0,0,.1); border-color: #eecccc; z-index: 1; }
+  .rc-testi:first-child { margin-left: 0; }
+  .rc-testi__media { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: #000; display: block; }
+  .rc-testi__embed-wrap { width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; }
+  .rc-testi__embed.instagram-media { margin: 0 !important; width: 100% !important; min-width: 0 !important; max-width: 100% !important; }
+  .rc-testi__label { padding: 12px 16px; font-size: 13.5px; font-weight: 600; color: var(--grey-900); }
+
+  @media (max-width: 1100px) {
+    .rc-testi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .rc-testi-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Advanced services */
+  .rc-advgrid { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2vw, 28px); }
+  .rc-adv { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; transition: box-shadow .3s var(--ease), transform .3s var(--ease), background .25s var(--ease), border-color .25s var(--ease); }
+  .rc-adv:hover { box-shadow: 0 16px 36px rgba(0,0,0,.06); transform: translateY(-3px); }
+  .rc-adv__media { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg-alt); }
+  .rc-adv__media img { width: 100%; height: 100%; object-fit: cover; }
+  .rc-adv__body { padding: clamp(20px, 2vw, 26px); display: flex; flex-direction: column; flex: 1; }
+  .rc-adv h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(19px, 1.5vw, 22px); color: var(--grey-900); transition: color .25s var(--ease); }
+  .rc-adv p { margin-top: 8px; font-size: 14px; color: var(--grey-500); line-height: 1.5; transition: color .25s var(--ease); }
+  .rc-adv .rc-card__add { margin-top: auto; padding-top: 16px; }
+  .rc-adv:has(.rc-card__add input:checked) { background: var(--red); border-color: var(--red); }
+  .rc-adv:has(.rc-card__add input:checked) h3,
+  .rc-adv:has(.rc-card__add input:checked) p { color: #fff; }
+
+  @media (max-width: 900px) {
+    .rc-tiers { grid-template-columns: 1fr; }
+    .rc-advgrid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .rc-cards { grid-template-columns: 1fr; }
+    .rc-advgrid { grid-template-columns: 1fr; }
+  }
 </style>
