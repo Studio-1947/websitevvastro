@@ -293,7 +293,7 @@ const testimonials = [
               <h3>Why not startups or NGOs</h3>
               <p>Startups, NGOs and funded ventures already have, or can raise, budgets sized for standard agency rates. Routing them through this card would mean a genuinely small local shop or homestay loses a seat meant for them. They're welcome to work with Studio 1947 through our <a href="/solutions/">regular solutions</a>, priced for what that work actually involves.</p>
               <a class="rc-why__cta" href="/solutions/">
-                <span>Know Studio 1947 Overall Solutions</span>
+                <span>Studio 1947 Overall Solutions</span>
                 <span class="rc-why__cta-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
               </a>
             </div>
@@ -1109,6 +1109,16 @@ const testimonials = [
   .rc-also__body .rc-eyebrow { color: #fff; font-size: 15px; }
   .rc-also__body .rc-note-large { color: rgba(255,255,255,.95); max-width: 70ch; font-size: clamp(18px, 1.5vw, 24px); line-height: 1.5; }
 
+  /* Below ~700px the overlay text no longer fits inside the image's short
+     aspect-ratio height, so switch to a stacked layout: image on top,
+     text in a solid block underneath instead of overlaid. */
+  @media (max-width: 700px) {
+    .rc-also::after { display: none; }
+    .rc-also__body {
+      position: static; background: var(--grey-900); padding-block: 24px 28px;
+    }
+  }
+
   /* Team cards: "Working On This Project" */
   .rc-team-grid { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 1.8vw, 24px); }
   .rc-team-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg); transition: box-shadow .4s var(--ease), transform .4s var(--ease); }
@@ -1253,10 +1263,14 @@ const testimonials = [
   /* Why This Rate Card Exists: full-bleed band, three cards */
   .rc-why { position: relative; width: 100%; padding: 0 0 clamp(48px, 6vw, 90px); background: #fff; }
   .rc-why__heading {
-    position: relative; z-index: 2; display: inline-block;
-    margin-top: clamp(-90px, -8vw, -56px); margin-bottom: clamp(28px, 3.4vw, 44px);
-    background: #fff; padding: clamp(16px, 2vw, 24px) clamp(20px, 2.4vw, 28px);
+    position: relative; z-index: 2; display: inline-block; max-width: calc(100% - 8px);
+    margin-top: clamp(-90px, -8vw, -56px); margin-bottom: clamp(44px, 5vw, 64px);
+    background: #fff; padding: clamp(21px, 2.6vw, 31px) clamp(26px, 3.1vw, 36px);
     border: 2px solid var(--red); border-radius: 20px;
+    transform: scale(1.3); transform-origin: left bottom;
+  }
+  @media (max-width: 700px) {
+    .rc-why__heading { transform: scale(1.02); }
   }
   .rc-why__grid { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2vw, 28px); }
   .rc-why__card {
@@ -1272,16 +1286,16 @@ const testimonials = [
   }
   .rc-why__card-body { min-width: 0; display: flex; flex-direction: column; flex: 1; }
   .rc-why__card h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(19px, 1.5vw, 22px); color: var(--grey-900); }
-  .rc-why__card p { margin-top: 12px; font-size: 15px; line-height: 1.6; color: var(--grey-700); }
+  .rc-why__card p { margin-top: 12px; margin-bottom: 24px; font-size: 15px; line-height: 1.6; color: var(--grey-700); }
   .rc-why__cta {
     margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px;
     border: 1px solid var(--grey-300); border-radius: 999px;
-    padding: 6px 6px 6px 16px; font-size: 13.5px; font-weight: 600; color: var(--grey-900);
+    padding: 12px 10px 12px 20px; font-size: 13.5px; font-weight: 600; color: var(--grey-900);
     background: #fff; text-decoration: none;
     transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease);
   }
   .rc-why__cta-arrow {
-    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
     border: 1.5px solid var(--red); color: var(--red); background: transparent;
     display: grid; place-items: center;
     transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease);
