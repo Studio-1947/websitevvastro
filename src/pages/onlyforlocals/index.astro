@@ -622,10 +622,11 @@ const testimonials = [
           </article>
         <a class="rc-team-card rc-team-card--cta" href="/about-us/#team">
           <div class="rc-team-card__cta-body">
-            <span class="rc-team-card__cta-arrow" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span class="rc-team-card__cta-icon" aria-hidden="true">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </span>
-            <span class="rc-team-card__cta-text">Know the Studio Entire Team</span>
+            <span class="rc-team-card__cta-text">More people.<br />One studio.</span>
+            <span class="rc-team-card__cta-link">Meet the whole team <span aria-hidden="true">↗</span></span>
           </div>
         </a>
       </div>
@@ -656,7 +657,7 @@ const testimonials = [
       </div>
     </section>
 
-    <div class="marquee rc-clients-marquee">
+    <div class="marquee rc-clients-marquee rc-clients-marquee--full">
       <div class="marquee__track">
         <span class="rc-clients-marquee__name">Bhagirath Homestay</span>
         <span class="rc-clients-marquee__name">Kulam Homestay</span>
@@ -1168,10 +1169,12 @@ const testimonials = [
   .rc-team-card__spec { color: var(--grey-500); font-size: 14px; margin-top: 4px; }
   .rc-team-card--cta { align-items: stretch; justify-content: stretch; text-decoration: none; background: linear-gradient(135deg, #fff 0%, #ffe1e1 45%, var(--red) 100%); border-color: var(--red); }
   .rc-team-card--cta:hover { border-color: var(--red); }
-  .rc-team-card__cta-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: clamp(24px, 2.4vw, 32px); text-align: center; }
-  .rc-team-card__cta-arrow { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); display: grid; place-items: center; transition: transform .35s var(--ease); }
-  .rc-team-card--cta:hover .rc-team-card__cta-arrow { transform: translateX(4px); }
-  .rc-team-card__cta-text { font-family: var(--font-display); font-size: clamp(18px, 1.4vw, 21px); color: var(--grey-900); line-height: 1.25; }
+  .rc-team-card__cta-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: clamp(24px, 2.4vw, 32px); text-align: center; }
+  .rc-team-card__cta-icon { width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid var(--red); color: var(--red); display: grid; place-items: center; transition: transform .35s var(--ease); }
+  .rc-team-card--cta:hover .rc-team-card__cta-icon { transform: translateY(-3px); }
+  .rc-team-card__cta-text { font-family: var(--font-display); font-size: clamp(19px, 1.5vw, 23px); color: var(--grey-900); line-height: 1.25; }
+  .rc-team-card__cta-link { font-size: 14px; font-weight: 600; color: var(--red); transition: transform .35s var(--ease); display: inline-block; }
+  .rc-team-card--cta:hover .rc-team-card__cta-link { transform: translateX(4px); }
   .rc-team-card .team-card__more {
     position: absolute; top: clamp(13px, 1.2vw, 19px); right: clamp(14px, 1.3vw, 20px);
     width: 26px; height: 26px; border-radius: 50%;
@@ -1307,6 +1310,7 @@ const testimonials = [
   .rc-clients-marquee { padding-block: clamp(10px, 1.4vw, 16px); max-width: 560px; margin-left: auto; margin-right: var(--gutter); }
   @media (max-width: 700px) { .rc-clients-marquee { max-width: 100%; margin-right: 0; } }
   .rc-clients-marquee--why { margin-left: 0; margin-right: auto; margin-top: clamp(12px, 2vw, 24px); }
+  .rc-clients-marquee--full { max-width: none; margin-left: 0; margin-right: 0; width: 100%; }
   .rc-clients-marquee__name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .02em; font-size: clamp(20px, 2vw, 28px); color: var(--grey-300); white-space: nowrap; }
   .rc-why { position: relative; width: 100%; padding: clamp(32px, 4vw, 56px) 0 clamp(48px, 6vw, 90px); background: #fff; }
   .rc-why__heading {
