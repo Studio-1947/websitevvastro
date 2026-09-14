@@ -39,6 +39,9 @@
     /* "… Means" band */
     .page-products .means {
       margin-top: clamp(48px, 6vw, 96px);
+    }
+    .page-products .prod-hero + .section .means {
+      margin-top: 0;
       background: var(--bg-alt); border-radius: var(--radius-lg);
       padding: clamp(32px, 4vw, 68px);
       display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(28px, 4vw, 64px); align-items: center;
