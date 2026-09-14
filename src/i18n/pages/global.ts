@@ -79,6 +79,8 @@ export const global: Record<string, Entry> = {
   'global.dd.products.socialFlow': { hi: 'सोशल फ़्लो', bn: 'সোশ্যাল ফ্লো', ne: 'सोसल फ्लो' },
   'global.dd.products.darjeeling': { hi: '1 दार्जिलिंग', bn: '১ দার্জিলিং', ne: '१ दार्जिलिङ' },
   'global.dd.products.pharmaErp': { hi: 'फ़ार्मा ईआरपी', bn: 'ফার্মা ইআরপি', ne: 'फार्मा ईआरपी' },
+  'global.dd.products.aanganErp': { hi: 'आंगन ईआरपी', bn: 'আঙন ইআরপি', ne: 'आँगन ईआरपी' },
+  'global.dd.products.aangan': { hi: 'आंगन', bn: 'আঙন', ne: 'आँगन' },
   'global.dd.products.soon': { hi: 'जल्द आ रहा है', bn: 'শীঘ্রই আসছে', ne: 'चाँडै आउँदैछ' },
 
   // ── Footer ───────────────────────────────────────────────────────────
