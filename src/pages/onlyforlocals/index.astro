@@ -145,7 +145,17 @@ const socialTiers = [
   },
 ];
 
-const relatedWork = [
+const relatedWork: {
+  slug: string;
+  title: string;
+  tag: string;
+  location: string;
+  year: string;
+  img: string;
+  alt: string;
+  /* Optional looping clip shown over the still, as on /our-work/. */
+  video?: string;
+}[] = [
   {
     slug: 'healix',
     title: 'Healix',
@@ -172,6 +182,7 @@ const relatedWork = [
     year: '2026',
     img: '/assets/img/our-work/sikkim-himal-institute-thumb.webp',
     alt: 'Sikkim Himal Institute: a design and technology engagement with Studio 1947',
+    video: '/assets/img/work/sikkim-himal-institute/logo-loop.mp4',
   },
   {
     slug: 'bhagirath-homestays',
@@ -710,6 +721,11 @@ const testimonials = [
           <a class="work-card" href={`/work/${w.slug}/`}>
             <div class="work-card__media">
               <img src={w.img} alt={w.alt} loading="lazy" />
+              {w.video && (
+                <video class="work-card__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+                  <source src={w.video} type="video/mp4" />
+                </video>
+              )}
             </div>
             <div class="work-card__body">
               <div class="work-tags">
@@ -1091,9 +1107,13 @@ const testimonials = [
   .rc-relgrid { margin-top: clamp(28px, 3.4vw, 44px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.2vw, 32px); }
   .work-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg); text-decoration: none; transition: box-shadow .3s var(--ease), transform .3s var(--ease); }
   .work-card:hover { box-shadow: 0 22px 50px rgba(0,0,0,.08); transform: translateY(-5px); border-color: #eecccc; }
-  .work-card__media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-alt); }
+  .work-card__media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--bg-alt); }
   .work-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
   .work-card:hover .work-card__media img { transform: scale(1.04); }
+  /* Motion thumbnail: the clip sits over the still, which stays as the fallback. */
+  .work-card__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); }
+  .work-card:hover .work-card__video { transform: scale(1.04); }
+  @media (prefers-reduced-motion: reduce) { .work-card__video { display: none; } }
   .work-card__body { padding: clamp(20px, 1.8vw, 30px); display: flex; flex-direction: column; gap: 16px; flex: 1; }
   .work-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .work-tag { font-size: 12px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: .03em; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
