@@ -208,6 +208,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   transition: color .25s var(--ease);
 }
 .dd__item:hover .dd__ico { color: var(--red); }
+.dd__item-label { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Unlaunched products: the dropdown still lists them so the range is visible,
    but the items do not navigate. Original href kept in data-href, so restoring
@@ -217,6 +218,8 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .dd__item--soon:hover .dd__ico { color: inherit; }
 .dd__soon {
   margin-left: auto;
+  flex: none;
+  white-space: nowrap;
   font-style: normal;
   font-size: 11px;
   letter-spacing: .04em;
