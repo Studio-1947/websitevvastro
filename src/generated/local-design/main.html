@@ -1,119 +1,57 @@
 <main class="page-local-design">
-  <!-- ===== Hero banner: full-bleed image, bottom-to-top scrim, text overlaid ===== -->
-  <figure class="ld-hero-banner reveal">
-    <img
-      src="/assets/img/local-design/hero-banner.webp"
-      alt="Abstract illustration of two faces in profile, facing each other, in a bold red, orange, yellow and black palette"
-      loading="lazy"
-    />
-    <div class="ld-hero-banner__scrim" aria-hidden="true"></div>
-    <div class="ld-hero-banner__content container" data-stagger>
-      <p class="ld-hero__eyebrow">An Initiative by Studio 1947</p>
-      <h1 class="ld-hero__title">Local Design Wisdom.<br />For Global Impact.</h1>
-      <p class="ld-hero__lead">
-        A platform we built to discover young creators, preserve local design
-        knowledge, and bring free design-thinking workshops to rural India.
-      </p>
-      <a class="cta__btn" href="https://www.localdesign.in/" target="_blank" rel="noopener" style="background: var(--red); color: #fff">
-        <span>Visit Local Design</span>
-        <span class="arrow" aria-hidden="true" style="background: #fff; color: var(--red)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg>
-        </span>
-      </a>
+  <!-- ===== Hero: headline + intro, wide illustration below ===== -->
+  <section class="ld-hero container">
+    <div class="ld-hero__top" data-stagger>
+      <div class="ld-hero__head">
+        <p class="ld-pill"><span class="ld-dot" aria-hidden="true"></span>An Initiative by Studio 1947</p>
+        <h1 class="ld-hero__title">Local Design Wisdom.<br /><em>For Global Impact.</em></h1>
+      </div>
+      <div class="ld-hero__side">
+        <p class="ld-hero__lead">
+          A platform we built to discover young creators, preserve local design
+          knowledge, and bring free design-thinking workshops to rural India.
+        </p>
+        <div class="ld-actions">
+          <a class="cta__btn ld-btn-red" href="https://www.localdesign.in/" target="_blank" rel="noopener">
+            <span>Visit Local Design</span>
+            <span class="arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg>
+            </span>
+          </a>
+          <button type="button" class="btn-hello" data-story-open>
+            <span>Submit your story</span>
+            <span class="arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
-  </figure>
 
-  <!-- ===== What we do: the four pillars ===== -->
-  <section class="section container">
-    <p class="eyebrow reveal" style="margin: 0 0 28px">What We Do</p>
-    <div class="ld-pillars ld-pillars--four" data-stagger>
-      <article class="ld-pillar">
-        <span class="ld-pillar__ico" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4" /><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z" /><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" /></svg>
-        </span>
-        <h3 class="ld-pillar__title">
-          Competitions &amp; Awards
-          <span class="ld-badge">Coming Soon</span>
-        </h3>
-        <p class="ld-pillar__desc">
-          Design challenges that invite students and young creators to solve
-          real problems and imagine better futures. Winners get recognition,
-          mentorship, and a platform to show their work.
-        </p>
-      </article>
-      <article class="ld-pillar">
-        <span class="ld-pillar__ico" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2" /><path d="M2.5 19c0-3 3-5 6.5-5s6.5 2 6.5 5" /><circle cx="17" cy="8.5" r="2.4" /><path d="M15.7 13.8c2.7.4 4.8 2.1 4.8 4.7" /></svg>
-        </span>
-        <h3 class="ld-pillar__title">Free Workshops for Rural Communities</h3>
-        <p class="ld-pillar__desc">
-          Design-thinking workshops brought to small towns and villages at no
-          cost, teaching problem-solving, teamwork and hands-on creative
-          skills.
-        </p>
-        <a class="ld-pillar__link" href="https://www.localdesign.in/workshops" target="_blank" rel="noopener">
-          <span>Join a workshop</span>
-          <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg></span>
-        </a>
-      </article>
-      <article class="ld-pillar">
-        <span class="ld-pillar__ico" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1.2" /><path d="M4 9v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9" /><path d="M10 13h4" /></svg>
-        </span>
-        <h3 class="ld-pillar__title">Archiving Local Design Knowledge</h3>
-        <p class="ld-pillar__desc">
-          A public archive of India's local tools, crafts and everyday
-          innovations, documented to preserve design wisdom and inspire
-          future generations.
-        </p>
-        <a class="ld-pillar__link" href="https://www.localdesign.in/archives" target="_blank" rel="noopener">
-          <span>Explore the archive</span>
-          <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg></span>
-        </a>
-      </article>
-      <article class="ld-pillar">
-        <span class="ld-pillar__ico" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2" /><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" /><path d="M12 20v-2" /></svg>
-        </span>
-        <h3 class="ld-pillar__title">Community</h3>
-        <p class="ld-pillar__desc">
-          A growing network of young creators, craftspeople and mentors
-          sharing work, feedback and opportunities with each other.
-        </p>
-        <a class="ld-pillar__link" href="https://www.localdesign.in/community" target="_blank" rel="noopener">
-          <span>Explore the community</span>
-          <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg></span>
-        </a>
-      </article>
-    </div>
+    <figure class="ld-hero__media">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="/assets/img/local-design/hero-video-poster.webp"
+        width="1900"
+        height="900"
+        aria-label="Screen recording of the Local Design Archives website homepage"
+      >
+        <source src="/assets/video/local-design.mp4" type="video/mp4" />
+      </video>
+    </figure>
   </section>
 
-  <!-- ===== Design Challenges: coming soon ===== -->
-  <section class="section container">
-    <div class="ld-challenge reveal">
-      <p class="eyebrow ld-challenge__eyebrow">Design Challenges <span class="ld-badge">Coming Soon</span></p>
-      <h2 class="ld-challenge__title">We're building a real challenge cycle.</h2>
-      <p class="ld-challenge__body">
-        Timed briefs, submissions, and a leaderboard. Nothing's live yet, so
-        there's nothing to show here. In the meantime, explore what's
-        already in the Archive.
-      </p>
-      <a class="btn-hello" href="https://www.localdesign.in/archives" target="_blank" rel="noopener">
-        <span>Explore the archive</span>
-        <span class="arrow" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg>
-        </span>
-      </a>
-    </div>
-  </section>
-
-  <!-- ===== Mission ===== -->
-  <section class="section container">
-    <div class="ld-mission reveal">
-      <p class="eyebrow">Our Mission</p>
+  <!-- ===== Mission statement ===== -->
+  <section class="section container ld-mission reveal">
+    <p class="eyebrow ld-mission__eyebrow">Our Mission</p>
+    <div class="ld-mission__main">
       <h2 class="ld-mission__title">
-        A platform that celebrates design excellence rooted in local wisdom,
-        while fostering global collaboration.
+        A platform that celebrates design excellence rooted in <em>local wisdom</em>,
+        while fostering <em>global collaboration</em>.
       </h2>
       <p class="ld-mission__body">
         We empower designers, preserve cultural heritage, and drive
@@ -123,59 +61,208 @@
     </div>
   </section>
 
-  <!-- ===== Watch: the Local Design archive videos on YouTube ===== -->
-  <section class="section container">
-    <p class="eyebrow reveal" style="margin: 0 0 28px">Watch on YouTube</p>
-    <div class="ld-videos" data-stagger>
-      <button type="button" class="ld-video" data-yt-play="wX5gR1l7NSU">
-        <span class="ld-video__media">
-          <img src="/assets/img/local-design/yt-hands-that-shape-mirik.webp" alt="The Hands That Shape Mirik, Archive 1, Local Design YouTube video thumbnail" loading="lazy" />
-          <span class="ld-video__play" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z" /></svg>
+  <!-- ===== What we do: four pillars, bento grid ===== -->
+  <section class="container ld-pillars-wrap">
+    <header class="ld-head reveal">
+      <p class="eyebrow">What We Do</p>
+      <span class="ld-head__rule" aria-hidden="true"></span>
+    </header>
+    <div class="ld-bento" data-stagger>
+      <article class="ld-card ld-card--soon">
+        <div class="ld-card__top">
+          <span class="ld-card__ico" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4" /><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z" /><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" /></svg>
           </span>
-        </span>
-        <span class="ld-video__title">The Hands That Shape Mirik &middot; Archive 1</span>
-      </button>
-      <button type="button" class="ld-video" data-yt-play="1ZuWcNFEJAM">
-        <span class="ld-video__media">
-          <img src="/assets/img/local-design/yt-soil-architect.webp" alt="Ep 1: The Soil Architect, Archive 2, Local Design YouTube video thumbnail" loading="lazy" />
-          <span class="ld-video__play" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z" /></svg>
+          <span class="ld-badge">Coming Soon</span>
+        </div>
+        <h3 class="ld-card__title">Competitions &amp; Awards</h3>
+        <p class="ld-card__desc">
+          Design challenges that invite students and young creators to solve
+          real problems and imagine better futures. Winners get recognition,
+          mentorship, and a platform to show their work.
+        </p>
+      </article>
+
+      <article class="ld-card">
+        <div class="ld-card__top">
+          <span class="ld-card__ico" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2" /><path d="M2.5 19c0-3 3-5 6.5-5s6.5 2 6.5 5" /><circle cx="17" cy="8.5" r="2.4" /><path d="M15.7 13.8c2.7.4 4.8 2.1 4.8 4.7" /></svg>
           </span>
-        </span>
-        <span class="ld-video__title">Ep 1: The Soil Architect &middot; Archive 2</span>
-      </button>
+        </div>
+        <h3 class="ld-card__title">Free Workshops for Rural Communities</h3>
+        <p class="ld-card__desc">
+          Design-thinking workshops brought to small towns and villages at no
+          cost, teaching problem-solving, teamwork and hands-on creative
+          skills.
+        </p>
+        <a class="ld-link" href="https://www.localdesign.in/workshops" target="_blank" rel="noopener">
+          <span>Join a workshop</span>
+          <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg></span>
+        </a>
+      </article>
+
+      <article class="ld-card">
+        <div class="ld-card__top">
+          <span class="ld-card__ico" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1.2" /><path d="M4 9v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9" /><path d="M10 13h4" /></svg>
+          </span>
+        </div>
+        <h3 class="ld-card__title">Archiving Local Design Knowledge</h3>
+        <p class="ld-card__desc">
+          A public archive of India's local tools, crafts and everyday
+          innovations, documented to preserve design wisdom and inspire
+          future generations.
+        </p>
+        <a class="ld-link" href="https://www.localdesign.in/archives" target="_blank" rel="noopener">
+          <span>Explore the archive</span>
+          <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg></span>
+        </a>
+      </article>
+
+      <article class="ld-card">
+        <div class="ld-card__top">
+          <span class="ld-card__ico" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2" /><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" /><path d="M12 20v-2" /></svg>
+          </span>
+        </div>
+        <h3 class="ld-card__title">Community</h3>
+        <p class="ld-card__desc">
+          A growing network of young creators, craftspeople and mentors
+          sharing work, feedback and opportunities with each other.
+        </p>
+        <a class="ld-link" href="https://www.localdesign.in/community" target="_blank" rel="noopener">
+          <span>Explore the community</span>
+          <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg></span>
+        </a>
+      </article>
     </div>
-    <a class="ld-videos__channel" href="https://www.youtube.com/@Localdesign1947" target="_blank" rel="noopener">
-      <span>More on the Local Design YouTube channel</span>
-      <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg></span>
-    </a>
   </section>
 
-  <!-- ===== For artists: get your story into the archive ===== -->
-  <section class="section container">
-    <div class="ld-story reveal">
-      <p class="eyebrow ld-story__eyebrow">For Artists &amp; Craftspeople</p>
-      <h2 class="ld-story__title">Have a story worth telling?</h2>
-      <p class="ld-story__body">
-        If you're an artist, craftsperson or community keeping a local
-        tradition alive, and you want your story documented and shared,
-        we want to hear from you. Submissions become part of the Local
-        Design Archive: photos, video, oral histories, the work itself.
-      </p>
-      <div class="ld-story__row">
-        <button type="button" class="btn-hello" data-story-open style="cursor: pointer">
-          <span>Submit your story</span>
-          <span class="arrow" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg>
+  <!-- ===== Watch: dark panel with the archive videos ===== -->
+  <section class="container ld-watch-wrap">
+    <div class="ld-watch reveal">
+      <div class="ld-watch__head">
+        <div>
+          <p class="eyebrow ld-watch__eyebrow">Watch on YouTube</p>
+          <h2 class="ld-watch__title">From the Local Design Archive.</h2>
+        </div>
+        <a class="ld-link ld-link--light" href="https://www.youtube.com/@Localdesign1947" target="_blank" rel="noopener">
+          <span>More on the Local Design YouTube channel</span>
+          <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg></span>
+        </a>
+      </div>
+
+      <div class="ld-videos" data-stagger>
+        <button type="button" class="ld-video" data-yt-play="wX5gR1l7NSU">
+          <span class="ld-video__media">
+            <img src="/assets/img/local-design/yt-hands-that-shape-mirik.webp" alt="The Hands That Shape Mirik, Archive 1, Local Design YouTube video thumbnail" loading="lazy" width="1280" height="720" />
+            <span class="ld-video__play" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z" /></svg>
+            </span>
+          </span>
+          <span class="ld-video__meta">
+            <span class="ld-video__tag">Archive 1</span>
+            <span class="ld-video__title">The Hands That Shape Mirik</span>
           </span>
         </button>
-        <a class="btn-hello" href="https://www.localdesign.in/" target="_blank" rel="noopener">
-          <span>Go to localdesign.in</span>
+        <button type="button" class="ld-video" data-yt-play="1ZuWcNFEJAM">
+          <span class="ld-video__media">
+            <img src="/assets/img/local-design/yt-soil-architect.webp" alt="Ep 1: The Soil Architect, Archive 2, Local Design YouTube video thumbnail" loading="lazy" width="1280" height="720" />
+            <span class="ld-video__play" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7Z" /></svg>
+            </span>
+          </span>
+          <span class="ld-video__meta">
+            <span class="ld-video__tag">Archive 2</span>
+            <span class="ld-video__title">Ep 1: The Soil Architect</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Design Challenges: coming soon, with the planned cycle ===== -->
+  <section class="section container">
+    <div class="ld-challenge reveal">
+      <div class="ld-challenge__text">
+        <p class="eyebrow ld-challenge__eyebrow">Design Challenges <span class="ld-badge">Coming Soon</span></p>
+        <h2 class="ld-challenge__title">We're building a real challenge cycle.</h2>
+        <p class="ld-challenge__body">
+          Timed briefs, submissions, and a leaderboard. Nothing's live yet, so
+          there's nothing to show here. In the meantime, explore what's
+          already in the Archive.
+        </p>
+        <a class="btn-hello" href="https://www.localdesign.in/archives" target="_blank" rel="noopener">
+          <span>Explore the archive</span>
           <span class="arrow" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg>
           </span>
         </a>
+      </div>
+
+      <ol class="ld-cycle" aria-label="The planned challenge cycle">
+        <li class="ld-cycle__step">
+          <span class="ld-cycle__ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8" /><path d="M12 9v4l2.5 2.5" /><path d="M9 2h6" /></svg></span>
+          <span class="ld-cycle__name">Timed briefs</span>
+        </li>
+        <li class="ld-cycle__step">
+          <span class="ld-cycle__ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3" /><path d="M7 8l5-5 5 5" /><path d="M20 15v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4" /></svg></span>
+          <span class="ld-cycle__name">Submissions</span>
+        </li>
+        <li class="ld-cycle__step">
+          <span class="ld-cycle__ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V11M12 21V5M18 21v-7" /><path d="M3 21h18" /></svg></span>
+          <span class="ld-cycle__name">Leaderboard</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== For artists: get your story into the archive ===== -->
+  <section class="container ld-story-wrap">
+    <div class="ld-story reveal">
+      <div class="ld-story__text">
+        <p class="eyebrow">For Artists &amp; Craftspeople</p>
+        <h2 class="ld-story__title">Have a story worth telling?</h2>
+        <p class="ld-story__body">
+          If you're an artist, craftsperson or community keeping a local
+          tradition alive, and you want your story documented and shared,
+          we want to hear from you. Submissions become part of the Local
+          Design Archive: photos, video, oral histories, the work itself.
+        </p>
+      </div>
+      <div class="ld-story__side">
+        <ul class="ld-formats" aria-label="What a submission can include">
+          <li class="ld-format">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2" /><circle cx="12" cy="13" r="3.5" /><path d="M8 6l1.5-2h5L16 6" /></svg>
+            Photos
+          </li>
+          <li class="ld-format">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2" /><path d="M16 10l6-3v10l-6-3" /></svg>
+            Video
+          </li>
+          <li class="ld-format">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v4" /></svg>
+            Oral histories
+          </li>
+          <li class="ld-format">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2 8 12.7 4 8.8 9.5 8Z" /></svg>
+            The work itself
+          </li>
+        </ul>
+        <div class="ld-actions">
+          <button type="button" class="cta__btn ld-btn-red" data-story-open>
+            <span>Submit your story</span>
+            <span class="arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </span>
+          </button>
+          <a class="btn-hello" href="https://www.localdesign.in/" target="_blank" rel="noopener">
+            <span>Go to localdesign.in</span>
+            <span class="arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7" /><path d="M8 7h9v9" /></svg>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </section>

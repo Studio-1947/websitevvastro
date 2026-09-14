@@ -182,9 +182,11 @@
 
     /* ===== Founder's vision ===== */
     .page-initiatives .ini-founder {
-      display: grid; grid-template-columns: 0.75fr 1.25fr; gap: clamp(32px, 6vw, 120px); align-items: center;
+      display: grid; grid-template-columns: 1.25fr 0.75fr; gap: clamp(32px, 6vw, 120px); align-items: center;
     }
+    /* Quote on the left, portrait on the right (desktop). */
     .page-initiatives .ini-founder__media {
+      order: 2;
       position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 1 / 1; background: var(--bg-alt);
     }
     .page-initiatives .ini-founder__media img { width: 100%; height: 100%; object-fit: cover; }
@@ -198,7 +200,7 @@
     }
     @media (max-width: 900px) {
       .page-initiatives .ini-founder { grid-template-columns: 1fr; }
-      .page-initiatives .ini-founder__media { max-width: 440px; }
+      .page-initiatives .ini-founder__media { order: 0; max-width: 440px; }
     }
 
     /* ===== Get in touch ===== */

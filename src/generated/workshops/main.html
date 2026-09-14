@@ -1,312 +1,366 @@
 <main class="page-workshops">
-  <!-- ===== Hero banner: full-bleed image, bottom-to-top scrim, text overlaid ===== -->
-  <figure class="ws-hero-banner reveal">
-    <img
-      src="/assets/img/workshops/hero-banner.webp"
-      alt="Abstract illustration of a facilitator leading a community digital-literacy workshop with a presentation board, villagers gathered around, huts and fields in the background"
-      loading="lazy"
-    />
-    <div class="ws-hero-banner__scrim" aria-hidden="true"></div>
-    <div class="ws-hero-banner__content container" data-stagger>
-      <p class="ws-hero__eyebrow">An Initiative by Studio 1947</p>
-      <h1 class="ws-hero__title">Community Workshops.</h1>
-      <p class="ws-hero__lead">
-        Free, hands-on workshops we run with local communities, building
-        practical digital skills people can put to use the same week.
-      </p>
-      <a class="cta__btn" href="/sayhello/" data-contact-open style="background: var(--red); color: #fff">
-        <span>Host a workshop with us</span>
-        <span class="arrow" aria-hidden="true" style="background: #fff; color: var(--red)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-        </span>
-      </a>
+  <!-- ===== Hero: statement + illustration, facts strip ===== -->
+  <section class="ws-hero container">
+    <div class="ws-hero__grid">
+      <div class="ws-hero__text" data-stagger>
+        <p class="ws-pill"><span class="ws-dot" aria-hidden="true"></span>An Initiative by Studio 1947</p>
+        <h1 class="ws-hero__title">Community <em>Workshops.</em></h1>
+        <p class="ws-hero__lead">
+          Free, hands-on workshops we run with local communities, building
+          practical digital skills people can put to use the same week.
+        </p>
+        <div class="ws-hero__actions">
+          <a class="cta__btn ws-btn-red" href="/sayhello/" data-contact-open>
+            <span>Host a workshop with us</span>
+            <span class="arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </span>
+          </a>
+          <a class="btn-hello ws-hero__more" href="#workshops">
+            See the workshops
+            <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6" /></svg></span>
+          </a>
+        </div>
+      </div>
+      <figure class="ws-hero__media">
+        <img
+          src="/assets/img/workshops/hero-banner.webp"
+          alt="Abstract illustration of a facilitator leading a community digital-literacy workshop with a presentation board, villagers gathered around, huts and fields in the background"
+          width="1536"
+          height="1024"
+          fetchpriority="high"
+        />
+      </figure>
     </div>
-  </figure>
 
-  <!-- ===== The workshops we do ===== -->
-  <section class="section container">
-    <p class="eyebrow reveal" style="margin: 0 0 28px">The Workshops We Do</p>
-    <div class="ws-components" data-stagger>
-      <article class="ws-component">
-        <span class="ws-component__thumb" aria-hidden="true">
-          <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="76" y="24" width="48" height="76" rx="6" />
-            <path d="M92 88h16" />
-            <path d="M100 40v34" />
-            <path d="M84 46l16-6 16 6" />
-            <path d="M56 46q-8 8 0 16" />
-            <path d="M48 40q-14 14 0 28" />
-            <path d="M144 46q8 8 0 16" />
-            <path d="M152 40q14 14 0 28" />
-          </svg>
+    <ul class="ws-promises" data-stagger>
+      <li class="ws-promise">
+        <span class="ws-promise__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></span>
+        <span class="ws-promise__text">
+          <span class="ws-promise__title">Hands-on</span>
+          <span class="ws-promise__desc">Practical skills, learned by doing</span>
         </span>
-        <h3 class="ws-component__title">Digital Literacy</h3>
-        <p class="ws-component__desc">
-          The basics done properly: using a smartphone with confidence,
-          getting online safely, and handling everyday apps and services
-          without having to ask someone else to do it for you.
-        </p>
-      </article>
-      <article class="ws-component">
-        <span class="ws-component__thumb" aria-hidden="true">
-          <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M40 100V56l24-10h20l24 10v44" />
-            <path d="M40 100h68" />
-            <path d="M56 100V72h16v28" />
-            <path d="M84 72h12v14H84z" />
-            <circle cx="140" cy="52" r="18" />
-            <path d="M133 52l5 6 10-12" />
-            <path d="M158 40l10-8" />
-            <path d="M160 56h12" />
-            <path d="M155 68l8 8" />
-          </svg>
+      </li>
+      <li class="ws-promise">
+        <span class="ws-promise__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+        <span class="ws-promise__text">
+          <span class="ws-promise__title">Free to attend</span>
+          <span class="ws-promise__desc">No fee, open to whoever shows up</span>
         </span>
-        <h3 class="ws-component__title">Digital Marketing Basics</h3>
-        <p class="ws-component__desc">
-          For local shopkeepers and small business owners: setting up a
-          business page, taking better product photos, and using WhatsApp
-          and Instagram to reach customers directly.
-        </p>
-      </article>
-      <article class="ws-component">
-        <span class="ws-component__thumb" aria-hidden="true">
-          <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M100 26a26 26 0 0 0-14 48c2 1.6 3.5 4 3.5 7h21c0-3 1.5-5.4 3.5-7a26 26 0 0 0-14-48Z" />
-            <path d="M91 88h18" />
-            <path d="M94 96h12" />
-            <path d="M100 14v6" />
-            <path d="M62 46h8" />
-            <path d="M130 46h8" />
-            <path d="M72 22l6 5" />
-            <path d="M128 22l-6 5" />
-            <rect x="146" y="70" width="34" height="26" rx="2" />
-            <path d="M153 82h20M153 88h14" />
-          </svg>
+      </li>
+      <li class="ws-promise">
+        <span class="ws-promise__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V4a1 1 0 0 1 1-1h8l5 5v13"/><path d="M14 3v5h5"/><path d="M9 14l2 2 4-4"/></svg></span>
+        <span class="ws-promise__text">
+          <span class="ws-promise__title">No prerequisites</span>
+          <span class="ws-promise__desc">No assumption you know the basics</span>
         </span>
-        <h3 class="ws-component__title">Design Thinking Workshop</h3>
-        <p class="ws-component__desc">
-          A hands-on introduction to solving real problems: how to spot
-          what's actually wrong, sketch ideas fast, and test them with the
-          people they're for. No design background needed.
-        </p>
-      </article>
-      <article class="ws-component">
-        <span class="ws-component__thumb" aria-hidden="true">
-          <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="70" y="34" width="60" height="46" rx="8" />
-            <circle cx="88" cy="56" r="4" />
-            <circle cx="112" cy="56" r="4" />
-            <path d="M88 68h24" />
-            <path d="M100 20v14" />
-            <circle cx="100" cy="16" r="4" />
-            <path d="M70 46h-12M70 66h-12M130 46h12M130 66h12" />
-            <path d="M84 92c4 6 28 6 32 0" />
-            <path d="M150 30l4 4M150 90l4-4M50 30l-4 4M50 90l-4-4" />
-          </svg>
+      </li>
+      <li class="ws-promise">
+        <span class="ws-promise__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <span class="ws-promise__text">
+          <span class="ws-promise__title">Run locally</span>
+          <span class="ws-promise__desc">In your village, school or business group</span>
         </span>
-        <h3 class="ws-component__title">AI and Life</h3>
-        <p class="ws-component__desc">
-          What AI actually is, where it already shows up in daily life, how
-          to use it sensibly, cutting through both the hype and the fear,
-          and what it means for society and communities like ours.
-        </p>
-      </article>
-      <article class="ws-component">
-        <span class="ws-component__thumb" aria-hidden="true">
-          <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="56" y="36" width="72" height="48" rx="6" />
-            <circle cx="92" cy="60" r="14" />
-            <circle cx="92" cy="60" r="5" />
-            <rect x="106" y="44" width="10" height="8" rx="2" />
-            <path d="M78 36l6-10h16l6 10" />
-            <path d="M140 52h20M140 62h14M140 72h20" />
-          </svg>
-        </span>
-        <h3 class="ws-component__title">Photography &amp; Content Basics</h3>
-        <p class="ws-component__desc">
-          Taking product and portrait shots that actually sell, with just a
-          phone: framing, light, and turning a handful of photos into posts
-          people stop to look at.
-        </p>
-      </article>
-      <article class="ws-component">
-        <span class="ws-component__thumb" aria-hidden="true">
-          <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="76" cy="56" r="26" />
-            <path d="M60 50h32M60 58h24M60 66h18" />
-            <path d="M76 82l-10 14 16-6z" />
-            <rect x="132" y="34" width="40" height="30" rx="6" />
-            <path d="M140 84l8-12M156 84l-8-12" />
-          </svg>
-        </span>
-        <h3 class="ws-component__title">Branding &amp; Storytelling Basics</h3>
-        <p class="ws-component__desc">
-          Shaping a name, a look and a story a small business can actually
-          repeat: a simple logo mark, consistent colours, and how to talk
-          about what makes the business worth choosing.
-        </p>
-      </article>
-    </div>
-    <div class="ws-tags reveal" aria-label="Key areas covered across our workshops">
-      <span class="ws-tag">Digital Literacy</span>
-      <span class="ws-tag">Marketing Basics</span>
-      <span class="ws-tag">Design Thinking</span>
-      <span class="ws-tag">AI Awareness</span>
-      <span class="ws-tag">Problem-Solving</span>
-      <span class="ws-tag">Teamwork</span>
-      <span class="ws-tag">Communication</span>
-      <span class="ws-tag">Photography</span>
-      <span class="ws-tag">Branding</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== Key areas covered: marquee ===== -->
+  <section class="ws-areas" aria-label="Key areas covered across our workshops">
+    <div class="marquee ws-marquee">
+      <div class="marquee__track">
+        <span class="ws-area">Digital Literacy</span>
+        <span class="ws-area">Marketing Basics</span>
+        <span class="ws-area">Design Thinking</span>
+        <span class="ws-area">AI Awareness</span>
+        <span class="ws-area">Problem-Solving</span>
+        <span class="ws-area">Teamwork</span>
+        <span class="ws-area">Communication</span>
+        <span class="ws-area">Photography</span>
+        <span class="ws-area">Branding</span>
+      </div>
     </div>
   </section>
 
-  <!-- ===== What each workshop covers, in detail ===== -->
-  <section class="section container">
-    <p class="eyebrow reveal" style="margin: 0 0 12px">In Detail</p>
-    <h2 class="ws-detail__title reveal">What we cover, and what you&rsquo;ll walk away with.</h2>
-    <div class="ws-detail" data-stagger>
-      <article class="ws-detail__item">
-        <h3 class="ws-detail__name">Digital Literacy</h3>
-        <div class="ws-detail__cols">
-          <div>
-            <p class="ws-detail__label">What we cover</p>
-            <ul class="ws-detail__list">
-              <li>Setting up and securing a smartphone and its accounts</li>
-              <li>Spotting scams, fake links and phishing messages</li>
-              <li>Everyday apps: payments, forms, maps and messaging</li>
-            </ul>
+  <!-- ===== The workshops we do: explorer (tabs on JS, stacked cards without) ===== -->
+  <section class="section container ws-explore" id="workshops">
+    <header class="ws-explore__head reveal">
+      <div>
+        <p class="eyebrow">The Workshops We Do</p>
+        <h2 class="ws-explore__title">What we cover, and what you&rsquo;ll walk away with.</h2>
+      </div>
+      <span class="ws-explore__count" aria-hidden="true">06</span>
+    </header>
+
+    <div class="ws-explorer" data-ws-explorer>
+      <div class="ws-tabs" aria-label="Workshops">
+        <button class="ws-tab" type="button" data-ws-tab="1"><span class="ws-tab__num">01</span><span class="ws-tab__name">Digital Literacy</span><span class="ws-tab__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></button>
+        <button class="ws-tab" type="button" data-ws-tab="2"><span class="ws-tab__num">02</span><span class="ws-tab__name">Digital Marketing Basics</span><span class="ws-tab__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></button>
+        <button class="ws-tab" type="button" data-ws-tab="3"><span class="ws-tab__num">03</span><span class="ws-tab__name">Design Thinking Workshop</span><span class="ws-tab__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></button>
+        <button class="ws-tab" type="button" data-ws-tab="4"><span class="ws-tab__num">04</span><span class="ws-tab__name">AI and Life</span><span class="ws-tab__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></button>
+        <button class="ws-tab" type="button" data-ws-tab="5"><span class="ws-tab__num">05</span><span class="ws-tab__name">Photography &amp; Content Basics</span><span class="ws-tab__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></button>
+        <button class="ws-tab" type="button" data-ws-tab="6"><span class="ws-tab__num">06</span><span class="ws-tab__name">Branding &amp; Storytelling Basics</span><span class="ws-tab__arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></button>
+      </div>
+
+      <div class="ws-panels">
+        <article class="ws-panel" data-ws-panel="1">
+          <div class="ws-panel__art" aria-hidden="true">
+            <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="76" y="24" width="48" height="76" rx="6" />
+              <path d="M92 88h16" />
+              <path d="M100 40v34" />
+              <path d="M84 46l16-6 16 6" />
+              <path d="M56 46q-8 8 0 16" />
+              <path d="M48 40q-14 14 0 28" />
+              <path d="M144 46q8 8 0 16" />
+              <path d="M152 40q14 14 0 28" />
+            </svg>
           </div>
-          <div>
-            <p class="ws-detail__label">What you'll achieve</p>
-            <ul class="ws-detail__list">
-              <li>Confidence to use a phone without asking someone else</li>
-              <li>A safer, better-organised set of accounts and apps</li>
-            </ul>
+          <div class="ws-panel__body">
+            <span class="ws-panel__num">01 / 06</span>
+            <h3 class="ws-panel__title">Digital Literacy</h3>
+            <p class="ws-panel__desc">
+              The basics done properly: using a smartphone with confidence,
+              getting online safely, and handling everyday apps and services
+              without having to ask someone else to do it for you.
+            </p>
+            <div class="ws-panel__cols">
+              <div class="ws-panel__col">
+                <p class="ws-panel__label">What we cover</p>
+                <ul class="ws-list">
+                  <li>Setting up and securing a smartphone and its accounts</li>
+                  <li>Spotting scams, fake links and phishing messages</li>
+                  <li>Everyday apps: payments, forms, maps and messaging</li>
+                </ul>
+              </div>
+              <div class="ws-panel__col ws-panel__col--achieve">
+                <p class="ws-panel__label">What you'll achieve</p>
+                <ul class="ws-list ws-list--check">
+                  <li>Confidence to use a phone without asking someone else</li>
+                  <li>A safer, better-organised set of accounts and apps</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
-      <article class="ws-detail__item">
-        <h3 class="ws-detail__name">Digital Marketing Basics</h3>
-        <div class="ws-detail__cols">
-          <div>
-            <p class="ws-detail__label">What we cover</p>
-            <ul class="ws-detail__list">
-              <li>Setting up a WhatsApp Business or Instagram business page</li>
-              <li>Writing simple posts and offers that get replies</li>
-              <li>Reading basic insights to see what's actually working</li>
-            </ul>
+        </article>
+
+        <article class="ws-panel" data-ws-panel="2">
+          <div class="ws-panel__art" aria-hidden="true">
+            <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M40 100V56l24-10h20l24 10v44" />
+              <path d="M40 100h68" />
+              <path d="M56 100V72h16v28" />
+              <path d="M84 72h12v14H84z" />
+              <circle cx="140" cy="52" r="18" />
+              <path d="M133 52l5 6 10-12" />
+              <path d="M158 40l10-8" />
+              <path d="M160 56h12" />
+              <path d="M155 68l8 8" />
+            </svg>
           </div>
-          <div>
-            <p class="ws-detail__label">What you'll achieve</p>
-            <ul class="ws-detail__list">
-              <li>A live business page ready to take orders and enquiries</li>
-              <li>A simple weekly posting habit you can keep up alone</li>
-            </ul>
+          <div class="ws-panel__body">
+            <span class="ws-panel__num">02 / 06</span>
+            <h3 class="ws-panel__title">Digital Marketing Basics</h3>
+            <p class="ws-panel__desc">
+              For local shopkeepers and small business owners: setting up a
+              business page, taking better product photos, and using WhatsApp
+              and Instagram to reach customers directly.
+            </p>
+            <div class="ws-panel__cols">
+              <div class="ws-panel__col">
+                <p class="ws-panel__label">What we cover</p>
+                <ul class="ws-list">
+                  <li>Setting up a WhatsApp Business or Instagram business page</li>
+                  <li>Writing simple posts and offers that get replies</li>
+                  <li>Reading basic insights to see what's actually working</li>
+                </ul>
+              </div>
+              <div class="ws-panel__col ws-panel__col--achieve">
+                <p class="ws-panel__label">What you'll achieve</p>
+                <ul class="ws-list ws-list--check">
+                  <li>A live business page ready to take orders and enquiries</li>
+                  <li>A simple weekly posting habit you can keep up alone</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
-      <article class="ws-detail__item">
-        <h3 class="ws-detail__name">Design Thinking Workshop</h3>
-        <div class="ws-detail__cols">
-          <div>
-            <p class="ws-detail__label">What we cover</p>
-            <ul class="ws-detail__list">
-              <li>Spotting the real problem behind a complaint or a habit</li>
-              <li>Sketching and testing quick, low-cost ideas</li>
-              <li>Getting honest feedback from the people you're solving for</li>
-            </ul>
+        </article>
+
+        <article class="ws-panel" data-ws-panel="3">
+          <div class="ws-panel__art" aria-hidden="true">
+            <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M100 26a26 26 0 0 0-14 48c2 1.6 3.5 4 3.5 7h21c0-3 1.5-5.4 3.5-7a26 26 0 0 0-14-48Z" />
+              <path d="M91 88h18" />
+              <path d="M94 96h12" />
+              <path d="M100 14v6" />
+              <path d="M62 46h8" />
+              <path d="M130 46h8" />
+              <path d="M72 22l6 5" />
+              <path d="M128 22l-6 5" />
+              <rect x="146" y="70" width="34" height="26" rx="2" />
+              <path d="M153 82h20M153 88h14" />
+            </svg>
           </div>
-          <div>
-            <p class="ws-detail__label">What you'll achieve</p>
-            <ul class="ws-detail__list">
-              <li>A repeatable way to work through any local problem</li>
-              <li>One tested idea you can act on immediately</li>
-            </ul>
+          <div class="ws-panel__body">
+            <span class="ws-panel__num">03 / 06</span>
+            <h3 class="ws-panel__title">Design Thinking Workshop</h3>
+            <p class="ws-panel__desc">
+              A hands-on introduction to solving real problems: how to spot
+              what's actually wrong, sketch ideas fast, and test them with the
+              people they're for. No design background needed.
+            </p>
+            <div class="ws-panel__cols">
+              <div class="ws-panel__col">
+                <p class="ws-panel__label">What we cover</p>
+                <ul class="ws-list">
+                  <li>Spotting the real problem behind a complaint or a habit</li>
+                  <li>Sketching and testing quick, low-cost ideas</li>
+                  <li>Getting honest feedback from the people you're solving for</li>
+                </ul>
+              </div>
+              <div class="ws-panel__col ws-panel__col--achieve">
+                <p class="ws-panel__label">What you'll achieve</p>
+                <ul class="ws-list ws-list--check">
+                  <li>A repeatable way to work through any local problem</li>
+                  <li>One tested idea you can act on immediately</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
-      <article class="ws-detail__item">
-        <h3 class="ws-detail__name">AI and Life</h3>
-        <div class="ws-detail__cols">
-          <div>
-            <p class="ws-detail__label">What we cover</p>
-            <ul class="ws-detail__list">
-              <li>What AI tools actually do, in plain language</li>
-              <li>Where AI already helps with study, work and daily tasks</li>
-              <li>Its limits, and how to check its answers before trusting them</li>
-              <li>AI and social impact: jobs, misinformation and access in communities like ours</li>
-            </ul>
+        </article>
+
+        <article class="ws-panel" data-ws-panel="4">
+          <div class="ws-panel__art" aria-hidden="true">
+            <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="70" y="34" width="60" height="46" rx="8" />
+              <circle cx="88" cy="56" r="4" />
+              <circle cx="112" cy="56" r="4" />
+              <path d="M88 68h24" />
+              <path d="M100 20v14" />
+              <circle cx="100" cy="16" r="4" />
+              <path d="M70 46h-12M70 66h-12M130 46h12M130 66h12" />
+              <path d="M84 92c4 6 28 6 32 0" />
+              <path d="M150 30l4 4M150 90l4-4M50 30l-4 4M50 90l-4-4" />
+            </svg>
           </div>
-          <div>
-            <p class="ws-detail__label">What you'll achieve</p>
-            <ul class="ws-detail__list">
-              <li>Practical, everyday use of one or two AI tools</li>
-              <li>A clear-eyed sense of what AI can and can't do for you</li>
-              <li>An informed view of AI's wider effect on society, not just on you</li>
-            </ul>
+          <div class="ws-panel__body">
+            <span class="ws-panel__num">04 / 06</span>
+            <h3 class="ws-panel__title">AI and Life</h3>
+            <p class="ws-panel__desc">
+              What AI actually is, where it already shows up in daily life, how
+              to use it sensibly, cutting through both the hype and the fear,
+              and what it means for society and communities like ours.
+            </p>
+            <div class="ws-panel__cols">
+              <div class="ws-panel__col">
+                <p class="ws-panel__label">What we cover</p>
+                <ul class="ws-list">
+                  <li>What AI tools actually do, in plain language</li>
+                  <li>Where AI already helps with study, work and daily tasks</li>
+                  <li>Its limits, and how to check its answers before trusting them</li>
+                  <li>AI and social impact: jobs, misinformation and access in communities like ours</li>
+                </ul>
+              </div>
+              <div class="ws-panel__col ws-panel__col--achieve">
+                <p class="ws-panel__label">What you'll achieve</p>
+                <ul class="ws-list ws-list--check">
+                  <li>Practical, everyday use of one or two AI tools</li>
+                  <li>A clear-eyed sense of what AI can and can't do for you</li>
+                  <li>An informed view of AI's wider effect on society, not just on you</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
-      <article class="ws-detail__item">
-        <h3 class="ws-detail__name">Photography &amp; Content Basics</h3>
-        <div class="ws-detail__cols">
-          <div>
-            <p class="ws-detail__label">What we cover</p>
-            <ul class="ws-detail__list">
-              <li>Framing, light and background with just a phone camera</li>
-              <li>Shooting product, portrait and short video content</li>
-              <li>Simple free editing tools to clean up and crop a shot</li>
-            </ul>
+        </article>
+
+        <article class="ws-panel" data-ws-panel="5">
+          <div class="ws-panel__art" aria-hidden="true">
+            <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="56" y="36" width="72" height="48" rx="6" />
+              <circle cx="92" cy="60" r="14" />
+              <circle cx="92" cy="60" r="5" />
+              <rect x="106" y="44" width="10" height="8" rx="2" />
+              <path d="M78 36l6-10h16l6 10" />
+              <path d="M140 52h20M140 62h14M140 72h20" />
+            </svg>
           </div>
-          <div>
-            <p class="ws-detail__label">What you'll achieve</p>
-            <ul class="ws-detail__list">
-              <li>A small library of usable photos and clips for your page</li>
-              <li>An eye for what makes a shot worth posting</li>
-            </ul>
+          <div class="ws-panel__body">
+            <span class="ws-panel__num">05 / 06</span>
+            <h3 class="ws-panel__title">Photography &amp; Content Basics</h3>
+            <p class="ws-panel__desc">
+              Taking product and portrait shots that actually sell, with just a
+              phone: framing, light, and turning a handful of photos into posts
+              people stop to look at.
+            </p>
+            <div class="ws-panel__cols">
+              <div class="ws-panel__col">
+                <p class="ws-panel__label">What we cover</p>
+                <ul class="ws-list">
+                  <li>Framing, light and background with just a phone camera</li>
+                  <li>Shooting product, portrait and short video content</li>
+                  <li>Simple free editing tools to clean up and crop a shot</li>
+                </ul>
+              </div>
+              <div class="ws-panel__col ws-panel__col--achieve">
+                <p class="ws-panel__label">What you'll achieve</p>
+                <ul class="ws-list ws-list--check">
+                  <li>A small library of usable photos and clips for your page</li>
+                  <li>An eye for what makes a shot worth posting</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
-      <article class="ws-detail__item">
-        <h3 class="ws-detail__name">Branding &amp; Storytelling Basics</h3>
-        <div class="ws-detail__cols">
-          <div>
-            <p class="ws-detail__label">What we cover</p>
-            <ul class="ws-detail__list">
-              <li>Naming, a simple logo mark and a consistent colour palette</li>
-              <li>Writing a short, honest story about the business</li>
-              <li>Keeping that look and story consistent everywhere</li>
-            </ul>
+        </article>
+
+        <article class="ws-panel" data-ws-panel="6">
+          <div class="ws-panel__art" aria-hidden="true">
+            <svg viewBox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="76" cy="56" r="26" />
+              <path d="M60 50h32M60 58h24M60 66h18" />
+              <path d="M76 82l-10 14 16-6z" />
+              <rect x="132" y="34" width="40" height="30" rx="6" />
+              <path d="M140 84l8-12M156 84l-8-12" />
+            </svg>
           </div>
-          <div>
-            <p class="ws-detail__label">What you'll achieve</p>
-            <ul class="ws-detail__list">
-              <li>A basic brand kit: name, mark, colours and one-line story</li>
-              <li>A clearer answer to "why should I choose you?"</li>
-            </ul>
+          <div class="ws-panel__body">
+            <span class="ws-panel__num">06 / 06</span>
+            <h3 class="ws-panel__title">Branding &amp; Storytelling Basics</h3>
+            <p class="ws-panel__desc">
+              Shaping a name, a look and a story a small business can actually
+              repeat: a simple logo mark, consistent colours, and how to talk
+              about what makes the business worth choosing.
+            </p>
+            <div class="ws-panel__cols">
+              <div class="ws-panel__col">
+                <p class="ws-panel__label">What we cover</p>
+                <ul class="ws-list">
+                  <li>Naming, a simple logo mark and a consistent colour palette</li>
+                  <li>Writing a short, honest story about the business</li>
+                  <li>Keeping that look and story consistent everywhere</li>
+                </ul>
+              </div>
+              <div class="ws-panel__col ws-panel__col--achieve">
+                <p class="ws-panel__label">What you'll achieve</p>
+                <ul class="ws-list ws-list--check">
+                  <li>A basic brand kit: name, mark, colours and one-line story</li>
+                  <li>A clearer answer to "why should I choose you?"</li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
     </div>
   </section>
 
-  <!-- ===== Who it's for ===== -->
-  <section class="section container">
+  <!-- ===== Who it's for: dark panel with the four audiences ===== -->
+  <section class="container ws-for-wrap">
     <div class="ws-for reveal">
-      <div class="ws-for__bg" aria-hidden="true">
-        <svg class="ws-for__face ws-for__face--1" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="30" cy="26" r="14" /><path d="M18 24a12 12 0 0 1 24 0" /><circle cx="25" cy="26" r="1.4" fill="currentColor" stroke="none" /><circle cx="35" cy="26" r="1.4" fill="currentColor" stroke="none" /><path d="M25 32q5 4 10 0" /><path d="M20 46q10-8 20 0" /></svg>
-        <svg class="ws-for__face ws-for__face--2" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="30" cy="28" r="13" /><circle cx="26" cy="28" r="1.3" fill="currentColor" stroke="none" /><circle cx="34" cy="28" r="1.3" fill="currentColor" stroke="none" /><path d="M25 34q5 3 10 0" /><path d="M12 22c6-10 30-10 36 0" /><path d="M20 48q10-8 20 0" /></svg>
-        <svg class="ws-for__face ws-for__face--3" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="30" cy="27" r="12" /><circle cx="26" cy="27" r="1.2" fill="currentColor" stroke="none" /><circle cx="34" cy="27" r="1.2" fill="currentColor" stroke="none" /><path d="M26 33q4 3 8 0" /><rect x="18" y="10" width="24" height="8" rx="4" /><path d="M20 46q10-7 20 0" /></svg>
-        <svg class="ws-for__face ws-for__face--4" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="30" cy="28" r="13" /><circle cx="25.5" cy="28" r="3.5" /><circle cx="34.5" cy="28" r="3.5" /><path d="M29 28h2" /><path d="M25 35q5 3 10 0" /><path d="M14 20q16-8 32 0" /><path d="M20 48q10-8 20 0" /></svg>
-        <svg class="ws-for__face ws-for__face--5" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="30" cy="27" r="11" /><circle cx="26.5" cy="27" r="1.1" fill="currentColor" stroke="none" /><circle cx="33.5" cy="27" r="1.1" fill="currentColor" stroke="none" /><path d="M27 32q3 2 6 0" /><path d="M20 44q10-7 20 0" /></svg>
-        <svg class="ws-for__face ws-for__face--6" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="30" cy="28" r="13" /><path d="M17 26a13 13 0 0 1 26 0v10q-13 6-26 0Z" /><circle cx="26" cy="28" r="1.3" fill="currentColor" stroke="none" /><circle cx="34" cy="28" r="1.3" fill="currentColor" stroke="none" /><path d="M26 34q4 3 8 0" /><path d="M20 48q10-8 20 0" /></svg>
-        <svg class="ws-for__face ws-for__face--7" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="30" cy="27" r="12" /><circle cx="26" cy="27" r="1.2" fill="currentColor" stroke="none" /><circle cx="34" cy="27" r="1.2" fill="currentColor" stroke="none" /><path d="M26 33q4 3 8 0" /><path d="M22 17q8-6 16 0" /><path d="M20 46q10-7 20 0" /></svg>
-      </div>
-      <div class="ws-for__head">
-        <p class="eyebrow">Who It's For</p>
-        <h2 class="ws-for__title">Built for the community, not around it.</h2>
-      </div>
-      <div class="ws-for__col">
+      <div class="ws-for__top">
+        <div class="ws-for__head">
+          <p class="eyebrow ws-for__eyebrow">Who It's For</p>
+          <h2 class="ws-for__title">Built for the community, <strong>not around it.</strong></h2>
+        </div>
         <p class="ws-for__body">
           These sessions are for whoever shows up: students figuring out
           their next step, shopkeepers wanting more customers, homemakers
@@ -314,29 +368,59 @@
           anyone curious about what AI actually means for them. No fee, no
           prerequisites, no assumption that you already know the basics.
         </p>
-        <p class="ws-for__body">
-          The impact is meant to be immediate and local: a skill you can use
-          the same week, a business that reaches a few more customers, a
-          household that's a little less dependent on someone else to get
-          online. Small, practical wins, in the community they're run in.
-        </p>
       </div>
+
+      <ul class="ws-audience" data-stagger>
+        <li class="ws-person">
+          <span class="ws-person__face" aria-hidden="true"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="30" cy="27" r="12" /><circle cx="26" cy="27" r="1.2" fill="currentColor" stroke="none" /><circle cx="34" cy="27" r="1.2" fill="currentColor" stroke="none" /><path d="M26 33q4 3 8 0" /><rect x="18" y="10" width="24" height="8" rx="4" /><path d="M20 46q10-7 20 0" /></svg></span>
+          <span class="ws-person__who">Students</span>
+          <span class="ws-person__why">figuring out their next step</span>
+        </li>
+        <li class="ws-person">
+          <span class="ws-person__face" aria-hidden="true"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="30" cy="28" r="13" /><circle cx="26" cy="28" r="1.3" fill="currentColor" stroke="none" /><circle cx="34" cy="28" r="1.3" fill="currentColor" stroke="none" /><path d="M25 34q5 3 10 0" /><path d="M12 22c6-10 30-10 36 0" /><path d="M20 48q10-8 20 0" /></svg></span>
+          <span class="ws-person__who">Shopkeepers</span>
+          <span class="ws-person__why">wanting more customers</span>
+        </li>
+        <li class="ws-person">
+          <span class="ws-person__face" aria-hidden="true"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="30" cy="28" r="13" /><path d="M17 26a13 13 0 0 1 26 0v10q-13 6-26 0Z" /><circle cx="26" cy="28" r="1.3" fill="currentColor" stroke="none" /><circle cx="34" cy="28" r="1.3" fill="currentColor" stroke="none" /><path d="M26 34q4 3 8 0" /><path d="M20 48q10-8 20 0" /></svg></span>
+          <span class="ws-person__who">Homemakers</span>
+          <span class="ws-person__why">picking up a smartphone with confidence</span>
+        </li>
+        <li class="ws-person">
+          <span class="ws-person__face" aria-hidden="true"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="30" cy="28" r="13" /><circle cx="25.5" cy="28" r="3.5" /><circle cx="34.5" cy="28" r="3.5" /><path d="M29 28h2" /><path d="M25 35q5 3 10 0" /><path d="M14 20q16-8 32 0" /><path d="M20 48q10-8 20 0" /></svg></span>
+          <span class="ws-person__who">The curious</span>
+          <span class="ws-person__why">wondering what AI actually means for them</span>
+        </li>
+      </ul>
+
+      <p class="ws-for__impact">
+        The impact is meant to be immediate and local: a skill you can use
+        the same week, a business that reaches a few more customers, a
+        household that's a little less dependent on someone else to get
+        online. Small, practical wins, in the community they're run in.
+      </p>
     </div>
   </section>
 
   <!-- ===== Closing CTA ===== -->
-  <section class="section container ws-cta reveal">
-    <p class="eyebrow ws-cta__eyebrow">Rooted in Local Wisdom</p>
-    <h2 class="ws-cta__title">Bring a workshop to your community.</h2>
-    <p class="ws-cta__body">
-      These sessions are free and built for the community they're run in.
-      If your village, school or business group wants one, get in touch.
-    </p>
-    <a class="cta__btn" href="/sayhello/" data-contact-open style="background: var(--red); color: #fff">
-      <span>Get in touch</span>
-      <span class="arrow" aria-hidden="true" style="background: #fff; color: var(--red)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-      </span>
-    </a>
+  <section class="container ws-cta-wrap">
+    <div class="ws-cta reveal">
+      <div>
+        <p class="eyebrow">Rooted in Local Wisdom</p>
+        <h2 class="ws-cta__title">Bring a workshop to your community.</h2>
+      </div>
+      <div class="ws-cta__side">
+        <p class="ws-cta__body">
+          These sessions are free and built for the community they're run in.
+          If your village, school or business group wants one, get in touch.
+        </p>
+        <a class="cta__btn ws-btn-red" href="/sayhello/" data-contact-open>
+          <span>Get in touch</span>
+          <span class="arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </span>
+        </a>
+      </div>
+    </div>
   </section>
 </main>
