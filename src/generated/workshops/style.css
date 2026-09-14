@@ -18,8 +18,9 @@
     .page-workshops .ws-hero__lead { margin-top: clamp(18px, 2vw, 28px); font-size: clamp(16px, 1.2vw, 20px); line-height: 1.5; color: rgba(255, 255, 255, 0.85); max-width: 56ch; }
     .page-workshops .ws-hero-banner__content .cta__btn { margin-top: clamp(24px, 3vw, 36px); }
 
-    /* ===== The workshops we do: 2x2 box cards ===== */
-    .page-workshops .ws-components { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2.4vw, 34px); }
+    /* ===== The workshops we do: 3-up box cards ===== */
+    .page-workshops .ws-components { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.4vw, 34px); }
+    @media (max-width: 1100px) { .page-workshops .ws-components { grid-template-columns: repeat(2, 1fr); } }
     .page-workshops .ws-component {
       position: relative; overflow: hidden;
       border: 1px solid var(--line); border-radius: var(--radius-lg);
@@ -58,6 +59,24 @@
       border: 1px solid var(--line); border-radius: 999px;
       padding: 8px 16px;
     }
+
+    /* ===== In detail: per-workshop coverage + outcomes ===== */
+    .page-workshops .ws-detail__title { margin-top: 0; font-size: clamp(26px, 3vw, 38px); line-height: 1.15; color: var(--grey-900); max-width: 30ch; }
+    .page-workshops .ws-detail { margin-top: clamp(28px, 3vw, 44px); display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+    .page-workshops .ws-detail__item { background: #fff; padding: clamp(22px, 2.4vw, 32px); }
+    .page-workshops .ws-detail__name { font-size: clamp(18px, 1.4vw, 21px); color: var(--grey-900); }
+    .page-workshops .ws-detail__cols { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px, 2.4vw, 40px); }
+    .page-workshops .ws-detail__label { font-size: 13px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--red); margin: 0 0 10px; }
+    .page-workshops .ws-detail__list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .page-workshops .ws-detail__list li {
+      position: relative; padding-left: 18px;
+      color: var(--grey-700); font-size: clamp(14px, 1vw, 15.5px); line-height: 1.5;
+    }
+    .page-workshops .ws-detail__list li::before {
+      content: ""; position: absolute; left: 0; top: 7px; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--red);
+    }
+    @media (max-width: 700px) { .page-workshops .ws-detail__cols { grid-template-columns: 1fr; } }
 
     /* ===== Who it's for: boxed panel with a scattered, softly-animated
        line-art crowd behind the text, standing in for the mixed cohort

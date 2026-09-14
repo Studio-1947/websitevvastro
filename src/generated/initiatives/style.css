@@ -53,20 +53,39 @@
     .page-initiatives .init-feature__title strong { font-weight: 400; color: var(--red); }
     .page-initiatives .init-feature__sub { margin-top: 18px; color: var(--grey-700); font-size: clamp(15px, 1.1vw, 18px); line-height: 1.55; }
     .page-initiatives .init-feature .btn-hello { margin-top: 30px; }
-    .page-initiatives .init-feature__list { margin-top: 26px; display: flex; flex-direction: column; gap: 16px; }
-    .page-initiatives .init-feature__list li {
-      list-style: none; padding-left: 22px; position: relative;
-      color: var(--grey-700); font-size: clamp(14.5px, 1vw, 16px); line-height: 1.5;
-    }
-    .page-initiatives .init-feature__list li::before {
-      content: ""; position: absolute; left: 0; top: 8px; width: 8px; height: 8px;
-      border-radius: 50%; background: var(--red);
-    }
-    .page-initiatives .init-feature__list li strong { color: var(--grey-900); font-weight: 600; }
 
-    .page-initiatives .init-vision { display: grid; grid-template-columns: 0.62fr 1fr; gap: clamp(28px, 4vw, 64px); align-items: center; }
-    .page-initiatives .init-vision__media { border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-alt); }
-    .page-initiatives .init-vision__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 5; }
+    .page-initiatives .init-points {
+      padding-top: 0;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: clamp(16px, 2vw, 28px);
+    }
+    .page-initiatives .init-point {
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: clamp(22px, 2vw, 28px);
+    }
+    .page-initiatives .init-point__icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--bg-alt); color: var(--red); margin-bottom: 16px;
+    }
+    .page-initiatives .init-point__title { font-size: clamp(16px, 1.2vw, 18px); color: var(--grey-900); font-weight: 600; }
+    .page-initiatives .init-point__desc { margin-top: 8px; color: var(--grey-700); font-size: clamp(14px, 1vw, 15px); line-height: 1.55; }
+    @media (max-width: 900px) { .page-initiatives .init-points { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .page-initiatives .init-points { grid-template-columns: 1fr; } }
+
+    .page-initiatives .init-vision { --vision-pad: clamp(28px, 4vw, 56px); display: grid; grid-template-columns: 1fr 0.62fr; gap: clamp(28px, 4vw, 64px); align-items: stretch; }
+    .page-initiatives .init-vision__box {
+      background: var(--bg-alt); border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: var(--vision-pad);
+      overflow: hidden;
+    }
+    .page-initiatives .init-vision__media {
+      margin: calc(var(--vision-pad) * -1) calc(var(--vision-pad) * -1) calc(var(--vision-pad) * -1) 0;
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      overflow: hidden; background: var(--bg-alt);
+      align-self: stretch;
+    }
+    .page-initiatives .init-vision__media img { width: 100%; height: 100%; object-fit: cover; }
     .page-initiatives .init-vision__eyebrow { color: var(--red); margin-bottom: 4px; }
     .page-initiatives .init-vision__mark { display: block; font-family: var(--font-display); font-size: clamp(48px, 6vw, 80px); line-height: 1; color: var(--red); }
     .page-initiatives .init-vision__quote {
@@ -76,7 +95,14 @@
     .page-initiatives .init-vision__who { margin-top: 24px; }
     .page-initiatives .init-vision__name { font-family: var(--font-body); font-weight: 600; font-size: clamp(16px, 1.3vw, 18px); color: var(--grey-900); }
     .page-initiatives .init-vision__role { font-size: 14px; color: var(--grey-500); margin-top: 2px; }
-    @media (max-width: 900px) { .page-initiatives .init-vision { grid-template-columns: 1fr; } .page-initiatives .init-vision__media { max-width: 320px; } }
+    @media (max-width: 900px) {
+      .page-initiatives .init-vision { grid-template-columns: 1fr; }
+      .page-initiatives .init-vision__media {
+        max-width: none; margin: 0 calc(var(--vision-pad) * -1) calc(var(--vision-pad) * -1);
+        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        aspect-ratio: 4 / 5;
+      }
+    }
 
     .page-initiatives .init-experts {
       text-align: center;

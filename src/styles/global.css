@@ -182,20 +182,17 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   display: flex; flex-direction: column; gap: 2px;
   border-left: 1px solid var(--line); padding-left: clamp(24px, 4vw, 60px);
 }
-/* Products carries seven entries, so it splits into two columns; the other
-   dropdowns have four and stay in a single column. To buy that second column
-   room, Products also drops the divider rule and its indent and gives the intro
-   a narrower share of the panel - the list starts noticeably further left than
-   in the About / Solutions menus. */
+/* Products carries four entries, laid out as two rows of two (row-major
+   DOM order) instead of a single column; the other dropdowns stay in a
+   single column. To buy that grid room, Products also drops the divider
+   rule and its indent and gives the intro a narrower share of the panel -
+   the list starts noticeably further left than in the About / Solutions
+   menus. */
 #dd-products { grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: clamp(20px, 3vw, 44px); }
 #dd-products .dd__list {
-  display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: row dense; gap: 2px 36px; align-content: start;
+  display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: row; gap: 4px 36px; align-content: start;
   border-left: 0; padding-left: 0;
 }
-/* First 3 products in the left column, remaining 2 in the right,
-   instead of interleaving across both columns in DOM order. */
-#dd-products .dd__item:nth-of-type(-n+3) { grid-column: 1; }
-#dd-products .dd__item:nth-of-type(n+4) { grid-column: 2; }
 #dd-products .dd__label { grid-column: 1 / -1; }
 .dd__label { font-size: 13px; color: var(--grey-500); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
 .dd__item {
@@ -211,6 +208,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   transition: color .25s var(--ease);
 }
 .dd__item:hover .dd__ico { color: var(--red); }
+.dd__item-label { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Unlaunched products: the dropdown still lists them so the range is visible,
    but the items do not navigate. Original href kept in data-href, so restoring
@@ -220,6 +218,8 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .dd__item--soon:hover .dd__ico { color: inherit; }
 .dd__soon {
   margin-left: auto;
+  flex: none;
+  white-space: nowrap;
   font-style: normal;
   font-size: 11px;
   letter-spacing: .04em;
