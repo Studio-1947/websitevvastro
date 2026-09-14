@@ -956,12 +956,12 @@ const testimonials = [
   .rc-card__list--you li::before { content: '●'; color: var(--red); font-size: 9px; top: 5px; }
   .rc-card__list--no li::before { content: '✕'; color: var(--grey-500); font-weight: 700; }
   .rc-card__list--no li { color: var(--grey-500); }
-  .rc-card__toggle { margin-top: 10px; display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .rc-card__toggle { margin-top: 10px; display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; transition: border-color .25s var(--ease); }
   .rc-card__toggle-opt { flex: 1; cursor: pointer; }
-  .rc-card__toggle-opt + .rc-card__toggle-opt { border-left: 1px solid var(--line); }
+  .rc-card__toggle-opt + .rc-card__toggle-opt { border-left: 1px solid var(--line); transition: border-color .25s var(--ease); }
   .rc-card__toggle-opt input { position: absolute; opacity: 0; width: 0; height: 0; }
-  .rc-card__toggle-opt span { display: block; text-align: center; padding: 13px 8px; font-size: 13px; font-weight: 600; color: var(--grey-700); }
-  .rc-card__toggle-opt span em { display: block; margin-top: 3px; font-style: normal; font-size: 12px; font-weight: 500; color: var(--grey-500); }
+  .rc-card__toggle-opt span { display: block; text-align: center; padding: 13px 8px; font-size: 13px; font-weight: 600; color: var(--grey-700); transition: background .25s var(--ease), color .25s var(--ease); }
+  .rc-card__toggle-opt span em { display: block; margin-top: 3px; font-style: normal; font-size: 12px; font-weight: 500; color: var(--grey-500); transition: color .25s var(--ease); }
   .rc-card__toggle-opt input:checked + span { background: var(--red); color: #fff; }
   .rc-card__toggle-opt input:checked + span em { color: rgba(255,255,255,.8); }
 
@@ -988,6 +988,13 @@ const testimonials = [
   .rc-card:has(.rc-card__add input:checked) .rc-card__list--yes li::before,
   .rc-card:has(.rc-card__add input:checked) .rc-card__list--you li::before,
   .rc-card:has(.rc-card__add input:checked) .rc-card__list--no li::before { color: #fff; }
+  /* Option toggle inverts on the red card: white pill = selected, so it stays readable */
+  .rc-card:has(.rc-card__add input:checked) .rc-card__toggle { border-color: rgba(255,255,255,.45); }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__toggle-opt + .rc-card__toggle-opt { border-left-color: rgba(255,255,255,.45); }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__toggle-opt span { color: rgba(255,255,255,.82); }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__toggle-opt span em { color: rgba(255,255,255,.65); }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__toggle-opt input:checked + span { background: #fff; color: var(--red); }
+  .rc-card:has(.rc-card__add input:checked) .rc-card__toggle-opt input:checked + span em { color: rgba(230,0,0,.72); }
 
   .rc-check { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; color: var(--grey-700); cursor: pointer; }
   .rc-check input { width: 16px; height: 16px; accent-color: var(--red); cursor: pointer; }
