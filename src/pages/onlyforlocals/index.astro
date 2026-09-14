@@ -506,18 +506,30 @@ const testimonials = [
         {testimonials.map((t) => (
           <div class="rc-testi">
             {t.type === 'video' ? (
-              <video
-                class="rc-testi__media"
-                data-testi-video
-                src={t.src}
-                poster={t.poster}
-                controls
-                controlsList="nodownload noremoteplayback"
-                disablePictureInPicture
-                playsinline
-                preload="metadata"
-                oncontextmenu="return false"
-              ></video>
+              <button
+                type="button"
+                class="rc-testi__trigger"
+                data-testi-open
+                data-video-src={t.src}
+                data-video-label={t.client}
+                aria-label={`Play the ${t.client} testimonial with sound`}
+              >
+                <video
+                  class="rc-testi__media"
+                  data-testi-video
+                  src={t.src}
+                  poster={t.poster}
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  disablePictureInPicture
+                  oncontextmenu="return false"
+                ></video>
+                <span class="rc-testi__play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                </span>
+              </button>
             ) : (
               <div class="rc-testi__embed-wrap">
                 <blockquote
@@ -532,6 +544,25 @@ const testimonials = [
         ))}
       </div>
     </section>
+
+    <!-- Expanded testimonial player: opened only on an explicit click -->
+    <div class="rc-lightbox" data-testi-lightbox hidden>
+      <button type="button" class="rc-lightbox__backdrop" data-testi-close tabindex="-1" aria-hidden="true"></button>
+      <div class="rc-lightbox__inner" role="dialog" aria-modal="true" aria-label="Client testimonial">
+        <video
+          class="rc-lightbox__video"
+          data-testi-lightbox-video
+          controls
+          controlsList="nodownload noremoteplayback"
+          disablePictureInPicture
+          playsinline
+          oncontextmenu="return false"
+        ></video>
+        <p class="rc-lightbox__label" data-testi-lightbox-label></p>
+        <button type="button" class="rc-lightbox__close" data-testi-close aria-label="Close video">✕</button>
+      </div>
+    </div>
+
     <script is:inline src="https://www.instagram.com/embed.js"></script>
 
     <!-- ===== Working on this project: real team cards ===== -->
@@ -906,12 +937,67 @@ const testimonials = [
 
   function initTestiVideos(): void {
     const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-testi-video]'));
-    videos.forEach((video) => {
-      video.addEventListener('play', () => {
-        videos.forEach((other) => {
-          if (other !== video) other.pause();
+    const onScreen = new Set<HTMLVideoElement>();
+    const box = document.querySelector<HTMLElement>('[data-testi-lightbox]');
+    const boxVideo = document.querySelector<HTMLVideoElement>('[data-testi-lightbox-video]');
+    const boxLabel = document.querySelector<HTMLElement>('[data-testi-lightbox-label]');
+
+    // Grid previews are silent ambient loops, and only run while actually visible.
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            onScreen.add(video);
+            if (!box || box.hidden) void video.play().catch(() => {});
+          } else {
+            onScreen.delete(video);
+            video.pause();
+          }
         });
-      });
+      },
+      { threshold: 0.25 },
+    );
+    videos.forEach((video) => io.observe(video));
+
+    if (!box || !boxVideo) return;
+
+    let lastTrigger: HTMLElement | null = null;
+
+    function openBox(trigger: HTMLElement): void {
+      const src = trigger.dataset.videoSrc;
+      if (!src || !box || !boxVideo) return;
+      lastTrigger = trigger;
+      videos.forEach((video) => video.pause());
+      boxVideo.src = src;
+      boxVideo.muted = false;
+      if (boxLabel) boxLabel.textContent = trigger.dataset.videoLabel ?? '';
+      box.hidden = false;
+      document.body.style.overflow = 'hidden';
+      void boxVideo.play().catch(() => {});
+      box.querySelector<HTMLButtonElement>('.rc-lightbox__close')?.focus();
+    }
+
+    function closeBox(): void {
+      if (!box || !boxVideo || box.hidden) return;
+      boxVideo.pause();
+      boxVideo.removeAttribute('src');
+      boxVideo.load();
+      box.hidden = true;
+      document.body.style.overflow = '';
+      lastTrigger?.focus();
+      lastTrigger = null;
+      onScreen.forEach((video) => void video.play().catch(() => {}));
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-testi-open]').forEach((trigger) => {
+      trigger.addEventListener('click', () => openBox(trigger));
+    });
+    box.querySelectorAll<HTMLElement>('[data-testi-close]').forEach((btn) => {
+      btn.addEventListener('click', closeBox);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeBox();
     });
   }
 
@@ -1155,9 +1241,9 @@ const testimonials = [
     content: ''; position: absolute; inset: 0; z-index: 1;
     background: linear-gradient(0deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.75) 45%, rgba(0,0,0,.3) 75%, rgba(0,0,0,.05) 100%);
   }
-  .rc-also__body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding-bottom: clamp(32px, 4vw, 56px); }
-  .rc-also__body .rc-eyebrow { color: #fff; font-size: 15px; }
-  .rc-also__body .rc-note-large { color: rgba(255,255,255,.95); max-width: 70ch; font-size: clamp(18px, 1.5vw, 24px); line-height: 1.5; }
+  .rc-also__body { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding-bottom: clamp(48px, 6.5vw, 104px); }
+  .rc-also__body .rc-eyebrow { color: #fff; font-size: 16px; }
+  .rc-also__body .rc-note-large { color: rgba(255,255,255,.95); max-width: 64ch; font-size: clamp(21px, 1.9vw, 30px); line-height: 1.45; }
 
   /* Below ~700px the overlay text no longer fits inside the image's short
      aspect-ratio height, so switch to a stacked layout: image on top,
@@ -1382,14 +1468,32 @@ const testimonials = [
   }
 
   /* Client testimonial videos */
-  .rc-testi-grid { margin-top: clamp(40px, 5vw, 64px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
-  .rc-testi { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--bg); margin-left: -1px; transition: box-shadow .3s var(--ease), border-color .3s var(--ease); }
-  .rc-testi:hover { box-shadow: 0 16px 36px rgba(0,0,0,.1); border-color: #eecccc; z-index: 1; }
-  .rc-testi:first-child { margin-left: 0; }
+  .rc-testi-grid { margin-top: clamp(40px, 5vw, 64px); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 1.8vw, 26px); max-width: 1240px; margin-inline: auto; }
+  .rc-testi { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: var(--bg); transition: box-shadow .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
+  .rc-testi:hover { box-shadow: 0 16px 36px rgba(0,0,0,.1); border-color: #eecccc; transform: translateY(-3px); z-index: 1; }
+  .rc-testi__trigger { position: relative; display: block; width: 100%; padding: 0; border: 0; background: #000; cursor: pointer; }
   .rc-testi__media { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: #000; display: block; }
+  .rc-testi__play { position: absolute; right: 12px; bottom: 12px; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; transition: background .25s var(--ease), transform .25s var(--ease); }
+  .rc-testi__play svg { width: 17px; height: 17px; margin-left: 2px; }
+  .rc-testi__trigger:hover .rc-testi__play { background: var(--red); transform: scale(1.08); }
+  .rc-testi__trigger:focus-visible { outline: 3px solid var(--red); outline-offset: -3px; }
   .rc-testi__embed-wrap { width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; }
   .rc-testi__embed.instagram-media { margin: 0 !important; width: 100% !important; min-width: 0 !important; max-width: 100% !important; }
   .rc-testi__label { padding: 12px 16px; font-size: 13.5px; font-weight: 600; color: var(--grey-900); }
+
+  /* Expanded player, shown only after an explicit click on a card */
+  .rc-lightbox { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: clamp(16px, 4vw, 40px); }
+  .rc-lightbox[hidden] { display: none; }
+  .rc-lightbox__backdrop { position: absolute; inset: 0; border: 0; padding: 0; background: rgba(0,0,0,.86); cursor: pointer; }
+  .rc-lightbox__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 100%; }
+  .rc-lightbox__video { display: block; max-width: 100%; max-height: min(80vh, 860px); aspect-ratio: 9 / 16; border-radius: 22px; background: #000; }
+  .rc-lightbox__label { color: rgba(255,255,255,.9); font-size: 14px; font-weight: 600; }
+  .rc-lightbox__close {
+    position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; display: grid; place-items: center;
+    border-radius: 999px; border: 1px solid rgba(255,255,255,.35); background: rgba(0,0,0,.55); color: #fff;
+    font-size: 14px; line-height: 1; cursor: pointer; transition: background .25s var(--ease);
+  }
+  .rc-lightbox__close:hover { background: var(--red); border-color: var(--red); }
 
   @media (max-width: 1100px) {
     .rc-testi-grid { grid-template-columns: repeat(2, 1fr); }
