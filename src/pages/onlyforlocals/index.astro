@@ -421,7 +421,7 @@ const testimonials = [
       <h2 class="rc-h2">Stay active. Stay connected.</h2>
       <p class="rc-lead-body">Monthly social media support to help your business show up consistently and stay in touch with customers.</p>
       <div class="rc-tiers">
-        {socialTiers.map((t, i) => (
+        {socialTiers.map((t) => (
           <article class:list={['rc-tier', t.featured && 'rc-tier--featured']}>
             {t.featured && <span class="rc-tier__badge">Most popular</span>}
             <div class="rc-tier__body">
@@ -435,7 +435,7 @@ const testimonials = [
               </ul>
               <div class="rc-tier__pick">
                 <label class:list={['rc-tier__cta', t.featured && 'rc-tier__cta--solid']}>
-                  <input type="radio" name="calc-social" data-calc-item={`monthly:${t.priceValue}`} checked={i === 0} />
+                  <input type="radio" name="calc-social" data-calc-item={`monthly:${t.priceValue}`} />
                   <span class="rc-tier__cta-on">Add this plan</span>
                   <span class="rc-tier__cta-off">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
