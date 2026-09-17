@@ -15,11 +15,11 @@ the live pages retain their existing wording until these are resolved.
    **Why confirmation is needed:** The studio's founder bio (`src/generated/about-us/main.html`) states the studio was started in 2025; today's date in this build is 2026-09-17, so the studio is now into its second year. It's unclear whether "23+" and "in our first year" still describe a closed, historical period (2025 only) or need updating to reflect a longer/ongoing period.
    **Evidence/decision required:** Confirm the reporting period for this figure and whether the "first year" framing should be updated or kept as a historical claim.
 
-2. **Route:** `/` — remaining stat counters (65+, 23+, 9+)
-   **Claim:** Counted totals for solutions delivered, results, and fellows.
-   **Why confirmation is needed:** The brief asked us to verify what each number counts and its reporting period. The descriptions are already appropriately scoped (not labelled "clients" or "projects" without evidence), but we have no source document in the repository (e.g. an internal count, CRM export) to verify the totals themselves.
-   **Evidence/decision required:** Confirm each figure against its underlying source, or provide one for future reference.
-   **Note:** The workshop-participants counter (previously "200+") was corrected to "35+" per owner confirmation on 2026-09-18.
+2. **Route:** `/` — remaining stat counter (9+, fellows)
+   **Claim:** Counted total for fellows mentored.
+   **Why confirmation is needed:** No source document in the repository (e.g. an internal count, CRM export) to verify this total.
+   **Evidence/decision required:** Confirm against its underlying source, or provide one for future reference.
+   **Note:** As of 2026-09-18, owner has confirmed and corrected the other three: "65+" now reads as projects delivered, "200+" (workshop participants) corrected to "35+", and "23+" now reads as clients to date rather than "results... in our first year."
 
 ---
 
