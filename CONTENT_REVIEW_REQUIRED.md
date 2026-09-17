@@ -114,10 +114,7 @@ summary — but the underlying figures/claims still need confirmation.)*
 
 ## Studio 1947 Local (`/onlyforlocals/`)
 
-19. **Route:** `/onlyforlocals/` — `src/pages/onlyforlocals/index.astro`, OTA/listing item
-    **Claim:** "No commission on bookings, ever" — a permanent commission-free promise.
-    **Why confirmation is needed:** Per the brief, approved commercial/contractual promises must not be changed without supporting information. This is a durable business commitment; we have left it untouched but flag it for reconfirmation given how absolute the wording is.
-    **Evidence/decision required:** Business confirmation that "ever" remains the intended, sustainable commercial position.
+19. ~~**Route:** `/onlyforlocals/` — `src/pages/onlyforlocals/index.astro`, OTA/listing item — "no commission, ever"~~ — **RESOLVED 2026-09-18.** The commitment itself is unchanged (Studio 1947 still takes no commission on bookings), but the wording is now scoped to what it actually covers: "Free onboarding onto our own booking portal — we never take a commission on bookings made there." This removes the risk of a reader assuming it also covers the OTAs (MakeMyTrip, Booking.com, Agoda, Airbnb) listed in the same line item, which set and keep their own commissions regardless of Studio 1947.
 
 20. **Route:** `/onlyforlocals/` — Website, Booking System and Growth-plan line items
     **Claim/gap:** Revisions policy, hosting/maintenance terms, domain renewal terms after year five, and footage-supply expectations are not stated anywhere on the page.
