@@ -1,9 +1,9 @@
 {
   "mediaStyle": "contained",
   "title": "AWCH: Avishkar Women & Children Hospital | Studio 1947",
-  "description": "How Studio 1947 helped AWCH become a leading multispeciality hospital in Asansol: brand strategy, visual identity, website and social media.",
+  "description": "How Studio 1947 built a modern brand identity for AWCH, a multispeciality hospital in Asansol: brand strategy, visual identity, website and social media.",
   "ogTitle": "AWCH: Avishkar Women & Children Hospital | Studio 1947",
-  "ogDescription": "How Studio 1947 helped AWCH become a modern, leading multispeciality hospital in Asansol: brand strategy, visual identity, website and social media.",
+  "ogDescription": "How Studio 1947 built a modern brand identity for AWCH, a multispeciality hospital in Asansol: brand strategy, visual identity, website and social media.",
   "ogType": "article",
   "brand": "#BF0076",
   "client": "Avishkar Hospital",
@@ -22,8 +22,7 @@
     {
       "divider": false,
       "body": [
-        "When hospital founders and executives look for a creative partner, they want design that does more than decorate a space. They want an agency that can build real trust, change how people behave, and make digital-first touchpoints that simplify patient care.",
-        "This case study shows how we helped <strong>AWCH (Avishkar Women & Children Hospital)</strong> become a modern, leading multispeciality hospital in Asansol. By shifting how the region saw it and removing digital friction, we built a complete communication system focused on authority, access and community impact."
+        "This case study shows how we helped <strong>AWCH (Avishkar Women & Children Hospital)</strong> build a modern brand identity for its multispeciality services in Asansol. We built a complete communication system, from visual identity to a digital-first booking flow, focused on authority, access and community trust."
       ]
     },
     {
@@ -40,7 +39,7 @@
       "divider": false,
       "label": "The Challenge",
       "body": [
-        "Healthcare brands in Tier-2 cities face a particular hurdle: little digital trust and scattered communication. For years, many families in Asansol took on the emotional and financial strain of travelling all the way to Kolkata for critical treatment. Not because local hospitals were lacking, but because local brands lacked visual confidence and awareness.",
+        "Healthcare brands in Tier-2 cities face a particular hurdle: little digital trust and scattered communication, which can make families default to bigger cities like Kolkata for treatment even when comparable care exists locally. AWCH wanted a brand that gave local families confidence to choose care close to home.",
         "Our main job was to close this confidence gap. The identity needed to balance:"
       ],
       "layout": "grid-3",
@@ -143,7 +142,7 @@
       "divider": false,
       "subheading": "Frictionless Appointment UX",
       "body": [
-        "We designed a clean, intuitive booking flow with no unnecessary steps. It builds credibility straight away and helps shorten the queues at the hospital's reception desks."
+        "We designed a clean, intuitive booking flow with no unnecessary steps, intended to build credibility straight away and ease pressure on the hospital's reception queues."
       ],
       "media": [
         {

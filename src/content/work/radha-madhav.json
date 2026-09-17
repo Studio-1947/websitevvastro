@@ -27,8 +27,8 @@
       "label": "Overview",
       "heading": "A cloud-native dashboard for a modern medical shop.",
       "body": [
-        "The aim of this project was to set up a smart dashboard for the \"Radha Madhav\" medical shop, to simplify its day-to-day operations and make inventory easier to maintain. With this cloud-native system in place, the pharmacy now bills at the counter in under 100 milliseconds, and cashiers handle over 60 line items per minute.",
-        "After the dashboard went live, Radha Madhav's retail performance improved. Quarterly revenue rose by ₹4,80,000, and write-offs of near-expiry medicines fell to less than 0.5% of total product costs."
+        "The aim of this project was to set up a smart dashboard for the \"Radha Madhav\" medical shop, to simplify its day-to-day operations and make inventory easier to maintain. The system's billing entries save to the database in under 100 milliseconds, and it's built to keep pace with counters that process over 60 line items per minute.",
+        "Since the dashboard went live, the client has reported a ₹4,80,000 rise in quarterly revenue and near-expiry write-offs falling to under 0.5% of total product costs."
       ]
     },
     {
@@ -37,19 +37,19 @@
       "cards": [
         {
           "num": "<100ms",
-          "title": "Point-of-sale billing latency for near-instant checkout."
+          "title": "Database write latency for a billing entry at the counter."
         },
         {
           "num": "60+",
-          "title": "Line items processed per minute at the counter."
+          "title": "Line items the system supports processing per minute."
         },
         {
           "num": "₹4.8L",
-          "title": "Increase in quarterly revenue after integration."
+          "title": "Client-reported increase in quarterly revenue after go-live."
         },
         {
           "num": "<0.5%",
-          "title": "Near-expiry medicine write-offs of total product costs."
+          "title": "Client-reported near-expiry write-offs of total product costs."
         }
       ]
     },
@@ -108,10 +108,10 @@
       "label": "The Result",
       "heading": "Real gains in daily operations.",
       "list": [
-        "Fast performance: point-of-sale billing in under 100 milliseconds.",
-        "Higher throughput: cashiers now process over 60 line items per minute.",
-        "Revenue growth: a ₹4,80,000 increase in quarterly revenue.",
-        "Less waste: near-expiry medicine write-offs cut to less than 0.5% of total product costs."
+        "Fast performance: billing entries save in under 100 milliseconds.",
+        "Higher throughput: the system supports over 60 line items per minute at the counter.",
+        "Revenue growth: a client-reported ₹4,80,000 increase in quarterly revenue.",
+        "Less waste: near-expiry medicine write-offs reported at under 0.5% of total product costs."
       ]
     },
     {
@@ -130,7 +130,7 @@
       "label": "Why Studio 1947?",
       "heading": "Tailored solutions for real-world challenges.",
       "body": [
-        "Studio 1947 builds tailored digital tools for real-world business problems. Our work with Radha Madhav shows how we combine technical skill with a deep understanding of local business needs, delivering tools that make a measurable difference and support lasting growth."
+        "Studio 1947 builds tailored digital tools for real-world business problems. Our work with Radha Madhav combined technical work with an understanding of how a local pharmacy actually runs, day to day."
       ]
     }
   ],

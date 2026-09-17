@@ -50,6 +50,8 @@ const oneTime = [
     thumb: '/assets/img/onlyforlocals/thumb-domain-illustration.webp',
     price: '₹2,000 – ₹3,000',
     priceValue: 2500,
+    priceMin: 2000,
+    priceMax: 3000,
     provides: ['5 years of your own domain name', 'Priced at the registrar’s rate, no markup'],
     clientProvides: [],
     notIncluded: ['Renewal after 5 years'],
@@ -137,7 +139,6 @@ const socialTiers = [
     basePlan: 'Starter',
     deliverables: [
       '16 posts a month (10 static + 6 reels)',
-      'Daily posting cadence, tuned to the season',
       'Festive & seasonal campaign creatives',
       'Daily comment & DM replies',
       'Monthly performance summary',
@@ -367,6 +368,11 @@ const testimonials = [
                 <span class="rc-card__price">{s.options ? `₹${s.options[0].value.toLocaleString('en-IN')}` : s.price}</span>
                 <span class="rc-card__gst">
                   {(() => {
+                    if (s.priceMin && s.priceMax) {
+                      const gstMin = Math.round(s.priceMin * 0.18).toLocaleString('en-IN');
+                      const gstMax = Math.round(s.priceMax * 0.18).toLocaleString('en-IN');
+                      return `+ ₹${gstMin} – ₹${gstMax} GST (18%)`;
+                    }
                     const base = s.options ? s.options[0].value : s.priceValue;
                     return base ? `+ ₹${Math.round(base * 0.18).toLocaleString('en-IN')} GST (18%)` : '+ 18% GST';
                   })()}
@@ -591,7 +597,7 @@ const testimonials = [
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>
-        <div class="team-bio" hidden><p class="team-bio__lead"> From Farmer to Designer: a journey rooted in local wisdom, shaped by global practice. </p> <p> Rabi is the founder of Studio 1947, a consulting and innovation studio working across Data, Design, Technology, Communication and Research. He started the studio in 2025 with a simple belief: the most meaningful design doesn't choose between local wisdom and global relevance. It builds from both. Under his direction, Studio 1947 works with organisations to turn complex, human problems into solutions that are as thoughtful as they are useful. </p> <p> Rabi's path into design wasn't the usual one. He began by studying Philosophy at Presidency University in Kolkata. There he spent his time on Indian and Western thought, logic, ethics and socio-political theory. On the side, he designed posters for college events, first by hand, then digitally. That early urge to visualise ideas eventually pulled him fully into design. He went on to earn his MA at the Srishti Institute of Art, Design and Technology in Bengaluru. There he sharpened a human-centred, ethnographic approach to UI/UX, grounded as much in listening to people as in shaping interfaces. </p> <p> His career since has covered an unusually wide range of work. As Head of Design at AIcrowd in Geneva, he led visual design and product experience for AI research challenges. He worked alongside partners like OpenAI, Facebook AI, Sony, Amazon, EPFL and Carnegie Mellon University, and helped shape experiences for a global community of over 60,000 developers and AI researchers. That journey took him from Artist in Residence to the top of the design team. As Design Director at Inclusive Minds in Bengaluru, he turned to design for democracy and civic voice. He built conversation-based campaigns, design systems and data-centric dashboards for socio-political engagement. Alongside this, he has spent years as a design consultant to the Friedrich Ebert Stiftung. There he made publication layouts and cover designs for a twelve-volume research series on Artificial Intelligence, along with branding and social media work to widen its public reach. </p> <p> Rabi describes his practice as sitting <em>between</em> product and communication design. He is equally at home mapping a user journey or building the story and visual identity around it. His toolkit covers design strategy, UI/UX design, information architecture, design systems, wireframing and prototyping, user research and journey mapping, ethnographic research, data storytelling, dashboard design, brand and packaging design, and strategic presentations. He has brought this range to organisations as varied as Tata Motors, Bosch, Room to Read, Bihar Tourism, the Seerave Foundation, and grassroots initiatives like Know Your Neighbour and the Jharkhand Government. He moves easily between global technology companies and community-rooted social impact work. </p> <p> For Rabi, design and social responsibility go together. Since 2024, he has run free design workshops on design thinking, digital literacy and AI awareness, mentoring students, youth and grassroots communities. In 2020, during the Covid pandemic and the Amphan super-cyclone, he helped the Quarantine Student Youth Network raise over &euro;300,000 to support affected families. For him, design and organising for people are part of the same practice. </p> <p> At the core of it all is a simple philosophy: <em>he believes in people and nature</em>. He sees design not as beauty for its own sake, but as a tool for connection, storytelling and problem-solving. It holds local tradition and global systems in the same frame, and balances function with emotional depth. With Studio 1947, he's building a home for exactly that kind of work: design that aims to be meaningful first. </p></div>
+        <div class="team-bio" hidden><p> Rabi founded Studio 1947 after a career spanning design leadership at AIcrowd in Geneva and Inclusive Minds in Bengaluru, plus design consulting for the Friedrich Ebert Stiftung. He leads design and philosophy at the studio and grew up in a farming family in rural Bengal. </p> <p> <a href="/about-us/#team">Full bio on the About page &rarr;</a> </p></div>
           </article>
         <article class="team-card rc-team-card" data-person data-fullname="Dipam">
           <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/dipam.webp" alt="Portrait of Dipam, Co-founder at Studio 1947" loading="lazy" /></div>
@@ -603,7 +609,7 @@ const testimonials = [
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>
-        <div class="team-bio" hidden><p> Dipam is a Co-founder and Software &amp; AI Engineer at Studio 1947. His work sits where artificial intelligence, software engineering and digital systems meet. </p> <p> <a href="https://scholar.google.com/citations?user=8joRMD8AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar Profile &rarr;</a> </p></div>
+        <div class="team-bio" hidden><p> Dipam is a Co-founder and Software &amp; AI Engineer at Studio 1947. His work sits where artificial intelligence, software engineering and digital systems meet. </p> <p> <a href="https://scholar.google.com/citations?user=8joRMD8AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar Profile &rarr;</a> &middot; <a href="/about-us/#team">Full bio &rarr;</a> </p></div>
           </article>
         <article class="team-card rc-team-card" data-person data-fullname="Anjali Chetri">
           <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/anjali.webp" alt="Portrait of Anjali, Co-founder at Studio 1947" loading="lazy" /></div>
@@ -615,7 +621,7 @@ const testimonials = [
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>
-        <div class="team-bio" hidden><p> Anjali Chetri comes from the quiet hills of Mirik, Darjeeling, and brings a deep sensitivity to people and systems. She graduated from Mirik College, where she studied History, Political Science, English and Environmental Studies, and she blends empathy with clear thinking. She is currently pursuing an MBA from IGNOU, which deepens the business grounding she brings to the studio. She has hands-on experience managing three retail shops, including team coordination and account handling. So Anjali understands the human side of business as much as its day-to-day running. At Studio 1947, she nurtures a culture where people feel seen, heard and trusted, making HR the heart of the studio. </p></div>
+        <div class="team-bio" hidden><p> Anjali Chetri is from Mirik and leads HR and accounts at Studio 1947. She studied at Mirik College and is currently pursuing an MBA from IGNOU, alongside hands-on retail management experience. </p> <p> <a href="/about-us/#team">Full bio &rarr;</a> </p></div>
           </article>
         <article class="team-card rc-team-card" data-person data-fullname="Subhendu Kundu">
           <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/subhendu.webp" alt="Portrait of Subhendu, Co-founder at Studio 1947" loading="lazy" /></div>
@@ -627,7 +633,7 @@ const testimonials = [
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>
-        <div class="team-bio" hidden><p> Subhendu Kundu is an experienced Ayurvedic medical practitioner with over 10 years of experience. He currently practices at Mirik Hospital. Subhendu is also a passionate curriculum designer focused on children’s health in rural communities. With a strong background in medicine and public health, he designs psychologically grounded curricula for children and teenagers. </p> <p> As an advisor at Studio 1947, Subhendu helps us design better programs and curricula for skill development and capacity building. He brings valuable experience in managing large-scale operations and communicating well. His deep understanding of rural health challenges, and his proven record in curriculum design, give our Skill Development Training Programs a different approach. </p></div>
+        <div class="team-bio" hidden><p> Subhendu Kundu is an Ayurvedic medical practitioner at Mirik Hospital with over 10 years of experience, and a curriculum designer focused on children's health in rural communities. At Studio 1947, he advises on programme and curriculum design for skill development and capacity building. </p> <p> <a href="/about-us/#team">Full bio &rarr;</a> </p></div>
           </article>
         <article class="team-card rc-team-card" data-person data-fullname="Nikhil Rai">
           <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/nikhilrai.webp" alt="Portrait of Nikhil Rai, Digital Artist at Studio 1947" loading="lazy" /></div>
@@ -639,7 +645,7 @@ const testimonials = [
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>
-        <div class="team-bio" hidden><p> Nikhil Rai is a creative professional from Mirik. He pairs a foundation in the Basics of Digital Marketing with self-taught skill in Digital Art, Illustrations and Animation. He has a deep love of visual storytelling and a keen sense of how marketing can amplify creative work. </p> <p> With a natural flair for engaging visuals and animations that hold attention, Nikhil bridges the gap between looks and communication. His digital marketing knowledge helps him match creative work to audience behaviour, campaign goals and brand messaging. So his work is not only good to look at but also serves a purpose. </p> <p> Rooted in the calm yet vibrant culture of Mirik, Nikhil draws inspiration from his surroundings and turns local detail into modern, relatable visual stories. Whether it’s eye-catching illustrations, dynamic animations or concept-led marketing visuals, his approach is thoughtful, detailed and focused on impact. </p> <p> In every project, Nikhil brings creative storytelling and clear thinking together. That makes him a valuable contributor to campaigns that want both emotional connection and measurable results. </p></div>
+        <div class="team-bio" hidden><p> Nikhil Rai is a digital artist from Mirik, working across illustration, 2D/3D and animation, with a foundation in digital marketing that helps match creative work to campaign goals. </p> <p> <a href="/about-us/#team">Full bio &rarr;</a> </p></div>
           </article>
         <article class="team-card rc-team-card" data-person data-fullname="Nikhil Raj Subba">
           <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/nikhilsubba.webp" alt="Portrait of Nikhil Subba, Project Manager at Studio 1947" loading="lazy" /></div>
@@ -651,7 +657,7 @@ const testimonials = [
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>
-        <div class="team-bio" hidden><p> I am a creative designer from Soureni, Mirik. I work in visual communication, video production and graphic design. I graduated in English Honours from Mirik College and did my master’s degree in English Honours at the University of North Bengal. </p> <p> Alongside my studies, serving as General Secretary of my college strengthened my leadership, organisational and project management skills. My creative work draws deeply on travel, music, painting and local art traditions. That helps me make design that looks good and means something. </p></div>
+        <div class="team-bio" hidden><p> Nikhil Raj Subba is a project manager from Soureni, Mirik, working across graphics design and video editing. He holds an MA in English Honours from the University of North Bengal. </p> <p> <a href="/about-us/#team">Full bio &rarr;</a> </p></div>
           </article>
         <article class="team-card rc-team-card" data-person data-fullname="Rahul">
           <div class="team-card__img rc-team-card__img"><img src="/assets/img/about-us/team/rahul.webp" alt="Portrait of Rahul, Project Manager at Studio 1947" loading="lazy" /></div>
@@ -663,7 +669,7 @@ const testimonials = [
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
           </div>
-        <div class="team-bio" hidden><p> Rahul wears many hats at Studio 1947. He builds digital experiences as a full-stack developer and also shoots video and photography for the agency's client work. It's a rare mix that lets him move easily between code and camera, bringing a visual eye to his development work and technical precision to his shoots. </p> <p> On the development side, he's strong on the front end with React, TypeScript and GSAP-driven interfaces, and is growing his backend skills with Node.js, PostgreSQL, NestJS and Prisma. His projects include platforms rooted in Darjeeling and Northeast India, like the 1Darjeeling local marketplace and travel guide. His eye for cinematic, editorial design shows whether he's behind a screen or behind a lens. </p> <p> Outside the studio, he keeps that same creative energy going, picking up a camera for personal projects or playing electric guitar. </p></div>
+        <div class="team-bio" hidden><p> Rahul is a project manager at Studio 1947, working across front-end development (React, TypeScript, GSAP) and film. His projects include the 1Darjeeling local marketplace and travel guide. </p> <p> <a href="/about-us/#team">Full bio &rarr;</a> </p></div>
           </article>
         <a class="rc-team-card rc-team-card--cta" href="/about-us/#team">
           <div class="rc-team-card__cta-body">
