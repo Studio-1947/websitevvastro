@@ -146,10 +146,7 @@ summary — but the underlying figures/claims still need confirmation.)*
 
 ## Careers
 
-25. **Route:** `/careers/instagram-influencer/` — `src/content/careers/instagram-influencer.json`
-    **Claim:** Posting date shown as 21 September 2026 — four days after this build's "today" (2026-09-17).
-    **Why confirmation is needed:** This is a future-dated posting; we have not silently corrected the date.
-    **Evidence/decision required:** Confirm whether this is a genuinely scheduled future posting or a data-entry error.
+25. ~~**Route:** `/careers/instagram-influencer/` — future-dated posting~~ — **RESOLVED 2026-09-18.** Owner asked for the Social Media Influencer listing to be removed from Careers entirely. Deleted `src/content/careers/instagram-influencer.json`, its card on `/careers/`, its cross-listing card on the other five role pages, and its orphaned `careers.title.socialMediaInfluencer` translation key. The route no longer builds (verified: 100 pages instead of 101).
 
 26. **Route:** `/careers/communication/`, `/careers/software-engineer/` — `src/content/careers/communication.json`, `src/content/careers/software-engineer.json`
     **Claim:** Both roles list their location as "On-Site, Plassey, Nadia" (West Bengal), while all other listed roles — and, notably, these same two pages' own apply-sidebar widget — say "On-Site, Mirik, Darjeeling."
