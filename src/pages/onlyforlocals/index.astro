@@ -23,7 +23,7 @@ const oneTime = [
     title: 'Website',
     icon: 'website',
     thumb: '/assets/img/onlyforlocals/thumb-website-1page-illustration.webp',
-    price: '₹5,000 – ₹10,000',
+    price: '₹5,000 to ₹10,000',
     provides: ['A static website, one page for ₹5,000', 'Services & contact section, built around your content'],
     clientProvides: ['Property Photographs'],
     notIncluded: [],
@@ -48,7 +48,7 @@ const oneTime = [
     title: 'Domain Registration',
     icon: 'domain',
     thumb: '/assets/img/onlyforlocals/thumb-domain-illustration.webp',
-    price: '₹2,000 – ₹3,000',
+    price: '₹2,000 to ₹3,000',
     priceValue: 2500,
     priceMin: 2000,
     priceMax: 3000,
@@ -63,7 +63,7 @@ const oneTime = [
     thumb: '/assets/img/onlyforlocals/thumb-ota-illustration.webp',
     price: '₹5,000',
     priceValue: 5000,
-    provides: ['Listing on MakeMyTrip, Booking.com, Agoda & Airbnb', 'Free onboarding onto our own booking portal — we never take a commission on bookings made there'],
+    provides: ['Listing on MakeMyTrip, Booking.com, Agoda & Airbnb', 'Free onboarding onto our own booking portal: we never take a commission on bookings made there'],
     clientProvides: [],
     notIncluded: [],
   },
@@ -371,7 +371,7 @@ const testimonials = [
                     if (s.priceMin && s.priceMax) {
                       const gstMin = Math.round(s.priceMin * 0.18).toLocaleString('en-IN');
                       const gstMax = Math.round(s.priceMax * 0.18).toLocaleString('en-IN');
-                      return `+ ₹${gstMin} – ₹${gstMax} GST (18%)`;
+                      return `+ ₹${gstMin} to ₹${gstMax} GST (18%)`;
                     }
                     const base = s.options ? s.options[0].value : s.priceValue;
                     return base ? `+ ₹${Math.round(base * 0.18).toLocaleString('en-IN')} GST (18%)` : '+ 18% GST';
