@@ -24,15 +24,9 @@ the live pages retain their existing wording until these are resolved.
 
 ## About page and team
 
-3. **Route:** `/about-us/` — `src/components/about/MarkStory.astro` (hero lede, "Elevation" readout) and `src/pages/about-us/index.astro`
-   **Claim:** The studio's location is given an elevation of "2,042 metres," attached to "Darjeeling."
-   **Why confirmation is needed:** Studio 1947 is stated elsewhere to be based in Mirik, not Darjeeling town. 2,042 m is commonly cited as Darjeeling town's elevation; Mirik's is generally cited as lower (commonly ~1,767 m / 5,800 ft). This number is deeply embedded in the interactive scroll animation (the "Elevation" readout, the hero lede, and the journey stage's `ALT` array), so we have not changed it — an incorrect change could misrepresent the studio's real location just as easily as leaving it uncorrected.
-   **Evidence/decision required:** Confirm the studio's actual elevation (or confirm "Darjeeling" here is being used loosely to mean the district/hills rather than the town, in which case the copy should say so explicitly) before any figure is changed.
+3. ~~**Route:** `/about-us/` — elevation figure~~ — **RESOLVED 2026-09-18.** Owner confirmed the studio is based in Mirik. All four references (`src/components/about/MarkStory.astro`: hero lede, "Elevation" readout, journey lede text, and the journey stage's `ALT` array) now read 1,767 m instead of 2,042 m (Darjeeling town's elevation). Note: 1,767 m is the commonly cited figure for Mirik from general geographic knowledge, not from a document in this repository — worth a quick sanity check against an authoritative source if precision matters here.
 
-4. **Route:** `/about-us/` — `src/generated/about-us/main.html` (Subhendu Kundu's team card)
-   **Claim:** The card label reads "Co-founder"; his own bio text says "As an advisor at Studio 1947, Subhendu helps us..."
-   **Why confirmation is needed:** These two statements are inconsistent about his relationship to the studio. Per the brief, we have not changed anyone's title without evidence. This same inconsistency was also present (and left unresolved) on the `/onlyforlocals/` page's copy of his bio.
-   **Evidence/decision required:** Confirm whether Subhendu is a co-founder, an advisor, or holds a specific title that combines both, and align the label and bio wording across `/about-us/` and `/onlyforlocals/`.
+4. ~~**Route:** `/about-us/` — Subhendu Kundu's role~~ — **RESOLVED 2026-09-18.** Owner confirmed Subhendu started as an advisor and is now a Co-founder (matching the card label, which was already correct). Bio text updated on both `/about-us/` and `/onlyforlocals/` to say so explicitly instead of calling him "an advisor."
 
 5. **Route:** `/about-us/` — journey section ("The plains": Siliguri, Kalimpong, Gangtok)
    **Claim:** Kalimpong and Gangtok are grouped under "the plains" alongside Siliguri.
@@ -134,10 +128,7 @@ summary — but the underlying figures/claims still need confirmation.)*
 
 ## Products
 
-21. **Route:** `/products/aangan/` — `src/content/products/aangan.json`
-    **Claim/status:** The product page is fully built (book homestays and drivers, live at aanganerp.in per its own FAQ) but is marked `noindex: true` and was, prior to this pass, missing from the Products navigation and index entirely (miscategorised under Initiatives). It has now been moved into the Products menu/index labelled "Coming Soon."
-    **Why confirmation is needed:** We cannot determine the true current commercial status (soft-launched, in pilot, or fully live) from the repository alone — the page's own copy says it's live, but the "Coming Soon" label used elsewhere in the site contradicts that.
-    **Evidence/decision required:** Confirm actual status and apply one consistent label ("Coming Soon" / "Now in pilot" / live) across the product page and all navigation/index entries.
+21. ~~**Route:** `/products/aangan/` — status~~ — **RESOLVED 2026-09-18.** Owner asked that Aangan not disclose any details for now and show only as "Coming Soon." The product page (`src/content/products/aangan.json`) has been replaced with a minimal placeholder: no live link to aanganerp.in, no feature list, no screenshots, no "already live" claims — just a name, one line, and a "Get notified" contact CTA. The Products index card and header nav entry were trimmed to a generic one-line teaser with no feature specifics. `noindex: true` retained.
 
 22. **Route:** `src/content/products/aangar-erp.json` ("Aangan ERP"), `doptor-campus-manager.json`, `doptor-ngo-manager.json`, `doptor-office-manager.json`
     **Claim/gap:** Four fully-built product pages exist with no entry anywhere in the Products navigation or `/products/` index.
@@ -177,20 +168,15 @@ summary — but the underlying figures/claims still need confirmation.)*
 
 ## Contact and policy pages
 
-28. **Route:** `/sayhello/` vs. `/privacy-policy/`, `/terms-of-service/`, `/accessibility-statement/`
-    **Claim:** The contact page uses `studio@1947.io`; all three legal pages use `hello@1947.io`, with no stated distinction between the two addresses anywhere on the site.
-    **Why confirmation is needed:** Per the brief, we should only describe a distinct use for each address if the repository already establishes one — it does not.
-    **Evidence/decision required:** Confirm whether these are genuinely separate mailboxes for different purposes (and if so, what each is for), or whether one canonical address should be used site-wide.
+28. ~~**Route:** `/sayhello/` vs. `/privacy-policy/`, `/terms-of-service/`, `/accessibility-statement/` — email inconsistency~~ — **RESOLVED 2026-09-18.** Owner confirmed `studio@1947.io` as the single canonical address. All three legal pages (previously `hello@1947.io`) now use `studio@1947.io`, matching the contact page and careers listings.
 
 29. **Route:** `/privacy-policy/`, `/terms-of-service/`
     **Claim:** These pages describe collecting a "password" and information "during registration," and the Terms of Service has a "Registration / Form Fillup" section, but no login, sign-up or account feature exists anywhere on the site (verified: no such routes under `src/pages`).
     **Why confirmation is needed:** This reads as unmodified legal boilerplate that doesn't match the site's actual functionality (enquiry forms only, no accounts). We have not rewritten legal clauses ourselves.
     **Evidence/decision required:** Legal owner to revise the scope of these clauses to match what the site actually does.
 
-30. **Route:** `/privacy-policy/`, `/terms-of-service/`, `/labour-employment-policy/`
-    **Claim:** Governing law/jurisdiction is described only as "the jurisdiction in which we operate," without ever naming one. None of the three states the operating entity's legal name or registration details, and none carries an unambiguous "last updated" date (the accessibility statement has a date, but in an ambiguous DD/MM vs. MM/DD format: "05/06/2026").
-    **Why confirmation is needed:** We have not invented legal provisions, entity names, or dates.
-    **Evidence/decision required:** Legal counsel/owner to supply the operating entity's name, the actual governing jurisdiction, and unambiguous effective/updated dates for each policy.
+30. ~~**Route:** `/privacy-policy/`, `/terms-of-service/`, `/labour-employment-policy/` — operating entity name~~ — **PARTIALLY RESOLVED 2026-09-18.** Owner supplied the entity name "WBIN 1947 Studio LLP," based in Mirik, West Bengal, India. Added to the opening paragraph of all three policies, and the Terms of Service "Governing Law" clause now names India as the governing law and "the courts having jurisdiction over Mirik, West Bengal" for disputes, replacing the vague "jurisdiction in which we operate."
+    **Still open:** The entity name as given ("WBIN 1947 Studio LLP") has not been cross-checked against any registration document — please confirm the exact legal name and registration/CIN/LLPIN number if one should be quoted. The accessibility statement's ambiguous date format ("05/06/2026") and the general absence of unambiguous "last updated" dates on the other policies remain unresolved.
 
 31. **Route:** `/accessibility-statement/`
     **Claim:** States the studio "appl[ies] the relevant accessibility standards" without naming a specific standard or conformance level (e.g. a WCAG version/level).
