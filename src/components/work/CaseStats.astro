@@ -30,6 +30,25 @@ const { stats, caption, i18nKey } = Astro.props;
 // number. Tight symbols ("+", "%") stay welded to the last digit.
 const wordUnit = (suffix?: string): string | null =>
   suffix && /^\s/.test(suffix) ? suffix.trim() : null;
+
+// Server-rendered value, matching scripts/reveal.ts's countUps() formatting
+// exactly, so the true figure is present without JS (crawlers, no-JS
+// browsers, reduced-motion) rather than the "0" the count-up used to start
+// from. JS still animates from 0 up to this same value on reveal.
+const formatStat = (s: Stat): string => {
+  const suffix = wordUnit(s.suffix) ? '' : (s.suffix ?? '');
+  const decimals = s.decimals ?? 0;
+  let body: string;
+  if (s.group) {
+    body = s.value.toLocaleString(s.group === 'in' ? 'en-IN' : 'en-US', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+  } else {
+    body = decimals ? s.value.toFixed(decimals) : String(Math.round(s.value));
+  }
+  return (s.prefix ?? '') + body + suffix;
+};
 ---
 
 <div class="case-stats" data-stagger>
@@ -44,7 +63,7 @@ const wordUnit = (suffix?: string): string | null =>
             data-decimals={s.decimals ? String(s.decimals) : undefined}
             data-group={s.group}
           >
-            {s.prefix ?? ''}0{wordUnit(s.suffix) ? '' : (s.suffix ?? '')}
+            {formatStat(s)}
           </span>
           {wordUnit(s.suffix) && <span class="case-stat__unit">{wordUnit(s.suffix)}</span>}
         </div>

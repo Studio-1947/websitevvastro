@@ -36,7 +36,6 @@ export const careers: Record<string, Entry> = {
   'careers.title.softwareEngineer': { hi: 'सॉफ़्टवेयर इंजीनियर', bn: 'সফটওয়্যার ইঞ্জিনিয়ার', ne: 'सफ्टवेयर इन्जिनियर' },
   'careers.title.marketingManager': { hi: 'मार्केटिंग मैनेजर', bn: 'মার্কেটিং ম্যানেজার', ne: 'मार्केटिङ म्यानेजर' },
   'careers.title.dataAnalyst': { hi: 'डेटा एनालिस्ट', bn: 'ডেটা অ্যানালিস্ট', ne: 'डेटा एनालिस्ट' },
-  'careers.title.socialMediaInfluencer': { hi: 'सोशल मीडिया इन्फ्लुएंसर', bn: 'সোশ্যাল মিডিয়া ইনফ্লুয়েন্সার', ne: 'सामाजिक सञ्जाल इन्फ्लुएन्सर' },
   'careers.title.productManager': { hi: 'प्रोडक्ट मैनेजर', bn: 'প্রোডাক্ট ম্যানেজার', ne: 'प्रोडक्ट म्यानेजर' },
 
   // ── Posting page: structural chrome ─────────────────────────────────
