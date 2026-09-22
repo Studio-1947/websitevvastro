@@ -295,6 +295,10 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   max-width: none;
 }
 .hero-fx .hero__title { font-size: clamp(28px, 6.7vw, 114px); font-weight: 500; letter-spacing: calc(-0.01em - 1px); }
+.hero__lede {
+  font-family: var(--font-body); font-size: clamp(16px, 1.5vw, 20px); line-height: 1.5;
+  color: var(--grey-700); opacity: .82; max-width: 46em; margin-top: clamp(18px, 2.4vw, 28px);
+}
 .hero__type { white-space: nowrap; }
 .hero__type::after { content: ""; display: inline-block; width: .05em; height: .85em; margin-left: .06em; vertical-align: -.08em; background: var(--red); animation: caret 1s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
