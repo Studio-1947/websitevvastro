@@ -19,7 +19,7 @@
  */
 import { scrollReveal, countUps } from './reveal';
 import { mobileMenu } from './mobileMenu';
-import { navDropdowns, headerPill } from './nav';
+import { navDropdowns, headerPill, languageSwitcher } from './nav';
 import { i18n } from './i18n';
 import { duplicateMarquees } from './marquee';
 import { hydrateYear, darjeelingLive } from './darjeeling';
@@ -73,6 +73,7 @@ function init(): void {
   mobileMenu();
   navDropdowns();
   headerPill();
+  languageSwitcher();
   i18n();
   duplicateMarquees();
   hydrateYear();

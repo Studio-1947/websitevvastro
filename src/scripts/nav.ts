@@ -31,6 +31,45 @@ export function navDropdowns(): void {
 }
 
 /**
+ * Language switcher for the desktop dropdown and mobile menu lists. Items
+ * carrying `data-lang-locked` (Hindi, Bengali, Nepali — all "Coming Soon"
+ * until their copy is reviewed and launch-ready) stay inert in both lists;
+ * only English is wired for now. Selecting a language stores it and fires
+ * `site-language-change`, which i18n.ts listens for to swap `[data-i18n]`
+ * text.
+ */
+export function languageSwitcher(): void {
+  const items = document.querySelectorAll<HTMLElement>('[data-lang]');
+  if (!items.length) return;
+
+  function markSelected(lang: string): void {
+    items.forEach((el) => el.classList.toggle('is-selected', el.dataset.lang === lang));
+  }
+
+  try {
+    const stored = localStorage.getItem('site-language');
+    if (stored) markSelected(stored);
+  } catch {
+    // Storage unavailable; markup's default English selection stands.
+  }
+
+  items.forEach((item) => {
+    if (item.hasAttribute('data-lang-locked')) return;
+    item.addEventListener('click', () => {
+      const lang = item.dataset.lang;
+      if (!lang) return;
+      try {
+        localStorage.setItem('site-language', lang);
+      } catch {
+        // Storage unavailable; the change still applies for this page view.
+      }
+      markSelected(lang);
+      document.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang } }));
+    });
+  });
+}
+
+/**
  * The bar sits flat at the top of a page and lifts on a shadow once the page
  * has moved. 8px of travel is enough to count as scrolled without the shadow
  * flickering on a trackpad's rubber-band.
