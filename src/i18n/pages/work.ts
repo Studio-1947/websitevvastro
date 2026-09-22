@@ -314,7 +314,7 @@ export const work: Record<string, Entry> = {
   'work.mirik-college.s6.label': { hi: 'टीम', bn: 'দল', ne: 'टिम' },
   'work.mirik-college.s7.label': { hi: 'पोस्ट-फील्डवर्क चरण', bn: 'পোস্ট-ফিল্ডওয়ার্ক পর্যায়', ne: 'पोस्ट-फिल्डवर्क चरण' },
   'work.mirik-college.s8.heading': { hi: 'नतीजे', bn: 'ফলাফল', ne: 'नतिजाहरू' },
-  'work.mirik-college.s9.subheading': { hi: 'स्टूडियो 1947 का दृष्टिकोण', bn: 'স্টুডিও ১৯৪৭-এর দৃষ্টিভঙ্গি', ne: 'स्टुडियो १९४७को दृष्टिकोण' },
+  'work.mirik-college.s9.subheading': { hi: 'स्टूडियो 1947 का दृष्टिकोण', bn: 'স্টুডিও ১৯৪৭-এর দৃষ্টিভঙ্গি', ne: 'Studio 1947 को दृष्टिकोण' },
 
   // ── mohuna-media ─────────────────────────────────────────────────────
   'work.mohuna-media.s1.heading': { hi: 'लोगो का मतलब', bn: 'লোগোর অর্থ', ne: 'लोगोको अर्थ' },
@@ -413,7 +413,7 @@ export const work: Record<string, Entry> = {
   'work.radha-madhav.s7.heading': { hi: 'हमारी साझेदारी के ज़रिए, राधा माधव ने हासिल किया:', bn: 'আমাদের অংশীদারিত্বের মাধ্যমে, রাধা মাধব অর্জন করেছে:', ne: 'हाम्रो साझेदारीमार्फत, राधा माधवले हासिल गर्‍यो:' },
   'work.radha-madhav.s7.label': { hi: 'ग्राहक प्रभाव', bn: 'ক্লায়েন্ট প্রভাব', ne: 'ग्राहक प्रभाव' },
   'work.radha-madhav.s8.heading': { hi: 'असल दुनिया की चुनौतियों के लिए तैयार समाधान।', bn: 'বাস্তব-বিশ্ব চ্যালেঞ্জের জন্য উপযোগী সমাধান।', ne: 'वास्तविक-संसार चुनौतीहरूका लागि अनुकूलित समाधान।' },
-  'work.radha-madhav.s8.label': { hi: 'स्टूडियो 1947 क्यों?', bn: 'কেন স্টুডিও ১৯৪৭?', ne: 'स्टुडियो १९४७ किन?' },
+  'work.radha-madhav.s8.label': { hi: 'स्टूडियो 1947 क्यों?', bn: 'কেন স্টুডিও ১৯৪৭?', ne: 'Studio 1947 किन?' },
 
   // ── rajkamal-prakashan (partial: this case is already translated in body copy) ──
   'work.rajkamal-prakashan.s1.label': { hi: 'केंद्रीय कथा', bn: 'কেন্দ্রীয় বর্ণনা', ne: 'केन्द्रीय कथा' },

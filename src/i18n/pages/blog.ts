@@ -9,7 +9,7 @@ import type { Entry } from '../types';
  * pass (matching the same call made for career postings).
  */
 export const blog: Record<string, Entry> = {
-  'blog.hero.eyebrow': { hi: 'स्टूडियो 1947 जर्नल', bn: 'স্টুডিও ১৯৪৭ জার্নাল', ne: 'स्टुडियो १९४७ जर्नल' },
+  'blog.hero.eyebrow': { hi: 'स्टूडियो 1947 जर्नल', bn: 'স্টুডিও ১৯৪৭ জার্নাল', ne: 'Studio 1947 जर्नल' },
   'blog.hero.title': {
     hi: 'कहानियां, विचार और दृष्टिकोण।',
     bn: 'গল্প, ধারণা ও দৃষ্টিভঙ্গি।',
