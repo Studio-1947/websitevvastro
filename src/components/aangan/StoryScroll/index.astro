@@ -1,0 +1,99 @@
+---
+/** Archetype: sticky image left, chapters scroll right. Motion: image cross-fade per chapter. */
+import Slot from '../Slot/index.astro';
+import type { StoryContent } from './content';
+
+interface Props { content: StoryContent }
+const { content: c } = Astro.props;
+---
+
+<section class="story" aria-labelledby="aangan-story-title" data-story>
+  <div class="story__inner">
+    <div class="story__media" aria-hidden="true">
+      <div class="story__stack">
+        {c.chapters.map((ch, i) => (
+          <div class:list={['story__frame', { 'is-active': i === 0 }]} data-story-frame={i}>
+            <Slot image={ch.image} decorative />
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="story__text">
+      <h2 id="aangan-story-title" class="story__heading">{c.heading}</h2>
+      {c.chapters.map((ch, i) => (
+        <article class="story__chapter" data-story-chapter={i}>
+          <Slot image={ch.image} class="story__inline-img" />
+          <p class="story__label">{ch.label}</p>
+          <h3 class="story__title">{ch.title}</h3>
+          <p class="story__body">{ch.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .story {
+    --pad: clamp(56px, 9vw, 140px);
+    --col-gap: clamp(32px, 6vw, 96px);
+    padding: var(--pad) clamp(16px, 5vw, 72px);
+    background: #EFE6D6;
+  }
+  .story__inner {
+    max-width: 1240px; margin: 0 auto;
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--col-gap);
+  }
+  /* Inline-size container so the stack can size its sticky offset off its own width. */
+  .story__media { position: relative; container-type: inline-size; }
+  /* Stick at the viewport's vertical centre: the 4:3 frame is 75cqw tall, so offset by half
+     of that. Never higher than 110px, which keeps it clear of the fixed header. */
+  .story__stack {
+    position: sticky; top: max(110px, calc(50vh - 37.5cqw));
+    aspect-ratio: 4 / 3; border-radius: 4px 96px 4px 4px; overflow: hidden;
+    box-shadow: 0 30px 60px -30px rgba(42, 31, 23, .45);
+  }
+  .story__frame { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; }
+  .story__frame.is-active { opacity: 1; }
+  .story__frame :global(.slot) { height: 100%; }
+
+  .story__heading { margin: 0 0 clamp(24px, 4vw, 48px); font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; }
+  .story__chapter {
+    min-height: 62vh; padding: 28px 0 28px 28px;
+    display: flex; flex-direction: column; justify-content: center;
+    border-left: 2px solid rgba(154, 106, 58, .25);
+    transition: border-color .4s ease;
+  }
+  .story__chapter.is-active { border-left-color: var(--a-accent); }
+  .story__label { margin: 0 0 6px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--a-tea); }
+  .story__title { margin: 0 0 16px; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.12; }
+  .story__body { margin: 0; max-width: 52ch; font-size: clamp(17px, 1.25vw, 19px); line-height: 1.65; color: #4A3B2F; }
+  .story__chapter :global(.story__inline-img) { display: none; }
+
+  @media (max-width: 860px) {
+    .story__inner { grid-template-columns: 1fr; }
+    .story__media { display: none; }
+    .story__chapter { min-height: 0; padding: 0 0 48px; border-left: 0; }
+    .story__chapter :global(.story__inline-img) { display: block; margin-bottom: 20px; border-radius: 4px 72px 4px 4px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .story__frame, .story__chapter { transition: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-story]');
+  if (root && 'IntersectionObserver' in window) {
+    const frames = root.querySelectorAll<HTMLElement>('[data-story-frame]');
+    const chapters = root.querySelectorAll<HTMLElement>('[data-story-chapter]');
+    const activate = (i: number) => {
+      frames.forEach((f) => f.classList.toggle('is-active', f.dataset.storyFrame === String(i)));
+      chapters.forEach((c) => c.classList.toggle('is-active', c.dataset.storyChapter === String(i)));
+    };
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && activate(Number((e.target as HTMLElement).dataset.storyChapter))),
+      { rootMargin: '-45% 0px -45% 0px' }
+    );
+    chapters.forEach((c) => io.observe(c));
+  }
+</script>

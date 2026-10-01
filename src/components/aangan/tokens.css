@@ -1,0 +1,47 @@
+/*
+ * aangan page: the only tokens shared across its components.
+ * Everything else (spacing, radius, surfaces) is owned by each component.
+ *
+ * Palette, proposed (no aangan app styles exist in this repo yet):
+ *   paper   #F4EDE1  page ground, like handmade paper
+ *   ink     #2A1F17  strong tea, body text
+ *   tea     #9A6A3A  chai, secondary text and rules
+ *   moss    #5E7148  tea-garden green, supporting accent
+ *   accent  #C2452D  chilli red, calls to action only
+ * Typeface: Fraunces (display, warm serif) with the site's Google Sans for body.
+ */
+.aangan {
+  --a-paper: #F4EDE1;
+  --a-ink: #2A1F17;
+  --a-tea: #9A6A3A;
+  --a-moss: #5E7148;
+  --a-accent: #C2452D;
+  --a-accent-ink: #FBF8F2;
+  --a-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+
+  background: var(--a-paper);
+  color: var(--a-ink);
+  overflow-x: clip;
+}
+.aangan :where(h1, h2, h3) {
+  font-family: var(--a-font-display);
+  color: var(--a-ink);
+  font-weight: 450;
+  letter-spacing: -0.015em;
+}
+
+/* CTA buttons: the one accent treatment every component shares. */
+.aangan .a-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 24px; border-radius: 999px;
+  background: var(--a-accent); color: var(--a-accent-ink);
+  font-size: 16px; font-weight: 500; line-height: 1.2; text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.aangan .a-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(194, 69, 45, .28); }
+.aangan .a-btn:focus-visible { outline: 3px solid var(--a-ink); outline-offset: 3px; }
+.aangan .a-btn--ghost { background: transparent; color: inherit; box-shadow: inset 0 0 0 1.5px currentColor; }
+.aangan .a-btn--ghost:hover { box-shadow: inset 0 0 0 1.5px currentColor, 0 10px 24px rgba(0, 0, 0, .12); }
+@media (prefers-reduced-motion: reduce) {
+  .aangan .a-btn, .aangan .a-btn:hover { transition: none; transform: none; }
+}

@@ -1,0 +1,66 @@
+---
+/** Archetype: type-led and minimal, image as texture. Motion: text reveal. */
+import Slot from '../Slot/index.astro';
+import { ctaAttrs } from '../types';
+import type { ClosingContent } from './content';
+
+interface Props { content: ClosingContent }
+const { content: c } = Astro.props;
+const words = c.headline.split(' ');
+---
+
+<section class="close" aria-labelledby="aangan-close-title" data-close>
+  <div class="close__inner">
+    <h2 id="aangan-close-title" class="close__headline" aria-label={c.headline}>
+      {words.map((w, i) => (
+        <span class="close__word" style={`--i: ${i}`} aria-hidden="true"><span>{w}</span></span>
+      ))}
+    </h2>
+    <div class="close__ctas">
+      <a class="a-btn" {...ctaAttrs(c.primary)}>{c.primary.label}</a>
+      <a class="a-btn a-btn--ghost" {...ctaAttrs(c.secondary)}>{c.secondary.label}</a>
+    </div>
+    <p class="close__credit">{c.credit}</p>
+  </div>
+  <Slot image={c.texture} class="close__art" />
+</section>
+
+<style>
+  .close {
+    --pad: clamp(96px, 14vw, 200px);
+    position: relative; isolation: isolate; overflow: hidden;
+    padding: var(--pad) clamp(16px, 7vw, 120px) 0;
+    background: var(--a-paper);
+  }
+  /* Full-width artwork strip under the text, at the image's own 16:5 ratio
+     (nothing cropped): bleeds past the section padding to the page edges. */
+  .close :global(.close__art) {
+    margin: clamp(40px, 6vw, 80px) calc(-1 * clamp(16px, 7vw, 120px)) 0;
+    opacity: 1;
+  }
+  .close__inner { max-width: 1100px; }
+  .close__headline { margin: 0; font-size: clamp(48px, 9vw, 136px); line-height: .98; letter-spacing: -0.03em; }
+  .close__word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-right: .22em; }
+  .close__word > span { display: inline-block; transform: translateY(105%); transition: transform .9s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--i) * .09s); }
+  .close.is-in .close__word > span { transform: none; }
+  :global(html:not(.js)) .close__word > span { transform: none; }
+  .close__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(28px, 4vw, 48px); }
+  .close__credit { margin: clamp(48px, 7vw, 96px) 0 0; font-size: 14px; letter-spacing: .08em; color: var(--a-tea); }
+  @media (prefers-reduced-motion: reduce) {
+    .close__word > span { transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-close]');
+  if (root) {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { root.classList.add('is-in'); io.disconnect(); }
+      }, { threshold: 0.3 });
+      io.observe(root);
+    } else {
+      root.classList.add('is-in');
+    }
+  }
+</script>

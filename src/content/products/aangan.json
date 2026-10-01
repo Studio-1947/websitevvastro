@@ -1,11 +1,10 @@
 {
- "title": "Aangan | Studio 1947",
- "description": "Aangan: an upcoming app for the Darjeeling hills from Studio 1947. Coming soon.",
- "ogTitle": "Aangan | Studio 1947",
- "ogDescription": "Aangan: an upcoming app for the Darjeeling hills from Studio 1947. Coming soon.",
+ "title": "aangan | Studio 1947",
+ "description": "aangan: homestays, cafes, drivers and the quiet spots nearby, shared by the people who live here. Starting in Darjeeling. By studio 1947.",
+ "ogTitle": "aangan. Every experience.",
+ "ogDescription": "Homestays, cafes, drivers and the quiet spots nearby, shared by the people who live here. Starting in Darjeeling.",
  "ogType": "website",
- "bodyClass": "pdp pdp-aangan",
- "styles": ".pdp-aangan .pdp-hero__inner { grid-template-columns: 1fr; justify-items: center; text-align: center; } .pdp-aangan .pdp-hero__inner > div:first-child { max-width: 700px; } .pdp-aangan .pdp-hero__sub { margin-inline: auto; } .pdp-aangan .pdp-cta-row { justify-content: center; } .pdp-aangan .pdp-hero__inner > div:last-child { width: 100%; max-width: 1200px; }",
- "html": "<main>\n    <!-- Hero -->\n    <section class=\"pdp-hero\">\n      <div class=\"pdp-hero__bg\"></div>\n      <div class=\"container\">\n        <nav class=\"pdp-crumb\" aria-label=\"Breadcrumb\"><a href=\"/products/\">Products</a> <span aria-hidden=\"true\">/</span> <span>Aangan</span></nav>\n        <div class=\"pdp-hero__inner\" data-stagger>\n          <div>\n            <span class=\"pdp-eyebrow\"><span class=\"dot\"></span>Travel &amp; Tourism</span>\n            <h1>Aangan</h1>\n            <p class=\"pdp-hero__sub\">An app for the Darjeeling hills, in the works. We'll share more as it gets closer to launch.</p>\n            <div class=\"pdp-cta-row\">\n              <a class=\"pdp-btn pdp-btn--primary\" href=\"/sayhello/\" data-contact-open>Get notified <span class=\"a\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></a>\n            </div>\n            <p class=\"pdp-hero__note\">Coming soon.</p>\n          </div>\n        </div>\n      </div>\n    </section>\n\n    <!-- Pre-footer CTA -->\n    <section class=\"section container\" style=\"padding-top:0\">\n      <div class=\"pdp-cta reveal\">\n        <h2>Want to hear when Aangan launches?</h2>\n        <p>Get in touch and we'll let you know as soon as it's ready.</p>\n        <div class=\"pdp-cta-row\">\n          <a class=\"pdp-btn pdp-btn--primary\" href=\"/sayhello/\" data-contact-open>Get notified <span class=\"a\" aria-hidden=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></a>\n        </div>\n      </div>\n    </section>\n  </main>",
+ "bodyClass": "page-aangan",
+ "html": "",
  "noindex": true
 }

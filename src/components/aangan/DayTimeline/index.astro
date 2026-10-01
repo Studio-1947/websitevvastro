@@ -1,0 +1,96 @@
+---
+/** Archetype: horizontal timeline, image alternating above and below. Motion: stagger reveal. */
+import Slot from '../Slot/index.astro';
+import type { DayContent } from './content';
+
+interface Props { content: DayContent }
+const { content: c } = Astro.props;
+---
+
+<section class="day" aria-labelledby="aangan-day-title" data-day>
+  <header class="day__head">
+    <h2 id="aangan-day-title" class="day__heading">{c.heading}</h2>
+    <p class="day__note">{c.note}</p>
+  </header>
+
+  <ol class="day__track">
+    {c.stops.map((s, i) => (
+      <li class:list={['stop', i % 2 ? 'stop--below' : 'stop--above']} style={`--i: ${i}`}>
+        <Slot image={s.image} class="stop__img" />
+        <span class="stop__dot" aria-hidden="true"></span>
+        <div class="stop__text">
+          <p class="stop__time">{s.time}</p>
+          <p class="stop__body">{s.text}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<style>
+  .day {
+    --pad: clamp(56px, 8vw, 120px);
+    --rail: #2A1F17;
+    padding: var(--pad) 0;
+    background: #2A1F17; color: #F4EDE1;
+  }
+  .day__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 24px; padding: 0 clamp(16px, 5vw, 72px); margin-bottom: clamp(32px, 5vw, 64px); }
+  .day__heading { margin: 0; color: #F4EDE1; font-size: clamp(30px, 3.6vw, 52px); }
+  .day__note { margin: 0; padding: 4px 12px; border: 1px solid rgba(244, 237, 225, .4); border-radius: 999px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+
+  .day__track { list-style: none; margin: 0; padding: 0 clamp(16px, 5vw, 72px); position: relative; }
+  .stop__time { margin: 0 0 4px; font-family: var(--a-font-display); font-style: italic; font-size: 22px; color: #E3B98A; }
+  .stop__body { margin: 0; font-size: 16px; line-height: 1.5; }
+  .stop :global(.stop__img) { border-radius: 2px; }
+  .stop__dot { width: 16px; height: 16px; border-radius: 50%; background: var(--a-accent); box-shadow: 0 0 0 5px #2A1F17, 0 0 0 6px rgba(244, 237, 225, .5); }
+
+  .stop { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; transition-delay: calc(var(--i) * .15s); }
+  .day.is-in .stop { opacity: 1; transform: none; }
+  :global(html:not(.js)) .stop { opacity: 1; transform: none; }
+
+  /* Desktop: four columns on one rail; images alternate above and below it. */
+  @media (min-width: 900px) {
+    .day__track { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto 16px auto; column-gap: clamp(16px, 2.4vw, 36px); }
+    .day__track::before { content: ''; grid-row: 2; grid-column: 1 / -1; align-self: center; height: 1.5px; background: rgba(244, 237, 225, .45); }
+    .stop { display: contents; }
+    .stop--above :global(.stop__img) { grid-row: 1; align-self: end; margin-bottom: 20px; }
+    .stop--above .stop__text { grid-row: 3; padding-top: 20px; }
+    .stop--below .stop__text { grid-row: 1; align-self: end; padding-bottom: 20px; }
+    .stop--below :global(.stop__img) { grid-row: 3; margin-top: 20px; }
+    .stop__dot { grid-row: 2; justify-self: start; align-self: center; }
+    .stop:nth-child(1) > :global(*) { grid-column: 1; }
+    .stop:nth-child(2) > :global(*) { grid-column: 2; }
+    .stop:nth-child(3) > :global(*) { grid-column: 3; }
+    .stop:nth-child(4) > :global(*) { grid-column: 4; }
+    /* display: contents drops the li box, so animate its children instead. */
+    .stop > :global(*) { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; transition-delay: calc(var(--i) * .15s); }
+    .day.is-in .stop > :global(*) { opacity: 1; transform: none; }
+    :global(html:not(.js)) .stop > :global(*) { opacity: 1; transform: none; }
+  }
+
+  /* Mobile and tablet: vertical rail on the left. */
+  @media (max-width: 899px) {
+    .day__track::before { content: ''; position: absolute; left: calc(clamp(16px, 5vw, 72px) + 7px); top: 8px; bottom: 8px; width: 1.5px; background: rgba(244, 237, 225, .45); }
+    .stop { position: relative; display: grid; grid-template-columns: 16px 1fr; column-gap: 20px; row-gap: 12px; padding-bottom: 40px; }
+    .stop__dot { grid-column: 1; grid-row: 1; margin-top: 6px; }
+    .stop__text { grid-column: 2; grid-row: 1; }
+    .stop :global(.stop__img) { grid-column: 2; grid-row: 2; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stop, .stop > :global(*) { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-day]');
+  if (root) {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { root.classList.add('is-in'); io.disconnect(); }
+      }, { threshold: 0.2 });
+      io.observe(root);
+    } else {
+      root.classList.add('is-in');
+    }
+  }
+</script>
