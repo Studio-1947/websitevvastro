@@ -5,7 +5,7 @@
  * the modal looks up. Non-team names in credits (Tanisha, Mohanty, Zahid, …)
  * simply never match.
  *
- * Former members (Sankhadipta, Soumajit) are intentionally absent: they have
+ * Former members (Sankhadipta, Soumajit, Nikhil Rai) are intentionally absent: they have
  * no profile on /about-us/ anymore, so their credits render as plain text.
  */
 export const TEAM_CREDIT_KEYS: Record<string, string[]> = {
@@ -16,7 +16,6 @@ export const TEAM_CREDIT_KEYS: Record<string, string[]> = {
   santam: ['santam'],
   'soumic sarkar': ['soumic'],
   'nikhil raj subba': ['nikhil subba', 'nikhil raj'],
-  'nikhil rai': ['nikhil rai'],
   // Rahul's card has no data-fullname, so the modal resolves his key from the
   // card name itself.
   rahul: ['rahul'],
