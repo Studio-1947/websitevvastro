@@ -1,0 +1,143 @@
+---
+/** Archetype: central tourist node, three orbiting nodes joined by lines. Motion: path draw on scroll. */
+import Slot from '../Slot/index.astro';
+import type { LoopContent } from './content';
+
+interface Props { content: LoopContent }
+const { content: c } = Astro.props;
+const dev = import.meta.env.DEV;
+---
+
+<section class="loop" aria-labelledby="aangan-loop-title" data-loop>
+  <h2 id="aangan-loop-title" class="loop__heading">{c.heading}</h2>
+
+  <div class="loop__stage" data-loop-stage>
+    <svg class="loop__lines" aria-hidden="true" data-loop-svg>
+      <path class="loop__orbit" data-loop-orbit pathLength="1" />
+      <path class="loop__spoke" data-loop-spoke="homestay" pathLength="1" />
+      <path class="loop__spoke" data-loop-spoke="driver" pathLength="1" />
+      <path class="loop__spoke" data-loop-spoke="cafe" pathLength="1" />
+    </svg>
+
+    {c.nodes.map((n) => (
+      <div class:list={['node', `node--${n.key}`]} data-loop-node={n.key}>
+        <Slot image={n.image} class="node__img" />
+        <div class="node__text">
+          <h3 class="node__name">{n.name}</h3>
+          <p class="node__body">{n.body}</p>
+          {n.benefit && <p class="node__benefit">{n.benefit}</p>}
+          {dev && n.confirm && <mark class="node__confirm">To confirm: {n.confirm}</mark>}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="loop__closing">{c.closing}</p>
+</section>
+
+<style>
+  .loop {
+    --pad: clamp(64px, 10vw, 150px);
+    --line: #9A6A3A;
+    padding: var(--pad) clamp(16px, 4vw, 48px);
+    text-align: center;
+  }
+  .loop__heading { margin: 0 auto clamp(28px, 4vw, 56px); font-size: clamp(30px, 3.6vw, 52px); }
+  .loop__closing { margin: clamp(28px, 4vw, 56px) auto 0; max-width: 30ch; font-family: var(--a-font-display); font-style: italic; font-size: clamp(21px, 2vw, 28px); color: var(--a-tea); }
+
+  .loop__stage { position: relative; max-width: 1180px; margin: 0 auto; }
+  .loop__lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .loop__lines path { fill: none; stroke: var(--line); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .loop__orbit { stroke-dasharray: 1; opacity: .5; }
+  .loop.is-drawn .loop__lines path { stroke-dashoffset: 0; transition: stroke-dashoffset 1.1s ease; }
+  .loop.is-drawn [data-loop-spoke='driver'] { transition-delay: .15s; }
+  .loop.is-drawn [data-loop-spoke='cafe'] { transition-delay: .3s; }
+  .loop.is-drawn .loop__orbit { transition-duration: 1.8s; transition-delay: .45s; }
+
+  .node { text-align: left; }
+  .node :global(.node__img) { flex: none; width: 112px; border-radius: 50%; box-shadow: 0 0 0 6px var(--a-paper), 0 0 0 7px rgba(154, 106, 58, .35); }
+  .node--tourist :global(.node__img) { width: 150px; box-shadow: 0 0 0 6px var(--a-paper), 0 0 0 8px var(--a-accent); }
+  .node__name { margin: 0 0 6px; font-size: 24px; }
+  .node__body { margin: 0; font-size: 15.5px; line-height: 1.55; color: #4A3B2F; }
+  .node__benefit { margin: 10px 0 0; font-size: 14.5px; font-weight: 500; color: var(--a-moss); }
+  .node__confirm { display: inline-block; margin-top: 8px; padding: 2px 6px; font-size: 12px; background: #FFE08A; color: #5B4A3C; }
+
+  /* Desktop: absolute orbit layout. Each node's image centre sits on its point. */
+  @media (min-width: 1024px) {
+    .loop__stage { height: 820px; }
+    .node { position: absolute; left: var(--x); top: var(--y); width: 290px; background: var(--a-paper); }
+    .node__text { padding-top: 16px; }
+    .node--homestay { --x: 50%; --y: 12%; display: flex; align-items: center; gap: 22px; width: 460px; transform: translate(-56px, -50%); }
+    .node--homestay .node__text { padding-top: 0; }
+    .node--driver { --x: 16%; --y: 58%; transform: translate(-50%, -56px); }
+    .node--cafe { --x: 84%; --y: 58%; transform: translate(-50%, -56px); }
+    .node--tourist { --x: 50%; --y: 45%; width: 270px; transform: translate(-50%, -75px); text-align: center; }
+    .node--driver, .node--cafe { text-align: center; }
+    .node--driver :global(.node__img), .node--cafe :global(.node__img), .node--tourist :global(.node__img) { margin: 0 auto; }
+  }
+
+  /* Tablet and mobile: vertical chain, the line grows down the left edge. */
+  @media (max-width: 1023px) {
+    .loop__lines { display: none; }
+    .loop__stage { display: grid; gap: 36px; max-width: 560px; padding-left: 8px; }
+    .loop__stage::before {
+      content: ''; position: absolute; left: 63px; top: 40px; bottom: 40px; width: 1.5px;
+      background: var(--line); transform: scaleY(0); transform-origin: top;
+    }
+    .loop.is-drawn .loop__stage::before { transform: scaleY(1); transition: transform 1.4s ease; }
+    .node { position: relative; display: flex; gap: 20px; align-items: flex-start; }
+    .node :global(.node__img), .node--tourist :global(.node__img) { width: 112px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .loop__lines path { stroke-dashoffset: 0; }
+    .loop.is-drawn .loop__lines path, .loop.is-drawn .loop__stage::before { transition: none; }
+    .loop__stage::before { transform: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-loop]');
+  const stage = root?.querySelector<HTMLElement>('[data-loop-stage]');
+  const svg = root?.querySelector<SVGSVGElement>('[data-loop-svg]');
+  if (root && stage && svg) {
+    const center = (key: string) => {
+      const img = stage.querySelector<HTMLElement>(`[data-loop-node="${key}"] .node__img`);
+      if (!img) return null;
+      const s = stage.getBoundingClientRect();
+      const r = img.getBoundingClientRect();
+      return { x: r.left - s.left + r.width / 2, y: r.top - s.top + r.height / 2 };
+    };
+    const layout = () => {
+      const { width, height } = stage.getBoundingClientRect();
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      const t = center('tourist');
+      if (!t) return;
+      for (const key of ['homestay', 'driver', 'cafe']) {
+        const p = center(key);
+        const path = svg.querySelector(`[data-loop-spoke="${key}"]`);
+        if (p && path) path.setAttribute('d', `M${t.x} ${t.y} L${p.x} ${p.y}`);
+      }
+      // Orbit: an ellipse around the tourist passing through the homestay and driver.
+      const h = center('homestay');
+      const d = center('driver');
+      const orbit = svg.querySelector('[data-loop-orbit]');
+      if (h && d && orbit) {
+        const ry = Math.abs(t.y - h.y);
+        const dy = Math.min(Math.abs(d.y - t.y) / ry, 0.95);
+        const rx = Math.abs(d.x - t.x) / Math.sqrt(1 - dy * dy);
+        orbit.setAttribute('d', `M${t.x - rx} ${t.y} a${rx} ${ry} 0 1 0 ${rx * 2} 0 a${rx} ${ry} 0 1 0 ${-rx * 2} 0`);
+      }
+    };
+    layout();
+    window.addEventListener('resize', layout);
+    window.addEventListener('load', layout);
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { root.classList.add('is-drawn'); io.disconnect(); }
+      }, { threshold: 0.3 });
+      io.observe(stage);
+    } else {
+      root.classList.add('is-drawn');
+    }
+  }
+</script>

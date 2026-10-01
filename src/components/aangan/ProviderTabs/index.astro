@@ -1,0 +1,137 @@
+---
+/** Archetype: tabbed panel with a card. Motion: tab slide. */
+import Slot from '../Slot/index.astro';
+import { ctaAttrs } from '../types';
+import type { ProviderContent } from './content';
+
+interface Props { content: ProviderContent }
+const { content: c } = Astro.props;
+const dev = import.meta.env.DEV;
+---
+
+<section class="prov" aria-labelledby="aangan-prov-title" data-prov>
+  <div class="prov__inner">
+    <div class="prov__side">
+      <h2 id="aangan-prov-title" class="prov__heading">{c.heading}</h2>
+      <p class="prov__intro">{c.intro}</p>
+      <div class="prov__tabs" role="tablist" aria-label={c.heading}>
+        {c.tabs.map((t, i) => (
+          <button
+            type="button" role="tab" class="prov__tab"
+            id={`prov-tab-${t.key}`} aria-controls={`prov-panel-${t.key}`}
+            aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
+            data-prov-tab={i}
+          >{t.label}</button>
+        ))}
+      </div>
+      <p class="prov__region">{c.region}</p>
+      <a class="a-btn" {...ctaAttrs(c.cta)}>{c.cta.label}</a>
+    </div>
+
+    <div class="prov__viewport">
+      {c.tabs.map((t, i) => (
+        <div
+          class:list={['card', { 'is-active': i === 0 }]} role="tabpanel"
+          id={`prov-panel-${t.key}`} aria-labelledby={`prov-tab-${t.key}`}
+          hidden={i !== 0} data-prov-panel={i} tabindex="0"
+        >
+          <Slot image={t.image} class="card__img" />
+          <dl class="card__facts">
+            <div><dt>{c.labels.get}</dt><dd>{t.get}{dev && t.confirm && <mark class="card__confirm">To confirm: {t.confirm}</mark>}</dd></div>
+            <div><dt>{c.labels.how}</dt><dd>{t.how}</dd></div>
+            <div class="card__cost"><dt>{c.labels.cost}</dt><dd>{t.cost}</dd></div>
+          </dl>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .prov {
+    --pad: clamp(64px, 9vw, 130px);
+    --radius: 22px;
+    padding: var(--pad) clamp(16px, 5vw, 72px);
+    background: #E7EBDD;
+  }
+  .prov__inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+  .prov__heading { margin: 0 0 14px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; }
+  .prov__intro { margin: 0 0 28px; font-size: 17px; line-height: 1.55; color: #4A3B2F; }
+  .prov__tabs { display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px; }
+  .prov__tab {
+    all: unset; cursor: pointer; box-sizing: border-box;
+    padding: 14px 18px; border-radius: 12px;
+    font-family: var(--a-font-display); font-size: 22px; color: #4A3B2F;
+    border-left: 3px solid transparent;
+    transition: background .25s ease, border-color .25s ease, color .25s ease;
+  }
+  .prov__tab:hover { background: rgba(94, 113, 72, .1); }
+  .prov__tab[aria-selected='true'] { background: #F9F7F0; color: var(--a-ink); border-left-color: var(--a-moss); }
+  .prov__tab:focus-visible { outline: 2px solid var(--a-ink); outline-offset: 2px; }
+  .prov__region { margin: 0 0 18px; font-size: 15px; font-weight: 500; color: var(--a-moss); }
+
+  .prov__viewport { position: relative; overflow: hidden; }
+  .card {
+    background: #F9F7F0; border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 24px 50px -28px rgba(42, 31, 23, .4);
+  }
+  .card.is-entering { animation: prov-slide .45s ease both; }
+  .card.is-entering[data-dir='back'] { animation-name: prov-slide-back; }
+  @keyframes prov-slide { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+  @keyframes prov-slide-back { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: none; } }
+  .card__facts { margin: 0; padding: clamp(20px, 3vw, 36px); display: grid; grid-template-columns: 1fr 1fr; gap: 22px 32px; }
+  .card__facts dt { margin-bottom: 6px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--a-tea); }
+  .card__facts dd { margin: 0; font-size: 16px; line-height: 1.55; color: #3A2D22; }
+  .card__cost { grid-column: 1 / -1; padding-top: 18px; border-top: 1px dashed rgba(154, 106, 58, .4); }
+  .card__cost dd { font-family: var(--a-font-display); font-size: 24px; color: var(--a-ink); }
+  .card__confirm { display: block; width: fit-content; margin-top: 8px; padding: 2px 6px; font-size: 12px; background: #FFE08A; color: #5B4A3C; }
+
+  @media (max-width: 860px) {
+    .prov__inner { grid-template-columns: 1fr; }
+    .prov__tabs { flex-direction: row; overflow-x: auto; }
+    .prov__tab { font-size: 18px; border-left: 0; border-bottom: 3px solid transparent; border-radius: 10px 10px 0 0; }
+    .prov__tab[aria-selected='true'] { border-bottom-color: var(--a-moss); }
+    .card__facts { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card.is-entering { animation: none; }
+    .prov__tab { transition: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-prov]');
+  if (root) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-prov-tab]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-prov-panel]'));
+    let current = 0;
+    const select = (next: number, focus = false) => {
+      if (next === current) return;
+      const dir = next > current ? 'fwd' : 'back';
+      tabs.forEach((t, i) => {
+        t.setAttribute('aria-selected', String(i === next));
+        t.tabIndex = i === next ? 0 : -1;
+      });
+      panels.forEach((p, i) => {
+        p.hidden = i !== next;
+        p.classList.toggle('is-active', i === next);
+        p.classList.remove('is-entering');
+      });
+      const panel = panels[next];
+      panel.dataset.dir = dir;
+      void panel.offsetWidth;
+      panel.classList.add('is-entering');
+      current = next;
+      if (focus) tabs[next].focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('keydown', (e) => {
+        const keys: Record<string, number> = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
+        if (e.key in keys) { e.preventDefault(); select((i + keys[e.key] + tabs.length) % tabs.length, true); }
+        if (e.key === 'Home') { e.preventDefault(); select(0, true); }
+        if (e.key === 'End') { e.preventDefault(); select(tabs.length - 1, true); }
+      });
+    });
+  }
+</script>

@@ -1,0 +1,64 @@
+---
+/**
+ * aangan product page. Unlike the other products (one HTML string rendered by
+ * [slug].astro), aangan is built from its own components in
+ * src/components/aangan/, following the build brief. SEO fields still come
+ * from src/content/products/aangan.json.
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { DEFAULT_FONT_HREF, productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
+import '../../components/aangan/tokens.css';
+
+import HeroCourtyard from '../../components/aangan/HeroCourtyard/index.astro';
+import StoryScroll from '../../components/aangan/StoryScroll/index.astro';
+import ConnectionLoop from '../../components/aangan/ConnectionLoop/index.astro';
+import DayTimeline from '../../components/aangan/DayTimeline/index.astro';
+import ProviderTabs from '../../components/aangan/ProviderTabs/index.astro';
+import MapTeaser from '../../components/aangan/MapTeaser/index.astro';
+import ClosingCTA from '../../components/aangan/ClosingCTA/index.astro';
+
+import { hero } from '../../components/aangan/HeroCourtyard/content';
+import { story } from '../../components/aangan/StoryScroll/content';
+import { loop } from '../../components/aangan/ConnectionLoop/content';
+import { day } from '../../components/aangan/DayTimeline/content';
+import { providers } from '../../components/aangan/ProviderTabs/content';
+import { map } from '../../components/aangan/MapTeaser/content';
+import { closing } from '../../components/aangan/ClosingCTA/content';
+
+const entry = await getEntry('products', 'aangan');
+if (!entry) throw new Error('src/content/products/aangan.json is missing');
+const d = entry.data;
+const url = new URL('/products/aangan/', Astro.site).href;
+const jsonLd = [
+  productJsonLd({ name: cleanName(d.title), description: d.description, url }),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products/' },
+    { name: cleanName(d.title), path: '/products/aangan/' },
+  ]),
+];
+const fontHref = DEFAULT_FONT_HREF.replace('&display=swap', '&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap');
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  ogTitle={d.ogTitle}
+  ogDescription={d.ogDescription}
+  ogType={d.ogType}
+  noindex={d.noindex}
+  bodyClass={d.bodyClass}
+  fontHref={fontHref}
+  jsonLd={jsonLd}
+>
+  <main class="aangan">
+    <HeroCourtyard content={hero} />
+    <StoryScroll content={story} />
+    <ConnectionLoop content={loop} />
+    <DayTimeline content={day} />
+    <ProviderTabs content={providers} />
+    <MapTeaser content={map} />
+    <ClosingCTA content={closing} />
+  </main>
+</BaseLayout>

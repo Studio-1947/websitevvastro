@@ -1,0 +1,133 @@
+---
+/** Archetype: single centred pass, tier ladder beneath. Motion: counter and tier fill. */
+import { ctaAttrs } from '../types';
+import type { PassContent } from './content';
+
+interface Props { content: PassContent }
+const { content: c } = Astro.props;
+const r = c.referral;
+const max = r.tiers[r.tiers.length - 1].at;
+const dev = import.meta.env.DEV;
+---
+
+<section class="pass" aria-labelledby="aangan-pass-title" data-pass>
+  <h2 id="aangan-pass-title" class="pass__heading">{c.heading}</h2>
+
+  <div class="ticket">
+    <div class="ticket__main">
+      <p class="ticket__name">{c.passName}</p>
+      <p class="ticket__free">{c.firstYear}</p>
+      <p class="ticket__after">
+        then <span class="ticket__price">Rs <span data-pass-count={c.priceAfter}>{c.priceAfter}</span></span> {c.priceAfterLabel}
+      </p>
+    </div>
+    <div class="ticket__stub">
+      <a class="a-btn" {...ctaAttrs(c.cta)}>{c.cta.label}</a>
+    </div>
+  </div>
+
+  <div class="ladder">
+    <h3 class="ladder__title">{r.title}</h3>
+    <p class="ladder__body">{r.body}</p>
+    <div class="ladder__rail" aria-hidden="true"><span class="ladder__fill"></span></div>
+    <ol class="ladder__tiers">
+      {r.tiers.map((t) => (
+        <li class="tier" style={`--pos: ${(t.at / max) * 100}%`}>
+          <span class="tier__mark" aria-hidden="true"></span>
+          <span class="tier__name">{t.name}</span>
+          <span class="tier__at">{t.at}{t.openEnded ? '+' : ''} referrals</span>
+        </li>
+      ))}
+    </ol>
+    <p class="ladder__note">{r.note}</p>
+    {dev && r.confirm && <mark class="ladder__confirm">To confirm: {r.confirm}</mark>}
+  </div>
+</section>
+
+<style>
+  .pass {
+    --pad: clamp(72px, 11vw, 160px);
+    --ticket: #2A1F17;
+    padding: var(--pad) clamp(16px, 5vw, 72px);
+    text-align: center;
+  }
+  .pass__heading { margin: 0 0 clamp(28px, 4vw, 48px); font-size: clamp(30px, 3.6vw, 52px); }
+
+  .ticket {
+    position: relative; max-width: 640px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr auto;
+    color: #F4EDE1; background: var(--ticket);
+    border-radius: 18px;
+    /* Punched notches where the stub tears off. */
+    -webkit-mask: radial-gradient(circle 14px at calc(100% - 196px) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+                  radial-gradient(circle 14px at calc(100% - 196px) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+            mask: radial-gradient(circle 14px at calc(100% - 196px) 0, transparent 98%, #000) top / 100% 51% no-repeat,
+                  radial-gradient(circle 14px at calc(100% - 196px) 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+    box-shadow: 0 30px 60px -30px rgba(42, 31, 23, .6);
+  }
+  .ticket__main { padding: clamp(28px, 4vw, 44px); text-align: left; }
+  .ticket__name { margin: 0 0 12px; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: #E3B98A; }
+  .ticket__free { margin: 0; font-family: var(--a-font-display); font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; }
+  .ticket__after { margin: 14px 0 0; font-size: 16px; opacity: .85; }
+  .ticket__price { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .ticket__stub {
+    width: 196px; display: grid; place-items: center; padding: 24px;
+    border-left: 2px dashed rgba(244, 237, 225, .35);
+  }
+
+  .ladder { max-width: 760px; margin: clamp(48px, 7vw, 88px) auto 0; }
+  .ladder__title { margin: 0 0 8px; font-size: clamp(22px, 2.2vw, 30px); }
+  .ladder__body { margin: 0 auto 36px; max-width: 46ch; font-size: 16px; line-height: 1.55; color: #4A3B2F; }
+  .ladder__rail { position: relative; height: 6px; border-radius: 99px; background: #E3D6BF; }
+  .ladder__fill { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, #B07A45, #C9C3B8, #D9A73B, #7E8FA0); transform: scaleX(0); transform-origin: left; }
+  .pass.is-in .ladder__fill { transform: scaleX(1); transition: transform 1.6s cubic-bezier(.2, .7, .2, 1); }
+  .ladder__tiers { position: relative; list-style: none; margin: 0; padding: 0; height: 64px; }
+  .tier { position: absolute; left: var(--pos); top: -13px; transform: translateX(-50%); display: grid; justify-items: center; gap: 4px; }
+  .tier:last-child { transform: translateX(-100%); justify-items: end; }
+  .tier__mark { width: 20px; height: 20px; border-radius: 50%; background: var(--a-paper); border: 3px solid var(--a-tea); }
+  .tier__name { font-family: var(--a-font-display); font-size: 17px; }
+  .tier__at { font-size: 12.5px; color: var(--a-tea); white-space: nowrap; }
+  .ladder__note { margin: 28px 0 0; font-weight: 500; color: var(--a-moss); }
+  .ladder__confirm { display: inline-block; margin-top: 8px; padding: 2px 6px; font-size: 12px; background: #FFE08A; color: #5B4A3C; }
+
+  @media (max-width: 640px) {
+    .ticket { grid-template-columns: 1fr; -webkit-mask: none; mask: none; }
+    .ticket__stub { width: auto; border-left: 0; border-top: 2px dashed rgba(244, 237, 225, .35); }
+    .ladder__rail { display: none; }
+    .ladder__tiers { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .tier, .tier:last-child { position: static; transform: none; justify-items: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ladder__fill { transform: none; }
+    .pass.is-in .ladder__fill { transition: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-pass]');
+  if (root) {
+    const counter = root.querySelector<HTMLElement>('[data-pass-count]');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const run = () => {
+      root.classList.add('is-in');
+      if (!counter || reduce) return;
+      const target = Number(counter.dataset.passCount);
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / 1400, 1);
+        counter.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      counter.textContent = '0';
+      requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { run(); io.disconnect(); }
+      }, { threshold: 0.4 });
+      io.observe(root);
+    } else {
+      root.classList.add('is-in');
+    }
+  }
+</script>
