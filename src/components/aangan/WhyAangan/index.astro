@@ -1,0 +1,76 @@
+---
+/** Archetype: a row of the site's standard cards, one reason each. Motion: stagger reveal. */
+import type { WhyContent } from './content';
+
+interface Props { content: WhyContent }
+const { content: c } = Astro.props;
+---
+
+<section class="why" aria-labelledby="aangan-why-title" data-why>
+  <div class="why__inner">
+    <header class="why__head">
+      <h2 id="aangan-why-title" class="why__heading">{c.heading}</h2>
+      <p class="why__intro">{c.intro}</p>
+    </header>
+    <ol class="why__grid">
+      {c.reasons.map((r, i) => (
+        <li class="why__card" style={`--i: ${i}`}>
+          <span class="why__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="why__title">{r.title}</h3>
+          <p class="why__body">{r.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .why {
+    --pad: clamp(64px, 9vw, 130px);
+    padding: var(--pad) clamp(16px, 5vw, 72px);
+  }
+  .why__inner { max-width: 1320px; margin: 0 auto; }
+  .why__head { max-width: 640px; margin-bottom: clamp(28px, 4vw, 56px); }
+  .why__heading { margin: 0 0 14px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; }
+  .why__intro { margin: 0; font-size: 17px; line-height: 1.55; color: #4A3B2F; }
+  .why__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 1.8vw, 28px); }
+
+  /* Same card as the rest of the site (see .value-card on /about-us). */
+  .why__card {
+    display: flex; flex-direction: column;
+    padding: clamp(22px, 2.2vw, 40px);
+    border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg);
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .7s ease calc(var(--i) * .12s), transform .7s ease calc(var(--i) * .12s), box-shadow .4s var(--ease);
+  }
+  .why.is-in .why__card { opacity: 1; transform: none; }
+  :global(html:not(.js)) .why__card { opacity: 1; transform: none; }
+  .why.is-in .why__card:hover { box-shadow: 0 20px 50px rgba(0, 0, 0, .06); transform: translateY(-4px); transition-delay: 0s; }
+  .why__num { font-family: var(--font-display); font-size: clamp(34px, 3.4vw, 52px); line-height: 1; color: var(--a-accent); margin-bottom: clamp(20px, 2.4vw, 36px); }
+  .why__title { margin: 0; font-size: clamp(22px, 1.9vw, 28px); color: var(--grey-900); line-height: 1.1; }
+  .why__body { margin: 14px 0 0; font-size: clamp(15px, 1.05vw, 17px); color: var(--grey-700); }
+
+  @media (max-width: 1080px) {
+    .why__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .why__grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .why__card, .why.is-in .why__card:hover { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-why]');
+  if (root) {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { root.classList.add('is-in'); io.disconnect(); }
+      }, { threshold: 0.2 });
+      io.observe(root);
+    } else {
+      root.classList.add('is-in');
+    }
+  }
+</script>

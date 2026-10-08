@@ -22,7 +22,7 @@ const cost = 'Rs 99 per year, as a launch offer.';
 const img = (id: string, alt: string, file: string): ImageSlot => ({ id, ratio: '4:3', alt, src: `/images/aangan/${file}`, width: 1254, height: 1254 });
 
 export const providers: ProviderContent = {
-  heading: 'For homestays, cafes and drivers',
+  heading: 'If you are a service provider.',
   intro: 'Make your page, show people who you are, and let travellers find you. No tech skills needed.',
   labels: { get: 'What you get', how: 'How it works', cost: 'What it costs' },
   tabs: [

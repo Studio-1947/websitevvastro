@@ -1,10 +1,10 @@
 import { AANGAN_URL, AANGAN_LIST_URL, type Cta, type ImageSlot } from '../types';
 
 export interface HeroContent {
-  eyebrow: string;
-  /** Logo image that renders the "aangan" word of the headline. */
+  /** Logo image: it is the page's headline. */
   logo: { src: string; alt: string; width: number; height: number };
-  headlineRest: string;
+  /** Quiet line under the logo. */
+  tagline: string;
   sub: string;
   /** For tourists: the main button. */
   primary: Cta;
@@ -16,9 +16,8 @@ export interface HeroContent {
 }
 
 export const hero: HeroContent = {
-  eyebrow: 'By studio 1947',
   logo: { src: '/assets/img/products/aangan/logo-white.webp', alt: 'aangan.', width: 1109, height: 268 },
-  headlineRest: 'Every experience.',
+  tagline: 'A product by Studio 1947 for the people around Darjeeling',
   sub: 'Homestays, cafes, drivers and the quiet spots nearby, shared by the people who live here. Scroll, pick what feels right, and you are already on your way. Starting in Darjeeling.',
   primary: { label: 'Plan your trip', href: AANGAN_URL },
   secondary: { label: 'List your homestay, cafe or taxi', href: AANGAN_LIST_URL },

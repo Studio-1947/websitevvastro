@@ -23,11 +23,10 @@ const { content: c } = Astro.props;
   </div>
   <div class="ahero__scrim" aria-hidden="true"></div>
   <div class="ahero__text">
-    <p class="ahero__eyebrow">{c.eyebrow}</p>
     <h1 id="aangan-hero-title" class="ahero__title">
       <img class="ahero__logo" src={c.logo.src} alt={c.logo.alt} width={c.logo.width} height={c.logo.height} />
-      <span>{c.headlineRest}</span>
     </h1>
+    <p class="ahero__tagline">{c.tagline}</p>
     <p class="ahero__sub">{c.sub}</p>
     <div class="ahero__ctas">
       <a class="a-btn" {...ctaAttrs(c.primary)}>{c.primary.label}</a>
@@ -61,9 +60,9 @@ const { content: c } = Astro.props;
     margin: 0 0 clamp(40px, 7vw, 96px) clamp(16px, 7vw, 120px);
     padding-right: 16px;
   }
-  .ahero__eyebrow { margin: 0 0 14px; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
-  .ahero__title { margin: 0; color: #FBF8F2; font-size: clamp(34px, 5vw, 64px); line-height: 1.05; }
-  .ahero__logo { display: block; width: clamp(200px, 30vw, 380px); height: auto; margin-bottom: 10px; }
+  .ahero__title { margin: 0; line-height: 0; }
+  .ahero__logo { display: block; width: clamp(200px, 30vw, 380px); height: auto; }
+  .ahero__tagline { margin: 16px 0 0; font-size: clamp(14px, 1.1vw, 16px); line-height: 1.4; letter-spacing: .02em; opacity: .8; }
   .ahero__sub { margin: var(--gap) 0 0; max-width: 46ch; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; opacity: .92; }
   .ahero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--gap); }
   .ahero__ghost { color: #FBF8F2; }
