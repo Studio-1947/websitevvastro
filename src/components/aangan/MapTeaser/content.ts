@@ -1,4 +1,4 @@
-import { AANGAN_LIST_URL, type Cta, type ImageSlot } from '../types';
+import { AANGAN_LIST_URL, type Cta } from '../types';
 
 export interface MapPin {
   name: string;
@@ -10,44 +10,47 @@ export interface MapPin {
   /** Optional link, e.g. the office on a map. */
   href?: string;
 }
-/** A photo of somewhere around the hills. Leave `image.src` out until a file is chosen. */
-export interface MapPlace {
-  name: string;
-  /** Photographer and licence, when the licence asks for a credit. */
-  credit?: string;
-  image: ImageSlot;
+/** A view from around the hills, shown in an arched window in the ribbon. */
+export interface MapView {
+  src: string;
+  alt: string;
+  /** Crop focus inside the arch (CSS object-position). Default centre. */
+  focus?: string;
 }
 export interface MapContent {
   heading: string;
   body: string;
   pins: MapPin[];
-  placesHeading: string;
-  places: MapPlace[];
+  /** The drifting ribbon of arched windows, in order. */
+  views: MapView[];
   cta: Cta;
-  /** MAP-01 image fills the figure; the slot supplies its ID, alt and file. */
-  slot: ImageSlot;
 }
 
-const place = (id: string, alt: string, src?: string): ImageSlot => ({ id, ratio: '4:3', alt, src });
+const view = (file: string, alt: string, focus?: string): MapView => ({
+  src: `/assets/img/products/aangan/places/${file}.webp`,
+  alt,
+  focus,
+});
 
 export const map: MapContent = {
   heading: 'Where next? Wherever you are.',
-  body: 'aangan began in Darjeeling, our home. But the courtyard is open to everyone. If you run a homestay, a cafe or a taxi anywhere, you can list it today and put your town on the map.',
+  body: 'Aangan begins in Darjeeling, our home. But the courtyard is open to everyone: wherever you are, you can join today, and list your homestay, cafe or taxi to put your town on the map.',
   pins: [
-    { name: 'Your town', status: 'List it today' },
-    { name: 'Your town', status: 'List it today' },
-    { name: 'Darjeeling', status: 'Where it began', home: true },
-    { name: 'Mirik', status: 'Studio 1947 headquarters', hq: true, href: 'https://maps.app.goo.gl/mNnNQbUaWLFf5Xw79' },
+    { name: 'Darjeeling', status: 'Live now', home: true },
+    { name: 'Your town', status: 'Register today' },
+    { name: 'Anywhere else', status: 'Register today' },
   ],
-  placesHeading: 'Around the hills',
-  places: [
-    { name: 'Darjeeling', image: place('PLACE-01', 'Darjeeling town with the snow peaks behind') },
-    { name: 'Kalimpong', image: place('PLACE-02', 'Kalimpong on its ridge') },
-    { name: 'Mirik', image: place('PLACE-03', 'The lake at Mirik') },
-    { name: 'Kurseong', image: place('PLACE-04', 'Tea gardens around Kurseong') },
-    { name: 'Sandakphu', image: place('PLACE-05', 'The view from Sandakphu') },
-    { name: 'Lava', image: place('PLACE-06', 'Forest and monastery at Lava') },
+  views: [
+    view('tinchuley', 'A cottage above tea gardens, with mist in the valleys and peaks beyond', '30% 50%'),
+    view('lamahatta', 'Prayer flags strung between tall pines, a snow peak in the distance', '40% 50%'),
+    view('srikhola', 'A footbridge over a rocky mountain river, cottages on the bank', '45% 50%'),
+    view('soureni', 'A road curving past tea gardens above a lake in the hills', '55% 50%'),
+    view('takdah', 'A quiet lane through tall pines, a bungalow and misty ridges beyond', '35% 50%'),
+    view('sittong', 'Orange trees beside green-roofed houses on a hillside', '30% 50%'),
+    view('lepchajagat', 'A misty forest road between tall trees', '50% 50%'),
+    view('chatakpur', 'A wooden cottage on a ridge, snow peaks rising above the clouds', '25% 50%'),
+    view('tabakoshi', 'Clear water running over boulders, homestays among the trees', '60% 50%'),
+    view('bunkulung', 'A farmhouse on terraced green slopes, a lake in the valley', '40% 50%'),
   ],
   cta: { label: 'List your homestay, cafe or taxi', href: AANGAN_LIST_URL },
-  slot: { id: 'MAP-01', ratio: '16:9', alt: 'A map of the hills with Darjeeling marked and open spots for new places', src: '/images/aangan/map-01.webp', width: 1672, height: 941 },
 };

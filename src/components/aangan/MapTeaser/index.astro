@@ -1,20 +1,42 @@
 ---
-/** Archetype: map photo with caption list beside it. */
-import Slot from '../Slot/index.astro';
+/**
+ * Archetype: heading beside the copy and caption list, over a faded
+ * background of hill photos, blended into one panorama, that drifts slowly sideways.
+ * Motion: endless drift; still with reduced motion. The background is
+ * decorative, so it is hidden from screen readers.
+ */
 import type { MapContent } from './content';
+import { ctaAttrs } from '../types';
 
 interface Props { content: MapContent }
 const { content: c } = Astro.props;
 ---
 
 <section class="map" aria-labelledby="aangan-map-title">
+  <div class="map__ribbon" aria-hidden="true">
+    <div class="map__track">
+      {[0, 1].map(() => (
+        <ul class="map__arches">
+          {c.views.map((v) => (
+            <li class="map__arch">
+              <img
+                src={v.src}
+                alt=""
+                style={v.focus ? `object-position: ${v.focus}` : undefined}
+                width="1000"
+                height="750"
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
   <div class="map__inner">
-    <figure class="map__figure" data-slot={c.slot.id}>
-      <Slot image={c.slot} class="map__img" decorative eager />
-    </figure>
-
-    <div class="map__text">
-      <h2 id="aangan-map-title" class="map__heading">{c.heading}</h2>
+    <h2 id="aangan-map-title" class="map__heading">{c.heading}</h2>
+    <div class="map__copy">
       <p class="map__body">{c.body}</p>
       <ul class="map__list">
         {c.pins.map((t) => (
@@ -24,54 +46,83 @@ const { content: c } = Astro.props;
           </li>
         ))}
       </ul>
+      <a class="a-btn map__cta" {...ctaAttrs(c.cta)}>{c.cta.label}</a>
     </div>
   </div>
 
-  <div class="map__places">
-    <h3 class="map__places-heading">{c.placesHeading}</h3>
-    <ul class="map__grid">
-      {c.places.map((p) => (
-        <li class="map__place">
-          <Slot image={p.image} class="map__place-img" />
-          <p class="map__place-name">{p.name}</p>
-          {p.credit && <p class="map__place-credit">{p.credit}</p>}
-        </li>
-      ))}
-    </ul>
-  </div>
 </section>
 
 <style>
   .map {
-    --pad: clamp(56px, 8vw, 120px);
-    padding: var(--pad) clamp(16px, 5vw, 72px);
-    background: #F7F1E6;
+    position: relative; isolation: isolate;
+    display: grid; align-items: center;
+    min-height: clamp(560px, 50vw, 780px);
+    padding: clamp(72px, 9vw, 130px) 0;
+    /* Same paper as the page, so the section has no visible edge. */
+    background: var(--a-paper);
+    overflow: hidden;
   }
-  .map__inner { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
-  .map__figure { margin: 0; overflow: hidden; }
-  .map__figure :global(.map__img) { display: block; }
-  .map__figure :global(.map__img img) { border-radius: 0; }
-
-  .map__heading { margin: 0 0 16px; font-size: clamp(30px, 3.4vw, 48px); }
-  .map__body { margin: 0 0 24px; font-size: 17px; line-height: 1.6; color: #4A3B2F; }
-  .map__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(154, 106, 58, .3); }
-  .map__list li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(154, 106, 58, .3); }
-  .map__list strong { font-family: var(--a-font-display); font-weight: 400; font-size: 20px; }
-  .map__list span, .map__list a { font-size: 14px; color: var(--a-tea); }
+  /* A soft paper wash between the photos and the text, strongest behind the words. */
+  .map::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 75% at 50% 50%, rgba(244, 237, 225, .55), transparent 75%),
+      linear-gradient(to bottom, var(--a-paper), transparent 22%, transparent 78%, var(--a-paper));
+  }
+  .map__inner {
+    position: relative;
+    --pad: clamp(16px, 5vw, 72px);
+    width: 100%; max-width: calc(1320px + 2 * var(--pad)); margin: 0 auto; padding: 0 var(--pad);
+    box-sizing: border-box;
+    display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: clamp(28px, 5vw, 96px); align-items: start;
+  }
+  .map__heading { margin: 0; font-size: clamp(40px, 5.4vw, 84px); line-height: .98; letter-spacing: -.015em; }
+  .map__body { margin: 0 0 22px; font-size: 17px; line-height: 1.6; color: #3B2E24; }
+  .map__list { list-style: none; margin: 0 0 28px; padding: 0; border-top: 1px solid rgba(154, 106, 58, .35); }
+  .map__list li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(154, 106, 58, .35); }
+  .map__list strong { font-family: var(--a-font-display); font-weight: 400; font-size: 19px; }
+  .map__list span, .map__list a { font-size: 14px; color: #7A532C; }
   .map__list a { text-decoration: underline; text-underline-offset: 3px; }
   .map__list .is-hq a, .map__list .is-hq span { color: var(--a-moss); font-weight: 600; }
   .map__list .is-home span { color: var(--a-accent); font-weight: 600; }
 
-  .map__places { max-width: 1320px; margin: clamp(40px, 6vw, 88px) auto 0; }
-  .map__places-heading { margin: 0 0 clamp(18px, 2.4vw, 32px); font-size: clamp(24px, 2.4vw, 34px); }
-  .map__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.6vw, 24px); }
-  .map__place :global(.map__place-img) { border-radius: var(--radius-lg); }
-  .map__place-name { margin: 12px 0 0; font-family: var(--a-font-display); font-size: 20px; color: var(--a-ink); }
-  .map__place-credit { margin: 2px 0 0; font-size: 12px; color: var(--a-tea); }
+  /* Background ribbon: two identical rows side by side, slid left by exactly
+     one row, forever. Faded so the text stays the focus. */
+  .map__ribbon {
+    position: absolute; inset: 0; z-index: -2;
+    /* Photo sizes below are in container-height units, so each is as tall as the section. */
+    container-type: size;
+    opacity: .30;
+    filter: saturate(.9);
+    pointer-events: none;
+  }
+  .map__track {
+    display: flex; width: max-content; height: 100%;
+    animation: map-drift 110s linear infinite;
+  }
+  @keyframes map-drift { to { transform: translateX(-50%); } }
+
+  .map__arches { list-style: none; margin: 0; padding: 0; height: 100%; display: flex; }
+  /* Each photo overlaps the next by a fifth of its width, with both edges
+     feathered, so the scenes dissolve into one another as a single panorama.
+     The last photo's overlap carries into the second copy, so the loop is seamless too. */
+  .map__arch {
+    --w: calc(100cqh * 4 / 3);
+    flex: none; width: var(--w); height: 100%;
+    margin-right: calc(var(--w) * -.2);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 20%, #000 80%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 20%, #000 80%, transparent);
+  }
+  .map__arch img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
   @media (max-width: 860px) {
-    .map__grid { grid-template-columns: repeat(2, 1fr); }
     .map__inner { grid-template-columns: 1fr; }
-    .map__figure { max-width: 640px; margin-inline: auto; }
+    .map__ribbon { opacity: .2; }
+    .map__track { animation-duration: 80s; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .map__track { animation: none; }
   }
 </style>

@@ -16,6 +16,8 @@ const words = c.headline.split(' ');
         <span class="close__word" style={`--i: ${i}`} aria-hidden="true"><span>{w}</span></span>
       ))}
     </h2>
+    <p class="close__en">{c.headlineEn}</p>
+    <p class="close__offer">{c.offer}</p>
     <div class="close__ctas">
       <a class="a-btn" {...ctaAttrs(c.primary)}>{c.primary.label}</a>
       <a class="a-btn a-btn--ghost" {...ctaAttrs(c.secondary)}>{c.secondary.label}</a>
@@ -46,8 +48,10 @@ const words = c.headline.split(' ');
 <style>
   .close {
     --pad: clamp(96px, 14vw, 200px);
+    /* Same side gutter as the sections above. */
+    --gutter: clamp(16px, 5vw, 72px);
     position: relative; isolation: isolate; overflow: hidden;
-    padding: var(--pad) clamp(16px, 7vw, 120px) 0;
+    padding: var(--pad) var(--gutter) 0;
     background: var(--a-paper);
   }
   /* Full-width artwork strip under the text, at the image's own 16:5 ratio
@@ -56,7 +60,7 @@ const words = c.headline.split(' ');
     /* --p: how far the colour has swept across, 0 to 1. Colour by default; the script takes over. */
     --p: 1;
     position: relative;
-    margin: clamp(40px, 6vw, 80px) calc(-1 * clamp(16px, 7vw, 120px)) 0;
+    margin: clamp(40px, 6vw, 80px) calc(-1 * var(--gutter)) 0;
   }
   .close__art :global(.close__bw img) { filter: grayscale(1) contrast(1.05); }
   .close__colour { position: absolute; inset: 0; clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0); }
@@ -88,12 +92,14 @@ const words = c.headline.split(' ');
   }
   .close__social a:hover { background: var(--a-ink); border-color: var(--a-ink); color: var(--a-paper); }
   .close__social a:focus-visible { outline: 3px solid var(--a-ink); outline-offset: 3px; }
-  .close__inner { max-width: 1100px; }
+  .close__inner { max-width: 1320px; margin: 0 auto; }
   .close__headline { margin: 0; font-size: clamp(48px, 9vw, 136px); line-height: .98; letter-spacing: -0.03em; }
   .close__word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-right: .22em; }
   .close__word > span { display: inline-block; transform: translateY(105%); transition: transform .9s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--i) * .09s); }
   .close.is-in .close__word > span { transform: none; }
   :global(html:not(.js)) .close__word > span { transform: none; }
+  .close__en { margin: 14px 0 0; font-size: clamp(18px, 1.8vw, 26px); opacity: .75; }
+  .close__offer { margin: clamp(18px, 2vw, 26px) 0 0; font-size: clamp(16px, 1.3vw, 19px); font-weight: 500; color: var(--a-accent); }
   .close__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(28px, 4vw, 48px); }
   .close__credit { margin: clamp(32px, 4vw, 56px) 0 0; font-size: 14px; letter-spacing: .08em; color: var(--a-tea); }
   @media (prefers-reduced-motion: reduce) {
@@ -125,9 +131,12 @@ const words = c.headline.split(' ');
       ticking = false;
       const vh = window.innerHeight;
       const r = art.getBoundingClientRect();
-      // Starts once the photo is a little way in, done by the time its middle reaches mid-screen.
-      const start = vh - r.height * 0.35;
-      const end = vh * 0.5 - r.height * 0.5;
+      // Starts only once the whole photo is on screen. Ends when its top reaches the upper
+      // fifth of the screen, or at the bottom of the page if it can't scroll that far.
+      const start = vh - r.height;
+      const maxScroll = document.documentElement.scrollHeight - vh;
+      const lowestTop = r.top - (maxScroll - window.scrollY);
+      const end = Math.min(start - 1, Math.max(vh * 0.2, lowestTop));
       const p = Math.min(Math.max((start - r.top) / (start - end), 0), 1);
       art.style.setProperty('--p', p.toFixed(4));
       art.classList.toggle('is-sweeping', p > 0 && p < 1);

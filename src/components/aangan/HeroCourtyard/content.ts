@@ -16,9 +16,9 @@ export interface HeroContent {
 }
 
 export const hero: HeroContent = {
-  logo: { src: '/assets/img/products/aangan/logo-white.webp', alt: 'aangan.', width: 1109, height: 268 },
-  tagline: 'A product by Studio 1947 for the people around Darjeeling',
-  sub: 'Homestays, cafes, drivers and the quiet spots nearby, shared by the people who live here. Scroll, pick what feels right, and you are already on your way. Starting in Darjeeling.',
+  logo: { src: '/assets/img/products/aangan/logo-white.webp', alt: 'Aangan.', width: 1109, height: 268 },
+  tagline: 'A product by Studio 1947, for travellers and the people who host them',
+  sub: 'Homestays, cafes and drivers, shared by the people who live here. Find the ones that suit you and talk to them directly. Starting in Darjeeling, open to everyone.',
   primary: { label: 'Plan your trip', href: AANGAN_URL },
   secondary: { label: 'List your homestay, cafe or taxi', href: AANGAN_LIST_URL },
   video: {

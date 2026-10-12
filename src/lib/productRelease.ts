@@ -11,4 +11,4 @@
  * To release a product: add its slug (the folder name under /products/)
  * here and deploy. Nothing else changes.
  */
-export const RELEASED_PRODUCTS: string[] = [];
+export const RELEASED_PRODUCTS: string[] = ['aangan'];

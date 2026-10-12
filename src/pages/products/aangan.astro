@@ -17,6 +17,7 @@ import ProviderTabs from '../../components/aangan/ProviderTabs/index.astro';
 import WhyAangan from '../../components/aangan/WhyAangan/index.astro';
 import MapTeaser from '../../components/aangan/MapTeaser/index.astro';
 import ClosingCTA from '../../components/aangan/ClosingCTA/index.astro';
+import Team from '../../components/aangan/Team/index.astro';
 
 import { hero } from '../../components/aangan/HeroCourtyard/content';
 import { story } from '../../components/aangan/StoryScroll/content';
@@ -26,6 +27,7 @@ import { providers } from '../../components/aangan/ProviderTabs/content';
 import { why } from '../../components/aangan/WhyAangan/content';
 import { map } from '../../components/aangan/MapTeaser/content';
 import { closing } from '../../components/aangan/ClosingCTA/content';
+import { team } from '../../components/aangan/Team/content';
 
 const entry = await getEntry('products', 'aangan');
 if (!entry) throw new Error('src/content/products/aangan.json is missing');
@@ -59,9 +61,10 @@ const fontHref = DEFAULT_FONT_HREF.replace('&display=swap', '&family=Noto+Sans+D
   <main class="aangan">
     <HeroCourtyard content={hero} />
     <Courtyard story={story} loop={loop} day={day} />
-    <ProviderTabs content={providers} />
     <WhyAangan content={why} />
+    <ProviderTabs content={providers} />
     <MapTeaser content={map} />
+    <Team content={team} />
     <ClosingCTA content={closing} />
   </main>
 </BaseLayout>

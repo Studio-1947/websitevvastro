@@ -1,6 +1,11 @@
 export interface WhyReason {
   title: string;
   body: string;
+  /** Square photo (1200px), cropped to fit its panel. */
+  image: string;
+  alt: string;
+  /** Crop focus (CSS object-position), so faces stay in view in narrow strips. */
+  focus?: string;
 }
 export interface WhyContent {
   heading: string;
@@ -8,13 +13,39 @@ export interface WhyContent {
   reasons: WhyReason[];
 }
 
+const DIR = '/assets/img/products/aangan/why';
+
 export const why: WhyContent = {
-  heading: 'Why aangan',
-  intro: 'Built in the hills, for the people who host, cook and drive here.',
+  heading: 'Why Aangan?',
+  intro: 'Because travel should feel more personal, and local businesses deserve a fair chance.',
   reasons: [
-    { title: 'Your page, your words', body: 'You describe your home, your kitchen or your car yourself. Travellers meet you as you are, before they arrive.' },
-    { title: 'No tech skills needed', body: 'A few photos and a few lines are enough to start. If you can send a message on your phone, you can make your page.' },
-    { title: 'A price that fits', body: 'Rs 99 per year, as a launch offer. One small fee for a page that works for you all year.' },
-    { title: 'Made by neighbours', body: 'aangan is built by Studio 1947 in Mirik, Darjeeling. We live here too, and we can knock on your door when you need help.' },
+    {
+      title: 'Beyond the Usual',
+      body: 'Discover local homestays, cafes and drivers you might otherwise miss.',
+      image: `${DIR}/01-beyond.webp`,
+      alt: 'A traveller with a backpack walking down a misty hill-town lane past cafes and a parked jeep',
+      focus: '35% 55%',
+    },
+    {
+      title: 'Real People, Real Experiences',
+      body: 'Get to know the people who make a place worth visiting.',
+      image: `${DIR}/02-people.webp`,
+      alt: 'Three locals smiling outside a café, one holding a cup of tea',
+      focus: '50% 45%',
+    },
+    {
+      title: 'Direct Connections',
+      body: 'Fewer barriers between travellers and locals. Just real conversations.',
+      image: `${DIR}/03-connections.webp`,
+      alt: 'A traveller and a homestay host chatting warmly at her door',
+      focus: '48% 40%',
+    },
+    {
+      title: 'Fair for Everyone',
+      body: 'Rs 1 to join, for travellers and providers alike. No booking commissions: locals keep what they earn.',
+      image: `${DIR}/04-fair.webp`,
+      alt: 'A traveller handing rupees directly to the owner at a café counter',
+      focus: '62% 45%',
+    },
   ],
 };

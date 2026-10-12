@@ -1,0 +1,135 @@
+---
+/** Archetype: a grid of equal square portrait cards. Each links to the person's profile on /about-us/. Motion: stagger reveal. */
+import type { TeamContent } from './content';
+import { teamMemberHref } from '../../../lib/team';
+
+interface Props { content: TeamContent }
+const { content: c } = Astro.props;
+---
+
+<section class="team" aria-labelledby="aangan-team-title" data-team>
+  <div class="team__inner">
+    <header class="team__head">
+      <h2 id="aangan-team-title" class="team__heading">{c.heading}</h2>
+      <p class="team__intro">{c.intro}</p>
+    </header>
+    <ul class="team__grid">
+      {c.people.map((p, i) => (
+        <li class="team__card" style={`--i: ${i}`}>
+          <a class="team__link" href={teamMemberHref(p.member)} aria-label={`${p.name}, ${p.role}: view profile`}>
+            <img
+              class="team__photo"
+              src={p.photo}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              style={`--z: ${p.zoom ?? 1}; --x: ${p.x ?? 50}%; --y: ${p.y ?? 35}%`}
+            />
+            <span class="team__meta">
+              <span class="team__role">{p.role}</span>
+              <span class="team__name">{p.name}</span>
+            </span>
+            <span class="team__arrow" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="14" height="14"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .team {
+    padding: clamp(64px, 9vw, 130px) clamp(16px, 5vw, 72px);
+  }
+  .team__inner { max-width: 1320px; margin: 0 auto; }
+  .team__head { max-width: 640px; margin-bottom: clamp(28px, 4vw, 56px); }
+  .team__heading { margin: 0 0 14px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; }
+  .team__intro { margin: 0; font-size: 17px; line-height: 1.55; color: #4A3B2F; }
+
+  /* Everyone gets the same card: 5 columns for ten people, two even rows. */
+  .team__grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(10px, 1.2vw, 16px);
+  }
+  .team__card {
+    aspect-ratio: 1;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity .6s ease calc(var(--i) * .07s), transform .6s ease calc(var(--i) * .07s);
+  }
+  .team.is-in .team__card { opacity: 1; transform: none; }
+  :global(html:not(.js)) .team__card { opacity: 1; transform: none; }
+
+  .team__link {
+    position: relative; display: block; width: 100%; height: 100%;
+    border-radius: 14px; overflow: hidden;
+    background: rgba(154, 106, 58, .14);
+    color: var(--a-accent-ink); text-decoration: none;
+    isolation: isolate;
+  }
+  .team__link:focus-visible { outline: 3px solid var(--a-ink); outline-offset: 3px; }
+  .team__link::after {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(to top, rgba(42, 31, 23, .78) 0%, rgba(42, 31, 23, .25) 32%, transparent 55%);
+  }
+  .team__photo {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: var(--x) var(--y);
+    transform: scale(var(--z)); transform-origin: var(--x) var(--y);
+    filter: grayscale(.2) sepia(.08);
+    transition: transform .7s var(--ease, ease), filter .4s ease;
+  }
+  .team__link:hover .team__photo { transform: scale(calc(var(--z) * 1.05)); filter: none; }
+
+  .team__meta {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    display: flex; flex-direction: column; gap: 2px;
+    padding: clamp(10px, 1.1vw, 16px);
+  }
+  .team__role {
+    font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    opacity: .85;
+  }
+  .team__name { font-family: var(--a-font-display); font-size: clamp(17px, 1.4vw, 21px); line-height: 1.15; }
+
+  .team__arrow {
+    position: absolute; top: 10px; right: 10px; z-index: 2;
+    display: grid; place-items: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--a-accent); color: var(--a-accent-ink);
+    opacity: 0; transform: scale(.8);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .team__link:hover .team__arrow, .team__link:focus-visible .team__arrow { opacity: 1; transform: none; }
+
+  /* Phone: 2 columns, five even rows. */
+  @media (max-width: 720px) {
+    .team__grid { grid-template-columns: repeat(2, 1fr); }
+    .team__role { font-size: 10px; }
+  }
+  @media (hover: none) {
+    .team__arrow { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .team__card, .team__photo, .team__arrow { transition: none; }
+    .team__card { opacity: 1; transform: none; }
+    .team__link:hover .team__photo { transform: scale(var(--z)); }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-team]');
+  if (root) {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { root.classList.add('is-in'); io.disconnect(); }
+      }, { threshold: 0.15 });
+      io.observe(root);
+    } else {
+      root.classList.add('is-in');
+    }
+  }
+</script>
