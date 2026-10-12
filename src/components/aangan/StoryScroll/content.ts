@@ -12,7 +12,7 @@ export interface StoryContent {
 }
 
 export const story: StoryContent = {
-  heading: 'Why we called it aangan',
+  heading: 'What Aangan means',
   chapters: [
     {
       label: 'Chapter 1',
@@ -29,14 +29,14 @@ export const story: StoryContent = {
     {
       label: 'Chapter 3',
       title: 'One place to meet',
-      body: 'aangan brings everyone into one courtyard. Homestays, cafes and drivers each make their own page, in their own words. Travellers scroll through, find the people and places that feel right, and reach out. That is all it takes.',
-      image: { id: 'STORY-03', ratio: '4:3', alt: 'A traveller browsing homestays, cafes and drivers on aangan while local hosts look on', src: '/assets/img/products/aangan/story-03.webp', width: 1400, height: 1050 },
+      body: 'Aangan brings everyone into one courtyard. Homestays, cafes and drivers each make their own page, in their own words, and travellers reach out to the ones they like. That is all it takes.',
+      image: { id: 'STORY-03', ratio: '4:3', alt: 'A traveller browsing homestays, cafes and drivers on Aangan while local hosts look on', src: '/assets/img/products/aangan/story-03.webp', width: 1400, height: 1050 },
     },
     {
       label: 'Chapter 4',
       title: 'Starting at home',
-      body: 'We are starting in Darjeeling, where we live and where we can knock on doors. Other hill towns will follow, when the people who live there ask us in.',
-      image: { id: 'STORY-04', ratio: '4:3', alt: 'The aangan team showing a homestay owner how to create her profile on a tablet', src: '/assets/img/products/aangan/story-04.webp', width: 1400, height: 1050 },
+      body: 'We are starting in Darjeeling, where we live and where we can knock on doors. But the courtyard is open: anyone, from anywhere, can join and register today.',
+      image: { id: 'STORY-04', ratio: '4:3', alt: 'The Aangan team showing a homestay owner how to create her profile on a tablet', src: '/assets/img/products/aangan/story-04.webp', width: 1400, height: 1050 },
     },
   ],
 };

@@ -1,0 +1,202 @@
+---
+/**
+ * Archetype: expanding photo panels. One reason is open at a time and takes
+ * most of the row; the others shrink to slim strips showing only their title.
+ * Desktop: a row, opened on hover or click, advancing on its own until the
+ * visitor takes over. Phones: the same panels stacked, opened by tapping.
+ */
+import type { WhyContent } from './content';
+
+interface Props { content: WhyContent }
+const { content: c } = Astro.props;
+---
+
+<section class="why" aria-labelledby="aangan-why-title" data-why>
+  <div class="why__inner">
+    <header class="why__head">
+      <h2 id="aangan-why-title" class="why__heading">{c.heading}</h2>
+      <p class="why__intro">{c.intro}</p>
+    </header>
+
+    <ul class="why__panels">
+      {c.reasons.map((r, i) => (
+        <li class:list={['why__panel', { 'is-open': i === 0 }]} data-panel={i}>
+          <img
+            class="why__img"
+            src={r.image}
+            alt={r.alt}
+            style={r.focus ? `object-position: ${r.focus}` : undefined}
+            width="1200"
+            height="1200"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+          <span class="why__label" aria-hidden="true">{r.title}</span>
+          <div class="why__content">
+            <h3 class="why__title">
+              <button type="button" class="why__toggle" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`why-desc-${i}`}>
+                {r.title}
+              </button>
+            </h3>
+            <p class="why__desc" id={`why-desc-${i}`}>{r.body}</p>
+          </div>
+          <span class="why__progress" aria-hidden="true"></span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .why { padding: clamp(64px, 8vw, 120px) clamp(16px, 5vw, 72px); }
+  .why__inner { max-width: 1320px; margin: 0 auto; }
+  .why__head { max-width: 640px; margin-bottom: clamp(28px, 3.6vw, 52px); }
+  .why__heading { margin: 0 0 12px; font-size: clamp(40px, 5vw, 76px); line-height: 1; letter-spacing: -.01em; }
+  .why__intro { margin: 0; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.45; color: #4A3B2F; }
+
+  /* Desktop: a row. The open panel grows; the rest become strips. */
+  .why__panels {
+    --ease-panel: cubic-bezier(.65, 0, .25, 1);
+    list-style: none; margin: 0; padding: 0;
+    display: flex; gap: clamp(8px, 1vw, 14px);
+    height: clamp(440px, 42vw, 620px);
+  }
+  .why__panel {
+    position: relative; flex: 1 1 0; min-width: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    border-radius: 20px; overflow: hidden; isolation: isolate;
+    background: #2A1F17; color: var(--a-accent-ink);
+    cursor: pointer;
+    transition: flex-grow .75s var(--ease-panel);
+  }
+  .why__panel.is-open { flex-grow: 5; cursor: default; }
+  .why__panel:has(.why__toggle:focus-visible) { outline: 3px solid var(--a-accent); outline-offset: 3px; }
+
+  .why__img {
+    position: absolute; inset: 0; z-index: -2;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(.85) brightness(.82);
+    transform: scale(1.06);
+    transition: filter .6s ease, transform 1.2s var(--ease-panel);
+  }
+  .why__panel.is-open .why__img { filter: none; transform: none; }
+  .why__panel::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(to top, rgba(28, 20, 14, .85) 0%, rgba(28, 20, 14, .35) 34%, transparent 60%);
+  }
+
+  /* Collapsed strip: the title runs up the strip. */
+  .why__label {
+    position: absolute; left: 50%; bottom: 24px;
+    writing-mode: vertical-rl; transform: translateX(-50%) rotate(180deg);
+    white-space: nowrap;
+    font-family: var(--a-font-display); font-size: clamp(16px, 1.25vw, 20px); letter-spacing: .01em;
+    transition: opacity .3s ease .25s;
+  }
+  .why__panel.is-open .why__label { opacity: 0; transition-delay: 0s; }
+
+  /* Open panel: title and line across the bottom. */
+  .why__content {
+    padding: clamp(22px, 2.4vw, 40px);
+    max-width: 560px;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  .why__panel.is-open .why__content {
+    opacity: 1; transform: none;
+    transition: opacity .5s ease .35s, transform .5s ease .35s;
+  }
+  .why__title { margin: 0 0 8px; color: inherit; font-size: clamp(24px, 2.3vw, 36px); line-height: 1.1; }
+  .why__toggle { all: unset; cursor: pointer; }
+  /* The whole panel is the button's hit area. */
+  .why__toggle::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+  .why__panel.is-open .why__toggle { cursor: default; }
+  .why__desc { margin: 0; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.5; opacity: .9; }
+
+  /* While the panels advance on their own, the open one shows its time. */
+  .why__progress {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 3px;
+    background: var(--a-accent); transform: scaleX(0); transform-origin: left;
+  }
+  .why.is-auto .why__panel.is-open .why__progress { animation: why-tick var(--why-dwell, 6s) linear forwards; }
+  @keyframes why-tick { to { transform: scaleX(1); } }
+
+  /* Phones and small tablets: stacked bands; the open one grows tall. */
+  @media (max-width: 860px) {
+    .why__panels { flex-direction: column; height: auto; }
+    .why__panel { flex: none; height: 76px; border-radius: 16px; transition: height .6s var(--ease-panel); }
+    .why__panel.is-open { height: min(108vw, 520px); }
+    .why__label {
+      left: 20px; bottom: auto; top: 50%;
+      writing-mode: horizontal-tb; transform: translateY(-50%);
+      font-size: 19px;
+    }
+    .why__panel::before { background: linear-gradient(to top, rgba(28, 20, 14, .85) 0%, rgba(28, 20, 14, .45) 40%, rgba(28, 20, 14, .2) 100%); }
+    .why__panel.is-open::before { background: linear-gradient(to top, rgba(28, 20, 14, .85) 0%, rgba(28, 20, 14, .3) 34%, transparent 60%); }
+    .why__content { padding: 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .why__panel, .why__img, .why__label, .why__content, .why__panel.is-open .why__content { transition: none; }
+    .why__img { transform: none; }
+    .why.is-auto .why__panel.is-open .why__progress { animation: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-why]');
+  if (root) {
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-panel]'));
+    const DWELL = 6000;
+    let current = 0;
+
+    const open = (n: number) => {
+      current = n;
+      panels.forEach((p, i) => {
+        p.classList.toggle('is-open', i === n);
+        p.querySelector('.why__toggle')?.setAttribute('aria-expanded', String(i === n));
+      });
+    };
+
+    // Advance on its own while in view, on wide screens only (on phones a
+    // band growing under the reader's thumb would shift the page). Stops for
+    // good the moment the visitor hovers, taps or tabs in.
+    const wide = matchMedia('(min-width: 861px)');
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    let timer = 0;
+    let stopped = false;
+    let visible = false;
+    const tick = () => {
+      window.clearTimeout(timer);
+      const on = !stopped && visible && wide.matches && !still.matches;
+      root.classList.toggle('is-auto', on);
+      if (on) timer = window.setTimeout(() => { open((current + 1) % panels.length); restart(); }, DWELL);
+    };
+    // Re-trigger the progress bar's animation for the newly opened panel.
+    const restart = () => { root.classList.remove('is-auto'); void root.offsetWidth; tick(); };
+    const stop = () => { if (!stopped) { stopped = true; tick(); } };
+    root.style.setProperty('--why-dwell', `${DWELL}ms`);
+
+    let hoverTimer = 0;
+    panels.forEach((p, i) => {
+      p.addEventListener('click', () => { stop(); open(i); });
+      p.addEventListener('focusin', () => { stop(); open(i); });
+      // Hover opens on mouse devices, after a short pause so sweeping across doesn't flicker.
+      p.addEventListener('pointerenter', (e) => {
+        if (e.pointerType !== 'mouse' || !wide.matches) return;
+        stop();
+        window.clearTimeout(hoverTimer);
+        hoverTimer = window.setTimeout(() => open(i), 140);
+      });
+      p.addEventListener('pointerleave', () => window.clearTimeout(hoverTimer));
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        visible = entries.some((e) => e.isIntersecting);
+        tick();
+      }, { threshold: 0.4 }).observe(root.querySelector('.why__panels')!);
+    }
+    wide.addEventListener('change', tick);
+  }
+</script>

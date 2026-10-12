@@ -8,7 +8,7 @@
  *   tea     #9A6A3A  chai, secondary text and rules
  *   moss    #5E7148  tea-garden green, supporting accent
  *   accent  #C2452D  chilli red, calls to action only
- * Typeface: Fraunces (display, warm serif) with the site's Google Sans for body.
+ * Typeface: the site's own (Google Sans Flex), so aangan reads as part of the same site.
  */
 .aangan {
   --a-paper: #F4EDE1;
@@ -17,7 +17,7 @@
   --a-moss: #5E7148;
   --a-accent: #C2452D;
   --a-accent-ink: #FBF8F2;
-  --a-font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --a-font-display: var(--font-display);
 
   background: var(--a-paper);
   color: var(--a-ink);
@@ -26,8 +26,7 @@
 .aangan :where(h1, h2, h3) {
   font-family: var(--a-font-display);
   color: var(--a-ink);
-  font-weight: 450;
-  letter-spacing: -0.015em;
+  font-weight: 400;
 }
 
 /* CTA buttons: the one accent treatment every component shares. */

@@ -606,7 +606,28 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   .commit { grid-template-columns: 1fr; }
   .approach__row { grid-template-columns: 1fr; gap: 14px; }
   .stats { grid-template-columns: 1fr; }
-  .footer__grid { grid-template-columns: 1fr; }
+  /* Footer on phones: two rows of two. Site links beside socials, legal links
+     beside the address, every pair top-aligned on the same two columns. */
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "site social" "legal addr";
+    gap: 32px 20px; align-items: start;
+  }
+  .footer__grid > .footer__col:nth-child(1) { grid-area: site; }
+  .footer__grid > .footer__col:nth-child(2) { grid-area: legal; }
+  .footer__grid > .footer__col:nth-child(3) { grid-area: social; }
+  .footer__grid > .footer__addr { grid-area: addr; }
+  .footer__col li, .footer__col a, .footer__col span, .footer__addr { font-size: 14px; line-height: 1.7; }
+  .footer__col li + li { margin-top: 4px; }
+  /* The map button sits right after the heading, not pushed to the far edge. */
+  .footer__addr-head { display: block; }
+  .footer__addr-head strong { display: inline; }
+  .footer__map { display: inline-grid; vertical-align: middle; margin-left: 8px; width: 24px; height: 24px; }
+  /* Bottom bar: conditions and copyright line up on the left, under the wordmark. */
+  .footer__bar { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .footer__meta { justify-content: flex-start; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .footer__live { justify-content: flex-start; gap: 10px 20px; }
+  .footer__copy { margin-left: 0; }
   .solutions__title { font-size: clamp(36px, 12vw, 56px); }
 }
 

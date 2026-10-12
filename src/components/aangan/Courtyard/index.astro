@@ -1,0 +1,1166 @@
+---
+/**
+ * The logo scene: a huge aangan wordmark with four cards arranged around it,
+ * two above and two below, none of them touching it. The two below tuck into
+ * the open ground the wordmark leaves: under the peaks on the left and under
+ * the "an" on the right. Three sets of cards take turns on the logo: the
+ * story's chapters, the loop (homestay, driver, cafe, traveller), and a day
+ * with aangan (four stops, each with a clock set to its hour and shaded like
+ * the sky at that hour). Each card is a photo, edge to edge down one side,
+ * with the title and text beside it, and is always open: nothing needs hovering.
+ *
+ * Each set has its own arrangement (see ARRANGEMENTS): the story out at the
+ * corners, the loop gathered in toward the middle, the day following the sun
+ * from low on the left, over the top, to low on the right. Every card hangs at
+ * a slight tilt, swaying a little, and is tied to the stroke nearest it by a
+ * short dotted stem ending in a marker on the logo, like a photo pinned to a
+ * line. Each set has its own kind of marker: numbered milestones (the
+ * yellow-topped stones of a hill road) for the story's chapters, an icon of who
+ * the traveller meets for the loop, and the time of day for the day's stops. The numbers run left to right along the logo, the way it is read,
+ * so card 1 is always pinned furthest left and card 4 furthest right. Each set
+ * also washes the frame in its own colour.
+ *
+ * On wide screens the scene pins inside a framed panel that fills the screen
+ * under the site header, so it reads as locked into a frame until you scroll
+ * past it. The scroll then drives everything, and runs back the same way:
+ *
+ * - In the story a Tata Sumo, the hills' shared taxi, roof piled
+ *   with luggage, drives the logo's top edge and stops at each numbered pin in
+ *   turn. At each stop a bag flies off the roof to the end of that pin's stem
+ *   and unfolds there into its card, which holds the stage while the Sumo
+ *   waits; the cards already delivered step back and dim. After the last stop all four open up
+ *   together. Then they fold back into bags on the roof and the Sumo drives off.
+ * - The loop is the traveller's journey, in the order they meet everyone. A
+ *   small traveller walks in at the start of the line; the Sumo pulls up and
+ *   carries them over the peaks (the driver); they get out at the logo's house
+ *   and its doorway lights up (the homestay); they walk on to the end of the
+ *   line, where a cup is steaming (the cafe). Each card opens at its moment.
+ * - In the day the sun does the jeep's job: it rises on the left, arcs over the
+ *   logo and sets on the right, bringing in each stop as it passes. The frame's
+ *   sky follows it from dawn to night, the logo's shadow swings round, and at
+ *   dusk the logo turns pale as stars and a moon come out.
+ *
+ * The logo itself never moves. While the scene is pinned, scrolling goes stop
+ * by stop: each wheel gesture or arrow key carries the page exactly to the next
+ * stop (each card in turn, then "all open") and settles there, so the scene is
+ * never left halfway. A Skip link in the corner jumps past the whole scene.
+ *
+ * On smaller screens there is no room for four cards around the logo, so the
+ * scene becomes a strip: the logo pins to the top of the screen in a small
+ * panel and the three sets scroll beneath it as ordinary stacked cards. The
+ * strip's logo follows the card you are reading: the Sumo drops a bag at each
+ * chapter and drives off; the traveller makes the same journey as on wide
+ * screens (walk in, ride, the lit doorway, the cup); a small sun crosses for the
+ * day's stops. The panel turns from paper to green, and through the day's sky.
+ *
+ * Without JS the logo sits on top and the sets follow as plain grids of cards.
+ */
+import { LOGO, ROAD } from '../logo';
+import type { StoryContent } from '../StoryScroll/content';
+import type { LoopContent } from '../ConnectionLoop/content';
+import type { DayContent } from '../DayTimeline/content';
+
+interface Props { story: StoryContent; loop: LoopContent; day: DayContent }
+const { story, loop, day } = Astro.props;
+
+/**
+ * How each set is arranged around the logo, card by card, in order. Within a set
+ * the stems' x must increase, so the cards read left to right along the logo.
+ * `place`: where the card sits (styled as .court__card--<place> below).
+ * `stem`: where its stem meets the logo, in wordmark units, a dot on the stroke;
+ * stems for cards above the logo run up from the dot, for cards below, down.
+ * `flip`: photo on the right instead of the left.
+ * `when`: see the day, below.
+ */
+/** The height of the logo's top edge at x. */
+const roadY = (x: number) => ROAD[Math.round(x / 4)][1];
+/** Where the cafe's cup sits: just past the last pin, on the line. */
+const CUP = { x: 1092, y: roadY(1092) };
+
+interface Spot { place: string; flip: boolean; stem: { x: number; y: number }; when?: number }
+const ARRANGEMENTS: Spot[][] = [
+  // The story: out at the corners, zigzagging up, down, up, down along the logo.
+  [
+    { place: 'tl', flip: false, stem: { x: 140, y: 50 } }, // the first peak
+    { place: 'bl', flip: false, stem: { x: 238, y: 138 } }, // the valley
+    { place: 'tr', flip: false, stem: { x: 838, y: 56 } }, // the top of the "a"
+    { place: 'br', flip: false, stem: { x: 1070, y: 153 } }, // the trailing end
+  ],
+  // The loop: the traveller's journey along the line. They arrive at its start, ride over the
+  // high peak, stay at the house, and end at the cafe where the line runs out.
+  [
+    { place: 'bl', flip: true, stem: { x: 44, y: 157 } }, // traveller: where the line starts
+    { place: 'tl', flip: true, stem: { x: 345, y: 16 } }, // driver: the high peak
+    { place: 'th', flip: true, stem: { x: 600, y: roadY(600) + 8 } }, // homestay: the eave of the house
+    { place: 'br', flip: true, stem: { x: 1070, y: 153 } }, // cafe: the trailing end
+  ],
+  // The day: the sun's path. Morning low on the left, late morning up on the left, afternoon
+  // top centre (the sun is overhead), evening low on the right. `when`: how far along the logo
+  // the sun is when the stop appears, where that is not its pin, so each arrives as the sky
+  // turns its colour: blue over the high peak, gold over the "a", night at the trailing end.
+  [
+    { place: 'bl', flip: false, stem: { x: 44, y: 157 } }, // where the line starts
+    { place: 'td-l', flip: false, stem: { x: 140, y: 50 }, when: 345 }, // the first peak
+    { place: 'td-c', flip: true, stem: { x: 688, y: 58 }, when: 760 }, // the top of the "g"
+    { place: 'br', flip: true, stem: { x: 1070, y: 153 } }, // the trailing end
+  ],
+];
+const isAbove = (place: string) => place.startsWith('t');
+
+/** Line icons for the loop's markers, as CSS image values. */
+const icon = (paths: string) =>
+  `url('data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2A1F17" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`)}')`;
+const ICONS: Record<string, string> = {
+  tourist: icon('<path d="M8 9a4 4 0 0 1 8 0v9a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"/><path d="M10 5.500V5a2 2 0 0 1 4 0v.500M9 14h6"/>'.replaceAll('.500', '.5')),
+  driver: icon('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 14v6M10.200 11.200 4.600 9.300M13.800 11.200l5.600-1.900"/>'),
+  homestay: icon('<path d="M4 11l8-7 8 7M6 10v9h12v-9M10 19v-5h4v5"/>'),
+  cafe: icon('<path d="M5 9h11v4a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5zM16 10h1a2.500 2.500 0 0 1 0 5h-1M4 21h13"/>'.replaceAll('.500', '.5')),
+};
+/** What a card's marker shows: its number, its icon, or its time. */
+const marker = (c: Card, i: number) => {
+  if (c.icon) return { kind: 'icon', text: '', style: `--icon: ${ICONS[c.icon]};` };
+  if (c.sky) return { kind: `time court__stem--${c.sky}`, text: c.label ?? '', style: '' };
+  return { kind: 'num', text: String(i + 1), style: '' };
+};
+
+interface Card {
+  label?: string;
+  title: string;
+  body: string;
+  note?: string;
+  image: { src?: string; alt: string; width?: number; height?: number };
+  /** Loop cards only: who it is, for the icon on its marker. */
+  icon?: string;
+  /** Day stops only: the sky that shades the card, and where the clock's hands point. */
+  sky?: string;
+  clock?: { datetime: string; hourDeg: number; minuteDeg: number };
+}
+/** Scattered over the day's sky for when night falls: position in %, size in px, twinkle offset. */
+const STARS = [
+  [6, 14, 3, 0], [13, 46, 2, 1.1], [21, 9, 2, 2.3], [27, 71, 3, .6], [34, 30, 2, 1.7], [41, 88, 2, .2],
+  [47, 12, 3, 2.8], [53, 62, 2, 1.3], [58, 93, 3, .9], [64, 22, 2, 2.1], [71, 55, 2, .4], [77, 8, 3, 1.9],
+  [83, 78, 2, 2.6], [88, 36, 3, .8], [94, 16, 2, 1.5], [97, 64, 2, 2.4],
+].map(([x, y, s, d]) => ({ x, y, s, d }));
+
+/**
+ * `sky`: the set is lit by a sun that crosses the scene. `journey`: a traveller makes their way
+ * along the logo, meeting each card. Neither: the Sumo delivers each card as a bag off its roof.
+ */
+const groups: { id: string; heading: string; lang?: string; sub?: string; closing?: string; sky?: boolean; journey?: boolean; cards: Card[] }[] = [
+  {
+    id: 'aangan-story-title', heading: story.heading,
+    cards: story.chapters.map((ch) => ({ label: ch.label, title: ch.title, body: ch.body, image: ch.image })),
+  },
+  {
+    id: 'aangan-loop-title', heading: loop.heading, lang: 'hi', sub: loop.headingEn, closing: loop.closing, journey: true,
+    cards: loop.nodes.map((n) => ({ title: n.name, body: n.body, note: n.benefit, image: n.image, icon: n.key })),
+  },
+  {
+    id: 'aangan-day-title', heading: day.heading, sub: day.note, sky: true,
+    cards: day.stops.map((s) => {
+      const [h, m] = s.clock.split(':').map(Number);
+      return {
+        label: `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h < 12 ? 'am' : 'pm'}`,
+        title: s.time, body: s.text, image: s.image, sky: s.sky,
+        // One extra turn so the minute hand visibly sweeps round to its mark.
+        clock: { datetime: s.clock, hourDeg: ((h % 12) + m / 60) * 30, minuteDeg: 360 + m * 6 },
+      };
+    }),
+  },
+];
+---
+
+<section class="court" data-court data-road={JSON.stringify(ROAD)}>
+  <div class="court__stage" data-court-stage>
+    <div class="court__frame" aria-hidden="true"></div>
+    <div class="court__logo" aria-hidden="true">
+      <svg viewBox={`0 0 ${LOGO.width} ${LOGO.height}`} fill="none" xmlns="http://www.w3.org/2000/svg">
+        {LOGO.paths.map((d) => <path class="court__mark" d={d} />)}
+        {/* A Tata Sumo, heading right, drawn with the ground under its wheels at y = 0 and x = 0
+            midway between them; the script places and tilts it along the road. */}
+        <g class="court__jeep" data-court-jeep>
+          {/* Luggage roped to the roof rack: one bag per card, numbered in the order they come off */}
+          <rect class="court__sumo-bag court__sumo-bag--2" data-court-bag="2" x="-35" y="-60" width="15" height="13" rx="2" />
+          <rect class="court__sumo-bag court__sumo-bag--3" data-court-bag="3" x="-19" y="-56" width="17" height="9" rx="4" />
+          <rect class="court__sumo-bag court__sumo-bag--4" data-court-bag="4" x="-1" y="-58" width="11" height="11" rx="2" />
+          <rect class="court__sumo-bag court__sumo-bag--1" data-court-bag="1" x="-27" y="-66" width="16" height="8" rx="3.5" />
+          <path class="court__sumo-rope" d="M-37-46l6-15 9 1 6-7 8 3 4 8 9-3 6 13M-27-60v13M-10-56v9M4-58v11" />
+          <path class="court__sumo-rack" d="M-38-46.5h50M-36-46v2M-12-46v2M10-46v2" />
+          {/* Spare wheel on the back door */}
+          <rect class="court__sumo-tyre" x="-45" y="-33" width="5.5" height="17" rx="2.5" />
+          {/* Body: tall, boxy cabin, short bonnet */}
+          <path class="court__sumo-body" d="M-40-12V-41a3 3 0 0 1 3-3H13l11 16 13 2a3 3 0 0 1 3 3v11a2 2 0 0 1-2 2h-76a2 2 0 0 1-2-2z" />
+          <path class="court__sumo-glass" d="M-36-40h13v11h-13zM-20-40h14v11h-14zM-3-40h14l7 11H-3z" />
+          <path class="court__sumo-stripe" d="M-40-22h79.5" />
+          <path class="court__sumo-seam" d="M-21.5-28v17M-4.5-28v17M19-28v17" />
+          <rect class="court__sumo-lamp" x="36" y="-21" width="4" height="4" rx="1" />
+          <path class="court__sumo-bumper" d="M34-11.5h8M-42-11.5h7" />
+          {[-22, 24].map((cx) => (
+            <g data-court-wheel data-cx={cx}>
+              <circle class="court__sumo-wheel" cx={cx} cy="-8" r="8" />
+              <circle class="court__sumo-hub" cx={cx} cy="-8" r="3.4" />
+              <path class="court__sumo-spoke" d={`M${cx - 3.4}-8h6.8M${cx}-11.4v6.8`} />
+            </g>
+          ))}
+        </g>
+        {/* The cafe's cup, steaming, at the end of the line */}
+        <g class="court__cup" data-court-cup transform={`translate(${CUP.x} ${CUP.y})`}>
+          <path class="court__cup-steam" d="M-4-17q-3-4 0-8M3-17q-3-4 0-8" />
+          <path class="court__cup-body" d="M-8-13h16v5a8 8 0 0 1-16 0z" />
+          <path class="court__cup-handle" d="M8-11a4 4 0 0 1 0 7" />
+          <path class="court__cup-saucer" d="M-11 0h22" />
+        </g>
+        {/* The traveller, drawn standing on 0,0; the script walks them along the line */}
+        <g class="court__walker" data-court-walker>
+          <rect class="court__walker-pack" x="-8.5" y="-21" width="6.5" height="11" rx="2.2" />
+          <path class="court__walker-leg" data-court-leg="1" d="M0-10V0" />
+          <path class="court__walker-leg" data-court-leg="-1" d="M0-10V0" />
+          <path class="court__walker-body" d="M0-20v10" />
+          <circle class="court__walker-head" cx="0" cy="-25.5" r="4.2" />
+        </g>
+      </svg>
+      <span class="court__strip-sun"></span>
+    </div>
+
+    {groups.map((g, gi) => (
+      <div class="court__group" data-court-group={gi} data-court-sky={g.sky ? '' : undefined} data-court-journey={g.journey ? '' : undefined}>
+        <span class="court__wash" aria-hidden="true"></span>
+        {g.sky && (
+          <div class="court__sky" aria-hidden="true">
+            <span class="court__sky-layer court__sky-layer--dawn"></span>
+            <span class="court__sky-layer court__sky-layer--day"></span>
+            <span class="court__sky-layer court__sky-layer--gold"></span>
+            <span class="court__sky-layer court__sky-layer--night"></span>
+            {STARS.map((st) => <i class="court__star" style={`left: ${st.x}%; top: ${st.y}%; --s: ${st.s}px; --d: ${st.d}s`}></i>)}
+            <span class="court__moon"></span>
+            <span class="court__sun"></span>
+          </div>
+        )}
+        <header class="court__head">
+          <h2 id={g.id} class:list={['court__heading', { 'court__heading--indic': g.lang }]} lang={g.lang}>{g.heading}</h2>
+          {g.sub && <p class="court__sub">{g.sub}</p>}
+        </header>
+        <ul class="court__cards">
+          {g.cards.map((c, i) => (
+            <li
+              data-court-card data-x={ARRANGEMENTS[gi][i].when ?? ARRANGEMENTS[gi][i].stem.x}
+              class:list={['court__card', `court__card--${ARRANGEMENTS[gi][i].place}`, { 'court__card--flip': ARRANGEMENTS[gi][i].flip }, c.sky && `court__card--sky court__card--${c.sky}`]}
+              style={c.clock && `--h: ${c.clock.hourDeg}deg; --m: ${c.clock.minuteDeg}deg`}
+            >
+              <img
+                class="court__img" src={c.image.src} alt={c.image.alt}
+                width={c.image.width} height={c.image.height} loading="lazy" decoding="async"
+              />
+              <div class="court__body">
+                <div class="court__top">
+                  {c.clock && (
+                    <svg class="court__clock" viewBox="0 0 48 48" aria-hidden="true">
+                      <circle class="court__clock-face" cx="24" cy="24" r="21" />
+                      <path class="court__clock-ticks" d="M24 5v4M24 39v4M5 24h4M39 24h4" />
+                      <line class="court__clock-hand court__clock-hand--h" x1="24" y1="24" x2="24" y2="13.5" />
+                      <line class="court__clock-hand court__clock-hand--m" x1="24" y1="24" x2="24" y2="8.5" />
+                      <circle class="court__clock-pin" cx="24" cy="24" r="1.8" />
+                    </svg>
+                  )}
+                  <div>
+                    {c.label && (c.clock
+                      ? <p class="court__label"><time datetime={c.clock.datetime}>{c.label}</time></p>
+                      : <p class="court__label">{c.label}</p>)}
+                    <h3 class="court__title">{c.title}</h3>
+                  </div>
+                </div>
+                <p class="court__text">{c.body}</p>
+                {c.note && <p class="court__note">{c.note}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+        {g.closing && <p class="court__closing">{g.closing}</p>}
+        {ARRANGEMENTS[gi].map((a, i) => {
+          const m = marker(g.cards[i], i);
+          return (
+            <span
+              data-court-stem
+              class:list={['court__stem', `court__stem--${m.kind}`, isAbove(a.place) ? 'court__stem--up' : 'court__stem--down']}
+              style={`--x: ${a.stem.x}; --y: ${a.stem.y}; ${m.style}`} data-n={m.text} aria-hidden="true"
+            ></span>
+          );
+        })}
+      </div>
+    ))}
+    <button class="court__skip" type="button" data-court-skip>Skip <span aria-hidden="true">&darr;</span></button>
+  </div>
+</section>
+
+<style>
+  .court {
+    --a-paper: #EFE6D6;
+    --header: 110px; /* the fixed site header */
+    background: var(--a-paper);
+  }
+
+  /* ---------- Ordinary flow: logo on top, then both sets as grids ---------- */
+  .court__stage { max-width: 1240px; margin: 0 auto; padding: clamp(56px, 9vw, 140px) clamp(16px, 5vw, 72px); }
+  .court__logo { margin-bottom: clamp(28px, 5vw, 64px); }
+  .court__logo svg { display: block; width: 100%; height: auto; overflow: visible; fill: var(--a-ink); }
+
+  .court__group + .court__group { margin-top: clamp(20px, 2.2vw, 40px); }
+  .court__head { margin-bottom: clamp(24px, 4vw, 48px); }
+  .court__group + .court__group .court__head { margin-top: clamp(48px, 7vw, 96px); }
+  .court__heading { margin: 0; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; }
+  /* Devanagari needs its own face (the site font has none) and more line height. */
+  .court__heading--indic { font-family: "Noto Sans Devanagari", var(--a-font-display); line-height: 1.35; }
+  .court__sub { margin: 2px 0 0; font-size: clamp(15px, 1.2vw, 18px); color: var(--a-tea); }
+  .court__stem, .court__frame, .court__wash, .court__sky, .court__jeep, .court__strip-sun, .court__walker, .court__cup, .court__skip { display: none; }
+  .court__cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2.2vw, 40px); }
+
+  /* The site's card (see .work-card on /our-work): photo edge to edge, text below. */
+  .court__card {
+    --fs: 16px;
+    display: flex; flex-direction: column; overflow: hidden;
+    border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg);
+    font-size: var(--fs);
+  }
+  .court__img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: var(--bg-alt); }
+  .court__body { padding: 1.15em 1.25em 1.35em; }
+  .court__top { margin-bottom: .5em; }
+  .court__label { margin: 0 0 .3em; font-size: .82em; line-height: 1.2; color: var(--grey-500); }
+  .court__title { margin: 0; font-size: 1.5em; line-height: 1.08; color: var(--grey-900); }
+  .court__text { margin: 0; line-height: 1.45; color: var(--grey-700); }
+
+  /* A day's stop wears its hour: --sky shades the card, --fg is the text on it. */
+  .court__card--sky { background: var(--sky); border-color: transparent; }
+  .court__card--sky :is(.court__label, .court__title, .court__text) { color: var(--fg); }
+  .court__card--sky .court__label { font-size: 1em; font-variant-numeric: tabular-nums; opacity: .85; }
+  .court__card--dawn { --sky: linear-gradient(160deg, #F7B58C 0%, #FBD9B6 50%, #FCEEDD 100%); --fg: #3A2418; }
+  .court__card--morning { --sky: linear-gradient(160deg, #8CC9EE 0%, #C4E4F6 55%, #EAF6FC 100%); --fg: #16303F; }
+  .court__card--afternoon { --sky: linear-gradient(160deg, #F3C552 0%, #F9DD8E 55%, #FDF2CC 100%); --fg: #3B2A08; }
+  .court__card--dusk { --sky: linear-gradient(160deg, #1F2247 0%, #453463 60%, #7A4A6C 100%); --fg: #F4EDE1; }
+  .court__card--sky .court__top { display: flex; align-items: center; gap: .8em; }
+  .court__clock { flex: none; width: 3.1em; height: 3.1em; color: var(--fg); }
+  .court__clock-face { fill: color-mix(in srgb, currentColor 8%, transparent); stroke: currentColor; stroke-width: 1.6; }
+  .court__clock-ticks { stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; opacity: .6; }
+  /* --shown is 1 here; in the pinned scene it flips from 0 to 1 as the card drops in, and the hands sweep to their hour. */
+  .court__clock-hand { stroke: currentColor; stroke-linecap: round; transform-origin: 24px 24px; }
+  .court__clock-hand--h { stroke-width: 2.6; transform: rotate(calc(var(--h) * var(--shown, 1))); }
+  .court__clock-hand--m { stroke-width: 1.8; transform: rotate(calc(var(--m) * var(--shown, 1))); }
+  .court__clock-pin { fill: currentColor; }
+  .court__note { margin: .6em 0 0; font-size: .93em; line-height: 1.35; font-weight: 500; color: var(--a-moss); }
+  .court__closing { margin: clamp(24px, 3vw, 40px) 0 0; font-family: var(--a-font-display); font-size: clamp(21px, 2vw, 28px); line-height: 1.2; color: var(--a-tea); }
+  @media (max-width: 600px) {
+    .court__cards { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Strip: small screens. The logo pins to the top in a panel; cards scroll beneath ---------- */
+  .court.is-strip .court__logo {
+    --strip-top: 106px; /* under the fixed site header */
+    position: sticky; top: var(--strip-top); z-index: 5; overflow: hidden;
+    margin: 0 0 clamp(20px, 4vw, 36px);
+    /* Headroom for the Sumo on the highest peak: it stands about an eighth of the logo's width tall. */
+    padding: calc(min(100%, 596px) * .125 + 8px) 18px 12px;
+    border: 1px solid rgba(154, 106, 58, .3); border-radius: 22px;
+    background-color: #F7F1E6; box-shadow: 0 16px 30px -18px rgba(42, 31, 23, .5);
+    transition: background-color .6s ease, border-color .6s ease;
+  }
+  @media (max-width: 760px) {
+    .court.is-strip .court__logo { --strip-top: 86px; }
+  }
+  .court.is-strip .court__logo svg { max-width: 560px; margin: 0 auto; }
+  .court.is-strip .court__mark { transition: fill .6s ease; }
+  .court.is-strip .court__jeep { display: block; opacity: var(--jeep, 1); transition: opacity .3s ease; }
+  /* The panel takes each set's colour, and the sky of each of the day's stops. */
+  .court.is-strip[data-strip='1'] .court__logo { background-color: #E6EDDA; }
+  .court.is-strip[data-sky='dawn'] .court__logo { background-color: #FBDCC4; }
+  .court.is-strip[data-sky='morning'] .court__logo { background-color: #CFE8F7; }
+  .court.is-strip[data-sky='afternoon'] .court__logo { background-color: #F8E2A6; }
+  .court.is-strip[data-sky='dusk'] .court__logo { background-color: #2B2A57; border-color: #2B2A57; }
+  .court.is-strip[data-sky='dusk'] .court__mark { fill: #FBF4E6; }
+  /* The day's sun crosses the panel (--sun-f, 0 to 1 across the logo; --sun-top in px), and is gone by dusk. */
+  .court.is-strip[data-strip='2'] .court__strip-sun {
+    display: block; position: absolute; width: 22px; height: 22px; border-radius: 50%;
+    left: calc(18px + var(--sun-f, 0) * (100% - 36px)); top: var(--sun-top, 30px); translate: -50% 0;
+    background: radial-gradient(circle, #FFFBE8 0%, #FFE9A6 55%, #FFD46B 100%);
+    box-shadow: 0 0 0 5px rgba(255, 233, 166, .35), 0 0 22px 8px rgba(255, 214, 107, .55);
+    transition: opacity .5s ease;
+  }
+  .court.is-strip[data-sky='dusk'] .court__strip-sun { opacity: 0; }
+
+  /* ---------- Live: one pinned scene, cards above and below the logo ---------- */
+  /* One screen pinned, plus the scroll the script spends on the sets (it sets --scroll, in screens). */
+  .court.is-live { height: calc(100vh + var(--scroll, 3) * 100vh); }
+  .court.is-live .court__stage {
+    --head-h: 84px;
+    --frame: clamp(10px, 1vw, 20px); /* the frame's margin from the screen edge */
+    --side: calc(var(--frame) + clamp(16px, 1.4vw, 28px)); /* the cards' margin either side: inside the frame */
+    --gap: 26px; /* clear space between a top card and the logo: room for its stem */
+    --top: calc(var(--header) + var(--head-h)); /* where the top cards start */
+    --card-h: clamp(160px, 21vh, 190px);
+    --card-w: min(680px, 46%); /* the left pair, and the top-right card */
+    /* The bottom cards start 182 wordmark units down, just under the lowest stroke above them. */
+    --tuck: 182;
+    /* Huge: nearly the full width, unless the screen is too short to fit a card above and below. */
+    --logo-w: min(100vw - 2 * var(--side) - 24px, 1800px, calc((100vh - var(--top) - 2 * var(--card-h) - var(--gap) - 38px) / var(--tuck) * 1101));
+    --logo-h: calc(var(--logo-w) * 0.2434);
+    --u: calc(var(--logo-w) / 1101); /* one wordmark unit, in px */
+    --logo-top: calc(var(--top) + var(--card-h) + var(--gap));
+    --logo-left: calc(50% - var(--logo-w) / 2);
+    position: sticky; top: 0; height: 100vh; max-width: none; margin: 0; padding: 0; overflow: hidden;
+  }
+  /* The frame: a panel under the site header that the pinned scene sits in. */
+  .court.is-live .court__frame {
+    display: block; position: absolute; inset: calc(var(--header) - 6px) var(--frame) 10px;
+    border: 1.5px solid rgba(154, 106, 58, .32); border-radius: clamp(24px, 2.2vw, 40px);
+    background: #F7F1E6;
+    box-shadow: 0 30px 60px -40px rgba(42, 31, 23, .45), inset 0 0 0 6px rgba(255, 255, 255, .45);
+  }
+  /* Each set washes the frame in its own colour, fading in and out with the set. */
+  .court.is-live .court__wash {
+    display: block; position: absolute; z-index: 0; inset: calc(var(--header) - 6px) var(--frame) 10px;
+    border-radius: clamp(24px, 2.2vw, 40px); opacity: var(--here);
+    box-shadow: inset 0 0 0 1.5px rgba(154, 106, 58, .32), inset 0 0 0 7px rgba(255, 255, 255, .45);
+  }
+  .court.is-live [data-court-group='0'] .court__wash { background: #F7F1E6; } /* paper */
+  .court.is-live [data-court-group='1'] .court__wash { background: #E6EDDA; } /* tea-garden green */
+
+  /* The day's sky fills the frame instead of a flat wash. Its four layers cross-fade as the sun
+     crosses (--dawn, --day, --gold, --night, each 0 to 1, set by the script). */
+  .court.is-live .court__sky {
+    display: block; position: absolute; z-index: 0; inset: calc(var(--header) - 6px) var(--frame) 10px;
+    border-radius: clamp(24px, 2.2vw, 40px); overflow: hidden; opacity: var(--here);
+    box-shadow: inset 0 0 0 1.5px rgba(154, 106, 58, .32);
+  }
+  .court__sky-layer { position: absolute; inset: 0; }
+  .court__sky-layer--dawn { background: linear-gradient(180deg, #F6C6A6 0%, #FBE2CC 55%, #FDF1E2 100%); opacity: var(--dawn, 1); }
+  .court__sky-layer--day { background: linear-gradient(180deg, #A9D6F0 0%, #D6ECF8 55%, #F0F8FC 100%); opacity: var(--day, 0); }
+  .court__sky-layer--gold { background: linear-gradient(180deg, #F2CC6B 0%, #F8E2A6 55%, #FDF3D4 100%); opacity: var(--gold, 0); }
+  .court__sky-layer--night { background: linear-gradient(180deg, #171A3D 0%, #33305F 55%, #6A456C 100%); opacity: var(--night, 0); }
+  /* The sun: --sun-x / --sun-y place it, in wordmark units from the logo's top-left corner. */
+  .court.is-live .court__sun {
+    position: absolute; width: clamp(54px, 5vw, 92px); aspect-ratio: 1; border-radius: 50%;
+    left: calc(var(--logo-left) - var(--frame) + var(--sun-x, 0) * var(--u));
+    top: calc(var(--logo-top) - var(--header) + 6px + var(--sun-y, 0) * var(--u));
+    translate: -50% -50%; opacity: calc(1 - var(--night, 0));
+    background: radial-gradient(circle, #FFFBE8 0%, #FFE9A6 55%, #FFD46B 100%);
+    box-shadow: 0 0 0 clamp(10px, 1.2vw, 20px) rgba(255, 233, 166, .32), 0 0 70px 30px rgba(255, 214, 107, .5);
+  }
+  .court.is-live .court__moon {
+    position: absolute; right: 9%; top: 22%; width: clamp(34px, 3vw, 54px); aspect-ratio: 1; border-radius: 50%;
+    box-shadow: inset -12px -5px 0 0 #F3EBDD, 0 0 26px 2px rgba(243, 235, 221, .25);
+    opacity: var(--night, 0); translate: 0 calc((1 - var(--night, 0)) * 40px);
+  }
+  .court__star {
+    position: absolute; width: var(--s); height: var(--s); border-radius: 50%; background: #FFF8E1;
+    box-shadow: 0 0 6px 1px rgba(255, 248, 225, .7); opacity: var(--night, 0);
+    animation: court-twinkle 2.6s ease-in-out var(--d) infinite;
+  }
+  @keyframes court-twinkle {
+    0%, 100% { scale: 1; }
+    50% { scale: .35; }
+  }
+  /* --night-ink: 0 to 1, set by the script: how far the scene's ink has turned pale for night. */
+  .court.is-live .court__stage { --night-ink: 0; --ink: color-mix(in srgb, var(--a-ink), #FBF4E6 calc(var(--night-ink) * 100%)); }
+  .court.is-live .court__logo {
+    z-index: 1;
+    position: absolute; top: var(--logo-top); left: var(--logo-left); width: var(--logo-w); margin: 0;
+    pointer-events: none;
+  }
+  .court.is-live .court__mark { fill: var(--ink); }
+  /* In the day the logo casts a shadow that swings as the sun crosses (--shade-x, --shade-a from the script). */
+  .court.is-live .court__logo svg { filter: drop-shadow(var(--shade-x, 0px) 16px 10px rgba(42, 31, 23, var(--shade-a, 0))); }
+
+  .court.is-live .court__jeep { display: block; opacity: var(--jeep, 0); }
+  /* The traveller and the cafe's cup, for the journey. --walker and --cup: 0 or 1, from the script. */
+  .court:is(.is-live, .is-strip) .court__walker { display: block; opacity: var(--walker, 0); transition: opacity .3s ease; }
+  .court__walker-pack { fill: var(--a-moss); stroke: var(--a-ink); stroke-width: 1; }
+  .court__walker-body { stroke: var(--a-accent); stroke-width: 6; stroke-linecap: round; }
+  .court__walker-leg { stroke: var(--a-ink); stroke-width: 3; stroke-linecap: round; }
+  .court__walker-head { fill: #E8B98A; stroke: var(--a-ink); stroke-width: 1.2; }
+  .court:is(.is-live, .is-strip) .court__cup { display: block; opacity: var(--cup, 0); transition: opacity .4s ease; }
+  .court__cup-body { fill: #FBF8F2; stroke: var(--a-ink); stroke-width: 1.4; stroke-linejoin: round; }
+  .court__cup-handle, .court__cup-saucer { fill: none; stroke: var(--a-ink); stroke-width: 1.6; stroke-linecap: round; }
+  .court__cup-steam { fill: none; stroke: var(--a-tea); stroke-width: 1.4; stroke-linecap: round; animation: court-steam 2.2s ease-in-out infinite; }
+  @keyframes court-steam {
+    0%, 100% { opacity: .2; translate: 0 2px; }
+    50% { opacity: .9; translate: 0 -2px; }
+  }
+  /* The homestay's doorway (the logo's second shape) lights up when the traveller arrives. */
+  .court.is-live path.court__mark { transition: fill .5s ease; }
+  .court:is(.is-live, .is-strip) .court__logo.is-home path.court__mark:nth-of-type(2) { fill: #F6C445; filter: drop-shadow(0 0 7px rgba(246, 196, 69, .95)); }
+
+  /* The Sumo: white, as they are in the hills, with a red stripe. */
+  .court__sumo-body { fill: #FBF8F2; stroke: var(--a-ink); stroke-width: 1.6; stroke-linejoin: round; }
+  .court__sumo-glass { fill: #2A3B45; }
+  .court__sumo-stripe { stroke: var(--a-accent); stroke-width: 2.4; }
+  .court__sumo-seam { stroke: rgba(42, 31, 23, .35); stroke-width: .8; }
+  .court__sumo-lamp { fill: #F6C445; stroke: var(--a-ink); stroke-width: .8; }
+  .court__sumo-bumper { stroke: var(--a-ink); stroke-width: 3; stroke-linecap: round; }
+  .court__sumo-tyre, .court__sumo-wheel { fill: var(--a-ink); stroke: #F7F1E6; stroke-width: 1.2; }
+  .court__sumo-hub { fill: #D9D2C4; }
+  .court__sumo-spoke { stroke: var(--a-ink); stroke-width: 1; }
+  .court__sumo-rack { stroke: var(--a-ink); stroke-width: 1.6; stroke-linecap: round; fill: none; }
+  .court__sumo-rope { stroke: #F3E6CF; stroke-width: .9; fill: none; stroke-linejoin: round; }
+  .court__sumo-rope { transition: opacity .25s ease; }
+  .court__jeep.is-unloading .court__sumo-rope { opacity: 0; }
+  /* The bags' colours: each card unfolds out of the bag with its number (see --bag on the cards). */
+  .court__sumo-bag { stroke: var(--a-ink); stroke-width: 1; transition: opacity .25s ease; }
+  .court__sumo-bag.is-gone { opacity: 0; }
+  .court__sumo-bag--1 { fill: #C2452D; }
+  .court__sumo-bag--2 { fill: #9A6A3A; }
+  .court__sumo-bag--3 { fill: #5E7148; }
+  .court__sumo-bag--4 { fill: #3E6B8A; }
+
+  .court.is-live .court__group + .court__group, .court.is-live .court__group + .court__group .court__head { margin-top: 0; }
+  /* Skip: out of the scene, to whatever follows it. */
+  .court.is-live .court__skip {
+    all: unset; box-sizing: border-box; display: block; position: absolute; z-index: 3; cursor: pointer;
+    top: calc(var(--header) + 14px); right: calc(var(--frame) + 22px);
+    padding: 6px 14px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+    font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink);
+    transition: background .25s ease;
+  }
+  .court.is-live .court__skip:hover { background: color-mix(in srgb, var(--ink) 12%, transparent); }
+  .court.is-live .court__skip:focus-visible { outline: 3px solid var(--a-accent); outline-offset: 3px; }
+
+  /* The two headings share one spot and trade places with the scroll. */
+  .court.is-live .court__head {
+    position: absolute; top: var(--header); left: 16px; right: 16px; height: var(--head-h); margin: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+  .court.is-live .court__head { opacity: var(--here); transform: translateY(calc((1 - var(--here)) * 16px)); }
+  .court.is-live .court__heading { font-size: clamp(24px, 2.4vw, 36px); color: var(--ink); }
+  .court.is-live .court__sub { margin-top: 0; font-size: clamp(14px, 1.05vw, 17px); color: color-mix(in srgb, var(--a-tea), #F3D9B4 calc(var(--night-ink) * 100%)); }
+
+  /* A numbered dot on the logo, and a dotted stem from it to the card pinned there. The dot is
+     there with its set, waiting; the stem appears with its card. */
+  .court.is-live .court__stem {
+    --dot: clamp(20px, 1.5vw, 27px); /* the milestone's width */
+    --dot-h: calc(var(--dot) * 1.22);
+    display: block; position: absolute; z-index: 1; width: 0; opacity: var(--here);
+    left: calc(var(--logo-left) + var(--x) * var(--u));
+  }
+  .court.is-live .court__stem { --shown: 0; }
+  .court.is-live .court__stem.is-in { --shown: 1; }
+  .court.is-live .court__stem::before {
+    content: ''; position: absolute; inset: 0 auto 0 -1px; border-left: 2px dotted var(--a-accent);
+    opacity: var(--shown); transition: opacity .35s ease;
+  }
+  /* The milestone: a hill-road stone, yellow cap over white, with the stop's number. It sits
+     quietly until its card is delivered, then stands up. */
+  .court.is-live .court__stem::after {
+    content: attr(data-n); position: absolute; left: calc(var(--dot) / -2 - 1px); width: var(--dot); height: var(--dot-h);
+    box-sizing: border-box; display: grid; place-items: end center; padding-bottom: calc(var(--dot) * .1);
+    font-family: var(--font-num); font-size: calc(var(--dot) * .52); font-weight: 700; line-height: 1; color: #2A1F17;
+    border: 1.5px solid #2A1F17; border-radius: 46% 46% 4px 4px / 40% 40% 4px 4px;
+    background: linear-gradient(#F6C445 0 34%, #2A1F17 34% 39%, #FBF8F2 39%);
+    box-shadow: 0 3px 8px rgba(42, 31, 23, .3);
+    scale: calc(.82 + .28 * var(--shown)); filter: saturate(calc(.35 + .65 * var(--shown)));
+    transition: scale .5s cubic-bezier(.3, 1.8, .5, 1), filter .4s ease;
+  }
+  /* The loop's marker: a round badge with an icon of who the traveller meets there. */
+  .court.is-live .court__stem--icon { --dot: clamp(28px, 2vw, 36px); --dot-h: var(--dot); }
+  .court.is-live .court__stem--icon::after {
+    content: ''; padding: 0; border-radius: 50%; border-width: 2px;
+    background: #FBF8F2 var(--icon) center / 66% no-repeat;
+  }
+  /* The day's marker: the time, on a chip the colour of that hour's sky. */
+  .court.is-live .court__stem--time { --dot-h: calc(var(--dot) * .96); }
+  .court.is-live .court__stem--time::after {
+    left: 0; translate: -50% 0; width: max-content; padding: 0 .75em; place-items: center;
+    border-radius: 999px; background: var(--chip); color: var(--chip-fg, #2A1F17);
+    font-size: calc(var(--dot) * .5); font-weight: 600; font-variant-numeric: tabular-nums;
+  }
+  .court__stem--dawn { --chip: #F9C6A2; }
+  .court__stem--morning { --chip: #A9D8F3; }
+  .court__stem--afternoon { --chip: #F5CF63; }
+  .court__stem--dusk { --chip: #2B2A57; --chip-fg: #F4EDE1; }
+  .court.is-live .court__stem--dusk::after { border-color: #F4EDE1; }
+  .court.is-live .court__stem--up { top: calc(var(--logo-top) - var(--gap)); height: calc(var(--gap) + var(--y) * var(--u)); }
+  .court.is-live .court__stem--up::after { bottom: calc(var(--dot-h) / -2); }
+  .court.is-live .court__stem--down { top: calc(var(--logo-top) + var(--y) * var(--u)); height: calc((var(--tuck) - var(--y)) * var(--u)); }
+  .court.is-live .court__stem--down::after { top: calc(var(--dot-h) / -2); }
+  /* Arrives with the loop, in the open space over the right of the logo's top cards' gap. */
+  .court.is-live .court__closing {
+    position: absolute; bottom: 26px; left: calc(var(--logo-left) + 590 * var(--u)); width: calc(200 * var(--u)); margin: 0;
+    text-align: center; font-size: clamp(15px, 1.15vw, 19px);
+    opacity: var(--done, 1); transform: translateY(calc((1 - var(--done, 1)) * 10px)); transition: opacity .5s ease, transform .5s ease;
+  }
+
+  .court.is-live .court__cards { display: block; }
+  /* --here, set by the script on each set: 0 away, 1 here (its heading, colour and pins). The
+     first set is here before the script runs. */
+  .court.is-live .court__group { --here: 0; }
+  .court.is-live [data-court-group='0'] { --here: 1; }
+  .court.is-live .court__group.is-away { visibility: hidden; }
+  /* A card here lies on its side: photo edge to edge down the left, text on the right. */
+  .court.is-live .court__card {
+    --fs: clamp(13px, 1.75vh, 15px);
+    /* --shown: 0 while it is still a bag on the Sumo's roof, 1 once delivered. --size: 1, or a
+       little smaller while another card has the stage. Set by the script: --ox, where its stem
+       meets its edge (it unfolds, swings and shrinks about that point); --reach, how far that
+       is from its pin; --roof, how far above the pin the Sumo's roof is. --dir: which side of
+       the logo it hangs. */
+    --shown: 0; --size: 1;
+    --bag-at: translateY(calc(var(--dir) * -1 * var(--reach, 40px) - var(--roof, 0px)));
+    position: absolute; z-index: 2; max-width: var(--card-w); min-height: var(--card-h);
+    display: grid; grid-template-columns: 38% minmax(0, 1fr);
+    opacity: var(--shown);
+    transform: rotate(var(--tilt, 0deg)) scale(var(--size));
+    transition: transform .7s cubic-bezier(.3, 1.4, .5, 1), opacity .25s ease, filter .5s ease;
+    box-shadow: 0 2px 4px rgba(42, 31, 23, .08), 0 14px 28px -10px rgba(42, 31, 23, .28), 0 40px 70px -40px rgba(42, 31, 23, .5);
+    /* Hangs from where its stem meets it, and sways there a little, each card out of step. */
+    animation: court-sway var(--sway-t, 5.5s) ease-in-out var(--sway-d, 0s) infinite alternate;
+  }
+  /* Not delivered: packed down to a bag, up on the roof. */
+  .court.is-live .court__card:not(.is-in) { transform: var(--bag-at) scale(.05, .16); }
+  /* Delivered: the bag flies to the end of the stem, then unfolds, first wide, then open. */
+  .court.is-live .court__card.is-in {
+    --shown: 1;
+    animation: court-unpack 1.35s backwards, court-sway var(--sway-t, 5.5s) ease-in-out var(--sway-d, 0s) infinite alternate;
+  }
+  @keyframes court-unpack {
+    0% { transform: var(--bag-at) rotate(0deg) scale(.05, .16); animation-timing-function: cubic-bezier(.3, 0, .3, 1); }
+    30% { transform: rotate(calc(var(--dir) * -20deg)) scale(.05, .16); }
+    38% { transform: rotate(var(--tilt, 0deg)) scale(.05, .16); animation-timing-function: cubic-bezier(.3, 0, .2, 1); }
+    62% { transform: rotate(var(--tilt, 0deg)) scale(1, .16); animation-timing-function: cubic-bezier(.3, 0, .2, 1); }
+    86% { transform: rotate(calc(var(--tilt, 0deg) + var(--dir) * 1.5deg)) scale(1, 1.05); }
+    100% { transform: rotate(var(--tilt, 0deg)) scale(1); }
+  }
+  .court.is-live .court__card.is-mini { --size: .84; z-index: 1; filter: saturate(.45) opacity(.6); }
+  /* The bag's colour covers the card while it is packed and flying, and clears as it opens. */
+  .court.is-live .court__card::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: var(--bag, transparent); opacity: calc(1 - var(--shown)); transition: opacity .25s ease;
+  }
+  .court.is-live .court__card.is-in::after { transition: opacity .5s ease .8s; }
+  .court.is-live .court__card:nth-child(1) { --bag: #C2452D; }
+  .court.is-live .court__card:nth-child(2) { --bag: #9A6A3A; }
+  .court.is-live .court__card:nth-child(3) { --bag: #5E7148; }
+  .court.is-live .court__card:nth-child(4) { --bag: #3E6B8A; }
+  /* The day's stops open in their own sky colour. */
+  .court.is-live [data-court-sky] .court__card { --bag: var(--sky); }
+  /* The journey's cards are not luggage: they open blank, out of their pins. */
+  .court.is-live [data-court-journey] .court__card { --bag: #FBF8F2; }
+  .court.is-live .court__clock-hand { transition: transform 1.3s cubic-bezier(.3, 1.2, .4, 1) .15s; }
+  .court.is-live .court__card:nth-child(2) { --sway-d: -1.4s; --sway-t: 6.3s; }
+  .court.is-live .court__card:nth-child(3) { --sway-d: -2.9s; --sway-t: 5.1s; }
+  .court.is-live .court__card:nth-child(4) { --sway-d: -4.1s; --sway-t: 6.8s; }
+  @keyframes court-sway {
+    from { rotate: -.55deg; }
+    to { rotate: .55deg; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .court.is-live .court__card:not(.is-in), .court__star { animation: none; }
+    .court.is-live .court__card.is-in { animation: court-unpack 1.35s backwards; }
+  }
+  /* height 0 + min-height 100%: the photo fills the card's height without setting it. */
+  .court.is-live .court__img { height: 0; min-height: 100%; aspect-ratio: auto; }
+  .court.is-live .court__body { padding: .85em 1.1em 1em; align-self: center; }
+  .court.is-live .court__top { margin-bottom: .35em; }
+  .court.is-live .court__title { font-size: 1.45em; }
+  .court.is-live .court__text { line-height: 1.4; }
+  .court.is-live .court__card--flip { grid-template-columns: minmax(0, 1fr) 38%; }
+  .court.is-live .court__card--flip .court__img { order: 2; }
+
+  /* Every card above the logo stands a gap clear of its top; every card below tucks into the
+     wordmark's open ground, clear of every stroke: left of the "g" (under the peaks and the
+     house), or right of it (under the "an"). --edge-l is where that left ground ends. */
+  .court.is-live .court__card { --edge-l: calc(var(--logo-left) + 575 * var(--u)); }
+  .court.is-live :is(.court__card--tl, .court__card--tr, .court__card--tc-l, .court__card--tc-r, .court__card--td-l, .court__card--td-c) {
+    --dir: -1; width: var(--card-w); bottom: calc(100% - var(--logo-top) + var(--gap)); transform-origin: var(--ox, 50%) 100%;
+  }
+  .court.is-live :is(.court__card--bl, .court__card--bl-in, .court__card--br) { --dir: 1; top: calc(var(--logo-top) + var(--tuck) * var(--u)); transform-origin: var(--ox, 50%) 0; }
+
+  /* The journey's homestay: top right, pulled in so the house's eave is under it. */
+  .court.is-live .court__card--th { --dir: -1; width: var(--card-w); bottom: calc(100% - var(--logo-top) + var(--gap)); transform-origin: var(--ox, 50%) 100%; left: min(calc(50% + 20px), calc(100% - var(--side) - var(--card-w))); --tilt: -1deg; }
+
+  /* The story: out at the corners. The left pair share a left edge, the right pair a right edge. */
+  .court.is-live .court__card--tl { left: var(--side); --tilt: -1.1deg; }
+  .court.is-live .court__card--tr { right: var(--side); --tilt: 1deg; }
+  .court.is-live .court__card--bl { left: var(--side); right: calc(100% - var(--edge-l)); --tilt: .9deg; }
+  .court.is-live .court__card--br { left: calc(var(--logo-left) + 805 * var(--u)); right: var(--side); max-width: none; --tilt: -1deg; }
+
+  /* The loop: gathered in. The top pair meet near the middle (where there is room: on a
+     narrower screen they slide back out to the sides), and the bottom-left card moves in
+     against the house. */
+  .court.is-live .court__card { --tc-r: min(calc(50% + 60px), calc(100% - var(--side) - var(--card-w))); }
+  .court.is-live .court__card--tc-l { left: max(var(--side), calc(var(--tc-r) - 20px - var(--card-w))); --tilt: .9deg; }
+  .court.is-live .court__card--tc-r { left: var(--tc-r); --tilt: -1.1deg; }
+  .court.is-live .court__card--bl-in { left: max(var(--side), calc(var(--edge-l) - var(--card-w))); right: calc(100% - var(--edge-l)); max-width: none; --tilt: -.9deg; }
+  .court.is-live [data-court-group='1'] .court__card--br { --tilt: 1deg; }
+  .court.is-live [data-court-group='1'] .court__card--tl { --tilt: .9deg; }
+  .court.is-live [data-court-group='1'] .court__card--bl { --tilt: -.9deg; }
+
+  /* The day: the afternoon sits top centre, under the overhead sun, and late morning to its
+     left; both are narrower so the pair fits. */
+  .court.is-live :is(.court__card--td-l, .court__card--td-c) { --day-w: min(var(--card-w), 31%); width: var(--day-w); }
+  .court.is-live .court__card--td-c { left: calc(50% - var(--day-w) / 2); --tilt: -.8deg; }
+  .court.is-live .court__card--td-l { left: max(var(--side), calc(50% - var(--day-w) * 1.5 - 20px)); --tilt: .8deg; }
+  .court.is-live [data-court-group='2'] .court__card--bl { --tilt: -1deg; }
+  .court.is-live [data-court-group='2'] .court__card--br { --tilt: 1deg; }
+</style>
+
+<script>
+  import { getLenis } from '../../../scripts/smoothScroll';
+
+  const court = document.querySelector<HTMLElement>('[data-court]');
+  const stage = court?.querySelector<HTMLElement>('[data-court-stage]');
+
+  if (court && stage) {
+    const sets = Array.from(court.querySelectorAll<HTMLElement>('[data-court-group]')).map((el) => ({
+      el,
+      sky: el.hasAttribute('data-court-sky'),
+      journey: el.hasAttribute('data-court-journey'),
+      cards: Array.from(el.querySelectorAll<HTMLElement>('[data-court-card]')),
+      stems: Array.from(el.querySelectorAll<HTMLElement>('[data-court-stem]')),
+    }));
+    const jeep = court.querySelector<SVGGElement>('[data-court-jeep]');
+    const road: [number, number][] = JSON.parse(court.dataset.road ?? '[]');
+    const LOGO_W = 1101;
+    // The pinned scene needs room for two cards across, and for a card above and below the logo.
+    const roomy = window.matchMedia('(min-width: 1200px) and (min-height: 680px)');
+    const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
+    const ease = (v: number) => v * v * (3 - 2 * v);
+    const tent = (v: number, at: number, width: number) => clamp(1 - Math.abs(v - at) / width);
+
+    // How the scroll is spent on each set, in turn (all in the same units): the Sumo makes its
+    // stops, or the sun crosses; everything holds; then the set clears as the next one comes in.
+    const DRIVE = 2.3; // a Sumo set: four stops
+    const CROSS = 1; // the day: one sweep of the sun
+    const HOLD = 0.45;
+    const CLEAR = 0.6;
+    const crossOf = (set: { sky: boolean }) => (set.sky ? CROSS : DRIVE);
+    const starts: number[] = [];
+    let span = 0;
+    sets.forEach((set, i) => {
+      starts.push(span);
+      span += crossOf(set) + HOLD + (i === sets.length - 1 ? 0 : CLEAR);
+    });
+    court.style.setProperty('--scroll', (span * 0.8).toFixed(2)); // screens of scroll for the whole scene
+    // Of each leg between stops, this share is driving; the rest is waiting at the pin.
+    const TRAVEL = 0.4;
+    // The sun's crossing is done a little before CROSS ends, so the last stop has time to settle.
+    const ARRIVE = 0.86;
+    const SETTLE = 0.14;
+    // The scene eases toward the scroll over about this long (ms), so stepped scrolling still glides.
+    const GLIDE = 170;
+    const wheels = Array.from(court.querySelectorAll<SVGGElement>('[data-court-wheel]'));
+    const bags = Array.from(court.querySelectorAll<SVGElement>('[data-court-bag]'));
+    const walker = court.querySelector<SVGGElement>('[data-court-walker]');
+    const legs = Array.from(court.querySelectorAll<SVGElement>('[data-court-leg]'));
+    const logo = court.querySelector<HTMLElement>('.court__logo');
+    const SUMO_SCALE = 0.95;
+    const ROOF = 52; // the Sumo's roof rack above the road, in its own units
+
+    /** Tell each card where its stem meets it, and how far that is from its pin. */
+    const layout = () => {
+      for (const set of sets) {
+        const u = (court.querySelector<HTMLElement>('.court__logo')?.offsetWidth ?? 0) / LOGO_W;
+        set.cards.forEach((card, k) => {
+          const stem = set.stems[k];
+          if (!stem) return;
+          card.style.setProperty('--ox', `${stem.offsetLeft - card.offsetLeft}px`);
+          card.style.setProperty('--reach', `${stem.offsetHeight}px`);
+          // Only the story's cards come off the Sumo's roof: the rest open straight out of their pins.
+          card.style.setProperty('--roof', `${set.sky || set.journey ? 0 : ROOF * SUMO_SCALE * u}px`);
+        });
+      }
+    };
+
+    /** The road's height and slope (degrees) at x, in wordmark units. */
+    const roadAt = (x: number, reach = 5) => {
+      const step = road.length > 1 ? road[1][0] - road[0][0] : 1;
+      const f = Math.min(Math.max(x / step, 0), road.length - 1);
+      const i = Math.min(Math.floor(f), road.length - 2);
+      const y = road[i][1] + (road[i + 1][1] - road[i][1]) * (f - i);
+      // Slope over a jeep's length, so it leans into hills instead of twitching over every bump.
+      const a = road[Math.max(i - reach, 0)];
+      const b = road[Math.min(i + reach + 1, road.length - 1)];
+      return { y, deg: Math.max(-48, Math.min(48, Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI)) };
+    };
+
+    /**
+     * Put the Sumo at `x` along the road, drawn at `scale`; `onRoof` says which bags it still
+     * carries (null: all of them). `reach`: how far either side it reads the slope it leans to.
+     */
+    const placeSumo = (x: number, scale: number, onRoof: boolean[] | null, reach = 5) => {
+      if (!jeep) return;
+      const { y, deg } = roadAt(Math.min(x, LOGO_W - 1), reach);
+      jeep.setAttribute('transform', `translate(${x.toFixed(1)} ${(y + 1).toFixed(1)}) rotate(${(x > LOGO_W ? 0 : deg).toFixed(1)}) scale(${scale})`);
+      // The wheels (radius 8) turn with the distance covered.
+      const turn = x / (8 * scale) * 180 / Math.PI;
+      wheels.forEach((w) => w.setAttribute('transform', `rotate(${turn.toFixed(1)} ${w.dataset.cx} -8)`));
+      bags.forEach((bag) => bag.classList.toggle('is-gone', onRoof?.[Number(bag.dataset.courtBag) - 1] === false));
+      jeep.classList.toggle('is-unloading', !!onRoof && onRoof.includes(false));
+    };
+
+    /** Stand the traveller at `x` along the road, drawn at `scale`. */
+    const placeWalker = (x: number, scale: number) => {
+      if (!walker) return;
+      walker.setAttribute('transform', `translate(${x.toFixed(1)} ${(roadAt(Math.max(x, 0)).y + 1).toFixed(1)}) scale(${scale})`);
+      // Their legs swing with the distance covered.
+      const swing = Math.sin(x * 0.3) * 30;
+      legs.forEach((leg) => leg.setAttribute('transform', `rotate(${(swing * Number(leg.dataset.courtLeg)).toFixed(1)} 0 -10)`));
+    };
+
+    /**
+     * Where the traveller and the Sumo are on the journey's leg `k` (0 to 3), `go` of the way
+     * (0 to 1) through its travelling. `pins`: the four stops, in order.
+     */
+    const journeyAt = (k: number, go: number, pins: number[]) => {
+      const park = pins[2] - 46; // where the Sumo lets them out, by the house
+      if (k === 0) {
+        // Walks in to the start of the line.
+        return { walkerX: -40 + (pins[0] + 40) * ease(go), walkerOn: 1, sumoX: -150, sumoOn: 0 };
+      }
+      if (k === 1) {
+        // The Sumo pulls up beside them; they get in; it carries them up to the high peak.
+        const ride = clamp((go - 0.3) / 0.7);
+        const sumoX = ride > 0 ? pins[0] - 34 + (pins[1] - pins[0] + 34) * ease(ride) : -150 + (pins[0] + 116) * ease(clamp(go / 0.3));
+        return { walkerX: pins[0], walkerOn: ride > 0 ? 0 : 1, sumoX, sumoOn: 1 };
+      }
+      if (k === 2) {
+        // On to the house, where they get out.
+        return { walkerX: pins[2], walkerOn: go >= 1 ? 1 : 0, sumoX: pins[1] + (park - pins[1]) * ease(go), sumoOn: 1 };
+      }
+      // The Sumo waits; they walk on to the cafe at the end of the line.
+      return { walkerX: pins[2] + (pins[3] - 24 - pins[2]) * ease(go), walkerOn: 1, sumoX: park, sumoOn: 1 };
+    };
+
+    /** Draw the scene at `x`: how far through the sets' turns we are, 0 to `span`. */
+    const render = (x: number) => {
+      let jeepX = 0;
+      let jeepOn = 0;
+      let onRoof: boolean[] | null = null; // which bags are still on the Sumo
+      let nightInk = 0;
+      let shade = 0;
+      let shadeX = 0;
+      let walkerX = 0;
+      let walkerOn = 0;
+      let home = false; // the homestay's door is lit
+      let cup = false; // the cafe's cup is out
+
+      sets.forEach((set, i) => {
+        const last = i === sets.length - 1;
+        const t = x - starts[i]; // time into this set's turn
+        const cross = clamp(t / crossOf(set));
+        const clear = last ? 0 : clamp((t - crossOf(set) - HOLD) / CLEAR);
+        // The set's heading and colour go over the first half of CLEAR; the next set's come in over the second.
+        const here = (i === 0 ? 1 : clamp((t + CLEAR * 0.5) / (CLEAR * 0.5))) * (1 - clamp(clear / 0.5));
+        set.el.style.setProperty('--here', here.toFixed(4));
+        set.el.classList.toggle('is-away', here <= 0);
+        const n = set.cards.length;
+        const pins = set.cards.map((card) => Number(card.dataset.x));
+        let delivered: boolean[];
+        let focus = -1;
+
+        if (set.sky) {
+          // The sun's arc: up from the left, over the top, down to the right, then below the horizon.
+          const day = Math.min(cross / ARRIVE, 1);
+          delivered = pins.map((pin) => cross > 0 && day * LOGO_W >= pin - 8);
+          set.el.style.setProperty('--sun-x', (day * LOGO_W).toFixed(1));
+          set.el.style.setProperty('--sun-y', (230 - Math.sin(day * Math.PI) * 330 + clamp((cross - ARRIVE) / SETTLE) * 120).toFixed(1));
+          const night = clamp((day - 0.86) / 0.14);
+          set.el.style.setProperty('--dawn', tent(day, 0, 0.36).toFixed(4));
+          set.el.style.setProperty('--day', tent(day, 0.36, 0.36).toFixed(4));
+          set.el.style.setProperty('--gold', (tent(day, 0.72, 0.36) * (1 - night)).toFixed(4));
+          set.el.style.setProperty('--night', night.toFixed(4));
+          nightInk = night * here;
+          shade = here * (1 - night) * 0.3;
+          shadeX = (0.5 - day) * 70; // the shadow falls away from the sun
+        } else if (set.journey) {
+          // The traveller's journey, in four legs: each is some travelling, then a wait at pin k.
+          const c = cross * n;
+          const k = Math.min(Math.floor(c), n - 1);
+          const f = cross >= 1 ? 1 : c - k;
+          const go = clamp(f / TRAVEL);
+          const stopped = f >= TRAVEL + 0.03;
+          delivered = pins.map((_, j) => cross > 0 && clear === 0 && (j < k || (j === k && stopped)));
+          focus = cross < 1 && stopped ? k : -1;
+          if (cross >= 1) focus = n;
+          const actors = journeyAt(k, go, pins);
+          const sumoX = actors.sumoX;
+          const sumoOn = actors.sumoOn;
+          walkerX = actors.walkerX;
+          walkerOn = actors.walkerOn;
+          home = delivered[2];
+          cup = delivered[3];
+          if (t >= -CLEAR * 0.25 && clear < 0.75) {
+            // Everyone fades in just before the set's turn, and out as it clears.
+            const fade = t < 0 ? clamp((t + CLEAR * 0.25) / (CLEAR * 0.25)) : 1 - clamp(clear / 0.4);
+            jeepX = sumoX;
+            jeepOn = sumoOn * fade;
+            walkerOn *= fade;
+          } else {
+            walkerOn = 0;
+          }
+        } else {
+          // The Sumo's run: leg k drives from the last pin to pin k, then waits there.
+          const c = cross * n;
+          const k = Math.min(Math.floor(c), n - 1);
+          const f = cross >= 1 ? 1 : c - k;
+          const from = k === 0 ? 0 : pins[k - 1];
+          const at = from + (pins[k] - from) * ease(clamp(f / TRAVEL));
+          const stopped = f >= TRAVEL + 0.03;
+          // A card is delivered once the Sumo has stopped at its pin; all fold back as the set clears.
+          delivered = pins.map((_, j) => cross > 0 && clear === 0 && (j < k || (j === k && stopped)));
+          // While it waits, that pin's card has the stage. After the last stop they all open up.
+          focus = cross < 1 && stopped ? k : -1;
+          if (cross >= 1) focus = n;
+          // It owns the Sumo from just before its turn until it has driven off.
+          if (t >= -CLEAR * 0.25 && clear < 0.75) {
+            jeepX = at + ease(clamp((clear - 0.15) / 0.5)) * 520;
+            jeepOn = t < 0 ? clamp((t + CLEAR * 0.25) / (CLEAR * 0.25)) : 1 - clamp((clear - 0.5) / 0.2);
+            onRoof = delivered.map((d) => !d);
+          }
+        }
+
+        set.cards.forEach((card, j) => {
+          card.classList.toggle('is-in', delivered[j]);
+          card.classList.toggle('is-mini', delivered[j] && focus >= 0 && focus < n && focus !== j);
+          set.stems[j]?.classList.toggle('is-in', delivered[j]);
+        });
+        set.el.style.setProperty('--done', delivered[n - 1] && (set.sky || focus === n) ? '1' : '0');
+      });
+
+      stage.style.setProperty('--night-ink', nightInk.toFixed(4));
+      stage.style.setProperty('--shade-a', shade.toFixed(3));
+      stage.style.setProperty('--shade-x', `${shadeX.toFixed(1)}px`);
+      stage.style.setProperty('--jeep', jeepOn.toFixed(3));
+      placeSumo(jeepX, SUMO_SCALE, onRoof);
+      stage.style.setProperty('--walker', String(walkerOn > 0.5 ? 1 : 0));
+      stage.style.setProperty('--cup', cup ? '1' : '0');
+      logo?.classList.toggle('is-home', home);
+      placeWalker(walkerX, 1.25);
+    };
+
+    /** Where the scroll says the scene should be. */
+    const target = () => {
+      const r = court.getBoundingClientRect();
+      return clamp(-r.top / (r.height - window.innerHeight)) * span;
+    };
+    // `shown` chases the target a frame at a time; null means "jump straight there".
+    let shown: number | null = null;
+    let running = false;
+    let then = 0;
+    const frame = (now: number) => {
+      if (!roomy.matches) { running = false; return; }
+      const goal = target();
+      const dt = Math.min(now - then, 64);
+      then = now;
+      shown = shown === null ? goal : shown + (goal - shown) * (1 - Math.exp(-dt / GLIDE));
+      if (Math.abs(goal - shown) < 0.0006) shown = goal;
+      render(shown);
+      if (shown === goal) { running = false; return; }
+      requestAnimationFrame(frame);
+    };
+    const request = () => {
+      if (running || !roomy.matches) return;
+      running = true;
+      then = performance.now();
+      requestAnimationFrame(frame);
+    };
+    // ---- Stop by stop: while the scene is pinned, each scroll gesture goes exactly one stop ----
+    /** Every place the scene comes to rest, as positions on the same 0-to-`span` line as render(). */
+    const stops: number[] = [];
+    sets.forEach((set, i) => {
+      const n = set.cards.length;
+      const dur = crossOf(set);
+      if (set.sky) {
+        // The sun just past each stop's pin; the last is full night.
+        set.cards.slice(0, -1).forEach((card) => stops.push(starts[i] + (Number(card.dataset.x) + 40) / LOGO_W * ARRIVE * dur));
+        stops.push(starts[i] + dur + HOLD * 0.5);
+      } else {
+        // Waiting at each pin in turn, then everything open.
+        for (let k = 0; k < n; k++) stops.push(starts[i] + (k + (1 + TRAVEL) / 2 + 0.1) * dur / n);
+        stops.push(starts[i] + dur + HOLD * 0.5);
+      }
+    });
+
+    const scrollYOf = (x: number) => {
+      const r = court.getBoundingClientRect();
+      return r.top + window.scrollY + (x / span) * (r.height - window.innerHeight);
+    };
+    const pinned = () => {
+      const r = court.getBoundingClientRect();
+      return roomy.matches && r.top <= 1 && r.bottom >= window.innerHeight - 1;
+    };
+    const STEP_MS = 1100;
+    let stepping = false;
+    let lastWheel = 0;
+    /** Carry the page to `y`, in the site's own smooth scroll where it is running. */
+    const glideTo = (y: number, done: () => void) => {
+      const lenis = getLenis();
+      if (lenis) {
+        lenis.scrollTo(y, { duration: STEP_MS / 1000, easing: (t: number) => t * t * (3 - 2 * t), lock: true, force: true, onComplete: done });
+        return;
+      }
+      const from = window.scrollY;
+      const began = performance.now();
+      const tick = (now: number) => {
+        const t = clamp((now - began) / STEP_MS);
+        window.scrollTo(0, from + (y - from) * ease(t));
+        if (t < 1) requestAnimationFrame(tick); else done();
+      };
+      requestAnimationFrame(tick);
+    };
+    /** Go one stop on (`dir` 1) or back (-1). False when there is none that way: the page scrolls on as usual. */
+    const step = (dir: number) => {
+      const here = window.scrollY;
+      const ys = stops.map(scrollYOf);
+      const next = dir > 0 ? ys.find((y) => y > here + 8) : [...ys].reverse().find((y) => y < here - 8);
+      if (next === undefined) return false;
+      stepping = true;
+      glideTo(next, () => { window.setTimeout(() => { stepping = false; }, 120); });
+      return true;
+    };
+    // Capture, so the gesture is taken before the site's smooth scroll sees it.
+    window.addEventListener('wheel', (e) => {
+      if (e.ctrlKey || !pinned()) return;
+      const now = performance.now();
+      // A trackpad sends one long stream per swipe: only its first event counts.
+      const fresh = now - lastWheel > 140;
+      lastWheel = now;
+      if (stepping || !fresh) { e.preventDefault(); e.stopPropagation(); return; }
+      if (Math.abs(e.deltaY) < 2) return;
+      if (step(e.deltaY > 0 ? 1 : -1)) { e.preventDefault(); e.stopPropagation(); }
+    }, { passive: false, capture: true });
+    window.addEventListener('keydown', (e) => {
+      if (!pinned() || e.altKey || e.ctrlKey || e.metaKey) return;
+      if ((e.target as HTMLElement | null)?.closest('input, textarea, select, [contenteditable]')) return;
+      const dir = ['ArrowDown', 'PageDown', ' '].includes(e.key) ? 1 : ['ArrowUp', 'PageUp'].includes(e.key) ? -1 : 0;
+      if (!dir) return;
+      if (stepping || step(e.key === ' ' && e.shiftKey ? -1 : dir)) e.preventDefault();
+    });
+    court.querySelector('[data-court-skip]')?.addEventListener('click', () => {
+      const r = court.getBoundingClientRect();
+      stepping = true;
+      glideTo(r.bottom + window.scrollY - 90, () => { stepping = false; });
+    });
+
+    // ---- The strip (small screens): the Sumo follows the card being read ----
+    const STRIP_SCALE = 2; // the logo is small there, so the Sumo is drawn larger against it
+    const STEP = 300;
+    const cupEl = court.querySelector<SVGGElement>('[data-court-cup]');
+    const cupAt = cupEl?.getAttribute('transform');
+    const skyOf = sets.map((set) => set.cards.map((card) => /court__card--(dawn|morning|afternoon|dusk)/.exec(card.className)?.[1] ?? ''));
+
+    /** Where the Sumo (or the day's sun) should be for the card under the reading line. */
+    const stripTarget = () => {
+      const ref = window.innerHeight * 0.62; // the reading line
+      let cur = 0;
+      sets.forEach((set, i) => { if (set.el.getBoundingClientRect().top <= ref) cur = i; });
+      const set = sets[cur];
+      const g = set.el.getBoundingClientRect();
+      const rects = set.cards.map((card) => card.getBoundingClientRect());
+      const mids = rects.map((r) => r.top + r.height / 2);
+      const pins = set.cards.map((card) => Number(card.dataset.x));
+      const n = pins.length;
+      let j = -1;
+      mids.forEach((m, k) => { if (ref >= m) j = k; });
+      let x: number;
+      if (set.journey) {
+        // The journey is steered by how far through its cards you are: 0, then 1 at the first
+        // card, up to 4 at the last (times STEP, so it glides like the positions do).
+        const q = j < 0 ? clamp((ref - g.top) / Math.max(mids[0] - g.top, 1)) : j === n - 1 ? n : j + 1 + (ref - mids[j]) / (mids[j + 1] - mids[j]);
+        x = q * STEP;
+      } else if (j < 0) {
+        // Coming in: from the start of the line to the first pin.
+        x = pins[0] * ease(clamp((ref - g.top) / Math.max(mids[0] - g.top, 1)));
+      } else if (j === n - 1) {
+        // Past the last card: the Sumo drives off the end; the sun just sets where it is.
+        const off = set.sky ? 0 : ease(clamp((ref - mids[j]) / Math.max(g.bottom - mids[j], 1))) * (LOGO_W + 150 - pins[j]);
+        x = pins[j] + off;
+      } else {
+        x = pins[j] + (pins[j + 1] - pins[j]) * ease((ref - mids[j]) / (mids[j + 1] - mids[j]));
+      }
+      // A bag is off the roof once its card has come up to the reading line.
+      const delivered = rects.map((r) => ref >= r.top);
+      const reading = delivered.lastIndexOf(true);
+      return { cur, sky: set.sky, journey: set.journey, pins, x, delivered, skyName: set.sky ? skyOf[cur][Math.max(reading, 0)] : '' };
+    };
+
+    let stripX: number | null = null;
+    let stripSet = -1;
+    let stripRunning = false;
+    let stripThen = 0;
+    const stripFrame = (now: number) => {
+      if (roomy.matches) { stripRunning = false; return; }
+      const goal = stripTarget();
+      const dt = Math.min(now - stripThen, 64);
+      stripThen = now;
+      // Glide to the target, but jump when the set changes: the Sumo starts again from the left.
+      stripX = stripX === null || goal.cur !== stripSet ? goal.x : stripX + (goal.x - stripX) * (1 - Math.exp(-dt / GLIDE));
+      if (Math.abs(goal.x - stripX) < 0.5) stripX = goal.x;
+      stripSet = goal.cur;
+      court.dataset.strip = String(goal.cur);
+      court.dataset.sky = goal.skyName;
+      if (goal.journey) {
+        const q = stripX / STEP;
+        const k = Math.min(Math.floor(q), goal.pins.length - 1);
+        const actors = journeyAt(k, q >= goal.pins.length ? 1 : q - k, goal.pins);
+        stage.style.setProperty('--jeep', String(actors.sumoOn));
+        placeSumo(actors.sumoX, STRIP_SCALE, null, 11);
+        placeWalker(actors.walkerX, 2.6);
+        stage.style.setProperty('--walker', String(actors.walkerOn));
+        // The door lights once they reach the house (the third card); the cup is out at the fourth.
+        logo?.classList.toggle('is-home', q >= 3);
+        stage.style.setProperty('--cup', q >= 4 ? '1' : '0');
+      } else {
+        stage.style.setProperty('--jeep', goal.sky ? '0' : '1');
+        placeSumo(stripX, STRIP_SCALE, goal.sky ? null : goal.delivered.map((d) => !d), 11);
+        stage.style.setProperty('--walker', '0');
+        stage.style.setProperty('--cup', '0');
+        logo?.classList.remove('is-home');
+      }
+      if (goal.sky && logo) {
+        const f = clamp(stripX / LOGO_W);
+        logo.style.setProperty('--sun-f', f.toFixed(4));
+        logo.style.setProperty('--sun-top', `${(40 - Math.sin(f * Math.PI) * 32).toFixed(1)}px`);
+      }
+      if (stripX === goal.x) { stripRunning = false; return; }
+      requestAnimationFrame(stripFrame);
+    };
+    const requestStrip = () => {
+      if (stripRunning || roomy.matches) return;
+      stripRunning = true;
+      stripThen = performance.now();
+      requestAnimationFrame(stripFrame);
+    };
+
+    /** Ordinary flow shows everything at rest: drop what the scene set. */
+    const rest = () => {
+      for (const set of sets) {
+        set.el.classList.remove('is-away');
+        for (const el of [set.el, ...set.cards, ...set.stems]) { el.removeAttribute('style'); el.classList.remove('is-in', 'is-mini'); }
+      }
+      for (const prop of ['--night-ink', '--shade-a', '--shade-x', '--jeep', '--walker', '--cup']) stage.style.removeProperty(prop);
+      logo?.classList.remove('is-home');
+    };
+    // Cards and stems carry inline styles from the page (their place on the logo): keep those.
+    const base = new Map(sets.flatMap((set) => [set.el, ...set.cards, ...set.stems]).map((el) => [el, el.getAttribute('style')]));
+    const mode = () => {
+      court.classList.toggle('is-live', roomy.matches);
+      court.classList.toggle('is-strip', !roomy.matches);
+      // The logo is small in the strip, so the cup is drawn larger against it there.
+      if (cupEl && cupAt) cupEl.setAttribute('transform', roomy.matches ? cupAt : `${cupAt} scale(2.2)`);
+      shown = null;
+      stripX = null;
+      if (!roomy.matches) {
+        rest();
+        base.forEach((style, el) => { if (style) el.setAttribute('style', style); });
+        requestStrip();
+      } else {
+        delete court.dataset.strip;
+        delete court.dataset.sky;
+        layout();
+        request();
+      }
+    };
+    const onScroll = () => (roomy.matches ? request() : requestStrip());
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => { if (roomy.matches) layout(); onScroll(); });
+    window.addEventListener('load', () => { if (roomy.matches) layout(); onScroll(); });
+    roomy.addEventListener('change', mode);
+    mode();
+  }
+</script>

@@ -10,21 +10,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { DEFAULT_FONT_HREF, productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
 import '../../components/aangan/tokens.css';
 
+import Splash from '../../components/aangan/Splash/index.astro';
 import HeroCourtyard from '../../components/aangan/HeroCourtyard/index.astro';
-import StoryScroll from '../../components/aangan/StoryScroll/index.astro';
-import ConnectionLoop from '../../components/aangan/ConnectionLoop/index.astro';
-import DayTimeline from '../../components/aangan/DayTimeline/index.astro';
+import Courtyard from '../../components/aangan/Courtyard/index.astro';
 import ProviderTabs from '../../components/aangan/ProviderTabs/index.astro';
+import WhyAangan from '../../components/aangan/WhyAangan/index.astro';
 import MapTeaser from '../../components/aangan/MapTeaser/index.astro';
 import ClosingCTA from '../../components/aangan/ClosingCTA/index.astro';
+import Team from '../../components/aangan/Team/index.astro';
 
 import { hero } from '../../components/aangan/HeroCourtyard/content';
 import { story } from '../../components/aangan/StoryScroll/content';
 import { loop } from '../../components/aangan/ConnectionLoop/content';
 import { day } from '../../components/aangan/DayTimeline/content';
 import { providers } from '../../components/aangan/ProviderTabs/content';
+import { why } from '../../components/aangan/WhyAangan/content';
 import { map } from '../../components/aangan/MapTeaser/content';
 import { closing } from '../../components/aangan/ClosingCTA/content';
+import { team } from '../../components/aangan/Team/content';
 
 const entry = await getEntry('products', 'aangan');
 if (!entry) throw new Error('src/content/products/aangan.json is missing');
@@ -38,7 +41,8 @@ const jsonLd = [
     { name: cleanName(d.title), path: '/products/aangan/' },
   ]),
 ];
-const fontHref = DEFAULT_FONT_HREF.replace('&display=swap', '&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap');
+// The second heading of the logo scene is in Hindi; the site font has no Devanagari.
+const fontHref = DEFAULT_FONT_HREF.replace('&display=swap', '&family=Noto+Sans+Devanagari:wght@400;500&display=swap');
 ---
 
 <BaseLayout
@@ -52,13 +56,15 @@ const fontHref = DEFAULT_FONT_HREF.replace('&display=swap', '&family=Fraunces:it
   fontHref={fontHref}
   jsonLd={jsonLd}
 >
+  <link slot="head" rel="preload" as="image" href="/assets/img/products/aangan/splash.webp" type="image/webp" />
+  <Splash />
   <main class="aangan">
     <HeroCourtyard content={hero} />
-    <StoryScroll content={story} />
-    <ConnectionLoop content={loop} />
-    <DayTimeline content={day} />
+    <Courtyard story={story} loop={loop} day={day} />
+    <WhyAangan content={why} />
     <ProviderTabs content={providers} />
     <MapTeaser content={map} />
+    <Team content={team} />
     <ClosingCTA content={closing} />
   </main>
 </BaseLayout>

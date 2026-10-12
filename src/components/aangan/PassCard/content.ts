@@ -25,7 +25,7 @@ export interface PassContent {
 
 export const pass: PassContent = {
   heading: 'For tourists',
-  passName: 'aangan pass',
+  passName: 'Aangan pass',
   firstYear: 'Free for the first year',
   priceAfter: 499,
   priceAfterLabel: 'per year after',

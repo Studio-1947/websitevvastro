@@ -1,5 +1,9 @@
 ---
-/** Archetype: tabbed panel with a card. Motion: tab slide. */
+/**
+ * Archetype: big heading beside the intro (like the sections below it), a pill
+ * switcher for the kind of provider, then a photo with what they get, how it
+ * works and the launch price. Motion: panel slide.
+ */
 import Slot from '../Slot/index.astro';
 import { ctaAttrs } from '../types';
 import type { ProviderContent } from './content';
@@ -11,21 +15,23 @@ const dev = import.meta.env.DEV;
 
 <section class="prov" aria-labelledby="aangan-prov-title" data-prov>
   <div class="prov__inner">
-    <div class="prov__side">
+    <header class="prov__head">
       <h2 id="aangan-prov-title" class="prov__heading">{c.heading}</h2>
-      <p class="prov__intro">{c.intro}</p>
-      <div class="prov__tabs" role="tablist" aria-label={c.heading}>
-        {c.tabs.map((t, i) => (
-          <button
-            type="button" role="tab" class="prov__tab"
-            id={`prov-tab-${t.key}`} aria-controls={`prov-panel-${t.key}`}
-            aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
-            data-prov-tab={i}
-          >{t.label}</button>
-        ))}
+      <div class="prov__lede">
+        <p class="prov__intro">{c.intro}</p>
+        <p class="prov__region">{c.region}</p>
       </div>
-      <p class="prov__region">{c.region}</p>
-      <a class="a-btn" {...ctaAttrs(c.cta)}>{c.cta.label}</a>
+    </header>
+
+    <div class="prov__tabs" role="tablist" aria-label={c.heading}>
+      {c.tabs.map((t, i) => (
+        <button
+          type="button" role="tab" class="prov__tab"
+          id={`prov-tab-${t.key}`} aria-controls={`prov-panel-${t.key}`}
+          aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
+          data-prov-tab={i}
+        >{t.label}</button>
+      ))}
     </div>
 
     <div class="prov__viewport">
@@ -36,11 +42,20 @@ const dev = import.meta.env.DEV;
           hidden={i !== 0} data-prov-panel={i} tabindex="0"
         >
           <Slot image={t.image} class="card__img" />
-          <dl class="card__facts">
-            <div><dt>{c.labels.get}</dt><dd>{t.get}{dev && t.confirm && <mark class="card__confirm">To confirm: {t.confirm}</mark>}</dd></div>
-            <div><dt>{c.labels.how}</dt><dd>{t.how}</dd></div>
-            <div class="card__cost"><dt>{c.labels.cost}</dt><dd>{t.cost}</dd></div>
-          </dl>
+          <div class="card__side">
+            <dl class="card__facts">
+              <div><dt>{c.labels.get}</dt><dd>{t.get}{dev && t.confirm && <mark class="card__confirm">To confirm: {t.confirm}</mark>}</dd></div>
+              <div><dt>{c.labels.how}</dt><dd>{t.how}</dd></div>
+            </dl>
+            <div class="card__price">
+              <p class="card__price-label">{c.labels.cost}</p>
+              <p class="card__price-line">
+                <strong>{c.price.amount}</strong>
+                <span>{c.price.note}</span>
+              </p>
+              <a class="a-btn" {...ctaAttrs(c.cta)}>{c.cta.label}</a>
+            </div>
+          </div>
         </div>
       ))}
     </div>
@@ -49,49 +64,77 @@ const dev = import.meta.env.DEV;
 
 <style>
   .prov {
-    --pad: clamp(64px, 9vw, 130px);
-    --radius: 22px;
-    padding: var(--pad) clamp(16px, 5vw, 72px);
-    background: #E7EBDD;
+    --pad: clamp(16px, 5vw, 72px);
+    padding: clamp(64px, 8vw, 120px) var(--pad);
   }
-  .prov__inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
-  .prov__heading { margin: 0 0 14px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.1; }
-  .prov__intro { margin: 0 0 28px; font-size: 17px; line-height: 1.55; color: #4A3B2F; }
-  .prov__tabs { display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px; }
+  .prov__inner { max-width: 1320px; margin: 0 auto; }
+
+  /* Heading beside the intro, as in "Where next?". */
+  .prov__head {
+    display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    gap: clamp(20px, 5vw, 96px); align-items: end;
+    margin-bottom: clamp(32px, 4vw, 56px);
+  }
+  .prov__heading { margin: 0; font-size: clamp(40px, 5vw, 76px); line-height: 1; letter-spacing: -.01em; }
+  .prov__intro { margin: 0 0 10px; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.45; color: #4A3B2F; }
+  .prov__region { margin: 0; font-size: 15px; font-weight: 500; color: var(--a-moss); }
+
+  /* Pill switcher. */
+  .prov__tabs {
+    display: inline-flex; gap: 4px; padding: 5px; margin-bottom: clamp(18px, 2vw, 28px);
+    border-radius: 999px; background: rgba(154, 106, 58, .12);
+  }
   .prov__tab {
     all: unset; cursor: pointer; box-sizing: border-box;
-    padding: 14px 18px; border-radius: 12px;
-    font-family: var(--a-font-display); font-size: 22px; color: #4A3B2F;
-    border-left: 3px solid transparent;
-    transition: background .25s ease, border-color .25s ease, color .25s ease;
+    padding: 10px 22px; border-radius: 999px;
+    font-size: 16px; font-weight: 500; color: #4A3B2F;
+    transition: background .25s ease, color .25s ease;
   }
-  .prov__tab:hover { background: rgba(94, 113, 72, .1); }
-  .prov__tab[aria-selected='true'] { background: #F9F7F0; color: var(--a-ink); border-left-color: var(--a-moss); }
-  .prov__tab:focus-visible { outline: 2px solid var(--a-ink); outline-offset: 2px; }
-  .prov__region { margin: 0 0 18px; font-size: 15px; font-weight: 500; color: var(--a-moss); }
+  .prov__tab:hover { color: var(--a-ink); background: rgba(255, 255, 255, .5); }
+  .prov__tab[aria-selected='true'] { background: var(--a-ink); color: var(--a-paper); }
+  .prov__tab:focus-visible { outline: 3px solid var(--a-accent); outline-offset: 2px; }
 
-  .prov__viewport { position: relative; overflow: hidden; }
+  /* Panel: photo beside the facts and the price. */
+  .prov__viewport { position: relative; }
   .card {
-    background: #F9F7F0; border-radius: var(--radius); overflow: hidden;
-    box-shadow: 0 24px 50px -28px rgba(42, 31, 23, .4);
+    display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(24px, 4vw, 64px); align-items: stretch;
   }
+  .card[hidden] { display: none; }
+  .card:focus-visible { outline: 3px solid var(--a-accent); outline-offset: 6px; border-radius: 20px; }
   .card.is-entering { animation: prov-slide .45s ease both; }
   .card.is-entering[data-dir='back'] { animation-name: prov-slide-back; }
   @keyframes prov-slide { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
   @keyframes prov-slide-back { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: none; } }
-  .card__facts { margin: 0; padding: clamp(20px, 3vw, 36px); display: grid; grid-template-columns: 1fr 1fr; gap: 22px 32px; }
+
+  .card :global(.card__img) {
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(42, 31, 23, .16);
+  }
+  .card__side { display: flex; flex-direction: column; justify-content: space-between; gap: 28px; }
+  .card__facts { margin: 0; display: grid; gap: 22px; }
+  .card__facts > div { padding-top: 16px; border-top: 1px solid rgba(154, 106, 58, .3); }
   .card__facts dt { margin-bottom: 6px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--a-tea); }
-  .card__facts dd { margin: 0; font-size: 16px; line-height: 1.55; color: #3A2D22; }
-  .card__cost { grid-column: 1 / -1; padding-top: 18px; border-top: 1px dashed rgba(154, 106, 58, .4); }
-  .card__cost dd { font-family: var(--a-font-display); font-size: 24px; color: var(--a-ink); }
+  .card__facts dd { margin: 0; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.55; color: #3A2D22; }
   .card__confirm { display: block; width: fit-content; margin-top: 8px; padding: 2px 6px; font-size: 12px; background: #FFE08A; color: #5B4A3C; }
 
+  /* The launch price, set apart. */
+  .card__price {
+    padding: clamp(20px, 2vw, 28px);
+    border-radius: 20px;
+    background: #FBF8F2;
+    box-shadow: 0 16px 40px rgba(42, 31, 23, .08), inset 0 0 0 1px rgba(154, 106, 58, .18);
+  }
+  .card__price-label { margin: 0 0 6px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--a-tea); }
+  .card__price-line { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin: 0 0 18px; }
+  .card__price-line strong { font-family: var(--a-font-display); font-weight: 400; font-size: clamp(48px, 4.6vw, 68px); line-height: 1; color: var(--a-accent); }
+  .card__price-line span { font-size: 16px; color: #4A3B2F; }
+
   @media (max-width: 860px) {
-    .prov__inner { grid-template-columns: 1fr; }
-    .prov__tabs { flex-direction: row; overflow-x: auto; }
-    .prov__tab { font-size: 18px; border-left: 0; border-bottom: 3px solid transparent; border-radius: 10px 10px 0 0; }
-    .prov__tab[aria-selected='true'] { border-bottom-color: var(--a-moss); }
-    .card__facts { grid-template-columns: 1fr; }
+    .prov__head { grid-template-columns: 1fr; align-items: start; }
+    .prov__tabs { display: flex; width: 100%; box-sizing: border-box; }
+    .prov__tab { flex: 1; text-align: center; padding: 10px 8px; font-size: 15px; }
+    .card { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     .card.is-entering { animation: none; }
