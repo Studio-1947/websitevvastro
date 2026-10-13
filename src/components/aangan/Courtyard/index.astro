@@ -46,8 +46,11 @@
  * never left halfway. A Skip link in the corner jumps past the whole scene.
  *
  * On smaller screens there is no room for four cards around the logo, so the
- * scene becomes a strip: the logo pins to the top of the screen in a small
- * panel and the three sets scroll beneath it as ordinary stacked cards. The
+ * scene becomes a strip. On phones, one logo panel moves from photo to photo:
+ * it lands on the top of the card's photo, drops its own colour so the photo is
+ * its background, and scrolls with the card. A cutout of the people in each photo
+ * lies over the logo, so it passes behind them instead of across their faces. Tablet layouts retain the
+ * separate sticky panel above the cards. The
  * strip's logo follows the card you are reading: the Sumo drops a bag at each
  * chapter and drives off; the traveller makes the same journey as on wide
  * screens (walk in, ride, the lit doorway, the cup); a small sun crosses for the
@@ -60,7 +63,19 @@ import type { StoryContent } from '../StoryScroll/content';
 import type { LoopContent } from '../ConnectionLoop/content';
 import type { DayContent } from '../DayTimeline/content';
 
+import { existsSync } from 'node:fs';
+
 interface Props { story: StoryContent; loop: LoopContent; day: DayContent }
+/**
+ * A photo's cutout: the same picture with everything but the people transparent, in
+ * cutouts/ beside it (made by scripts/aangan-cutouts.py). On phones it lies over the
+ * logo, so the logo passes behind the people. None on disk, none rendered.
+ */
+const cutoutOf = (src?: string) => {
+  if (!src) return undefined;
+  const path = src.replace(/\/([^/]+)$/, '/cutouts/$1');
+  return existsSync(`public${path}`) ? path : undefined;
+};
 const { story, loop, day } = Astro.props;
 
 /**
@@ -221,6 +236,7 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
       </svg>
       <span class="court__strip-sun"></span>
     </div>
+    <div class="court__logo-space" aria-hidden="true"></div>
 
     {groups.map((g, gi) => (
       <div class="court__group" data-court-group={gi} data-court-sky={g.sky ? '' : undefined} data-court-journey={g.journey ? '' : undefined}>
@@ -247,10 +263,14 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
               class:list={['court__card', `court__card--${ARRANGEMENTS[gi][i].place}`, { 'court__card--flip': ARRANGEMENTS[gi][i].flip }, c.sky && `court__card--sky court__card--${c.sky}`]}
               style={c.clock && `--h: ${c.clock.hourDeg}deg; --m: ${c.clock.minuteDeg}deg`}
             >
-              <img
-                class="court__img" src={c.image.src} alt={c.image.alt}
-                width={c.image.width} height={c.image.height} loading="lazy" decoding="async"
-              />
+              <div class="court__media">
+                <div class="court__logo-dock" aria-hidden="true"></div>
+                <img
+                  class="court__img" src={c.image.src} alt={c.image.alt}
+                  width={c.image.width} height={c.image.height} loading="lazy" decoding="async"
+                />
+                {cutoutOf(c.image.src) && <img class="court__cutout" src={cutoutOf(c.image.src)} alt="" aria-hidden="true" loading="lazy" decoding="async" />}
+              </div>
               <div class="court__body">
                 <div class="court__top">
                   {c.clock && (
@@ -313,6 +333,8 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
   .court__sub { margin: 2px 0 0; font-size: clamp(15px, 1.2vw, 18px); color: var(--a-tea); }
   .court__stem, .court__frame, .court__wash, .court__sky, .court__jeep, .court__strip-sun, .court__walker, .court__cup, .court__skip { display: none; }
   .court__cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2.2vw, 40px); }
+  .court__logo-space, .court__logo-dock, .court__cutout { display: none; }
+  .court__media { display: contents; }
 
   /* The site's card (see .work-card on /our-work): photo edge to edge, text below. */
   .court__card {
@@ -384,6 +406,56 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
     transition: opacity .5s ease;
   }
   .court.is-strip[data-sky='dusk'] .court__strip-sun { opacity: 0; }
+
+  /* Phones: the logo lands on the photo itself. Nothing is reserved for it, so a card
+     without the logo is just its photo and text, and nothing shifts when it comes or goes. */
+  @media (max-width: 600px) {
+    .court.is-strip .court__stage { position: relative; }
+    .court.is-strip .court__logo-space { display: block; height: calc(var(--mobile-panel-height, 142px) + 28px); }
+    .court.is-strip .court__logo {
+      position: absolute; top: 0; left: 0;
+      width: var(--mobile-logo-width, calc(100% - 40px)); box-sizing: border-box;
+      padding-top: calc(var(--mobile-logo-width, 350px) * .125 + 8px);
+      margin: 0; pointer-events: none; will-change: transform;
+      transform: translate3d(var(--mobile-logo-x, 20px), var(--mobile-logo-y, 56px), 0);
+      transition: background-color .45s ease, border-color .45s ease, border-radius .45s ease, box-shadow .45s ease, padding .45s ease;
+    }
+    .court.is-strip .court__logo svg, .court.is-strip .court__strip-sun { position: relative; z-index: 1; }
+    .court.is-strip[data-strip='2'] .court__strip-sun { position: absolute; }
+    .court.is-strip .court__card { overflow: visible; }
+    /* The photo scrolls with its card like any other; the logo rides on it. No z-index
+       here: the cutout below has to stack against the logo, which lives in the stage. */
+    .court.is-strip .court__media {
+      display: block; position: relative; flex: none;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden;
+    }
+    /* The people, laid exactly over themselves and above the logo (z-index 5). */
+    .court.is-strip .court__cutout {
+      display: block; position: absolute; inset: 0; z-index: 6;
+      width: 100%; height: 100%; object-fit: cover; object-position: 50% 80%;
+      pointer-events: none;
+    }
+    /* Taller photo, weighted to its lower part, so the scene stays in view under the logo. */
+    .court.is-strip .court__img { aspect-ratio: 1; object-position: 50% 80%; }
+    /* Where the logo lands: the top of the photo. Takes no room. */
+    .court.is-strip .court__logo-dock {
+      display: block; position: absolute; top: 0; left: 0; right: 0;
+      height: var(--mobile-panel-height, 142px); pointer-events: none;
+    }
+    .court.is-strip .court__body { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+
+    /* Merged: the panel's own colour goes, and the photo becomes its background. The
+       panel draws nothing of its own, so it has no edge to show against the photo; a
+       shadow that hugs the strokes keeps the pale logo readable on any picture. */
+    .court.is-strip .court__logo.is-merged {
+      background-color: transparent; border-color: transparent; box-shadow: none;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      /* The logo runs the photo's full width. */
+      padding-left: 6px; padding-right: 6px;
+    }
+    .court.is-strip .court__logo.is-merged .court__mark { fill: #FFFBF2; }
+    .court.is-strip .court__logo.is-merged svg { filter: drop-shadow(0 1px 2px rgba(28, 20, 14, .55)) drop-shadow(0 3px 14px rgba(28, 20, 14, .5)); }
+  }
 
   /* ---------- Live: one pinned scene, cards above and below the logo ---------- */
   /* One screen pinned, plus the scroll the script spends on the sets (it sets --scroll, in screens). */
@@ -1079,6 +1151,65 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
       return { cur, sky: set.sky, journey: set.journey, pins, x, delivered, skyName: set.sky ? skyOf[cur][Math.max(reading, 0)] : '' };
     };
 
+    const mobile = window.matchMedia('(max-width: 600px)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const logoSpace = court.querySelector<HTMLElement>('.court__logo-space')!;
+    const mobileCards = sets.flatMap(set => set.cards);
+    const docks = mobileCards.map(card => card.querySelector<HTMLElement>('.court__logo-dock')!);
+    let mobileOwner = -1;
+    let mobileY: number | null = null;
+    let transferOffset = 0;
+    let transferStart = 0;
+    const TRANSFER_MS = 420;
+
+    // Measure only when entering mobile or resizing, never during a scroll handoff.
+    const sizeMobileLogo = () => {
+      if (!mobile.matches || !logo) return;
+      stage.style.setProperty('--mobile-logo-width', `${docks[0].getBoundingClientRect().width}px`);
+      stage.style.setProperty('--mobile-panel-height', `${logo.getBoundingClientRect().height}px`);
+    };
+    const resetMobileLogo = () => {
+      mobileOwner = -1;
+      mobileY = null;
+      transferOffset = 0;
+      logo?.classList.remove('is-merged');
+    };
+    const moveMobileLogo = (now: number) => {
+      if (!mobile.matches || !logo) return false;
+      const stageRect = stage.getBoundingClientRect();
+      const home = logoSpace.getBoundingClientRect();
+      const cardRects = mobileCards.map(card => card.getBoundingClientRect());
+      const dockRects = docks.map(dock => dock.getBoundingClientRect());
+      const renderedTop = logo.getBoundingClientRect().top;
+      let owner = -1;
+      // The logo belongs to the lowest card whose photo has come well into view, so it
+      // leaves a photo as that photo scrolls away and glides down onto the next one.
+      cardRects.forEach((rect, i) => {
+        if (rect.top <= window.innerHeight * .62) owner = i;
+      });
+      const targetRect = owner < 0 ? home : dockRects[owner];
+      if (owner !== mobileOwner) {
+        transferOffset = mobileY === null ? 0 : renderedTop - targetRect.top;
+        transferStart = now;
+        mobileOwner = owner;
+      }
+      const progress = reducedMotion.matches ? 1 : clamp((now - transferStart) / TRANSFER_MS);
+      mobileY = targetRect.top + transferOffset * (1 - ease(progress));
+      // Once attached, follow the photo exactly. Only the
+      // transfer offset animates, so the logo never drifts against the image.
+      logo.classList.toggle('is-merged', owner >= 0);
+      stage.style.setProperty('--mobile-logo-y', `${mobileY - stageRect.top}px`);
+      stage.style.setProperty('--mobile-logo-x', `${targetRect.left - stageRect.left}px`);
+      // Match the photo's width every frame, so the logo can never sit narrower than it.
+      stage.style.setProperty('--mobile-logo-width', `${targetRect.width}px`);
+      if (owner >= 0) {
+        const group = Math.floor(owner / 4);
+        court.dataset.strip = String(group);
+        court.dataset.sky = skyOf[group][owner % 4];
+      }
+      return progress < 1 && Math.abs(transferOffset) > .1;
+    };
+
     let stripX: number | null = null;
     let stripSet = -1;
     let stripRunning = false;
@@ -1117,7 +1248,8 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
         logo.style.setProperty('--sun-f', f.toFixed(4));
         logo.style.setProperty('--sun-top', `${(40 - Math.sin(f * Math.PI) * 32).toFixed(1)}px`);
       }
-      if (stripX === goal.x) { stripRunning = false; return; }
+      const transferring = moveMobileLogo(now);
+      if (stripX === goal.x && !transferring) { stripRunning = false; return; }
       requestAnimationFrame(stripFrame);
     };
     const requestStrip = () => {
@@ -1145,9 +1277,11 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
       if (cupEl && cupAt) cupEl.setAttribute('transform', roomy.matches ? cupAt : `${cupAt} scale(2.2)`);
       shown = null;
       stripX = null;
+      resetMobileLogo();
       if (!roomy.matches) {
         rest();
         base.forEach((style, el) => { if (style) el.setAttribute('style', style); });
+        sizeMobileLogo();
         requestStrip();
       } else {
         delete court.dataset.strip;
@@ -1158,8 +1292,9 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
     };
     const onScroll = () => (roomy.matches ? request() : requestStrip());
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => { if (roomy.matches) layout(); onScroll(); });
-    window.addEventListener('load', () => { if (roomy.matches) layout(); onScroll(); });
+    window.addEventListener('resize', () => { if (roomy.matches) layout(); else sizeMobileLogo(); onScroll(); });
+    window.addEventListener('load', () => { if (roomy.matches) layout(); else sizeMobileLogo(); onScroll(); });
+    mobile.addEventListener('change', () => { resetMobileLogo(); sizeMobileLogo(); onScroll(); });
     roomy.addEventListener('change', mode);
     mode();
   }

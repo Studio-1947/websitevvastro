@@ -44,8 +44,8 @@ export const why: WhyContent = {
       title: 'Fair for Everyone',
       body: 'Rs 1 to join, for travellers and providers alike. No booking commissions: locals keep what they earn.',
       image: `${DIR}/04-fair.webp`,
-      alt: 'A traveller handing rupees directly to the owner at a café counter',
-      focus: '62% 45%',
+      alt: 'Hosts and travellers sharing tea around a table in a Darjeeling courtyard',
+      focus: '50% 42%',
     },
   ],
 };

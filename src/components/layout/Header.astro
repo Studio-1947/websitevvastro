@@ -207,7 +207,11 @@
   <a href="/about-us/" data-i18n="global.nav.aboutUs">About Us</a>
   <a href="/our-work/" data-i18n="global.nav.portfolio">Portfolio</a>
   <a href="/solutions/" data-i18n="global.nav.solutions">Solutions</a>
-  <a href="/products/" data-i18n="global.nav.products">Products</a>
+  {/* A label, not a link, on phones: the other products are still gated, so the
+      only place to go is the released one below. The overview stays reachable
+      from the desktop dropdown ("See overview"). */}
+  <span class="mobile-menu__label" data-i18n="global.nav.products">Products</span>
+  <a class="mobile-menu__sub" href="/products/aangan/">Aangan</a>
   <a href="/initiatives/" data-i18n="global.nav.initiatives">Initiatives</a>
   <a href="/blog/" data-i18n="global.nav.blogs">Blogs</a>
   <a href="/sayhello/" data-i18n="global.nav.sayHello">Say Hello</a>
