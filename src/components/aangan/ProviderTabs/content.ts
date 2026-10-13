@@ -25,7 +25,7 @@ export const providers: ProviderContent = {
   heading: 'If you are a service provider.',
   intro: 'Make your page, show people who you are, and let travellers find you. No tech skills needed.',
   labels: { get: 'What you get', how: 'How it works', cost: 'What it costs' },
-  price: { amount: 'Rs 1', note: 'to join. A launch offer, with no booking commissions.' },
+  price: { amount: 'Rs 99', note: 'per year. A launch offer, with no booking commissions.' },
   tabs: [
     {
       key: 'homestay',
