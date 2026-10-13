@@ -1,14 +1,42 @@
 ---
-/** Archetype: type-led and minimal, image as texture. Motion: text reveal; the photo starts black and white and a sparkle sweeps colour across it, left to right, as you scroll past. */
+/** Archetype: type-led and minimal, image as texture. Motion: text reveal; the photo starts black and white, and as you scroll the logo written across it brings the colour in: colour runs along the logo's line in the order it was written, and spreads out from it. */
 import Slot from '../Slot/index.astro';
 import { ctaAttrs } from '../types';
 import type { ClosingContent } from './content';
+import { LOGO_LINE } from '../logo';
 
 interface Props { content: ClosingContent }
 const { content: c } = Astro.props;
 const words = c.headline.split(' ');
+
+/**
+ * The photo has the logo painted across it. These place our vector logo exactly over it, in
+ * the photo's own pixels, so the colour can be let in along the same line.
+ */
+const W = c.texture.width ?? 2560;
+const H = c.texture.height ?? 800;
+const SCALE = 2.2705;
+const ON_PHOTO = `translate(38 173) scale(${SCALE})`;
+/**
+ * Colour comes in along the logo's own line, in the order the pen wrote it. It is let in
+ * as a set of ever wider bands drawn along that line: each band is drawn only as far as
+ * its own head, and the wider the band, the further back its head trails. So at the tip
+ * only the line itself has colour, and further back along the line it has spread right
+ * across the picture. `width` is in photo pixels; `lag` is a share of the line's length.
+ */
+const BANDS = [
+  // The first is barely wider than the logo's own stroke, so colour starts right at its edge.
+  { width: 64, lag: 0 },
+  { width: 120, lag: 0.05 },
+  { width: 250, lag: 0.13 },
+  { width: 580, lag: 0.26 },
+  { width: 1500, lag: 0.44 },
+];
 ---
 
+{/* On large screens the section holds still at the foot of this taller track while the
+    photo comes into colour (see .close-track), so the colour is not over in a flick of the wheel. */}
+<div class="close-track" data-close-track>
 <section class="close" aria-labelledby="aangan-close-title" data-close>
   <div class="close__inner">
     <h2 id="aangan-close-title" class="close__headline" aria-label={c.headline}>
@@ -34,18 +62,50 @@ const words = c.headline.split(' ');
   </div>
   <div class="close__art" data-close-art>
     <Slot image={c.texture} class="close__bw" />
-    <div class="close__colour" aria-hidden="true"><Slot image={c.texture} decorative /></div>
-    <div class="close__spark" aria-hidden="true">
-      {[8, 22, 37, 51, 66, 80, 93].map((top, i) => (
-        <svg class="close__star" viewBox="0 0 24 24" style={`--top: ${top}%; --dx: ${[-14, 10, -4, 16, -18, 6, -8][i]}px; --s: ${[1, .6, .85, .5, 1.1, .7, .55][i]}; --d: ${i * 0.17}s`}>
-          <path d="M12 0c.9 6.6 4.5 10.2 12 12-7.5 1.8-11.1 5.4-12 12-.9-6.6-4.5-10.2-12-12 7.5-1.8 11.1-5.4 12-12z" />
-        </svg>
-      ))}
-    </div>
+    {/* The colour photo, let in through a mask that follows the logo (see BANDS). Before the
+        script runs, and without it, the whole photo is in colour. */}
+    <svg class="close__colour" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        {/* Over the whole photo, in its own pixels: the default region follows the line's own
+            box, which would cut the wide bands off above and below it. */}
+        <filter id="close-soft" filterUnits="userSpaceOnUse" x="-80" y="-80" width={W + 160} height={H + 160}><feGaussianBlur stdDeviation="12" /></filter>
+        <filter id="close-glow" filterUnits="userSpaceOnUse" x="-80" y="-80" width={W + 160} height={H + 160}><feGaussianBlur stdDeviation="16" /></filter>
+        <mask id="close-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width={W} height={H}>
+          {/* pathLength 1, so a dash of 1 is the whole line and the offset is how much of it
+              is still to be drawn: 0 here (all drawn), and the script takes over. */}
+          <g filter="url(#close-soft)">
+            {BANDS.map((band) => (
+              <path
+                transform={ON_PHOTO} d={LOGO_LINE} pathLength="1" fill="none" stroke="#fff"
+                stroke-width={band.width / SCALE} stroke-linecap="round" stroke-linejoin="round"
+                stroke-dasharray="1 1" stroke-dashoffset="0" data-close-band={band.lag}
+              />
+            ))}
+          </g>
+          <rect width={W} height={H} fill="#fff" opacity="1" data-close-full />
+        </mask>
+      </defs>
+      <image href={c.texture.src} width={W} height={H} preserveAspectRatio="none" mask="url(#close-reveal)" />
+      {/* The light itself: a short stretch of the logo's line glows where the colour is
+          arriving, so the colour is seen to start from the logo. Hidden until the script runs. */}
+      <g class="close__glow" visibility="hidden" data-close-glow>
+        <path transform={ON_PHOTO} d={LOGO_LINE} pathLength="1" fill="none" stroke="#FFD98A" stroke-width={90 / SCALE} stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 2" filter="url(#close-glow)" />
+        <path transform={ON_PHOTO} d={LOGO_LINE} pathLength="1" fill="none" stroke="#FFF6DC" stroke-width={50 / SCALE} stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 2" filter="url(#close-glow)" />
+      </g>
+    </svg>
   </div>
 </section>
+</div>
 
 <style>
+  /* Large screens: the track is taller than the section by --hold, and the section sticks
+     with its foot on the bottom of the screen (--close-h is its height, set by the script).
+     So once the photo is fully in view the page holds there for --hold of scrolling, and
+     that scrolling brings the colour in. Smaller screens: no hold, the page scrolls on. */
+  @media (min-width: 1025px) {
+    :global(html.js) .close-track { --hold: 120vh; height: calc(var(--close-h, 100vh) + var(--hold)); }
+    :global(html.js) .close-track .close { position: sticky; top: calc(100vh - var(--close-h, 100vh)); }
+  }
   .close {
     --pad: clamp(96px, 14vw, 200px);
     /* Same side gutter as the sections above. */
@@ -57,32 +117,12 @@ const words = c.headline.split(' ');
   /* Full-width artwork strip under the text, at the image's own 16:5 ratio
      (nothing cropped): bleeds past the section padding to the page edges. */
   .close__art {
-    /* --p: how far the colour has swept across, 0 to 1. Colour by default; the script takes over. */
-    --p: 1;
     position: relative;
     margin: clamp(40px, 6vw, 80px) calc(-1 * var(--gutter)) 0;
   }
   .close__art :global(.close__bw img) { filter: grayscale(1) contrast(1.05); }
-  .close__colour { position: absolute; inset: 0; clip-path: inset(0 calc((1 - var(--p)) * 100%) 0 0); }
-  .close__spark {
-    position: absolute; top: 0; bottom: 0; left: calc(var(--p) * 100%); width: 0;
-    opacity: 0; transition: opacity .3s ease; pointer-events: none;
-  }
-  .close__art.is-sweeping .close__spark { opacity: 1; }
-  .close__spark::before {
-    content: ''; position: absolute; top: 0; bottom: 0; left: -1px; width: 2px;
-    background: linear-gradient(to bottom, transparent, #fff 15%, #FFE9A8 50%, #fff 85%, transparent);
-    box-shadow: 0 0 14px 3px rgba(255, 240, 190, .85), 0 0 46px 12px rgba(255, 220, 140, .45);
-  }
-  .close__star {
-    position: absolute; top: var(--top); left: var(--dx); width: 26px; height: 26px; max-width: none; margin: -13px 0 0 -13px;
-    fill: #fff; filter: drop-shadow(0 0 6px rgba(255, 233, 168, .95));
-    animation: close-twinkle 1.1s ease-in-out var(--d) infinite;
-  }
-  @keyframes close-twinkle {
-    0%, 100% { opacity: 0; transform: scale(calc(var(--s) * .3)) rotate(0deg); }
-    50% { opacity: 1; transform: scale(var(--s)) rotate(45deg); }
-  }
+  .close__colour { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .close__glow { mix-blend-mode: screen; }
   .close__social { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: clamp(28px, 4vw, 48px); }
   .close__social-label { margin: 0; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--a-tea); }
   .close__social ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -104,7 +144,6 @@ const words = c.headline.split(' ');
   .close__credit { margin: clamp(32px, 4vw, 56px) 0 0; font-size: 14px; letter-spacing: .08em; color: var(--a-tea); }
   @media (prefers-reduced-motion: reduce) {
     .close__word > span { transform: none; transition: none; }
-    .close__spark { display: none; }
     .close__social a { transition: none; }
   }
 </style>
@@ -122,24 +161,66 @@ const words = c.headline.split(' ');
     }
   }
 
-  // Colour sweeps across the last photo as it travels up the screen. It follows the scroll,
-  // so it stays on for reduced motion; only the twinkling sparkle is dropped there (in CSS).
+  // The logo brings colour to the last photo as it travels up the screen. It follows the
+  // scroll, so it stays on for reduced motion.
   const art = document.querySelector<HTMLElement>('[data-close-art]');
   if (art) {
+    const bands = Array.from(art.querySelectorAll<SVGPathElement>('[data-close-band]'));
+    const full = art.querySelector<SVGRectElement>('[data-close-full]');
+    const glow = art.querySelector<SVGGElement>('[data-close-glow]');
+    const GLOW = 0.1; // the lit stretch, as a share of the line (the dash length in the markup)
+    /** p: 0 (all black and white) to 1 (all colour). */
+    const paint = (p: number) => {
+      // The tip runs on past the end of the line, so the widest band has reached it by the end.
+      const tip = p * 1.55;
+      bands.forEach((band) => {
+        const drawn = Math.min(Math.max(tip - Number(band.dataset.closeBand), 0), 1);
+        band.setAttribute('stroke-dashoffset', (1 - drawn).toFixed(4));
+        // A round cap still paints a dot at the start of an undrawn line: hide it until it starts.
+        band.setAttribute('visibility', drawn > 0 ? 'visible' : 'hidden');
+      });
+      // The lit stretch ends at the tip, and is gone once the tip has run off the end.
+      if (glow) {
+        const on = p > 0 && tip < 1 + GLOW;
+        glow.setAttribute('visibility', on ? 'visible' : 'hidden');
+        // Grows out of the line's start, then travels: [tip - GLOW, tip], kept on the line.
+        const from = Math.max(tip - GLOW, 0);
+        const len = Math.max(Math.min(tip, 1) - from, 0);
+        glow.querySelectorAll('path').forEach((path) => {
+          path.setAttribute('stroke-dasharray', `${len.toFixed(4)} 2`);
+          path.setAttribute('stroke-dashoffset', (-from).toFixed(4));
+        });
+      }
+      // The far corners, which no band reaches: the whole photo comes up over the last stretch.
+      full?.setAttribute('opacity', Math.min(Math.max((p - 0.86) / 0.14, 0), 1).toFixed(3));
+    };
+    const track = document.querySelector<HTMLElement>('[data-close-track]');
+    const section = track?.querySelector<HTMLElement>('.close') ?? null;
+    // The section's height, for the sticky offset that rests its foot on the bottom of the screen.
+    const measure = () => { if (track && section) track.style.setProperty('--close-h', `${section.offsetHeight}px`); };
+    measure();
+    if (section && 'ResizeObserver' in window) new ResizeObserver(() => { measure(); request(); }).observe(section);
     let ticking = false;
     const update = () => {
       ticking = false;
       const vh = window.innerHeight;
       const r = art.getBoundingClientRect();
-      // Starts only once the whole photo is on screen. Ends when its top reaches the upper
-      // fifth of the screen, or at the bottom of the page if it can't scroll that far.
+      // Large screens: the section is held at the foot of its track (see the CSS). Colour
+      // comes in over exactly that hold: from the moment the section's foot meets the
+      // bottom of the screen until the track has run out.
+      const hold = track && section ? track.offsetHeight - section.offsetHeight : 0;
+      if (track && hold > 1) {
+        paint(Math.min(Math.max(1 - (track.getBoundingClientRect().bottom - vh) / hold, 0), 1));
+        return;
+      }
+      // Otherwise: starts only once the whole photo is on screen. Ends when its top reaches
+      // the upper fifth of the screen, or at the bottom of the page if it can't scroll that far.
       const start = vh - r.height;
       const maxScroll = document.documentElement.scrollHeight - vh;
       const lowestTop = r.top - (maxScroll - window.scrollY);
       const end = Math.min(start - 1, Math.max(vh * 0.2, lowestTop));
       const p = Math.min(Math.max((start - r.top) / (start - end), 0), 1);
-      art.style.setProperty('--p', p.toFixed(4));
-      art.classList.toggle('is-sweeping', p > 0 && p < 1);
+      paint(p);
     };
     const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
     window.addEventListener('scroll', request, { passive: true });

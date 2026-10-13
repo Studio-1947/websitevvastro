@@ -2,7 +2,7 @@
 /**
  * The logo scene: a huge aangan wordmark with four cards arranged around it,
  * two above and two below, none of them touching it. The two below tuck into
- * the open ground the wordmark leaves: under the peaks on the left and under
+ * the open ground the wordmark leaves: under the "Aan" on the left and under
  * the "an" on the right. Three sets of cards take turns on the logo: the
  * story's chapters, the loop (homestay, driver, cafe, traveller), and a day
  * with aangan (four stops, each with a clock set to its hour and shaded like
@@ -32,8 +32,8 @@
  *   together. Then they fold back into bags on the roof and the Sumo drives off.
  * - The loop is the traveller's journey, in the order they meet everyone. A
  *   small traveller walks in at the start of the line; the Sumo pulls up and
- *   carries them over the peaks (the driver); they get out at the logo's house
- *   and its doorway lights up (the homestay); they walk on to the end of the
+ *   carries them over the peak (the driver); they get out in the middle of the
+ *   word (the homestay); they walk on to the end of the
  *   line, where a cup is steaming (the cafe). Each card opens at its moment.
  * - In the day the sun does the jeep's job: it rises on the left, arcs over the
  *   logo and sets on the right, bringing in each stop as it passes. The frame's
@@ -46,14 +46,12 @@
  * never left halfway. A Skip link in the corner jumps past the whole scene.
  *
  * On smaller screens there is no room for four cards around the logo, so the
- * scene becomes a strip. On phones, one logo panel moves from photo to photo:
- * it lands on the top of the card's photo, drops its own colour so the photo is
- * its background, and scrolls with the card. A cutout of the people in each photo
- * lies over the logo, so it passes behind them instead of across their faces. Tablet layouts retain the
- * separate sticky panel above the cards. The
+ * scene becomes a strip: the logo in a panel, the cards in a column. On tablets the
+ * panel pins under the header, above the cards. On phones it is a bar that stays at
+ * the bottom of the screen and takes no room, so the cards are laid out untouched. The
  * strip's logo follows the card you are reading: the Sumo drops a bag at each
  * chapter and drives off; the traveller makes the same journey as on wide
- * screens (walk in, ride, the lit doorway, the cup); a small sun crosses for the
+ * screens (walk in, ride, the cup); a small sun crosses for the
  * day's stops. The panel turns from paper to green, and through the day's sky.
  *
  * Without JS the logo sits on top and the sets follow as plain grids of cards.
@@ -63,19 +61,7 @@ import type { StoryContent } from '../StoryScroll/content';
 import type { LoopContent } from '../ConnectionLoop/content';
 import type { DayContent } from '../DayTimeline/content';
 
-import { existsSync } from 'node:fs';
-
 interface Props { story: StoryContent; loop: LoopContent; day: DayContent }
-/**
- * A photo's cutout: the same picture with everything but the people transparent, in
- * cutouts/ beside it (made by scripts/aangan-cutouts.py). On phones it lies over the
- * logo, so the logo passes behind the people. None on disk, none rendered.
- */
-const cutoutOf = (src?: string) => {
-  if (!src) return undefined;
-  const path = src.replace(/\/([^/]+)$/, '/cutouts/$1');
-  return existsSync(`public${path}`) ? path : undefined;
-};
 const { story, loop, day } = Astro.props;
 
 /**
@@ -93,31 +79,33 @@ const roadY = (x: number) => ROAD[Math.round(x / 4)][1];
 const CUP = { x: 1092, y: roadY(1092) };
 
 interface Spot { place: string; flip: boolean; stem: { x: number; y: number }; when?: number }
+/** A pin on the logo's stroke at x: just inside its top edge. */
+const pin = (x: number) => ({ x, y: Math.round(roadY(x) + 10) });
 const ARRANGEMENTS: Spot[][] = [
   // The story: out at the corners, zigzagging up, down, up, down along the logo.
   [
-    { place: 'tl', flip: false, stem: { x: 140, y: 50 } }, // the first peak
-    { place: 'bl', flip: false, stem: { x: 238, y: 138 } }, // the valley
-    { place: 'tr', flip: false, stem: { x: 838, y: 56 } }, // the top of the "a"
-    { place: 'br', flip: false, stem: { x: 1070, y: 153 } }, // the trailing end
+    { place: 'tl', flip: false, stem: pin(185) }, // the peak of the "A"
+    { place: 'bl', flip: false, stem: { x: 292, y: 138 } }, // the foot of the "A"
+    { place: 'tr', flip: false, stem: pin(838) }, // the top of the last "n"
+    { place: 'br', flip: false, stem: { x: 1075, y: 164 } }, // the trailing end
   ],
   // The loop: the traveller's journey along the line. They arrive at its start, ride over the
-  // high peak, stay at the house, and end at the cafe where the line runs out.
+  // peak, stay in the middle of the word, and end at the cafe where the line runs out.
   [
-    { place: 'bl', flip: true, stem: { x: 44, y: 157 } }, // traveller: where the line starts
-    { place: 'tl', flip: true, stem: { x: 345, y: 16 } }, // driver: the high peak
-    { place: 'th', flip: true, stem: { x: 600, y: roadY(600) + 8 } }, // homestay: the eave of the house
-    { place: 'br', flip: true, stem: { x: 1070, y: 153 } }, // cafe: the trailing end
+    { place: 'bl', flip: true, stem: { x: 40, y: 155 } }, // traveller: where the line starts
+    { place: 'tl', flip: true, stem: pin(185) }, // driver: the peak
+    { place: 'th', flip: true, stem: pin(560) }, // homestay: the top of the "g"
+    { place: 'br', flip: true, stem: { x: 1075, y: 164 } }, // cafe: the trailing end
   ],
   // The day: the sun's path. Morning low on the left, late morning up on the left, afternoon
   // top centre (the sun is overhead), evening low on the right. `when`: how far along the logo
   // the sun is when the stop appears, where that is not its pin, so each arrives as the sky
-  // turns its colour: blue over the high peak, gold over the "a", night at the trailing end.
+  // turns its colour: blue over the peak, gold over the second "a", night at the trailing end.
   [
-    { place: 'bl', flip: false, stem: { x: 44, y: 157 } }, // where the line starts
-    { place: 'td-l', flip: false, stem: { x: 140, y: 50 }, when: 345 }, // the first peak
-    { place: 'td-c', flip: true, stem: { x: 688, y: 58 }, when: 760 }, // the top of the "g"
-    { place: 'br', flip: true, stem: { x: 1070, y: 153 } }, // the trailing end
+    { place: 'bl', flip: false, stem: { x: 40, y: 155 } }, // where the line starts
+    { place: 'td-l', flip: false, stem: pin(185), when: 345 }, // the peak
+    { place: 'td-c', flip: true, stem: pin(700), when: 760 }, // the top of the second "a"
+    { place: 'br', flip: true, stem: { x: 1075, y: 164 } }, // the trailing end
   ],
 ];
 const isAbove = (place: string) => place.startsWith('t');
@@ -190,7 +178,7 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
     <div class="court__frame" aria-hidden="true"></div>
     <div class="court__logo" aria-hidden="true">
       <svg viewBox={`0 0 ${LOGO.width} ${LOGO.height}`} fill="none" xmlns="http://www.w3.org/2000/svg">
-        {LOGO.paths.map((d) => <path class="court__mark" d={d} />)}
+        {LOGO.paths.map((d) => <path class="court__mark" fill-rule="evenodd" clip-rule="evenodd" d={d} />)}
         {/* A Tata Sumo, heading right, drawn with the ground under its wheels at y = 0 and x = 0
             midway between them; the script places and tilts it along the road. */}
         <g class="court__jeep" data-court-jeep>
@@ -235,8 +223,9 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
         </g>
       </svg>
       <span class="court__strip-sun"></span>
+      {/* Phones: how far through each of the three sets you are, along the foot of the bar. */}
+      <span class="court__bar-progress">{groups.map(() => <i></i>)}</span>
     </div>
-    <div class="court__logo-space" aria-hidden="true"></div>
 
     {groups.map((g, gi) => (
       <div class="court__group" data-court-group={gi} data-court-sky={g.sky ? '' : undefined} data-court-journey={g.journey ? '' : undefined}>
@@ -264,12 +253,10 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
               style={c.clock && `--h: ${c.clock.hourDeg}deg; --m: ${c.clock.minuteDeg}deg`}
             >
               <div class="court__media">
-                <div class="court__logo-dock" aria-hidden="true"></div>
                 <img
                   class="court__img" src={c.image.src} alt={c.image.alt}
                   width={c.image.width} height={c.image.height} loading="lazy" decoding="async"
                 />
-                {cutoutOf(c.image.src) && <img class="court__cutout" src={cutoutOf(c.image.src)} alt="" aria-hidden="true" loading="lazy" decoding="async" />}
               </div>
               <div class="court__body">
                 <div class="court__top">
@@ -308,7 +295,17 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
         })}
       </div>
     ))}
-    <button class="court__skip" type="button" data-court-skip>Skip <span aria-hidden="true">&darr;</span></button>
+    {/* How far through the scene you are (one segment per set), and a way on that does not
+        depend on the wheel: Previous and Next go one stop, Skip leaves the scene. The arrow is the
+        site's own (see the Say Hello button); Skip's points down. */}
+    <div class="court__progress" aria-hidden="true">
+      {groups.map(() => <span class="court__progress-seg"><i></i></span>)}
+    </div>
+    <div class="court__nav">
+      <button class="court__prev" type="button" data-court-prev disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Previous</span></button>
+      <button class="court__next" type="button" data-court-next><span>Next</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="court__skip" type="button" data-court-skip><span>Skip</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
   </div>
 </section>
 
@@ -331,9 +328,8 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
   /* Devanagari needs its own face (the site font has none) and more line height. */
   .court__heading--indic { font-family: "Noto Sans Devanagari", var(--a-font-display); line-height: 1.35; }
   .court__sub { margin: 2px 0 0; font-size: clamp(15px, 1.2vw, 18px); color: var(--a-tea); }
-  .court__stem, .court__frame, .court__wash, .court__sky, .court__jeep, .court__strip-sun, .court__walker, .court__cup, .court__skip { display: none; }
+  .court__stem, .court__frame, .court__wash, .court__sky, .court__jeep, .court__strip-sun, .court__walker, .court__cup, .court__nav, .court__progress, .court__bar-progress { display: none; }
   .court__cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2.2vw, 40px); }
-  .court__logo-space, .court__logo-dock, .court__cutout { display: none; }
   .court__media { display: contents; }
 
   /* The site's card (see .work-card on /our-work): photo edge to edge, text below. */
@@ -381,7 +377,8 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
     /* Headroom for the Sumo on the highest peak: it stands about an eighth of the logo's width tall. */
     padding: calc(min(100%, 596px) * .125 + 8px) 18px 12px;
     border: 1px solid rgba(154, 106, 58, .3); border-radius: 22px;
-    background-color: #F7F1E6; box-shadow: 0 16px 30px -18px rgba(42, 31, 23, .5);
+    --panel: #F7F1E6;
+    background-color: var(--panel); box-shadow: 0 16px 30px -18px rgba(42, 31, 23, .5);
     transition: background-color .6s ease, border-color .6s ease;
   }
   @media (max-width: 760px) {
@@ -391,11 +388,11 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
   .court.is-strip .court__mark { transition: fill .6s ease; }
   .court.is-strip .court__jeep { display: block; opacity: var(--jeep, 1); transition: opacity .3s ease; }
   /* The panel takes each set's colour, and the sky of each of the day's stops. */
-  .court.is-strip[data-strip='1'] .court__logo { background-color: #E6EDDA; }
-  .court.is-strip[data-sky='dawn'] .court__logo { background-color: #FBDCC4; }
-  .court.is-strip[data-sky='morning'] .court__logo { background-color: #CFE8F7; }
-  .court.is-strip[data-sky='afternoon'] .court__logo { background-color: #F8E2A6; }
-  .court.is-strip[data-sky='dusk'] .court__logo { background-color: #2B2A57; border-color: #2B2A57; }
+  .court.is-strip[data-strip='1'] .court__logo { --panel: #E6EDDA; }
+  .court.is-strip[data-sky='dawn'] .court__logo { --panel: #FBDCC4; }
+  .court.is-strip[data-sky='morning'] .court__logo { --panel: #CFE8F7; }
+  .court.is-strip[data-sky='afternoon'] .court__logo { --panel: #F8E2A6; }
+  .court.is-strip[data-sky='dusk'] .court__logo { --panel: #2B2A57; border-color: #2B2A57; }
   .court.is-strip[data-sky='dusk'] .court__mark { fill: #FBF4E6; }
   /* The day's sun crosses the panel (--sun-f, 0 to 1 across the logo; --sun-top in px), and is gone by dusk. */
   .court.is-strip[data-strip='2'] .court__strip-sun {
@@ -407,54 +404,47 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
   }
   .court.is-strip[data-sky='dusk'] .court__strip-sun { opacity: 0; }
 
-  /* Phones: the logo lands on the photo itself. Nothing is reserved for it, so a card
-     without the logo is just its photo and text, and nothing shifts when it comes or goes. */
-  @media (max-width: 600px) {
-    .court.is-strip .court__stage { position: relative; }
-    .court.is-strip .court__logo-space { display: block; height: calc(var(--mobile-panel-height, 142px) + 28px); }
+  /* Phones: the logo is a bar that stays at the bottom of the screen for as long as the
+     scene is on it. It takes no room of its own (see its margin), so the cards and
+     their text are laid out exactly as if it were not there; it rides over them. */
+  @media (max-width: 760px) {
+    .court.is-strip .court__stage { --bar-h: 104px; }
+    /* A compact pill of frosted glass, tinted with the set's colour: the page shows softly
+       through it, so it reads as floating over the cards and not as a slab on top of them. */
     .court.is-strip .court__logo {
-      position: absolute; top: 0; left: 0;
-      width: var(--mobile-logo-width, calc(100% - 40px)); box-sizing: border-box;
-      padding-top: calc(var(--mobile-logo-width, 350px) * .125 + 8px);
-      margin: 0; pointer-events: none; will-change: transform;
-      transform: translate3d(var(--mobile-logo-x, 20px), var(--mobile-logo-y, 56px), 0);
-      transition: background-color .45s ease, border-color .45s ease, border-radius .45s ease, box-shadow .45s ease, padding .45s ease;
+      /* Sticky, held this far down from the top of the screen: its own height, and a
+         small margin, up from the bottom. */
+      top: calc(100vh - var(--bar-h) - 14px);
+      top: calc(100dvh - var(--bar-h) - 14px);
+      height: var(--bar-h); box-sizing: border-box;
+      width: min(100%, 340px); margin-inline: auto;
+      /* Pulled up by its own height, so what follows starts where it would have anyway. (A
+         negative bottom margin would do the same, but lets the bar slide out past the end.) */
+      margin-top: calc(-1 * var(--bar-h)); margin-bottom: 0;
+      padding: 34px 22px 0;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, .6);
+      background-color: color-mix(in srgb, var(--panel) 80%, transparent);
+      -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);
+      box-shadow: 0 18px 40px -14px rgba(42, 31, 23, .45), 0 2px 8px rgba(42, 31, 23, .12), inset 0 1px 0 rgba(255, 255, 255, .7);
+      /* Hidden until the scene itself is on screen (the script adds .has-bar), so it does not
+         show over the end of the hero above. Without the script it is simply there. */
+      transition: background-color .6s ease, border-color .6s ease, opacity .35s ease, translate .45s cubic-bezier(.2, .8, .2, 1), scale .45s cubic-bezier(.2, .8, .2, 1);
     }
-    .court.is-strip .court__logo svg, .court.is-strip .court__strip-sun { position: relative; z-index: 1; }
-    .court.is-strip[data-strip='2'] .court__strip-sun { position: absolute; }
-    .court.is-strip .court__card { overflow: visible; }
-    /* The photo scrolls with its card like any other; the logo rides on it. No z-index
-       here: the cutout below has to stack against the logo, which lives in the stage. */
-    .court.is-strip .court__media {
-      display: block; position: relative; flex: none;
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden;
+    .court.is-strip[data-sky='dusk'] .court__logo { border-color: rgba(255, 255, 255, .22); box-shadow: 0 18px 40px -14px rgba(10, 10, 40, .6), inset 0 1px 0 rgba(255, 255, 255, .25); }
+    :global(html.js) .court.is-strip:not(.has-bar) .court__logo { opacity: 0; translate: 0 28px; scale: .94; pointer-events: none; }
+    .court.is-strip .court__logo svg { max-width: 216px; }
+    .court.is-strip[data-strip='2'] .court__strip-sun { width: 15px; height: 15px; margin-top: -4px; box-shadow: 0 0 0 4px rgba(255, 233, 166, .35), 0 0 16px 6px rgba(255, 214, 107, .55); }
+    /* Three short segments along the foot of the pill: one per set, filling as you read it. */
+    .court.is-strip .court__bar-progress {
+      display: flex; gap: 5px; position: absolute; left: 50%; bottom: 9px; translate: -50% 0; width: 84px;
     }
-    /* The people, laid exactly over themselves and above the logo (z-index 5). */
-    .court.is-strip .court__cutout {
-      display: block; position: absolute; inset: 0; z-index: 6;
-      width: 100%; height: 100%; object-fit: cover; object-position: 50% 80%;
-      pointer-events: none;
-    }
-    /* Taller photo, weighted to its lower part, so the scene stays in view under the logo. */
-    .court.is-strip .court__img { aspect-ratio: 1; object-position: 50% 80%; }
-    /* Where the logo lands: the top of the photo. Takes no room. */
-    .court.is-strip .court__logo-dock {
-      display: block; position: absolute; top: 0; left: 0; right: 0;
-      height: var(--mobile-panel-height, 142px); pointer-events: none;
-    }
-    .court.is-strip .court__body { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
-
-    /* Merged: the panel's own colour goes, and the photo becomes its background. The
-       panel draws nothing of its own, so it has no edge to show against the photo; a
-       shadow that hugs the strokes keeps the pale logo readable on any picture. */
-    .court.is-strip .court__logo.is-merged {
-      background-color: transparent; border-color: transparent; box-shadow: none;
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-      /* The logo runs the photo's full width. */
-      padding-left: 6px; padding-right: 6px;
-    }
-    .court.is-strip .court__logo.is-merged .court__mark { fill: #FFFBF2; }
-    .court.is-strip .court__logo.is-merged svg { filter: drop-shadow(0 1px 2px rgba(28, 20, 14, .55)) drop-shadow(0 3px 14px rgba(28, 20, 14, .5)); }
+    .court__bar-progress i { flex: 1; height: 3px; border-radius: 3px; overflow: hidden; background: color-mix(in srgb, var(--a-ink) 16%, transparent); }
+    .court__bar-progress i::after { content: ''; display: block; height: 100%; border-radius: 3px; background: var(--a-accent); transform-origin: left; transform: scaleX(var(--p, 0)); }
+    .court.is-strip[data-sky='dusk'] .court__bar-progress i { background: rgba(255, 255, 255, .25); }
+    .court.is-strip[data-sky='dusk'] .court__bar-progress i::after { background: #F6C445; }
+    /* Room after the last card, so the bar comes to rest below it and not over it. */
+    .court.is-strip .court__stage::after { content: ''; display: block; height: calc(var(--bar-h) + 28px); }
   }
 
   /* ---------- Live: one pinned scene, cards above and below the logo ---------- */
@@ -471,9 +461,9 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
     /* The bottom cards start 182 wordmark units down, just under the lowest stroke above them. */
     --tuck: 182;
     /* Huge: nearly the full width, unless the screen is too short to fit a card above and below. */
-    --logo-w: min(100vw - 2 * var(--side) - 24px, 1800px, calc((100vh - var(--top) - 2 * var(--card-h) - var(--gap) - 38px) / var(--tuck) * 1101));
-    --logo-h: calc(var(--logo-w) * 0.2434);
-    --u: calc(var(--logo-w) / 1101); /* one wordmark unit, in px */
+    --logo-w: min(100vw - 2 * var(--side) - 24px, 1800px, calc((100vh - var(--top) - 2 * var(--card-h) - var(--gap) - 38px) / var(--tuck) * 1109));
+    --logo-h: calc(var(--logo-w) * 0.2417);
+    --u: calc(var(--logo-w) / 1109); /* one wordmark unit, in px */
     --logo-top: calc(var(--top) + var(--card-h) + var(--gap));
     --logo-left: calc(50% - var(--logo-w) / 2);
     position: sticky; top: 0; height: 100vh; max-width: none; margin: 0; padding: 0; overflow: hidden;
@@ -555,9 +545,7 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
     0%, 100% { opacity: .2; translate: 0 2px; }
     50% { opacity: .9; translate: 0 -2px; }
   }
-  /* The homestay's doorway (the logo's second shape) lights up when the traveller arrives. */
   .court.is-live path.court__mark { transition: fill .5s ease; }
-  .court:is(.is-live, .is-strip) .court__logo.is-home path.court__mark:nth-of-type(2) { fill: #F6C445; filter: drop-shadow(0 0 7px rgba(246, 196, 69, .95)); }
 
   /* The Sumo: white, as they are in the hills, with a red stripe. */
   .court__sumo-body { fill: #FBF8F2; stroke: var(--a-ink); stroke-width: 1.6; stroke-linejoin: round; }
@@ -582,16 +570,38 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
   .court__sumo-bag--4 { fill: #3E6B8A; }
 
   .court.is-live .court__group + .court__group, .court.is-live .court__group + .court__group .court__head { margin-top: 0; }
-  /* Skip: out of the scene, to whatever follows it. */
-  .court.is-live .court__skip {
-    all: unset; box-sizing: border-box; display: block; position: absolute; z-index: 3; cursor: pointer;
-    top: calc(var(--header) + 14px); right: calc(var(--frame) + 22px);
-    padding: 6px 14px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
-    font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink);
-    transition: background .25s ease;
+  /* Progress: a thin bar across the top of the scene, one segment per set, filling as you go. */
+  .court.is-live .court__progress {
+    display: flex; gap: 6px; position: absolute; z-index: 3;
+    top: calc(var(--header) + 4px); left: calc(var(--frame) + 22px); right: calc(var(--frame) + 22px);
   }
-  .court.is-live .court__skip:hover { background: color-mix(in srgb, var(--ink) 12%, transparent); }
-  .court.is-live .court__skip:focus-visible { outline: 3px solid var(--a-accent); outline-offset: 3px; }
+  .court__progress-seg { flex: 1; height: 3px; border-radius: 3px; overflow: hidden; background: color-mix(in srgb, var(--ink) 16%, transparent); }
+  .court__progress-seg i { display: block; height: 100%; border-radius: 3px; background: var(--a-accent); transform-origin: left; transform: scaleX(var(--p, 0)); }
+  /* Next and Skip: on to the next stop, or out of the scene to whatever follows it. */
+  .court.is-live .court__nav {
+    display: flex; gap: 8px; position: absolute; z-index: 3;
+    top: calc(var(--header) + 18px); right: calc(var(--frame) + 22px);
+  }
+  /* One fixed height, text and icon each a box of their own line height, so the two sit
+     on one centre line whatever the font's own ascent and descent. */
+  .court__prev, .court__next, .court__skip {
+    all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+    height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+    font-size: 13px; line-height: 1; letter-spacing: .06em; text-transform: uppercase; color: var(--ink);
+    transition: background .25s ease, color .25s ease, border-color .25s ease, opacity .25s ease;
+  }
+  /* The tracking adds a space after the last letter: take it back so the gap to the icon is even. */
+  :is(.court__prev, .court__next, .court__skip) span { display: block; margin-right: -.06em; padding-top: 1px; }
+  :is(.court__prev, .court__next, .court__skip) svg { display: block; flex: none; transition: transform .25s ease; }
+  .court__next { background: var(--a-accent); border-color: var(--a-accent); color: var(--a-accent-ink); }
+  .court__next:hover svg { transform: translateX(3px); }
+  .court__prev svg { rotate: 180deg; }
+  .court__prev:hover:not(:disabled) svg { transform: translateX(3px); } /* rotated: this moves it left */
+  .court__prev:disabled { opacity: .35; cursor: default; }
+  .court__skip svg { rotate: 90deg; }
+  :is(.court__prev, .court__skip):hover:not(:disabled) { background: color-mix(in srgb, var(--ink) 12%, transparent); }
+  :is(.court__prev, .court__next, .court__skip):focus-visible { outline: 3px solid var(--a-accent); outline-offset: 3px; }
+  .court__next:focus-visible { outline-color: var(--ink); }
 
   /* The two headings share one spot and trade places with the scroll. */
   .court.is-live .court__head {
@@ -734,15 +744,15 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
   .court.is-live .court__card--flip .court__img { order: 2; }
 
   /* Every card above the logo stands a gap clear of its top; every card below tucks into the
-     wordmark's open ground, clear of every stroke: left of the "g" (under the peaks and the
-     house), or right of it (under the "an"). --edge-l is where that left ground ends. */
+     wordmark's open ground, clear of every stroke: left of the "g" (under the "Aan"),
+     or right of it (under the "an"). --edge-l is where that left ground ends. */
   .court.is-live .court__card { --edge-l: calc(var(--logo-left) + 575 * var(--u)); }
   .court.is-live :is(.court__card--tl, .court__card--tr, .court__card--tc-l, .court__card--tc-r, .court__card--td-l, .court__card--td-c) {
     --dir: -1; width: var(--card-w); bottom: calc(100% - var(--logo-top) + var(--gap)); transform-origin: var(--ox, 50%) 100%;
   }
   .court.is-live :is(.court__card--bl, .court__card--bl-in, .court__card--br) { --dir: 1; top: calc(var(--logo-top) + var(--tuck) * var(--u)); transform-origin: var(--ox, 50%) 0; }
 
-  /* The journey's homestay: top right, pulled in so the house's eave is under it. */
+  /* The journey's homestay: top right, pulled in over the middle of the word. */
   .court.is-live .court__card--th { --dir: -1; width: var(--card-w); bottom: calc(100% - var(--logo-top) + var(--gap)); transform-origin: var(--ox, 50%) 100%; left: min(calc(50% + 20px), calc(100% - var(--side) - var(--card-w))); --tilt: -1deg; }
 
   /* The story: out at the corners. The left pair share a left edge, the right pair a right edge. */
@@ -753,7 +763,7 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
 
   /* The loop: gathered in. The top pair meet near the middle (where there is room: on a
      narrower screen they slide back out to the sides), and the bottom-left card moves in
-     against the house. */
+     toward the middle. */
   .court.is-live .court__card { --tc-r: min(calc(50% + 60px), calc(100% - var(--side) - var(--card-w))); }
   .court.is-live .court__card--tc-l { left: max(var(--side), calc(var(--tc-r) - 20px - var(--card-w))); --tilt: .9deg; }
   .court.is-live .court__card--tc-r { left: var(--tc-r); --tilt: -1.1deg; }
@@ -787,7 +797,7 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
     }));
     const jeep = court.querySelector<SVGGElement>('[data-court-jeep]');
     const road: [number, number][] = JSON.parse(court.dataset.road ?? '[]');
-    const LOGO_W = 1101;
+    const LOGO_W = 1109;
     // The pinned scene needs room for two cards across, and for a card above and below the logo.
     const roomy = window.matchMedia('(min-width: 1200px) and (min-height: 680px)');
     const clamp = (v: number) => Math.min(Math.max(v, 0), 1);
@@ -879,7 +889,7 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
      * (0 to 1) through its travelling. `pins`: the four stops, in order.
      */
     const journeyAt = (k: number, go: number, pins: number[]) => {
-      const park = pins[2] - 46; // where the Sumo lets them out, by the house
+      const park = pins[2] - 46; // where the Sumo lets them out, by the homestay's pin
       if (k === 0) {
         // Walks in to the start of the line.
         return { walkerX: -40 + (pins[0] + 40) * ease(go), walkerOn: 1, sumoX: -150, sumoOn: 0 };
@@ -891,7 +901,7 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
         return { walkerX: pins[0], walkerOn: ride > 0 ? 0 : 1, sumoX, sumoOn: 1 };
       }
       if (k === 2) {
-        // On to the house, where they get out.
+        // On to the homestay's pin, where they get out.
         return { walkerX: pins[2], walkerOn: go >= 1 ? 1 : 0, sumoX: pins[1] + (park - pins[1]) * ease(go), sumoOn: 1 };
       }
       // The Sumo waits; they walk on to the cafe at the end of the line.
@@ -1056,9 +1066,11 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
       const r = court.getBoundingClientRect();
       return roomy.matches && r.top <= 1 && r.bottom >= window.innerHeight - 1;
     };
-    const STEP_MS = 1100;
+    const STEP_MS = 850;
     let stepping = false;
     let lastWheel = 0;
+    let lastAbs = 0;
+    let stepEnd = 0;
     /** Carry the page to `y`, in the site's own smooth scroll where it is running. */
     const glideTo = (y: number, done: () => void) => {
       const lenis = getLenis();
@@ -1082,18 +1094,26 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
       const next = dir > 0 ? ys.find((y) => y > here + 8) : [...ys].reverse().find((y) => y < here - 8);
       if (next === undefined) return false;
       stepping = true;
-      glideTo(next, () => { window.setTimeout(() => { stepping = false; }, 120); });
+      glideTo(next, () => { window.setTimeout(() => { stepping = false; stepEnd = performance.now(); }, 80); });
       return true;
     };
     // Capture, so the gesture is taken before the site's smooth scroll sees it.
     window.addEventListener('wheel', (e) => {
       if (e.ctrlKey || !pinned()) return;
+      // A sideways swipe is not ours.
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
       const now = performance.now();
-      // A trackpad sends one long stream per swipe: only its first event counts.
-      const fresh = now - lastWheel > 140;
+      const abs = Math.abs(e.deltaY);
+      // One swipe is one long stream of events, and on a Mac trackpad or Magic Mouse it
+      // coasts on for a second or more. A new gesture is either the first event after a
+      // pause, or the stream suddenly growing again while it was fading: a second swipe
+      // made before the first one's coasting has died away. Waiting for silence instead
+      // is what made a second swipe on a Mac seem ignored.
+      const fresh = now - lastWheel > 140 || (abs > lastAbs * 1.6 + 6 && now - stepEnd > 120);
       lastWheel = now;
+      lastAbs = abs;
       if (stepping || !fresh) { e.preventDefault(); e.stopPropagation(); return; }
-      if (Math.abs(e.deltaY) < 2) return;
+      if (abs < 2) return;
       if (step(e.deltaY > 0 ? 1 : -1)) { e.preventDefault(); e.stopPropagation(); }
     }, { passive: false, capture: true });
     window.addEventListener('keydown', (e) => {
@@ -1103,11 +1123,50 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
       if (!dir) return;
       if (stepping || step(e.key === ' ' && e.shiftKey ? -1 : dir)) e.preventDefault();
     });
-    court.querySelector('[data-court-skip]')?.addEventListener('click', () => {
+    const skip = () => {
       const r = court.getBoundingClientRect();
       stepping = true;
-      glideTo(r.bottom + window.scrollY - 90, () => { stepping = false; });
+      glideTo(r.bottom + window.scrollY - 90, () => { stepping = false; stepEnd = performance.now(); });
+    };
+    court.querySelector('[data-court-skip]')?.addEventListener('click', skip);
+    // Next: one stop on; after the last stop, out of the scene.
+    court.querySelector('[data-court-next]')?.addEventListener('click', () => {
+      if (stepping) return;
+      if (!step(1)) skip();
     });
+    // Previous: one stop back. Off while there is nothing before the first stop.
+    const prev = court.querySelector<HTMLButtonElement>('[data-court-prev]');
+    prev?.addEventListener('click', () => { if (!stepping) step(-1); });
+    // The progress bar: each segment fills over its own set's share of the scroll.
+    const segs = Array.from(court.querySelectorAll<HTMLElement>('.court__progress-seg'));
+    const progress = () => {
+      if (!roomy.matches) return;
+      const r = court.getBoundingClientRect();
+      const x = clamp(-r.top / Math.max(r.height - window.innerHeight, 1)) * span;
+      segs.forEach((seg, i) => {
+        const end = i + 1 < starts.length ? starts[i + 1] : span;
+        seg.style.setProperty('--p', clamp((x - starts[i]) / (end - starts[i])).toFixed(4));
+      });
+      if (prev) prev.disabled = !stops.some((stop) => scrollYOf(stop) < window.scrollY - 8);
+    };
+    // Phones: the bottom bar shows once the scene's first heading is properly on screen.
+    const barSegs = Array.from(court.querySelectorAll<HTMLElement>('.court__bar-progress i'));
+    const bar = () => {
+      if (roomy.matches) return;
+      court.classList.toggle('has-bar', stage.getBoundingClientRect().top < window.innerHeight - 220);
+      // Each segment fills as its set passes the middle of the screen.
+      const mid = window.innerHeight / 2;
+      sets.forEach((set, i) => {
+        const r = set.el.getBoundingClientRect();
+        barSegs[i]?.style.setProperty('--p', clamp((mid - r.top) / Math.max(r.height, 1)).toFixed(3));
+      });
+    };
+    window.addEventListener('scroll', bar, { passive: true });
+    window.addEventListener('resize', bar);
+    bar();
+    window.addEventListener('scroll', progress, { passive: true });
+    window.addEventListener('resize', progress);
+    progress();
 
     // ---- The strip (small screens): the Sumo follows the card being read ----
     const STRIP_SCALE = 2; // the logo is small there, so the Sumo is drawn larger against it
@@ -1151,65 +1210,6 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
       return { cur, sky: set.sky, journey: set.journey, pins, x, delivered, skyName: set.sky ? skyOf[cur][Math.max(reading, 0)] : '' };
     };
 
-    const mobile = window.matchMedia('(max-width: 600px)');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const logoSpace = court.querySelector<HTMLElement>('.court__logo-space')!;
-    const mobileCards = sets.flatMap(set => set.cards);
-    const docks = mobileCards.map(card => card.querySelector<HTMLElement>('.court__logo-dock')!);
-    let mobileOwner = -1;
-    let mobileY: number | null = null;
-    let transferOffset = 0;
-    let transferStart = 0;
-    const TRANSFER_MS = 420;
-
-    // Measure only when entering mobile or resizing, never during a scroll handoff.
-    const sizeMobileLogo = () => {
-      if (!mobile.matches || !logo) return;
-      stage.style.setProperty('--mobile-logo-width', `${docks[0].getBoundingClientRect().width}px`);
-      stage.style.setProperty('--mobile-panel-height', `${logo.getBoundingClientRect().height}px`);
-    };
-    const resetMobileLogo = () => {
-      mobileOwner = -1;
-      mobileY = null;
-      transferOffset = 0;
-      logo?.classList.remove('is-merged');
-    };
-    const moveMobileLogo = (now: number) => {
-      if (!mobile.matches || !logo) return false;
-      const stageRect = stage.getBoundingClientRect();
-      const home = logoSpace.getBoundingClientRect();
-      const cardRects = mobileCards.map(card => card.getBoundingClientRect());
-      const dockRects = docks.map(dock => dock.getBoundingClientRect());
-      const renderedTop = logo.getBoundingClientRect().top;
-      let owner = -1;
-      // The logo belongs to the lowest card whose photo has come well into view, so it
-      // leaves a photo as that photo scrolls away and glides down onto the next one.
-      cardRects.forEach((rect, i) => {
-        if (rect.top <= window.innerHeight * .62) owner = i;
-      });
-      const targetRect = owner < 0 ? home : dockRects[owner];
-      if (owner !== mobileOwner) {
-        transferOffset = mobileY === null ? 0 : renderedTop - targetRect.top;
-        transferStart = now;
-        mobileOwner = owner;
-      }
-      const progress = reducedMotion.matches ? 1 : clamp((now - transferStart) / TRANSFER_MS);
-      mobileY = targetRect.top + transferOffset * (1 - ease(progress));
-      // Once attached, follow the photo exactly. Only the
-      // transfer offset animates, so the logo never drifts against the image.
-      logo.classList.toggle('is-merged', owner >= 0);
-      stage.style.setProperty('--mobile-logo-y', `${mobileY - stageRect.top}px`);
-      stage.style.setProperty('--mobile-logo-x', `${targetRect.left - stageRect.left}px`);
-      // Match the photo's width every frame, so the logo can never sit narrower than it.
-      stage.style.setProperty('--mobile-logo-width', `${targetRect.width}px`);
-      if (owner >= 0) {
-        const group = Math.floor(owner / 4);
-        court.dataset.strip = String(group);
-        court.dataset.sky = skyOf[group][owner % 4];
-      }
-      return progress < 1 && Math.abs(transferOffset) > .1;
-    };
-
     let stripX: number | null = null;
     let stripSet = -1;
     let stripRunning = false;
@@ -1233,7 +1233,7 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
         placeSumo(actors.sumoX, STRIP_SCALE, null, 11);
         placeWalker(actors.walkerX, 2.6);
         stage.style.setProperty('--walker', String(actors.walkerOn));
-        // The door lights once they reach the house (the third card); the cup is out at the fourth.
+        // They are home at the third card; the cup is out at the fourth.
         logo?.classList.toggle('is-home', q >= 3);
         stage.style.setProperty('--cup', q >= 4 ? '1' : '0');
       } else {
@@ -1248,8 +1248,7 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
         logo.style.setProperty('--sun-f', f.toFixed(4));
         logo.style.setProperty('--sun-top', `${(40 - Math.sin(f * Math.PI) * 32).toFixed(1)}px`);
       }
-      const transferring = moveMobileLogo(now);
-      if (stripX === goal.x && !transferring) { stripRunning = false; return; }
+      if (stripX === goal.x) { stripRunning = false; return; }
       requestAnimationFrame(stripFrame);
     };
     const requestStrip = () => {
@@ -1277,11 +1276,9 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
       if (cupEl && cupAt) cupEl.setAttribute('transform', roomy.matches ? cupAt : `${cupAt} scale(2.2)`);
       shown = null;
       stripX = null;
-      resetMobileLogo();
       if (!roomy.matches) {
         rest();
         base.forEach((style, el) => { if (style) el.setAttribute('style', style); });
-        sizeMobileLogo();
         requestStrip();
       } else {
         delete court.dataset.strip;
@@ -1292,9 +1289,8 @@ const groups: { id: string; heading: string; lang?: string; sub?: string; closin
     };
     const onScroll = () => (roomy.matches ? request() : requestStrip());
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => { if (roomy.matches) layout(); else sizeMobileLogo(); onScroll(); });
-    window.addEventListener('load', () => { if (roomy.matches) layout(); else sizeMobileLogo(); onScroll(); });
-    mobile.addEventListener('change', () => { resetMobileLogo(); sizeMobileLogo(); onScroll(); });
+    window.addEventListener('resize', () => { if (roomy.matches) layout(); onScroll(); });
+    window.addEventListener('load', () => { if (roomy.matches) layout(); onScroll(); });
     roomy.addEventListener('change', mode);
     mode();
   }

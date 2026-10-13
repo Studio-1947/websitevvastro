@@ -528,6 +528,8 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .footer__col a, .footer__col span { color: #fff; font-size: 15px; line-height: 1.75; }
 .footer__col a { transition: opacity .25s var(--ease); }
 .footer__col a:hover { opacity: .72; }
+/* Social icons are for the phone layout (below); wide screens show the names. */
+.footer__social-ico { display: none; }
 .footer__addr { color: #fff; font-size: 15px; line-height: 1.75; font-style: normal; }
 .footer__addr a { color: #fff; transition: opacity .25s var(--ease); }
 .footer__addr a:hover { opacity: .72; }
@@ -606,22 +608,36 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
   .commit { grid-template-columns: 1fr; }
   .approach__row { grid-template-columns: 1fr; gap: 14px; }
   .stats { grid-template-columns: 1fr; }
-  /* Footer on phones: two rows of two. Site links beside socials, legal links
-     beside the address, every pair top-aligned on the same two columns. */
+  /* Footer on phones: social icons in a row on top, then the site links beside the legal
+     links, then the address on a row of its own. */
   .footer__grid {
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "site social" "legal addr";
-    gap: 32px 20px; align-items: start;
+    grid-template-areas: "social social" "site legal" "addr addr";
+    gap: 30px 20px; align-items: start;
   }
   .footer__grid > .footer__col:nth-child(1) { grid-area: site; }
   .footer__grid > .footer__col:nth-child(2) { grid-area: legal; }
-  .footer__grid > .footer__col:nth-child(3) { grid-area: social; }
+  .footer__grid > .footer__social { grid-area: social; display: flex; align-items: center; gap: 12px; }
   .footer__grid > .footer__addr { grid-area: addr; }
+  .footer__grid > .footer__social li + li { margin-top: 0; }
+  .footer__social a {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, .55);
+    transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+  }
+  .footer__social a:hover { opacity: 1; background: #fff; color: var(--red); border-color: #fff; }
+  .footer__social a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .footer__social .footer__social-ico { display: block; width: 20px; height: 20px; }
+  /* The name is still read out; only the icon shows. */
+  .footer__social a span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .footer__col li, .footer__col a, .footer__col span, .footer__addr { font-size: 14px; line-height: 1.7; }
   .footer__col li + li { margin-top: 4px; }
   /* The map button sits right after the heading, not pushed to the far edge. */
   .footer__addr-head { display: block; }
   .footer__addr-head strong { display: inline; }
+  /* "Headquarter @ Mirik, Darjeeling" on one line: the markup's line break becomes a space. */
+  .footer__addr-head strong br { display: none; }
+  .footer__addr-head strong { white-space: nowrap; }
   .footer__map { display: inline-grid; vertical-align: middle; margin-left: 8px; width: 24px; height: 24px; }
   /* Bottom bar: conditions and copyright line up on the left, under the wordmark. */
   .footer__bar { flex-direction: column; align-items: flex-start; gap: 16px; }

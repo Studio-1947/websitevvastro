@@ -11,7 +11,7 @@ import { LOGO } from '../logo';
 
 <div class="asplash" id="aangan-splash" aria-hidden="true">
   <svg viewBox={`0 0 ${LOGO.width} ${LOGO.height}`} fill="none" xmlns="http://www.w3.org/2000/svg">
-    {LOGO.paths.map((d) => <path pathLength="1" d={d} fill="currentColor" />)}
+    {LOGO.paths.map((d) => <path pathLength="1" fill-rule="evenodd" clip-rule="evenodd" d={d} fill="currentColor" />)}
   </svg>
 </div>
 

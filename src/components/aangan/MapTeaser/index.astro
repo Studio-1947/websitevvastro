@@ -23,8 +23,8 @@ const { content: c } = Astro.props;
                 src={v.src}
                 alt=""
                 style={v.focus ? `object-position: ${v.focus}` : undefined}
-                width="1000"
-                height="750"
+                width="1448"
+                height="1086"
                 loading="lazy"
                 decoding="async"
               />
@@ -94,7 +94,8 @@ const { content: c } = Astro.props;
     /* Photo sizes below are in container-height units, so each is as tall as the section. */
     container-type: size;
     opacity: .30;
-    filter: saturate(.9);
+    /* Black and white, so the photos read as texture behind the words. */
+    filter: grayscale(1) contrast(1.08);
     pointer-events: none;
   }
   .map__track {
