@@ -1,0 +1,82 @@
+---
+import Chart from '../Chart.astro';
+import { svg } from '../icons';
+import { SHOP, START, REVENUE, inr } from '../content';
+
+const cards = [
+  { key: 'sales', tone: 'green', label: "Today's Sales", value: inr(START.sales), sub: 'Confirmed billing sales', icon: 'rupee' },
+  { key: 'invoices', tone: 'blue', label: 'Invoices Raised', value: String(START.invoices), sub: 'Bills generated today', icon: 'bill' },
+  { key: 'low', tone: 'amber', label: 'Low Stock Alert', value: String(START.lowStock), sub: 'Items below reorder limit', icon: 'alert' },
+  { key: 'expiring', tone: 'red', label: 'Expiring Batches', value: String(START.expiring), sub: 'Batches expiring in 30 days', icon: 'clock' },
+] as const;
+---
+
+{/* ===== Dashboard ===== */}
+<section class="view is-active" data-view="home" aria-label="Dashboard">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title">
+        Pharmacy Control Center
+        <span class="pill pill--live">Live Sync</span>
+        <span class="pill"><Fragment set:html={svg('store', 13)} /><span data-branch-name>{SHOP.branches[0]}</span></span>
+      </h3>
+      <p class="view__date" data-date>Today</p>
+    </div>
+    <button type="button" class="btn" data-go="pos"><Fragment set:html={svg('pos', 16)} />Open POS Terminal</button>
+  </div>
+
+  <div class="scope">
+    <span class="scope__icon" set:html={svg('shield', 18)} />
+    <div class="scope__text">
+      <b>Branch overview <em>{SHOP.branches.length} branches</em></b>
+      <span>Showing today for <strong data-branch-name>{SHOP.branches[0]}</strong>, open till 10 pm</span>
+    </div>
+    <button type="button" class="scope__select" data-branch-switch>
+      <span data-branch-name>{SHOP.branches[0]}</span><Fragment set:html={svg('chevron', 14)} />
+    </button>
+    <button type="button" class="scope__btn" data-action="compare"><Fragment set:html={svg('compare', 14)} />Compare branches</button>
+    <button type="button" class="scope__btn" data-action="branches"><Fragment set:html={svg('store', 14)} />Manage branches</button>
+  </div>
+
+  <div class="cards">
+    {cards.map((c) => (
+      <div class={`card card--${c.tone}`} data-card={c.key}>
+        <div class="card__top">
+          <span class="card__label">{c.label}</span>
+          <span class="card__icon" set:html={svg(c.icon, 19)} />
+        </div>
+        <b class="card__value" data-stat={c.key}>{c.value}</b>
+        <span class="card__sub">{c.sub}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="lower">
+    <div class="panel chart">
+      <div class="panel__head">
+        <div><b>Revenue Performance</b><small>Daily sales trend (last 14 days)</small></div>
+        <span class="panel__link">Full Analytics <Fragment set:html={svg('arrow', 14)} /></span>
+      </div>
+      <Chart values={REVENUE} id="home" />
+    </div>
+
+    <div class="panel todo">
+      <div class="panel__head"><div><b>Action Required</b><small>Inventory and sales highlights</small></div></div>
+      <button type="button" class="todo__row todo__row--red" data-go="stock" data-filter="low">
+        Low Stock Medicines <em class="badge badge--red">{START.lowStock}</em>
+      </button>
+      <button type="button" class="todo__row todo__row--red" data-go="stock" data-filter="expiring">
+        Expiring Batches (30d) <em class="badge badge--red">{START.expiring}</em>
+      </button>
+      <button type="button" class="todo__row" data-go="pos">
+        Today's Invoices <em class="badge badge--green" data-stat="invoices-badge">{START.invoices}</em>
+      </button>
+      <span class="todo__row">
+        Pending Transfers <em class="badge badge--green">{START.transfers}</em>
+      </span>
+      <p class="todo__label">Quick management shortcuts</p>
+      <button type="button" class="btn btn--wide" data-go="pos"><Fragment set:html={svg('pos', 16)} />Open POS Terminal</button>
+      <button type="button" class="btn btn--ghost" data-action="po"><Fragment set:html={svg('stock', 16)} />Create Purchase Order</button>
+    </div>
+  </div>
+</section>

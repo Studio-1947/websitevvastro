@@ -1,0 +1,39 @@
+---
+import { svg } from '../icons';
+import { ADMIN, ROLES_COUNT } from '../content';
+
+const most = Math.max(...ROLES_COUNT.map((r) => r.total));
+---
+
+<section class="view" data-view="admin" aria-label="Admin console">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title view__title--icon"><Fragment set:html={svg('shield', 22)} />Admin Console</h3>
+      <p class="view__date">Full-system control. Every action here is recorded in the audit log.</p>
+    </div>
+  </div>
+
+  <div class="tabs" aria-hidden="true"><span class="is-on">Overview</span><span>Branches</span><span>Users &amp; Roles</span><span>Sessions</span><span>Audit Log</span><span>Cross-Branch Data</span></div>
+
+  <div class="adm">
+    {ADMIN.map((t) => (
+      <div class="admt">
+        <span class="admt__label">{t.label}</span>
+        <b class="admt__value">{t.value}</b>
+        <small>{t.sub}</small>
+        <span class:list={['admt__icon', { 'admt__icon--amber': t.icon === 'clock' || t.icon === 'shield' }]} set:html={svg(t.icon, 17)} />
+      </div>
+    ))}
+  </div>
+
+  <div class="panel roles">
+    <b class="roles__title">Accounts by role</b>
+    {ROLES_COUNT.map((r) => (
+      <div class="roles__row">
+        <span>{r.role}</span>
+        <span class="roles__bar"><i style={`width: ${(r.total / most) * 100}%`}></i></span>
+        <small>{r.total} total · {r.total} active</small>
+      </div>
+    ))}
+  </div>
+</section>

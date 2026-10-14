@@ -1,0 +1,44 @@
+---
+import { svg } from '../icons';
+import { STAFF, ROLE_LABEL } from '../content';
+---
+
+<section class="view" data-view="hr" aria-label="HR management">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title view__title--icon"><Fragment set:html={svg('people', 22)} />HR &amp; Staff Management</h3>
+      <p class="view__date">Manage staff accounts, employee records and leave in one place.</p>
+    </div>
+  </div>
+
+  <div class="tabs" aria-hidden="true"><span class="is-on">Staff Accounts</span><span>Employee Records</span><span>Leave &amp; Absence</span></div>
+
+  <div class="view__head">
+    <div>
+      <h4 class="view__sub">Staff Accounts</h4>
+      <p class="view__date">Login accounts, roles and access.</p>
+    </div>
+    <div class="tools">
+      <button type="button" class="tools__btn" data-action="filter"><Fragment set:html={svg('filter', 14)} />Filter</button>
+      <button type="button" class="tools__btn" data-action="export"><Fragment set:html={svg('download', 14)} />Export</button>
+      <button type="button" class="tools__btn tools__btn--green" data-action="staff"><Fragment set:html={svg('adduser', 14)} />Add Staff</button>
+    </div>
+  </div>
+
+  <div class="panel table">
+    <div class="trow trow--head hr-cols"><span>Staff member</span><span>Role</span><span>Status</span><span>Joined</span><span class="trow__act">Actions</span></div>
+    {STAFF.map((p) => (
+      <div class="trow hr-cols">
+        <span class="who"><i class="who__avatar who__avatar--dark">{p.initials}</i><span><b>{p.name}</b><small>{p.branch}</small></span></span>
+        <span><em class={`role role--${p.role}`}>{ROLE_LABEL[p.role]}</em></span>
+        <span><em class="badge badge--green">Active</em></span>
+        <span>{p.joined}</span>
+        <span class="trow__act">
+          <span class="icon-btn" set:html={svg('edit', 16)} />
+          <span class="icon-btn" set:html={svg('calendar', 16)} />
+          <span class="icon-btn" set:html={svg('trash', 16)} />
+        </span>
+      </div>
+    ))}
+  </div>
+</section>

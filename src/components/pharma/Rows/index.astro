@@ -1,0 +1,57 @@
+---
+/**
+ * Feature rows: plain text on one side, a red wash with the screen that
+ * shows it on the other, swapping sides each row. Phones: text, then screen.
+ */
+import Mock from '../Mock/index.astro';
+import type { Row } from './content';
+
+interface Props { content: Row[] }
+const { content: rows } = Astro.props;
+---
+
+<section class="rows" aria-label="What it does">
+  {rows.map((r, i) => (
+    <article class:list={['row', { 'row--flip': i % 2 === 1 }]}>
+      <div class="row__copy">
+        <h2 class="row__title">{r.title}</h2>
+        <p class="row__body">{r.body}</p>
+      </div>
+      <div class="row__panel reveal">
+        <div class="row__mock"><Mock mock={r.mock} /></div>
+      </div>
+    </article>
+  ))}
+</section>
+
+<style>
+  .rows {
+    max-width: 1280px; margin: 0 auto;
+    padding: clamp(40px, 6vw, 96px) clamp(16px, 5vw, 72px);
+    display: grid; gap: clamp(72px, 9vw, 140px);
+  }
+  .row {
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(32px, 6vw, 100px); align-items: center;
+  }
+  .row--flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .row--flip .row__copy { order: 2; }
+
+  .row__title { margin: 0 0 18px; font-size: clamp(28px, 2.6vw, 38px); line-height: 1.15; }
+  .row__body { margin: 0; max-width: 40ch; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.6; }
+
+  .row__panel {
+    display: grid; place-items: center;
+    min-height: clamp(340px, 34vw, 480px);
+    padding: clamp(28px, 4vw, 56px);
+    border-radius: 16px;
+    background: var(--p-wash);
+  }
+  .row__mock { width: 100%; max-width: 440px; }
+
+  @media (max-width: 860px) {
+    .row, .row--flip { grid-template-columns: 1fr; }
+    .row--flip .row__copy { order: 0; }
+    .row__panel { min-height: 0; padding: 28px 18px; }
+  }
+</style>

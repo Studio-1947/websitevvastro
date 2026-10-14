@@ -1,0 +1,38 @@
+---
+/**
+ * A smooth area chart with a value scale on the left and first/last day under it.
+ * The script repaints it from `data-values` when the numbers change.
+ */
+import { CHART, chartArea, chartLine, chartPoints, chartTicks } from './content';
+
+interface Props {
+  values: number[];
+  /** Unique per chart: names the gradient. */
+  id: string;
+  color?: string;
+  start?: string;
+  end?: string;
+}
+const { values, id, color = '#16B07F', start = '14 days ago', end = 'Today' } = Astro.props;
+const last = chartPoints(values).at(-1)!;
+---
+
+<div class="chart__body" data-chart={id} data-values={values.join(',')} style={`--line: ${color}`}>
+  <ul class="chart__y" data-ticks>{chartTicks(values).map((t) => <li>{t}</li>)}</ul>
+  <div class="chart__plot">
+    <svg class="chart__svg" viewBox={`0 0 ${CHART.w} ${CHART.h}`} preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id={`fill-${id}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color={color} stop-opacity=".22" />
+          <stop offset="1" stop-color={color} stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      {[0.25, 0.5, 0.75].map((f) => <line x1="0" x2={CHART.w} y1={CHART.h * f} y2={CHART.h * f} class="chart__grid" />)}
+      <path d={chartArea(values)} fill={`url(#fill-${id})`} class="chart__area" data-area />
+      <path d={chartLine(values)} class="chart__line" pathLength="1" data-line />
+    </svg>
+    {/* The end dot is HTML, so it stays round in the stretched chart. */}
+    <i class="chart__dot" data-dot style={`left: ${(last[0] / CHART.w) * 100}%; top: ${(last[1] / CHART.h) * 100}%`}></i>
+    <div class="chart__x"><span data-x-start>{start}</span><span>{end}</span></div>
+  </div>
+</div>

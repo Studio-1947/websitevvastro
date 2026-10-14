@@ -1,0 +1,78 @@
+---
+import Chart from '../Chart.astro';
+import { svg } from '../icons';
+import { REVENUE_30, PAYMENTS, TOP_PRODUCTS, PERIODS, inr, inrShort } from '../content';
+
+const p = PERIODS['30'];
+const tiles = [
+  { tone: 'green', label: 'Total Revenue', value: `₹${(p.revenue / 100000).toFixed(1)}L`, sub: 'Last 30 days', icon: 'rupee' },
+  { tone: 'blue', label: 'Total Invoices', value: p.invoices.toLocaleString('en-IN'), sub: 'Last 30 days', icon: 'bill' },
+  { tone: 'amber', label: 'Avg Invoice Value', value: inr(p.revenue / p.invoices), sub: 'Per customer bill', icon: 'trend' },
+  { tone: 'teal', label: 'Top Selling Medicine', value: TOP_PRODUCTS[0].name, sub: `${inrShort(TOP_PRODUCTS[0].revenue)} revenue`, icon: 'stock' },
+] as const;
+const avg = REVENUE_30.reduce((a, b) => a + b, 0) / REVENUE_30.length;
+
+// Donut: one circle per payment method, offset to follow on from the last.
+const R = 52;
+const C = 2 * Math.PI * R;
+let run = 0;
+const arcs = PAYMENTS.map((m) => {
+  const len = (m.share / 100) * C;
+  const arc = { ...m, dash: `${len - 3} ${C - len + 3}`, offset: -run };
+  run += len;
+  return arc;
+});
+---
+
+<section class="view" data-view="analytics" aria-label="Analytics">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title view__title--icon"><Fragment set:html={svg('chart', 22)} />Analytics &amp; Reports</h3>
+      <p class="view__date">Sales performance, revenue trends and business insights.</p>
+    </div>
+    <div class="tools">
+      <span class="fake-select">All branches <Fragment set:html={svg('chevron', 14)} /></span>
+      <span class="fake-select">Last 30 days <Fragment set:html={svg('chevron', 14)} /></span>
+      <button type="button" class="tools__btn tools__btn--icon" data-action="refresh" aria-label="Refresh" set:html={svg('refresh', 15)} />
+    </div>
+  </div>
+
+  <div class="tabs" aria-hidden="true"><span class="is-on">Overview</span><span>Branch Comparison</span></div>
+
+  <div class="atiles">
+    {tiles.map((t) => (
+      <div class={`atile atile--${t.tone}`}>
+        <span class="atile__label">{t.label}</span>
+        <b class="atile__value">{t.value}</b>
+        <small>{t.sub}</small>
+        <span class="atile__icon" set:html={svg(t.icon, 20)} />
+      </div>
+    ))}
+  </div>
+
+  <div class="lower">
+    <div class="panel chart">
+      <div class="panel__head">
+        <div><b>Revenue Performance Trend</b><small>Daily sales over the last 30 days</small></div>
+        <span class="pill pill--live pill--plain"><Fragment set:html={svg('trend', 13)} />Avg: {inrShort(avg)}/day</span>
+      </div>
+      <Chart values={REVENUE_30} id="analytics" start="30 days ago" />
+    </div>
+
+    <div class="panel donut">
+      <div class="panel__head"><div><b>Payment Breakdown</b><small>Across UPI, cash and cards</small></div></div>
+      <svg class="donut__svg" viewBox="0 0 140 140" aria-hidden="true">
+        {arcs.map((a) => (
+          <circle cx="70" cy="70" r={R} fill="none" stroke={a.color} stroke-width="18" stroke-dasharray={a.dash} stroke-dashoffset={a.offset} transform="rotate(-90 70 70)" />
+        ))}
+        <text x="70" y="66" text-anchor="middle" class="donut__big">{PAYMENTS[0].share}%</text>
+        <text x="70" y="84" text-anchor="middle" class="donut__small">via UPI</text>
+      </svg>
+      <ul class="donut__legend">
+        {PAYMENTS.map((m) => (
+          <li><i style={`background: ${m.color}`}></i>{m.label}<b>{inr((m.share / 100) * p.revenue)}</b><em>{m.share}%</em></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

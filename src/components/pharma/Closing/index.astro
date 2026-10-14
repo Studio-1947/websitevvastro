@@ -1,0 +1,29 @@
+---
+/** Closing call to action: centred, on the red wash, two buttons stacked. */
+import { ctaAttrs } from '../types';
+import type { ClosingContent } from './content';
+
+interface Props { content: ClosingContent }
+const { content: c } = Astro.props;
+---
+
+<section class="pclose" aria-labelledby="pharma-close-title">
+  <h2 id="pharma-close-title" class="p-title">{c.title}</h2>
+  <p class="p-lede pclose__sub">{c.sub}</p>
+  <div class="pclose__ctas">
+    <a class="p-btn" {...ctaAttrs(c.primary)}>{c.primary.label}</a>
+    <a class="p-btn p-btn--light" {...ctaAttrs(c.secondary)}>{c.secondary.label}</a>
+  </div>
+</section>
+
+<style>
+  .pclose {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    padding: clamp(96px, 12vw, 180px) clamp(16px, 5vw, 72px);
+    background:
+      linear-gradient(to bottom, var(--p-ground) 0%, transparent 30%),
+      var(--p-wash);
+  }
+  .pclose__sub { margin-bottom: 30px; }
+  .pclose__ctas { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+</style>

@@ -1,0 +1,110 @@
+---
+import { svg } from '../icons';
+import { START, QUEUE, PRODUCTS, USUAL, TODAYS_BILLS, inr } from '../content';
+
+const byId = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
+const minis = [
+  { value: String(START.lowStock), label: 'Low-stock medicines', go: 'stock', tone: 'orange' },
+  { value: '18', label: 'Prescriptions filled today', go: 'rx', tone: 'green' },
+  { value: String(START.invoices), label: 'Bills today', go: 'home', tone: 'green', stat: 'invoices-mini' },
+  { value: String(QUEUE.completed), label: 'Patients seen by doctors', go: 'queue', tone: 'green' },
+];
+---
+
+<section class="view" data-view="pos" aria-label="Billing and POS">
+  <div class="view__head">
+    <div class="bhead">
+      <span class="bhead__icon" set:html={svg('people', 20)} />
+      <div>
+        <h3 class="view__title">Counter Desk Billing <span class="pill pill--orange">{'✦'} New flow</span></h3>
+        <p class="view__date">Find the patient, pick what they need, then save the bill.</p>
+      </div>
+    </div>
+    <div class="bhead__right">
+      <span class="bhead__total"><small>Total sale today</small><b data-stat="sales-mini">{inr(START.sales)}</b></span>
+      <button type="button" class="tools__btn" data-action="history"><Fragment set:html={svg('report', 15)} />Invoice History</button>
+    </div>
+  </div>
+
+  <div class="minis">
+    {minis.map((m) => (
+      <div class="mini">
+        <b class={`mini__num mini__num--${m.tone}`} data-stat={m.stat}>{m.value}</b>
+        <span>{m.label}</span>
+        <button type="button" class="mini__go" data-go={m.go} aria-label={`Open: ${m.label}`} set:html={svg('arrow', 14)} />
+      </div>
+    ))}
+  </div>
+
+  <div class="bmain">
+    <div class="panel bfind">
+      <p class="step"><i>1</i>Who is being served, and what do they need?</p>
+      <div class="bfind__row">
+        <label class="bfind__search">
+          <Fragment set:html={svg('search', 17)} />
+          <input type="search" placeholder="Search patient by mobile or name, or a medicine…" autocomplete="off" aria-label="Search medicines" data-search />
+        </label>
+        <button type="button" class="bfind__add" data-action="patient"><Fragment set:html={svg('adduser', 16)} />Add New</button>
+      </div>
+
+      <p class="blabel">Medicines</p>
+      <div class="bchips">
+        {PRODUCTS.map((p) => (
+          <button type="button" class="addchip" data-add={p.id} data-result={p.id} data-name={p.name.toLowerCase()}>
+            {p.name}<small>{inr(p.price)}</small>
+          </button>
+        ))}
+        <p class="pos__none" data-none hidden>No medicine matches that.</p>
+      </div>
+
+      <p class="blabel"><Fragment set:html={svg('steth', 14)} />Doctors today and their usual medicines</p>
+      <div class="bdocs">
+        {USUAL.map((d) => (
+          <div class="bdoc">
+            <span class="bdoc__avatar">DR</span>
+            <div class="bdoc__body">
+              <b>{d.doctor}</b><small>{d.specialty}</small>
+              <div class="bdoc__chips">
+                {d.products.map((id) => (
+                  <button type="button" class="addchip addchip--rx" data-add={id}>{byId[id].name}</button>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="bside">
+      <div class="panel pos__bill">
+        <p class="step"><i>2</i><span>Bill #<span data-billno>{START.billNo + 1}</span></span></p>
+        <ul class="pos__lines">
+          {PRODUCTS.map((p) => (
+            <li class="pos__line" data-line-item={p.id} data-price={p.price} hidden>
+              <span class="pos__line-name">{p.name}</span>
+              <span class="pos__qty" data-qty>1 × {inr(p.price)}</span>
+              <b data-amount>{inr(p.price)}</b>
+              <button type="button" class="pos__remove" data-remove={p.id} aria-label={`Remove ${p.name}`}>×</button>
+            </li>
+          ))}
+        </ul>
+        <p class="pos__empty" data-empty>Tap a medicine to add it.</p>
+        <div class="pos__total"><span>Total</span><b data-total>₹0</b></div>
+        <button type="button" class="btn btn--wide" data-save disabled>Save bill</button>
+      </div>
+
+      <div class="panel btoday">
+        <p class="blabel"><Fragment set:html={svg('clock', 14)} />Today's billings</p>
+        <ul class="btoday__list" data-billings>
+          {TODAYS_BILLS.map((b) => (
+            <li>
+              <span class="btoday__avatar">{b.who[0]}</span>
+              <span class="btoday__who"><b>{b.who}</b><code>{b.ref}</code></span>
+              <span class="btoday__amt"><b>{inr(b.amount)}</b><small>{b.time}</small></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

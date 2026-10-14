@@ -1,0 +1,56 @@
+---
+import Chart from '../Chart.astro';
+import { svg } from '../icons';
+import { REVENUE_30, PERIODS, TOP_PRODUCTS, inr, inrShort } from '../content';
+
+const p = PERIODS['30'];
+---
+
+<section class="view" data-view="reports" aria-label="Reports and compliance">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title">Reports &amp; Accounts</h3>
+      <p class="view__date">Sales, purchase summaries, GST returns and compliance ledgers.</p>
+    </div>
+  </div>
+
+  <div class="tabs tabs--icons" aria-hidden="true">
+    <span class="is-on"><Fragment set:html={svg('trend', 14)} />Sales</span>
+    <span><Fragment set:html={svg('stock', 14)} />Purchase</span>
+    <span><Fragment set:html={svg('rupee', 14)} />Receivables</span>
+    <span><Fragment set:html={svg('report', 14)} />Compliance &amp; GST Hub</span>
+  </div>
+
+  <div class="tools">
+    <span class="tools__label">Period:</span>
+    {['7', '14', '30', '90'].map((d) => (
+      <button type="button" class="chip chip--flat" data-period={d} aria-pressed={d === '30' ? 'true' : 'false'}>{d}d</button>
+    ))}
+    <span class="tools__spacer"></span>
+    <span class="fake-select">All branches <Fragment set:html={svg('chevron', 14)} /></span>
+    <button type="button" class="tools__btn tools__btn--green" data-action="excel"><Fragment set:html={svg('download', 14)} />Excel (.xlsx)</button>
+  </div>
+
+  <div class="rstats">
+    <div class="rstat"><span class="rstat__icon rstat__icon--green" set:html={svg('rupee', 17)} /><span><small>Total Revenue</small><b data-r="revenue">{`₹${(p.revenue / 100000).toFixed(1)}L`}</b></span></div>
+    <div class="rstat"><span class="rstat__icon rstat__icon--green" set:html={svg('bill', 17)} /><span><small>Total Invoices</small><b data-r="invoices">{p.invoices.toLocaleString('en-IN')}</b></span></div>
+    <div class="rstat"><span class="rstat__icon rstat__icon--amber" set:html={svg('trend', 17)} /><span><small>Avg Invoice Value</small><b data-r="avg">{inr(p.revenue / p.invoices)}</b></span></div>
+    <div class="rstat"><span class="rstat__icon rstat__icon--blue" set:html={svg('report', 17)} /><span><small>GST collected</small><b data-r="gst">{inr(p.gst)}</b></span></div>
+  </div>
+
+  <div class="lower">
+    <div class="panel chart">
+      <div class="panel__head"><div><b>Revenue Trend</b><small data-r="range">Last 30 days</small></div></div>
+      <Chart values={REVENUE_30} id="reports" color="#3B82F6" start="30 days ago" />
+    </div>
+    <div class="panel">
+      <div class="panel__head"><div><b>Top Products by Revenue</b><small>Last 30 days</small></div></div>
+      <div class="mini-table">
+        <div class="mini-table__row mini-table__row--head"><span>#</span><span>Medicine</span><span>Qty</span><span>Revenue</span></div>
+        {TOP_PRODUCTS.map((t, i) => (
+          <div class="mini-table__row"><span>{i + 1}</span><span>{t.name}</span><code>{t.qty.toLocaleString('en-IN')}</code><b>{inrShort(t.revenue)}</b></div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

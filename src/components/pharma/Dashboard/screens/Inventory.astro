@@ -1,0 +1,67 @@
+---
+import { svg } from '../icons';
+import { START, STOCK, LOW_ALERTS, EXPIRY_ALERTS, STATUS_LABEL, inr } from '../content';
+---
+
+{/* ===== Inventory ===== */}
+<section class="view" data-view="stock" aria-label="Inventory">
+  <div class="view__head"><h3 class="view__title">Inventory</h3></div>
+
+  <div class="sum">
+    <div class="panel sum__panel">
+      <div class="sum__head">
+        <span class="sum__icon sum__icon--amber" set:html={svg('stock', 17)} />
+        <div><b>Low Stock Alerts</b><small>Tap a medicine to reorder or add a batch</small></div>
+        <em class="badge badge--amber">{START.lowStock}</em>
+      </div>
+      {LOW_ALERTS.map((l) => (
+        <div class="sum__row">
+          <span><b>{l.name}</b><code>{l.sku}</code></span>
+          <span class="sum__meta"><em class="badge badge--red">{l.qty}</em> / {l.min} min</span>
+        </div>
+      ))}
+    </div>
+    <div class="panel sum__panel">
+      <div class="sum__head">
+        <span class="sum__icon sum__icon--red" set:html={svg('clock', 17)} />
+        <div><b>Expiring Within 30 Days</b><small>Sell these first, or return them to the supplier</small></div>
+        <em class="badge badge--red">{START.expiring}</em>
+      </div>
+      {EXPIRY_ALERTS.map((x) => (
+        <div class="sum__row">
+          <span><b>{x.name}</b><code>Batch: {x.batch}</code></span>
+          <span class="sum__meta"><em class="badge badge--amber">{x.days}d left</em> · qty {x.qty}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="tabs" aria-hidden="true"><span class="is-on">Medicines</span><span>Batches</span><span>Valuation</span></div>
+
+  <div class="tools">
+    <span class="tools__search" aria-hidden="true"><Fragment set:html={svg('search', 15)} />Search medicines by name, barcode…</span>
+    <div class="chips" role="group" aria-label="Show">
+      <button type="button" class="chip" data-chip="all" aria-pressed="true">All</button>
+      <button type="button" class="chip" data-chip="low" aria-pressed="false">Low stock</button>
+      <button type="button" class="chip" data-chip="expiring" aria-pressed="false">Expiring soon</button>
+    </div>
+    <button type="button" class="tools__btn tools__btn--green" data-action="scan"><Fragment set:html={svg('scan', 15)} />Scan supplier bill</button>
+    <button type="button" class="tools__btn" data-action="add"><Fragment set:html={svg('plus', 15)} />Add Medicine</button>
+  </div>
+
+  <div class="panel stk">
+    <div class="stk__row stk__row--head"><span>Name</span><span>SKU</span><span>Unit</span><span>Drawer</span><span>MRP</span><span>Stock</span><span>Class</span><span>Status</span></div>
+    {STOCK.map((s) => (
+      <div class="stk__row" data-status={s.status}>
+        <span class="stk__name"><b>{s.name}</b><small>{s.generic}</small></span>
+        <code>{s.sku}</code>
+        <span>{s.unit}</span>
+        <span><i class="stk__drawer">{s.drawer}</i></span>
+        <b class="stk__mrp">{inr(s.mrp)}</b>
+        <span><em class={`stk__qty stk__qty--${s.status}`}>{s.qty} {s.unit}s in stock</em></span>
+        <span>{s.cls === 'H' ? <i class="stk__h">H</i> : 'OTC'}</span>
+        <span><em class={`badge badge--${s.status === 'ok' ? 'green' : s.status === 'low' ? 'red' : 'amber'}`}>{STATUS_LABEL[s.status]}</em></span>
+      </div>
+    ))}
+  </div>
+</section>

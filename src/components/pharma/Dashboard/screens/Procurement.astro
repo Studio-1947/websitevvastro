@@ -1,0 +1,47 @@
+---
+import { svg } from '../icons';
+import { SUPPLIERS, inr } from '../content';
+---
+
+<section class="view" data-view="procure" aria-label="Procurement">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title view__title--icon"><Fragment set:html={svg('cart', 22)} />Procurement Management</h3>
+      <p class="view__date">Track suppliers, purchase orders and what you owe, in one place.</p>
+    </div>
+  </div>
+
+  <div class="tabs" aria-hidden="true"><span class="is-on">Partners &amp; Suppliers</span><span>Purchase Orders</span><span>Payables Aging</span></div>
+
+  <div class="tools">
+    <span class="tools__search tools__search--short" aria-hidden="true"><Fragment set:html={svg('search', 15)} />Search suppliers…</span>
+    <span class="tools__spacer"></span>
+    <button type="button" class="tools__btn tools__btn--blue" data-action="supplier"><Fragment set:html={svg('plus', 15)} />Add Supplier</button>
+  </div>
+
+  <div class="sup">
+    {SUPPLIERS.map((s) => (
+      <div class="supc">
+        <div class="supc__top">
+          <code class="supc__code">{s.code}</code>
+          <span class="supc__stars" aria-label={`${s.stars} of 3 stars`}>{'★'.repeat(s.stars)}<i>{'★'.repeat(3 - s.stars)}</i></span>
+        </div>
+        <b class="supc__name">{s.name}, {s.place}</b>
+        <div class="supc__row">
+          <span class="muted"><Fragment set:html={svg('phone', 13)} /> 98XXX X{String(1000 + s.name.length * 137).slice(-4)}</span>
+        </div>
+        <div class="supc__row">
+          <span class="muted">Outstanding:</span>
+          <b class:list={[{ 'is-red': s.outstanding > 0 }]}>{inr(s.outstanding)}</b>
+        </div>
+        <div class="supc__foot">
+          <button type="button" class="act act--green" data-po={s.name}>Create PO</button>
+          <span class="supc__icons">
+            <span class="icon-btn" set:html={svg('book', 15)} />
+            <span class="icon-btn" set:html={svg('edit', 15)} />
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

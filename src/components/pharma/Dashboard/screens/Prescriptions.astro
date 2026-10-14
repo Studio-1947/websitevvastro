@@ -1,0 +1,50 @@
+---
+import { svg } from '../icons';
+import { PRESCRIPTIONS, RX_LABEL } from '../content';
+
+const count = (s?: string) => PRESCRIPTIONS.filter((p) => !s || p.status === s).length;
+const tabs = [
+  { key: 'all', label: 'All', n: count() },
+  { key: 'pending', label: 'Pending Verification', n: count('pending') },
+  { key: 'verified', label: 'Verified', n: count('verified') },
+  { key: 'rejected', label: 'Rejected', n: count('rejected') },
+];
+const tone = { pending: 'amber', verified: 'green', rejected: 'red' } as const;
+---
+
+<section class="view" data-view="rx" aria-label="Prescriptions">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title">Prescriptions</h3>
+      <p class="view__date">Review, verify and register patient prescriptions.</p>
+    </div>
+    <button type="button" class="tools__btn" data-action="new-rx"><Fragment set:html={svg('plus', 15)} />New Prescription</button>
+  </div>
+
+  <div class="tabs tabs--live" role="group" aria-label="Show">
+    {tabs.map((t, i) => (
+      <button type="button" class:list={['tab', { 'is-on': i === 0 }]} data-rx-tab={t.key}>
+        {t.label} <em data-rx-count={t.key}>{t.n}</em>
+      </button>
+    ))}
+  </div>
+
+  <div class="panel table">
+    <div class="trow trow--head rx-cols"><span>Prescription</span><span>Patient</span><span>Doctor</span><span>Items</span><span>Received</span><span>Status</span><span></span></div>
+    {PRESCRIPTIONS.map((p) => (
+      <div class="trow rx-cols" data-rx-row data-rx-status={p.status}>
+        <span class="rx__id"><span class="rx__icon" set:html={svg('rx', 16)} /><code>{p.id}</code></span>
+        <b>{p.patient}</b>
+        <span>{p.doctor}</span>
+        <span>{p.items} {p.items === 1 ? 'medicine' : 'medicines'}</span>
+        <span class="muted">{p.date}</span>
+        <span><em class={`badge badge--${tone[p.status]}`} data-rx-pill>{RX_LABEL[p.status]}</em></span>
+        <span class="trow__act">
+          {p.status === 'pending'
+            ? <button type="button" class="act act--green" data-verify>Verify</button>
+            : <span class="icon-btn" set:html={svg('eye', 16)} />}
+        </span>
+      </div>
+    ))}
+  </div>
+</section>

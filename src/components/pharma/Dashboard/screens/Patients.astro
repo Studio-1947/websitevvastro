@@ -1,0 +1,47 @@
+---
+import { svg } from '../icons';
+import { PATIENTS, inr } from '../content';
+---
+
+<section class="view" data-view="patients" aria-label="Patients">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title">Patients</h3>
+      <p class="view__date">Manage registered patients and their records.</p>
+    </div>
+    <button type="button" class="tools__btn" data-action="patient"><Fragment set:html={svg('adduser', 15)} />Register Patient</button>
+  </div>
+
+  <div class="tools">
+    <label class="tools__search tools__search--input">
+      <Fragment set:html={svg('search', 15)} />
+      <input type="search" placeholder="Search by name or phone…" autocomplete="off" aria-label="Search patients" data-patient-search />
+    </label>
+    <button type="button" class="chip" data-dues aria-pressed="false"><Fragment set:html={svg('rupee', 13)} /> With dues only</button>
+    <span class="tools__spacer"></span>
+  </div>
+
+  <div class="panel table">
+    <div class="trow trow--head pt-cols"><span>Patient</span><span>Phone</span><span>Gender</span><span>Blood group</span><span>Loyalty</span><span>Registered</span><span class="trow__act">Actions</span></div>
+    {PATIENTS.map((p) => (
+      <div class="trow pt-cols" data-patient data-name={p.name.toLowerCase()} data-due={p.due}>
+        <span class="who"><i class="who__avatar">{p.name[0]}</i><b>{p.name}</b></span>
+        <span class="muted"><Fragment set:html={svg('phone', 13)} /> {p.phone}</span>
+        <span>{p.gender}</span>
+        <span><em class="blood">{p.blood}</em></span>
+        <span class="loyal">
+          <span class="loyal__pts"><Fragment set:html={svg('star', 13)} /> {p.points}</span>
+          {p.due > 0 && <em class="due" data-due-pill>{inr(p.due)} due</em>}
+        </span>
+        <span class="muted"><Fragment set:html={svg('calendar', 13)} /> {p.since}</span>
+        <span class="trow__act">
+          {p.due > 0 && <button type="button" class="act act--violet" data-collect>Collect</button>}
+          <span class="icon-btn" set:html={svg('book', 16)} />
+          <span class="icon-btn" set:html={svg('eye', 16)} />
+          <span class="icon-btn" set:html={svg('edit', 16)} />
+        </span>
+      </div>
+    ))}
+    <p class="table__foot" data-patient-foot>{PATIENTS.length} patients</p>
+  </div>
+</section>
