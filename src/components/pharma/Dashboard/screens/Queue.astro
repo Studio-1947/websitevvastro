@@ -1,0 +1,49 @@
+---
+import { svg } from '../icons';
+import { SHOP, QUEUE, DOCTORS, inr } from '../content';
+---
+
+{/* ===== Clinic Queue ===== */}
+<section class="view" data-view="queue" aria-label="Clinic queue">
+  <div class="opd">
+    <div>
+      <span class="opd__tag">Front desk OPD portal</span>
+      <h3 class="opd__title"><Fragment set:html={svg('steth', 22)} />Clinic Queue &amp; Doctor Timings</h3>
+      <p class="opd__sub">Live doctor availability, OPD rooms and the token queue, in one place.</p>
+    </div>
+    <button type="button" class="opd__btn" data-token="0"><Fragment set:html={svg('plus', 16)} />Issue New Token</button>
+  </div>
+
+  <div class="qstats">
+    <div class="qstat"><span class="qstat__label">Available doctors</span><b class="qstat__num">{QUEUE.doctors}</b><small class="is-green">● On duty today</small><span class="qstat__icon qstat__icon--green" set:html={svg('people', 18)} /></div>
+    <div class="qstat"><span class="qstat__label">Patients waiting</span><b class="qstat__num is-amber" data-q="waiting">{QUEUE.waiting}</b><small>Tokens in queue</small><span class="qstat__icon qstat__icon--amber" set:html={svg('clock', 18)} /></div>
+    <div class="qstat"><span class="qstat__label">Serving now</span><b class="qstat__num is-blue">{QUEUE.serving}</b><small class="is-blue">In consultation</small><span class="qstat__icon qstat__icon--blue" set:html={svg('phone', 18)} /></div>
+    <div class="qstat"><span class="qstat__label">Completed today</span><b class="qstat__num is-green">{QUEUE.completed}</b><small class="is-green">Finished tokens</small><span class="qstat__icon qstat__icon--green" set:html={svg('done', 18)} /></div>
+  </div>
+
+  <p class="docs__title"><Fragment set:html={svg('clock', 17)} />Doctor Duty Roster &amp; OPD Timings</p>
+  <div class="docs">
+    {DOCTORS.map((d, i) => (
+      <div class="doc">
+        <div class="doc__head">
+          <span class="doc__avatar">{d.initials}</span>
+          <div class="doc__who"><b>{d.name}</b><em class={`doc__spec doc__spec--${d.tone}`}>{d.specialty}</em></div>
+          <span class="doc__fee"><b>{inr(d.fee)}</b><small>Consult fee</small></span>
+        </div>
+        <div class="doc__meta">
+          <span class="doc__chip"><Fragment set:html={svg('store', 13)} />{SHOP.name}</span>
+          <span><Fragment set:html={svg('pin', 13)} />{d.cabin}</span>
+        </div>
+        <div class="doc__time">
+          <div class="doc__time-head"><span>Weekly OPD timings</span><em>Open today</em></div>
+          <div class="doc__slot"><b>{d.days}:</b><span>{d.hours}</span></div>
+          <div class="doc__sat"><span>Saturday:</span><span>{d.saturday}</span></div>
+        </div>
+        <div class="doc__foot">
+          <span>Waiting: <b data-doc-waiting={i}>{d.waiting}</b></span>
+          <button type="button" class="doc__issue" data-token={i}>Issue Token</button>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,98 +1,85 @@
-    .page-products .prod-hero { padding-top: clamp(140px, 18vh, 230px); padding-bottom: clamp(24px, 4vw, 48px); text-align: center; }
-    .page-products .prod-hero__title { font-size: clamp(36px, 5.4vw, 100px); color: var(--grey-700); letter-spacing: -0.01em; line-height: 1.08; }
-    .page-products .prod-hero__sub { font-family: var(--font-body); font-size: clamp(15px, 1.15vw, 18px); color: var(--grey-700); margin: clamp(18px, 2vw, 26px) auto 0; max-width: 60ch; }
-    .page-products .prod-hero__media { border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(110deg, #7c6bd6 0%, #b9a7c9 45%, #e7d9c6 100%); }
-    .page-products .prod-hero__media img { width: 100%; height: auto; display: block; }
+    /* Products overview: one block per product across the full width. On large
+       screens the whole section is exactly one screen tall. */
+    .page-plist .plist {
+      display: grid; gap: clamp(28px, 3.4vw, 56px);
+      padding-top: clamp(110px, 14vh, 150px); padding-bottom: clamp(64px, 8vw, 120px);
+    }
 
-    /* Product block header (NGO / Pharma) */
-    .page-products .prod-head { max-width: 1000px; margin-bottom: clamp(34px, 5vw, 66px); }
-    .page-products .prod-head .eyebrow { margin-bottom: 16px; }
-    .page-products .prod-head h2 { font-size: clamp(34px, 5.2vw, 78px); color: var(--red); line-height: 1.03; }
-    .page-products .prod-head p { margin-top: clamp(14px, 1.6vw, 22px); color: var(--grey-700); font-size: clamp(16px, 1.25vw, 20px); max-width: 62ch; }
+    /* Label: the site's red eyebrow. The heading is kept for screen readers and search, hidden on screen. */
+    .page-plist .plist__head .eyebrow { margin: 0; }
+    .page-plist .plist__title {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip-path: inset(50%); white-space: nowrap;
+    }
 
-    /* Feature cards */
-    .page-products .feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(16px, 1.8vw, 26px); }
-    .page-products .feat-card {
-      border: 1px solid var(--line); border-radius: var(--radius-lg);
-      padding: clamp(24px, 2.4vw, 40px); min-height: 280px;
-      display: flex; flex-direction: column; justify-content: space-between; gap: 26px;
-      transition: box-shadow .4s var(--ease), transform .4s var(--ease), border-color .4s var(--ease);
+    /* Blocks: two big ones side by side, then three smaller ones */
+    .page-plist .plist__blocks { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); }
+    .page-plist .pblock {
+      position: relative; overflow: hidden;
+      grid-column: span 3; aspect-ratio: 16 / 10;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: clamp(20px, 2.2vw, 34px); border-radius: var(--radius-lg);
+      text-decoration: none;
+      transition: transform .45s var(--ease), box-shadow .45s var(--ease);
     }
-    .page-products .feat-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,.06); transform: translateY(-4px); border-color: #d9d9d9; }
-    .page-products .feat-card__ico { width: 54px; height: 54px; border-radius: 15px; background: rgba(230,0,0,.08); color: var(--red); display: grid; place-items: center; }
-    /* Card titles are h2 on this page (they follow the hero h1 directly), so
-       the selector targets h2 - matching product detail pages keep h3. */
-    .page-products .feat-card h2 { font-size: clamp(22px, 2vw, 30px); color: var(--grey-900); line-height: 1.1; margin-bottom: 12px; }
-    .page-products .feat-card p { color: var(--grey-700); font-size: clamp(15px, 1.05vw, 17px); }
+    .page-plist a.pblock:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -28px rgba(0, 0, 0, .35); }
+    .page-plist a.pblock:focus-visible { outline: 3px solid var(--red); outline-offset: 4px; }
 
-    /* Product preview */
-    .page-products .preview { margin-top: clamp(48px, 6vw, 96px); }
-    .page-products .preview__title { font-family: var(--font-display); font-size: clamp(26px, 3vw, 46px); color: var(--grey-900); line-height: 1.05; margin-top: 8px; }
-    .page-products .preview__frame {
-      margin-top: clamp(24px, 3vw, 44px);
-      border: 1px solid var(--line); border-radius: var(--radius-lg);
-      background: var(--bg-alt); padding: clamp(14px, 2.2vw, 34px);
-      overflow: hidden;
+    .page-plist .pblock__art { flex: 1; display: grid; place-items: center; }
+    .page-plist .pblock__label { display: grid; gap: 4px; }
+    .page-plist .pblock__label strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.4vw, 40px); line-height: 1.05; letter-spacing: -0.01em; }
+    .page-plist .pblock__label span { font-size: clamp(13px, 1vw, 16px); opacity: .8; }
+    .page-plist .pblock__go {
+      position: absolute; top: clamp(18px, 2vw, 28px); right: clamp(18px, 2vw, 28px);
+      display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255, 255, 255, .9); color: var(--grey-900);
+      transition: transform .3s var(--ease);
     }
-    .page-products .preview__frame img { width: 100%; height: auto; display: block; border-radius: var(--radius); }
+    .page-plist a.pblock:hover .pblock__go { transform: rotate(-45deg); }
 
-    /* "… Means" band */
-    .page-products .means {
-      margin-top: clamp(48px, 6vw, 96px);
-    }
-    .page-products .prod-hero + .section .means {
-      margin-top: 0;
-      background: var(--bg-alt); border-radius: var(--radius-lg);
-      padding: clamp(32px, 4vw, 68px);
-      display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(28px, 4vw, 64px); align-items: center;
-    }
-    .page-products .means h3 { font-size: clamp(30px, 3.6vw, 54px); color: var(--red); line-height: 1.02; }
-    .page-products .means .btn-hello { margin-top: clamp(22px, 2.6vw, 34px); background: #fff; }
-    .page-products .means__points { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px, 1.6vw, 18px); }
-    .page-products .means__point {
-      background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-      padding: clamp(16px, 1.8vw, 22px);
-    }
-    .page-products .means__point-ico {
-      display: flex; align-items: center; justify-content: center;
-      width: 38px; height: 38px; border-radius: 50%;
-      background: rgba(230,0,0,.08); color: var(--red); margin-bottom: 12px;
-    }
-    .page-products .means__point-text { font-size: clamp(14.5px, 1.05vw, 16px); color: var(--grey-900); font-weight: 500; line-height: 1.35; }
-    @media (max-width: 480px) { .page-products .means__points { grid-template-columns: 1fr; } }
+    /* Pharma ERP: its own green tile and white cross */
+    .page-plist .pblock--pharma { background: linear-gradient(155deg, #19C18F 0%, #0F9D74 55%, #0B7A5B 100%); color: #fff; }
+    .page-plist .pblock--pharma .pblock__art svg { width: 30%; max-width: 220px; height: auto; filter: drop-shadow(0 12px 24px rgba(0, 60, 40, .3)); transition: transform .6s var(--ease); }
+    .page-plist .pblock--pharma:hover .pblock__art svg { transform: rotate(90deg); }
 
-    /* Connect with Product Managers */
-    .page-products .pm { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 70px); align-items: center; }
-    .page-products .pm__media { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 3; }
-    .page-products .pm__media img { width: 100%; height: 100%; object-fit: cover; }
-    .page-products .pm h2 { font-size: clamp(36px, 5vw, 78px); color: var(--grey-900); line-height: 1.02; }
-    .page-products .pm h2 span { color: var(--red); }
-    .page-products .pm p { margin-top: clamp(16px, 1.8vw, 24px); color: var(--grey-700); font-size: clamp(16px, 1.25vw, 20px); max-width: 44ch; }
-    .page-products .pm .btn-hello { margin-top: clamp(22px, 2.6vw, 34px); }
+    /* Aangan: its handwritten logo on its paper colour */
+    .page-plist .pblock--aangan { background: #F4EDE1; color: #2A1F17; }
+    .page-plist .pblock--aangan .pblock__art img { width: 62%; max-width: 480px; height: auto; transition: transform .6s var(--ease); }
+    .page-plist .pblock--aangan:hover .pblock__art img { transform: scale(1.05); }
 
-    @media (max-width: 1024px) {
-      .page-products .feat-grid { grid-template-columns: 1fr; }
-      .page-products .means { grid-template-columns: 1fr; }
-      .page-products .pm { grid-template-columns: 1fr; }
+    /* Coming soon: quiet, smaller, not links */
+    .page-plist .pblock--soon {
+      grid-column: span 2; aspect-ratio: 4 / 3;
+      background: var(--bg-alt); color: var(--grey-500);
+      box-shadow: inset 0 0 0 1px var(--line);
     }
-    @media (max-width: 620px) {
-      .page-products .means__list { grid-template-columns: 1fr; }
+    .page-plist .pblock--soon .pblock__art svg { width: 34%; max-width: 72px; height: auto; opacity: .55; }
+    .page-plist .pblock--soon .pblock__label strong { font-size: clamp(17px, 1.4vw, 22px); color: var(--grey-700); }
+    .page-plist .pblock--soon .pblock__label span { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; opacity: 1; }
+
+    /* Large screens: one screen exactly. The header is fixed over the top, so the
+       section starts below it; the blocks stretch to fill what is left. */
+    @media (min-width: 961px) and (min-height: 640px) {
+      .page-plist .plist {
+        height: 100vh; height: 100svh; box-sizing: border-box;
+        grid-template-rows: auto minmax(0, 1fr); gap: clamp(14px, 2.2vh, 24px);
+        padding-top: clamp(110px, 13vh, 130px); padding-bottom: clamp(20px, 3vh, 36px);
+      }
+      .page-plist .plist__blocks { grid-template-rows: minmax(0, 1.55fr) minmax(0, 1fr); min-height: 0; }
+      .page-plist .pblock, .page-plist .pblock--soon { aspect-ratio: auto; min-height: 0; }
+      .page-plist .pblock__art { min-height: 0; }
+      .page-plist .pblock--pharma .pblock__art svg { width: auto; height: 70%; max-height: 240px; }
+      .page-plist .pblock--aangan .pblock__art img { width: auto; height: auto; max-height: 34%; max-width: 62%; }
+      .page-plist .pblock--soon .pblock__art svg { width: auto; height: 60%; max-height: 84px; }
+      .page-plist .pblock__label strong { font-size: clamp(22px, 3.6vh, 40px); }
+      .page-plist .pblock--soon .pblock__label strong { font-size: clamp(16px, 2.4vh, 22px); }
     }
-  
-    .page-products a.feat-card { text-decoration: none; }
-    /* Products are not launched yet: the cards keep their layout but no longer
-       navigate. The original href is preserved in data-href, so restoring the
-       link is a one-line change. */
-    .page-products .feat-card--soon { cursor: default; }
-    .page-products .feat-card--soon:hover { box-shadow: none; transform: none; border-color: var(--line); }
-    .page-products .feat-card__soon {
-      display: inline-flex; align-items: center; gap: 7px; align-self: flex-start;
-      margin-top: 14px; padding: 6px 14px; border-radius: 999px;
-      /* Deepened red: --red on the .07 tint background measured 4.24:1. */
-      background: rgba(230,0,0,.07); color: color-mix(in srgb, var(--red) 88%, #000);
-      font-size: 13px; font-weight: 500; letter-spacing: .01em;
+    @media (max-width: 560px) {
+      .page-plist .plist__blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .page-plist .pblock { grid-column: span 2; aspect-ratio: 4 / 3; }
+      .page-plist .pblock--soon { grid-column: span 1; aspect-ratio: 1 / 1; padding: 16px; }
+      .page-plist .pblock--soon:last-child { grid-column: span 2; aspect-ratio: auto; min-height: 120px; }
     }
-    .page-products .feat-card__soon::before {
-      content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+    @media (prefers-reduced-motion: reduce) {
+      .page-plist .pblock, .page-plist .pblock__art svg, .page-plist .pblock__art img, .page-plist .pblock__go { transition: none; }
     }
-  

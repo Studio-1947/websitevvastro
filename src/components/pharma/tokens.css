@@ -1,0 +1,59 @@
+/*
+ * Pharma ERP page: the only tokens shared across its components.
+ * Everything else (spacing, radius, surfaces) is owned by each component.
+ *
+ * Look: quiet and neutral. Near-white ground, near-black type, black pill
+ * buttons. Colour lives in soft washes of Studio 1947 red behind the product,
+ * and in the product's own status colours (green, amber, red).
+ * Typeface: the site's own.
+ */
+.pharma {
+  --p-ground: #FAFAFA;
+  --p-surface: #FFFFFF;
+  --p-card: #F1F3F2;
+  --p-ink: #0D0D0D;
+  --p-muted: #5D6461;
+  --p-line: #E3E7E5;
+  --p-green: #0F9D74;
+  --p-green-soft: #DDF3EA;
+  --p-amber: #E8900C;
+  --p-amber-soft: #FDF0DA;
+  --p-red: #D9364A;
+  --p-red-soft: #FBE3E6;
+  --p-pine: #0E3832;
+
+  /* The wash behind product shots: soft tints of Studio 1947 red (#e60000). */
+  --p-wash:
+    radial-gradient(60% 70% at 18% 20%, #FFE1DC 0%, transparent 60%),
+    radial-gradient(55% 65% at 85% 15%, #FFB4AA 0%, transparent 60%),
+    radial-gradient(60% 70% at 70% 95%, #FF8F82 0%, transparent 60%),
+    radial-gradient(50% 60% at 10% 90%, #FFE9E2 0%, transparent 60%),
+    #FDEEEC;
+
+  background: var(--p-ground);
+  color: var(--p-ink);
+  overflow-x: clip;
+}
+.pharma :where(h1, h2, h3) {
+  font-family: var(--font-display);
+  color: inherit;
+  font-weight: 400;
+  letter-spacing: -.02em;
+}
+
+/* Section heading pair, centred: used by every section that has one. */
+.pharma .p-title { margin: 0; font-size: clamp(34px, 4.2vw, 56px); line-height: 1.08; }
+.pharma .p-lede { margin: 16px 0 0; font-size: clamp(17px, 1.3vw, 19px); line-height: 1.5; color: var(--p-ink); }
+
+/* Buttons: black pill, and a white one for the second choice. */
+.pharma .p-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-radius: 999px;
+  background: var(--p-ink); color: #fff;
+  font-size: 15px; font-weight: 500; line-height: 1.2; text-decoration: none;
+  transition: opacity .2s ease;
+}
+.pharma .p-btn:hover { opacity: .82; }
+.pharma .p-btn:focus-visible { outline: 3px solid var(--p-green); outline-offset: 3px; }
+.pharma .p-btn--light { background: #fff; color: var(--p-ink); box-shadow: 0 0 0 1px var(--p-line); }
+.pharma .p-btn svg { flex: none; }

@@ -1,0 +1,52 @@
+---
+/**
+ * Pharma ERP product page. Like aangan, built from its own components in
+ * src/components/pharma/ rather than the shared HTML string rendered by
+ * [slug].astro. SEO fields still come from src/content/products/pharma-erp.json.
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
+import '../../components/pharma/tokens.css';
+
+import Hero from '../../components/pharma/Hero/index.astro';
+import Rows from '../../components/pharma/Rows/index.astro';
+import Toolkit from '../../components/pharma/Toolkit/index.astro';
+import Closing from '../../components/pharma/Closing/index.astro';
+
+import { hero } from '../../components/pharma/Hero/content';
+import { rows } from '../../components/pharma/Rows/content';
+import { toolkit } from '../../components/pharma/Toolkit/content';
+import { closing } from '../../components/pharma/Closing/content';
+
+const entry = await getEntry('products', 'pharma-erp');
+if (!entry) throw new Error('src/content/products/pharma-erp.json is missing');
+const d = entry.data;
+const url = new URL('/products/pharma-erp/', Astro.site).href;
+const jsonLd = [
+  productJsonLd({ name: cleanName(d.title), description: d.description, url }),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products/' },
+    { name: cleanName(d.title), path: '/products/pharma-erp/' },
+  ]),
+];
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  ogTitle={d.ogTitle}
+  ogDescription={d.ogDescription}
+  ogType={d.ogType}
+  noindex={d.noindex}
+  bodyClass="page-pharma"
+  jsonLd={jsonLd}
+>
+  <main class="pharma">
+    <Hero content={hero} />
+    <Rows content={rows} />
+    <Toolkit content={toolkit} />
+    <Closing content={closing} />
+  </main>
+</BaseLayout>

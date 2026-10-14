@@ -2,13 +2,15 @@
 import { getCollection } from 'astro:content';
 import StructuredLayout from '../../layouts/StructuredLayout.astro';
 import { productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
-// Shared scoped CSS for the 5 ERP/SaaS product pages (byte-identical in source).
+// Shared scoped CSS for the ERP/SaaS product pages (byte-identical in source).
 // aangan uses the global .pdp-* system and simply ignores these selectors.
 import productCss from '../../styles/product.css?raw';
 
 export async function getStaticPaths() {
-  // aangan has its own component-built page (products/aangan.astro).
-  const entries = (await getCollection('products')).filter((e) => e.id !== 'aangan');
+  // aangan and pharma-erp have their own component-built pages
+  // (products/aangan.astro, products/pharma-erp.astro).
+  const OWN_PAGE = ['aangan', 'pharma-erp'];
+  const entries = (await getCollection('products')).filter((e) => !OWN_PAGE.includes(e.id));
   return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 

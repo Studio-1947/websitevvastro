@@ -1,0 +1,44 @@
+---
+import { svg } from '../icons';
+import { STAFF, ROLE_LABEL } from '../content';
+---
+
+<section class="view" data-view="settings" aria-label="Settings">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title view__title--icon"><Fragment set:html={svg('settings', 22)} />Settings</h3>
+      <p class="view__date">Manage users, branches and system configuration.</p>
+    </div>
+  </div>
+
+  <div class="tabs tabs--icons" aria-hidden="true">
+    <span class="is-on"><Fragment set:html={svg('people', 14)} />Users &amp; Roles</span>
+    <span><Fragment set:html={svg('store', 14)} />Branches</span>
+    <span><Fragment set:html={svg('bill', 14)} />Billing Flow</span>
+    <span><Fragment set:html={svg('bell', 14)} />Notifications</span>
+    <span><Fragment set:html={svg('lock', 14)} />Security</span>
+  </div>
+
+  <div class="tools">
+    <span class="tools__search tools__search--short" aria-hidden="true"><Fragment set:html={svg('search', 15)} />Search users…</span>
+    <button type="button" class="tools__btn" data-action="invite"><Fragment set:html={svg('adduser', 15)} />Invite User</button>
+  </div>
+
+  <div class="panel table">
+    <div class="trow trow--head set-cols"><span>User</span><span>Role</span><span>Branch</span><span>Status</span><span>Joined</span><span class="trow__act">Actions</span></div>
+    {STAFF.map((p, i) => (
+      <div class="trow set-cols" data-user>
+        <b>{p.name}</b>
+        <span class="muted">{ROLE_LABEL[p.role].toLowerCase()}</span>
+        <span class="muted">{p.branch}</span>
+        <span><em class="badge badge--green" data-user-pill>Active</em></span>
+        <span>{p.joined}</span>
+        <span class="trow__act">
+          {i === 0
+            ? <span class="muted small">Owner</span>
+            : <button type="button" class="link-btn link-btn--red" data-toggle-user><Fragment set:html={svg('adduser', 13)} /><span>Deactivate</span></button>}
+        </span>
+      </div>
+    ))}
+  </div>
+</section>

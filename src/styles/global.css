@@ -655,21 +655,87 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
    bug. flex-start keeps overflow entirely on the reachable (bottom) side;
    the extra top padding keeps the drawer looking centred, not top-jammed,
    on ordinary taller screens where nothing overflows. */
-.mobile-menu { position: fixed; inset: 0; z-index: 200; background: rgba(255,255,255,.98); backdrop-filter: blur(8px); display: flex; flex-direction: column; justify-content: flex-start; gap: 8px; padding: 96px 40px 40px; overflow-y: auto; transform: translateY(-100%); transition: transform .5s var(--ease); }
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; flex-direction: column;
+  padding: 16px var(--gutter) max(24px, env(safe-area-inset-bottom));
+  background: #fff; overflow-y: auto;
+  transform: translateY(-100%); transition: transform .5s var(--ease);
+}
 .mobile-menu.is-open { transform: none; }
-.mobile-menu a { font-family: var(--font-display); font-size: 32px; color: var(--grey-900); padding: 10px 0; }
-.mobile-menu__label { font-family: var(--font-display); font-size: 32px; color: var(--grey-900); padding: 10px 0; cursor: default; }
-.mobile-menu a.mobile-menu__sub { display: flex; align-items: center; gap: 12px; margin-top: -6px; padding: 4px 0 10px 18px; font-size: 22px; color: var(--grey-700); }
-.mobile-menu a.mobile-menu__sub::before { content: ''; width: 18px; height: 1px; background: currentColor; opacity: .5; }
-.mobile-menu__close { position: absolute; top: 26px; right: 26px; font-size: 34px; line-height: 1; color: var(--grey-900); }
-.mobile-menu__language { margin-top: 18px; }
+
+/* Top bar: logo and close, where the header pill puts them. */
+.mobile-menu__top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px 10px 18px; border-radius: 999px; background: var(--bg-alt);
+}
+.mobile-menu__brand { display: flex; }
+.mobile-menu__brand img { width: 34px; height: 34px; }
+.mobile-menu__close {
+  display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 50%;
+  background: #fff; color: var(--grey-900); box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+/* Links: one per row, ruled, with an arrow at the end. */
+.mobile-menu__links { display: flex; flex-direction: column; margin-top: 18px; }
+.mobile-menu__link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 15px 4px; border-bottom: 1px solid var(--line);
+  font-family: var(--font-display); font-size: 26px; line-height: 1.15; color: var(--grey-900);
+}
+.mobile-menu__link::after {
+  content: ''; width: 9px; height: 9px; margin-right: 6px;
+  border-top: 1.8px solid var(--grey-500); border-right: 1.8px solid var(--grey-500);
+  transform: rotate(45deg); transition: transform .2s var(--ease), border-color .2s ease;
+}
+.mobile-menu__link:active::after, .mobile-menu__link:hover::after { border-color: var(--red); transform: translateX(3px) rotate(45deg); }
+
+/* Products: the heading row, then the released products as two small tiles. */
+.mobile-menu__group { border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+.mobile-menu__group .mobile-menu__link { border-bottom: 0; }
+.mobile-menu__products { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mobile-menu__product {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+  min-height: 112px; padding: 14px; border-radius: 16px;
+  font-family: var(--font-display); font-size: 17px; line-height: 1.15;
+}
+.mobile-menu__productArt { display: flex; align-items: center; height: 30px; }
+.mobile-menu__product--pharma { background: linear-gradient(155deg, #19C18F 0%, #0F9D74 55%, #0B7A5B 100%); color: #fff; }
+.mobile-menu__product--aangan { background: #F4EDE1; color: #2A1F17; }
+.mobile-menu__product--aangan img { width: auto; height: 22px; }
+
+/* Foot: the one call to action, then languages. */
+.mobile-menu__foot { margin-top: auto; padding-top: 28px; display: grid; gap: 22px; }
+.mobile-menu__hello {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 8px 8px 24px; border-radius: 999px; background: var(--red); color: #fff;
+  font: 500 18px/1 var(--font-display);
+}
+.mobile-menu__helloArrow { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #fff; color: var(--red); }
+
+/* Items rise in, one after another, as the menu opens. */
+.mobile-menu.is-open :is(.mobile-menu__link, .mobile-menu__products, .mobile-menu__foot) { animation: mm-in .5s var(--ease) both; }
+.mobile-menu.is-open .mobile-menu__links > :nth-child(2) { animation-delay: .04s; }
+.mobile-menu.is-open .mobile-menu__links > :nth-child(3) { animation-delay: .08s; }
+.mobile-menu.is-open .mobile-menu__links > :nth-child(4) .mobile-menu__link { animation-delay: .12s; }
+.mobile-menu.is-open .mobile-menu__products { animation-delay: .16s; }
+.mobile-menu.is-open .mobile-menu__links > :nth-child(5) { animation-delay: .2s; }
+.mobile-menu.is-open .mobile-menu__links > :nth-child(6) { animation-delay: .24s; }
+.mobile-menu.is-open .mobile-menu__foot { animation-delay: .28s; }
+@keyframes mm-in { from { opacity: 0; transform: translateY(14px); } }
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu.is-open :is(.mobile-menu__link, .mobile-menu__products, .mobile-menu__foot) { animation: none; }
+}
+.mobile-menu__language { margin: 0; }
 .mobile-menu__languageLabel { font: 600 13px/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--grey-500); margin: 0 0 10px; }
-.mobile-menu__languageList { display: flex; flex-wrap: wrap; gap: 10px; }
+.mobile-menu__languageList { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mobile-menu__languageList .mobile-menu__languageItem { justify-content: space-between; }
+.mobile-menu__languageList .mobile-menu__languageItem em { white-space: nowrap; font-size: 10px; padding: 3px 7px; letter-spacing: .02em; }
 .mobile-menu__languageItem {
   display: inline-flex; align-items: center; gap: 8px;
-  font: 600 15px/1 var(--font-body); color: var(--grey-900);
-  background: #fff; border: 1px solid var(--grey-300); border-radius: 999px;
-  padding: 9px 16px;
+  font: 600 14px/1 var(--font-body); color: var(--grey-900);
+  background: #fff; border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 12px;
 }
 .mobile-menu__languageItem.is-selected { color: #fff; background: var(--red); border-color: var(--red); }
 .mobile-menu__languageItem em {

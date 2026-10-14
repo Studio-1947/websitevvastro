@@ -203,18 +203,50 @@
     swallowed the wheel here and left the menu unscrollable on short viewports.
     The attribute hands this subtree back to native scrolling. */}
 <div class="mobile-menu" inert data-lenis-prevent>
-  <button class="mobile-menu__close" aria-label="Close menu">&times;</button>
-  <a href="/about-us/" data-i18n="global.nav.aboutUs">About Us</a>
-  <a href="/our-work/" data-i18n="global.nav.portfolio">Portfolio</a>
-  <a href="/solutions/" data-i18n="global.nav.solutions">Solutions</a>
-  {/* A label, not a link, on phones: the other products are still gated, so the
-      only place to go is the released one below. The overview stays reachable
-      from the desktop dropdown ("See overview"). */}
-  <span class="mobile-menu__label" data-i18n="global.nav.products">Products</span>
-  <a class="mobile-menu__sub" href="/products/aangan/">Aangan</a>
-  <a href="/initiatives/" data-i18n="global.nav.initiatives">Initiatives</a>
-  <a href="/blog/" data-i18n="global.nav.blogs">Blogs</a>
-  <a href="/sayhello/" data-i18n="global.nav.sayHello">Say Hello</a>
+  {/* Its own top bar, in the same place as the header's pill, so opening the
+      menu doesn't shift the logo or the button under the visitor's thumb. */}
+  <div class="mobile-menu__top">
+    <a class="mobile-menu__brand" href="/" aria-label="Studio 1947 home">
+      <img src="/assets/img/brand-mark.svg" alt="" width="34" height="34" />
+    </a>
+    <button class="mobile-menu__close" aria-label="Close menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+    </button>
+  </div>
+
+  <nav class="mobile-menu__links" aria-label="Menu">
+    <a class="mobile-menu__link" href="/about-us/"><span data-i18n="global.nav.aboutUs">About Us</span></a>
+    <a class="mobile-menu__link" href="/our-work/"><span data-i18n="global.nav.portfolio">Portfolio</span></a>
+    <a class="mobile-menu__link" href="/solutions/"><span data-i18n="global.nav.solutions">Solutions</span></a>
+
+    {/* Products: the released ones as small tiles, like the products page. */}
+    <div class="mobile-menu__group">
+      <a class="mobile-menu__link" href="/products/"><span data-i18n="global.nav.products">Products</span></a>
+      <div class="mobile-menu__products">
+        <a class="mobile-menu__product mobile-menu__product--pharma" href="/products/pharma-erp/">
+          <span class="mobile-menu__productArt" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+          </span>
+          <span data-i18n="global.dd.products.pharmaErp">Pharma ERP</span>
+        </a>
+        <a class="mobile-menu__product mobile-menu__product--aangan" href="/products/aangan/">
+          <span class="mobile-menu__productArt" aria-hidden="true">
+            <img src="/assets/img/products/aangan/logo-dark.webp" alt="" width="1109" height="268" />
+          </span>
+          <span>Aangan</span>
+        </a>
+      </div>
+    </div>
+
+    <a class="mobile-menu__link" href="/initiatives/"><span data-i18n="global.nav.initiatives">Initiatives</span></a>
+    <a class="mobile-menu__link" href="/blog/"><span data-i18n="global.nav.blogs">Blogs</span></a>
+  </nav>
+
+  <div class="mobile-menu__foot">
+    <a class="mobile-menu__hello" href="/sayhello/">
+      <span data-i18n="global.nav.sayHello">Say Hello</span>
+      <span class="mobile-menu__helloArrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span>
+    </a>
   <div class="mobile-menu__language">
     <p class="mobile-menu__languageLabel">Language</p>
     <div class="mobile-menu__languageList">
@@ -223,5 +255,6 @@
       <span class="mobile-menu__languageItem" data-lang="bn" data-lang-locked>Bengali <em>Coming Soon</em></span>
       <span class="mobile-menu__languageItem" data-lang="ne" data-lang-locked>Nepali <em>Coming Soon</em></span>
     </div>
+  </div>
   </div>
 </div>

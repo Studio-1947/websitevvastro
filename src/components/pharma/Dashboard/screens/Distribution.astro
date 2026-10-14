@@ -1,0 +1,42 @@
+---
+import { svg } from '../icons';
+import { TRANSFERS, TRANSFER_LABEL } from '../content';
+
+const count = (s: string) => TRANSFERS.filter((t) => t.status === s).length;
+const tone = { pending: 'amber', transit: 'blue', delivered: 'green' } as const;
+---
+
+<section class="view" data-view="dist" aria-label="Distribution">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title view__title--icon"><Fragment set:html={svg('truck', 22)} />Distribution &amp; Stock Transfers</h3>
+      <p class="view__date">Move stock between branches, approve dispatch and confirm deliveries.</p>
+    </div>
+    <button type="button" class="btn" data-action="transfer"><Fragment set:html={svg('plus', 15)} />New Transfer</button>
+  </div>
+
+  <div class="tstats">
+    <div class="tstat"><span class="tstat__icon tstat__icon--amber" set:html={svg('clock', 18)} /><span><b data-t-count="pending">{count('pending')}</b><small>Awaiting approval</small></span></div>
+    <div class="tstat"><span class="tstat__icon tstat__icon--blue" set:html={svg('truck', 18)} /><span><b data-t-count="transit">{count('transit')}</b><small>In transit</small></span></div>
+    <div class="tstat"><span class="tstat__icon tstat__icon--green" set:html={svg('check', 18)} /><span><b data-t-count="delivered">{count('delivered')}</b><small>Delivered this week</small></span></div>
+  </div>
+
+  <div class="panel table">
+    <div class="trow trow--head tr-cols"><span>Transfer #</span><span>From</span><span>To</span><span>Items</span><span>Status</span><span>Date</span><span class="trow__act">Actions</span></div>
+    {TRANSFERS.map((t) => (
+      <div class="trow tr-cols" data-transfer data-t-status={t.status}>
+        <code class="strong">{t.id}</code>
+        <span><Fragment set:html={svg('store', 13)} /> {t.from}</span>
+        <span><Fragment set:html={svg('arrow', 13)} /> {t.to}</span>
+        <span>{t.items} items</span>
+        <span><em class={`badge badge--${tone[t.status]}`} data-t-pill>{TRANSFER_LABEL[t.status]}</em></span>
+        <span class="muted">{t.date}</span>
+        <span class="trow__act">
+          {t.status === 'pending' && <button type="button" class="act act--green" data-approve>Approve</button>}
+          {t.status === 'transit' && <button type="button" class="act act--blue" data-deliver>Mark delivered</button>}
+          {t.status === 'delivered' && <span class="icon-btn" set:html={svg('eye', 16)} />}
+        </span>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,137 @@
+---
+/**
+ * A working copy of the Pharma ERP app, drawn in HTML in place of a
+ * screenshot, for a made-up pharmacy (see content.ts). Every sidebar item
+ * opens its screen (screens/*); the buttons inside them work on sample data.
+ *
+ * While in view and untouched, it plays a short guided demo with a pointer:
+ * bills come in, a bill is rung up, stock is filtered, a token is issued, and
+ * round again. The moment the visitor clicks or types inside it, the demo
+ * stops and it is theirs to use. Reduced motion: no demo, no counting,
+ * everything still works. Behaviour lives in client.ts, styles in app.css.
+ *
+ * It is laid out at a fixed 1280 × 760 and scaled to fit, like a screenshot.
+ */
+import './app.css';
+import { svg, type IconName } from './icons';
+import { SHOP } from './content';
+
+import Home from './screens/Home.astro';
+import Billing from './screens/Billing.astro';
+import Inventory from './screens/Inventory.astro';
+import Prescriptions from './screens/Prescriptions.astro';
+import Patients from './screens/Patients.astro';
+import Queue from './screens/Queue.astro';
+import Procurement from './screens/Procurement.astro';
+import Hr from './screens/Hr.astro';
+import Distribution from './screens/Distribution.astro';
+import Analytics from './screens/Analytics.astro';
+import Reports from './screens/Reports.astro';
+import Settings from './screens/Settings.astro';
+import Admin from './screens/Admin.astro';
+
+/** Sidebar, in the product's order. `go` matches each screen's data-view. */
+const nav: { label: string; icon: IconName; go: string }[] = [
+  { label: 'Dashboard', icon: 'home', go: 'home' },
+  { label: 'Billing & POS', icon: 'pos', go: 'pos' },
+  { label: 'Inventory', icon: 'stock', go: 'stock' },
+  { label: 'Prescriptions', icon: 'rx', go: 'rx' },
+  { label: 'Patients', icon: 'people', go: 'patients' },
+  { label: 'Clinic Queue', icon: 'queue', go: 'queue' },
+  { label: 'Procurement', icon: 'cart', go: 'procure' },
+  { label: 'HR Management', icon: 'hr', go: 'hr' },
+  { label: 'Distribution', icon: 'truck', go: 'dist' },
+  { label: 'Analytics', icon: 'chart', go: 'analytics' },
+  { label: 'Reports & Compliance', icon: 'report', go: 'reports' },
+  { label: 'Settings', icon: 'settings', go: 'settings' },
+  { label: 'Admin Console', icon: 'shield', go: 'admin' },
+];
+---
+
+<div
+  class="dash"
+  data-dash
+  data-crumbs={JSON.stringify(Object.fromEntries(nav.map((n) => [n.go, n.label])))}
+  role="region"
+  aria-label="Interactive preview of Pharma ERP, with sample data. Use the sidebar to move between screens."
+>
+  <div class="dash__scaler" data-scaler>
+    <div class="dash__stage" data-stage>
+      <div class="dash__bar" aria-hidden="true"><span></span><span></span><span></span><b>Pharma ERP</b></div>
+
+      <div class="dash__app">
+        <nav class="side" aria-label="Pharma ERP screens">
+          <div class="side__brand">
+            {/* Made-up pharmacy mark: a leaf with a cross in it. */}
+            <span class="side__logo" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M20 4C11 4 5 8.5 5 15.5c0 2 .6 3.4 1.3 4.5C7.5 20.7 9 21 10.5 21 17 21 20 14 20 4Z" fill="#fff" />
+                <path d="M12.5 10v6M9.5 13h6" stroke="#10A37A" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="side__name"><b>{SHOP.name}</b><small>{SHOP.tagline}</small></span>
+            <span class="side__collapse" set:html={svg('panel', 16)} />
+          </div>
+          <ul class="side__list">
+            {nav.map((n, i) => (
+              <li>
+                <button type="button" class="side__item" data-go={n.go} aria-current={i === 0 ? 'page' : undefined}>
+                  <Fragment set:html={svg(n.icon, 17)} />{n.label}<i class="side__dot" aria-hidden="true"></i>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div class="side__foot"><span>PharmaERP v1.0</span><span class="side__live">Live</span></div>
+        </nav>
+
+        <div class="dash__main">
+          <header class="top">
+            <span class="top__crumb">
+              <span set:html={svg('house', 15)} />
+              <span aria-hidden="true">›</span>
+              <b data-crumb>Dashboard</b>
+            </span>
+            <span class="top__search" aria-hidden="true">
+              <Fragment set:html={svg('search', 15)} />Search pages, medicines, patients…<kbd>Ctrl K</kbd>
+            </span>
+            <button type="button" class="top__branch" data-branch-switch>
+              <Fragment set:html={svg('store', 15)} /><span data-branch-name>{SHOP.branches[0]}</span><Fragment set:html={svg('chevron', 14)} />
+            </button>
+            <span class="top__bell" aria-hidden="true"><Fragment set:html={svg('bell', 17)} /><i></i></span>
+            <span class="top__user" aria-hidden="true">
+              <span class="top__avatar">{SHOP.initials}</span>
+              <span><b>{SHOP.user}</b><small>{SHOP.role}</small></span>
+            </span>
+            <span class="top__out" aria-hidden="true"><Fragment set:html={svg('logout', 15)} />Sign out</span>
+          </header>
+
+          <Home />
+          <Billing />
+          <Inventory />
+          <Prescriptions />
+          <Patients />
+          <Queue />
+          <Procurement />
+          <Hr />
+          <Distribution />
+          <Analytics />
+          <Reports />
+          <Settings />
+          <Admin />
+        </div>
+      </div>
+
+      <div class="toast" data-toast aria-hidden="true">
+        <span class="toast__tick" set:html={svg('check', 14)} />
+        <span data-toast-text></span>
+      </div>
+      <svg class="cursor" data-cursor width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 3l14 8-6 1.6L10 19z" fill="#0D0D0D" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script>
+  import './client';
+</script>
