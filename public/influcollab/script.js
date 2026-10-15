@@ -120,7 +120,8 @@ const CONTACT_EMAIL = 'studio@1947.io';
   // (Paid only). Each writes its value into a hidden form field.
   const BANDS = {
     eng: { input: 'f-eng', steps: [['', 'Not sure'], ['0.5', '0.5%'], ['1', '1%'], ['2', '2%'], ['3', '3%'], ['4', '4%'], ['5', '5%'], ['7', '7%'], ['10', '10%'], ['15', '15%+']] },
-    rate: { input: 'f-rate', steps: [['500', '₹500'], ['1000', '₹1k'], ['2000', '₹2k'], ['3000', '₹3k'], ['5000', '₹5k'], ['7500', '₹7.5k'], ['10000', '₹10k'], ['15000', '₹15k'], ['25000', '₹25k'], ['50000', '₹50k+']] },
+    // ₹500 to ₹2,000 in ₹100 steps
+    rate: { input: 'f-rate', steps: Array.from({ length: 16 }, (_, i) => [String(500 + i * 100), '₹' + (500 + i * 100).toLocaleString('en-IN')]) },
   };
   const touched = {};
   function setBand(key, idx) {
@@ -191,7 +192,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
     document.getElementById('f-lang').value = '';
     syncLang();
     touched.rate = false;
-    setBand('rate', 4);
+    setBand('rate', 5);
     err.hidden = true;
     setPinStatus('', '');
     pinInfo = null;
