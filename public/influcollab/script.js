@@ -92,7 +92,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
   // Toggle note changes with the choice
   const NOTES = {
     paid: 'A proper brief and a fee for your reels.',
-    barter: 'A homestay night or a dinner coupon.',
+    barter: 'A homestay booking or a dinner coupon.',
   };
   const theme = document.querySelector('meta[name=theme-color]');
   function syncTheme() {
