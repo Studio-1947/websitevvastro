@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="/influcollab/">
+<meta name="theme-color" content="#062A30">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hill Pass Creator Call | Studio 1947</title>
+<meta name="description" content="Studio 1947 is looking for travel creators from Kolkata and Darjeeling for a new tourism product in the Darjeeling hills.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wdth,wght@6..144,75..125,400..900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&text=%E2%86%92&display=swap">
+<link rel="stylesheet" href="styles.css?v=98">
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <video autoplay muted loop playsinline preload="auto" poster="media/montage-poster.jpg">
+    <source src="media/montage.webm" type="video/webm">
+    <source src="media/montage.mp4" type="video/mp4">
+  </video>
+  <div class="tint"></div>
+</div>
+<div class="wrap">
+  <section class="hero" id="apply">
+    <h1>Creators, <em>Darjeeling is Calling!!!</em></h1>
+    <p class="lede">Studio 1947 is launching a tourism product, and we want creators to show it first.</p>
+  </section>
+
+  <div class="duo">
+    <div class="rate-card pref">
+      <span class="qlabel-sm" id="h-offer">Collab preference</span>
+      <div class="toggle" role="radiogroup" aria-labelledby="h-offer">
+        <input type="radio" name="collab" id="c-paid" value="paid"><label for="c-paid">Paid</label>
+        <input type="radio" name="collab" id="c-barter" value="barter" checked><label for="c-barter">Barter</label>
+        <span class="tip" id="collab-tip" role="status">Tap to switch</span>
+      </div>
+      <p class="toggle-note" id="collab-note" aria-live="polite">A homestay night or a dinner coupon.</p>
+    </div>
+    <div class="rate-card">
+      <span class="qlabel-sm" id="fol-label">Select your followers</span>
+      <div class="wheel-wrap">
+        <button class="wheel-btn up" type="button" data-step="-1" aria-label="Lower follower range"><svg class="arw up blink" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
+        <button class="wheel-btn down" type="button" data-step="1" aria-label="Higher follower range"><svg class="arw down blink r" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
+        <div class="wheel" id="fol-wheel" tabindex="0" role="spinbutton" aria-labelledby="fol-label" aria-valuetext="1K+" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0">
+          <div class="wheel-track">
+            <div class="wi" data-v="1000">1K+</div>
+            <div class="wi" data-v="2000">2K+</div>
+            <div class="wi" data-v="3000">3K+</div>
+            <div class="wi" data-v="5000">5K+</div>
+            <div class="wi" data-v="8000">8K+</div>
+            <div class="wi" data-v="12000">12K+</div>
+            <div class="wi" data-v="15000">15K+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bars">
+    <div class="rate-card">
+      <div class="slide" data-band="eng">
+        <div class="slide-top"><label for="t-eng">Engagement score</label></div>
+        <input type="range" id="t-eng" min="0" max="9" step="1" value="0">
+        <div class="slide-ends"><span aria-hidden="true">Not sure</span><output for="t-eng" class="nudge"><svg class="arw left blink" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Drag the bar</span><svg class="arw blink r" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></output><span aria-hidden="true">15%+</span></div>
+      </div>
+    </div>
+    <div class="rate-card niche-card">
+      <span class="qlabel-sm" id="q-niche">Select your niche <span class="hint">(pick any 2)</span></span>
+      <div class="chips" role="group" aria-labelledby="q-niche">
+        <input type="checkbox" id="n1" name="niche" value="Tourism"><label for="n1">Tourism</label>
+        <input type="checkbox" id="n3" name="niche" value="Food"><label for="n3">Food</label>
+        <input type="checkbox" id="n5" name="niche" value="Culture"><label for="n5">Culture</label>
+        <input type="checkbox" id="n6" name="niche" value="Trekking"><label for="n6">Trekking</label>
+        <input type="checkbox" id="n8" name="niche" value="Music"><label for="n8">Music</label>
+        <input type="checkbox" id="n9" name="niche" value="Livelihood"><label for="n9">Livelihood</label>
+        <input type="checkbox" id="n10" name="niche" value="Photography"><label for="n10">Photography</label>
+        <input type="checkbox" id="n11" value="__other__"><label for="n11" id="n11-label" class="add-pill">+ Add your niche</label>
+        <input class="pill-input" id="niche-other" type="text" placeholder="Type niche" aria-label="Your niche" enterkeyhint="done" maxlength="30" hidden>
+      </div>
+    </div>
+  </div>
+
+  <section class="cta-wrap" id="cta-wrap">
+    <button class="submit" type="button" id="cta">Apply to collaborate <span class="arrow" aria-hidden="true">→</span></button>
+    <p class="cta-note">A few questions. 2 minutes.</p>
+  </section>
+
+  <footer>
+    <div class="credit">
+      <svg class="logo" width="36" height="36" aria-hidden="true" focusable="false" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M37.9887 0.0130083C48.4086 -0.251525 58.2824 3.52577 65.8539 10.6829C73.4105 17.8254 77.721 27.4963 77.9867 37.8724C78.2523 48.2483 74.4733 58.1101 67.2856 65.6497C60.1125 73.189 50.4305 77.4808 40.0102 77.7454C29.5903 78.0099 19.7164 74.2328 12.1449 67.0755C4.5882 59.9327 0.278763 50.2619 0.0131101 39.8861C-0.252527 29.5099 3.52554 19.6482 10.7133 12.1087C17.8863 4.56922 27.5833 0.277551 37.9887 0.0130083ZM41.811 26.4388C40.8074 26.1891 39.7446 26.086 38.6674 26.1155C37.59 26.1448 36.5272 26.3356 35.5385 26.5999L35.0219 6.80305C28.4541 7.59673 22.5057 10.3452 17.768 14.4603L32.1733 28.0989C30.3875 29.2306 28.8968 30.804 27.849 32.6409L13.4438 19.0023C9.57694 23.9257 7.14164 30.0099 6.66936 36.5794L26.5209 36.0648C26.2699 37.0788 26.1662 38.1374 26.1957 39.2103C26.2252 40.2831 26.4174 41.3271 26.683 42.3265L6.83147 42.8402C7.64322 49.3948 10.418 55.3325 14.5209 60.0501L28.1879 45.6917C29.3245 47.4701 30.9046 48.9538 32.7494 49.9974L19.0824 64.3421C24.0267 68.2072 30.1221 70.6327 36.7045 71.1029L36.1879 51.306C37.1914 51.5559 38.2541 51.6584 39.3315 51.6292C40.4086 51.5997 41.4715 51.4084 42.4604 51.1439L42.977 70.9407C49.5449 70.1472 55.4932 67.3841 60.2309 63.2835L45.8256 49.6448C47.6114 48.5132 49.1028 46.941 50.1508 45.1038L64.5551 58.7425C68.422 53.8191 70.858 47.7346 71.3305 41.1654L51.4789 41.679C51.7298 40.6651 51.8326 39.6071 51.8032 38.5345C51.7736 37.4617 51.5817 36.4177 51.3158 35.4183L71.1674 34.9036C70.3557 28.349 67.5959 22.4112 63.478 17.6937L49.811 32.053C48.6744 30.2747 47.0953 28.79 45.2504 27.7464L58.9174 13.388H58.9321C53.9875 9.53744 47.8918 7.09759 41.2944 6.62727L41.811 26.4388ZM38.7426 28.9212C44.2626 28.7888 48.8528 33.124 49.0004 38.6351C49.1333 44.1465 44.7793 48.7323 39.2592 48.8646C33.7393 48.997 29.149 44.6612 29.0014 39.1497C28.8685 33.6385 33.2227 29.0534 38.7426 28.9212Z" fill="currentColor"/></svg>
+      <p class="by">An initiative by<br><strong>Studio 1947</strong></p>
+    </div>
+    <p class="ask">For queries<br>or more info</p>
+    <div class="contact">
+      <a class="icon" href="mailto:studio@1947.io" aria-label="Email studio@1947.io"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></a>
+      <a class="icon" href="https://www.instagram.com/1947.io/" target="_blank" rel="noopener" aria-label="Studio 1947 on Instagram"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg></a>
+    </div>
+  </footer>
+</div>
+
+<dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+  <div class="sheet-head">
+    <h2 class="form-h" id="sheet-title">Tell us about you</h2>
+    <button class="sheet-btn x" type="button" data-close aria-label="Close"><span aria-hidden="true">✕</span></button>
+  </div>
+  <div class="sheet-body">
+    <form id="form" novalidate>
+      <div class="row">
+        <div class="field float"><input placeholder=" " id="f-name" name="name" type="text" autocomplete="name"><label for="f-name">Your name</label></div>
+        <div class="field float"><input placeholder=" " id="f-wa" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel"><label for="f-wa">WhatsApp number</label></div>
+      </div>
+      <div class="field float"><input placeholder=" " id="f-handle" name="handle" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="url"><label for="f-handle">Instagram / YouTube profile link</label></div>
+      <div class="field float"><textarea placeholder=" " id="f-reels" name="reels" autocapitalize="off"></textarea><label for="f-reels">1 or 2 links to your best reels <span class="hint">(optional)</span></label></div>
+
+      <div class="field float select-field">
+        <select id="f-lang" name="lang" required>
+          <option value="" selected disabled hidden></option>
+          <option>Bengali</option>
+          <option>Nepali</option>
+          <option>Hindi</option>
+          <option>English</option>
+          <option>Lepcha</option>
+          <option value="__other__">Other</option>
+        </select>
+        <label for="f-lang">Language you make reels in</label>
+      </div>
+      <div class="field float" id="lang-other-field" hidden><input placeholder=" " id="f-lang-other" name="langOther" type="text"><label for="f-lang-other">Which language?</label></div>
+
+      <input type="hidden" id="f-fol" name="followers">
+      <input type="hidden" id="f-eng" name="engagement">
+
+      <div class="field float pin-field"><input placeholder=" " id="f-pin" name="pin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="postal-code" aria-describedby="pin-status"><label for="f-pin">PIN code</label>
+        <p class="pin-status" id="pin-status" aria-live="polite"></p>
+      </div>
+
+      <div class="field" id="rate-field" hidden>
+        <input type="hidden" id="f-rate" name="rate">
+        <div class="slide" data-band="rate">
+        <div class="slide-top"><label for="s-rate">Charge per reel</label><output for="s-rate">₹5k</output></div>
+        <input type="range" id="s-rate" min="0" max="9" step="1" value="4">
+        <div class="slide-ends" aria-hidden="true"><span>₹500</span><span>₹50k+</span></div>
+      </div>
+      </div>
+
+      <label class="check" for="f-ok"><input id="f-ok" name="consent" type="checkbox"> I confirm my details are accurate, agree to be contacted on WhatsApp about this collaboration, and allow my reels to be reposted and my name/handle to be used to promote it.</label>
+
+      <p class="err" id="err" role="alert" hidden></p>
+      <button class="submit go" id="go" type="submit">I'm in <svg class="tick" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg></button>
+    </form>
+
+    <section class="panel win" id="done" hidden aria-live="polite">
+      <span class="drop mono">You're in the queue</span>
+      <h3>Application sent.</h3>
+      <p>We'll ping you on WhatsApp if you're shortlisted. You can come back here to update your answers.</p>
+      <button class="btn" type="button" id="again">Edit my application</button>
+    </section>
+
+    <section class="panel" id="fallback" hidden aria-live="polite">
+      <h3>One more step.</h3>
+      <p>This page couldn't save your application from your browser. Copy your answers and send them to <span class="addr">studio@1947.io</span> or DM <span class="addr">@1947.io</span> on Instagram.</p>
+      <pre class="copy" id="copytext"></pre>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" type="button" id="copybtn">Copy my answers</button>
+        <a class="btn" id="mailbtn" href="mailto:studio@1947.io">Open email</a>
+      </div>
+    </section>
+  </div>
+</dialog>
+
+<dialog class="confirm" id="leave" aria-labelledby="leave-title" aria-describedby="leave-text">
+  <h3 id="leave-title">Save your answers?</h3>
+  <p id="leave-text">Save them to pick up where you left off, or discard to start over.</p>
+  <div class="confirm-actions">
+    <button class="submit" type="button" data-leave="save">Save &amp; exit</button>
+    <button class="btn" type="button" data-leave="discard">Discard</button>
+    <button class="link-btn" type="button" data-leave="stay">Keep editing</button>
+  </div>
+</dialog>
+
+<script src="script.js?v=40"></script>
+</body>
+</html>
