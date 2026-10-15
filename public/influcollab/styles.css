@@ -184,7 +184,11 @@ input:focus-visible,textarea:focus-visible{outline:2px solid var(--mint);outline
 .chips input:focus-visible+label{outline:2px solid var(--mint);outline-offset:2px}
 
 .check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:13px;line-height:1.5;color:var(--muted)}
-.check input{width:20px;height:20px;accent-color:var(--mint);flex:none;margin-top:1px}
+.check input{-webkit-appearance:none;appearance:none;flex:none;width:20px;height:20px;margin:1px 0 0;border-radius:6px;border:1.5px solid rgba(255,255,255,.4);background:rgba(0,0,0,.18);display:grid;place-items:center;cursor:pointer;transition:background-color .15s,border-color .15s}
+.check input::after{content:"";width:10px;height:6px;border-left:2px solid var(--on-accent);border-bottom:2px solid var(--on-accent);transform:translateY(-1px) rotate(-45deg) scale(0);transition:transform .15s}
+.check input:checked{background:var(--mint);border-color:var(--mint)}
+.check input:checked::after{transform:translateY(-1px) rotate(-45deg) scale(1)}
+.check input:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
 .err{color:#FFB4B4;font-size:14px;font-weight:600}
 .submit{font-family:var(--display);font-weight:600;font-size:17px;background:rgba(var(--accent-rgb),.82);color:var(--on-accent);border:0;border-radius:999px;padding:15px 24px;cursor:pointer;width:100%;box-shadow:none;transition:transform .1s,background .15s}
 .submit:active{transform:scale(.98)}
