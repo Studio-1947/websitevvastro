@@ -27,9 +27,9 @@ const ENTRY = {
 };
 // Must match the form's checkbox options word for word
 const CONSENT_TEXT = 'I confirm the details above are accurate and agree to be contacted on WhatsApp about this collaboration.';
-// Pass type options in the form; Barter maps to the form's Stay pass option until it is renamed
-const PASS_PAID = 'Paid campaign - A proper brief and a fee for your reels.';
-const PASS_BARTER = 'Stay pass - One night at a Darjeeling homestay handpicked by us.';
+// Collaboration type options in the form; must match word for word
+const PASS_PAID = 'Paid Collaboration';
+const PASS_BARTER = 'Barter Collaboration';
 const USAGE_TEXT = 'I allow my reels to be reposted and my name/handle to be used to promote this collaboration.';
 const CONTACT_EMAIL = 'studio@1947.io';
 
