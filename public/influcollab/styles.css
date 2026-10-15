@@ -25,6 +25,18 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--body);fo
 /* Background video, fixed behind the page */
 .bg{position:fixed;inset:0;height:100lvh;z-index:-1;overflow:hidden;background:var(--teal) url("media/sunset-poster.jpg") center/cover no-repeat}
 .bg video{width:100%;height:100%;object-fit:cover;opacity:.45;display:block}
+/* The video is portrait (9:16). Phones and tablets: fill the screen, keeping the sky and
+   hills in frame. Wide screens: show the whole video centred at full height, with a blurred
+   copy of its first frame filling the sides instead of zooming into a thin strip. */
+.bg video{object-position:center 40%}
+/* Barter: video in greyscale so the teal wash reads cool blue. Paid: full colour. */
+.bg video,.bg::before{filter:grayscale(1);transition:filter .6s ease}
+body.paid .bg video{filter:none}
+@media (min-aspect-ratio:4/5){
+  .bg video{position:relative;z-index:0;width:auto;height:100%;margin:0 auto;object-fit:contain;box-shadow:0 0 80px 40px rgba(0,0,0,.25)}
+  .bg::before{content:"";position:absolute;inset:-40px;background:url("media/sunset-poster.jpg?v=2") center/cover;filter:grayscale(1) blur(40px);opacity:.45;z-index:0}
+  body.paid .bg::before{filter:blur(40px) saturate(115%)}
+}
 /* Keep the fixed background on its own layer so scrolling never repaints it */
 .bg{transform:translateZ(0);contain:strict}
 /* Paid swaps the teal wash for a reddish grey one at the same strength; the two cross-fade */
