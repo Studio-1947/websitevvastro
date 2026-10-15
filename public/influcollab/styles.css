@@ -25,6 +25,8 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--body);fo
 /* Background video, fixed behind the page */
 .bg{position:fixed;inset:0;height:100lvh;z-index:-1;overflow:hidden;background:var(--teal) url("media/montage-poster.jpg") center/cover no-repeat}
 .bg video{width:100%;height:100%;object-fit:cover;opacity:.45;display:block}
+/* Keep the fixed background on its own layer so scrolling never repaints it */
+.bg{transform:translateZ(0);contain:strict}
 /* Paid swaps the teal wash for a reddish grey one at the same strength; the two cross-fade */
 .bg .tint{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(56,40,42,.62),rgba(50,36,38,.66) 40%,rgba(30,22,23,.82));opacity:0;transition:opacity .6s ease}
 body.paid .bg .tint{opacity:1}
