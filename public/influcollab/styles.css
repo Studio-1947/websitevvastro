@@ -23,7 +23,7 @@ html.paid{background:#2C2123}
 body{margin:0;background:transparent;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 
 /* Background video, fixed behind the page */
-.bg{position:fixed;inset:0;height:100lvh;z-index:-1;overflow:hidden;background:var(--teal) url("media/sunset-poster.jpg?v=3") center/cover no-repeat}
+.bg{position:fixed;inset:0;height:100lvh;z-index:-1;overflow:hidden;background:var(--teal) url("media/sunset-poster.jpg?v=4") center/cover no-repeat}
 .bg video{width:100%;height:100%;object-fit:cover;opacity:.45;display:block}
 /* Background video plays as shot: full colour, original motion, filling the screen */
 .bg video{object-position:center 40%}
@@ -183,9 +183,7 @@ input:focus-visible,textarea:focus-visible{outline:2px solid var(--mint);outline
 .chips input:checked+label{background:rgba(243,251,249,.92);color:var(--on-accent);border-color:#fff}
 .chips input:focus-visible+label{outline:2px solid var(--mint);outline-offset:2px}
 
-.check{display:flex;gap:12px;align-items:flex-start;font-weight:400;font-size:13px;line-height:1.5;color:var(--muted)}
-.consent{margin:6px 0 0;padding-left:18px;display:grid;gap:4px}
-.consent li{padding-left:2px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:13px;line-height:1.5;color:var(--muted)}
 .check input{width:20px;height:20px;accent-color:var(--mint);flex:none;margin-top:1px}
 .err{color:#FFB4B4;font-size:14px;font-weight:600}
 .submit{font-family:var(--display);font-weight:600;font-size:17px;background:rgba(var(--accent-rgb),.82);color:var(--on-accent);border:0;border-radius:999px;padding:15px 24px;cursor:pointer;width:100%;box-shadow:none;transition:transform .1s,background .15s}
