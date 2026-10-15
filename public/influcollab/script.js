@@ -119,7 +119,11 @@ const CONTACT_EMAIL = 'studio@1947.io';
   // Slider bars. Engagement sits on the main page, charge per reel in the form
   // (Paid only). Each writes its value into a hidden form field.
   const BANDS = {
-    eng: { input: 'f-eng', steps: [['', 'Not sure'], ['0.5', '0.5%'], ['1', '1%'], ['2', '2%'], ['3', '3%'], ['4', '4%'], ['5', '5%'], ['7', '7%'], ['10', '10%'], ['15', '15%+']] },
+    // Not sure, then every 0.5% from 0.5% to 15%+
+    eng: { input: 'f-eng', steps: [['', 'Not sure']].concat(Array.from({ length: 30 }, (_, i) => {
+      const v = (i + 1) / 2;
+      return [String(v), v + (v === 15 ? '%+' : '%')];
+    })) },
     // ₹500 to ₹2,000 in ₹100 steps
     rate: { input: 'f-rate', steps: Array.from({ length: 16 }, (_, i) => [String(500 + i * 100), '₹' + (500 + i * 100).toLocaleString('en-IN')]) },
   };
