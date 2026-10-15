@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wdth,wght@6..144,75..125,400..900&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&text=%E2%86%92&display=swap">
-<link rel="stylesheet" href="styles.css?v=109">
+<link rel="stylesheet" href="styles.css?v=110">
 </head>
 <body>
 <div class="bg" aria-hidden="true">
@@ -144,7 +144,12 @@
       </div>
       </div>
 
-      <label class="check" for="f-ok"><input id="f-ok" name="consent" type="checkbox"> I confirm my details are accurate, agree to be contacted on WhatsApp about this collaboration, and allow my reels to be reposted and my name/handle to be used to promote it.</label>
+      <label class="check" for="f-ok"><input id="f-ok" name="consent" type="checkbox"><span>I agree that:
+        <ol class="consent">
+          <li>The details I've shared are accurate.</li>
+          <li>Studio 1947 will review applications and contact me on WhatsApp if I'm selected.</li>
+          <li>If selected, the content made through this collaboration, and my name/handle, can be used to promote it.</li>
+        </ol></span></label>
 
       <p class="err" id="err" role="alert" hidden></p>
       <button class="submit go" id="go" type="submit">I'm in <svg class="tick" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg></button>
