@@ -397,7 +397,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
   }
 
   function isPaid(d) {
-    return d.deal.startsWith('Paid campaign');
+    return d.deal === PASS_PAID;
   }
 
   async function send(d) {
