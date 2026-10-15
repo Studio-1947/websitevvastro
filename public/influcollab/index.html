@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wdth,wght@6..144,75..125,400..900&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&text=%E2%86%92&display=swap">
-<link rel="stylesheet" href="styles.css?v=98">
+<link rel="stylesheet" href="styles.css?v=100">
 </head>
 <body>
 <div class="bg" aria-hidden="true">
@@ -113,26 +113,27 @@
       <div class="field float"><input placeholder=" " id="f-handle" name="handle" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="url"><label for="f-handle">Instagram / YouTube profile link</label></div>
       <div class="field float"><textarea placeholder=" " id="f-reels" name="reels" autocapitalize="off"></textarea><label for="f-reels">1 or 2 links to your best reels <span class="hint">(optional)</span></label></div>
 
-      <div class="field float select-field">
-        <select id="f-lang" name="lang" required>
-          <option value="" selected disabled hidden></option>
-          <option>Bengali</option>
-          <option>Nepali</option>
-          <option>Hindi</option>
-          <option>English</option>
-          <option>Lepcha</option>
-          <option value="__other__">Other</option>
-        </select>
-        <label for="f-lang">Language you make reels in</label>
+      <div class="pair">
+        <div class="field float select-field">
+          <select id="f-lang" name="lang" required>
+            <option value="" selected disabled hidden></option>
+            <option>Bengali</option>
+            <option>Nepali</option>
+            <option>Hindi</option>
+            <option>English</option>
+            <option>Lepcha</option>
+            <option value="__other__">Other</option>
+          </select>
+          <label for="f-lang">Language</label>
+        </div>
+        <div class="field float pin-field"><input placeholder=" " id="f-pin" name="pin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="postal-code" aria-describedby="pin-status"><label for="f-pin">Your PIN code</label>
+        </div>
+        <p class="pin-status" id="pin-status" aria-live="polite"></p>
       </div>
       <div class="field float" id="lang-other-field" hidden><input placeholder=" " id="f-lang-other" name="langOther" type="text"><label for="f-lang-other">Which language?</label></div>
-
       <input type="hidden" id="f-fol" name="followers">
       <input type="hidden" id="f-eng" name="engagement">
 
-      <div class="field float pin-field"><input placeholder=" " id="f-pin" name="pin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="postal-code" aria-describedby="pin-status"><label for="f-pin">PIN code</label>
-        <p class="pin-status" id="pin-status" aria-live="polite"></p>
-      </div>
 
       <div class="field" id="rate-field" hidden>
         <input type="hidden" id="f-rate" name="rate">

@@ -131,9 +131,14 @@ html.sheet-open{overflow:hidden}
 .select-field::after{content:"";position:absolute;right:16px;top:50%;width:8px;height:8px;border-right:1.5px solid var(--soft);border-bottom:1.5px solid var(--soft);transform:translateY(-70%) rotate(45deg);pointer-events:none}
 .select-field select:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-color:transparent}
 .select-field select:valid+label,.select-field select:focus+label{transform:translateY(-9px) scale(.78);color:var(--soft)}
+/* Language and PIN side by side; the PIN check line spans both underneath */
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 10px;align-items:start}
+.pair .pin-status{grid-column:1 / -1;margin-top:-4px}
+.select-field select{text-overflow:ellipsis;white-space:nowrap}
+.field.float.select-field label{right:40px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* PIN code: digits only, district check shows underneath */
 .pin-field input{letter-spacing:.12em;font-variant-numeric:tabular-nums}
-.pin-status{margin:6px 2px 0;font-size:13px;line-height:1.4;color:var(--muted);min-height:0}
+.pin-status{margin:0 2px;font-size:13px;line-height:1.4;color:var(--muted);min-height:0}
 .pin-status:empty{display:none}
 .pin-status.ok{color:var(--mint)}
 .pin-status.bad{color:#FFB4B4}
