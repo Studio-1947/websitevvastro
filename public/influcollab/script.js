@@ -368,7 +368,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
 
     if (!/^[1-9]\d{5}$/.test(d.pin)) miss.push('a 6-digit PIN code');
     else if (!pinInfo && !pinLookupDown) miss.push('a PIN code we can find');
-    if (isPaid(d) && !touched.rate) miss.push('your charge per reel (move the bar)');
+    if (isPaid(d) && !touched.rate) miss.push('your remuneration (move the bar)');
     if (!d.consent) miss.push('the consent tick');
     return miss;
   }
