@@ -97,7 +97,7 @@ form::before,.panel::before{content:"";position:absolute;inset:0;border-radius:i
 form{display:flex;flex-direction:column;gap:18px;border-radius:24px;padding:22px 20px}
 .form-h{font-size:18px;font-weight:600;letter-spacing:-.01em;text-align:left;flex:1;min-width:0;padding-left:6px}
 /* Application sheet: slides up over the page, full screen on phones */
-.sheet{position:fixed;inset:0;width:calc(100% - 24px);max-width:540px;height:calc(100dvh - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));max-height:none;margin:calc(12px + env(safe-area-inset-top,0px)) auto 0;padding:0;border:1px solid var(--edge);border-radius:26px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4);color:var(--ink);
+.sheet{position:fixed;inset:0;width:calc(100% - 24px);max-width:540px;height:fit-content;max-height:calc(100dvh - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));margin:auto;padding:0;border:1px solid var(--edge);border-radius:26px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4);color:var(--ink);
   background:rgba(6,42,48,.38);-webkit-backdrop-filter:blur(28px) saturate(150%);backdrop-filter:blur(28px) saturate(150%);overscroll-behavior:contain}
 html.paid .sheet{background:rgba(44,33,35,.4)}
 .sheet[open]{display:flex;flex-direction:column;animation:sheetUp .32s cubic-bezier(.2,.8,.2,1)}
@@ -108,7 +108,7 @@ html.paid .sheet{background:rgba(44,33,35,.4)}
 .sheet-btn.x{padding:0;width:40px}
 .sheet-btn:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
 .sheet-btn:active{opacity:.75}
-.sheet-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 24px;display:flex;flex-direction:column;gap:16px}
+.sheet-body{flex:0 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 24px;display:flex;flex-direction:column;gap:16px}
 html.sheet-open{overflow:hidden}
 /* Inside the sheet: no extra card, tighter spacing */
 .sheet form{background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:0;gap:12px;border-radius:0}
