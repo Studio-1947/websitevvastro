@@ -6,6 +6,15 @@ export function mobileMenu(): void {
   const menu = document.querySelector<HTMLElement>('.mobile-menu');
   if (!burger || !menu) return;
   const close = menu.querySelector('.mobile-menu__close');
+  const productsToggle = menu.querySelector<HTMLButtonElement>('.mobile-menu__productToggle');
+  const products = menu.querySelector<HTMLElement>('#mobile-products');
+  if (productsToggle && products) {
+    productsToggle.addEventListener('click', () => {
+      const expanded = productsToggle.getAttribute('aria-expanded') === 'true';
+      productsToggle.setAttribute('aria-expanded', String(!expanded));
+      products.hidden = expanded;
+    });
+  }
   burger.addEventListener('click', () => {
     if (menu.classList.contains('is-open')) return;
     menu.classList.add('is-open');

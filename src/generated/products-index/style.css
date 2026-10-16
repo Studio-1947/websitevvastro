@@ -37,13 +37,13 @@
     }
     .page-plist a.pblock:hover .pblock__go { transform: rotate(-45deg); }
 
-    /* Pharma ERP: its own green tile and white cross */
-    .page-plist .pblock--pharma { background: linear-gradient(155deg, #19C18F 0%, #0F9D74 55%, #0B7A5B 100%); color: #fff; }
-    .page-plist .pblock--pharma .pblock__art svg { width: 30%; max-width: 220px; height: auto; filter: drop-shadow(0 12px 24px rgba(0, 60, 40, .3)); transition: transform .6s var(--ease); }
+    /* Pharma ERP: Studio red tile and white cross */
+    .page-plist .pblock--pharma { background: var(--red); color: #fff; }
+    .page-plist .pblock--pharma .pblock__art svg { width: 30%; max-width: 220px; height: auto; filter: drop-shadow(0 12px 24px rgba(80, 0, 0, .3)); transition: transform .6s var(--ease); }
     .page-plist .pblock--pharma:hover .pblock__art svg { transform: rotate(90deg); }
 
-    /* Aangan: its handwritten logo on its paper colour */
-    .page-plist .pblock--aangan { background: #F4EDE1; color: #2A1F17; }
+    /* Aangan: white handwritten logo on Studio red */
+    .page-plist .pblock--aangan { background: var(--red); color: #fff; }
     .page-plist .pblock--aangan .pblock__art img { width: 62%; max-width: 480px; height: auto; transition: transform .6s var(--ease); }
     .page-plist .pblock--aangan:hover .pblock__art img { transform: scale(1.05); }
 
