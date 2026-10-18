@@ -1,0 +1,595 @@
+---
+/**
+ * Elegant Sip's opt-in interactive case-study body.
+ * The shared CaseHero remains untouched; this component begins below it.
+ */
+const stack = [
+  'React 19',
+  'TypeScript',
+  'GSAP',
+  'Fastify',
+  'PostgreSQL',
+  'Redis',
+  'Docker',
+  'Caddy',
+];
+
+const deepDives = [
+  {
+    index: '01',
+    title: 'Zero-drift financial engine',
+    summary: 'One pricing contract, from product page to payment capture.',
+    body: 'The shared calculatePricing() engine runs on both client and server. Every transaction stays in integer paise, whole-rupee rounding is tested across the full supported range, and the API always looks up the live product price instead of trusting a value from the browser.',
+    code: 'display total = server total = captured total',
+  },
+  {
+    index: '02',
+    title: '60 FPS scroll-video storytelling',
+    summary: 'Cinematic motion without turning the storefront into a slideshow.',
+    body: 'All-intra video encoding makes each frame independently seekable. A buffered seek proxy prevents request storms, while direct DOM transforms keep continuous scroll work outside React state.',
+    code: 'scroll → buffered frame → direct transform',
+  },
+  {
+    index: '03',
+    title: 'Concurrency-safe seasonal stock',
+    summary: 'The final pouch cannot be sold twice during a rush.',
+    body: 'Order creation locks product-variant rows inside a PostgreSQL transaction. Database constraints prevent negative balances, while an immutable stock ledger records every movement for later audit.',
+    code: 'BEGIN → SELECT FOR UPDATE → reserve → ledger → COMMIT',
+  },
+  {
+    index: '04',
+    title: 'Verified, idempotent payments',
+    summary: 'A browser redirect never gets the final word on payment.',
+    body: 'Orders become paid only after a signed gateway webhook passes raw-body HMAC verification. A unique provider and event ID constraint makes webhook retries safe and prevents double processing.',
+    code: 'signed webhook + unique event = one trusted payment',
+  },
+];
+---
+
+<section class="case-section es-story" data-es-story>
+  <nav class="es-nav" aria-label="Elegant Sip case study sections">
+    <div class="es-shell es-nav__inner">
+      <a class="es-nav__brand" href="#es-overview" aria-label="Elegant Sip overview">
+        <span class="es-nav__leaf" aria-hidden="true">◆</span>
+        Elegant Sip
+      </a>
+      <div class="es-nav__links">
+        <a class="is-active" href="#es-overview">Overview</a>
+        <a href="#es-experience">Experience</a>
+        <a href="#es-commerce">Commerce</a>
+        <a href="#es-engineering">Engineering</a>
+      </div>
+      <span class="es-nav__status"><i></i> Production-ready</span>
+    </div>
+  </nav>
+
+  <div class="es-intro es-section" id="es-overview" data-es-section>
+    <div class="es-shell es-intro__grid">
+      <div class="es-kicker es-reveal">Digital flagship · Full-stack commerce</div>
+      <h2 class="es-intro__title es-reveal">Luxury in the scroll.<br /><em>Integrity in the stack.</em></h2>
+      <div class="es-intro__aside es-reveal">
+        <p>Elegant Sip is a production-ready storefront for a boutique, single-origin Darjeeling tea brandpairing cinematic product storytelling with transactional systems that never guess.</p>
+        <a class="es-text-link" href="#es-experience">Explore the experience <span>↘</span></a>
+      </div>
+    </div>
+
+    <div class="es-shell es-signal-grid" aria-label="Project highlights">
+      <article class="es-signal es-reveal">
+        <span class="es-signal__value">60<small>fps</small></span>
+        <p>Frame-scrubbed storytelling designed to stay fluid.</p>
+      </article>
+      <article class="es-signal es-reveal">
+        <span class="es-signal__value">₹<small>0 drift</small></span>
+        <p>One deterministic pricing engine shared end to end.</p>
+      </article>
+      <article class="es-signal es-reveal">
+        <span class="es-signal__value">5<small>% GST</small></span>
+        <p>Indian tax, shipping and invoice rules built in.</p>
+      </article>
+      <article class="es-signal es-reveal">
+        <span class="es-signal__value">1<small> origin</small></span>
+        <p>Garden provenance stays at the heart of every screen.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="es-marquee" aria-label="Technology stack">
+    <div class="es-marquee__track">
+      {[...stack, ...stack].map((item) => <span>{item}<i>✦</i></span>)}
+    </div>
+  </div>
+
+  <div class="es-section es-experience" id="es-experience" data-es-section>
+    <div class="es-shell">
+      <div class="es-heading-row es-reveal">
+        <div>
+          <span class="es-number">01 / Experience</span>
+          <h2>A storefront that unfolds like a first pour.</h2>
+        </div>
+        <p>Desktop and mobile receive purpose-built scroll journeysnot a squeezed version of the same composition.</p>
+      </div>
+
+      <figure class="es-browser es-reveal">
+        <div class="es-browser__bar">
+          <div class="es-browser__dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span>elegantsip.in</span>
+          <span class="es-browser__secure">Secure commerce</span>
+        </div>
+        <img src="/assets/img/work/elegant-sip/store-mockup.webp" alt="Elegant Sip responsive commerce experience on laptop and mobile" loading="lazy" />
+        <figcaption>Responsive storefront concept · desktop and mobile journeys</figcaption>
+      </figure>
+
+      <div class="es-journeys">
+        <article class="es-journey es-reveal">
+          <span>Desktop · ≥1024px</span>
+          <h3>500vh cinematic runway</h3>
+          <p>A full-screen keyframe-scrubbed story expands into estates, processes and the tea collection.</p>
+          <div class="es-progress" aria-hidden="true"><i style="--progress: 88%"></i></div>
+        </article>
+        <article class="es-journey es-reveal">
+          <span>Mobile · &lt;1024px</span>
+          <h3>Touch-native discovery</h3>
+          <p>A dedicated vertical film transitions into horizontal snap carousels and thumb-friendly controls.</p>
+          <div class="es-progress" aria-hidden="true"><i style="--progress: 68%"></i></div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="es-section es-taste" aria-labelledby="es-taste-title">
+    <div class="es-shell es-taste__grid">
+      <div class="es-taste__copy es-reveal">
+        <span class="es-number">Interactive taste matcher</span>
+        <h2 id="es-taste-title">What should your next cup feel like?</h2>
+        <p>A guided recommendation turns flavour language into an exact flush and estate pairing.</p>
+        <div class="es-taste__options" role="group" aria-label="Choose a flavour profile">
+          <button class="is-active" type="button" data-taste="floral" aria-pressed="true"><i>01</i> Floral</button>
+          <button type="button" data-taste="muscatel" aria-pressed="false"><i>02</i> Muscatel</button>
+          <button type="button" data-taste="brisk" aria-pressed="false"><i>03</i> Brisk</button>
+          <button type="button" data-taste="woodsmoke" aria-pressed="false"><i>04</i> Woodsmoke</button>
+        </div>
+      </div>
+
+      <div class="es-recommendation es-reveal" aria-live="polite">
+        <div class="es-recommendation__top">
+          <span>Your pairing</span>
+          <span data-taste-season>Spring harvest</span>
+        </div>
+        <div class="es-cup" aria-hidden="true"><span></span></div>
+        <p class="es-recommendation__eyebrow" data-taste-estate>Gopaldhara Estate</p>
+        <h3 data-taste-name>Darjeeling First Flush</h3>
+        <p data-taste-note>Fresh florals, pale gold liquor and a clean, lifted finish.</p>
+        <div class="es-recommendation__meta">
+          <span data-taste-temp>85°C</span>
+          <span data-taste-time>3 min</span>
+          <span data-taste-mood>Light & lively</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="es-section es-commerce" id="es-commerce" data-es-section>
+    <div class="es-shell">
+      <div class="es-heading-row es-reveal">
+        <div>
+          <span class="es-number">02 / Commerce</span>
+          <h2>A checkout built for Indian tea buyers.</h2>
+        </div>
+        <p>Every state shown to the customer is backed by a server-side rule, stock record or verified event.</p>
+      </div>
+
+      <div class="es-commerce__workspace es-reveal">
+        <div class="es-commerce__steps" role="tablist" aria-label="Commerce journey">
+          <button class="is-active" type="button" role="tab" aria-selected="true" data-commerce="catalogue"><b>01</b><span>Catalogue</span></button>
+          <button type="button" role="tab" aria-selected="false" data-commerce="quote"><b>02</b><span>Live quote</span></button>
+          <button type="button" role="tab" aria-selected="false" data-commerce="reserve"><b>03</b><span>Reserve stock</span></button>
+          <button type="button" role="tab" aria-selected="false" data-commerce="payment"><b>04</b><span>Verify payment</span></button>
+          <button type="button" role="tab" aria-selected="false" data-commerce="invoice"><b>05</b><span>Tax invoice</span></button>
+        </div>
+        <div class="es-commerce__panel" role="tabpanel">
+          <div class="es-commerce__panel-icon" data-commerce-icon>茶</div>
+          <div>
+            <span data-commerce-kicker>Single-origin catalogue</span>
+            <h3 data-commerce-title>Every tea begins with its garden.</h3>
+            <p data-commerce-body>First Flush, Second Flush and Autumnal lots are organised by estate, harvest and pack variantso provenance survives all the way to checkout.</p>
+          </div>
+          <div class="es-commerce__proof">
+            <span>System truth</span>
+            <strong data-commerce-proof>Catalogue snapshot + live availability</strong>
+          </div>
+        </div>
+      </div>
+
+      <figure class="es-packaging es-reveal">
+        <img src="/assets/img/work/elegant-sip/packaging-mockup.webp" alt="Elegant Sip packaging system concept for single-origin Darjeeling teas" loading="lazy" />
+        <figcaption><span>Packaging direction</span><span>Estate · Flush · Harvest window</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="es-section es-engineering" id="es-engineering" data-es-section>
+    <div class="es-shell">
+      <div class="es-engineering__intro es-reveal">
+        <span class="es-number">03 / Engineering</span>
+        <h2>Honesty is not a tagline.<br />It is a system constraint.</h2>
+        <p>The interface cannot invent availability, prices, reviews or payment states. Elegant Sip makes the truthful state the easiest state to render.</p>
+      </div>
+
+      <div class="es-architecture es-reveal" aria-label="Elegant Sip system architecture">
+        <button type="button" data-layer="storefront" aria-pressed="true">
+          <span>01</span><strong>Storefront</strong><small>React · GSAP · prerendered shells</small>
+        </button>
+        <i aria-hidden="true">↓</i>
+        <button type="button" data-layer="gateway" aria-pressed="false">
+          <span>02</span><strong>Gateway</strong><small>Caddy · auto HTTPS · reverse proxy</small>
+        </button>
+        <i aria-hidden="true">↓</i>
+        <button type="button" data-layer="api" aria-pressed="false">
+          <span>03</span><strong>Commerce API</strong><small>Fastify · Zod · shared contracts</small>
+        </button>
+        <i aria-hidden="true">↓</i>
+        <button type="button" data-layer="data" aria-pressed="false">
+          <span>04</span><strong>Data layer</strong><small>PostgreSQL · Redis · stock ledger</small>
+        </button>
+        <div class="es-architecture__detail" data-layer-detail>
+          <span>Selected layer</span>
+          <strong>Storefront</strong>
+          <p>Instant, cinematic and crawlablewithout trusting the browser with transactional truth.</p>
+        </div>
+      </div>
+
+      <div class="es-deep-dives">
+        {deepDives.map((item, index) => (
+          <article class:list={['es-deep-dive', index === 0 && 'is-open', 'es-reveal']}>
+            <button type="button" aria-expanded={index === 0 ? 'true' : 'false'}>
+              <span>{item.index}</span>
+              <span><strong>{item.title}</strong><small>{item.summary}</small></span>
+              <i aria-hidden="true">+</i>
+            </button>
+            <div class="es-deep-dive__body">
+              <div>
+                <p>{item.body}</p>
+                <code>{item.code}</code>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="es-section es-takeaway">
+    <div class="es-shell es-takeaway__grid">
+      <span class="es-number es-reveal">04 / Philosophy</span>
+      <blockquote class="es-reveal">“The customer sees exactly what the system can honour.”</blockquote>
+      <div class="es-takeaway__cards">
+        <article class="es-reveal"><b>01</b><h3>Shared truth</h3><p>One set of contracts keeps UI, API, pricing and validation in agreement.</p></article>
+        <article class="es-reveal"><b>02</b><h3>Graceful resilience</h3><p>The catalogue can paint instantly while every transaction remains guarded.</p></article>
+        <article class="es-reveal"><b>03</b><h3>Proof over claims</h3><p>Reviews, payments and stock states are verified before they become interface language.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const tasteData = {
+    floral: { season: 'Spring harvest', estate: 'Gopaldhara Estate', name: 'Darjeeling First Flush', note: 'Fresh florals, pale gold liquor and a clean, lifted finish.', temp: '85°C', time: '3 min', mood: 'Light & lively', color: '#d7b65d' },
+    muscatel: { season: 'Summer harvest', estate: 'Rohini Estate', name: 'Darjeeling Second Flush', note: 'Ripe muscatel fruit, rounded body and a lingering honeyed finish.', temp: '90°C', time: '4 min', mood: 'Rich & mellow', color: '#b97631' },
+    brisk: { season: 'High-elevation lot', estate: 'Gopaldhara Estate', name: 'Classic Darjeeling', note: 'Bright structure, citrus lift and a brisk, refreshing close.', temp: '88°C', time: '3.5 min', mood: 'Bright & focused', color: '#c58c2b' },
+    woodsmoke: { season: 'Autumn harvest', estate: 'Rohini Estate', name: 'Autumnal Darjeeling', note: 'Warm wood, dried fruit and a deeper copper-coloured cup.', temp: '95°C', time: '4 min', mood: 'Warm & grounded', color: '#8b4e2f' },
+  };
+
+  const commerceData = {
+    catalogue: { icon: '茶', kicker: 'Single-origin catalogue', title: 'Every tea begins with its garden.', body: 'First Flush, Second Flush and Autumnal lots are organised by estate, harvest and pack variantso provenance survives all the way to checkout.', proof: 'Catalogue snapshot + live availability' },
+    quote: { icon: '₹', kicker: 'Deterministic pricing', title: 'The number on screen is the number captured.', body: 'A shared pricing engine calculates products, shipping and 5% GST in integer paise, with Indian number formatting and no client-authored prices.', proof: 'One calculatePricing() contract' },
+    reserve: { icon: '▦', kicker: 'Concurrency-safe inventory', title: 'The last seasonal pouch has one buyer.', body: 'Row-level database locks reserve stock inside the order transaction. A non-negative constraint and immutable ledger keep the inventory auditable.', proof: 'SELECT FOR UPDATE + stock ledger' },
+    payment: { icon: '✓', kicker: 'Webhook-confirmed payment', title: 'A redirect is not proof of payment.', body: 'Raw-body HMAC verification and idempotent event handling ensure only a signed gateway webhook can move an order into its paid state.', proof: 'Verified signature + unique event ID' },
+    invoice: { icon: '▤', kicker: 'Honest documentation', title: 'Every invoice says what it really is.', body: 'The account area provides itemised totals and order history. Documents without the required tax identity remain explicitly provisional.', proof: 'Tax-aware, state-aware documents' },
+  };
+
+  const layerData = {
+    storefront: ['Storefront', 'Instant, cinematic and crawlablewithout trusting the browser with transactional truth.'],
+    gateway: ['Gateway', 'Caddy terminates TLS, serves static assets and sends only /api traffic to the commerce service.'],
+    api: ['Commerce API', 'Fastify routes and shared Zod contracts validate every request before business rules run.'],
+    data: ['Data layer', 'PostgreSQL protects orders and stock; Redis holds short-lived sessions and rate limits.'],
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-es-story]').forEach((root) => {
+    root.querySelectorAll<HTMLButtonElement>('[data-taste]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const key = button.dataset.taste as keyof typeof tasteData;
+        const data = tasteData[key];
+        root.querySelectorAll<HTMLButtonElement>('[data-taste]').forEach((item) => {
+          const active = item === button;
+          item.classList.toggle('is-active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
+        const card = root.querySelector<HTMLElement>('.es-recommendation');
+        if (card) card.style.setProperty('--tea-color', data.color);
+        const fields: Record<string, string> = { '[data-taste-season]': data.season, '[data-taste-estate]': data.estate, '[data-taste-name]': data.name, '[data-taste-note]': data.note, '[data-taste-temp]': data.temp, '[data-taste-time]': data.time, '[data-taste-mood]': data.mood };
+        Object.entries(fields).forEach(([selector, value]) => { const node = root.querySelector(selector); if (node) node.textContent = value; });
+      });
+    });
+
+    root.querySelectorAll<HTMLButtonElement>('[data-commerce]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const key = button.dataset.commerce as keyof typeof commerceData;
+        const data = commerceData[key];
+        root.querySelectorAll<HTMLButtonElement>('[data-commerce]').forEach((item) => {
+          const active = item === button;
+          item.classList.toggle('is-active', active);
+          item.setAttribute('aria-selected', String(active));
+        });
+        const fields: Record<string, string> = { '[data-commerce-icon]': data.icon, '[data-commerce-kicker]': data.kicker, '[data-commerce-title]': data.title, '[data-commerce-body]': data.body, '[data-commerce-proof]': data.proof };
+        Object.entries(fields).forEach(([selector, value]) => { const node = root.querySelector(selector); if (node) node.textContent = value; });
+        root.querySelector('.es-commerce__panel')?.classList.add('is-refreshing');
+        window.setTimeout(() => root.querySelector('.es-commerce__panel')?.classList.remove('is-refreshing'), 260);
+      });
+    });
+
+    root.querySelectorAll<HTMLButtonElement>('[data-layer]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const key = button.dataset.layer as keyof typeof layerData;
+        root.querySelectorAll<HTMLButtonElement>('[data-layer]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        const detail = root.querySelector<HTMLElement>('[data-layer-detail]');
+        if (!detail) return;
+        detail.querySelector('strong')!.textContent = layerData[key][0];
+        detail.querySelector('p')!.textContent = layerData[key][1];
+      });
+    });
+
+    root.querySelectorAll<HTMLElement>('.es-deep-dive').forEach((item) => {
+      item.querySelector('button')?.addEventListener('click', () => {
+        const open = !item.classList.contains('is-open');
+        root.querySelectorAll<HTMLElement>('.es-deep-dive').forEach((other) => {
+          other.classList.remove('is-open');
+          other.querySelector('button')?.setAttribute('aria-expanded', 'false');
+        });
+        if (open) {
+          item.classList.add('is-open');
+          item.querySelector('button')?.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    const sections = [...root.querySelectorAll<HTMLElement>('[data-es-section]')];
+    const navLinks = [...root.querySelectorAll<HTMLAnchorElement>('.es-nav__links a')];
+    const spy = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      navLinks.forEach((link) => link.classList.toggle('is-active', link.hash === `#${visible.target.id}`));
+    }, { rootMargin: '-25% 0px -60%', threshold: [0, 0.25, 0.6] });
+    sections.forEach((section) => spy.observe(section));
+
+    const reveals = root.querySelectorAll<HTMLElement>('.es-reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    }), { threshold: 0.08 });
+    reveals.forEach((item) => revealObserver.observe(item));
+  });
+</script>
+
+<style>
+  .es-story {
+    --es-ink: #142119;
+    --es-green: #244d31;
+    --es-leaf: #5f8158;
+    --es-sage: #a9b89b;
+    --es-cream: #f4f0e5;
+    --es-paper: #fbfaf6;
+    --es-gold: #c59b4b;
+    --es-line: rgba(20, 33, 25, 0.16);
+    color: var(--es-ink);
+    background: var(--es-paper);
+    padding: 0;
+    overflow: clip;
+  }
+  .es-shell { width: min(100% - clamp(36px, 8vw, 128px), 1400px); margin-inline: auto; }
+  .es-section { scroll-margin-top: 110px; }
+  .es-number, .es-kicker { display: block; color: var(--es-green); font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .es-reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .es-reveal.is-visible { opacity: 1; transform: none; }
+
+  .es-nav { position: sticky; top: 86px; z-index: 20; background: color-mix(in srgb, var(--es-paper) 88%, transparent); border-bottom: 1px solid var(--es-line); backdrop-filter: blur(18px); }
+  .es-nav__inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .es-nav a { color: inherit; text-decoration: none; }
+  .es-nav__brand { display: flex; align-items: center; gap: 10px; font-family: Georgia, serif; font-size: 18px; }
+  .es-nav__leaf { color: var(--es-gold); font-size: 11px; transform: rotate(45deg); }
+  .es-nav__links { display: flex; align-items: center; gap: 28px; }
+  .es-nav__links a { position: relative; padding: 25px 0 22px; color: rgba(20,33,25,.58); font-size: 13px; }
+  .es-nav__links a::after { content: ''; position: absolute; left: 0; right: 100%; bottom: -1px; height: 2px; background: var(--es-green); transition: right .25s ease; }
+  .es-nav__links a.is-active { color: var(--es-ink); }
+  .es-nav__links a.is-active::after { right: 0; }
+  .es-nav__status { display: flex; align-items: center; gap: 8px; color: rgba(20,33,25,.65); font-size: 12px; }
+  .es-nav__status i { width: 7px; height: 7px; border-radius: 50%; background: #63a15f; box-shadow: 0 0 0 5px rgba(99,161,95,.13); }
+
+  .es-intro { padding: clamp(80px, 10vw, 150px) 0 clamp(64px, 8vw, 120px); background: radial-gradient(circle at 80% 16%, rgba(197,155,75,.14), transparent 25%), var(--es-paper); }
+  .es-intro__grid { display: grid; grid-template-columns: 1.5fr .5fr; gap: 36px 7vw; align-items: end; }
+  .es-intro__grid .es-kicker { grid-column: 1 / -1; }
+  .es-intro__title { margin: 0; font-family: var(--font-display); font-size: clamp(54px, 7.2vw, 112px); font-weight: 400; letter-spacing: -.055em; line-height: .94; }
+  .es-intro__title em { color: var(--es-green); font-family: Georgia, serif; font-weight: 400; }
+  .es-intro__aside { align-self: end; padding-bottom: 5px; }
+  .es-intro__aside p { margin: 0 0 28px; color: rgba(20,33,25,.69); font-size: clamp(16px, 1.3vw, 20px); line-height: 1.6; }
+  .es-text-link { display: inline-flex; align-items: center; gap: 20px; color: var(--es-ink); font-size: 14px; font-weight: 650; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 7px; }
+  .es-text-link span { color: var(--es-green); font-size: 20px; }
+  .es-signal-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(70px, 9vw, 130px); border-top: 1px solid var(--es-line); border-bottom: 1px solid var(--es-line); }
+  .es-signal { min-height: 190px; padding: 32px 28px 28px 0; }
+  .es-signal + .es-signal { border-left: 1px solid var(--es-line); padding-left: 28px; }
+  .es-signal__value { display: flex; align-items: baseline; gap: 7px; font-family: Georgia, serif; font-size: clamp(44px, 4vw, 68px); color: var(--es-green); line-height: 1; }
+  .es-signal__value small { font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .es-signal p { max-width: 190px; margin: 38px 0 0; color: rgba(20,33,25,.58); font-size: 13px; line-height: 1.5; }
+
+  .es-marquee { overflow: hidden; background: var(--es-green); color: #fff; padding: 18px 0; }
+  .es-marquee__track { width: max-content; display: flex; animation: es-marquee 28s linear infinite; }
+  .es-marquee span { display: inline-flex; align-items: center; gap: 30px; padding-right: 30px; font-size: 12px; font-weight: 650; letter-spacing: .1em; text-transform: uppercase; }
+  .es-marquee i { color: var(--es-gold); font-style: normal; }
+  @keyframes es-marquee { to { transform: translateX(-50%); } }
+
+  .es-experience, .es-commerce, .es-engineering { padding: clamp(80px, 10vw, 150px) 0; }
+  .es-heading-row { display: grid; grid-template-columns: 1.35fr .65fr; gap: 8vw; align-items: end; margin-bottom: clamp(42px, 6vw, 80px); }
+  .es-heading-row h2, .es-engineering__intro h2, .es-taste__copy h2 { margin: 16px 0 0; font-family: var(--font-display); font-size: clamp(42px, 5.1vw, 76px); font-weight: 400; letter-spacing: -.045em; line-height: 1.02; }
+  .es-heading-row > p, .es-engineering__intro > p, .es-taste__copy > p { margin: 0; color: rgba(20,33,25,.62); font-size: 16px; line-height: 1.65; }
+  .es-browser { margin: 0; border: 1px solid rgba(255,255,255,.12); border-radius: 20px; background: #16241b; padding: 12px; box-shadow: 0 36px 90px rgba(20,33,25,.17); }
+  .es-browser__bar { height: 46px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; color: rgba(255,255,255,.58); font-size: 11px; padding: 0 12px; }
+  .es-browser__dots { display: flex; gap: 6px; }
+  .es-browser__dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.25); }
+  .es-browser__secure { justify-self: end; }
+  .es-browser img { width: 100%; display: block; border-radius: 12px; }
+  .es-browser figcaption { display: flex; justify-content: space-between; color: rgba(255,255,255,.52); font-size: 11px; padding: 14px 6px 3px; }
+  .es-journeys { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--es-line); margin-top: 64px; }
+  .es-journey { padding: 0 5vw 46px 0; }
+  .es-journey + .es-journey { border-left: 1px solid var(--es-line); padding-left: 5vw; }
+  .es-journey > span { color: var(--es-green); font-size: 11px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+  .es-journey h3 { margin: 14px 0 10px; font-family: Georgia, serif; font-size: clamp(25px, 2.4vw, 36px); font-weight: 400; }
+  .es-journey p { color: rgba(20,33,25,.6); line-height: 1.6; }
+  .es-progress { height: 3px; background: rgba(36,77,49,.12); margin-top: 32px; }
+  .es-progress i { display: block; width: var(--progress); height: 100%; background: var(--es-green); transform-origin: left; transform: scaleX(0); transition: transform 1.2s .25s ease; }
+  .is-visible .es-progress i, .es-journey.is-visible .es-progress i { transform: scaleX(1); }
+
+  .es-taste { padding: clamp(70px, 9vw, 130px) 0; background: var(--es-cream); }
+  .es-taste__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(44px, 8vw, 120px); align-items: center; }
+  .es-taste__copy > p { max-width: 570px; margin-top: 26px; }
+  .es-taste__options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 42px; }
+  .es-taste__options button { display: flex; align-items: center; gap: 16px; border: 1px solid var(--es-line); border-radius: 999px; background: transparent; color: var(--es-ink); padding: 14px 18px; cursor: pointer; text-align: left; transition: background .22s, color .22s, transform .22s; }
+  .es-taste__options button:hover { transform: translateY(-2px); }
+  .es-taste__options button.is-active { background: var(--es-green); color: #fff; }
+  .es-taste__options i { color: var(--es-gold); font-size: 10px; font-style: normal; font-weight: 800; }
+  .es-recommendation { --tea-color: #d7b65d; position: relative; min-height: 570px; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(28px, 4vw, 58px); overflow: hidden; background: var(--es-green); color: white; border-radius: 32px; box-shadow: 0 32px 80px rgba(36,77,49,.22); transition: background .3s; }
+  .es-recommendation::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 28%, color-mix(in srgb, var(--tea-color) 44%, transparent), transparent 34%); }
+  .es-recommendation__top { position: absolute; z-index: 2; top: 28px; left: 32px; right: 32px; display: flex; justify-content: space-between; color: rgba(255,255,255,.6); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+  .es-cup { position: absolute; z-index: 1; width: min(280px, 55%); aspect-ratio: 1; top: 52px; left: 50%; transform: translateX(-50%); border: 2px solid rgba(255,255,255,.48); border-radius: 48% 48% 45% 45%; }
+  .es-cup::after { content: ''; position: absolute; width: 28%; height: 38%; border: 2px solid rgba(255,255,255,.4); border-left: 0; border-radius: 0 50% 50% 0; right: -28%; top: 25%; }
+  .es-cup span { position: absolute; inset: 12%; border-radius: 50%; background: var(--tea-color); box-shadow: inset 0 0 30px rgba(80,40,0,.32), 0 0 50px color-mix(in srgb, var(--tea-color) 38%, transparent); transition: background .3s; }
+  .es-recommendation > :not(.es-cup) { position: relative; z-index: 2; }
+  .es-recommendation__eyebrow { margin: 0 0 8px; color: var(--es-gold); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .es-recommendation h3 { margin: 0; font-family: Georgia, serif; font-size: clamp(34px, 4vw, 58px); font-weight: 400; line-height: 1; }
+  .es-recommendation h3 + p { max-width: 540px; margin: 18px 0 30px; color: rgba(255,255,255,.7); line-height: 1.5; }
+  .es-recommendation__meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .es-recommendation__meta span { border: 1px solid rgba(255,255,255,.2); border-radius: 999px; padding: 8px 12px; color: rgba(255,255,255,.8); font-size: 11px; }
+
+  .es-commerce { background: var(--es-paper); }
+  .es-commerce__workspace { border: 1px solid var(--es-line); border-radius: 24px; overflow: hidden; }
+  .es-commerce__steps { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--es-cream); border-bottom: 1px solid var(--es-line); }
+  .es-commerce__steps button { min-height: 92px; display: flex; align-items: center; gap: 12px; border: 0; border-right: 1px solid var(--es-line); background: transparent; color: rgba(20,33,25,.52); padding: 18px; cursor: pointer; text-align: left; }
+  .es-commerce__steps button:last-child { border-right: 0; }
+  .es-commerce__steps b { color: var(--es-gold); font-size: 10px; }
+  .es-commerce__steps button.is-active { background: var(--es-green); color: #fff; }
+  .es-commerce__panel { display: grid; grid-template-columns: auto 1fr .42fr; gap: clamp(24px, 4vw, 60px); align-items: center; min-height: 330px; padding: clamp(30px, 5vw, 72px); transition: opacity .2s, transform .2s; }
+  .es-commerce__panel.is-refreshing { opacity: .35; transform: translateY(5px); }
+  .es-commerce__panel-icon { width: 86px; height: 86px; display: grid; place-items: center; border-radius: 50%; background: var(--es-cream); color: var(--es-green); font-family: Georgia, serif; font-size: 28px; }
+  .es-commerce__panel > div:nth-child(2) > span, .es-commerce__proof > span { color: var(--es-green); font-size: 10px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+  .es-commerce__panel h3 { margin: 12px 0; font-family: Georgia, serif; font-size: clamp(30px, 3.4vw, 48px); font-weight: 400; line-height: 1.05; }
+  .es-commerce__panel p { max-width: 680px; color: rgba(20,33,25,.6); line-height: 1.6; }
+  .es-commerce__proof { border-left: 1px solid var(--es-line); padding-left: 28px; }
+  .es-commerce__proof strong { display: block; margin-top: 12px; font-size: 14px; line-height: 1.5; }
+  .es-packaging { margin: clamp(70px, 9vw, 130px) 0 0; }
+  .es-packaging img { width: 100%; display: block; border-radius: 24px; }
+  .es-packaging figcaption { display: flex; justify-content: space-between; gap: 20px; padding-top: 15px; color: rgba(20,33,25,.56); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; }
+
+  .es-engineering { background: #132219; color: white; }
+  .es-engineering__intro { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 8vw; align-items: end; }
+  .es-engineering__intro .es-number { grid-column: 1 / -1; color: var(--es-gold); }
+  .es-engineering__intro h2 { margin: 0; color: #fff; }
+  .es-engineering__intro > p { color: rgba(255,255,255,.56); }
+  .es-architecture { display: grid; grid-template-columns: repeat(7, auto) 1fr; align-items: stretch; gap: 12px; margin: 80px 0; }
+  .es-architecture > button { width: 160px; min-height: 150px; display: flex; flex-direction: column; align-items: flex-start; border: 1px solid rgba(255,255,255,.14); border-radius: 15px; background: rgba(255,255,255,.025); color: #fff; padding: 18px; cursor: pointer; text-align: left; transition: background .2s, border-color .2s, transform .2s; }
+  .es-architecture > button:hover { transform: translateY(-3px); }
+  .es-architecture > button[aria-pressed="true"] { background: var(--es-gold); border-color: var(--es-gold); color: var(--es-ink); }
+  .es-architecture button span { font-size: 9px; opacity: .6; }
+  .es-architecture button strong { margin-top: auto; font-size: 15px; }
+  .es-architecture button small { margin-top: 8px; opacity: .58; line-height: 1.35; }
+  .es-architecture > i { align-self: center; color: var(--es-gold); font-style: normal; transform: rotate(-90deg); }
+  .es-architecture__detail { display: flex; flex-direction: column; justify-content: center; border-left: 1px solid rgba(255,255,255,.15); margin-left: 10px; padding-left: 28px; }
+  .es-architecture__detail span { color: var(--es-gold); font-size: 9px; letter-spacing: .13em; text-transform: uppercase; }
+  .es-architecture__detail strong { margin-top: 12px; font-family: Georgia, serif; font-size: 26px; font-weight: 400; }
+  .es-architecture__detail p { margin: 10px 0 0; color: rgba(255,255,255,.5); font-size: 13px; line-height: 1.5; }
+  .es-deep-dives { border-top: 1px solid rgba(255,255,255,.15); }
+  .es-deep-dive { border-bottom: 1px solid rgba(255,255,255,.15); }
+  .es-deep-dive > button { width: 100%; display: grid; grid-template-columns: 50px 1fr auto; gap: 26px; align-items: center; border: 0; background: transparent; color: #fff; padding: 30px 0; cursor: pointer; text-align: left; }
+  .es-deep-dive button > span:first-child { color: var(--es-gold); font-size: 11px; }
+  .es-deep-dive button > span:nth-child(2) { display: grid; grid-template-columns: .7fr 1fr; gap: 28px; align-items: center; }
+  .es-deep-dive button strong { font-family: Georgia, serif; font-size: clamp(22px, 2.2vw, 32px); font-weight: 400; }
+  .es-deep-dive button small { color: rgba(255,255,255,.48); font-size: 13px; line-height: 1.5; }
+  .es-deep-dive button i { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.22); border-radius: 50%; font-size: 20px; font-style: normal; transition: transform .25s, background .25s; }
+  .es-deep-dive.is-open button i { background: var(--es-gold); color: var(--es-ink); transform: rotate(45deg); }
+  .es-deep-dive__body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+  .es-deep-dive__body > div { overflow: hidden; }
+  .es-deep-dive.is-open .es-deep-dive__body { grid-template-rows: 1fr; }
+  .es-deep-dive__body p { max-width: 780px; margin: 0 0 20px 76px; color: rgba(255,255,255,.63); line-height: 1.7; }
+  .es-deep-dive__body code { display: inline-block; margin: 0 0 34px 76px; border: 1px solid rgba(197,155,75,.35); border-radius: 999px; color: var(--es-gold); padding: 10px 14px; font-size: 11px; }
+
+  .es-takeaway { padding: clamp(80px, 10vw, 150px) 0; background: var(--es-cream); }
+  .es-takeaway__grid > .es-number { text-align: center; }
+  .es-takeaway blockquote { max-width: 1100px; margin: 46px auto 80px; color: var(--es-green); font-family: Georgia, serif; font-size: clamp(48px, 6.5vw, 96px); font-weight: 400; letter-spacing: -.045em; line-height: 1.02; text-align: center; }
+  .es-takeaway__cards { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--es-line); border-bottom: 1px solid var(--es-line); }
+  .es-takeaway__cards article { min-height: 250px; padding: 32px; }
+  .es-takeaway__cards article + article { border-left: 1px solid var(--es-line); }
+  .es-takeaway__cards b { color: var(--es-gold); font-size: 11px; }
+  .es-takeaway__cards h3 { margin: 70px 0 12px; font-family: Georgia, serif; font-size: 27px; font-weight: 400; }
+  .es-takeaway__cards p { color: rgba(20,33,25,.6); font-size: 14px; line-height: 1.55; }
+
+  @media (max-width: 1100px) {
+    .es-architecture { grid-template-columns: repeat(7, auto); }
+    .es-architecture__detail { grid-column: 1 / -1; border-left: 0; border-top: 1px solid rgba(255,255,255,.15); margin: 10px 0 0; padding: 24px 0 0; }
+    .es-architecture > button { width: auto; }
+  }
+  @media (max-width: 820px) {
+    .es-nav__status { display: none; }
+    .es-nav__inner { width: 100%; padding-left: 18px; overflow-x: auto; }
+    .es-nav__brand { flex: 0 0 auto; }
+    .es-nav__links { gap: 20px; padding-right: 18px; }
+    .es-intro__grid, .es-heading-row, .es-taste__grid, .es-engineering__intro { grid-template-columns: 1fr; }
+    .es-intro__aside, .es-heading-row > p, .es-engineering__intro > p { max-width: 620px; }
+    .es-signal-grid { grid-template-columns: 1fr 1fr; }
+    .es-signal:nth-child(3) { border-left: 0; padding-left: 0; border-top: 1px solid var(--es-line); }
+    .es-signal:nth-child(4) { border-top: 1px solid var(--es-line); }
+    .es-commerce__steps { grid-template-columns: 1fr; }
+    .es-commerce__steps button { min-height: auto; border-right: 0; border-bottom: 1px solid var(--es-line); }
+    .es-commerce__steps button:last-child { border-bottom: 0; }
+    .es-commerce__panel { grid-template-columns: auto 1fr; }
+    .es-commerce__proof { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--es-line); padding: 20px 0 0; }
+    .es-architecture { grid-template-columns: 1fr; }
+    .es-architecture > button { min-height: 110px; }
+    .es-architecture > i { transform: none; }
+    .es-deep-dive button > span:nth-child(2) { grid-template-columns: 1fr; gap: 6px; }
+    .es-takeaway__cards { grid-template-columns: 1fr; }
+    .es-takeaway__cards article + article { border-left: 0; border-top: 1px solid var(--es-line); }
+  }
+  @media (max-width: 560px) {
+    .es-shell { width: calc(100% - 36px); }
+    .es-nav__brand { display: none; }
+    .es-nav { top: 70px; }
+    .es-nav__inner { min-height: 58px; }
+    .es-nav__links a { padding: 20px 0 17px; font-size: 12px; }
+    .es-intro { padding-top: 70px; }
+    .es-intro__title { font-size: clamp(48px, 15vw, 70px); }
+    .es-signal { min-height: 160px; padding: 24px 15px 22px 0; }
+    .es-signal + .es-signal { padding-left: 15px; }
+    .es-signal p { margin-top: 24px; }
+    .es-browser { margin-inline: -10px; padding: 7px; border-radius: 14px; }
+    .es-browser__bar { height: 36px; }
+    .es-browser__secure { display: none; }
+    .es-journeys { grid-template-columns: 1fr; }
+    .es-journey { padding-right: 0; }
+    .es-journey + .es-journey { border-left: 0; border-top: 1px solid var(--es-line); padding: 36px 0 46px; }
+    .es-taste__options { grid-template-columns: 1fr; }
+    .es-recommendation { min-height: 520px; border-radius: 22px; }
+    .es-cup { top: 72px; }
+    .es-commerce__panel { grid-template-columns: 1fr; }
+    .es-commerce__panel-icon { width: 64px; height: 64px; }
+    .es-packaging { margin-inline: -18px; }
+    .es-packaging img { border-radius: 0; }
+    .es-packaging figcaption { padding-inline: 18px; }
+    .es-deep-dive > button { grid-template-columns: 28px 1fr auto; gap: 12px; }
+    .es-deep-dive__body p, .es-deep-dive__body code { margin-left: 40px; }
+    .es-deep-dive__body code { border-radius: 12px; white-space: normal; }
+    .es-takeaway__cards article { padding-inline: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .es-marquee__track { animation: none; }
+    .es-reveal { opacity: 1; transform: none; transition: none; }
+    .es-progress i { transform: none; transition: none; }
+  }
+</style>

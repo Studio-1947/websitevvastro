@@ -8,6 +8,7 @@ import BaseLayout from './BaseLayout.astro';
 import '../styles/work-case.css';
 import CaseHero from '../components/work/CaseHero.astro';
 import CaseSection from '../components/work/CaseSection.astro';
+import ElegantSipExperience from '../components/work/ElegantSipExperience.astro';
 import Credits from '../components/work/Credits.astro';
 import MoreWork from '../components/work/MoreWork.astro';
 
@@ -46,13 +47,15 @@ interface Props {
     headline?: string;
     /** 'contained' keeps stacked media inside the text shell; 'full' bleeds it. */
     mediaStyle?: 'full' | 'contained';
+    /** Optional, explicitly scoped bespoke content body below the shared hero. */
+    presentation?: 'elegant-sip';
   };
   jsonLd?: Record<string, unknown>[];
   /** Slug of this case, so the closing rail can leave it out of itself. */
   slug?: string;
 }
 const { data, jsonLd = [], slug } = Astro.props;
-const { brand, hero, sections = [], credits = [], creditsLayout = 'stack', creditLinkStyle = 'underline', clientCredits = [], client, tags = [], title, location, year, coordinator, active = true, mediaStyle = 'full', liveUrl, headline: headlineOverride } = data;
+const { brand, hero, sections = [], credits = [], creditsLayout = 'stack', creditLinkStyle = 'underline', clientCredits = [], client, tags = [], title, location, year, coordinator, active = true, mediaStyle = 'full', presentation, liveUrl, headline: headlineOverride } = data;
 
 // Hero headline: the <h1> text, independent of the SEO <title>.
 const headline = headlineOverride ?? client ?? title;
@@ -196,7 +199,9 @@ if (brand) {
     }
 
     <div class="case-body">
-      {sections.map((s, i) => <CaseSection {...s} first={i === 0} i18nKey={slug ? `work.${slug}.s${i}` : undefined} />)}
+      {presentation === 'elegant-sip'
+        ? <ElegantSipExperience />
+        : sections.map((s, i) => <CaseSection {...s} first={i === 0} i18nKey={slug ? `work.${slug}.s${i}` : undefined} />)}
       {client && (
         <Credits
           client={client}

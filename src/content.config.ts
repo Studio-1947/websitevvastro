@@ -339,6 +339,12 @@ const work = defineCollection({
      * shell either way.
      */
     mediaStyle: z.enum(['full', 'contained']).default('full'),
+    /**
+     * Opt-in bespoke case body. The default remains the shared section
+     * renderer; named presentations may replace only the content below the
+     * shared hero for a single case that needs its own interactive treatment.
+     */
+    presentation: z.enum(['elegant-sip']).optional(),
     hero: z
       .object({
         src: z.string(),

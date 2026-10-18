@@ -5,6 +5,7 @@
   "ogDescription": "Packaging design, a direct-to-consumer store and year-round online marketing for Elegant Sip, a single-garden Darjeeling tea sold at the source in Mirik.",
   "ogType": "article",
   "mediaStyle": "contained",
+  "presentation": "elegant-sip",
   "brand": "#2F6B3A",
   "client": "Elegant Sip",
   "location": "Mirik, Darjeeling",
@@ -18,12 +19,21 @@
     "data-design-tech",
     "communication-campaign"
   ],
+  "active": true,
   "hero": {
     "src": "/assets/img/work/elegant-sip/hero.webp",
     "alt": "Darjeeling tea being poured from a glass teapot into a glass cup beside a bowl of dried leaves",
     "style": "photo"
   },
   "sections": [
+    {
+      "divider": false,
+      "label": "Overview",
+      "heading": "From a hillside shop to a brand customers can return to.",
+      "body": [
+        "Elegant Sip sells single-garden Darjeeling tea from the Okayti estate at 8th Mile, Mirik. The portfolio layout below is a visual framework for the developing packaging, commerce and campaign story; project content and outcomes can be added as the work progresses."
+      ]
+    },
     {
       "heading": "Context & The Vision",
       "label": "The Brand",
@@ -58,9 +68,54 @@
       ]
     },
     {
-      "heading": "Packaging",
+      "heading": "A Packaging System Rooted in Place",
+      "label": "Concept Mockup",
       "body": [
-        "Packaging is being designed for two moments: the shelf in Mirik, where a visitor decides in seconds, and the doorstep months later, where the pack has to bring the hillside back. Estate, flush and harvest window sit on the front; a reorder code sits inside every bag."
+        "The packaging direction is designed for two moments: the shelf in Mirik, where a visitor decides in seconds, and the doorstep months later, where the pack has to bring the hillside back. This concept establishes a flexible visual stage for the final packs, flush details and product story."
+      ],
+      "layout": "row",
+      "media": [
+        {
+          "src": "/assets/img/work/elegant-sip/packaging-mockup.webp",
+          "alt": "Concept mockup of Elegant Sip Darjeeling tea pouches and a gift box against a tea-garden landscape"
+        }
+      ]
+    },
+    {
+      "heading": "A Store Designed for Repeat Orders",
+      "label": "Digital Experience Mockup",
+      "body": [
+        "The responsive store concept turns the in-person tasting experience into a simple route back to the brand. Product discovery, garden provenance and mobile ordering are shown here as a visual foundation; final screens and live content can replace the concept as they are completed."
+      ],
+      "layout": "row",
+      "media": [
+        {
+          "src": "/assets/img/work/elegant-sip/store-mockup.webp",
+          "alt": "Concept mockup of the Elegant Sip online store displayed on a laptop and smartphone"
+        }
+      ]
+    },
+    {
+      "heading": "Case Study Framework",
+      "label": "Ready for Content",
+      "layout": "grid-3",
+      "cardsTheme": "light",
+      "cards": [
+        {
+          "num": "01",
+          "title": "Packaging",
+          "body": "Add final pack formats, material choices, label hierarchy and production details."
+        },
+        {
+          "num": "02",
+          "title": "Commerce",
+          "body": "Add the customer journey, key screens, platform decisions and reorder flow."
+        },
+        {
+          "num": "03",
+          "title": "Growth",
+          "body": "Add campaign creative, channel strategy and measured results when available."
+        }
       ]
     },
     {

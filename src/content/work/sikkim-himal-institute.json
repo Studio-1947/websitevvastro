@@ -16,6 +16,7 @@
   "solutions": [
     "data-design-tech"
   ],
+  "active": true,
   "hero": {
     "src": "/assets/img/work/sikkim-himal-institute/hero.webp",
     "alt": "Sikkim Himal Institute wordmark",
@@ -24,17 +25,69 @@
   },
   "sections": [
     {
-      "heading": "Context & The Vision",
-      "label": "The Engagement",
+      "divider": false,
+      "label": "Overview",
+      "heading": "A digital home for learning rooted in the Himalaya.",
       "body": [
-        "Studio 1947 is working with the Sikkim Himal Institute across design and technology. This page will grow into a full case study as the work is delivered."
+        "Studio 1947 is working with the Sikkim Himal Institute across design and technology. This portfolio layout is a visual framework for the identity, digital experience and institutional story; detailed project content can be added as the engagement progresses."
+      ]
+    },
+    {
+      "heading": "Learning, Research and Place in One Experience",
+      "label": "Website Mockup",
+      "body": [
+        "The responsive website concept brings programmes, research and events into a calm editorial system shaped by the institute's Himalayan context. It is presented as a design mockup, ready to be replaced or expanded with final screens and content."
+      ],
+      "layout": "row",
+      "media": [
+        {
+          "src": "/assets/img/work/sikkim-himal-institute/website-mockup.webp",
+          "alt": "Concept mockup of the Sikkim Himal Institute website on a laptop and smartphone"
+        }
+      ]
+    },
+    {
+      "heading": "An Identity System Made to Travel",
+      "label": "Brand Application Mockup",
+      "body": [
+        "The existing emblem and wordmark are extended across a restrained set of institutional touchpoints. The mockup creates a visual stage for the final stationery, course material, credentials and field documentation."
+      ],
+      "layout": "row",
+      "media": [
+        {
+          "src": "/assets/img/work/sikkim-himal-institute/identity-mockup.webp",
+          "alt": "Concept mockup of Sikkim Himal Institute stationery, notebook, folder and identity card"
+        }
+      ]
+    },
+    {
+      "heading": "Case Study Framework",
+      "label": "Ready for Content",
+      "layout": "grid-3",
+      "cardsTheme": "light",
+      "cards": [
+        {
+          "num": "01",
+          "title": "The Institute",
+          "body": "Add the institute's mission, audiences, programmes and the context behind the engagement."
+        },
+        {
+          "num": "02",
+          "title": "Design & Technology",
+          "body": "Add the brief, process, design system, platform scope and key product decisions."
+        },
+        {
+          "num": "03",
+          "title": "Impact",
+          "body": "Add launch details, participant feedback, reach and outcomes when they are available."
+        }
       ]
     },
     {
       "heading": "Status",
-      "label": "In progress",
+      "label": "In Progress",
       "body": [
-        "Details, imagery and outcomes will be published here as the engagement progresses."
+        "The case-study structure and concept visuals are in place. Final project content, production imagery and outcomes can be added without changing the layout."
       ]
     }
   ],
