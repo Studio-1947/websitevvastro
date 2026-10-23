@@ -47,15 +47,19 @@ const { content: c } = Astro.props;
     -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 90%);
     mask-image: linear-gradient(to bottom, #000 50%, transparent 90%);
   }
+  /* Soft edges come from a radial gradient, not filter: blur(). A blur on
+     layers this large is re-rendered on every repaint nearby, which starved
+     the dashboard demo below of frames and made its pointer stutter. */
   .phero__blob {
-    position: absolute; border-radius: 50%;
-    filter: blur(70px); opacity: .9;
+    position: absolute; border-radius: 50%; opacity: .9;
+    background: radial-gradient(closest-side, var(--c) 68%, transparent);
+    scale: 1.2; /* the blur used to spill past the edge; this keeps that size */
     will-change: transform;
   }
-  .phero__blob--1 { width: 55vw; height: 55vw; left: -12vw; top: -18vw; background: #FFD9D3; animation: phero-drift-1 26s ease-in-out infinite alternate; }
-  .phero__blob--2 { width: 48vw; height: 48vw; right: -10vw; top: -14vw; background: #FFB0A5; animation: phero-drift-2 31s ease-in-out infinite alternate; }
-  .phero__blob--3 { width: 44vw; height: 44vw; left: 38vw; top: 22vw; background: #FF8B7E; opacity: .55; animation: phero-drift-3 23s ease-in-out infinite alternate; }
-  .phero__blob--4 { width: 40vw; height: 40vw; left: -6vw; top: 26vw; background: #FFE6DE; animation: phero-drift-4 35s ease-in-out infinite alternate; }
+  .phero__blob--1 { --c: #FFD9D3; width: 55vw; height: 55vw; left: -12vw; top: -18vw; animation: phero-drift-1 26s ease-in-out infinite alternate; }
+  .phero__blob--2 { --c: #FFB0A5; width: 48vw; height: 48vw; right: -10vw; top: -14vw; animation: phero-drift-2 31s ease-in-out infinite alternate; }
+  .phero__blob--3 { --c: #FF8B7E; width: 44vw; height: 44vw; left: 38vw; top: 22vw; opacity: .55; animation: phero-drift-3 23s ease-in-out infinite alternate; }
+  .phero__blob--4 { --c: #FFE6DE; width: 40vw; height: 40vw; left: -6vw; top: 26vw; animation: phero-drift-4 35s ease-in-out infinite alternate; }
 
   @keyframes phero-drift-1 { to { transform: translate(14vw, 8vw) scale(1.12); } }
   @keyframes phero-drift-2 { to { transform: translate(-16vw, 10vw) scale(.9); } }
@@ -63,7 +67,6 @@ const { content: c } = Astro.props;
   @keyframes phero-drift-4 { to { transform: translate(12vw, -10vw) scale(1.08); } }
 
   @media (max-width: 760px) {
-    .phero__blob { filter: blur(50px); }
     .phero__blob--1, .phero__blob--2 { width: 90vw; height: 90vw; }
     .phero__blob--3 { width: 80vw; height: 80vw; top: 70vw; left: 20vw; }
     .phero__blob--4 { width: 70vw; height: 70vw; top: 60vw; }
