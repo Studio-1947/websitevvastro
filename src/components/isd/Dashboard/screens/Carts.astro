@@ -1,0 +1,48 @@
+---
+import { svg } from '../icons';
+import { CARTS, CART_STATS, inr, pct } from '../content';
+---
+
+{/* ===== Abandoned Carts ===== */}
+<section class="view" data-view="carts" aria-label="Abandoned carts">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title">Abandoned Carts <span class="live">Web Store</span></h3>
+      <p class="view__date">Carts left at checkout this week. Send a reminder to bring the order back.</p>
+    </div>
+    <button type="button" class="btn" data-remind-all><Fragment set:html={svg('send', 15)} />Remind everyone</button>
+  </div>
+
+  <div class="cards cards--3">
+    <div class="card">
+      <span class="card__mark" set:html={svg('bag', 40)} />
+      <span class="cap">Carts left this week</span>
+      <b class="card__value">{CART_STATS.week}</b>
+    </div>
+    <div class="card">
+      <span class="card__mark" set:html={svg('rupee', 40)} />
+      <span class="cap">Value left behind</span>
+      <b class="card__value">{inr(CART_STATS.value)}</b>
+    </div>
+    <div class="card">
+      <span class="card__mark" set:html={svg('trend', 40)} />
+      <span class="cap">Recovered by reminders</span>
+      <b class="card__value" data-recovered>{pct(CART_STATS.recovered)}</b>
+    </div>
+  </div>
+
+  <div class="panel panel--grow">
+    <table class="tbl">
+      <thead><tr><th>Customer</th><th>City</th><th>Items</th><th>Cart value</th><th>Left</th><th></th></tr></thead>
+      <tbody>
+        {CARTS.map((c) => (
+          <tr>
+            <td><span class="who"><span class="who__av">{c.who[0]}</span><b>{c.who}</b></span></td>
+            <td>{c.city}</td><td>{c.items}</td><td><b>{inr(c.value)}</b></td><td class="muted">{c.ago}</td>
+            <td class="tbl__end"><button type="button" class="act" data-remind={c.who}><Fragment set:html={svg('send', 13)} />Send reminder</button></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>

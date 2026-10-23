@@ -1,0 +1,57 @@
+---
+/**
+ * Business Intelligence Dashboards product page. Like pharma-erp, built from
+ * components rather than the shared HTML string rendered by [slug].astro:
+ * its own hero and live dashboard (src/components/isd/), the Pharma ERP
+ * page's sections with this page's text, a three-step how-it-works and a location map.
+ * SEO fields still come from src/content/products/inventory-sales-dashboard.json.
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
+import '../../components/pharma/tokens.css';
+
+import Hero from '../../components/isd/Hero/index.astro';
+import Rows from '../../components/pharma/Rows/index.astro';
+import Steps from '../../components/isd/Steps/index.astro';
+import Where from '../../components/isd/Where/index.astro';
+import Toolkit from '../../components/pharma/Toolkit/index.astro';
+import Closing from '../../components/pharma/Closing/index.astro';
+
+import { hero } from '../../components/isd/Hero/content';
+import { rows, steps, where, toolkit, closing } from '../../components/isd/content';
+
+const entry = await getEntry('products', 'inventory-sales-dashboard');
+if (!entry) throw new Error('src/content/products/inventory-sales-dashboard.json is missing');
+const d = entry.data;
+const url = new URL('/products/inventory-sales-dashboard/', Astro.site).href;
+const jsonLd = [
+  productJsonLd({ name: cleanName(d.title), description: d.description, url }),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products/' },
+    { name: cleanName(d.title), path: '/products/inventory-sales-dashboard/' },
+  ]),
+];
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  ogTitle={d.ogTitle}
+  ogDescription={d.ogDescription}
+  ogType={d.ogType}
+  noindex={d.noindex}
+  bodyClass="page-pharma"
+  jsonLd={jsonLd}
+>
+  {/* .pharma carries the shared product tokens (components/pharma/tokens.css). */}
+  <main class="pharma">
+    <Hero content={hero} />
+    <Rows content={rows} />
+    <Steps content={steps} />
+    <Where content={where} />
+    <Toolkit content={toolkit} />
+    <Closing content={closing} />
+  </main>
+</BaseLayout>

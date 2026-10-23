@@ -1,0 +1,54 @@
+---
+import { svg } from '../icons';
+import { CITIES, STATES, monthly, totals, short, pct } from '../content';
+import IndiaMap from '../../Map/IndiaMap.astro';
+
+const now = new Date();
+const net = totals(monthly(now), now, 'all', 'fytd').net;
+const lists = [
+  { head: 'Top cities', icon: 'pin' as const, rows: CITIES, color: '#4F46E5' },
+  { head: 'States outside the cities', icon: 'map' as const, rows: STATES, color: '#0F8F7E' },
+];
+---
+
+{/* ===== Geo Insights ===== */}
+<section class="view" data-view="geo" aria-label="Geo insights">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title">Geo Insights</h3>
+      <p class="view__date">Where the orders come from · <span data-range>FYTD · this year</span></p>
+    </div>
+    <div class="seg seg--light" role="group" aria-label="Measure">
+      <button type="button" data-geo="short" aria-pressed="true">Revenue</button>
+      <button type="button" data-geo="units" aria-pressed="false">Units</button>
+    </div>
+  </div>
+
+  <div class="geo">
+    <div class="panel geo__map">
+      <p class="geo__head"><Fragment set:html={svg('map', 14)} />Orders by city</p>
+      <div class="geo__canvas"><IndiaMap pins={CITIES} size={22} /></div>
+      <p class="geo__note">Pin size shows each city's share of net revenue</p>
+    </div>
+    <div class="geo__lists">
+      {lists.map((l) => {
+        const most = Math.max(...l.rows.map((r) => r.share));
+        return (
+          <div class="panel">
+            <p class="geo__head"><Fragment set:html={svg(l.icon, 14)} />{l.head}</p>
+            <ul class="bars bars--geo">
+              {l.rows.map((r) => (
+                <li class="bars__row bars__row--wide" style={`--bar: ${l.color}`}>
+                  <span class="bars__label">{r.label}</span>
+                  <span class="bars__track"><i style={`width: ${(r.share / most) * 100}%`}></i></span>
+                  <b class="bars__val" data-share={r.share} data-fmt="short" data-geo-val>{short(net * r.share)}</b>
+                  <small class="bars__pct">{pct(r.share)}</small>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

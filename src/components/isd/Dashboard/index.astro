@@ -1,0 +1,150 @@
+---
+/**
+ * A working copy of the all-channel sales dashboard, drawn in HTML in place
+ * of a screenshot, for a made-up business (see content.ts). The sidebar opens
+ * each store, channel and screen; the tabs, chips and period buttons work on
+ * sample data, and every number follows them.
+ *
+ * While in view and untouched, it plays a short guided demo with a pointer:
+ * a store is picked, the period changes, tabs are opened, a product is searched,
+ * and round again. The moment the visitor clicks or types inside it, the demo
+ * stops and it is theirs to use. Reduced motion: no demo, no counting,
+ * everything still works. Behaviour lives in client.ts, styles in app.css.
+ *
+ * The look is the dashboard's own (light floating sidebar, navy banner with
+ * tabs under it, indigo and teal controls), not the Pharma ERP one. Only the
+ * mechanics (fixed 1280 × 760 stage scaled to fit, pointer, toast) are shared.
+ */
+import './app.css';
+import { svg, type IconName } from './icons';
+import { BRAND, CHANNELS } from './content';
+
+import Home from './screens/Home.astro';
+import Carts from './screens/Carts.astro';
+import Social from './screens/Social.astro';
+import Geo from './screens/Geo.astro';
+
+interface Item {
+  label: string;
+  icon: IconName;
+  /** Screen to open, and for Home, which channel to show. */
+  go?: string;
+  sel?: string;
+  platform?: string;
+  /** Not connected in the demo: says so when clicked. */
+  off?: boolean;
+}
+
+/** Sidebar boxes, in the product's order. */
+const groups: { head: string; icon: IconName; items: Item[] }[] = [
+  {
+    head: 'Retail Stores', icon: 'store',
+    items: CHANNELS.filter((c) => !['online', 'events'].includes(c.id)).map((c) => ({ label: c.label, icon: 'pin', go: 'home', sel: c.id })),
+  },
+  {
+    head: 'Digital', icon: 'globe',
+    items: [
+      { label: 'Web Store', icon: 'globe', go: 'home', sel: 'online' },
+      { label: 'Online Orders', icon: 'bag', go: 'home', sel: 'online' },
+      { label: 'Abandoned Carts', icon: 'bag', go: 'carts' },
+      { label: 'Chat Commerce', icon: 'chat', off: true },
+      { label: 'Marketplaces', icon: 'bag', off: true },
+    ],
+  },
+  { head: 'Pop-ups', icon: 'calendar', items: [{ label: 'Expo Stalls', icon: 'pin', go: 'home', sel: 'events' }] },
+  {
+    head: 'Social Media', icon: 'share',
+    items: [
+      { label: 'Facebook', icon: 'fb', go: 'social', platform: 'facebook' },
+      { label: 'Instagram', icon: 'ig', go: 'social', platform: 'instagram' },
+      { label: 'YouTube', icon: 'yt', go: 'social', platform: 'youtube' },
+    ],
+  },
+];
+---
+
+<div
+  class="dash"
+  data-dash
+  role="region"
+  aria-label="Interactive preview of an all-channel sales dashboard, with sample data. Use the sidebar, tabs and filters to explore."
+>
+  <div class="dash__scaler" data-scaler>
+    <div class="dash__stage" data-stage>
+      <div class="dash__bar" aria-hidden="true"><span></span><span></span><span></span><b>Sales Dashboard</b></div>
+
+      <div class="dash__app">
+        <nav class="side" aria-label="Dashboard screens">
+          <div class="side__brand">
+            {/* Placeholder mark, greyed like an inactive button: the client's own logo goes here. */}
+            <span class="side__logo" aria-hidden="true">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke-linecap="round">
+                <rect x="1" y="1" width="34" height="34" rx="10" fill="#E5E7EB" />
+                <path d="M11 24v-5M18 24V12M25 24v-8" stroke="#9CA3AF" stroke-width="3" />
+              </svg>
+            </span>
+            <span class="side__name"><b>{BRAND.name}</b><small>{BRAND.tagline}</small></span>
+          </div>
+
+          <div class="side__box side__box--flat">
+            <button type="button" class="side__item side__item--total" data-nav="Total" data-go="home" data-sel="all" aria-current="page">
+              <span class="side__arrow" aria-hidden="true">→</span><Fragment set:html={svg('house', 16)} />Total
+            </button>
+          </div>
+
+          {groups.map((g) => (
+            <div class="side__box">
+              <p class="side__head"><Fragment set:html={svg(g.icon, 14)} />{g.head}</p>
+              <ul class="side__list">
+                {g.items.map((it) => (
+                  <li>
+                    <button
+                      type="button"
+                      class:list={['side__item', { 'side__item--off': it.off }]}
+                      data-nav={it.label}
+                      data-go={it.go}
+                      data-sel={it.sel}
+                      data-platform={it.platform}
+                      data-off={it.off ? '' : undefined}
+                    >
+                      <Fragment set:html={svg(it.icon, 15)} />{it.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <button type="button" class="side__box side__item side__item--geo" data-nav="Geo Insights" data-go="geo">
+            <Fragment set:html={svg('map', 16)} />Geo Insights
+          </button>
+
+          <div class="side__foot" aria-hidden="true">
+            <span class="side__round side__round--navy" set:html={svg('back', 15)} />
+            <span class="side__round" set:html={svg('settings', 15)} />
+            <span class="side__round side__round--red" set:html={svg('logout', 15)} />
+          </div>
+        </nav>
+
+        <div class="dash__main">
+          <Home />
+          <Carts />
+          <Social />
+          <Geo />
+        </div>
+      </div>
+
+      <div class="toast" data-toast aria-hidden="true">
+        <span class="toast__tick" set:html={svg('check', 14)} />
+        <span data-toast-text></span>
+      </div>
+      <svg class="cursor" data-cursor width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 3l14 8-6 1.6L10 19z" fill="#0D0D0D" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script>
+  import './client';
+</script>
