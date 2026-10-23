@@ -354,7 +354,7 @@ if (root) {
     const s = stage.getBoundingClientRect();
     const x = (r.left - s.left + r.width * 0.55) / scale;
     const y = (r.top - s.top + r.height * 0.55) / scale;
-    cursor.style.transform = `translate(${x}px, ${y}px)`;
+    cursor.style.translate = `${x}px ${y}px`;
     await wait(800);
   };
   const press = async (el: HTMLElement) => {
