@@ -1,0 +1,373 @@
+---
+import { svg } from '../icons';
+import {
+  CHANNELS, PERIODS, TABS, PRODUCTS, TEAM, STOCK_BUCKETS, CATEGORIES, BASKET, PAIRS, CHART, DONUT_R,
+  monthly, totals, trend, heat, donut, trendLabels, chartMax, chartTicks, chartLine, chartArea, spark, sparkPath,
+  inr, num, short, pct,
+} from '../content';
+
+const now = new Date();
+const data = monthly(now);
+const t = totals(data, now, 'all', 'fytd');
+const net = t.net;
+
+// Snapshot
+const nowLine = trend(data, 'all', 0);
+const lastLine = trend(data, 'all', 12);
+const max = chartMax(nowLine, lastLine);
+const labels = trendLabels(now, 0);
+const arcs = donut(t.byChannel);
+const circ = 2 * Math.PI * DONUT_R;
+
+// Momentum: four rising, four cooling.
+const rising = [...PRODUCTS].sort((a, b) => b.growth - a.growth).slice(0, 4);
+const cooling = PRODUCTS.filter((x) => x.growth < 0).sort((a, b) => a.growth - b.growth).slice(0, 4);
+
+// Launches: the four newest, with how much of what was made has sold.
+const launches = PRODUCTS.filter((x) => x.isNew).sort((a, b) => a.weeksLive! - b.weeksLive!).slice(0, 4).map((x) => {
+  const sold = Math.round(x.weekly * x.weeksLive! * 0.8);
+  return { ...x, sold, through: sold / (sold + x.stock) };
+});
+const RING = 2 * Math.PI * 26;
+
+// Seasonality
+const months = heat(data, 0);
+const before = heat(data, 12);
+
+// Leaderboard: podium in 2nd, 1st, 3rd order.
+const podium = [TEAM[1], TEAM[0], TEAM[2]];
+
+// Stock Health
+const stockTotal = STOCK_BUCKETS.reduce((s, b) => s + b.count, 0);
+const stockWidth = STOCK_BUCKETS.map((b) => Math.max(b.count / stockTotal, 0.1));
+const stockSum = stockWidth.reduce((s, w) => s + w, 0);
+const urgent = PRODUCTS.map((x) => ({ ...x, weeks: x.stock / x.weekly })).filter((x) => x.weeks < 6)
+  .sort((a, b) => a.weeks - b.weeks).slice(0, 4);
+
+// Baskets: treemap in two rows.
+const tiles = [CATEGORIES.slice(0, 2), CATEGORIES.slice(2)];
+const TILE = ['#1E3A8A', '#2563EB', '#4F46E5', '#6366F1', '#0F8F7E', '#14B8A6'];
+const pairMax = Math.max(...PAIRS.map((x) => x.rate));
+const initials = (name: string) => name.split(' ').map((w) => w[0]).join('');
+---
+
+{/* ===== Total / one channel ===== */}
+<section class="view is-active" data-view="home" aria-label="Sales">
+  <div class="hb">
+    <p class="hb__kick"><span class="live">Live Data</span>All-Channel Dashboard</p>
+    <h3 class="hb__title" data-title>Total Sales</h3>
+  </div>
+  <div class="tabbar" role="tablist" aria-label="Analysis">
+    {TABS.map((x, i) => <button type="button" role="tab" class="tabbar__tab" data-tab={x.id} aria-selected={String(i === 0)}>{x.label}</button>)}
+  </div>
+
+  <div class="tools">
+    <div class="seg seg--year" role="group" aria-label="Year">
+      <button type="button" data-yr="0" aria-pressed="true">This year</button>
+      <button type="button" data-yr="1" aria-pressed="false">Last year</button>
+    </div>
+    <div class="seg seg--period" role="group" aria-label="Period">
+      {PERIODS.map((p) => <button type="button" data-period={p.id} aria-pressed={String(p.id === 'fytd')}>{p.label}</button>)}
+    </div>
+    <button type="button" class="refresh" data-refresh><Fragment set:html={svg('refresh', 15)} />Refresh</button>
+  </div>
+
+  <div class="chans">
+    <button type="button" class="chan" data-chip="all" aria-pressed="true">All Channels</button>
+    {CHANNELS.map((c) => (
+      <button type="button" class="chan" data-chip={c.id} aria-pressed="false" style={`--dot: ${c.color}`}><i></i>{c.label}</button>
+    ))}
+    <span class="chans__range" data-range>FYTD · this year</span>
+  </div>
+
+  <div class="sc">
+    <div class="sc__find">
+      <p class="cap">Search product sales</p>
+      <label class="sc__search">
+        <Fragment set:html={svg('search', 15)} />
+        <input type="text" data-search placeholder="Search a product or SKU across all channels (e.g. Water Bottle)…" aria-label="Search products" autocomplete="off" />
+      </label>
+      <ul class="find" data-find hidden>
+        {PRODUCTS.map((x, i) => (
+          <li data-result data-name={`${x.name} ${x.sku} ${x.category}`.toLowerCase()}>
+            <button type="button" class="find__row" data-product-i={i}>
+              <span class="find__item" set:html={svg('box', 16)} />
+              <span class="find__who"><b>{x.name}</b><small>{x.sku} · {x.category}</small></span>
+              <span class="find__nums">
+                <b data-share={x.share} data-fmt="short">{short(net * x.share)}</b>
+                <small><span data-share={x.share} data-fmt="units" data-price={x.price}>{num((net * x.share) / x.price)}</span> units</small>
+              </span>
+            </button>
+          </li>
+        ))}
+        <li class="find__none" data-find-none hidden>No product matches</li>
+      </ul>
+    </div>
+    <div class="sc__date">
+      <p class="cap">Date filter</p>
+      <div class="seg seg--date" role="group" aria-label="Date filter">
+        <button type="button" aria-pressed="true">Overall</button>
+        <button type="button" data-action="dates" aria-pressed="false">Custom Dates</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cards">
+    <div class="card" data-card>
+      <span class="card__mark" set:html={svg('trend', 46)} />
+      <span class="cap">Net revenue (out − in)</span>
+      <b class="card__value" data-k="net">{inr(t.net)}</b>
+      <dl class="card__foot">
+        <dt>Gross Out:</dt><dd data-k="gross">{inr(t.gross)}</dd>
+        <dt>Returns In:</dt><dd class="is-red"><span data-k="returns">{inr(t.returns)}</span> (<span data-k="returnsPct">{pct(t.returns / t.gross)}</span>)</dd>
+      </dl>
+    </div>
+    <div class="card" data-card>
+      <span class="card__mark" set:html={svg('bag', 46)} />
+      <span class="cap">Net units (out − in)</span>
+      <b class="card__value" data-k="units">{num(t.units)}</b>
+      <dl class="card__foot">
+        <dt>Gross Out:</dt><dd data-k="unitsGross">{num(t.unitsGross)}</dd>
+        <dt>Returns (IN):</dt><dd class="is-red"><span data-k="unitsReturns">{num(t.unitsGross - t.units)}</span> (<span data-k="unitsReturnsPct">{pct(1 - t.units / t.unitsGross)}</span>)</dd>
+      </dl>
+    </div>
+    <div class="card" data-card>
+      <span class="card__mark" set:html={svg('trend', 46)} />
+      <span class="cap">Annual projected sales</span>
+      <b class="card__value" data-k="projected">{inr(t.projected)}</b>
+      <span class="card__pill">Velocity: <span data-k="velocity">{inr(t.velocity)}</span> / day</span>
+    </div>
+    <div class="card" data-card>
+      <span class="card__mark" set:html={svg('rows', 46)} />
+      <span class="cap">Sales rows synced</span>
+      <b class="card__value" data-k="rows">{num(t.rows)}</b>
+      <span class="card__pill card__pill--violet">100% Sheet Synchronisation</span>
+    </div>
+  </div>
+
+  {/* ----- Tab panes ----- */}
+  <div class="pane is-on" data-pane="snapshot">
+    <div class="ov">
+      <div class="panel">
+        <div class="panel__head"><div><b>Channel share</b><small>Net revenue (out − in)</small></div></div>
+        <div class="donut">
+          <div class="donut__ring">
+            <svg viewBox="0 0 140 140" aria-hidden="true">
+              <circle cx="70" cy="70" r={DONUT_R} class="donut__base" />
+              {CHANNELS.map((c) => (
+                <circle cx="70" cy="70" r={DONUT_R} class="donut__seg" data-seg={c.id} style={`--bar: ${c.color}`}
+                  stroke-dasharray={`${arcs[c.id][0].toFixed(1)} ${circ.toFixed(1)}`} stroke-dashoffset={(-arcs[c.id][1]).toFixed(1)} />
+              ))}
+            </svg>
+            <span class="donut__mid"><b data-donut-total>{short(t.net)}</b><small>all channels</small></span>
+          </div>
+          <ul class="legend">
+            {CHANNELS.map((c) => (
+              <li class="legend__row" data-bd={c.id} style={`--bar: ${c.color}`}>
+                <i class="bars__dot"></i><span>{c.label}</span>
+                <b data-bd-val>{short(t.byChannel[c.id])}</b><small data-bd-pct>{pct(t.byChannel[c.id] / t.net)}</small>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div class="panel trend">
+        <div class="panel__head">
+          <div><b>Revenue by month</b><small data-trend-sub>Last 12 months against the year before</small></div>
+          <span class="trend__key"><i></i>This year<i class="is-last"></i>Year before</span>
+        </div>
+        <div class="trend__body">
+          <ul class="trend__y" data-ticks>{chartTicks(max).map((x) => <li>{x}</li>)}</ul>
+          <div class="trend__plot">
+            <svg viewBox={`0 0 ${CHART.w} ${CHART.h}`} preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="isd-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#2563EB" stop-opacity=".16" />
+                  <stop offset="1" stop-color="#2563EB" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              {[0.25, 0.5, 0.75].map((f) => <line x1="0" x2={CHART.w} y1={CHART.h * f} y2={CHART.h * f} class="trend__grid" />)}
+              <path d={chartLine(lastLine, max)} class="trend__last" data-trend-last />
+              <path d={chartArea(nowLine, max)} fill="url(#isd-fill)" data-trend-area />
+              <path d={chartLine(nowLine, max)} class="trend__line" pathLength="1" data-trend-now />
+            </svg>
+            <div class="trend__x" data-trend-x>{labels.map((l) => <span>{l}</span>)}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane" data-pane="momentum">
+    <div class="ov ov--even">
+      {[{ head: 'Rising', sub: 'Growing fastest against last year', rows: rising, up: true }, { head: 'Cooling', sub: 'Slowing down, worth a look', rows: cooling, up: false }].map((g) => (
+        <div class="panel">
+          <div class="panel__head"><div><b>{g.head}</b><small>{g.sub}</small></div><span class:list={['mo__tag', { 'is-down': !g.up }]}>{g.up ? '▲' : '▼'} 12 weeks</span></div>
+          <ul class="mo">
+            {g.rows.map((x, k) => (
+              <li class:list={['mo__row', { 'is-down': !g.up }]}>
+                <span class="mo__who"><b>{x.name}</b><small>{x.sku} · {x.category}</small></span>
+                <svg class="mo__spark" viewBox="0 0 96 28" preserveAspectRatio="none" aria-hidden="true"><polyline points={sparkPath(spark(x, k))} /></svg>
+                <span class="mo__units"><b data-share={x.share} data-fmt="units" data-price={x.price}>{num((net * x.share) / x.price)}</b><small>units</small></span>
+                <em class={`badge badge--${g.up ? 'green' : 'red'}`}>{pct(x.growth, true)}</em>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="pane" data-pane="launches">
+    <div class="launch">
+      {launches.map((x) => (
+        <div class="launch__card">
+          <span class="launch__cat">{x.category}</span>
+          <b class="launch__name">{x.name}</b>
+          <small class="launch__age">Launched {x.weeksLive} weeks ago</small>
+          <div class="launch__body">
+            <span class="ring">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle cx="32" cy="32" r="26" class="ring__base" />
+                <circle cx="32" cy="32" r="26" class:list={['ring__val', { 'is-slow': x.through < 0.3 }]} stroke-dasharray={`${(x.through * RING).toFixed(1)} ${RING.toFixed(1)}`} />
+              </svg>
+              <b>{Math.round(x.through * 100)}%</b>
+            </span>
+            <dl class="launch__stats">
+              <dt>Sold</dt><dd>{num(x.sold)}</dd>
+              <dt>Revenue</dt><dd>{short(x.sold * x.price)}</dd>
+            </dl>
+          </div>
+          <em class={`badge badge--${x.through >= 0.75 ? 'green' : x.through >= 0.3 ? 'blue' : 'amber'}`}>{x.through >= 0.75 ? 'Selling fast' : x.through >= 0.3 ? 'On track' : 'Slow start'}</em>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="pane" data-pane="seasonality">
+    <div class="panel">
+      <div class="panel__head">
+        <div><b>Seasonality</b><small>Each channel's busiest months are darkest · last 12 months</small></div>
+        <span class="heat__key">Quiet<i></i>Busy</span>
+      </div>
+      <div class="heat">
+        <span></span>
+        {labels.map((l) => <span class="heat__month" data-heat-m>{l.split(' ')[0]}</span>)}
+        <span class="heat__month">vs last yr</span>
+        {CHANNELS.map((c) => {
+          const row = months[c.id];
+          const lo = Math.min(...row), top = Math.max(...row);
+          const g = row.reduce((s, v) => s + v, 0) / before[c.id].reduce((s, v) => s + v, 0) - 1;
+          return (
+            <>
+              <span class="heat__label" data-heat-row={c.id} style={`--bar: ${c.color}`}><i class="bars__dot"></i>{c.label}</span>
+              {row.map((v, i) => <span class="heat__cell" data-heat={`${c.id}-${i}`} style={`--a: ${Math.round(8 + 92 * ((v - lo) / (top - lo)))}%`} title={short(v)}></span>)}
+              <em class={`badge badge--${g >= 0 ? 'green' : 'red'}`} data-heat-g={c.id}>{pct(g, true)}</em>
+            </>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+
+  <div class="pane" data-pane="leaderboard">
+    <div class="ov ov--even">
+      <div class="panel">
+        <div class="panel__head"><div><b>Top sellers</b><small>Net revenue closed this period</small></div></div>
+        <div class="podium">
+          {podium.map((a, i) => {
+            const rank = [2, 1, 3][i];
+            return (
+              <div class={`podium__col podium__col--${rank}`}>
+                <span class="podium__av">{initials(a.name)}</span>
+                <b class="podium__name">{a.name}</b>
+                <small data-share={a.share} data-fmt="short">{short(net * a.share)}</small>
+                <span class="podium__step">{rank}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel__head"><div><b>Against target</b><small>Share of this quarter's target reached</small></div></div>
+        <ul class="tgt">
+          {TEAM.map((a) => (
+            <li class="tgt__row">
+              <span class="who"><span class="who__av">{initials(a.name)}</span><span class="tgt__who"><b>{a.name}</b><small>{a.region} · {a.accounts} accounts</small></span></span>
+              <span class="tgt__bar"><i class:list={{ 'is-over': a.target >= 1, 'is-low': a.target < 0.8 }} style={`width: ${Math.min(a.target, 1.2) / 1.2 * 100}%`}></i><span class="tgt__line" aria-hidden="true"></span></span>
+              <b class:list={['tgt__pct', { 'is-over': a.target >= 1, 'is-low': a.target < 0.8 }]}>{Math.round(a.target * 100)}%</b>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane" data-pane="stock">
+    <div class="ov ov--even">
+      <div class="panel">
+        <div class="panel__head"><div><b>Stock cover</b><small>{stockTotal} products by how long their stock will last</small></div></div>
+        <div class="cover">
+          {STOCK_BUCKETS.map((b, i) => <i class={`cover__seg cover__seg--${b.tone}`} style={`flex: ${(stockWidth[i] / stockSum).toFixed(3)} 1 0`}>{b.count}</i>)}
+        </div>
+        <ul class="cover__key">
+          {STOCK_BUCKETS.map((b) => (
+            <li><i class={`cover__dot cover__seg--${b.tone}`}></i><span><b>{b.label}</b><small>{b.note}</small></span><em>{b.count}</em></li>
+          ))}
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel__head"><div><b>Act now</b><small>Will run out first at the current rate of sale</small></div></div>
+        <ul class="rp">
+          {urgent.map((x) => (
+            <li class="rp__row">
+              <span class="rp__who"><b>{x.name}</b><small>{num(x.stock)} left · {x.weekly} a week</small></span>
+              <span class="rp__cover"><i style={`width: ${(x.weeks / 6) * 100}%`}></i></span>
+              <em class={`badge badge--${x.weeks < 3 ? 'red' : 'amber'}`}>{x.weeks.toFixed(1)} wks</em>
+              <button type="button" class="act" data-restock={x.name}><Fragment set:html={svg('box', 14)} />Restock</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane" data-pane="baskets">
+    <div class="ov ov--baskets">
+      <div class="panel">
+        <div class="panel__head"><div><b>Category map</b><small>Each tile sized by its share of net revenue</small></div></div>
+        <div class="tree">
+          {tiles.map((row, r) => (
+            <div class="tree__row" style={`flex: ${row.reduce((s, g) => s + g.share, 0)} 1 0`}>
+              {row.map((g, i) => (
+                <div class="tree__tile" style={`flex: ${(g.share / row.reduce((s, x) => s + x.share, 0)).toFixed(3)} 1 0; background: ${TILE[r * 2 + i]}`}>
+                  <span>{g.label}</span>
+                  <b data-share={g.share} data-fmt="short">{short(net * g.share)}</b>
+                  <small>{pct(g.share)}</small>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel__head"><div><b>The average basket</b><small>A typical order this period</small></div></div>
+        <div class="bk">
+          <div><small>Order value</small><b>{inr(BASKET.aov)}</b></div>
+          <div><small>Items per order</small><b>{BASKET.items}</b></div>
+          <div><small>Repeat buyers</small><b>{pct(BASKET.repeat)}</b></div>
+        </div>
+        <p class="cap bk__cap">Often bought together</p>
+        <ul class="pairs">
+          {PAIRS.map((x) => (
+            <li class="pairs__row">
+              <span class="pairs__who"><b>{x.a}</b><span aria-hidden="true">+</span><b>{x.b}</b></span>
+              <span class="bars__track"><i style={`width: ${(x.rate / pairMax) * 100}%`}></i></span>
+              <small>{pct(x.rate)} of orders</small>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

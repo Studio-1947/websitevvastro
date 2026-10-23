@@ -1,0 +1,68 @@
+---
+/**
+ * Map of India with a pin per city, sized by its share of sales. Used by the
+ * dashboard's Geo Insights screen and by the page's location section; each
+ * styles it through the custom properties below. Decorative: the lists next
+ * to it carry the same numbers.
+ *
+ *   --map-land, --map-edge   fill and outline of the country
+ *   --map-pin                pin colour
+ *   --map-label              label colour
+ */
+import { INDIA, INDIA_PATH, project } from './india';
+
+export interface Pin {
+  label: string;
+  lon: number;
+  lat: number;
+  share: number;
+  /** Which side of the pin its label sits on. */
+  side?: 'l' | 'r';
+}
+interface Props {
+  pins: Pin[];
+  /** Pin radius for the biggest city, in map units. */
+  size?: number;
+  class?: string;
+}
+const { pins, size = 18, class: cls } = Astro.props;
+const top = Math.max(...pins.map((p) => p.share));
+---
+
+<svg class:list={['imap', cls]} viewBox={`0 0 ${INDIA.w} ${INDIA.h}`} role="img" aria-label="Map of India showing where orders come from">
+  <path class="imap__land" d={INDIA_PATH} />
+  {pins.map((p, i) => {
+    const [x, y] = project(p.lon, p.lat);
+    const r = Math.max(5, size * Math.sqrt(p.share / top));
+    const left = p.side === 'l';
+    return (
+      <g class:list={['imap__pin', { 'is-top': i === 0 }]} style={`--d: ${i * 90}ms`}>
+        {i === 0 && <circle class="imap__pulse" cx={x.toFixed(1)} cy={y.toFixed(1)} r={r.toFixed(1)} />}
+        <circle class="imap__dot" cx={x.toFixed(1)} cy={y.toFixed(1)} r={r.toFixed(1)} />
+        <text class="imap__label" x={(x + (left ? -r - 6 : r + 6)).toFixed(1)} y={(y + 5).toFixed(1)} text-anchor={left ? 'end' : 'start'}>{p.label}</text>
+      </g>
+    );
+  })}
+</svg>
+
+<style>
+  .imap { display: block; width: 100%; height: 100%; overflow: visible; }
+  .imap__land { fill: var(--map-land, #E8ECF8); stroke: var(--map-edge, #C3CCE8); stroke-width: 1.5; stroke-linejoin: round; }
+  .imap__dot {
+    fill: var(--map-pin, #DC2626); fill-opacity: .88; stroke: #fff; stroke-width: 2.5;
+    transform-box: fill-box; transform-origin: center;
+    animation: imap-in .5s cubic-bezier(.22, 1.4, .36, 1) var(--d) both;
+  }
+  .imap__pulse {
+    fill: var(--map-pin, #DC2626); opacity: 0;
+    transform-box: fill-box; transform-origin: center;
+    animation: imap-pulse 2.4s ease-out infinite;
+  }
+  .imap__label { font-size: 15px; font-weight: 600; fill: var(--map-label, #1F2937); paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
+  @keyframes imap-in { from { transform: scale(0); } }
+  @keyframes imap-pulse { 0% { opacity: .35; transform: scale(1); } 100% { opacity: 0; transform: scale(2.6); } }
+  @media (prefers-reduced-motion: reduce) {
+    .imap__dot { animation: none; }
+    .imap__pulse { display: none; }
+  }
+</style>

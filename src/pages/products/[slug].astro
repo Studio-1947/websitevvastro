@@ -7,9 +7,9 @@ import { productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
 import productCss from '../../styles/product.css?raw';
 
 export async function getStaticPaths() {
-  // aangan and pharma-erp have their own component-built pages
-  // (products/aangan.astro, products/pharma-erp.astro).
-  const OWN_PAGE = ['aangan', 'pharma-erp'];
+  // These have their own component-built pages (products/aangan.astro,
+  // products/pharma-erp.astro, products/inventory-sales-dashboard.astro).
+  const OWN_PAGE = ['aangan', 'pharma-erp', 'inventory-sales-dashboard'];
   const entries = (await getCollection('products')).filter((e) => !OWN_PAGE.includes(e.id));
   return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }

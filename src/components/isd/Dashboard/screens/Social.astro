@@ -1,0 +1,64 @@
+---
+import { svg, type IconName } from '../icons';
+import { SOCIAL, POSTS, num } from '../content';
+
+const icon: Record<string, IconName> = { facebook: 'fb', instagram: 'ig', youtube: 'yt' };
+const most = Math.max(...SOCIAL.map((s) => s.orders));
+---
+
+{/* ===== Social Media ===== */}
+<section class="view" data-view="social" aria-label="Social media">
+  <div class="view__head">
+    <div>
+      <h3 class="view__title">Social Media</h3>
+      <p class="view__date">This month: who saw your posts, who clicked through, and who bought.</p>
+    </div>
+  </div>
+
+  <div class="soc">
+    {SOCIAL.map((s) => (
+      <button type="button" class="soc__card" data-soc={s.id} aria-pressed="false" style={`--brand: ${s.color}`}>
+        <span class="soc__head"><span class="soc__icon" set:html={svg(icon[s.id], 18)} /><b>{s.label}</b></span>
+        <dl class="soc__stats">
+          <div><dt>Followers</dt><dd>{num(s.followers)}</dd></div>
+          <div><dt>Reach</dt><dd>{num(s.reach)}</dd></div>
+          <div><dt>Link clicks</dt><dd>{num(s.clicks)}</dd></div>
+          <div><dt>Orders</dt><dd>{num(s.orders)}</dd></div>
+        </dl>
+      </button>
+    ))}
+  </div>
+
+  <div class="ov ov--even ov--grow">
+    <div class="panel">
+      <div class="panel__head"><div><b>Orders from social this month</b><small>Website orders that arrived from a post or a video</small></div></div>
+      <ul class="bars bars--geo">
+        {SOCIAL.map((s) => (
+          <li class="bars__row bars__row--social" style={`--bar: ${s.color}`}>
+            <span class="bars__label"><i class="bars__dot"></i>{s.label}</span>
+            <span class="bars__track"><i style={`width: ${(s.orders / most) * 100}%`}></i></span>
+            <b class="bars__val">{s.orders} orders</b>
+            <small class="bars__pct">{((s.orders / s.clicks) * 100).toFixed(1)}% of clicks</small>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="panel">
+      <div class="panel__head"><div><b>Best posts this month</b><small>By orders that followed</small></div></div>
+      <table class="tbl">
+        <thead><tr><th>Post</th><th>Reach</th><th>Orders</th></tr></thead>
+        <tbody>
+          {POSTS.map((x) => {
+            const s = SOCIAL.find((p) => p.id === x.platform)!;
+            return (
+              <tr>
+                <td><span class="who"><span class="soc__icon soc__icon--sm" style={`--brand: ${s.color}`} set:html={svg(icon[s.id], 14)} /><b>{x.post}</b></span></td>
+                <td>{num(x.reach)}</td><td><b>{x.orders}</b></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,69 @@
+---
+/**
+ * Location section: what the Geo Insights screen does, told with a large map
+ * of India. Text and a ranked list of cities on one side, the map on the red
+ * wash on the other. Phones: text, list, then map.
+ */
+import IndiaMap from '../Map/IndiaMap.astro';
+import type { WhereContent } from '../content';
+
+interface Props { content: WhereContent }
+const { content: c } = Astro.props;
+const top = Math.max(...c.cities.map((x) => x.share));
+---
+
+<section class="where" aria-labelledby="isd-where-title">
+  <div class="where__copy">
+    <h2 id="isd-where-title" class="where__title">{c.title}</h2>
+    <p class="where__body">{c.body}</p>
+    <ol class="where__list" data-stagger>
+      {c.cities.map((x, i) => (
+        <li>
+          <span class="where__rank">{i + 1}</span>
+          <span class="where__city">{x.label}</span>
+          <span class="where__bar"><i style={`width: ${(x.share / top) * 100}%`}></i></span>
+          <b>{Math.round(x.share * 100)}%</b>
+        </li>
+      ))}
+    </ol>
+    <p class="where__foot">{c.foot}</p>
+  </div>
+  <div class="where__panel reveal">
+    <div class="where__map"><IndiaMap pins={c.cities} size={26} /></div>
+  </div>
+</section>
+
+<style>
+  .where {
+    max-width: 1280px; margin: 0 auto;
+    padding: clamp(56px, 7vw, 110px) clamp(16px, 5vw, 72px);
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 100px); align-items: center;
+  }
+  .where__title { margin: 0 0 18px; font-size: clamp(30px, 3vw, 44px); line-height: 1.1; }
+  .where__body { margin: 0 0 28px; max-width: 42ch; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.6; }
+  .where__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .where__list li { display: grid; grid-template-columns: 26px 110px 1fr 44px; align-items: center; gap: 12px; font-size: 15px; }
+  .where__rank { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--p-card); font-size: 12px; font-weight: 600; }
+  .where__list li:first-child .where__rank { background: var(--p-ink); color: #fff; }
+  .where__bar { height: 8px; border-radius: 999px; background: var(--p-card); overflow: hidden; }
+  .where__bar i { display: block; height: 100%; border-radius: inherit; background: #e60000; opacity: .8; }
+  .where__list b { text-align: right; font-weight: 500; }
+  .where__foot { margin: 22px 0 0; font-size: 14px; color: var(--p-muted); }
+
+  .where__panel {
+    display: grid; place-items: center;
+    padding: clamp(24px, 4vw, 56px);
+    border-radius: 16px; background: var(--p-wash);
+  }
+  .where__map {
+    width: 100%; max-width: 520px; aspect-ratio: 543 / 612;
+    --map-land: rgba(255, 255, 255, .92); --map-edge: rgba(13, 13, 13, .12);
+    --map-pin: #e60000; --map-label: var(--p-ink);
+    filter: drop-shadow(0 24px 36px rgba(160, 30, 20, .18));
+  }
+
+  @media (max-width: 860px) {
+    .where { grid-template-columns: 1fr; }
+    .where__panel { padding: 20px 14px; }
+  }
+</style>

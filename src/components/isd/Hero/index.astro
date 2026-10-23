@@ -1,0 +1,87 @@
+---
+/**
+ * Centred hero: app icon, one-line headline, one line of copy, one button.
+ * Below it, a working copy of the sales dashboard (see Dashboard).
+ * Same hero as the Pharma ERP page (components/pharma/Hero), with its own demo.
+ * Motion: the wash is made of a few large blurred blobs that drift slowly,
+ * like light moving through mist, in Studio 1947 red. Held still for reduced motion.
+ */
+import { ctaAttrs } from '../../pharma/types';
+import Dashboard from '../Dashboard/index.astro';
+import type { HeroContent } from './content';
+
+interface Props { content: HeroContent }
+const { content: c } = Astro.props;
+---
+
+<section class="phero" aria-labelledby="isd-hero-title">
+  <div class="phero__bg" aria-hidden="true">
+    <span class="phero__blob phero__blob--1"></span>
+    <span class="phero__blob phero__blob--2"></span>
+    <span class="phero__blob phero__blob--3"></span>
+    <span class="phero__blob phero__blob--4"></span>
+  </div>
+  <div class="phero__copy">
+    {/* The product's own mark: a rising line on a green tile. */}
+    <span class="phero__icon" aria-hidden="true">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 5-5 4 3 7-7" /><path d="M15 7h5v5" /></svg>
+    </span>
+    <h1 id="isd-hero-title" class="phero__title">{c.title}</h1>
+    <p class="phero__sub">{c.sub}</p>
+    <a class="p-btn" {...ctaAttrs(c.primary)}>{c.primary.label}</a>
+  </div>
+
+  <Dashboard />
+</section>
+
+<style>
+  .phero {
+    position: relative; isolation: isolate;
+    padding: clamp(140px, 13vw, 180px) clamp(16px, 5vw, 72px) clamp(64px, 8vw, 120px);
+  }
+
+  /* The moving wash. It sits behind everything and fades into the page
+     before the product preview ends, so the next section starts on plain ground. */
+  .phero__bg {
+    position: absolute; inset: 0; z-index: -1; overflow: hidden;
+    background: #FDEEEC;
+    -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 90%);
+    mask-image: linear-gradient(to bottom, #000 50%, transparent 90%);
+  }
+  /* Soft edges come from a radial gradient, not filter: blur(). A blur on
+     layers this large is re-rendered on every repaint nearby, which starved
+     the dashboard demo below of frames and made its pointer stutter. */
+  .phero__blob {
+    position: absolute; border-radius: 50%; opacity: .9;
+    background: radial-gradient(closest-side, var(--c) 68%, transparent);
+    scale: 1.2; /* the blur used to spill past the edge; this keeps that size */
+    will-change: transform;
+  }
+  .phero__blob--1 { --c: #FFD9D3; width: 55vw; height: 55vw; left: -12vw; top: -18vw; animation: phero-drift-1 26s ease-in-out infinite alternate; }
+  .phero__blob--2 { --c: #FFB0A5; width: 48vw; height: 48vw; right: -10vw; top: -14vw; animation: phero-drift-2 31s ease-in-out infinite alternate; }
+  .phero__blob--3 { --c: #FF8B7E; width: 44vw; height: 44vw; left: 38vw; top: 22vw; opacity: .55; animation: phero-drift-3 23s ease-in-out infinite alternate; }
+  .phero__blob--4 { --c: #FFE6DE; width: 40vw; height: 40vw; left: -6vw; top: 26vw; animation: phero-drift-4 35s ease-in-out infinite alternate; }
+
+  @keyframes phero-drift-1 { to { transform: translate(14vw, 8vw) scale(1.12); } }
+  @keyframes phero-drift-2 { to { transform: translate(-16vw, 10vw) scale(.9); } }
+  @keyframes phero-drift-3 { to { transform: translate(-20vw, -6vw) scale(1.15); } }
+  @keyframes phero-drift-4 { to { transform: translate(12vw, -10vw) scale(1.08); } }
+
+  @media (max-width: 760px) {
+    .phero__blob--1, .phero__blob--2 { width: 90vw; height: 90vw; }
+    .phero__blob--3 { width: 80vw; height: 80vw; top: 70vw; left: 20vw; }
+    .phero__blob--4 { width: 70vw; height: 70vw; top: 60vw; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .phero__blob { animation: none; }
+  }
+  .phero__copy { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .phero__icon {
+    display: grid; place-items: center; width: 72px; height: 72px; margin-bottom: clamp(28px, 3vw, 40px);
+    border-radius: 18px;
+    background: linear-gradient(160deg, #14B886, #0B8A65);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .6), 0 10px 24px -8px rgba(11, 138, 101, .55);
+  }
+  .phero__title { margin: 0; max-width: 16ch; font-size: clamp(42px, 5.6vw, 76px); line-height: 1.04; }
+  .phero__sub { margin: 18px 0 30px; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.4; }
+</style>
