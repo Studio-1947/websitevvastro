@@ -94,6 +94,26 @@
   position: relative; z-index: 1; flex: none;
   padding: 20px 26px; border-radius: 22px; background: var(--d-navy); color: #fff;
 }
+.dash .hb { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.dash .role { display: flex; align-items: center; gap: 4px; padding: 4px; border-radius: 14px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); }
+.dash .role__cap { padding: 0 8px 0 6px; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #9DB3CC; }
+.dash .role__opt { display: grid; padding: 6px 12px; border: 0; border-radius: 10px; background: none; text-align: left; line-height: 1.2; transition: transform .1s ease, background-color .2s ease; }
+.dash__stage .role__opt { color: #DCE6F2; }
+.dash .role__opt b { font-size: 12.5px; font-weight: 600; }
+.dash .role__opt small { font-size: 10.5px; opacity: .7; }
+.dash__stage .role__opt[aria-pressed='true'] { background: #fff; color: var(--d-navy); }
+.dash .role__opt.is-pressed { transform: scale(.96); }
+
+/* Store team: other locations are locked in the sidebar and chips, their figures unreadable. */
+.dash__stage .is-locked { opacity: .45; cursor: not-allowed; }
+.dash .is-locked::after {
+  content: ''; flex: none; width: 11px; height: 11px; margin-left: auto;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.dash .chan.is-locked::after { margin-left: 2px; }
+.dash .is-hidden { filter: blur(4px); opacity: .5; user-select: none; pointer-events: none; transition: filter .3s ease, opacity .3s ease; }
 .dash .hb__kick { display: flex; align-items: center; gap: 12px; font-size: 15px; color: #DCE6F2; }
 .dash .live {
   display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px;

@@ -242,6 +242,15 @@ export const TEAM = [
   { name: 'Nidhi Sharma', region: 'Online', accounts: 18, share: 0.041, target: 0.74 },
 ];
 
+/** Access levels for the "Viewing as" switch. A store team sees only its own location. */
+export const ROLES = {
+  admin: { label: 'Admin', note: 'All locations' },
+  store: { label: 'North Store team', note: 'Own location only', channel: 'delhi' as ChannelId },
+};
+
+/** Which channel each sales region sells through, so a store team sees only its own people. */
+export const REGION_CHANNEL: Record<string, ChannelId> = { North: 'delhi', West: 'mumbai', East: 'patna', South: 'kolkata', Online: 'online' };
+
 /** Stock Health: products grouped by how many weeks their stock will last. */
 export const STOCK_BUCKETS = [
   { label: 'Critical', note: 'under 3 weeks', count: 6, tone: 'red' },

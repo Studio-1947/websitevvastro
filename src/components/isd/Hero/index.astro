@@ -29,6 +29,7 @@ const { content: c } = Astro.props;
     <h1 id="isd-hero-title" class="phero__title">{c.title}</h1>
     <p class="phero__sub">{c.sub}</p>
     <a class="p-btn" {...ctaAttrs(c.primary)}>{c.primary.label}</a>
+    <p class="phero__example">{c.example}</p>
   </div>
 
   <Dashboard />
@@ -83,5 +84,6 @@ const { content: c } = Astro.props;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, .6), 0 10px 24px -8px rgba(11, 138, 101, .55);
   }
   .phero__title { margin: 0; max-width: 16ch; font-size: clamp(42px, 5.6vw, 76px); line-height: 1.04; }
+  .phero__example { margin: clamp(24px, 2.6vw, 34px) 0 -16px; font-size: 14px; color: var(--p-muted); }
   .phero__sub { margin: 18px 0 30px; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.4; }
 </style>

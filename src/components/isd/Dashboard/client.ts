@@ -3,7 +3,7 @@
  * Everything works on the sample data in content.ts and resets on reload.
  */
 import {
-  CHANNELS, PERIODS, PRODUCTS, AVG_PRICE, DONUT_R, heat, donut,
+  CHANNELS, PERIODS, PRODUCTS, ROLES, AVG_PRICE, DONUT_R, heat, donut,
   monthly, totals, trend, trendLabels, chartMax, chartTicks, chartLine, chartArea,
   inr, num, short, pct, type Selection, type PeriodId, type Totals, type ChannelId,
 } from './content';
@@ -57,7 +57,7 @@ if (root) {
   /* ---------- State, and every number that follows it ---------- */
   const now = new Date();
   const data = monthly(now);
-  const state = { sel: 'all' as Selection, period: 'fytd' as PeriodId, lastYear: false, extraRows: 0 };
+  const state = { sel: 'all' as Selection, period: 'fytd' as PeriodId, lastYear: false, extraRows: 0, role: 'admin' as keyof typeof ROLES };
   const shown: Record<string, number> = {};
   const label = (sel: Selection) => (sel === 'all' ? 'Total' : CHANNELS.find((c) => c.id === sel)!.label);
 
@@ -136,7 +136,8 @@ if (root) {
       const g = row.reduce((x, v) => x + v, 0) / prior[c.id].reduce((x, v) => x + v, 0) - 1;
       const badge = $(`[data-heat-g="${c.id}"]`);
       badge.textContent = pct(g, true);
-      badge.className = `badge badge--${g >= 0 ? 'green' : 'red'}`;
+      badge.classList.remove('badge--green', 'badge--red');
+      badge.classList.add(`badge--${g >= 0 ? 'green' : 'red'}`);
       const dim = state.sel !== 'all' && state.sel !== c.id;
       $(`[data-heat-row="${c.id}"]`).classList.toggle('is-dim', dim);
       root.querySelectorAll(`[data-heat^="${c.id}-"], [data-heat-g="${c.id}"]`).forEach((el) => el.classList.toggle('is-dim', dim));
@@ -166,6 +167,26 @@ if (root) {
     render();
     bump();
   };
+  /* ---------- Access levels: an admin sees everything, a store team only its own location ---------- */
+  const OWN = ROLES.store.channel;
+  // Sidebar items and chips a store team may still open.
+  const allowed = (el: HTMLElement) => el.dataset.sel === OWN || el.dataset.chip === OWN;
+  const setRole = (role: keyof typeof ROLES) => {
+    state.role = role;
+    const store = role === 'store';
+    $$('[data-role]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.role === role)));
+    root.classList.toggle('is-store', store);
+    $('[data-kicker]').textContent = store ? `${ROLES.store.label} · own location` : 'All-Channel Dashboard';
+    $$('.side__item, [data-chip]').forEach((el) => el.classList.toggle('is-locked', store && !allowed(el)));
+    // Others' figures stay on screen but unreadable, so the layout is the same for everyone.
+    $$('[data-chan]').forEach((el) => el.classList.toggle('is-hidden', store && el.dataset.chan !== OWN));
+    const home = $(`.side__item[data-sel="${store ? OWN : 'all'}"]`);
+    mark(home);
+    show('home');
+    setSel(store ? OWN : 'all');
+    toast(store ? `Viewing as ${ROLES.store.label}: other locations are hidden` : 'Viewing as Admin: every location');
+  };
+
   const setTab = (id: string) => {
     $$('[data-tab]').forEach((x) => x.setAttribute('aria-selected', String(x.dataset.tab === id)));
     $$('[data-pane]').forEach((p) => p.classList.toggle('is-on', p.dataset.pane === id));
@@ -208,6 +229,11 @@ if (root) {
     if (!t || !root.contains(t)) return;
     const d = t.dataset;
 
+    if (t.classList.contains('is-locked')) {
+      toast(`Only admins can see ${d.nav ?? CHANNELS.find((c) => c.id === d.chip)?.label ?? 'other locations'}`);
+      return;
+    }
+    if (d.role && d.role !== state.role) setRole(d.role as keyof typeof ROLES);
     if (d.nav) {
       if (d.off !== undefined) { toast(`${d.nav} is not linked to this dashboard yet`); return; }
       mark(t);
@@ -354,6 +380,17 @@ if (root) {
         await nav('Instagram');
         await wait(2400);
         await nav('Total');
+        await wait(1200);
+        // A store team's view: only its own location.
+        await press($('[data-role="store"]'));
+        await wait(2400);
+        await press($('[data-tab="leaderboard"]'));
+        await wait(2200);
+        await press($('[data-chip="mumbai"]'));
+        await wait(2200);
+        await press($('[data-role="admin"]'));
+        await wait(600);
+        await press($('[data-tab="snapshot"]'));
       }
     } catch {
       root.classList.remove('is-touring');
