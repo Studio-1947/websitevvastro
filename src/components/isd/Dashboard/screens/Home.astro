@@ -1,7 +1,7 @@
 ---
 import { svg } from '../icons';
 import {
-  CHANNELS, PERIODS, TABS, PRODUCTS, TEAM, STOCK_BUCKETS, CATEGORIES, BASKET, PAIRS, CHART, DONUT_R,
+  CHANNELS, PERIODS, TABS, PRODUCTS, TEAM, ROLES, REGION_CHANNEL, STOCK_BUCKETS, CATEGORIES, BASKET, PAIRS, CHART, DONUT_R,
   monthly, totals, trend, heat, donut, trendLabels, chartMax, chartTicks, chartLine, chartArea, spark, sparkPath,
   inr, num, short, pct,
 } from '../content';
@@ -54,8 +54,18 @@ const initials = (name: string) => name.split(' ').map((w) => w[0]).join('');
 {/* ===== Total / one channel ===== */}
 <section class="view is-active" data-view="home" aria-label="Sales">
   <div class="hb">
-    <p class="hb__kick"><span class="live">Live Data</span>All-Channel Dashboard</p>
-    <h3 class="hb__title" data-title>Total Sales</h3>
+    <div class="hb__copy">
+      <p class="hb__kick"><span class="live">Live Data</span><span data-kicker>All-Channel Dashboard</span></p>
+      <h3 class="hb__title" data-title>Total Sales</h3>
+    </div>
+    <div class="role" role="group" aria-label="Viewing as">
+      <span class="role__cap">Viewing as</span>
+      {Object.entries(ROLES).map(([id, r]) => (
+        <button type="button" class="role__opt" data-role={id} aria-pressed={String(id === 'admin')}>
+          <b>{r.label}</b><small>{r.note}</small>
+        </button>
+      ))}
+    </div>
   </div>
   <div class="tabbar" role="tablist" aria-label="Analysis">
     {TABS.map((x, i) => <button type="button" role="tab" class="tabbar__tab" data-tab={x.id} aria-selected={String(i === 0)}>{x.label}</button>)}
@@ -163,7 +173,7 @@ const initials = (name: string) => name.split(' ').map((w) => w[0]).join('');
           </div>
           <ul class="legend">
             {CHANNELS.map((c) => (
-              <li class="legend__row" data-bd={c.id} style={`--bar: ${c.color}`}>
+              <li class="legend__row" data-bd={c.id} data-chan={c.id} style={`--bar: ${c.color}`}>
                 <i class="bars__dot"></i><span>{c.label}</span>
                 <b data-bd-val>{short(t.byChannel[c.id])}</b><small data-bd-pct>{pct(t.byChannel[c.id] / t.net)}</small>
               </li>
@@ -260,9 +270,9 @@ const initials = (name: string) => name.split(' ').map((w) => w[0]).join('');
           const g = row.reduce((s, v) => s + v, 0) / before[c.id].reduce((s, v) => s + v, 0) - 1;
           return (
             <>
-              <span class="heat__label" data-heat-row={c.id} style={`--bar: ${c.color}`}><i class="bars__dot"></i>{c.label}</span>
-              {row.map((v, i) => <span class="heat__cell" data-heat={`${c.id}-${i}`} style={`--a: ${Math.round(8 + 92 * ((v - lo) / (top - lo)))}%`} title={short(v)}></span>)}
-              <em class={`badge badge--${g >= 0 ? 'green' : 'red'}`} data-heat-g={c.id}>{pct(g, true)}</em>
+              <span class="heat__label" data-heat-row={c.id} data-chan={c.id} style={`--bar: ${c.color}`}><i class="bars__dot"></i>{c.label}</span>
+              {row.map((v, i) => <span class="heat__cell" data-heat={`${c.id}-${i}`} data-chan={c.id} style={`--a: ${Math.round(8 + 92 * ((v - lo) / (top - lo)))}%`} title={short(v)}></span>)}
+              <em class={`badge badge--${g >= 0 ? 'green' : 'red'}`} data-heat-g={c.id} data-chan={c.id}>{pct(g, true)}</em>
             </>
           );
         })}
@@ -278,7 +288,7 @@ const initials = (name: string) => name.split(' ').map((w) => w[0]).join('');
           {podium.map((a, i) => {
             const rank = [2, 1, 3][i];
             return (
-              <div class={`podium__col podium__col--${rank}`}>
+              <div class={`podium__col podium__col--${rank}`} data-chan={REGION_CHANNEL[a.region]}>
                 <span class="podium__av">{initials(a.name)}</span>
                 <b class="podium__name">{a.name}</b>
                 <small data-share={a.share} data-fmt="short">{short(net * a.share)}</small>
@@ -292,7 +302,7 @@ const initials = (name: string) => name.split(' ').map((w) => w[0]).join('');
         <div class="panel__head"><div><b>Against target</b><small>Share of this quarter's target reached</small></div></div>
         <ul class="tgt">
           {TEAM.map((a) => (
-            <li class="tgt__row">
+            <li class="tgt__row" data-chan={REGION_CHANNEL[a.region]}>
               <span class="who"><span class="who__av">{initials(a.name)}</span><span class="tgt__who"><b>{a.name}</b><small>{a.region} · {a.accounts} accounts</small></span></span>
               <span class="tgt__bar"><i class:list={{ 'is-over': a.target >= 1, 'is-low': a.target < 0.8 }} style={`width: ${Math.min(a.target, 1.2) / 1.2 * 100}%`}></i><span class="tgt__line" aria-hidden="true"></span></span>
               <b class:list={['tgt__pct', { 'is-over': a.target >= 1, 'is-low': a.target < 0.8 }]}>{Math.round(a.target * 100)}%</b>

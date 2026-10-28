@@ -7,14 +7,16 @@
  * While in view and untouched, it plays a short guided demo with a pointer:
  * bills come in, a bill is rung up, stock is filtered, a token is issued, and
  * round again. The moment the visitor clicks or types inside it, the demo
- * stops and it is theirs to use. Reduced motion: no demo, no counting,
+ * stops and it is theirs to use. The "Viewing as" switch in the top bar shows
+ * the two access levels: the owner sees everything, counter staff one branch
+ * and the counter's screens only. Reduced motion: no demo, no counting,
  * everything still works. Behaviour lives in client.ts, styles in app.css.
  *
  * It is laid out at a fixed 1280 × 760 and scaled to fit, like a screenshot.
  */
 import './app.css';
 import { svg, type IconName } from './icons';
-import { SHOP } from './content';
+import { SHOP, ROLES } from './content';
 
 import Home from './screens/Home.astro';
 import Billing from './screens/Billing.astro';
@@ -92,17 +94,21 @@ const nav: { label: string; icon: IconName; go: string }[] = [
               <b data-crumb>Dashboard</b>
             </span>
             <span class="top__search" aria-hidden="true">
-              <Fragment set:html={svg('search', 15)} />Search pages, medicines, patients…<kbd>Ctrl K</kbd>
+              <Fragment set:html={svg('search', 15)} />Search medicines, patients…<kbd>Ctrl K</kbd>
             </span>
             <button type="button" class="top__branch" data-branch-switch>
               <Fragment set:html={svg('store', 15)} /><span data-branch-name>{SHOP.branches[0]}</span><Fragment set:html={svg('chevron', 14)} />
             </button>
             <span class="top__bell" aria-hidden="true"><Fragment set:html={svg('bell', 17)} /><i></i></span>
-            <span class="top__user" aria-hidden="true">
-              <span class="top__avatar">{SHOP.initials}</span>
-              <span><b>{SHOP.user}</b><small>{SHOP.role}</small></span>
-            </span>
-            <span class="top__out" aria-hidden="true"><Fragment set:html={svg('logout', 15)} />Sign out</span>
+            {/* Who is signed in: switch to see what each access level can open. */}
+            <div class="viewas" role="group" aria-label="Viewing as">
+              {Object.entries(ROLES).map(([id, r]) => (
+                <button type="button" class="viewas__opt" data-role={id} aria-pressed={String(id === 'owner')}>
+                  <span class:list={['top__avatar', { 'top__avatar--staff': id === 'staff' }]}>{r.initials}</span>
+                  <span><b>{r.label}</b><small>{r.note}</small></span>
+                </button>
+              ))}
+            </div>
           </header>
 
           <Home />

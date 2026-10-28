@@ -3,7 +3,7 @@
  * Everything works on the sample data in content.ts and resets on reload.
  */
 import {
-  SHOP, START, QUEUE, DOCTORS, REVENUE, REVENUE_30, REVENUE_90, PERIODS, SAMPLE_BILLS, TRANSFER_LABEL,
+  SHOP, ROLES, OWNER_ONLY, START, QUEUE, DOCTORS, REVENUE, REVENUE_30, REVENUE_90, PERIODS, SAMPLE_BILLS, TRANSFER_LABEL,
   inr, chartLine, chartArea, chartPoints, chartTicks, CHART,
 } from './content';
 
@@ -84,7 +84,7 @@ if (root) {
   };
 
   /* ---------- Sales: a saved bill moves every number that counts it ---------- */
-  const state = { sales: START.sales, invoices: START.invoices, billNo: START.billNo, revenue: [...REVENUE], branch: 0 };
+  const state = { sales: START.sales, invoices: START.invoices, billNo: START.billNo, revenue: [...REVENUE], branch: 0, role: 'owner' as keyof typeof ROLES };
   const stat = (k: string) => $(`[data-stat="${k}"]`);
   const billings = $('[data-billings]');
 
@@ -242,12 +242,37 @@ if (root) {
     invite: 'Invite link ready to share',
   };
 
+  /* ---------- Access levels: the owner sees everything, counter staff one branch ---------- */
+  const setBranch = (i: number) => {
+    state.branch = i;
+    $$('[data-branch-name]').forEach((el) => { el.textContent = SHOP.branches[i]; });
+  };
+  const setRole = (role: keyof typeof ROLES) => {
+    state.role = role;
+    const staff = role === 'staff';
+    $$('[data-role]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.role === role)));
+    root.classList.toggle('is-staff', staff);
+    $$('.side__item[data-go]').forEach((n) => n.classList.toggle('is-locked', staff && OWNER_ONLY.includes(n.dataset.go!)));
+    $$('[data-branch-switch], [data-action="compare"], [data-action="branches"]').forEach((b) => b.classList.toggle('is-locked', staff));
+    if (staff) {
+      setBranch(ROLES.staff.branch);
+      const open = $$('[data-view]').find((v) => v.classList.contains('is-active'))?.dataset.view;
+      if (open && OWNER_ONLY.includes(open)) show('home');
+    }
+    toast(staff ? `Viewing as ${ROLES.staff.label}: ${ROLES.staff.note} only` : 'Viewing as Owner: every branch and screen');
+  };
+
   /* ---------- Clicks (from the visitor or the demo) ---------- */
   root.addEventListener('click', (e) => {
     const t = (e.target as HTMLElement).closest<HTMLElement>('button');
     if (!t || !root.contains(t)) return;
     const d = t.dataset;
 
+    if (t.classList.contains('is-locked')) {
+      toast(d.go ? `Only the owner can open ${crumbs[d.go]}` : `Counter staff see ${ROLES.staff.note} only`);
+      return;
+    }
+    if (d.role && d.role !== state.role) setRole(d.role as keyof typeof ROLES);
     if (d.go) {
       show(d.go);
       if (d.filter) filter(d.filter);
@@ -269,8 +294,7 @@ if (root) {
       }
     }
     if (t.hasAttribute('data-branch-switch')) {
-      state.branch = (state.branch + 1) % SHOP.branches.length;
-      $$('[data-branch-name]').forEach((el) => { el.textContent = SHOP.branches[state.branch]; });
+      setBranch((state.branch + 1) % SHOP.branches.length);
       toast(`Switched to ${SHOP.branches[state.branch]}`);
     }
     if (d.token) {
@@ -418,6 +442,15 @@ if (root) {
         await wait(2000);
         await nav('analytics');
         await wait(3200);
+        // Counter staff: one branch, the counter's screens only.
+        await press($('[data-role="staff"]'));
+        await wait(2400);
+        await nav('hr');
+        await wait(2000);
+        await press($('.top__branch'));
+        await wait(2000);
+        await press($('[data-role="owner"]'));
+        await wait(600);
         await nav('home');
       }
     } catch {

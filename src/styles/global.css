@@ -713,6 +713,7 @@ a.text-red { text-decoration: underline; text-underline-offset: 3px; }
 .mobile-menu__productArt { display: flex; align-items: center; height: 30px; }
 .mobile-menu__product--pharma { background: var(--red); color: #fff; }
 .mobile-menu__product--aangan { background: var(--red); color: #fff; }
+.mobile-menu__product--bi { grid-column: span 2; min-height: 0; background: var(--red); color: #fff; }
 .mobile-menu__product--aangan img { width: auto; height: 22px; }
 
 /* Foot: the one call to action, then languages. */

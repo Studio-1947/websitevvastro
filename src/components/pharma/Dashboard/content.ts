@@ -50,6 +50,17 @@ export interface Doctor {
   waiting: number;
 }
 
+/**
+ * Access levels for the "Viewing as" switch. The owner sees every branch and
+ * screen; counter staff work one branch and only the screens of the counter.
+ */
+export const ROLES = {
+  owner: { label: 'Owner', note: 'All branches', initials: 'U' },
+  staff: { label: 'Counter staff', note: 'Main Road Branch', initials: 'BT', branch: 0 },
+};
+/** Screens only the owner can open. */
+export const OWNER_ONLY = ['procure', 'hr', 'dist', 'analytics', 'reports', 'settings', 'admin'];
+
 /** The made-up pharmacy the demo belongs to. */
 export const SHOP = {
   name: 'Your Pharmacy',

@@ -7,7 +7,7 @@ export interface Row {
 }
 
 /*
- * Four things the product does, each with the screen that shows it.
+ * Five things the product does, each with the screen that shows it.
  * The same batch (B-2291) appears in each mock, so they agree with each other.
  */
 export const rows: Row[] = [
@@ -69,6 +69,23 @@ export const rows: Row[] = [
         { cells: ['Bill #2302', '₹230'], tone: 'green', note: 'Sent' },
       ],
       foot: 'Sends the rest when the internet is back',
+    },
+  },
+  {
+    title: 'The right access for every role',
+    body: 'The owner sees every branch and every report. Counter staff see their own branch and the screens they work in, so salaries, suppliers and settings stay with the people who need them.',
+    mock: {
+      title: 'Who sees what',
+      tag: 'Access',
+      tagTone: 'pine',
+      head: ['Role', 'Can open'],
+      rows: [
+        { cells: ['Owner', 'All branches'], tone: 'green' },
+        { cells: ['Counter staff', 'Own branch'], note: 'Billing, stock' },
+        { cells: ['Pharmacist', 'Prescriptions'] },
+        { cells: ['Doctor', 'Clinic queue'] },
+      ],
+      foot: 'Try both in the preview above: switch Owner and Counter staff',
     },
   },
 ];
