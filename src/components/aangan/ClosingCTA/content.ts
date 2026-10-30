@@ -1,5 +1,18 @@
 import { AANGAN_URL, AANGAN_LIST_URL, type Cta, type ImageSlot } from '../types';
 
+export interface AppStoreItem {
+  store: 'google-play' | 'apple-store';
+  badgeLabel: string;
+  storeName: string;
+}
+
+export interface ClosingAppsContent {
+  kicker?: string;
+  heading: string;
+  sub?: string;
+  stores: AppStoreItem[];
+}
+
 export interface ClosingContent {
   headline: string;
   /** The headline in English, shown small underneath. */
@@ -8,6 +21,7 @@ export interface ClosingContent {
   offer: string;
   primary: Cta;
   secondary: Cta;
+  apps?: ClosingAppsContent;
   credit: string;
   social: { label: string; links: { name: string; href: string }[] };
   texture: ImageSlot;
@@ -19,6 +33,21 @@ export const closing: ClosingContent = {
   offer: 'Rs 1 to join for travellers. Rs 99 a year for homestays, cafes and drivers. A launch offer.',
   primary: { label: 'Plan your trip', href: AANGAN_URL },
   secondary: { label: 'List your homestay, cafe or taxi', href: AANGAN_LIST_URL },
+  apps: {
+    heading: 'Launching soon on Android and iOS',
+    stores: [
+      {
+        store: 'google-play',
+        badgeLabel: 'Coming soon on',
+        storeName: 'Google Play',
+      },
+      {
+        store: 'apple-store',
+        badgeLabel: 'Coming soon on the',
+        storeName: 'App Store',
+      },
+    ],
+  },
   credit: 'Aangan. Every experience. By Studio 1947',
   social: {
     label: 'Follow along',
