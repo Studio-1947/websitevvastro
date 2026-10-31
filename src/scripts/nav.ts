@@ -32,9 +32,9 @@ export function navDropdowns(): void {
 
 /**
  * Language switcher for the desktop dropdown and mobile menu lists. Items
- * carrying `data-lang-locked` (Hindi, Bengali, Nepali — all "Coming Soon"
- * until their copy is reviewed and launch-ready) stay inert in both lists;
- * only English is wired for now. Selecting a language stores it and fires
+ * carrying `data-lang-locked` (Hindi and Bengali, "Coming Soon" until their
+ * copy is reviewed and launch-ready) stay inert in both lists; English and
+ * Nepali are live. Selecting a language stores it and fires
  * `site-language-change`, which i18n.ts listens for to swap `[data-i18n]`
  * text.
  */
@@ -55,7 +55,7 @@ export function languageSwitcher(): void {
 
   items.forEach((item) => {
     if (item.hasAttribute('data-lang-locked')) return;
-    item.addEventListener('click', () => {
+    const select = (): void => {
       const lang = item.dataset.lang;
       if (!lang) return;
       try {
@@ -65,6 +65,13 @@ export function languageSwitcher(): void {
       }
       markSelected(lang);
       document.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang } }));
+    };
+    item.addEventListener('click', select);
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        select();
+      }
     });
   });
 }

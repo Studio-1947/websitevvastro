@@ -10,20 +10,26 @@ import { translations, type Lang } from '../i18n/translations';
  * (a pipe-separated list consumed by the typewriter effect in HomeHero); it
  * fires a `words-updated` event so that script can restart with the new list.
  */
+const englishHtml = new WeakMap<HTMLElement, string>();
+const englishWords = new WeakMap<HTMLElement, string>();
+
 function applyTranslations(lang: Lang): void {
   document.documentElement.lang = lang;
-  if (lang === 'en') return;
 
+  // English is the markup itself, so remember each node's original copy the
+  // first time it is visited; switching back to English restores it.
   document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
+    if (!englishHtml.has(el)) englishHtml.set(el, el.innerHTML);
     const key = el.dataset.i18n;
-    const text = key && translations[key]?.[lang];
-    if (text != null) el.innerHTML = text;
+    const text = lang === 'en' ? englishHtml.get(el) : key && translations[key]?.[lang];
+    if (text != null && el.innerHTML !== text) el.innerHTML = text;
   });
 
   document.querySelectorAll<HTMLElement>('[data-words-i18n]').forEach((el) => {
+    if (!englishWords.has(el)) englishWords.set(el, el.dataset.words ?? '');
     const key = el.dataset.wordsI18n;
-    const words = key && translations[key]?.[lang];
-    if (words != null) {
+    const words = lang === 'en' ? englishWords.get(el) : key && translations[key]?.[lang];
+    if (words != null && el.dataset.words !== words) {
       el.dataset.words = words;
       el.dispatchEvent(new CustomEvent('words-updated'));
     }
