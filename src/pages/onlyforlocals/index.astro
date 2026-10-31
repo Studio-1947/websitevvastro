@@ -48,13 +48,16 @@ const oneTime = [
     title: 'Domain Registration',
     icon: 'domain',
     thumb: '/assets/img/onlyforlocals/thumb-domain-illustration.webp',
-    price: '₹2,000 to ₹3,000',
-    priceValue: 2500,
-    priceMin: 2000,
-    priceMax: 3000,
-    provides: ['5 years of your own domain name', 'Priced at the registrar’s rate, no markup'],
+    price: 'Discussed at registration',
+    priceValue: 0,
+    priceSub: 'Includes registrar fee & setup',
+    provides: [
+      'Domain name registration & DNS setup',
+      'Assistance selecting and securing your domain',
+      'Final cost discussed at the time of registration',
+    ],
     clientProvides: [],
-    notIncluded: ['Renewal after 5 years'],
+    notIncluded: ['Subsequent domain renewal fees'],
   },
   {
     id: 'ota',
@@ -365,16 +368,17 @@ const testimonials = [
                 <h3>{s.title}</h3>
               </div>
               <div class="rc-card__pricebox">
-                <span class="rc-card__price">{s.options ? `₹${s.options[0].value.toLocaleString('en-IN')}` : s.price}</span>
+                <span class:list={['rc-card__price', !s.priceValue && !s.options && 'rc-card__price--text']}>{s.options ? `₹${s.options[0].value.toLocaleString('en-IN')}` : s.price}</span>
                 <span class="rc-card__gst">
                   {(() => {
+                    if (s.priceSub) return s.priceSub;
                     if (s.priceMin && s.priceMax) {
                       const gstMin = Math.round(s.priceMin * 0.18).toLocaleString('en-IN');
                       const gstMax = Math.round(s.priceMax * 0.18).toLocaleString('en-IN');
                       return `+ ₹${gstMin} to ₹${gstMax} GST (18%)`;
                     }
                     const base = s.options ? s.options[0].value : s.priceValue;
-                    return base ? `+ ₹${Math.round(base * 0.18).toLocaleString('en-IN')} GST (18%)` : '+ 18% GST';
+                    return base ? `+ ₹${Math.round(base * 0.18).toLocaleString('en-IN')} GST (18%)` : '';
                   })()}
                 </span>
               </div>
@@ -411,7 +415,7 @@ const testimonials = [
                 )}
               </div>
               <label class="rc-card__add">
-                <input type="checkbox" data-calc-item={s.options ? s.options[0].value : s.priceValue} value={s.options ? s.options[0].value : s.priceValue} />
+                <input type="checkbox" data-calc-item={s.options ? s.options[0].value : (s.priceValue ?? 0)} value={s.options ? s.options[0].value : (s.priceValue ?? 0)} />
                 <span class="rc-card__add-on">Add this Service <span class="rc-card__add-icon">+</span></span>
                 <span class="rc-card__add-off">Remove this Service <span class="rc-card__add-icon">✕</span></span>
               </label>
@@ -441,7 +445,7 @@ const testimonials = [
               </ul>
               <div class="rc-tier__pick">
                 <label class:list={['rc-tier__cta', t.featured && 'rc-tier__cta--solid']}>
-                  <input type="radio" name="calc-social" data-calc-item={`monthly:${t.priceValue}`} checked={i === 0} />
+                  <input type="radio" name="calc-social" data-calc-item={`monthly:${t.priceValue}`} />
                   <span class="rc-tier__cta-on">Add this plan</span>
                   <span class="rc-tier__cta-off">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
@@ -471,6 +475,7 @@ const testimonials = [
             <div class="rc-calc__row"><span>Subtotal</span><span data-calc-onetime-sub>₹0</span></div>
             <div class="rc-calc__row"><span>GST (18%)</span><span data-calc-onetime-gst>₹0</span></div>
             <div class="rc-calc__row rc-calc__row--grand"><span>Grand Total</span><span data-calc-onetime-total>₹0</span></div>
+            <div class="rc-calc__extra" data-calc-domain-extra hidden>+ Domain (cost discussed at registration)</div>
           </div>
           <div class="rc-calc__col">
             <span class="rc-calc__label">Monthly</span>
@@ -782,6 +787,7 @@ const testimonials = [
     const monthlySubEl = document.querySelector<HTMLElement>('[data-calc-monthly-sub]');
     const monthlyGstEl = document.querySelector<HTMLElement>('[data-calc-monthly-gst]');
     const monthlyTotalEl = document.querySelector<HTMLElement>('[data-calc-monthly-total]');
+    const domainExtraEl = document.querySelector<HTMLElement>('[data-calc-domain-extra]');
     if (!onetimeSubEl || !onetimeGstEl || !onetimeTotalEl || !monthlySubEl || !monthlyGstEl || !monthlyTotalEl) return;
     const fmt = (n: number) => `₹${Math.round(n).toLocaleString('en-IN')}`;
     const GST_RATE = 0.18;
@@ -804,6 +810,11 @@ const testimonials = [
       monthlySubEl!.textContent = fmt(monthly);
       monthlyGstEl!.textContent = fmt(monthly * GST_RATE);
       monthlyTotalEl!.textContent = fmt(monthly * (1 + GST_RATE));
+
+      const domainInput = document.querySelector<HTMLInputElement>('#domain .rc-card__add input');
+      if (domainExtraEl) {
+        domainExtraEl.hidden = !domainInput?.checked;
+      }
     }
 
     function syncPicked(): void {
@@ -914,7 +925,9 @@ const testimonials = [
       }
 
       lines.push('*Totals*');
-      lines.push(`One-time: ${onetimeTotalEl!.textContent} (incl. GST ${onetimeGstEl!.textContent})`);
+      const domainChecked = document.querySelector<HTMLInputElement>('#domain .rc-card__add input')?.checked;
+      const domainNote = domainChecked ? ' + Domain (cost discussed at registration)' : '';
+      lines.push(`One-time: ${onetimeTotalEl!.textContent} (incl. GST ${onetimeGstEl!.textContent})${domainNote}`);
       lines.push(`Monthly: ${monthlyTotalEl!.textContent} (incl. GST ${monthlyGstEl!.textContent})`);
 
       return lines.join('\n');
@@ -1041,6 +1054,7 @@ const testimonials = [
   .rc-card__head h3 { font-family: var(--font-display); font-weight: 400; font-size: 17px; color: var(--grey-900); }
   .rc-card__pricebox { margin-top: 10px; padding: 10px 0; display: flex; flex-direction: column; gap: 4px; border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line); }
   .rc-card__price { color: var(--red); font-weight: 700; font-size: 20px; }
+  .rc-card__price--text { font-size: 16px; font-weight: 600; line-height: 1.35; }
   .rc-card__gst { color: var(--grey-500); font-weight: 500; font-size: 12px; }
   .rc-card__terms { margin-top: 10px; }
   .rc-card__terms-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--grey-500); margin-top: 10px; }
@@ -1212,6 +1226,7 @@ const testimonials = [
   .rc-calc__label { font-size: 12px; color: rgba(255,255,255,.7); text-transform: uppercase; letter-spacing: .04em; }
   .rc-calc__row { display: flex; align-items: baseline; justify-content: space-between; font-size: 14px; color: rgba(255,255,255,.85); }
   .rc-calc__row--grand { margin-top: 4px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.25); font-family: var(--font-display); font-size: clamp(19px, 1.6vw, 23px); color: #fff; }
+  .rc-calc__extra { margin-top: 6px; font-size: 11.5px; line-height: 1.35; color: rgba(255,255,255,.9); font-style: italic; }
   .rc-calc__advance { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.25); }
   .rc-calc__advance .rc-calc__row { font-weight: 600; font-size: 15px; color: #fff; }
   .rc-calc__interest { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.25); }
