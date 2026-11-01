@@ -41,8 +41,12 @@ export function languageSwitcher(): void {
   const items = document.querySelectorAll<HTMLElement>('[data-lang]');
   if (!items.length) return;
 
+  // The nav button shows the language in use, named as in the list.
+  const current = document.querySelector<HTMLElement>('[data-lang-current]');
   function markSelected(lang: string): void {
     items.forEach((el) => el.classList.toggle('is-selected', el.dataset.lang === lang));
+    const name = document.querySelector(`.dd__item[data-lang="${lang}"] > span:not(.dd__ico)`)?.textContent;
+    if (current && name) current.textContent = name;
   }
 
   try {

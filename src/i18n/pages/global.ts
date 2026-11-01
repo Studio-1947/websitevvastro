@@ -108,7 +108,6 @@ export const global: Record<string, Entry> = {
   },
   'global.footer.copyBy': { hi: 'द्वारा', bn: 'কর্তৃক', ne: 'द्वारा' },
 
-  'global.nav.selectLanguage': { hi: 'भाषा चुनें', bn: 'ভাষা বেছে নিন', ne: 'भाषा छान्नुहोस्' },
   'global.nav.language': { hi: 'भाषा', bn: 'ভাষা', ne: 'भाषा' },
 
   // ── Contact modal (every page) ─────────────────────────────────────────
