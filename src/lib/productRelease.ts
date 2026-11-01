@@ -14,7 +14,7 @@
 export const RELEASED_PRODUCTS: string[] = [
   'aangan',
   'pharma-erp',
-  'inventory-sales-dashboard',
+  's47vyapar',
   'doptor-erp',
   // Doptor's three modules, linked from the Doptor ERP page.
   'doptor-campus-manager',

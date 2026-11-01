@@ -4,7 +4,7 @@
  * components rather than the shared HTML string rendered by [slug].astro:
  * its own hero and live dashboard (src/components/isd/), the Pharma ERP
  * page's sections with this page's text, a three-step how-it-works and a location map.
- * SEO fields still come from src/content/products/inventory-sales-dashboard.json.
+ * SEO fields still come from src/content/products/s47vyapar.json.
  */
 import { getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -21,16 +21,16 @@ import Closing from '../../components/pharma/Closing/index.astro';
 import { hero } from '../../components/isd/Hero/content';
 import { rows, steps, where, toolkit, closing } from '../../components/isd/content';
 
-const entry = await getEntry('products', 'inventory-sales-dashboard');
-if (!entry) throw new Error('src/content/products/inventory-sales-dashboard.json is missing');
+const entry = await getEntry('products', 's47vyapar');
+if (!entry) throw new Error('src/content/products/s47vyapar.json is missing');
 const d = entry.data;
-const url = new URL('/products/inventory-sales-dashboard/', Astro.site).href;
+const url = new URL('/products/s47vyapar/', Astro.site).href;
 const jsonLd = [
   productJsonLd({ name: cleanName(d.title), description: d.description, url }),
   breadcrumbJsonLd([
     { name: 'Home', path: '/' },
     { name: 'Products', path: '/products/' },
-    { name: cleanName(d.title), path: '/products/inventory-sales-dashboard/' },
+    { name: cleanName(d.title), path: '/products/s47vyapar/' },
   ]),
 ];
 ---
