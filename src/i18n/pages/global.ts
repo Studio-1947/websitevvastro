@@ -72,9 +72,9 @@ export const global: Record<string, Entry> = {
   'global.dd.products.label': { hi: 'उत्पाद', bn: 'পণ্য', ne: 'उत्पादनहरू' },
   'global.dd.products.doptorErp': { hi: 'डॉप्टर ईआरपी', bn: 'ডপ্টর ইআরপি', ne: 'डप्टर ईआरपी' },
   'global.dd.products.inventorySales': {
-    hi: 'बिज़नेस इंटेलिजेंस डैशबोर्ड',
-    bn: 'বিজনেস ইন্টেলিজেন্স ড্যাশবোর্ড',
-    ne: 'बिजनेस इन्टेलिजेन्स ड्यासबोर्ड',
+    hi: 'S47 Vyapar (BI डैशबोर्ड)',
+    bn: 'S47 Vyapar (BI ড্যাশবোর্ড)',
+    ne: 'S47 Vyapar (BI ड्यासबोर्ड)',
   },
   'global.dd.products.socialFlow': { hi: 'सोशल फ़्लो', bn: 'সোশ্যাল ফ্লো', ne: 'सोसल फ्लो' },
   'global.dd.products.darjeeling': { hi: '1 दार्जिलिंग', bn: '১ দার্জিলিং', ne: '१ दार्जिलिङ' },

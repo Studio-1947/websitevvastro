@@ -1,0 +1,50 @@
+---
+/**
+ * Doptor ERP. Its copy is still one HTML string in
+ * src/content/products/doptor-erp.json (rendered like the other ERP pages by
+ * [slug].astro), but it embeds a live component: the NGO dashboard demo goes
+ * where the string has `<!-- @ngo-dashboard -->`.
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
+import productCss from '../../styles/product.css?raw';
+import NgoDashboard from '../../components/doptor/NgoDashboard/index.astro';
+
+const entry = await getEntry('products', 'doptor-erp');
+if (!entry) throw new Error('src/content/products/doptor-erp.json is missing');
+const d = entry.data;
+const MARK = '<!-- @ngo-dashboard -->';
+// Product copy is translated by exact English text (see scripts/i18n.ts).
+const html = d.html.replace('<main ', '<main data-i18n-text ');
+if (!html.includes(MARK)) throw new Error(`doptor-erp.json is missing the ${MARK} marker`);
+const [before, after] = html.split(MARK);
+const css = [productCss, d.styles].filter(Boolean).join('\n');
+const url = new URL('/products/doptor-erp/', Astro.site).href;
+const jsonLd = [
+  productJsonLd({ name: cleanName(d.title), description: d.description, url }),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products/' },
+    { name: cleanName(d.title), path: '/products/doptor-erp/' },
+  ]),
+];
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  ogTitle={d.ogTitle}
+  ogDescription={d.ogDescription}
+  ogType={d.ogType}
+  image={d.image}
+  bodyClass={d.bodyClass}
+  noindex={d.noindex}
+  fontHref={d.fontHref}
+  jsonLd={jsonLd}
+>
+  <style slot="head" is:global set:html={css} />
+  <Fragment set:html={before} />
+  <NgoDashboard />
+  <Fragment set:html={after} />
+</BaseLayout>

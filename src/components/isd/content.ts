@@ -1,5 +1,5 @@
 /*
- * Text for the Business Intelligence Dashboards page below the hero. The
+ * Text for the S47 Vyapar (BI Dashboard) page below the hero. The
  * feature rows and closing are the Pharma ERP page's sections
  * (components/pharma/Rows, Closing), so both product pages read as one family;
  * the steps, map and toolkit sections are this page's own (components/isd/).
@@ -184,7 +184,7 @@ export const PLACES: Place[] = [
 export const where: WhereContent = {
   title: 'See where your business happens',
   body: 'Orders, customers, field teams or service calls: anything with a location goes on the map, so you can see which regions are growing and where to invest next.',
-  foot: 'Example: share of net revenue by city, financial year to date. Sample data.',
+  foot: 'Example: share of net revenue, financial year to date. Sample data.',
   cities: CITIES,
   places: PLACES,
 };
@@ -252,4 +252,5 @@ export const closing: ClosingContent = {
     label: 'How dashboard design drives decisions',
     href: '/blog/dashboard-design-that-drives-decisions/',
   },
+  secondaryLead: 'Read',
 };

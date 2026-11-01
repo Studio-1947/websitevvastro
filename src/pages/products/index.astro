@@ -2,15 +2,47 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import html from '../../generated/products-index/main.html?raw';
 import css from '../../generated/products-index/style.css?raw';
+
+/** Day number counted from 26 Jan 2025 (day 1), for the hero's running tally. */
+const START = Date.UTC(2025, 0, 26);
+const now = new Date();
+const days = Math.floor((Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) - START) / 86400000) + 1;
+const page = html.replace('<main ', '<main data-i18n-text ').replace('__DAYS__', String(days));
 ---
 
 <BaseLayout
   title={"Digital Products by Studio 1947"}
-  description={"Doptor ERP, Pharma ERP, Social Flow and Business Intelligence Dashboards, digital products crafted by Studio 1947 from Darjeeling."}
+  description={"Doptor ERP, Pharma ERP, S47 Vyapar (BI Dashboard), Aangan and Social Flow: products by Studio 1947 that let organisations steer their own growth."}
   ogTitle={"Digital Products by Studio 1947"}
   ogDescription={"ERP dashboards & impact tools crafted from Darjeeling."}
   ogType={"website"}
 >
   <style slot="head" is:global set:html={css} />
-  <Fragment set:html={html.replace('<main ', '<main data-i18n-text ')} />
+  <Fragment set:html={page} />
+  <script>
+    import { bentoDots } from '../../scripts/bentoDots';
+    bentoDots();
+
+    // Keep the day count current: the built page has the count from build day.
+    document.querySelectorAll<HTMLElement>('[data-days-since]').forEach((el) => {
+      const [y, m, d] = (el.dataset.daysSince || '').split('-').map(Number);
+      const now = new Date();
+      const days = Math.floor((Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) - Date.UTC(y, m - 1, d)) / 86400000) + 1;
+      if (days <= 0) return;
+      // Count up to today's number the first time it comes into view.
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = String(days); return; }
+      el.textContent = '0';
+      new IntersectionObserver((entries, io) => {
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        const t0 = performance.now();
+        const step = (now: number) => {
+          const t = Math.min(1, (now - t0) / 1600);
+          el.textContent = String(Math.round(days * (1 - Math.pow(1 - t, 3))));
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }).observe(el);
+    });
+  </script>
 </BaseLayout>

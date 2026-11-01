@@ -11,6 +11,3 @@ export function shade(t: number): string {
   const c = LIGHT.map((l, i) => Math.round(l + (DEEP[i] - l) * k));
   return `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
 }
-
-/** The two ends of the scale, for a legend. */
-export const SHADE_RANGE = { light: shade(0), deep: shade(1) };

@@ -1,95 +1,131 @@
-    /* Products overview: one block per product across the full width. On large
-       screens the whole section is exactly one screen tall. */
-    .page-plist .plist {
-      display: grid; gap: clamp(28px, 3.4vw, 56px);
-      padding-top: clamp(110px, 14vh, 150px); padding-bottom: clamp(64px, 8vw, 120px);
+    /* ---------- Running tally: "5 products built in our first N days" (N from 26 Jan 2025) ---------- */
+    .page-plist .pdays { padding-top: clamp(140px, 20vh, 220px); padding-bottom: clamp(48px, 7vw, 110px); border-bottom: 1px solid var(--line); }
+    .page-plist .pdays__line {
+      margin: 0; font-family: var(--font-display); font-weight: 400;
+      font-size: clamp(48px, 9.4vw, 168px); line-height: .98; letter-spacing: -0.03em; color: var(--grey-900);
+      max-width: 14ch;
+    }
+    .page-plist .pdays__line b { font-weight: 400; color: var(--red); font-variant-numeric: tabular-nums; }
+    .page-plist .pdays__label { margin: clamp(36px, 5vw, 72px) 0 14px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--grey-700); }
+    .page-plist .pdays__inds { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(8px, 1vw, 14px); }
+    .page-plist .pdays__inds li {
+      display: grid; align-content: start; gap: 4px;
+      padding: clamp(14px, 1.4vw, 20px); border-radius: var(--radius-lg);
+      background: var(--bg-alt); box-shadow: inset 0 0 0 1px var(--line);
+      transition: box-shadow .35s var(--ease), background .35s var(--ease);
+    }
+    .page-plist .pdays__inds li:hover { background: #fff; box-shadow: inset 0 0 0 1px rgba(230, 0, 0, .35); }
+    .page-plist .pdays__ico { display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 10px; border-radius: 12px; background: #fff; color: var(--red); box-shadow: inset 0 0 0 1px var(--line); }
+    .page-plist .pdays__inds b { font-family: var(--font-display); font-weight: 400; font-size: clamp(17px, 1.3vw, 20px); line-height: 1.15; color: var(--grey-900); }
+    .page-plist .pdays__inds small { font-size: 13px; color: var(--red); }
+    /* Every name is two parts, one per line, in every language (each part is translated on its own). */
+    .page-plist .pdays__inds b span { display: block; white-space: nowrap; }
+    @media (max-width: 1100px) { .page-plist .pdays__inds { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+    @media (max-width: 760px) { .page-plist .pdays__inds { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .page-plist .pdays__inds { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+    /* ---------- Hero: why we make products ---------- */
+    .page-plist .phead { padding-top: clamp(48px, 7vw, 110px); padding-bottom: clamp(40px, 5vw, 72px); }
+    .page-plist .phead__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(24px, 3vw, 56px); align-items: center; }
+    .page-plist .phead .eyebrow { margin: 0 0 18px; }
+    .page-plist .phead__title {
+      font-size: clamp(40px, 5.6vw, 92px); line-height: 1.02; letter-spacing: -0.015em;
+      color: var(--grey-900); max-width: 14ch;
+    }
+    .page-plist .phead__lede { margin-top: clamp(20px, 2.4vw, 32px); font-size: clamp(17px, 1.4vw, 22px); line-height: 1.5; color: var(--grey-700); max-width: 48ch; }
+    /* display: the site hides .btn-hello on phones (it is the nav button there); this one stays. */
+    .page-plist .phead__cta { display: inline-flex; margin-top: clamp(24px, 2.6vw, 36px); }
+
+    /* The visual: a field of dots gathering into each product's icon in turn, its name underneath. */
+    .page-plist .phead__visual { position: relative; aspect-ratio: 1; width: 100%; max-width: 680px; justify-self: end; }
+    .page-plist .phead__visual canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .page-plist .phead__caption {
+      position: absolute; left: 0; right: 0; bottom: 10%;
+      margin: 0; text-align: center;
+      font-family: var(--font-display); font-size: clamp(22px, 2.2vw, 36px); color: var(--red); white-space: nowrap;
+    }
+    .page-plist .phead__caption span { display: inline-block; animation: phead-name .5s var(--ease) both; }
+    .page-plist .phead__caption span[hidden] { display: none; }
+    @keyframes phead-name { from { opacity: 0; transform: translateY(6px); } }
+
+    .page-plist .phead__points {
+      list-style: none; margin: clamp(36px, 4.6vw, 64px) 0 0; padding: clamp(18px, 2vw, 26px) 0 0;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 40px);
+      border-top: 1px solid var(--line);
+    }
+    .page-plist .phead__points li { display: grid; align-content: start; gap: 4px; padding-left: 22px; position: relative; }
+    .page-plist .phead__points li::before { content: ""; position: absolute; left: 0; top: .55em; width: 10px; height: 10px; border-radius: 50%; background: var(--red); }
+    .page-plist .phead__points b { font-family: var(--font-display); font-weight: 400; font-size: clamp(18px, 1.5vw, 22px); color: var(--grey-900); }
+    .page-plist .phead__points span { font-size: 15px; color: var(--grey-700); }
+
+    @media (prefers-reduced-motion: reduce) { .page-plist .phead__caption span { animation: none; } }
+    @media (max-width: 960px) {
+      .page-plist .phead__grid { grid-template-columns: 1fr; }
+      .page-plist .phead__visual { justify-self: center; max-width: 520px; }
+      .page-plist .phead__points { grid-template-columns: 1fr; }
     }
 
-    /* Label: the site's red eyebrow. The heading is kept for screen readers and search, hidden on screen. */
-    .page-plist .plist__head .eyebrow { margin: 0; }
+    /* ---------- Bento: every product inside one box ---------- */
+    .page-plist .plist { padding-bottom: clamp(64px, 8vw, 120px); }
     .page-plist .plist__title {
       position: absolute; width: 1px; height: 1px; overflow: hidden;
       clip-path: inset(50%); white-space: nowrap;
     }
-
-    /* Blocks: the three released products side by side, then the coming-soon ones */
-    .page-plist .plist__blocks { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); }
-    .page-plist .pblock {
-      position: relative; overflow: hidden;
-      grid-column: span 2; aspect-ratio: 16 / 10;
-      display: flex; flex-direction: column; justify-content: space-between;
-      padding: clamp(20px, 2.2vw, 34px); border-radius: var(--radius-lg);
-      text-decoration: none;
-      transition: transform .45s var(--ease), box-shadow .45s var(--ease);
+    .page-plist .bento {
+      display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: minmax(300px, auto);
+      gap: clamp(10px, 1.2vw, 16px);
+      padding: clamp(10px, 1.2vw, 16px); border-radius: calc(var(--radius-lg) + 8px);
+      background: var(--bg-alt); box-shadow: inset 0 0 0 1px var(--line);
     }
-    .page-plist a.pblock:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -28px rgba(0, 0, 0, .35); }
-    .page-plist a.pblock:focus-visible { outline: 3px solid var(--red); outline-offset: 4px; }
+    /* Doptor takes the tall tile on the left; the other four sit two by two. */
+    .page-plist .bcard { grid-column: span 2; }
+    .page-plist .bcard--lg { grid-row: span 2; }
 
-    .page-plist .pblock__art { flex: 1; display: grid; place-items: center; }
-    .page-plist .pblock__label { display: grid; gap: 4px; }
-    .page-plist .pblock__label strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.4vw, 40px); line-height: 1.05; letter-spacing: -0.01em; }
-    .page-plist .pblock__label span { font-size: clamp(13px, 1vw, 16px); opacity: .8; }
-    .page-plist .pblock__go {
-      position: absolute; top: clamp(18px, 2vw, 28px); right: clamp(18px, 2vw, 28px);
+    .page-plist .bcard {
+      position: relative; isolation: isolate; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-end; gap: 10px;
+      min-height: 300px; padding: clamp(20px, 2vw, 30px);
+      border-radius: var(--radius-lg); background: #fff; color: var(--grey-900);
+      box-shadow: inset 0 0 0 1px var(--line);
+      text-decoration: none;
+      transition: box-shadow .45s var(--ease), transform .45s var(--ease);
+    }
+    .page-plist .bcard:hover, .page-plist .bcard:focus-visible { box-shadow: inset 0 0 0 1px rgba(230, 0, 0, .45), 0 24px 50px -30px rgba(120, 0, 0, .35); }
+    .page-plist .bcard:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+    /* The dots: scattered at rest, they gather into the product's icon on hover (scripts/bentoDots.ts). */
+    .page-plist .bcard__dots { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+
+    .page-plist .bcard__n {
+      position: absolute; top: clamp(18px, 1.8vw, 26px); left: clamp(18px, 1.8vw, 26px);
+      display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+      box-shadow: inset 0 0 0 1px var(--line); background: #fff; font-size: 13px; color: var(--grey-700);
+    }
+    .page-plist .bcard__text { display: grid; gap: 6px; max-width: 36ch; }
+    .page-plist .bcard__text strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.2vw, 36px); line-height: 1.05; letter-spacing: -0.01em; }
+    .page-plist .bcard--lg .bcard__text strong { font-size: clamp(32px, 3.4vw, 56px); }
+    .page-plist .bcard__text strong small { font-size: .55em; color: var(--grey-700); letter-spacing: 0; white-space: nowrap; }
+    .page-plist .bcard__text span { font-size: clamp(14px, 1.05vw, 16px); line-height: 1.45; color: var(--grey-700); }
+    .page-plist .bcard--lg .bcard__text span { font-size: clamp(15px, 1.2vw, 18px); }
+    .page-plist .bcard__go {
+      position: absolute; top: clamp(16px, 1.6vw, 24px); right: clamp(16px, 1.6vw, 24px);
       display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(255, 255, 255, .9); color: var(--grey-900);
+      background: var(--red); color: #fff;
       transition: transform .3s var(--ease);
     }
-    .page-plist a.pblock:hover .pblock__go { transform: rotate(-45deg); }
-
-    /* Pharma ERP: Studio red tile and white cross */
-    .page-plist .pblock--pharma { background: var(--red); color: #fff; }
-    .page-plist .pblock--pharma .pblock__art svg { width: 30%; max-width: 220px; height: auto; filter: drop-shadow(0 12px 24px rgba(80, 0, 0, .3)); transition: transform .6s var(--ease); }
-    .page-plist .pblock--pharma:hover .pblock__art svg { transform: rotate(90deg); }
-
-    /* Aangan: white handwritten logo on Studio red */
-    .page-plist .pblock--aangan { background: var(--red); color: #fff; }
-    .page-plist .pblock--aangan .pblock__art img { width: 62%; max-width: 480px; height: auto; transition: transform .6s var(--ease); }
-    .page-plist .pblock--aangan:hover .pblock__art img { transform: scale(1.05); }
-
-    /* BI Dashboards: white rising chart on Studio red */
-    .page-plist .pblock--bi { background: var(--red); color: #fff; }
-    .page-plist .pblock--bi .pblock__art svg { width: 30%; max-width: 220px; height: auto; filter: drop-shadow(0 12px 24px rgba(80, 0, 0, .3)); transition: transform .6s var(--ease); }
-    .page-plist .pblock--bi:hover .pblock__art svg { transform: translateY(-6px) scale(1.06); }
-
-    /* Coming soon: quiet, smaller, not links */
-    .page-plist .pblock--soon {
-      grid-column: span 3; aspect-ratio: 16 / 5;
-      background: var(--bg-alt); color: var(--grey-500);
-      box-shadow: inset 0 0 0 1px var(--line);
+    .page-plist .bcard:hover .bcard__go { transform: rotate(-45deg); }
+    .page-plist .bcard__tag {
+      position: absolute; top: clamp(18px, 1.8vw, 26px); right: clamp(18px, 1.8vw, 26px);
+      font-style: normal; font-size: 12px; letter-spacing: .04em; padding: 6px 12px; border-radius: 999px;
+      background: rgba(230, 0, 0, .08); color: var(--red);
     }
-    .page-plist .pblock--soon .pblock__art svg { width: 34%; max-width: 72px; height: auto; opacity: .55; }
-    .page-plist .pblock--soon .pblock__label strong { font-size: clamp(17px, 1.4vw, 22px); color: var(--grey-700); }
-    .page-plist .pblock--soon .pblock__label span { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; opacity: 1; }
 
-    /* Large screens: one screen exactly. The header is fixed over the top, so the
-       section starts below it; the blocks stretch to fill what is left. */
-    @media (min-width: 961px) and (min-height: 640px) {
-      .page-plist .plist {
-        height: 100vh; height: 100svh; box-sizing: border-box;
-        grid-template-rows: auto minmax(0, 1fr); gap: clamp(14px, 2.2vh, 24px);
-        padding-top: clamp(110px, 13vh, 130px); padding-bottom: clamp(20px, 3vh, 36px);
-      }
-      .page-plist .plist__blocks { grid-template-rows: minmax(0, 1.55fr) minmax(0, 1fr); min-height: 0; }
-      .page-plist .pblock, .page-plist .pblock--soon { aspect-ratio: auto; min-height: 0; }
-      .page-plist .pblock__art { min-height: 0; }
-      .page-plist :is(.pblock--pharma, .pblock--bi) .pblock__art svg { width: auto; height: 62%; max-height: 220px; }
-      .page-plist .pblock--aangan .pblock__art img { width: auto; height: auto; max-height: 34%; max-width: 62%; }
-      .page-plist .pblock--soon .pblock__art svg { width: auto; height: 60%; max-height: 84px; }
-      .page-plist .pblock__label strong { font-size: clamp(22px, 3.6vh, 40px); }
-      .page-plist .pblock--soon .pblock__label strong { font-size: clamp(16px, 2.4vh, 22px); }
-    }
-    /* Tablets: two released side by side, the third full width */
-    @media (min-width: 561px) and (max-width: 960px) {
-      .page-plist .pblock { grid-column: span 3; }
-      .page-plist .pblock--bi { grid-column: span 6; aspect-ratio: 21 / 8; }
-      .page-plist .pblock--soon { aspect-ratio: 16 / 7; }
+    @media (max-width: 960px) {
+      .page-plist .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .page-plist .bcard { grid-column: span 1; }
+      .page-plist .bcard--lg { grid-column: span 2; grid-row: span 1; min-height: 320px; }
     }
     @media (max-width: 560px) {
-      .page-plist .plist__blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .page-plist .pblock { grid-column: span 2; aspect-ratio: 4 / 3; }
-      .page-plist .pblock--soon { grid-column: span 1; aspect-ratio: 1 / 1; padding: 16px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .page-plist .pblock, .page-plist .pblock__art svg, .page-plist .pblock__art img, .page-plist .pblock__go { transition: none; }
+      .page-plist .bento { grid-template-columns: 1fr; }
+      .page-plist .bcard, .page-plist .bcard--lg { grid-column: auto; min-height: 240px; }
     }

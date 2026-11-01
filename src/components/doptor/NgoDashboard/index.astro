@@ -1,0 +1,632 @@
+---
+/**
+ * Doptor NGO Manager demo, embedded in /products/doptor-erp/. A clickable
+ * preview with sample data (./data.ts): Overview, Projects, Geography, SDGs
+ * and Reports & Evidence. Laid out on a fixed 1280 × 820 stage that the
+ * script scales to its box, like the S47 Vyapar demo, so it reads the same
+ * at every width. Charts are drawn here at build time; the script only
+ * switches screens and applies filters.
+ *
+ * It shows the product's own English interface, so it is left out of page
+ * translation (`data-i18n-skip`); the heading above it is translated.
+ */
+import IndiaMap from '../../isd/Map/IndiaMap.astro';
+import { ORG, KPIS, STATES, PROJECTS, FEED, MONTHS, GROWTH, FUNDS, SECTORS, SDGS, REPORTS, CHANGE } from './data';
+
+const ICON: Record<string, string> = {
+  home: '<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+  people: '<circle cx="9" cy="8" r="3.2"/><path d="M2.5 19c0-3 3-5 6.5-5s6.5 2 6.5 5"/><circle cx="17" cy="8.5" r="2.4"/><path d="M15.7 13.8c2.7.4 4.8 2.1 4.8 4.7"/>',
+  person: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>',
+  folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>',
+  rupee: '<path d="M6 4h12M6 9h12M6 14l8.5 7M6 14h3a5 5 0 0 0 0-10"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',
+  leaf: '<path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19 13 11"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  doc: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
+  pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  flag: '<path d="M5 21V4h11l-2 4 2 4H5"/>',
+  clipboard: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/>',
+  alert: '<path d="M12 3 2 20h20Z"/><path d="M12 10v4M12 17h.01"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+  chevron: '<path d="m6 9 6 6 6-6"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+};
+const icon = (name: string, size = 16) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name]}</svg>`;
+
+const NAV = [
+  { go: 'overview', label: 'Overview', icon: 'grid' },
+  { go: 'projects', label: 'Projects', icon: 'folder' },
+  { go: 'geography', label: 'Geography', icon: 'globe' },
+  { go: 'sdgs', label: 'SDGs', icon: 'target' },
+  { go: 'reports', label: 'Reports & Evidence', icon: 'doc' },
+];
+
+const inr = (n: number) => n.toLocaleString('en-IN');
+
+/* ---------- Donut arcs ---------- */
+function arc(cx: number, cy: number, r0: number, r1: number, a0: number, a1: number): string {
+  const p = (r: number, a: number) => [cx + r * Math.sin(a), cy - r * Math.cos(a)].map((v) => v.toFixed(2)).join(' ');
+  const large = a1 - a0 > Math.PI ? 1 : 0;
+  return `M${p(r1, a0)} A${r1} ${r1} 0 ${large} 1 ${p(r1, a1)} L${p(r0, a1)} A${r0} ${r0} 0 ${large} 0 ${p(r0, a0)} Z`;
+}
+const TAU = Math.PI * 2;
+const sdgArcs = SDGS.map((s, i) => {
+  const gap = 0.025;
+  return { d: arc(110, 110, 66, 100, (i / 17) * TAU + gap, ((i + 1) / 17) * TAU - gap), color: s.color, on: s.progress > 0 };
+});
+const addressed = SDGS.filter((s) => s.progress > 0);
+const sdgOverall = 55; // shown as the headline, matching the KPI story
+
+const fundTotal = FUNDS.reduce((n, f) => n + f.cr, 0);
+let acc = 0;
+const fundArcs = FUNDS.map((f) => {
+  const a0 = (acc / fundTotal) * TAU;
+  acc += f.cr;
+  const a1 = (acc / fundTotal) * TAU;
+  return { d: arc(80, 80, 52, 76, a0 + 0.01, a1 - 0.01), color: f.color };
+});
+
+/* ---------- Line chart ---------- */
+const LW = 400, LH = 170, PAD = { l: 34, r: 8, t: 10, b: 22 };
+const maxY = 500;
+const lx = (i: number) => PAD.l + (i / (MONTHS.length - 1)) * (LW - PAD.l - PAD.r);
+const ly = (v: number) => PAD.t + (1 - v / maxY) * (LH - PAD.t - PAD.b);
+const line = (vals: number[]) => vals.map((v, i) => `${i ? 'L' : 'M'}${lx(i).toFixed(1)} ${ly(v).toFixed(1)}`).join(' ');
+const area = (vals: number[]) => `${line(vals)} L${lx(vals.length - 1).toFixed(1)} ${ly(0)} L${lx(0).toFixed(1)} ${ly(0)} Z`;
+
+/* ---------- Map pins ---------- */
+const mostProjects = Math.max(...STATES.map((s) => s.projects));
+const pins = STATES.map((s) => ({ label: `${s.abbr} ${s.projects}`, lon: s.lon, lat: s.lat, share: s.projects / mostProjects }));
+
+/* ---------- Projects ---------- */
+const sum = (k: 'beneficiaries' | 'budget' | 'spent') => PROJECTS.reduce((n, p) => n + p[k], 0);
+const ring = (pct: number) => {
+  const c = 2 * Math.PI * 15;
+  return `<svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="none" stroke="#E7EBE8" stroke-width="4"/><circle cx="20" cy="20" r="15" fill="none" stroke="#1E8A55" stroke-width="4" stroke-linecap="round" stroke-dasharray="${((pct / 100) * c).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 20 20)"/></svg>`;
+};
+const maxVillages = Math.max(...STATES.map((s) => s.villages));
+const reportCount = (s: string) => REPORTS.filter((r) => r.status === s).length;
+---
+
+<div class="ngo" data-i18n-skip data-ngo role="region" aria-label="Interactive preview of Doptor NGO Manager, with sample data. Use the sidebar to move between screens.">
+  <div class="ngo__scaler" data-scaler>
+    <div class="ngo__stage" data-stage>
+      <div class="ngo__bar" aria-hidden="true"><span></span><span></span><span></span><b>Doptor · {ORG.product}</b></div>
+
+      <div class="ngo__app">
+        <!-- Sidebar -->
+        <nav class="nside" aria-label="Dashboard screens">
+          <div class="nside__brand">
+            <span class="nside__logo" aria-hidden="true">D</span>
+            <span><b>Doptor</b><small>{ORG.product}</small></span>
+          </div>
+          <p class="nside__org"><span aria-hidden="true"></span>{ORG.name}</p>
+          <ul>
+            {NAV.map((n, i) => (
+              <li>
+                <button type="button" class="nside__item" data-go={n.go} aria-current={i === 0 ? 'page' : undefined}>
+                  <Fragment set:html={icon(n.icon, 16)} />{n.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p class="nside__foot">Sample data</p>
+        </nav>
+
+        <div class="ngo__main">
+          <!-- Top bar -->
+          <header class="ntop">
+            <div>
+              <p class="ntop__hi">Welcome back</p>
+              <p class="ntop__sub">Here's what is happening across your programmes.</p>
+            </div>
+            <div class="ntop__tools" aria-hidden="true">
+              <span class="ntop__chip"><Fragment set:html={icon('pin', 14)} />All states<Fragment set:html={icon('chevron', 12)} /></span>
+              <span class="ntop__chip ntop__chip--search"><Fragment set:html={icon('search', 14)} />Search anything</span>
+              <span class="ntop__chip">{ORG.year}</span>
+              <span class="ntop__bell"><Fragment set:html={icon('bell', 16)} /><i></i></span>
+              <span class="ntop__user"><b>{ORG.initials}</b><span>{ORG.user}<small>Super Admin</small></span></span>
+            </div>
+          </header>
+
+          <!-- ===== Overview ===== -->
+          <section class="nview is-on" data-view="overview" aria-label="Overview">
+            <div class="kpis">
+              {KPIS.map((k) => (
+                <div class="kpi">
+                  <span class={`kpi__ico tone-${k.tone}`} set:html={icon(k.icon, 17)} />
+                  <div>
+                    <p class="kpi__label">{k.label}</p>
+                    <p class="kpi__value">{k.value}</p>
+                    <p class="kpi__note">{k.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div class="ov-row ov-row--a">
+              <div class="card">
+                <p class="card__head">Impact map<small>Projects by state</small></p>
+                <div class="ov-map"><IndiaMap pins={pins} size={20} /></div>
+              </div>
+              <div class="card">
+                <p class="card__head">SDG progress<small>11 of 17 goals addressed</small></p>
+                <div class="sdg-donut">
+                  <svg viewBox="0 0 220 220" aria-hidden="true">
+                    {sdgArcs.map((a) => <path d={a.d} fill={a.color} opacity={a.on ? 1 : 0.18} />)}
+                  </svg>
+                  <div class="sdg-donut__mid"><small>Overall progress</small><b>{sdgOverall}%</b><span>On track</span></div>
+                </div>
+              </div>
+              <div class="card">
+                <p class="card__head">Activity feed<small>Live from the field</small></p>
+                <ul class="feed">
+                  {FEED.map((f) => (
+                    <li>
+                      <span class={`feed__ico tone-${f.tone}`} set:html={icon(f.icon, 15)} />
+                      <span class="feed__text"><b>{f.title}</b><small>{f.detail}</small></span>
+                      <span class="feed__meta"><em class={`tag tone-${f.tone}`}>{f.tag}</em><small>{f.time}</small></span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div class="ov-row ov-row--b">
+              <div class="card">
+                <p class="card__head">Impact over time<small>Thousands, this financial year</small></p>
+                <svg class="line" viewBox={`0 0 ${LW} ${LH}`} aria-hidden="true">
+                  {[0, 100, 200, 300, 400, 500].map((v) => (
+                    <g>
+                      <line x1={PAD.l} x2={LW - PAD.r} y1={ly(v)} y2={ly(v)} class="line__grid" />
+                      <text x={PAD.l - 6} y={ly(v) + 3} text-anchor="end" class="line__axis">{v}</text>
+                    </g>
+                  ))}
+                  {MONTHS.map((m, i) => <text x={lx(i)} y={LH - 6} text-anchor="middle" class="line__axis">{m}</text>)}
+                  <path d={area(GROWTH.beneficiaries)} fill="#1E8A55" opacity=".1" />
+                  <path d={line(GROWTH.beneficiaries)} fill="none" stroke="#1E8A55" stroke-width="2.4" />
+                  <path d={line(GROWTH.women)} fill="none" stroke="#D6336C" stroke-width="2.4" />
+                </svg>
+                <p class="legend"><i style="background:#1E8A55"></i>Beneficiaries<i style="background:#D6336C"></i>Women reached</p>
+              </div>
+              <div class="card">
+                <p class="card__head">Fund utilisation<small>₹28.4 Cr used of ₹36.5 Cr</small></p>
+                <div class="funds">
+                  <div class="funds__donut">
+                    <svg viewBox="0 0 160 160" aria-hidden="true">{fundArcs.map((a) => <path d={a.d} fill={a.color} />)}</svg>
+                    <div><b>₹28.4 Cr</b><small>Utilised</small></div>
+                  </div>
+                  <ul class="funds__list">
+                    {FUNDS.map((f) => (
+                      <li><i style={`background:${f.color}`}></i><span>{f.label}</span><b>₹{f.cr.toFixed(1)} Cr</b></li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="meter"><span style="width:78%"></span></div>
+                <p class="meter__note">78% of total funds utilised</p>
+              </div>
+              <div class="card">
+                <p class="card__head">Top sectors<small>Share of beneficiaries</small></p>
+                <ul class="sectors">
+                  {SECTORS.map((s) => (
+                    <li>
+                      <span>{s.label}</span><b>{s.share}%</b>
+                      <i><em style={`width:${(s.share / SECTORS[0].share) * 100}%; background:${s.color}`}></em></i>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- ===== Projects ===== -->
+          <section class="nview" data-view="projects" aria-label="Projects" hidden>
+            <div class="vhead"><div><h3>Projects</h3><p>Every field project, its budget and progress</p></div></div>
+            <div class="tiles">
+              <div class="tile"><small>Beneficiaries</small><b>{inr(sum('beneficiaries'))}</b></div>
+              <div class="tile"><small>Projects shown</small><b>{PROJECTS.length}</b></div>
+              <div class="tile"><small>Budget</small><b>₹{sum('budget').toFixed(1)} Cr</b></div>
+              <div class="tile"><small>Spent</small><b>₹{sum('spent').toFixed(1)} Cr</b></div>
+            </div>
+            <div class="chips" role="group" aria-label="Filter projects" data-chips="projects">
+              {['All', 'Active', 'Monitoring', 'Completed'].map((c, i) => <button type="button" data-chip={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+            </div>
+            <ul class="plist">
+              {PROJECTS.map((p) => (
+                <li data-status={p.status}>
+                  <div class="plist__main">
+                    <p class="plist__name">{p.name}<em class={`pill pill--${p.status.toLowerCase()}`}>{p.status}</em><em class="pill">{p.sector}</em></p>
+                    <p class="plist__meta">{p.place}, {p.state} · {inr(p.beneficiaries)} beneficiaries · {p.team}</p>
+                    <div class="plist__spend"><i><em style={`width:${(p.spent / p.budget) * 100}%`}></em></i><small>₹{p.spent.toFixed(1)} Cr spent of ₹{p.budget.toFixed(1)} Cr</small></div>
+                  </div>
+                  <div class="plist__prog"><Fragment set:html={ring(p.progress)} /><span><small>Progress</small><b>{p.progress}%</b></span></div>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- ===== Geography ===== -->
+          <section class="nview" data-view="geography" aria-label="Geography" hidden>
+            <div class="vhead"><div><h3>Geography</h3><p>Where the work happens, state by state</p></div></div>
+            <div class="tiles">
+              <div class="tile"><small>States covered</small><b>{STATES.length}</b></div>
+              <div class="tile"><small>Villages</small><b>{inr(STATES.reduce((n, s) => n + s.villages, 0))}</b></div>
+              <div class="tile"><small>Projects</small><b>{STATES.reduce((n, s) => n + s.projects, 0)}</b></div>
+              <div class="tile"><small>High-risk states</small><b>{STATES.filter((s) => s.risk === 'High').length}</b></div>
+            </div>
+            <div class="geo">
+              <div class="card">
+                <p class="card__head">States at a glance<small>Pick one to see its detail</small></p>
+                <ul class="glist">
+                  {STATES.map((s, i) => (
+                    <li>
+                      <button type="button" data-state={s.name} aria-pressed={i === 0 ? 'true' : 'false'}>
+                        <span><b>{s.name}</b><small>{s.villages} villages · {s.projects} projects</small></span>
+                        <em class={`risk risk--${s.risk.toLowerCase()}`}>{s.risk}</em>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="card geo__map"><IndiaMap pins={pins} size={20} /></div>
+              <div class="geo__side">
+                {STATES.map((s, i) => (
+                  <div class="card gdetail" data-detail={s.name} hidden={i !== 0}>
+                    <p class="card__head">{s.name}<small>Risk: {s.risk}</small></p>
+                    <dl>
+                      <div><dt>Villages</dt><dd>{s.villages}</dd></div>
+                      <div><dt>Projects</dt><dd>{s.projects}</dd></div>
+                      <div><dt>Beneficiaries</dt><dd>{inr(s.beneficiaries)}</dd></div>
+                      <div><dt>Main sector</dt><dd>{s.sector}</dd></div>
+                    </dl>
+                  </div>
+                ))}
+                <div class="card">
+                  <p class="card__head">Villages by state</p>
+                  <ul class="vbars">
+                    {STATES.map((s) => (
+                      <li data-bar={s.name}><span>{s.abbr}</span><i><em style={`width:${(s.villages / maxVillages) * 100}%`}></em></i><b>{s.villages}</b></li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ===== SDGs ===== -->
+          <section class="nview" data-view="sdgs" aria-label="SDGs" hidden>
+            <div class="vhead"><div><h3>SDG tracker</h3><p>Progress across the 17 Sustainable Development Goals</p></div></div>
+            <div class="tiles">
+              <div class="tile"><small>Overall progress</small><b>{sdgOverall}%</b></div>
+              <div class="tile"><small>Goals addressed</small><b>{addressed.length} / 17</b></div>
+              <div class="tile"><small>Linked projects</small><b>{SDGS.reduce((n, s) => n + s.projects, 0)}</b></div>
+              <div class="tile"><small>Beneficiaries</small><b>4.87 L</b></div>
+            </div>
+            <ul class="sdgs">
+              {SDGS.map((s) => (
+                <li class:list={{ 'is-off': s.progress === 0 }}>
+                  <span class="sdgs__n" style={`background:${s.color}`}>{s.n}</span>
+                  <b>{s.name}</b>
+                  <i><em style={`width:${s.progress}%; background:${s.color}`}></em></i>
+                  <small>{s.progress ? `${s.progress}% · ${s.projects} projects` : 'Not addressed yet'}</small>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- ===== Reports ===== -->
+          <section class="nview" data-view="reports" aria-label="Reports and evidence" hidden>
+            <div class="vhead">
+              <div><h3>Reports &amp; Evidence</h3><p>Evaluation reports, built from the same records</p></div>
+              <span class="vhead__btn" aria-hidden="true">+ New report</span>
+            </div>
+            <div class="tiles tiles--3">
+              <div class="tile"><small>Published</small><b>{reportCount('Published')}</b></div>
+              <div class="tile"><small>Drafts</small><b>{reportCount('Draft')}</b></div>
+              <div class="tile"><small>Due this month</small><b>{reportCount('Due')}</b></div>
+            </div>
+            <div class="chips" role="group" aria-label="Filter reports" data-chips="reports">
+              {['All', 'Donor', 'M&E', 'Field', 'Finance', 'Board'].map((c, i) => <button type="button" data-chip={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+            </div>
+            <div class="card rtable">
+              <div class="rtable__row rtable__row--head"><span>Report</span><span>Type</span><span>Date</span><span>Status</span></div>
+              {REPORTS.map((r) => (
+                <div class="rtable__row" data-type={r.type}>
+                  <span><b>{r.title}</b><small>{r.project}</small></span>
+                  <span><em class="pill">{r.type}</em></span>
+                  <span>{r.date}</span>
+                  <span><em class={`pill pill--${r.status.toLowerCase()}`}>{r.status}</em></span>
+                </div>
+              ))}
+            </div>
+            <div class="card">
+              <p class="card__head">Theory of change<small>The chain every report traces</small></p>
+              <ol class="change">
+                {CHANGE.map((c) => <li><small>{c.stage}</small><b>{c.value}</b><span>{c.note}</span></li>)}
+              </ol>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-ngo]').forEach((root) => {
+    const W = 1280, H = 820;
+    const scaler = root.querySelector<HTMLElement>('[data-scaler]')!;
+    const stage = root.querySelector<HTMLElement>('[data-stage]')!;
+    const fit = () => {
+      const s = scaler.clientWidth / W;
+      stage.style.setProperty('--s', String(s));
+      scaler.style.height = `${H * s}px`;
+    };
+    new ResizeObserver(fit).observe(scaler);
+    fit();
+
+    // Screens
+    const navs = root.querySelectorAll<HTMLButtonElement>('[data-go]');
+    const views = root.querySelectorAll<HTMLElement>('[data-view]');
+    navs.forEach((b) =>
+      b.addEventListener('click', () => {
+        navs.forEach((n) => n.toggleAttribute('aria-current', n === b));
+        navs.forEach((n) => n === b && n.setAttribute('aria-current', 'page'));
+        views.forEach((v) => {
+          const on = v.dataset.view === b.dataset.go;
+          v.hidden = !on;
+          v.classList.toggle('is-on', on);
+        });
+      })
+    );
+
+    // Filter chips: projects by status, reports by type
+    root.querySelectorAll<HTMLElement>('[data-chips]').forEach((group) => {
+      const view = group.closest<HTMLElement>('[data-view]')!;
+      const key = group.dataset.chips === 'projects' ? 'status' : 'type';
+      const chips = group.querySelectorAll<HTMLButtonElement>('[data-chip]');
+      chips.forEach((c) =>
+        c.addEventListener('click', () => {
+          chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+          const want = c.dataset.chip;
+          view.querySelectorAll<HTMLElement>(`[data-${key}]`).forEach((row) => {
+            row.hidden = want !== 'All' && row.dataset[key] !== want;
+          });
+        })
+      );
+    });
+
+    // Geography: pick a state from the list or the map
+    const geo = root.querySelector<HTMLElement>('[data-view="geography"]')!;
+    const stateButtons = geo.querySelectorAll<HTMLButtonElement>('[data-state]');
+    const pick = (name: string) => {
+      if (![...stateButtons].some((b) => b.dataset.state === name)) return;
+      stateButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.state === name)));
+      geo.querySelectorAll<HTMLElement>('[data-detail]').forEach((d) => (d.hidden = d.dataset.detail !== name));
+      geo.querySelectorAll<HTMLElement>('[data-bar]').forEach((d) => d.classList.toggle('is-on', d.dataset.bar === name));
+      geo.querySelectorAll<SVGPathElement>('.imap__state').forEach((p) => p.classList.toggle('is-active', p.dataset.state === name));
+    };
+    stateButtons.forEach((b) => b.addEventListener('click', () => pick(b.dataset.state || '')));
+    geo.querySelectorAll<SVGPathElement>('.imap__state').forEach((p) => p.addEventListener('click', () => pick(p.dataset.state || '')));
+    pick(stateButtons[0]?.dataset.state || '');
+  });
+</script>
+
+<style>
+  .ngo {
+    --g-ink: #13201A; --g-muted: #66736C; --g-line: #E3E8E5; --g-bg: #F6F7F4; --g-card: #FFFFFF;
+    --g-side: #10291F; --g-green: #1E8A55; --g-amber: #F2A93B;
+    border-radius: 16px; overflow: hidden; border: 1px solid var(--g-line); background: var(--g-bg);
+    box-shadow: 0 30px 70px -30px rgba(16, 41, 31, .35);
+  }
+  .ngo__scaler { position: relative; aspect-ratio: 1280 / 820; overflow: hidden; }
+  .ngo__stage {
+    position: absolute; top: 0; left: 0; width: 1280px; height: 820px;
+    transform: scale(var(--s, 1)); transform-origin: 0 0;
+    display: flex; flex-direction: column; color: var(--g-ink); font-size: 13px; line-height: 1.35;
+  }
+  .ngo__stage :where(button) { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0; }
+  .ngo__stage :where(p, h3, ul, ol, dl, dd) { margin: 0; padding: 0; }
+  .ngo__stage :where(ul, ol) { list-style: none; }
+  .ngo__stage button:focus-visible { outline: 2px solid var(--g-amber); outline-offset: 2px; }
+
+  .ngo__bar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; background: #fff; border-bottom: 1px solid var(--g-line); }
+  .ngo__bar span { width: 10px; height: 10px; border-radius: 50%; background: #E3E6E4; }
+  .ngo__bar b { margin-left: 10px; font-size: 12px; font-weight: 500; color: var(--g-muted); }
+  .ngo__app { flex: 1; display: grid; grid-template-columns: 208px 1fr; min-height: 0; }
+
+  /* Sidebar */
+  .nside { background: var(--g-side); color: #DCE7E1; padding: 18px 12px; display: flex; flex-direction: column; gap: 14px; }
+  .nside__brand { display: flex; align-items: center; gap: 10px; padding: 0 6px; }
+  .nside__logo { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--g-amber); color: var(--g-side); font-weight: 700; font-size: 17px; }
+  .nside__brand b { display: block; color: #fff; font-size: 15px; }
+  .nside__brand small { font-size: 11px; color: #9DB5A8; }
+  .nside__org { display: flex; align-items: center; gap: 8px; padding: 9px 10px; border-radius: 10px; background: rgba(255, 255, 255, .06); font-size: 12px; }
+  .nside__org span { width: 8px; height: 8px; border-radius: 50%; background: #4ADE80; }
+  .nside ul { display: grid; gap: 3px; }
+  .nside__item { width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 10px; color: #C9D8D0; text-align: left; }
+  .nside__item:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+  .nside__item[aria-current='page'] { background: var(--g-amber); color: var(--g-side); font-weight: 600; }
+  .nside__foot { margin-top: auto !important; padding: 0 10px; font-size: 11px; color: #7F998B; }
+
+  .ngo__main { display: flex; flex-direction: column; min-width: 0; padding: 0 20px 18px; overflow: hidden; }
+  .ntop { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; }
+  .ntop__hi { font-size: 19px; font-weight: 600; }
+  .ntop__sub { font-size: 12px; color: var(--g-muted); }
+  .ntop__tools { display: flex; align-items: center; gap: 8px; }
+  .ntop__chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border-radius: 999px; background: #fff; border: 1px solid var(--g-line); font-size: 12px; color: var(--g-muted); }
+  .ntop__chip--search { width: 170px; }
+  .ntop__bell { position: relative; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #fff; border: 1px solid var(--g-line); }
+  .ntop__bell i { position: absolute; top: 6px; right: 7px; width: 7px; height: 7px; border-radius: 50%; background: #E5484D; }
+  .ntop__user { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; }
+  .ntop__user b { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--g-green); color: #fff; font-size: 12px; }
+  .ntop__user small { display: block; font-weight: 400; color: var(--g-muted); font-size: 11px; }
+
+  .nview { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+  .nview[hidden] { display: none; }
+  .nview.is-on { animation: ngo-in .35s ease both; }
+  @keyframes ngo-in { from { opacity: 0; transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce) { .nview.is-on { animation: none; } }
+
+  .card { background: var(--g-card); border: 1px solid var(--g-line); border-radius: 14px; padding: 14px; min-width: 0; }
+  .card__head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-weight: 600; font-size: 13.5px; margin-bottom: 10px !important; }
+  .card__head small { font-weight: 400; font-size: 11px; color: var(--g-muted); }
+
+  /* Tones shared by icons, tags */
+  .tone-green { background: #E3F3EA; color: #1E8A55; }
+  .tone-blue { background: #E1F1FA; color: #1F7FB2; }
+  .tone-amber { background: #FDF0DA; color: #B8730C; }
+  .tone-red { background: #FDE6E7; color: #D1373F; }
+  .tone-pink { background: #FBE3EC; color: #B4235A; }
+  .tone-navy { background: #E2E8F2; color: #1D3D6B; }
+  .tone-leaf { background: #E6F1E2; color: #3F7E44; }
+
+  /* KPIs */
+  .kpis { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
+  .kpi { display: flex; gap: 9px; align-items: flex-start; background: #fff; border: 1px solid var(--g-line); border-radius: 12px; padding: 11px 10px; }
+  .kpi__ico { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; }
+  .kpi__label { font-size: 11px; color: var(--g-muted); }
+  .kpi__value { font-size: 16.5px; font-weight: 700; letter-spacing: -.01em; }
+  .kpi__note { font-size: 10.5px; color: var(--g-green); }
+
+  .ov-row { display: grid; gap: 12px; }
+  .ov-row--a { grid-template-columns: 1fr .9fr 1.15fr; height: 312px; }
+  .ov-row--b { grid-template-columns: 1.15fr 1fr .9fr; height: 262px; }
+  .ov-map { height: 258px; display: grid; place-items: center; }
+  .ov-map :global(.imap), .geo__map :global(.imap) { width: auto; height: 100%; max-width: 100%; --map-land: #E8F1EA; --map-edge: #9DB8A6; --map-state: rgba(16, 41, 31, .16); --map-label: #13201A; }
+  .ov-map :global(.imap__label), .geo__map :global(.imap__label) { font-size: 17px; }
+
+  .sdg-donut { position: relative; width: 236px; margin: 4px auto 0; }
+  .sdg-donut svg { display: block; width: 100%; }
+  .sdg-donut__mid { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+  .sdg-donut__mid small { font-size: 11px; color: var(--g-muted); }
+  .sdg-donut__mid b { font-size: 34px; line-height: 1.05; }
+  .sdg-donut__mid span { font-size: 11px; color: var(--g-green); font-weight: 600; }
+
+  .feed { display: grid; gap: 9px; }
+  .feed li { display: grid; grid-template-columns: 30px 1fr auto; gap: 9px; align-items: center; }
+  .feed__ico { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; }
+  .feed__text { min-width: 0; }
+  .feed__text b { display: block; font-size: 12.5px; }
+  .feed__text small { display: block; font-size: 11px; color: var(--g-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .feed__meta { text-align: right; }
+  .feed__meta small { display: block; font-size: 10px; color: var(--g-muted); margin-top: 3px; }
+  .tag { display: inline-block; font-style: normal; font-size: 10px; padding: 2px 7px; border-radius: 999px; }
+
+  .line { display: block; width: 100%; height: 172px; }
+  .line__grid { stroke: #EEF1EF; }
+  .line__axis { font-size: 9.5px; fill: var(--g-muted); }
+  .legend { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--g-muted); margin-top: 4px !important; }
+  .legend i { width: 9px; height: 9px; border-radius: 50%; margin-left: 8px; }
+  .legend i:first-child { margin-left: 0; }
+
+  .funds { display: grid; grid-template-columns: 130px 1fr; gap: 12px; align-items: center; }
+  .funds__donut { position: relative; }
+  .funds__donut svg { display: block; width: 130px; }
+  .funds__donut div { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+  .funds__donut b { font-size: 15px; }
+  .funds__donut small { font-size: 10px; color: var(--g-muted); }
+  .funds__list { display: grid; gap: 6px; font-size: 11.5px; }
+  .funds__list li { display: grid; grid-template-columns: 9px 1fr auto; gap: 7px; align-items: center; }
+  .funds__list i { width: 9px; height: 9px; border-radius: 50%; }
+  .meter { height: 7px; border-radius: 999px; background: #EEF1EF; overflow: hidden; margin-top: 12px; }
+  .meter span { display: block; height: 100%; background: var(--g-green); border-radius: inherit; }
+  .meter__note { font-size: 11px; color: var(--g-muted); margin-top: 6px !important; }
+
+  .sectors { display: grid; gap: 11px; }
+  .sectors li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; font-size: 12px; }
+  .sectors i { grid-column: 1 / -1; height: 6px; border-radius: 999px; background: #EEF1EF; overflow: hidden; }
+  .sectors em { display: block; height: 100%; border-radius: inherit; }
+
+  /* Screen heads, tiles, chips */
+  .vhead { display: flex; justify-content: space-between; align-items: center; }
+  .vhead h3 { font-size: 20px; }
+  .vhead p { font-size: 12px; color: var(--g-muted); }
+  .vhead__btn { padding: 9px 14px; border-radius: 999px; background: var(--g-green); color: #fff; font-size: 12px; font-weight: 600; }
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .tiles--3 { grid-template-columns: repeat(3, 1fr); }
+  .tile { background: #fff; border: 1px solid var(--g-line); border-radius: 12px; padding: 11px 14px; }
+  .tile small { display: block; font-size: 11px; color: var(--g-muted); }
+  .tile b { font-size: 21px; }
+  .chips { display: flex; gap: 6px; }
+  .chips button { padding: 6px 13px; border-radius: 999px; background: #fff; border: 1px solid var(--g-line); font-size: 12px; }
+  .chips button[aria-pressed='true'] { background: var(--g-side); border-color: var(--g-side); color: #fff; }
+  .pill { display: inline-block; font-style: normal; font-size: 10.5px; padding: 2px 8px; border-radius: 999px; background: #EEF1EF; color: var(--g-muted); }
+  .pill--active { background: #E3F3EA; color: #1E8A55; }
+  .pill--monitoring { background: #FDF0DA; color: #B8730C; }
+  .pill--completed, .pill--published { background: #E1F1FA; color: #1F7FB2; }
+  .pill--draft { background: #EEF1EF; color: #4B5852; }
+  .pill--due { background: #FDE6E7; color: #D1373F; }
+
+  /* Projects */
+  .plist { display: grid; gap: 8px; }
+  .plist li { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; background: #fff; border: 1px solid var(--g-line); border-radius: 12px; padding: 10px 14px; }
+  .plist li[hidden] { display: none; }
+  .plist__name { display: flex; align-items: center; gap: 7px; font-weight: 600; font-size: 13.5px; }
+  .plist__meta { font-size: 11.5px; color: var(--g-muted); margin: 2px 0 6px !important; }
+  .plist__spend { display: grid; grid-template-columns: 1fr 210px; gap: 10px; align-items: center; }
+  .plist__spend i { height: 6px; border-radius: 999px; background: #EEF1EF; overflow: hidden; }
+  .plist__spend em { display: block; height: 100%; background: var(--g-green); }
+  .plist__spend small { font-size: 11px; color: var(--g-muted); text-align: right; }
+  .plist__prog { display: flex; align-items: center; gap: 8px; }
+  .plist__prog small { display: block; font-size: 10.5px; color: var(--g-muted); }
+  .plist__prog b { font-size: 15px; }
+
+  /* Geography */
+  .geo { flex: 1; display: grid; grid-template-columns: 300px 1fr 300px; gap: 12px; min-height: 0; }
+  .glist { display: grid; gap: 6px; }
+  .glist button { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--g-line); text-align: left; }
+  .glist button:hover { border-color: #B9C9BF; }
+  .glist button[aria-pressed='true'] { border-color: var(--g-green); background: #F1F8F4; }
+  .glist b { display: block; font-size: 12.5px; }
+  .glist small { font-size: 11px; color: var(--g-muted); }
+  .risk { font-style: normal; font-size: 10px; padding: 2px 8px; border-radius: 999px; }
+  .risk--high { background: #FDE6E7; color: #D1373F; }
+  .risk--medium { background: #FDF0DA; color: #B8730C; }
+  .risk--low { background: #E3F3EA; color: #1E8A55; }
+  .geo__map { display: grid; place-items: center; padding: 10px; }
+  .geo__map :global(.imap__state) { cursor: pointer; }
+  .geo__map :global(.imap__state.is-active) { fill: rgba(30, 138, 85, .22); stroke: #1E8A55; }
+  .geo__side { display: flex; flex-direction: column; gap: 12px; }
+  .gdetail[hidden] { display: none; }
+  .gdetail dl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .gdetail dt { font-size: 11px; color: var(--g-muted); }
+  .gdetail dd { font-size: 16px; font-weight: 700; }
+  .vbars { display: grid; gap: 7px; }
+  .vbars li { display: grid; grid-template-columns: 26px 1fr 34px; gap: 8px; align-items: center; font-size: 11.5px; }
+  .vbars i { height: 7px; border-radius: 999px; background: #EEF1EF; overflow: hidden; }
+  .vbars em { display: block; height: 100%; background: #9DC9AF; }
+  .vbars li.is-on em { background: var(--g-green); }
+  .vbars li.is-on { font-weight: 700; }
+  .vbars b { text-align: right; font-weight: 500; }
+
+  /* SDGs */
+  .sdgs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .sdgs li { display: grid; grid-template-columns: 30px 1fr; gap: 6px 9px; align-items: center; background: #fff; border: 1px solid var(--g-line); border-radius: 12px; padding: 11px; }
+  .sdgs li.is-off { opacity: .45; }
+  .sdgs__n { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; color: #fff; font-weight: 700; }
+  .sdgs b { font-size: 12px; line-height: 1.2; }
+  .sdgs i { grid-column: 1 / -1; height: 6px; border-radius: 999px; background: #EEF1EF; overflow: hidden; }
+  .sdgs em { display: block; height: 100%; }
+  .sdgs small { grid-column: 1 / -1; font-size: 10.5px; color: var(--g-muted); }
+
+  /* Reports */
+  .rtable { padding: 4px 14px; }
+  .rtable__row { display: grid; grid-template-columns: 1fr 90px 110px 90px; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid #EEF1EF; font-size: 12px; }
+  .rtable__row:last-child { border-bottom: 0; }
+  .rtable__row[hidden] { display: none; }
+  .rtable__row--head { font-size: 11px; color: var(--g-muted); }
+  .rtable__row b { display: block; font-size: 12.5px; }
+  .rtable__row small { font-size: 11px; color: var(--g-muted); }
+  .change { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; }
+  .change li { position: relative; padding: 10px 12px; border-radius: 12px; background: #F1F8F4; text-align: center; }
+  .change li:not(:last-child)::after { content: '→'; position: absolute; right: -17px; top: 50%; transform: translateY(-50%); color: var(--g-green); font-weight: 700; }
+  .change li:nth-child(4) { background: #FDF0DA; }
+  .change li:nth-child(5) { background: #FDE6E7; }
+  .change small { display: block; font-size: 11px; color: var(--g-muted); }
+  .change b { display: block; font-size: 15px; }
+  .change span { font-size: 10.5px; color: var(--g-muted); }
+</style>

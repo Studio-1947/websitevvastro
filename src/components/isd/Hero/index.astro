@@ -1,8 +1,7 @@
 ---
 /**
- * Centred hero: app icon, one-line headline, one line of copy, one button.
- * Below it, a working copy of the sales dashboard (see Dashboard).
- * Same hero as the Pharma ERP page (components/pharma/Hero), with its own demo.
+ * Centred hero: app icon, product name, headline, one line of copy and a
+ * button. Below it, a working copy of the sales dashboard (see Dashboard).
  * Motion: the wash is made of a few large blurred blobs that drift slowly,
  * like light moving through mist, in Studio 1947 red. Held still for reduced motion.
  */
@@ -22,15 +21,23 @@ const { content: c } = Astro.props;
     <span class="phero__blob phero__blob--4"></span>
   </div>
   <div class="phero__copy">
-    {/* The product's own mark: a rising line on a red tile. */}
+    {/* The product's own mark: a red rising line, on its own. */}
     <span class="phero__icon" aria-hidden="true">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 5-5 4 3 7-7" /><path d="M15 7h5v5" /></svg>
+      <svg width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="#E60000" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 5-5 4 3 7-7" /><path d="M15 7h5v5" /></svg>
     </span>
+    <p class="phero__name"><b>{c.name}</b> <span>{c.kind}</span></p>
     <h1 id="isd-hero-title" class="phero__title">{c.title}</h1>
     <p class="phero__sub">{c.sub}</p>
     <a class="p-btn" {...ctaAttrs(c.primary)}>{c.primary.label}</a>
-    <p class="phero__example">{c.example}</p>
   </div>
+
+  {/* Points down to the live dashboard; the arrow keeps pulsing to invite a try. */}
+  <p class="phero__example">
+    <span class="phero__example-text">{c.example}</span>
+    <span class="phero__example-arrow" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M6 13l6 6 6-6"/></svg>
+    </span>
+  </p>
 
   <Dashboard />
 </section>
@@ -78,12 +85,26 @@ const { content: c } = Astro.props;
   }
   .phero__copy { display: flex; flex-direction: column; align-items: center; text-align: center; }
   .phero__icon {
-    display: grid; place-items: center; width: 72px; height: 72px; margin-bottom: clamp(28px, 3vw, 40px);
-    border-radius: 18px;
-    background: #E60000;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, .6), 0 10px 24px -8px rgba(230, 0, 0, .45);
+    display: grid; place-items: center; margin-bottom: clamp(24px, 2.6vw, 34px);
   }
+  .phero__name { margin: 0 0 clamp(12px, 1.4vw, 18px); font-size: clamp(18px, 1.6vw, 24px); color: var(--p-ink); }
+  .phero__name b { font-weight: 600; color: #E60000; }
+  .phero__name span { color: var(--p-muted); }
   .phero__title { margin: 0; max-width: 16ch; font-size: clamp(42px, 5.6vw, 76px); line-height: 1.04; }
-  .phero__example { margin: clamp(24px, 2.6vw, 34px) 0 -16px; font-size: 14px; color: var(--p-muted); }
+  .phero__example {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    margin: clamp(28px, 3vw, 40px) 0 -6px; font-size: 14px;
+  }
+  .phero__example-text {
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(230, 0, 0, .08); color: #B4121B; font-weight: 500;
+    box-shadow: inset 0 0 0 1px rgba(230, 0, 0, .18);
+  }
+  .phero__example-arrow { display: grid; place-items: center; color: #E60000; animation: phero-arrow 1.4s ease-in-out infinite; }
+  @keyframes phero-arrow {
+    0%, 100% { transform: translateY(-3px); opacity: .25; }
+    50% { transform: translateY(5px); opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) { .phero__example-arrow { animation: none; } }
   .phero__sub { margin: 18px 0 30px; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.4; }
 </style>

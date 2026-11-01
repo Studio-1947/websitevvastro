@@ -1,79 +1,58 @@
 ---
 /**
  * Location section: what the Geo Insights screen does, told with a large map
- * of India. Text, State / Pincode filters and a ranked list on one side, the
- * map (with state borders) on the red wash on the other. Phones: text,
- * filters, list, then map.
+ * of India. Text, a Statewise / PINcodewise toggle and a ranked list on one
+ * side, the map (with state borders) on a flat light red panel on the other. Phones:
+ * text, toggle, list, then map.
  *
- * All states: the list ranks cities and the map shows a pin per city.
- * A state: the map zooms to it and the list ranks its pincodes.
- * A pincode: as for its state, with that pincode picked out.
- * Shares are always of what is in view, and pins are sized and shaded by
- * them (deeper red = bigger share). The page renders the all-states view, so
- * it reads the same without JavaScript; the script below takes over from there.
+ * Statewise ranks states and puts a pin on each; PINcodewise ranks delivery
+ * areas and pins each one. Pins are sized and shaded by share (deeper red =
+ * bigger share). The page renders the statewise view, so it reads the same
+ * without JavaScript; the script below redraws on toggle.
  */
 import IndiaMap from '../Map/IndiaMap.astro';
-import { STATES } from '../Map/states';
-import { SHADE_RANGE } from '../Map/shade';
+import { shade } from '../Map/shade';
 import type { WhereContent, Place } from '../content';
 
 interface Props { content: WhereContent }
 const { content: c } = Astro.props;
 
-/** Cities ranked by revenue, with a revenue-weighted centre for the pin. */
-function byCity(places: Place[]) {
+/** States ranked by revenue, with a revenue-weighted centre for the pin. */
+function byState(places: Place[]) {
   const m = new Map<string, { label: string; revenue: number; lon: number; lat: number }>();
   for (const p of places) {
-    const e = m.get(p.city) ?? { label: p.city, revenue: 0, lon: 0, lat: 0 };
+    const e = m.get(p.state) ?? { label: p.state, revenue: 0, lon: 0, lat: 0 };
     e.lon = (e.lon * e.revenue + p.lon * p.revenue) / (e.revenue + p.revenue);
     e.lat = (e.lat * e.revenue + p.lat * p.revenue) / (e.revenue + p.revenue);
     e.revenue += p.revenue;
-    m.set(p.city, e);
+    m.set(p.state, e);
   }
   return [...m.values()].sort((a, b) => b.revenue - a.revenue);
 }
+const SHOWN = 7;
 const total = c.places.reduce((n, p) => n + p.revenue, 0);
-const cities = byCity(c.places).slice(0, 7).map((x) => ({ ...x, share: x.revenue / total }));
-const top = cities[0].share;
-const states = [...new Set(c.places.map((p) => p.state))].sort();
-const boxes = Object.fromEntries(STATES.filter((s) => states.includes(s.name)).map((s) => [s.name, s.box]));
+const states = byState(c.places).slice(0, SHOWN).map((x) => ({ ...x, share: x.revenue / total }));
+const top = states[0].share;
 const crore = (lakh: number) => `₹${(lakh / 100).toFixed(2)} Cr`;
 ---
 
-<section class="where" aria-labelledby="isd-where-title" data-where data-places={JSON.stringify(c.places)} data-boxes={JSON.stringify(boxes)}>
+<section class="where" aria-labelledby="isd-where-title" data-where data-places={JSON.stringify(c.places)}>
   <div class="where__copy">
     <h2 id="isd-where-title" class="where__title">{c.title}</h2>
     <p class="where__body">{c.body}</p>
 
-    <div class="where__filters">
-      <label class="where__field">
-        <span>State</span>
-        <select data-filter="state">
-          <option value="">All states</option>
-          {states.map((s) => <option value={s}>{s}</option>)}
-        </select>
-      </label>
-      <label class="where__field">
-        <span>Pincode</span>
-        <select data-filter="pincode">
-          <option value="">All pincodes</option>
-          {states.map((s) => (
-            <optgroup label={s}>
-              {c.places.filter((p) => p.state === s).map((p) => <option value={p.pincode}>{p.pincode} · {p.area}</option>)}
-            </optgroup>
-          ))}
-        </select>
-      </label>
+    <div class="where__seg" role="group" aria-label="Group by">
+      <button type="button" data-mode="state" aria-pressed="true">Statewise</button>
+      <button type="button" data-mode="pincode" aria-pressed="false">PINcodewise</button>
     </div>
 
-    <p class="where__sum" aria-live="polite">
-      <span class="where__sumName"><span data-sum-all>All of India</span><span data-sum-name hidden></span></span>
-      <b data-sum-val>{crore(total)}</b>
-      <span class="where__sumNote" data-sum-share hidden><b data-sum-pct></b> <span>of total net revenue</span></span>
+    <p class="where__sum">
+      <span class="where__sumName">All of India</span>
+      <b>{crore(total)}</b>
     </p>
 
-    <ol class="where__list" data-where-list data-stagger>
-      {cities.map((x, i) => (
+    <ol class="where__list" data-where-list data-stagger aria-live="polite">
+      {states.map((x, i) => (
         <li>
           <span class="where__rank">{i + 1}</span>
           <span class="where__city">{x.label}</span>
@@ -85,10 +64,10 @@ const crore = (lakh: number) => `₹${(lakh / 100).toFixed(2)} Cr`;
     <p class="where__foot">{c.foot}</p>
   </div>
   <div class="where__panel reveal">
-    <div class="where__map"><IndiaMap pins={cities} size={26} /></div>
+    <div class="where__map"><IndiaMap pins={states} size={26} /></div>
     <div class="where__legend" aria-hidden="true">
       <span>Smaller share</span>
-      <i style={`background: linear-gradient(90deg, ${SHADE_RANGE.light}, ${SHADE_RANGE.deep})`}></i>
+      <span class="where__steps">{[0, 0.33, 0.67, 1].map((t) => <i style={`background: ${shade(t)}`}></i>)}</span>
       <span>Bigger share</span>
     </div>
   </div>
@@ -99,136 +78,87 @@ const crore = (lakh: number) => `₹${(lakh / 100).toFixed(2)} Cr`;
   import { shade } from '../Map/shade';
   import type { Place } from '../content';
 
-  interface Row { key: string; label: string; revenue: number; lon: number; lat: number }
+  interface Row { key: string; label: string; pin: string; revenue: number; lon: number; lat: number }
 
   const SVG = 'http://www.w3.org/2000/svg';
-  const FULL: [number, number, number, number] = [0, 0, INDIA.w, INDIA.h];
+  const SHOWN = 7;
 
   function init(root: HTMLElement): void {
     const places: Place[] = JSON.parse(root.dataset.places || '[]');
-    const boxes: Record<string, [number, number, number, number]> = JSON.parse(root.dataset.boxes || '{}');
-    const stateSel = root.querySelector<HTMLSelectElement>('[data-filter="state"]')!;
-    const pinSel = root.querySelector<HTMLSelectElement>('[data-filter="pincode"]')!;
+    const buttons = root.querySelectorAll<HTMLButtonElement>('[data-mode]');
     const list = root.querySelector<HTMLOListElement>('[data-where-list]')!;
     const svg = root.querySelector<SVGSVGElement>('[data-imap]')!;
     const pinsLayer = svg.querySelector<SVGGElement>('[data-pins]')!;
-    const statePaths = svg.querySelectorAll<SVGPathElement>('[data-state]');
-    const sumAll = root.querySelector<HTMLElement>('[data-sum-all]')!;
-    const sumName = root.querySelector<HTMLElement>('[data-sum-name]')!;
-    const sumVal = root.querySelector<HTMLElement>('[data-sum-val]')!;
-    const sumShare = root.querySelector<HTMLElement>('[data-sum-share]')!;
-    const sumPct = root.querySelector<HTMLElement>('[data-sum-pct]')!;
-    const grandTotal = places.reduce((n, p) => n + p.revenue, 0);
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const total = places.reduce((n, p) => n + p.revenue, 0);
 
-    // The pincode list keeps every option; picking a state hides the others.
-    const groups = [...pinSel.querySelectorAll('optgroup')];
-
-    let vb: [number, number, number, number] = [...FULL];
-    let anim = 0;
-
-    const crore = (lakh: number) => `₹${(lakh / 100).toFixed(2)} Cr`;
     const pct = (x: number) => (x >= 0.1 ? `${Math.round(x * 100)}%` : `${(x * 100).toFixed(1)}%`);
 
-    function cityRows(ps: Place[]): Row[] {
+    function stateRows(): Row[] {
       const m = new Map<string, Row>();
-      for (const p of ps) {
-        const e = m.get(p.city) ?? { key: p.city, label: p.city, revenue: 0, lon: 0, lat: 0 };
+      for (const p of places) {
+        const e = m.get(p.state) ?? { key: p.state, label: p.state, pin: p.state, revenue: 0, lon: 0, lat: 0 };
         e.lon = (e.lon * e.revenue + p.lon * p.revenue) / (e.revenue + p.revenue);
         e.lat = (e.lat * e.revenue + p.lat * p.revenue) / (e.revenue + p.revenue);
         e.revenue += p.revenue;
-        m.set(p.city, e);
+        m.set(p.state, e);
       }
-      return [...m.values()];
+      return [...m.values()].sort((a, b) => b.revenue - a.revenue);
     }
 
-    /** Fit a state's box, padded, to the map's aspect ratio. */
-    function fit(b: [number, number, number, number]): [number, number, number, number] {
-      let [x0, y0, x1, y1] = b;
-      let w = Math.max(x1 - x0, 40), h = Math.max(y1 - y0, 40);
-      const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
-      w *= 1.35; h *= 1.35;
-      const ratio = INDIA.w / INDIA.h;
-      if (w / h > ratio) h = w / ratio; else w = h * ratio;
-      return [cx - w / 2, cy - h / 2, w, h];
+    function pincodeRows(): Row[] {
+      return places
+        .map((p) => ({ key: p.pincode, label: `${p.pincode} · ${p.area}`, pin: p.pincode, revenue: p.revenue, lon: p.lon, lat: p.lat }))
+        .sort((a, b) => b.revenue - a.revenue);
     }
 
-    function zoomTo(target: [number, number, number, number]): void {
-      cancelAnimationFrame(anim);
-      svg.classList.toggle('is-zoomed', target[2] < INDIA.w);
-      svg.parentElement?.classList.toggle('is-zoomed', target[2] < INDIA.w);
-      const from = [...vb] as typeof vb;
-      if (reduced) {
-        vb = target;
-        svg.setAttribute('viewBox', vb.join(' '));
-        return;
-      }
-      const t0 = performance.now();
-      const step = (now: number) => {
-        const t = Math.min(1, (now - t0) / 650);
-        const e = 1 - Math.pow(1 - t, 3);
-        vb = from.map((v, i) => v + (target[i] - v) * e) as typeof vb;
-        svg.setAttribute('viewBox', vb.map((v) => v.toFixed(2)).join(' '));
-        if (t < 1) anim = requestAnimationFrame(step);
-      };
-      anim = requestAnimationFrame(step);
-    }
-
-    function drawPins(rows: Row[], picked: string, labelled: number, box: [number, number, number, number]): void {
-      const k = box[2] / INDIA.w;
+    /** Every place gets a pin; the top few get a label, unless it would sit on one already placed. */
+    function drawPins(rows: Row[]): void {
       pinsLayer.replaceChildren();
-      const most = Math.max(...rows.map((r) => r.revenue));
-      const least = Math.min(...rows.map((r) => r.revenue));
-      // Labels go to the biggest places first; one that would sit on top of
-      // a label already placed is left off (the list still names it).
+      const most = rows[0].revenue;
+      const least = rows[rows.length - 1].revenue;
       const placed: [number, number][] = [];
-      const labelled_ = new Set<string>();
-      rows.forEach((r, rank) => {
-        if (!(rank < labelled || r.key === picked)) return;
+      const labelled = new Set<string>();
+      rows.slice(0, SHOWN).forEach((r) => {
         const [x, y] = project(r.lon, r.lat);
-        const clash = placed.some(([px, py]) => Math.abs(py - y) < 18 * k && Math.abs(px - x) < 150 * k);
-        if (clash && r.key !== picked) return;
+        if (placed.some(([px, py]) => Math.abs(py - y) < 18 && Math.abs(px - x) < 130)) return;
         placed.push([x, y]);
-        labelled_.add(r.key);
+        labelled.add(r.key);
       });
       // Smallest first, so big pins sit on top.
-      [...rows].sort((a, b) => a.revenue - b.revenue).forEach((r) => {
+      [...rows].reverse().forEach((r, i) => {
         const [x, y] = project(r.lon, r.lat);
         const rel = most === least ? 1 : (r.revenue - least) / (most - least);
-        const rad = Math.max(5, 24 * Math.sqrt(r.revenue / most)) * k;
-        const rank = rows.indexOf(r);
+        const rad = Math.max(5, 26 * Math.sqrt(r.revenue / most));
         const g = document.createElementNS(SVG, 'g');
-        g.setAttribute('class', 'imap__pin' + (picked && r.key !== picked ? ' is-dim' : '') + (r.key === picked ? ' is-picked' : ''));
+        g.setAttribute('class', 'imap__pin');
         g.style.setProperty('--pin', shade(rel));
-        g.style.setProperty('--d', `${Math.min(rank, 10) * 50}ms`);
+        g.style.setProperty('--d', `${Math.min(rows.length - 1 - i, 12) * 40}ms`);
         const dot = document.createElementNS(SVG, 'circle');
         dot.setAttribute('class', 'imap__dot');
-        dot.setAttribute('cx', x.toFixed(2));
-        dot.setAttribute('cy', y.toFixed(2));
-        dot.setAttribute('r', rad.toFixed(2));
+        dot.setAttribute('cx', x.toFixed(1));
+        dot.setAttribute('cy', y.toFixed(1));
+        dot.setAttribute('r', rad.toFixed(1));
         g.append(dot);
-        if (labelled_.has(r.key)) {
-          const left = x > box[0] + box[2] * 0.62;
+        if (labelled.has(r.key)) {
+          const left = x > INDIA.w * 0.62;
           const text = document.createElementNS(SVG, 'text');
           text.setAttribute('class', 'imap__label');
-          text.setAttribute('x', (x + (left ? -rad - 6 * k : rad + 6 * k)).toFixed(2));
-          text.setAttribute('y', (y + 5 * k).toFixed(2));
+          text.setAttribute('x', (x + (left ? -rad - 6 : rad + 6)).toFixed(1));
+          text.setAttribute('y', (y + 5).toFixed(1));
           text.setAttribute('text-anchor', left ? 'end' : 'start');
-          text.style.fontSize = `${15 * k}px`;
-          text.style.strokeWidth = `${4 * k}px`;
-          text.textContent = r.label;
+          text.textContent = r.pin;
           g.append(text);
         }
         pinsLayer.append(g);
       });
     }
 
-    function drawList(rows: Row[], total: number, picked: string): void {
-      const most = Math.max(...rows.map((r) => r.revenue));
+    function drawList(rows: Row[]): void {
+      const shown = rows.slice(0, SHOWN);
+      const most = shown[0].revenue;
       list.replaceChildren(
-        ...rows.map((r, i) => {
+        ...shown.map((r, i) => {
           const li = document.createElement('li');
-          if (r.key === picked) li.className = 'is-picked';
           li.innerHTML =
             `<span class="where__rank">${i + 1}</span>` +
             `<span class="where__city"></span>` +
@@ -240,71 +170,15 @@ const crore = (lakh: number) => `₹${(lakh / 100).toFixed(2)} Cr`;
       );
     }
 
-    function render(): void {
-      const state = stateSel.value;
-      const pin = pinSel.value;
-
-      groups.forEach((g) => {
-        const show = !state || g.label === state;
-        g.hidden = !show;
-        g.disabled = !show;
-      });
-
-      statePaths.forEach((p) => {
-        p.classList.toggle('is-active', !!state && p.dataset.state === state);
-        p.classList.toggle('is-muted', !!state && p.dataset.state !== state);
-      });
-
-      const target = state && boxes[state] ? fit(boxes[state]) : FULL;
-      const inView = state ? places.filter((p) => p.state === state) : places;
-      const total = inView.reduce((n, p) => n + p.revenue, 0);
-
-      let rows: Row[];
-      if (state) {
-        rows = inView
-          .map((p) => ({ key: p.pincode, label: `${p.pincode} · ${p.area}`, revenue: p.revenue, lon: p.lon, lat: p.lat }))
-          .sort((a, b) => b.revenue - a.revenue);
-      } else {
-        rows = cityRows(places).sort((a, b) => b.revenue - a.revenue);
-      }
-
-      zoomTo(target);
-      // Pins are sized for the zoom we are heading to.
-      drawPins(rows, pin, state ? rows.length : 7, target);
-      drawList(state ? rows : rows.slice(0, 7), total, pin);
-
-      const pickedPlace = places.find((p) => p.pincode === pin);
-      const shown = pickedPlace ? pickedPlace.revenue : total;
-      sumAll.hidden = !!state;
-      sumName.hidden = !state;
-      sumName.textContent = pickedPlace ? `${pickedPlace.pincode} · ${pickedPlace.area}` : state;
-      sumVal.textContent = crore(shown);
-      sumShare.hidden = !state;
-      sumPct.textContent = pct(shown / grandTotal);
+    function show(mode: string): void {
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === mode)));
+      const rows = mode === 'pincode' ? pincodeRows() : stateRows();
+      drawPins(rows);
+      drawList(rows);
     }
 
-    stateSel.addEventListener('change', () => {
-      const p = places.find((x) => x.pincode === pinSel.value);
-      if (p && p.state !== stateSel.value) pinSel.value = '';
-      render();
-    });
-    pinSel.addEventListener('change', () => {
-      const p = places.find((x) => x.pincode === pinSel.value);
-      if (p) stateSel.value = p.state;
-      render();
-    });
-    // Clicking a state on the map filters to it.
-    statePaths.forEach((p) => {
-      if (!boxes[p.dataset.state || '']) return;
-      p.classList.add('is-pickable');
-      p.addEventListener('click', () => {
-        stateSel.value = stateSel.value === p.dataset.state ? '' : p.dataset.state || '';
-        pinSel.value = '';
-        render();
-      });
-    });
-
-    render();
+    buttons.forEach((b) => b.addEventListener('click', () => show(b.dataset.mode || 'state')));
+    show('state');
   }
 
   document.querySelectorAll<HTMLElement>('[data-where]').forEach(init);
@@ -319,31 +193,28 @@ const crore = (lakh: number) => `₹${(lakh / 100).toFixed(2)} Cr`;
   .where__title { margin: 0 0 18px; font-size: clamp(30px, 3vw, 44px); line-height: 1.1; }
   .where__body { margin: 0 0 24px; max-width: 42ch; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.6; }
 
-  .where__filters { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
-  .where__field { display: grid; gap: 6px; font-size: 13px; color: var(--p-muted); min-width: 0; }
-  .where__field select {
-    appearance: none; width: 100%; min-width: 0;
-    font: inherit; font-size: 15px; color: var(--p-ink);
-    padding: 11px 36px 11px 14px; border-radius: 12px;
-    border: 1px solid var(--p-line); background: var(--p-surface)
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230D0D0D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
-    cursor: pointer;
+  /* Two-way toggle, one pill with the active side filled. */
+  .where__seg {
+    display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 22px;
+    border-radius: 999px; background: var(--p-card);
   }
-  .where__field select:focus-visible { outline: 3px solid rgba(230, 0, 0, .35); outline-offset: 2px; border-color: #e60000; }
+  .where__seg button {
+    font: inherit; font-size: 15px; line-height: 1; color: var(--p-ink);
+    padding: 11px 20px; border: 0; border-radius: 999px; background: transparent; cursor: pointer;
+    transition: background .25s ease, color .25s ease;
+  }
+  .where__seg button:hover { color: #b30000; }
+  .where__seg button[aria-pressed='true'] { background: #e60000; color: #fff; }
+  .where__seg button:focus-visible { outline: 3px solid rgba(230, 0, 0, .35); outline-offset: 2px; }
 
   .where__sum { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0 0 16px; font-size: 15px; }
   .where__sumName { font-weight: 600; }
   .where__sum > b { font-size: 20px; font-weight: 600; color: #b30000; }
-  .where__sumNote { color: var(--p-muted); }
-  .where__sumNote b { color: var(--p-ink); font-weight: 600; }
 
   .where__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  .where__list :global(li) { display: grid; grid-template-columns: 26px minmax(0, 150px) 1fr 48px; align-items: center; gap: 12px; font-size: 15px; transition: opacity .3s ease; }
+  .where__list :global(li) { display: grid; grid-template-columns: 26px minmax(0, 200px) 1fr 48px; align-items: center; gap: 12px; font-size: 15px; }
   .where__list :global(.where__rank) { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--p-card); font-size: 12px; font-weight: 600; }
-  .where__list :global(li:first-child .where__rank),
-  .where__list :global(li.is-picked .where__rank) { background: var(--p-ink); color: #fff; }
   .where__list :global(.where__city) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .where__list :global(li.is-picked .where__city) { font-weight: 600; }
   .where__list :global(.where__bar) { height: 8px; border-radius: 999px; background: var(--p-card); overflow: hidden; }
   .where__list :global(.where__bar i) { display: block; height: 100%; border-radius: inherit; background: #e60000; opacity: .8; }
   .where__list :global(b) { text-align: right; font-weight: 500; }
@@ -352,33 +223,27 @@ const crore = (lakh: number) => `₹${(lakh / 100).toFixed(2)} Cr`;
   .where__panel {
     display: grid; justify-items: center; gap: 16px;
     padding: clamp(24px, 4vw, 56px);
-    border-radius: 16px; background: var(--p-wash);
+    /* A flat light red, not the gradient --p-wash. */
+    border-radius: 16px; background: #FFECE9;
   }
   .where__map {
     width: 100%; max-width: 520px; aspect-ratio: 543 / 612;
     --map-land: rgba(255, 255, 255, .92); --map-edge: rgba(13, 13, 13, .22);
     --map-state: rgba(13, 13, 13, .14); --map-label: var(--p-ink);
-    filter: drop-shadow(0 24px 36px rgba(160, 30, 20, .18));
   }
-  .where__map :global(.imap.is-zoomed) { overflow: hidden; }
-  /* Zoomed in, the map is cut to a rectangle: round it like the panel. */
-  .where__map.is-zoomed { border-radius: 14px; overflow: hidden; }
-  .where__map :global(.imap__state.is-pickable) { cursor: pointer; }
-  .where__map :global(.imap__state.is-pickable:hover) { fill: rgba(230, 0, 0, .06); }
-  .where__map :global(.imap__state.is-active) { fill: rgba(230, 0, 0, .1); stroke: rgba(179, 0, 0, .55); }
-  .where__map :global(.imap__state.is-muted) { fill: rgba(13, 13, 13, .03); }
-  .where__map :global(.imap__pin.is-dim .imap__dot) { opacity: .35; }
-  .where__map :global(.imap__pin.is-dim .imap__label) { opacity: .5; }
 
   .where__legend { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--p-muted); }
-  .where__legend i { display: block; width: 96px; height: 8px; border-radius: 999px; }
+  /* Flat steps of the pin colours, smallest to biggest share. */
+  .where__steps { display: flex; gap: 3px; }
+  .where__steps i { display: block; width: 22px; height: 10px; border-radius: 3px; }
 
   @media (max-width: 860px) {
     .where { grid-template-columns: 1fr; }
     .where__panel { padding: 20px 14px; }
   }
   @media (max-width: 420px) {
-    .where__filters { grid-template-columns: 1fr; }
+    .where__seg { display: flex; }
+    .where__seg button { flex: 1; padding: 11px 12px; }
     .where__list :global(li) { grid-template-columns: 26px minmax(0, 1fr) 70px 44px; gap: 10px; font-size: 14px; }
   }
 </style>

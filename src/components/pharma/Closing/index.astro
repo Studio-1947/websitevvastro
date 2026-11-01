@@ -1,5 +1,5 @@
 ---
-/** Closing call to action: centred, on the red wash, two buttons stacked. */
+/** Closing call to action: centred, on the red wash: a button, then a second button or (secondaryLead) a plain "Read: ..." line. */
 import { ctaAttrs } from '../types';
 import type { ClosingContent } from './content';
 
@@ -12,7 +12,9 @@ const { content: c } = Astro.props;
   <p class="p-lede pclose__sub">{c.sub}</p>
   <div class="pclose__ctas">
     <a class="p-btn" {...ctaAttrs(c.primary)}>{c.primary.label}</a>
-    <a class="p-btn p-btn--light" {...ctaAttrs(c.secondary)}>{c.secondary.label}</a>
+    {c.secondaryLead
+      ? <a class="pclose__read" {...ctaAttrs(c.secondary)}><span>{c.secondaryLead}:</span> <span>{c.secondary.label}</span></a>
+      : <a class="p-btn p-btn--light" {...ctaAttrs(c.secondary)}>{c.secondary.label}</a>}
   </div>
 </section>
 
@@ -26,4 +28,11 @@ const { content: c } = Astro.props;
   }
   .pclose__sub { margin-bottom: 30px; }
   .pclose__ctas { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .pclose__read {
+    margin-top: 6px; font-size: clamp(15px, 1.15vw, 17px); color: var(--p-ink);
+    text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; text-decoration-thickness: 1px;
+    transition: text-decoration-color .2s ease;
+  }
+  .pclose__read:hover, .pclose__read:focus-visible { text-decoration-color: currentColor; }
+  .pclose__read span:first-child { color: var(--p-muted); }
 </style>

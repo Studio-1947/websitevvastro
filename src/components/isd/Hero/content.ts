@@ -1,6 +1,10 @@
 import { DEMO, type Cta } from '../../pharma/types';
 
 export interface HeroContent {
+  /** Product name, shown above the headline. */
+  name: string;
+  /** What it is, after the name. */
+  kind: string;
   title: string;
   sub: string;
   primary: Cta;
@@ -9,6 +13,8 @@ export interface HeroContent {
 }
 
 export const hero: HeroContent = {
+  name: 'S47 Vyapar',
+  kind: '(BI Dashboard)',
   title: 'Turn your data into decisions',
   sub: 'Dashboards for sales, finance, operations and marketing, built around the questions your team asks.',
   primary: DEMO,

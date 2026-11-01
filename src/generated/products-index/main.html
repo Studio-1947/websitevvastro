@@ -1,58 +1,108 @@
 <main class="page-plist">
-    <section class="plist container">
-      <!-- Just the red "Products" label on screen; the heading stays for screen readers and search. -->
-      <div class="plist__head">
-        <p class="eyebrow">Products</p>
-        <h1 class="plist__title">Our Products</h1>
-      </div>
+    <!-- ===== Running tally, on its own at the top ===== -->
+    <!-- The day count is filled in at build time and kept current by the page script. -->
+    <section class="pdays container" aria-label="Products so far">
+      <p class="pdays__line"><b>5 products</b> <span>built in our first</span> <b data-days-since="2025-01-26">__DAYS__</b> <span>days</span></p>
+      <p class="pdays__label">Where our products are a good fit</p>
+      <ul class="pdays__inds" data-stagger>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5"/></svg></span><b><span>Academic</span> <span>spaces</span></b><small>Doptor ERP</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.35-9.5-8.8C.8 8.7 2.2 5 6 5c2 0 3.3 1 4 2.2C10.7 6 12 5 14 5c3.8 0 5.2 3.7 3.5 7.2C19 16.65 12 21 12 21Z"/></svg></span><b><span>NGOs and</span> <span>development</span></b><small>Doptor ERP</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg></span><b><span>Offices and</span> <span>administration</span></b><small>Doptor ERP</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v8h14v-8M12 8v12"/><path d="M12 8S10.5 4 8 4a2 2 0 0 0 0 4M12 8s1.5-4 4-4a2 2 0 0 1 0 4"/></svg></span><b><span>CSR and</span> <span>foundations</span></b><small>Doptor ERP</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg></span><b><span>Healthcare and</span> <span>pharmacy</span></b><small>Pharma ERP</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V7l8-4 8 4v14"/><path d="M12 9v6M9 12h6M9 21v-3h6v3"/></svg></span><b><span>Clinics and</span> <span>hospitals</span></b><small>Pharma ERP</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V13M10 20V8M16 20v-5M22 20H2"/><path d="m4 9 6-5 6 4 5-4"/></svg></span><b><span>Retail and</span> <span>sales</span></b><small>S47 Vyapar</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.5 12h12l2-8H6"/></svg></span><b><span>Online</span> <span>stores</span></b><small>S47 Vyapar</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10M10 20v-6h4v6"/></svg></span><b><span>Travel and</span> <span>hospitality</span></b><small>Aangan</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v3H3z"/><circle cx="7.5" cy="13" r=".8"/><circle cx="16.5" cy="13" r=".8"/></svg></span><b><span>Local</span> <span>transport</span></b><small>Aangan</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="m8.3 13.3 7.4 4.4M15.7 6.3l-7.4 4.4"/></svg></span><b><span>Media and</span> <span>marketing</span></b><small>Social Flow</small></li>
+        <li><span class="pdays__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></span><b><span>Brands and</span> <span>creators</span></b><small>Social Flow</small></li>
+      </ul>
+    </section>
 
-      <!-- One big block per product -->
-      <div class="plist__blocks" data-stagger>
-        <a class="pblock pblock--pharma" href="/products/pharma-erp/">
-          <span class="pblock__art" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    <!-- ===== Hero: why we make products ===== -->
+    <section class="phead container">
+      <div class="phead__grid">
+        <div class="phead__copy">
+          <p class="eyebrow">Products</p>
+          <h1 class="phead__title">Tools that let you steer your own growth</h1>
+          <p class="phead__lede">We don&#39;t build products to sell more of our services. We build them so the organisations we work with can see their own numbers, run their own operations and make their own decisions, long after a project with us ends.</p>
+          <a class="btn-hello phead__cta" href="#plist-title">
+            <span>See the products</span>
+            <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
+          </a>
+        </div>
+        <!-- Dots that gather into each product's icon in turn (scripts/bentoDots.ts) -->
+        <div class="phead__visual" data-hero-dots aria-hidden="true">
+          <canvas></canvas>
+          <p class="phead__caption">
+            <span data-hero-name="doptor">Doptor ERP</span>
+            <span data-hero-name="pharma" hidden>Pharma ERP</span>
+            <span data-hero-name="bi" hidden>S47 Vyapar</span>
+            <span data-hero-name="aangan" hidden>Aangan</span>
+            <span data-hero-name="social" hidden>Social Flow</span>
+          </p>
+        </div>
+      </div>
+      <ul class="phead__points">
+        <li><b>Yours to run</b><span>Your team works the tool day to day, without waiting on us.</span></li>
+        <li><b>Built from real work</b><span>Each product began as a problem we solved alongside a partner.</span></li>
+        <li><b>Grows with you</b><span>Start small, add modules and people as you need them.</span></li>
+      </ul>
+    </section>
+
+    <!-- ===== Bento: every product in one box ===== -->
+    <section class="plist container" aria-labelledby="plist-title">
+      <h2 id="plist-title" class="plist__title">Our Products</h2>
+      <div class="bento" data-stagger>
+        <a class="bcard bcard--lg" href="/products/doptor-erp/" data-icon="doptor">
+          <canvas class="bcard__dots" aria-hidden="true"></canvas>
+          <span class="bcard__n" aria-hidden="true">1</span>
+          <span class="bcard__text">
+            <strong>Doptor ERP</strong>
+            <span>One platform for campuses, offices and NGOs</span>
           </span>
-          <span class="pblock__label">
+          <span class="bcard__go" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a class="bcard" href="/products/pharma-erp/" data-icon="pharma">
+          <canvas class="bcard__dots" aria-hidden="true"></canvas>
+          <span class="bcard__n" aria-hidden="true">2</span>
+          <span class="bcard__text">
             <strong>Pharma ERP</strong>
             <span>Billing, stock and expiry for pharmacies</span>
           </span>
-          <span class="pblock__go" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="bcard__go" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
 
-        <a class="pblock pblock--aangan" href="/products/aangan/">
-          <span class="pblock__art" aria-hidden="true">
-            <img src="/assets/img/products/aangan/logo-white.webp" alt="" width="1109" height="268" loading="lazy">
+        <a class="bcard" href="/products/inventory-sales-dashboard/" data-icon="bi">
+          <canvas class="bcard__dots" aria-hidden="true"></canvas>
+          <span class="bcard__n" aria-hidden="true">3</span>
+          <span class="bcard__text">
+            <strong>S47 Vyapar <small>(BI Dashboard)</small></strong>
+            <span>Sales, finance and operations in one place</span>
           </span>
-          <span class="pblock__label">
+          <span class="bcard__go" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a class="bcard" href="/products/aangan/" data-icon="aangan">
+          <canvas class="bcard__dots" aria-hidden="true"></canvas>
+          <span class="bcard__n" aria-hidden="true">4</span>
+          <span class="bcard__text">
             <strong>Aangan</strong>
             <span>Homestays, cafes and drivers, shared by locals</span>
           </span>
-          <span class="pblock__go" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="bcard__go" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
 
-        <a class="pblock pblock--bi" href="/products/inventory-sales-dashboard/">
-          <span class="pblock__art" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V13M10 20V8M16 20v-5M22 20H2"/><path d="m4 9 6-5 6 4 5-4"/></svg>
+        <div class="bcard bcard--soon" tabindex="0" data-icon="social">
+          <canvas class="bcard__dots" aria-hidden="true"></canvas>
+          <span class="bcard__n" aria-hidden="true">5</span>
+          <span class="bcard__text">
+            <strong>Social Flow</strong>
+            <span>Measure your social media wisely and easily</span>
           </span>
-          <span class="pblock__label">
-            <strong>BI Dashboards</strong>
-            <span>Sales, finance and operations in one place</span>
-          </span>
-          <span class="pblock__go" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-
-        <div class="pblock pblock--soon">
-          <span class="pblock__art" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg>
-          </span>
-          <span class="pblock__label"><strong>Doptor ERP</strong><span>Coming soon</span></span>
-        </div>
-
-        <div class="pblock pblock--soon">
-          <span class="pblock__art" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="m8.3 13.3 7.4 4.4M15.7 6.3l-7.4 4.4"/></svg>
-          </span>
-          <span class="pblock__label"><strong>Social Flow</strong><span>Coming soon</span></span>
+          <em class="bcard__tag">In development</em>
         </div>
       </div>
     </section>

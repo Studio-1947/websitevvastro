@@ -10,7 +10,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { DEFAULT_FONT_HREF, productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
 import '../../components/aangan/tokens.css';
 
-import Splash from '../../components/aangan/Splash/index.astro';
 import HeroCourtyard from '../../components/aangan/HeroCourtyard/index.astro';
 import Courtyard from '../../components/aangan/Courtyard/index.astro';
 import ProviderTabs from '../../components/aangan/ProviderTabs/index.astro';
@@ -56,8 +55,6 @@ const fontHref = DEFAULT_FONT_HREF.replace('&display=swap', '&family=Noto+Sans+D
   fontHref={fontHref}
   jsonLd={jsonLd}
 >
-  <link slot="head" rel="preload" as="image" href="/assets/img/products/aangan/splash.webp" type="image/webp" />
-  <Splash />
   <main class="aangan" data-i18n-text>
     <HeroCourtyard content={hero} />
     <Courtyard story={story} loop={loop} day={day} />

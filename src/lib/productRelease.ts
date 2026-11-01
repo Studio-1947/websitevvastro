@@ -11,4 +11,13 @@
  * To release a product: add its slug (the folder name under /products/)
  * here and deploy. Nothing else changes.
  */
-export const RELEASED_PRODUCTS: string[] = ['aangan', 'pharma-erp', 'inventory-sales-dashboard'];
+export const RELEASED_PRODUCTS: string[] = [
+  'aangan',
+  'pharma-erp',
+  'inventory-sales-dashboard',
+  'doptor-erp',
+  // Doptor's three modules, linked from the Doptor ERP page.
+  'doptor-campus-manager',
+  'doptor-office-manager',
+  'doptor-ngo-manager',
+];

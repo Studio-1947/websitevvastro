@@ -5,6 +5,12 @@ export interface ClosingContent {
   sub: string;
   primary: Cta;
   secondary: Cta;
+  /**
+   * Opt-in: show the secondary link as a plain line of text that underlines on
+   * hover, with this word before it (e.g. "Read"), instead of a second button.
+   * Left out, it stays a button (the Pharma ERP page).
+   */
+  secondaryLead?: string;
 }
 
 export const closing: ClosingContent = {
