@@ -1,4 +1,4 @@
-import { translations, type Lang } from '../i18n/translations';
+import { translations, textTranslations, type Lang } from '../i18n/translations';
 
 /**
  * Swaps text for every `[data-i18n]` node to the active language, using the
@@ -25,6 +25,8 @@ function applyTranslations(lang: Lang): void {
     if (text != null && el.innerHTML !== text) el.innerHTML = text;
   });
 
+  applyTextTranslations(lang);
+
   document.querySelectorAll<HTMLElement>('[data-words-i18n]').forEach((el) => {
     if (!englishWords.has(el)) englishWords.set(el, el.dataset.words ?? '');
     const key = el.dataset.wordsI18n;
@@ -34,6 +36,45 @@ function applyTranslations(lang: Lang): void {
       el.dispatchEvent(new CustomEvent('words-updated'));
     }
   });
+}
+
+/**
+ * `[data-i18n-text]` regions (the product pages) are translated by exact
+ * English text instead of keys: every text node's whitespace-normalised copy
+ * is looked up in `textTranslations`. This suits pages whose copy lives in
+ * many component/content files, where tagging each element would be noisy.
+ * Text without an entry (names, brands, long bios) stays English. Subtrees
+ * marked `[data-i18n-skip]` (the interactive product UI previews) and
+ * `[data-i18n]` nodes (handled above) are left alone.
+ */
+const englishText = new WeakMap<Text, string>();
+const SKIP = 'script,style,svg,noscript,template,[data-i18n],[data-i18n-skip]';
+
+function applyTextTranslations(lang: Lang): void {
+  document.querySelectorAll<HTMLElement>('[data-i18n-text]').forEach((root) => {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes: Text[] = [];
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) nodes.push(n as Text);
+    nodes.forEach((node) => {
+      if (node.parentElement?.closest(SKIP)) return;
+      if (!englishText.has(node)) englishText.set(node, node.nodeValue ?? '');
+      const en = englishText.get(node)!;
+      const key = en.replace(/\s+/g, ' ').trim();
+      if (!key) return;
+      let next = en;
+      if (lang !== 'en') {
+        const t = textTranslations[key]?.[lang];
+        if (t == null) return restore(node, en);
+        // Keep the original surrounding whitespace so inline spacing holds.
+        next = en.match(/^\s*/)![0] + t + en.match(/\s*$/)![0];
+      }
+      restore(node, next);
+    });
+  });
+}
+
+function restore(node: Text, value: string): void {
+  if (node.nodeValue !== value) node.nodeValue = value;
 }
 
 export function i18n(): void {

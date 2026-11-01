@@ -22,7 +22,7 @@ const { content: c } = Astro.props;
     <span class="phero__blob phero__blob--4"></span>
   </div>
   <div class="phero__copy">
-    {/* The product's own mark: a rising line on a green tile. */}
+    {/* The product's own mark: a rising line on a red tile. */}
     <span class="phero__icon" aria-hidden="true">
       <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 5-5 4 3 7-7" /><path d="M15 7h5v5" /></svg>
     </span>
@@ -45,7 +45,7 @@ const { content: c } = Astro.props;
      before the product preview ends, so the next section starts on plain ground. */
   .phero__bg {
     position: absolute; inset: 0; z-index: -1; overflow: hidden;
-    background: #FDEEEC;
+    background: #FEF5F3;
     -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 90%);
     mask-image: linear-gradient(to bottom, #000 50%, transparent 90%);
   }
@@ -58,10 +58,10 @@ const { content: c } = Astro.props;
     scale: 1.2; /* the blur used to spill past the edge; this keeps that size */
     will-change: transform;
   }
-  .phero__blob--1 { --c: #FFD9D3; width: 55vw; height: 55vw; left: -12vw; top: -18vw; animation: phero-drift-1 26s ease-in-out infinite alternate; }
-  .phero__blob--2 { --c: #FFB0A5; width: 48vw; height: 48vw; right: -10vw; top: -14vw; animation: phero-drift-2 31s ease-in-out infinite alternate; }
-  .phero__blob--3 { --c: #FF8B7E; width: 44vw; height: 44vw; left: 38vw; top: 22vw; opacity: .55; animation: phero-drift-3 23s ease-in-out infinite alternate; }
-  .phero__blob--4 { --c: #FFE6DE; width: 40vw; height: 40vw; left: -6vw; top: 26vw; animation: phero-drift-4 35s ease-in-out infinite alternate; }
+  .phero__blob--1 { --c: #FFE8E4; width: 55vw; height: 55vw; left: -12vw; top: -18vw; animation: phero-drift-1 26s ease-in-out infinite alternate; }
+  .phero__blob--2 { --c: #FFD2CB; width: 48vw; height: 48vw; right: -10vw; top: -14vw; animation: phero-drift-2 31s ease-in-out infinite alternate; }
+  .phero__blob--3 { --c: #FFBDB4; width: 44vw; height: 44vw; left: 38vw; top: 22vw; opacity: .45; animation: phero-drift-3 23s ease-in-out infinite alternate; }
+  .phero__blob--4 { --c: #FFF0EC; width: 40vw; height: 40vw; left: -6vw; top: 26vw; animation: phero-drift-4 35s ease-in-out infinite alternate; }
 
   @keyframes phero-drift-1 { to { transform: translate(14vw, 8vw) scale(1.12); } }
   @keyframes phero-drift-2 { to { transform: translate(-16vw, 10vw) scale(.9); } }
@@ -80,8 +80,8 @@ const { content: c } = Astro.props;
   .phero__icon {
     display: grid; place-items: center; width: 72px; height: 72px; margin-bottom: clamp(28px, 3vw, 40px);
     border-radius: 18px;
-    background: linear-gradient(160deg, #14B886, #0B8A65);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, .6), 0 10px 24px -8px rgba(11, 138, 101, .55);
+    background: #E60000;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .6), 0 10px 24px -8px rgba(230, 0, 0, .45);
   }
   .phero__title { margin: 0; max-width: 16ch; font-size: clamp(42px, 5.6vw, 76px); line-height: 1.04; }
   .phero__example { margin: clamp(24px, 2.6vw, 34px) 0 -16px; font-size: 14px; color: var(--p-muted); }

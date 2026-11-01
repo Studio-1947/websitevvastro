@@ -41,9 +41,9 @@
     </div>
 
     <div class="cm-body">
-      <p class="eyebrow">Say Hello to Studio 1947</p>
-      <h2 class="contact-modal__title" id="cm-title">Send us a note.</h2>
-      <p class="contact-modal__sub">We usually reply within a couple of working days.</p>
+      <p class="eyebrow" data-i18n="global.contact.eyebrow">Say Hello to Studio 1947</p>
+      <h2 class="contact-modal__title" id="cm-title" data-i18n="global.contact.title">Send us a note.</h2>
+      <p class="contact-modal__sub" data-i18n="global.contact.sub">We usually reply within a couple of working days.</p>
       <form action="https://api.web3forms.com/submit" method="POST" novalidate data-contact-form>
         <input type="hidden" name="access_key" value="5f7140d3-65d4-4366-bdd0-e326ec2b8483" />
         <input type="hidden" name="subject" value="New enquiry from Studio 1947 website" />
@@ -52,27 +52,27 @@
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="cm-row">
           <div class="cm-field">
-            <label for="cm-name">Name <span class="cm-req" aria-hidden="true">*</span></label>
+            <label for="cm-name"><span data-i18n="global.contact.name">Name</span> <span class="cm-req" aria-hidden="true">*</span></label>
             <input type="text" id="cm-name" name="name" placeholder="Your name" autocomplete="name" required />
           </div>
           <div class="cm-field">
-            <label for="cm-email">Email <span class="cm-req" aria-hidden="true">*</span></label>
+            <label for="cm-email"><span data-i18n="global.contact.email">Email</span> <span class="cm-req" aria-hidden="true">*</span></label>
             <input type="email" id="cm-email" name="email" placeholder="you@example.com" autocomplete="email" required />
           </div>
         </div>
         <div class="cm-field">
-          <label for="cm-org">Organisation</label>
+          <label for="cm-org" data-i18n="global.contact.org">Organisation</label>
           <input type="text" id="cm-org" name="organisation" placeholder="Company or organisation (optional)" autocomplete="organization" />
         </div>
         <div class="cm-field">
-          <label for="cm-msg">Message <span class="cm-req" aria-hidden="true">*</span></label>
+          <label for="cm-msg"><span data-i18n="global.contact.message">Message</span> <span class="cm-req" aria-hidden="true">*</span></label>
           <textarea id="cm-msg" name="message" placeholder="Tell us about your challenge, goals and timeline…" required></textarea>
         </div>
         <button type="submit" class="cm-submit">
-          Send message
+          <span data-i18n="global.contact.send">Send message</span>
           <span class="arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </button>
-        <p class="cm-note">Prefer email? Write to us at <a href="mailto:studio@1947.io" style="color:var(--red)">studio@1947.io</a>.</p>
+        <p class="cm-note"><span data-i18n="global.contact.preferEmail">Prefer email? Write to us at</span> <a href="mailto:studio@1947.io" style="color:var(--red)">studio@1947.io</a>.</p>
       </form>
     </div>
   </div>

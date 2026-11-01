@@ -115,13 +115,78 @@ export const steps: StepsContent = {
   ],
 };
 
-export interface WhereContent { title: string; body: string; foot: string; cities: readonly Pin[] }
+/**
+ * One delivery area in the location section's sample data. `revenue` is net
+ * revenue, financial year to date, in ₹ lakh; shares are worked out from it
+ * for whatever the state / pincode filters leave in view. `state` must match
+ * a name in Map/states.ts so the map can find and zoom to it.
+ */
+export interface Place {
+  pincode: string;
+  area: string;
+  city: string;
+  state: string;
+  lon: number;
+  lat: number;
+  revenue: number;
+}
+
+export interface WhereContent {
+  title: string;
+  body: string;
+  foot: string;
+  /** Pins for the no-JavaScript view (all states, by city). */
+  cities: readonly Pin[];
+  places: Place[];
+}
+
+export const PLACES: Place[] = [
+  { pincode: '110001', area: 'Connaught Place', city: 'Delhi NCR', state: 'Delhi', lon: 77.22, lat: 28.63, revenue: 498 },
+  { pincode: '110017', area: 'Saket', city: 'Delhi NCR', state: 'Delhi', lon: 77.21, lat: 28.52, revenue: 277 },
+  { pincode: '122002', area: 'Gurugram', city: 'Delhi NCR', state: 'Haryana', lon: 77.08, lat: 28.47, revenue: 332 },
+  { pincode: '201301', area: 'Noida', city: 'Delhi NCR', state: 'Uttar Pradesh', lon: 77.32, lat: 28.57, revenue: 221 },
+  { pincode: '400001', area: 'Fort', city: 'Mumbai', state: 'Maharashtra', lon: 72.84, lat: 18.94, revenue: 277 },
+  { pincode: '400050', area: 'Bandra West', city: 'Mumbai', state: 'Maharashtra', lon: 72.83, lat: 19.06, revenue: 332 },
+  { pincode: '400601', area: 'Thane', city: 'Mumbai', state: 'Maharashtra', lon: 72.97, lat: 19.19, revenue: 221 },
+  { pincode: '411001', area: 'Pune Camp', city: 'Pune', state: 'Maharashtra', lon: 73.88, lat: 18.52, revenue: 96 },
+  { pincode: '800001', area: 'Patna GPO', city: 'Patna', state: 'Bihar', lon: 85.14, lat: 25.61, revenue: 332 },
+  { pincode: '800020', area: 'Kankarbagh', city: 'Patna', state: 'Bihar', lon: 85.16, lat: 25.59, revenue: 221 },
+  { pincode: '842001', area: 'Muzaffarpur', city: 'Muzaffarpur', state: 'Bihar', lon: 85.39, lat: 26.12, revenue: 166 },
+  { pincode: '812001', area: 'Bhagalpur', city: 'Bhagalpur', state: 'Bihar', lon: 87.0, lat: 25.25, revenue: 111 },
+  { pincode: '823001', area: 'Gaya', city: 'Gaya', state: 'Bihar', lon: 85.0, lat: 24.79, revenue: 111 },
+  { pincode: '700001', area: 'BBD Bagh', city: 'Kolkata', state: 'West Bengal', lon: 88.35, lat: 22.57, revenue: 221 },
+  { pincode: '700091', area: 'Salt Lake', city: 'Kolkata', state: 'West Bengal', lon: 88.42, lat: 22.58, revenue: 221 },
+  { pincode: '711101', area: 'Howrah', city: 'Kolkata', state: 'West Bengal', lon: 88.31, lat: 22.59, revenue: 111 },
+  { pincode: '734001', area: 'Siliguri', city: 'Siliguri', state: 'West Bengal', lon: 88.43, lat: 26.71, revenue: 74 },
+  { pincode: '226001', area: 'Hazratganj', city: 'Lucknow', state: 'Uttar Pradesh', lon: 80.95, lat: 26.85, revenue: 221 },
+  { pincode: '226010', area: 'Gomti Nagar', city: 'Lucknow', state: 'Uttar Pradesh', lon: 81.0, lat: 26.85, revenue: 166 },
+  { pincode: '208001', area: 'Kanpur', city: 'Kanpur', state: 'Uttar Pradesh', lon: 80.33, lat: 26.46, revenue: 221 },
+  { pincode: '221001', area: 'Varanasi', city: 'Varanasi', state: 'Uttar Pradesh', lon: 82.97, lat: 25.32, revenue: 166 },
+  { pincode: '282001', area: 'Agra', city: 'Agra', state: 'Uttar Pradesh', lon: 78.01, lat: 27.18, revenue: 111 },
+  { pincode: '302001', area: 'Jaipur City', city: 'Jaipur', state: 'Rajasthan', lon: 75.82, lat: 26.92, revenue: 194 },
+  { pincode: '302017', area: 'Malviya Nagar', city: 'Jaipur', state: 'Rajasthan', lon: 75.81, lat: 26.85, revenue: 138 },
+  { pincode: '342001', area: 'Jodhpur', city: 'Jodhpur', state: 'Rajasthan', lon: 73.02, lat: 26.29, revenue: 111 },
+  { pincode: '313001', area: 'Udaipur', city: 'Udaipur', state: 'Rajasthan', lon: 73.71, lat: 24.58, revenue: 111 },
+  { pincode: '560001', area: 'MG Road', city: 'Bengaluru', state: 'Karnataka', lon: 77.6, lat: 12.97, revenue: 166 },
+  { pincode: '560034', area: 'Koramangala', city: 'Bengaluru', state: 'Karnataka', lon: 77.62, lat: 12.93, revenue: 111 },
+  { pincode: '452001', area: 'Indore', city: 'Indore', state: 'Madhya Pradesh', lon: 75.86, lat: 22.72, revenue: 166 },
+  { pincode: '462001', area: 'Bhopal', city: 'Bhopal', state: 'Madhya Pradesh', lon: 77.41, lat: 23.26, revenue: 111 },
+  { pincode: '248001', area: 'Dehradun', city: 'Dehradun', state: 'Uttarakhand', lon: 78.03, lat: 30.32, revenue: 166 },
+  { pincode: '834001', area: 'Ranchi', city: 'Ranchi', state: 'Jharkhand', lon: 85.33, lat: 23.36, revenue: 111 },
+  { pincode: '831001', area: 'Jamshedpur', city: 'Jamshedpur', state: 'Jharkhand', lon: 86.2, lat: 22.8, revenue: 55 },
+  { pincode: '600001', area: 'Parrys', city: 'Chennai', state: 'Tamil Nadu', lon: 80.29, lat: 13.09, revenue: 88 },
+  { pincode: '500001', area: 'Abids', city: 'Hyderabad', state: 'Telangana', lon: 78.47, lat: 17.39, revenue: 92 },
+  { pincode: '380001', area: 'Lal Darwaja', city: 'Ahmedabad', state: 'Gujarat', lon: 72.58, lat: 23.02, revenue: 84 },
+  { pincode: '781001', area: 'Pan Bazaar', city: 'Guwahati', state: 'Assam', lon: 91.74, lat: 26.18, revenue: 61 },
+  { pincode: '751001', area: 'Bhubaneswar', city: 'Bhubaneswar', state: 'Odisha', lon: 85.82, lat: 20.27, revenue: 58 },
+];
 
 export const where: WhereContent = {
   title: 'See where your business happens',
   body: 'Orders, customers, field teams or service calls: anything with a location goes on the map, so you can see which regions are growing and where to invest next.',
   foot: 'Example: share of net revenue by city, financial year to date. Sample data.',
   cities: CITIES,
+  places: PLACES,
 };
 
 export interface Tool {

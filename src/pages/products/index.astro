@@ -12,5 +12,5 @@ import css from '../../generated/products-index/style.css?raw';
   ogType={"website"}
 >
   <style slot="head" is:global set:html={css} />
-  <Fragment set:html={html} />
+  <Fragment set:html={html.replace('<main ', '<main data-i18n-text ')} />
 </BaseLayout>

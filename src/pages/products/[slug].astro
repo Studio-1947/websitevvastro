@@ -15,7 +15,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const d = entry.data;
+// Product copy is translated by exact English text (see scripts/i18n.ts).
+const d = { ...entry.data, html: entry.data.html.replace('<main ', '<main data-i18n-text ') };
 const url = new URL(`/products/${entry.id}/`, Astro.site).href;
 const jsonLd = [productJsonLd({ name: cleanName(d.title), description: d.description, url }),
   breadcrumbJsonLd([

@@ -1,7 +1,7 @@
 ---
 /**
  * Everything that is included: a centred heading over plain cards, each with
- * its icon on the red wash. Four across, two on tablets and phones (compact there).
+ * its icon on a flat red tint. Four across, two on tablets and phones (compact there).
  */
 import type { ToolkitContent } from '../content';
 
@@ -35,7 +35,8 @@ const { content: c } = Astro.props;
   .tk__card { display: flex; flex-direction: column; gap: 8px; padding: 14px 14px 22px; border-radius: 16px; background: var(--p-card); }
   .tk__icon {
     display: grid; place-items: center; width: 64px; height: 64px; margin-bottom: 18px; border-radius: 14px;
-    background: var(--p-wash); color: var(--p-ink);
+    /* A flat tint of Studio 1947 red, not the gradient --p-wash. */
+    background: #FFDCD6; color: var(--p-ink);
   }
   .tk__title { margin: 0; padding: 0 4px; font-size: 20px; line-height: 1.2; }
   .tk__body { margin: 0; padding: 0 4px; font-size: 15px; line-height: 1.5; color: var(--p-muted); }

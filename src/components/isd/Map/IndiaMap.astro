@@ -1,15 +1,22 @@
 ---
 /**
- * Map of India with a pin per city, sized by its share of sales. Used by the
- * dashboard's Geo Insights screen and by the page's location section; each
- * styles it through the custom properties below. Decorative: the lists next
- * to it carry the same numbers.
+ * Map of India with state borders and a pin per place, sized and shaded by its
+ * share of sales (deeper red = bigger share). Used by the dashboard's Geo
+ * Insights screen and by the page's location section; each styles it through
+ * the custom properties below. The lists next to it carry the same numbers.
  *
  *   --map-land, --map-edge   fill and outline of the country
- *   --map-pin                pin colour
+ *   --map-state              state border colour
  *   --map-label              label colour
+ *
+ * State shapes are clipped to the country outline, so the outer border is
+ * always India's official boundary (see ./india.ts and ./states.ts). Each
+ * state path carries `data-state`, and the pins sit in `[data-pins]`, so a
+ * script can highlight a state and redraw the pins (components/isd/Where).
  */
 import { INDIA, INDIA_PATH, project } from './india';
+import { STATES } from './states';
+import { shade } from './shade';
 
 export interface Pin {
   label: string;
@@ -27,42 +34,61 @@ interface Props {
 }
 const { pins, size = 18, class: cls } = Astro.props;
 const top = Math.max(...pins.map((p) => p.share));
+// Two maps can share a page, so the clip path needs its own id.
+const clip = `imap-clip-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
-<svg class:list={['imap', cls]} viewBox={`0 0 ${INDIA.w} ${INDIA.h}`} role="img" aria-label="Map of India showing where orders come from">
+<svg class:list={['imap', cls]} viewBox={`0 0 ${INDIA.w} ${INDIA.h}`} data-imap role="img" aria-label="Map of India showing where orders come from">
+  <defs><clipPath id={clip}><path d={INDIA_PATH} /></clipPath></defs>
   <path class="imap__land" d={INDIA_PATH} />
-  {pins.map((p, i) => {
-    const [x, y] = project(p.lon, p.lat);
-    const r = Math.max(5, size * Math.sqrt(p.share / top));
-    const left = p.side === 'l';
-    return (
-      <g class:list={['imap__pin', { 'is-top': i === 0 }]} style={`--d: ${i * 90}ms`}>
-        {i === 0 && <circle class="imap__pulse" cx={x.toFixed(1)} cy={y.toFixed(1)} r={r.toFixed(1)} />}
-        <circle class="imap__dot" cx={x.toFixed(1)} cy={y.toFixed(1)} r={r.toFixed(1)} />
-        <text class="imap__label" x={(x + (left ? -r - 6 : r + 6)).toFixed(1)} y={(y + 5).toFixed(1)} text-anchor={left ? 'end' : 'start'}>{p.label}</text>
-      </g>
-    );
-  })}
+  <g class="imap__states" clip-path={`url(#${clip})`}>
+    {STATES.map((s) => <path class="imap__state" d={s.d} data-state={s.name} />)}
+  </g>
+  <path class="imap__outline" d={INDIA_PATH} />
+  <g data-pins>
+    {pins.map((p, i) => {
+      const [x, y] = project(p.lon, p.lat);
+      const r = Math.max(5, size * Math.sqrt(p.share / top));
+      const left = p.side === 'l';
+      return (
+        <g class:list={['imap__pin', { 'is-top': i === 0 }]} style={`--d: ${i * 90}ms; --pin: ${shade(p.share / top)}`}>
+          {i === 0 && <circle class="imap__pulse" cx={x.toFixed(1)} cy={y.toFixed(1)} r={r.toFixed(1)} />}
+          <circle class="imap__dot" cx={x.toFixed(1)} cy={y.toFixed(1)} r={r.toFixed(1)} />
+          <text class="imap__label" x={(x + (left ? -r - 6 : r + 6)).toFixed(1)} y={(y + 5).toFixed(1)} text-anchor={left ? 'end' : 'start'}>{p.label}</text>
+        </g>
+      );
+    })}
+  </g>
 </svg>
 
-<style>
+<style is:global>
+  /* Global (not scoped) so the Where section's script can draw pins with the
+     same classes after load. */
   .imap { display: block; width: 100%; height: 100%; overflow: visible; }
-  .imap__land { fill: var(--map-land, #E8ECF8); stroke: var(--map-edge, #C3CCE8); stroke-width: 1.5; stroke-linejoin: round; }
+  .imap__land { fill: var(--map-land, #E8ECF8); }
+  .imap__state {
+    fill: transparent; stroke: var(--map-state, rgba(13, 13, 13, .16)); stroke-width: .9; stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    transition: fill .35s ease, opacity .35s ease;
+  }
+  .imap__outline { fill: none; stroke: var(--map-edge, #C3CCE8); stroke-width: 1.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   .imap__dot {
-    fill: var(--map-pin, #DC2626); fill-opacity: .88; stroke: #fff; stroke-width: 2.5;
+    fill: var(--pin, #DC2626); fill-opacity: .92; stroke: #fff; stroke-width: 2.5; vector-effect: non-scaling-stroke;
     transform-box: fill-box; transform-origin: center;
     animation: imap-in .5s cubic-bezier(.22, 1.4, .36, 1) var(--d) both;
+    transition: opacity .3s ease;
   }
   .imap__pulse {
-    fill: var(--map-pin, #DC2626); opacity: 0;
+    fill: var(--pin, #DC2626); opacity: 0;
     transform-box: fill-box; transform-origin: center;
     animation: imap-pulse 2.4s ease-out infinite;
   }
-  .imap__label { font-size: 15px; font-weight: 600; fill: var(--map-label, #1F2937); paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
+  .imap__label { font-size: 15px; font-weight: 600; fill: var(--map-label, #1F2937); paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; transition: opacity .3s ease; }
   @keyframes imap-in { from { transform: scale(0); } }
   @keyframes imap-pulse { 0% { opacity: .35; transform: scale(1); } 100% { opacity: 0; transform: scale(2.6); } }
   @media (prefers-reduced-motion: reduce) {
     .imap__dot { animation: none; }
     .imap__pulse { display: none; }
+    .imap__state { transition: none; }
   }
 </style>

@@ -14,8 +14,12 @@ import { solutions } from './pages/solutions';
 import { careers } from './pages/careers';
 import { blog } from './pages/blog';
 import { work } from './pages/work';
+import { products } from './text/products';
 
 export type { Lang } from './types';
+
+/** English text → translations, for `[data-i18n-text]` regions (product pages). */
+export const textTranslations: Record<string, Entry> = products;
 
 export const translations: Record<string, Entry> = {
   ...global,

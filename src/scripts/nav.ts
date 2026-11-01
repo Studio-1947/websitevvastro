@@ -31,10 +31,9 @@ export function navDropdowns(): void {
 }
 
 /**
- * Language switcher for the desktop dropdown and mobile menu lists. Items
- * carrying `data-lang-locked` (Hindi and Bengali, "Coming Soon" until their
- * copy is reviewed and launch-ready) stay inert in both lists; English and
- * Nepali are live. Selecting a language stores it and fires
+ * Language switcher for the desktop dropdown and mobile menu lists. English,
+ * Hindi, Bengali and Nepali are all live; an item carrying `data-lang-locked`
+ * (none today) stays inert, for a future "Coming Soon" language. Selecting a language stores it and fires
  * `site-language-change`, which i18n.ts listens for to swap `[data-i18n]`
  * text.
  */

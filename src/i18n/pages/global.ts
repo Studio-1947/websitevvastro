@@ -107,4 +107,26 @@ export const global: Record<string, Entry> = {
     ne: 'आउनुहोस् सँगै केही अर्थपूर्ण<br />र प्रभावकारी सिर्जना गरौं।',
   },
   'global.footer.copyBy': { hi: 'द्वारा', bn: 'কর্তৃক', ne: 'द्वारा' },
+
+  'global.nav.selectLanguage': { hi: 'भाषा चुनें', bn: 'ভাষা বেছে নিন', ne: 'भाषा छान्नुहोस्' },
+  'global.nav.language': { hi: 'भाषा', bn: 'ভাষা', ne: 'भाषा' },
+
+  // ── Contact modal (every page) ─────────────────────────────────────────
+  'global.contact.eyebrow': { hi: 'Studio 1947 को नमस्ते कहें', bn: 'Studio 1947-কে হ্যালো বলুন', ne: 'Studio 1947 लाई नमस्ते भन्नुहोस्' },
+  'global.contact.title': { hi: 'हमें एक संदेश भेजें।', bn: 'আমাদের একটি বার্তা পাঠান।', ne: 'हामीलाई एउटा सन्देश पठाउनुहोस्।' },
+  'global.contact.sub': {
+    hi: 'हम आमतौर पर कुछ कार्यदिवसों में जवाब देते हैं।',
+    bn: 'আমরা সাধারণত কয়েক কর্মদিবসের মধ্যে উত্তর দিই।',
+    ne: 'हामी प्रायः केही कार्यदिनभित्र जवाफ दिन्छौं।',
+  },
+  'global.contact.name': { hi: 'नाम', bn: 'নাম', ne: 'नाम' },
+  'global.contact.email': { hi: 'ईमेल', bn: 'ইমেল', ne: 'इमेल' },
+  'global.contact.org': { hi: 'संगठन', bn: 'প্রতিষ্ঠান', ne: 'संस्था' },
+  'global.contact.message': { hi: 'संदेश', bn: 'বার্তা', ne: 'सन्देश' },
+  'global.contact.send': { hi: 'संदेश भेजें', bn: 'বার্তা পাঠান', ne: 'सन्देश पठाउनुहोस्' },
+  'global.contact.preferEmail': {
+    hi: 'ईमेल करना पसंद है? हमें लिखें:',
+    bn: 'ইমেল পছন্দ? আমাদের লিখুন:',
+    ne: 'इमेल रुचाउनुहुन्छ? हामीलाई लेख्नुहोस्:',
+  },
 };

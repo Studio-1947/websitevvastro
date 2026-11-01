@@ -52,6 +52,7 @@ const nav: { label: string; icon: IconName; go: string }[] = [
 
 <div
   class="dash"
+  data-i18n-skip
   data-dash
   data-crumbs={JSON.stringify(Object.fromEntries(nav.map((n) => [n.go, n.label])))}
   role="region"
