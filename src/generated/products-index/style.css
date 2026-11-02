@@ -13,6 +13,9 @@
       padding: clamp(14px, 1.4vw, 20px); border-radius: var(--radius-lg);
       background: var(--bg-alt); box-shadow: inset 0 0 0 1px var(--line);
       transition: box-shadow .35s var(--ease), background .35s var(--ease);
+      /* The reveal script sets a growing inline delay per card (data-stagger);
+         without this the hover on later cards waits up to ~1.4s. */
+      transition-delay: 0s !important;
     }
     .page-plist .pdays__inds li:hover { background: #fff; box-shadow: inset 0 0 0 1px rgba(230, 0, 0, .35); }
     .page-plist .pdays__ico { display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 10px; border-radius: 12px; background: #fff; color: var(--red); box-shadow: inset 0 0 0 1px var(--line); }
