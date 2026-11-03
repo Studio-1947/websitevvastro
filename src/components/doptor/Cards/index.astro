@@ -1,0 +1,87 @@
+---
+/**
+ * A centred heading over a grid of plain cards, each with its icon on a flat
+ * red tint: the S47 Vyapar toolkit design (components/isd/Toolkit), with an
+ * optional eyebrow, three or four columns, an optional line under the grid
+ * and an optional text link after it. Used several times on
+ * /products/doptor-erp/. Two columns on tablets and phones (compact there).
+ */
+export interface Card { title: string; body: string; icon: string }
+export interface CardsContent {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  cards: Card[];
+  cols?: 3 | 4;
+  note?: string;
+  /** A text link after the grid, e.g. to a live demo on the same page. */
+  link?: { label: string; href: string };
+}
+
+interface Props { content: CardsContent }
+const { content: c } = Astro.props;
+---
+
+<section class="cards" aria-labelledby={`${c.id}-title`}>
+  <header class="cards__head">
+    {c.eyebrow && <p class="cards__eyebrow">{c.eyebrow}</p>}
+    <h2 id={`${c.id}-title`} class="p-title">{c.title}</h2>
+    {c.lede && <p class="p-lede">{c.lede}</p>}
+  </header>
+  <ul class:list={['cards__grid', { 'cards__grid--3': c.cols === 3 }]} data-stagger>
+    {c.cards.map((t) => (
+      <li class="cards__card">
+        <span class="cards__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={t.icon} />
+        </span>
+        <h3 class="cards__title">{t.title}</h3>
+        <p class="cards__body">{t.body}</p>
+      </li>
+    ))}
+  </ul>
+  {c.note && <p class="cards__note">{c.note}</p>}
+  {c.link && (
+    <p class="cards__more">
+      <a class="cards__link" href={c.link.href}>
+        <span>{c.link.label}</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" /></svg>
+      </a>
+    </p>
+  )}
+</section>
+
+<style>
+  .cards { max-width: 1280px; margin: 0 auto; padding: clamp(56px, 7vw, 110px) clamp(16px, 5vw, 72px); }
+  .cards__head { max-width: 820px; margin: 0 auto clamp(36px, 4.4vw, 56px); text-align: center; }
+  .cards__eyebrow { margin: 0 0 14px; font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--p-muted); }
+  .cards__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .cards__grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .cards__card { display: flex; flex-direction: column; gap: 8px; padding: 14px 14px 22px; border-radius: 16px; background: var(--p-card); }
+  .cards__icon {
+    display: grid; place-items: center; width: 64px; height: 64px; margin-bottom: 18px; border-radius: 14px;
+    /* A flat tint of Studio 1947 red, as on the S47 Vyapar toolkit. */
+    background: #FFDCD6; color: var(--p-ink);
+  }
+  .cards__title { margin: 0; padding: 0 4px; font-size: 20px; line-height: 1.2; }
+  .cards__body { margin: 0; padding: 0 4px; font-size: 15px; line-height: 1.5; color: var(--p-muted); }
+  .cards__more { margin: clamp(24px, 2.6vw, 34px) 0 0; text-align: center; }
+  .cards__link {
+    display: inline-flex; align-items: center; gap: 8px; font-size: clamp(15px, 1.15vw, 17px); font-weight: 500; color: var(--p-ink);
+    text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; text-decoration-thickness: 1px;
+    transition: text-decoration-color .2s ease;
+  }
+  .cards__link:hover, .cards__link:focus-visible { text-decoration-color: currentColor; }
+  .cards__note { max-width: 760px; margin: clamp(28px, 3vw, 40px) auto 0; text-align: center; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.5; color: var(--p-ink); }
+
+  @media (max-width: 960px) { .cards__grid, .cards__grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 520px) {
+    .cards__grid { gap: 10px; }
+    .cards__card { gap: 6px; padding: 10px 10px 16px; border-radius: 14px; }
+    .cards__icon { width: 44px; height: 44px; margin-bottom: 8px; border-radius: 12px; }
+    .cards__icon svg { width: 20px; height: 20px; }
+    .cards__title { font-size: 17px; }
+    .cards__body { font-size: 13.5px; }
+  }
+</style>

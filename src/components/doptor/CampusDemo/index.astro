@@ -1,0 +1,114 @@
+---
+/**
+ * The live Doptor Campus demo on /products/doptor-erp/: the Campus prototype
+ * (public/demos/doptor-campus/index.html, a self-contained page with eight
+ * role portals and 22 modules on sample data) shown in a frame. It runs at a
+ * fixed 1280 × 760, the same stage as the Office Manager demo in the hero,
+ * and is scaled to fit, so it reads the same at every width. The frame loads
+ * when it comes near the screen.
+ *
+ * While on screen and untouched, a pointer plays a guided demo inside it
+ * (src/scripts/demoTour.ts): it signs in as the principal, opens a few
+ * modules, switches to a teacher's view and back to the role picker. The
+ * pointer sits on a click-through layer over the frame, at the same scale.
+ * The first click or key press inside the demo stops it.
+ *
+ * To update the demo, replace that file with a newer copy of the prototype
+ * and keep its `noindex` meta tag. The tour finds things by the prototype's
+ * own hooks (.rolebtn[data-role], #exploreBtn, .navitem[data-p], #exitBtn).
+ */
+// The file itself, not the folder: `astro dev` does not serve a folder's
+// index.html from public/, so `/demos/doptor-campus/` 404s there.
+const SRC = '/demos/doptor-campus/index.html';
+---
+
+<div class="cdemo" data-cdemo data-i18n-skip>
+  <div class="cdemo__scaler" data-scaler>
+    <iframe
+      class="cdemo__stage"
+      data-stage
+      src={SRC}
+      title="Interactive demo of Doptor Campus, with sample data. Pick an institution type and a role to explore."
+      loading="lazy"
+      width="1280"
+      height="760"
+    ></iframe>
+    <div class="cdemo__over" data-over aria-hidden="true"></div>
+  </div>
+</div>
+
+<script>
+  import { startTour } from '../../../scripts/demoTour';
+
+  document.querySelectorAll<HTMLElement>('[data-cdemo]').forEach((root) => {
+    const W = 1280, H = 760;
+    const scaler = root.querySelector<HTMLElement>('[data-scaler]')!;
+    const frame = root.querySelector<HTMLIFrameElement>('[data-stage]')!;
+    const over = root.querySelector<HTMLElement>('[data-over]')!;
+    const fit = () => {
+      const s = scaler.clientWidth / W;
+      frame.style.setProperty('--s', String(s));
+      over.style.setProperty('--s', String(s));
+      scaler.style.height = `${H * s}px`;
+    };
+    new ResizeObserver(fit).observe(scaler);
+    fit();
+
+    // Guided demo, driven from here into the same-origin frame.
+    const loaded = new Promise<void>((resolve) => {
+      const done = () => frame.contentDocument?.getElementById('exploreBtn') && resolve();
+      frame.addEventListener('load', done);
+      done();
+    });
+    const doc = () => frame.contentDocument!;
+    const q = (sel: string) => doc().querySelector<HTMLElement>(sel);
+    const inApp = () => !!q('.navitem') && q('.navitem')!.offsetParent !== null;
+    startTour({
+      root,
+      stage: over,
+      ready: loaded,
+      docs: () => [doc()],
+      round: async ({ wait, press }) => {
+        await wait(2200);
+        if (inApp()) { await press(q('#exitBtn')); await wait(1400); }
+        await press(q('.rolebtn[data-role="admin"]'));
+        await wait(900);
+        await press(q('#exploreBtn'));
+        await wait(2600);
+        for (const page of ['admissions', 'attendance', 'timetable']) {
+          await press(q(`.navitem[data-p="${page}"]`));
+          await wait(2400);
+        }
+        await press(q('.navitem[data-p="dashboard"]'));
+        await wait(1800);
+        await press(q('#exitBtn'));
+        await wait(1600);
+        await press(q('.rolebtn[data-role="teacher"]'));
+        await wait(900);
+        await press(q('#exploreBtn'));
+        await wait(3000);
+        await press(q('#exitBtn'));
+      },
+    });
+  });
+</script>
+
+<style>
+  /* Same frame as the Office Manager demo: 1120px wide at most, 1280 × 760 stage. */
+  .cdemo {
+    max-width: 1120px; margin: 0 auto;
+    border-radius: 14px; overflow: hidden;
+    background: #FAF6EE; box-shadow: 0 0 0 1px rgba(13, 13, 13, .07), 0 30px 60px -30px rgba(22, 33, 63, .4);
+  }
+  .cdemo__scaler { position: relative; aspect-ratio: 1280 / 760; overflow: hidden; }
+  /* Click-through layer over the frame, at the same scale, that holds the demo pointer. */
+  .cdemo__over {
+    position: absolute; top: 0; left: 0; width: 1280px; height: 760px; pointer-events: none;
+    transform: scale(var(--s, 1)); transform-origin: 0 0;
+  }
+  .cdemo__stage {
+    position: absolute; top: 0; left: 0; width: 1280px; height: 760px; border: 0; display: block;
+    transform: scale(var(--s, 1)); transform-origin: 0 0;
+    background: #FAF6EE;
+  }
+</style>

@@ -1,25 +1,52 @@
 ---
 /**
- * Doptor ERP. Its copy is still one HTML string in
- * src/content/products/doptor-erp.json (rendered like the other ERP pages by
- * [slug].astro), but it embeds a live component: the NGO dashboard demo goes
- * where the string has `<!-- @ngo-dashboard -->`.
+ * Doptor ERP product page, laid out like S47 Vyapar (BI Dashboard): built
+ * from components on the shared product tokens (components/pharma/tokens.css)
+ * rather than the HTML string rendered by [slug].astro. Doptor is a single
+ * page; its three workspaces are covered here, not on pages of their own.
+ *
+ *   Hero      S47 Vyapar's hero design, with the live Office Manager demo
+ *   Why       the problem (Cards)
+ *   Spaces    the three workspaces, in the order the page then follows (Cards)
+ *   Core      what every workspace has (S47 Vyapar's toolkit cards)
+ *   Campus    row → what a campus adds (Cards) → live Campus demo → who sees what (Access)
+ *   Office    row → what an office adds, with a link up to the demo → who sees what
+ *   NGO       row → report types → live NGO demo → who sees what
+ *   Steps     S47 Vyapar's three-step design, with this page's pictures
+ *   Plans     the three ways to run it: online (SaaS), on site, own server
+ *   Closing   the shared closing call to action
+ *
+ * Copy is in components/doptor/content.ts. SEO fields still come from
+ * src/content/products/doptor-erp.json.
  */
 import { getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
-import productCss from '../../styles/product.css?raw';
+import '../../components/pharma/tokens.css';
+
+import Hero from '../../components/doptor/Hero/index.astro';
+import Cards from '../../components/doptor/Cards/index.astro';
+import Rows from '../../components/doptor/Rows/index.astro';
+import Access from '../../components/doptor/Access/index.astro';
+import DemoSection from '../../components/doptor/DemoSection/index.astro';
+import CampusDemo from '../../components/doptor/CampusDemo/index.astro';
 import NgoDashboard from '../../components/doptor/NgoDashboard/index.astro';
+import Steps from '../../components/doptor/Steps/index.astro';
+import Plans from '../../components/doptor/Plans/index.astro';
+import Toolkit from '../../components/isd/Toolkit/index.astro';
+import Closing from '../../components/pharma/Closing/index.astro';
+
+import {
+  hero, why, spaces, toolkit,
+  rowsCampus, campus, campusDemo, accessCampus,
+  rowsOffice, office, accessOffice,
+  rowsNgo, reports, ngo, accessNgo,
+  steps, plans, closing,
+} from '../../components/doptor/content';
 
 const entry = await getEntry('products', 'doptor-erp');
 if (!entry) throw new Error('src/content/products/doptor-erp.json is missing');
 const d = entry.data;
-const MARK = '<!-- @ngo-dashboard -->';
-// Product copy is translated by exact English text (see scripts/i18n.ts).
-const html = d.html.replace('<main ', '<main data-i18n-text ');
-if (!html.includes(MARK)) throw new Error(`doptor-erp.json is missing the ${MARK} marker`);
-const [before, after] = html.split(MARK);
-const css = [productCss, d.styles].filter(Boolean).join('\n');
 const url = new URL('/products/doptor-erp/', Astro.site).href;
 const jsonLd = [
   productJsonLd({ name: cleanName(d.title), description: d.description, url }),
@@ -37,14 +64,36 @@ const jsonLd = [
   ogTitle={d.ogTitle}
   ogDescription={d.ogDescription}
   ogType={d.ogType}
-  image={d.image}
-  bodyClass={d.bodyClass}
   noindex={d.noindex}
-  fontHref={d.fontHref}
+  bodyClass="page-pharma"
   jsonLd={jsonLd}
 >
-  <style slot="head" is:global set:html={css} />
-  <Fragment set:html={before} />
-  <NgoDashboard />
-  <Fragment set:html={after} />
+  {/* .pharma carries the shared product tokens (components/pharma/tokens.css). */}
+  <main class="pharma" data-i18n-text>
+    <Hero content={hero} />
+    <Cards content={why} />
+    <Cards content={spaces} />
+    <Toolkit content={toolkit} />
+
+    {/* Campus Manager */}
+    <Rows content={rowsCampus} label="Campus Manager" />
+    <Cards content={campus} />
+    <DemoSection id="doptor-campus-demo" content={campusDemo}><CampusDemo /></DemoSection>
+    <Access content={accessCampus} />
+
+    {/* Office Manager */}
+    <Rows content={rowsOffice} label="Office Manager" flip />
+    <Cards content={office} />
+    <Access content={accessOffice} />
+
+    {/* NGO Manager */}
+    <Rows content={rowsNgo} label="NGO Manager" />
+    <Cards content={reports} />
+    <DemoSection id="doptor-ngo-demo" content={ngo}><NgoDashboard /></DemoSection>
+    <Access content={accessNgo} />
+
+    <Steps content={steps} />
+    <Plans content={plans} />
+    <Closing content={closing} />
+  </main>
 </BaseLayout>

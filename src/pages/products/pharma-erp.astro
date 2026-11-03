@@ -1,8 +1,15 @@
 ---
 /**
- * Pharma ERP product page. Like aangan, built from its own components in
- * src/components/pharma/ rather than the shared HTML string rendered by
- * [slug].astro. SEO fields still come from src/content/products/pharma-erp.json.
+ * Pharma ERP product page, laid out like S47 Vyapar (BI Dashboard): built from
+ * components rather than the shared HTML string rendered by [slug].astro.
+ *
+ *   Hero      S47 Vyapar's hero design, with the live pharmacy demo
+ *   Rows      the shared feature rows
+ *   Steps     S47 Vyapar's three-step design, with this page's pictures
+ *   Toolkit   S47 Vyapar's toolkit cards
+ *   Closing   the shared closing call to action, with a "Read:" link
+ *
+ * SEO fields still come from src/content/products/pharma-erp.json.
  */
 import { getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -11,11 +18,13 @@ import '../../components/pharma/tokens.css';
 
 import Hero from '../../components/pharma/Hero/index.astro';
 import Rows from '../../components/pharma/Rows/index.astro';
-import Toolkit from '../../components/pharma/Toolkit/index.astro';
+import Steps from '../../components/pharma/Steps/index.astro';
+import Toolkit from '../../components/isd/Toolkit/index.astro';
 import Closing from '../../components/pharma/Closing/index.astro';
 
 import { hero } from '../../components/pharma/Hero/content';
 import { rows } from '../../components/pharma/Rows/content';
+import { steps } from '../../components/pharma/Steps/content';
 import { toolkit } from '../../components/pharma/Toolkit/content';
 import { closing } from '../../components/pharma/Closing/content';
 
@@ -46,6 +55,7 @@ const jsonLd = [
   <main class="pharma" data-i18n-text>
     <Hero content={hero} />
     <Rows content={rows} />
+    <Steps content={steps} />
     <Toolkit content={toolkit} />
     <Closing content={closing} />
   </main>

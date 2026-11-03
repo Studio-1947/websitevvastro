@@ -21,4 +21,5 @@ export const closing: ClosingContent = {
     label: 'What pharmacies need from inventory software',
     href: '/blog/pharmacy-inventory-management-software/',
   },
+  secondaryLead: 'Read',
 };
