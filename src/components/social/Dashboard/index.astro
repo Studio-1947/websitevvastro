@@ -1,0 +1,834 @@
+---
+/**
+ * A working copy of the Social Flow dashboard, drawn in HTML on sample data
+ * (./data.ts) for a made-up brand: Overview, Meta Ads, Instagram, Facebook,
+ * YouTube and Reports. Same mechanics as the S47 Vyapar and Doptor demos: a
+ * fixed 1280 × 760 stage scaled to fit a 1120px frame.
+ *
+ * Things that work: every sidebar screen; the 7 / 30 / 90-day switch, which
+ * changes every number and chart; campaign status filters; sorting top
+ * content by reach or engagement; picking a YouTube video to see its
+ * retention curve; report switches. Buttons that would change real data
+ * (export, connect, send) show a short note instead.
+ *
+ * While on screen and untouched, a pointer plays a short guided demo round
+ * the screens (src/scripts/demoTour.ts); the first click or key press stops
+ * it. Every period is rendered at build time; the script only shows the
+ * chosen one. It shows the product's own English interface, so it is left out of
+ * page translation (`data-i18n-skip`).
+ */
+import {
+  PERIODS, BRAND, PLATFORMS, META_COLOR, TICKS, POINTS, STATS, CAMPAIGNS, ADS, TOP_CONTENT, IG_TYPES,
+  HEAT_DAYS, HEAT_HOURS, HEAT, FB_AGES, VIDEOS, REPORTS, INSIGHTS,
+  series, compact, inr, num, type PeriodId, type PlatformId,
+} from './data';
+
+const ICON: Record<string, string> = {
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+  meta: '<path d="M3 15c0-4 2-8 4.5-8 3 0 5.5 10 9 10 2 0 3.5-2 3.5-5s-1.5-5-3.5-5c-3.5 0-6 10-9 10C5 17 3 16.5 3 15Z"/>',
+  ig: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>',
+  fb: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8Z"/>',
+  yt: '<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9 5 3-5 3Z" fill="currentColor" stroke="none"/>',
+  doc: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',
+  down: '<path d="m6 9 6 6 6-6"/>',
+  download: '<path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+  flow: '<circle cx="5" cy="12" r="2.4"/><circle cx="19" cy="5" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M7.2 11 16.8 6M7.2 13l9.6 5"/>',
+  up: '<path d="m5 15 7-7 7 7"/>',
+  spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
+  send: '<path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/>',
+  play: '<path d="m9 7 8 5-8 5Z" fill="currentColor" stroke="none"/>',
+  heart: '<path d="M12 20s-8-4.8-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.2 12 20 12 20Z"/>',
+  eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+};
+const icon = (name: string, size = 16, stroke = 1.8) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name]}</svg>`;
+const PICON: Record<PlatformId, string> = { instagram: 'ig', facebook: 'fb', youtube: 'yt' };
+const plat = (id: PlatformId) => PLATFORMS.find((p) => p.id === id)!;
+
+const NAV = [
+  { go: 'overview', label: 'Overview', icon: 'grid', color: '' },
+  { go: 'ads', label: 'Meta Ads', icon: 'meta', color: META_COLOR },
+  { go: 'instagram', label: 'Instagram', icon: 'ig', color: plat('instagram').color },
+  { go: 'facebook', label: 'Facebook', icon: 'fb', color: plat('facebook').color },
+  { go: 'youtube', label: 'YouTube', icon: 'yt', color: plat('youtube').color },
+  { go: 'reports', label: 'Reports', icon: 'doc', color: '' },
+];
+const START: PeriodId = '30d';
+
+/* ---------- Line chart, drawn as an SVG string (inline styles, no classes) ---------- */
+function niceMax(v: number) {
+  const p = Math.pow(10, Math.floor(Math.log10(v)));
+  return [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].map((m) => m * p).find((m) => m >= v) ?? v;
+}
+function lineChart(lines: { vals: number[]; color: string; fill?: boolean }[], period: PeriodId, w = 560, h = 196, fmt = compact) {
+  const pad = { l: 44, r: 10, t: 10, b: 24 };
+  const max = niceMax(Math.max(...lines.flatMap((l) => l.vals)) * 1.08);
+  const n = lines[0].vals.length;
+  const x = (i: number) => pad.l + (n === 1 ? 0 : (i / (n - 1)) * (w - pad.l - pad.r));
+  const y = (v: number) => pad.t + (1 - v / max) * (h - pad.t - pad.b);
+  let out = '';
+  for (let k = 0; k <= 4; k++) {
+    const v = (max / 4) * k;
+    out += `<line x1="${pad.l}" x2="${w - pad.r}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="#EEF0F4"/>`;
+    out += `<text x="${pad.l - 8}" y="${(y(v) + 3.5).toFixed(1)}" text-anchor="end" font-size="10" fill="#8A93A3">${k ? fmt(v) : 0}</text>`;
+  }
+  const ticks = TICKS[period];
+  ticks.forEach((t, i) => {
+    const xi = pad.l + (ticks.length === 1 ? 0 : (i / (ticks.length - 1)) * (w - pad.l - pad.r));
+    out += `<text x="${xi.toFixed(1)}" y="${h - 6}" text-anchor="${i === 0 ? 'start' : i === ticks.length - 1 ? 'end' : 'middle'}" font-size="10" fill="#8A93A3">${t}</text>`;
+  });
+  for (const l of lines) {
+    const d = l.vals.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
+    if (l.fill) out += `<path d="${d} L${x(n - 1).toFixed(1)} ${y(0)} L${x(0).toFixed(1)} ${y(0)} Z" fill="${l.color}" opacity=".09"/>`;
+    out += `<path d="${d}" fill="none" stroke="${l.color}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    const last = l.vals[n - 1];
+    out += `<circle cx="${x(n - 1).toFixed(1)}" cy="${y(last).toFixed(1)}" r="3.4" fill="#fff" stroke="${l.color}" stroke-width="2"/>`;
+  }
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">${out}</svg>`;
+}
+
+/* ---------- Donut ---------- */
+const TAU = Math.PI * 2;
+function arc(cx: number, cy: number, r0: number, r1: number, a0: number, a1: number) {
+  const p = (r: number, a: number) => [cx + r * Math.sin(a), cy - r * Math.cos(a)].map((v) => v.toFixed(2)).join(' ');
+  const large = a1 - a0 > Math.PI ? 1 : 0;
+  return `M${p(r1, a0)} A${r1} ${r1} 0 ${large} 1 ${p(r1, a1)} L${p(r0, a1)} A${r0} ${r0} 0 ${large} 0 ${p(r0, a0)} Z`;
+}
+const audience = PLATFORMS.map((p) => ({ ...p, n: STATS[p.id]['30d'].followers }));
+const audienceTotal = audience.reduce((s, a) => s + a.n, 0);
+let acc = 0;
+const audienceArcs = audience.map((a) => {
+  const a0 = (acc / audienceTotal) * TAU; acc += a.n; const a1 = (acc / audienceTotal) * TAU;
+  return { d: arc(70, 70, 46, 66, a0 + 0.02, a1 - 0.02), color: a.color };
+});
+
+/* ---------- Per-period figures ---------- */
+const SEED: Record<PlatformId, number> = { instagram: 1.1, facebook: 2.4, youtube: 3.7 };
+const view = (p: PeriodId) => {
+  const st = (id: PlatformId) => STATS[id][p];
+  const reachTotal = PLATFORMS.reduce((s, x) => s + st(x.id).reach, 0);
+  const engagement = PLATFORMS.reduce((s, x) => s + st(x.id).reach * st(x.id).engagement, 0) / reachTotal;
+  const a = ADS[p];
+  const camps = CAMPAIGNS.map((c) => {
+    const spend = a.spend * c.share;
+    return { ...c, spend, clicks: a.clicks * c.share, impressions: a.impressions * c.share, leads: Math.round(spend / c.cpl) };
+  });
+  const leads = camps.reduce((s, c) => s + c.leads, 0);
+  const reachSeries = Object.fromEntries(PLATFORMS.map((x) => [x.id, series(POINTS[p], st(x.id).reach, SEED[x.id])])) as Record<PlatformId, number[]>;
+  return { st, reachTotal, engagement, a, camps, leads, reachSeries };
+};
+const V = Object.fromEntries(PERIODS.map((p) => [p.id, view(p.id)])) as Record<PeriodId, ReturnType<typeof view>>;
+const maxCampSpend = (p: PeriodId) => Math.max(...V[p].camps.map((c) => c.spend));
+
+const igPosts = [
+  ...TOP_CONTENT.filter((c) => c.platform === 'instagram'),
+  { platform: 'instagram' as const, type: 'Reel' as const, title: 'Customer unboxing, stitched', reach: 22600, engagement: 6.8, date: '24 Oct', hue: 300 },
+  { platform: 'instagram' as const, type: 'Post' as const, title: 'Meet the team: packing crew', reach: 14800, engagement: 5.1, date: '21 Oct', hue: 35 },
+  { platform: 'instagram' as const, type: 'Reel' as const, title: 'Three ways to use it', reach: 19300, engagement: 6.1, date: '18 Oct', hue: 345 },
+];
+const fbPosts = [
+  { title: 'Store timings for the festival week', reach: 26100, reactions: 812, comments: 94, shares: 61 },
+  { title: 'Photo album: the festive range', reach: 18400, reactions: 640, comments: 52, shares: 38 },
+  { title: 'Live: Q&A with the founder', reach: 12900, reactions: 401, comments: 133, shares: 22 },
+  { title: 'Hiring: two store assistants', reach: 9700, reactions: 236, comments: 41, shares: 57 },
+];
+const heatColor = (v: number) => `rgba(214, 41, 118, ${(0.08 + v * 0.82).toFixed(2)})`;
+const retention = (vals: number[]) => {
+  const w = 360, h = 150, pad = { l: 30, r: 8, t: 8, b: 20 };
+  const x = (i: number) => pad.l + (i / (vals.length - 1)) * (w - pad.l - pad.r);
+  const y = (v: number) => pad.t + (1 - v / 100) * (h - pad.t - pad.b);
+  const d = vals.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
+  let g = '';
+  [0, 50, 100].forEach((v) => { g += `<line x1="${pad.l}" x2="${w - pad.r}" y1="${y(v)}" y2="${y(v)}" stroke="#EEF0F4"/><text x="${pad.l - 6}" y="${y(v) + 3.5}" text-anchor="end" font-size="10" fill="#8A93A3">${v}%</text>`; });
+  ['Start', 'Middle', 'End'].forEach((t, i) => { g += `<text x="${pad.l + (i / 2) * (w - pad.l - pad.r)}" y="${h - 5}" text-anchor="${['start', 'middle', 'end'][i]}" font-size="10" fill="#8A93A3">${t}</text>`; });
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" preserveAspectRatio="none" aria-hidden="true">${g}<path d="${d} L${x(vals.length - 1)} ${y(0)} L${x(0)} ${y(0)} Z" fill="#E62117" opacity=".08"/><path d="${d}" fill="none" stroke="#E62117" stroke-width="2.2" stroke-linejoin="round"/></svg>`;
+};
+const thumb = (hue: number) => `background: linear-gradient(135deg, hsl(${hue} 70% 62%), hsl(${(hue + 40) % 360} 75% 45%))`;
+---
+
+<div class="sf" data-sf data-i18n-skip role="region" aria-label="Interactive preview of the Social Flow dashboard, with sample data. Use the sidebar and the period switch to explore.">
+  <div class="sf__scaler" data-scaler>
+    <div class="sf__stage" data-stage>
+      <div class="sf__app">
+        <!-- ===== Sidebar ===== -->
+        <nav class="sside" aria-label="Dashboard screens">
+          <div class="sside__brand">
+            <span class="sside__mark" set:html={icon('flow', 18, 2)} />
+            <span><b>Social Flow</b><small>A Product by Studio 1947</small></span>
+          </div>
+          <div class="sside__ws"><i>{BRAND.name.split(' ').map((w) => w[0]).join('')}</i><span><b>{BRAND.name}</b><small>{BRAND.handle}</small></span></div>
+          <ul class="sside__nav">
+            {NAV.map((n, i) => (
+              <li>
+                <button type="button" class="sside__item" data-go={n.go} aria-current={i === 0 ? 'page' : undefined} style={n.color ? `--c:${n.color}` : undefined}>
+                  <span class="sside__ico" set:html={icon(n.icon, 16)} />{n.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div class="sside__accounts">
+            <p>Connected accounts</p>
+            <ul>
+              <li><i style={`background:${META_COLOR}`}></i>Meta Business</li>
+              {PLATFORMS.map((p) => <li><i style={`background:${p.color}`}></i>{p.label}</li>)}
+            </ul>
+            <button type="button" class="sside__connect" data-say="New accounts are connected in the full app."><Fragment set:html={icon('plus', 13, 2.2)} />Connect account</button>
+          </div>
+        </nav>
+
+        <div class="smain">
+          <!-- ===== Top bar ===== -->
+          <header class="stop">
+            <div class="stop__period" role="group" aria-label="Period">
+              {PERIODS.map((p) => <button type="button" data-period={p.id} aria-pressed={p.id === START ? 'true' : 'false'} title={p.label}>{p.short}</button>)}
+            </div>
+            <span class="stop__range" data-range>{PERIODS.find((p) => p.id === START)!.label}</span>
+            <div class="stop__tools">
+              <button type="button" class="sbtn" data-say="Exports download as PDF or Excel in the full app."><Fragment set:html={icon('download', 14)} />Export</button>
+              <span class="stop__bell" aria-hidden="true" set:html={icon('bell', 16)} />
+              <span class="stop__me" aria-hidden="true"><b>{BRAND.initials}</b><span>{BRAND.user}<small>{BRAND.role}</small></span></span>
+            </div>
+          </header>
+
+          <div class="sbody">
+            <!-- ===== Overview ===== -->
+            <section class="sview is-on" data-view="overview" aria-label="Overview">
+              <div class="shead"><div><h3>Overview</h3><p>All channels together, counted the same way</p></div></div>
+              {PERIODS.map(({ id: p }) => {
+                const v = V[p];
+                const gained = PLATFORMS.reduce((s, x) => s + v.st(x.id).gained, 0);
+                return (
+                  <div class="sper" data-p={p} hidden={p !== START}>
+                    <div class="tiles tiles--5">
+                      <div class="tile"><small>Total audience</small><b>{num(audienceTotal)}</b><em class="up"><Fragment set:html={icon('up', 11, 2.6)} />{num(gained)} new</em></div>
+                      <div class="tile"><small>Reach</small><b>{compact(v.reachTotal)}</b><em>Across 3 platforms</em></div>
+                      <div class="tile"><small>Engagement rate</small><b>{v.engagement.toFixed(1)}%</b><em>Weighted by reach</em></div>
+                      <div class="tile"><small>Ad spend</small><b>{inr(v.a.spend)}</b><em>Meta Ads</em></div>
+                      <div class="tile"><small>Leads from ads</small><b>{num(v.leads)}</b><em>{inr(v.a.spend / v.leads)} per lead</em></div>
+                    </div>
+                    <div class="ov">
+                      <div class="card ov__chart">
+                        <div class="card__head"><b>Reach by platform</b><span class="legend">{PLATFORMS.map((x) => <span><i style={`background:${x.color}`}></i>{x.label}</span>)}</span></div>
+                        <div class="chart chart--ov" set:html={lineChart(PLATFORMS.map((x) => ({ vals: v.reachSeries[x.id], color: x.color })), p, 560, 146)} />
+                      </div>
+                      <div class="card">
+                        <div class="card__head"><b>Audience by platform</b></div>
+                        <div class="donut">
+                          <svg viewBox="0 0 140 140" aria-hidden="true">{audienceArcs.map((a) => <path d={a.d} fill={a.color} />)}</svg>
+                          <div><b>{compact(audienceTotal)}</b><small>followers</small></div>
+                        </div>
+                        <ul class="dlist">{audience.map((a) => <li><i style={`background:${a.color}`}></i>{a.label}<b>{compact(a.n)}</b><small>{Math.round((a.n / audienceTotal) * 100)}%</small></li>)}</ul>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              <div class="ov ov--low">
+                <div class="card">
+                  <div class="card__head"><b>Top content this month</b>
+                    <span class="seg" role="group" aria-label="Sort top content" data-sort-group>
+                      <button type="button" data-sort="reach" aria-pressed="true">Reach</button>
+                      <button type="button" data-sort="engagement" aria-pressed="false">Engagement</button>
+                    </span>
+                  </div>
+                  <ul class="tops" data-sort-list>
+                    {[...TOP_CONTENT].sort((a, b) => b.reach - a.reach).map((c) => (
+                      <li data-reach={c.reach} data-engagement={c.engagement}>
+                        <span class="tops__thumb" style={thumb(c.hue)}><span set:html={icon(PICON[c.platform], 14, 2)} /></span>
+                        <span class="tops__txt"><b>{c.title}</b><small><span class="ptag" style={`--c:${plat(c.platform).color}`}>{plat(c.platform).label}</span>{c.type} · {c.date}</small></span>
+                        <span class="tops__num"><b>{compact(c.reach)}</b><small>reach</small></span>
+                        <span class="tops__num"><b>{c.engagement}%</b><small>engaged</small></span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="card">
+                  <div class="card__head"><b>Worth knowing</b><span class="pill pill--soft"><Fragment set:html={icon('spark', 11, 2.2)} />Insights</span></div>
+                  <ul class="insights">{INSIGHTS.map((n) => <li class={`tone-${n.tone}`}><i></i>{n.text}</li>)}</ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Meta Ads ===== -->
+            <section class="sview" data-view="ads" aria-label="Meta Ads" hidden>
+              <div class="shead">
+                <div><h3>Meta Ads</h3><p>Facebook and Instagram campaigns, spend against results</p></div>
+                <span class="seg" role="group" aria-label="Filter campaigns" data-camp-filter>
+                  {['All', 'Active', 'Paused', 'Ended'].map((s, i) => <button type="button" data-status={s} aria-pressed={i === 0 ? 'true' : 'false'}>{s}</button>)}
+                </span>
+              </div>
+              {PERIODS.map(({ id: p }) => {
+                const v = V[p];
+                return (
+                  <div class="sper" data-p={p} hidden={p !== START}>
+                    <div class="tiles tiles--6">
+                      <div class="tile"><small>Spend</small><b>{inr(v.a.spend)}</b></div>
+                      <div class="tile"><small>Impressions</small><b>{compact(v.a.impressions)}</b></div>
+                      <div class="tile"><small>Clicks</small><b>{compact(v.a.clicks)}</b></div>
+                      <div class="tile"><small>Click rate</small><b>{((v.a.clicks / v.a.impressions) * 100).toFixed(2)}%</b></div>
+                      <div class="tile"><small>Leads</small><b>{num(v.leads)}</b></div>
+                      <div class="tile"><small>Cost per lead</small><b>{inr(v.a.spend / v.leads)}</b></div>
+                    </div>
+                    <div class="ads">
+                      <div class="card ads__table">
+                        <div class="crow crow--head"><span>Campaign</span><span>Status</span><span>Spend</span><span>Clicks</span><span>CTR</span><span>Leads</span><span>Per lead</span></div>
+                        {v.camps.map((c) => (
+                          <div class="crow" data-camp={c.status}>
+                            <span><b>{c.name}</b><small>{c.objective}</small></span>
+                            <span><em class={`st st--${c.status.toLowerCase()}`}>{c.status}</em></span>
+                            <span>{inr(c.spend)}</span>
+                            <span>{compact(c.clicks)}</span>
+                            <span>{c.ctr}%</span>
+                            <span>{num(c.leads)}</span>
+                            <span>{inr(c.cpl)}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div class="card">
+                        <div class="card__head"><b>Spend by campaign</b></div>
+                        <ul class="hbars">
+                          {v.camps.map((c) => (
+                            <li data-camp={c.status}><span>{c.name}</span><i><em style={`width:${(c.spend / maxCampSpend(p)) * 100}%`}></em></i><b>{inr(c.spend)}</b></li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="card ads__chart">
+                      <div class="card__head"><b>Spend over time</b><span class="legend"><span><i style={`background:${META_COLOR}`}></i>Spend</span></span></div>
+                      <div class="chart" set:html={lineChart([{ vals: series(POINTS[p], v.a.spend, 4.2, 0.15), color: META_COLOR, fill: true }], p, 1100, 150, inr)} />
+                    </div>
+                  </div>
+                );
+              })}
+            </section>
+
+            <!-- ===== Instagram ===== -->
+            <section class="sview" data-view="instagram" aria-label="Instagram" hidden>
+              <div class="shead"><div><h3>Instagram</h3><p>{BRAND.handle} · reels, posts and stories</p></div></div>
+              {PERIODS.map(({ id: p }) => {
+                const s = V[p].st('instagram');
+                return (
+                  <div class="sper" data-p={p} hidden={p !== START}>
+                    <div class="tiles">
+                      <div class="tile"><small>Followers</small><b>{num(s.followers)}</b><em class="up"><Fragment set:html={icon('up', 11, 2.6)} />{num(s.gained)}</em></div>
+                      <div class="tile"><small>Reach</small><b>{compact(s.reach)}</b><em>{s.posts} posts</em></div>
+                      <div class="tile"><small>Engagement rate</small><b>{s.engagement}%</b><em>Likes, comments, saves</em></div>
+                      <div class="tile"><small>{s.extra.label}</small><b>{s.extra.value}</b><em>{s.extra.note}</em></div>
+                    </div>
+                    <div class="ig">
+                      <div class="card">
+                        <div class="card__head"><b>Reach</b></div>
+                        <div class="chart" set:html={lineChart([{ vals: V[p].reachSeries.instagram, color: plat('instagram').color, fill: true }], p, 560, 170)} />
+                      </div>
+                      <div class="card">
+                        <div class="card__head"><b>Reach by content type</b></div>
+                        <ul class="types">
+                          {IG_TYPES.map((t) => (
+                            <li><span>{t.type}</span><b>{compact(s.reach * t.share)}</b><i><em style={`width:${t.share * 100}%; background:${t.color}`}></em></i><small>{Math.round(t.share * 100)}% of reach</small></li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              <div class="ig ig--low">
+                <div class="card">
+                  <div class="card__head"><b>Top posts</b><small>This month</small></div>
+                  <ul class="grid6">
+                    {igPosts.map((c) => (
+                      <li title={c.title}>
+                        <span class="grid6__img" style={thumb(c.hue)}><em>{c.type}</em></span>
+                        <span class="grid6__num"><Fragment set:html={icon('eye', 11, 2)} />{compact(c.reach)}<Fragment set:html={icon('heart', 11, 2)} />{c.engagement}%</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="card">
+                  <div class="card__head"><b>Best time to post</b><small>When your followers are online</small></div>
+                  <div class="heat">
+                    <span></span>{HEAT_HOURS.map((h) => <small>{h}</small>)}
+                    {HEAT_DAYS.map((d, r) => (
+                      <>
+                        <small>{d}</small>
+                        {HEAT[r].map((val, c) => <i style={`background:${heatColor(val)}`} title={`${d} ${HEAT_HOURS[c]}: ${Math.round(val * 100)}% of followers active`}></i>)}
+                      </>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Facebook ===== -->
+            <section class="sview" data-view="facebook" aria-label="Facebook" hidden>
+              <div class="shead"><div><h3>Facebook</h3><p>{BRAND.name} page · posts, reach and audience</p></div></div>
+              {PERIODS.map(({ id: p }) => {
+                const s = V[p].st('facebook');
+                return (
+                  <div class="sper" data-p={p} hidden={p !== START}>
+                    <div class="tiles">
+                      <div class="tile"><small>Page followers</small><b>{num(s.followers)}</b><em class="up"><Fragment set:html={icon('up', 11, 2.6)} />{num(s.gained)}</em></div>
+                      <div class="tile"><small>Reach</small><b>{compact(s.reach)}</b><em>{s.posts} posts</em></div>
+                      <div class="tile"><small>Engagement rate</small><b>{s.engagement}%</b><em>Reactions, comments, shares</em></div>
+                      <div class="tile"><small>{s.extra.label}</small><b>{s.extra.value}</b><em>{s.extra.note}</em></div>
+                    </div>
+                    <div class="card fb__chart">
+                      <div class="card__head"><b>Reach</b></div>
+                      <div class="chart" set:html={lineChart([{ vals: V[p].reachSeries.facebook, color: plat('facebook').color, fill: true }], p, 1100, 150)} />
+                    </div>
+                  </div>
+                );
+              })}
+              <div class="fb">
+                <div class="card">
+                  <div class="crow crow--fb crow--head"><span>Post</span><span>Reach</span><span>Reactions</span><span>Comments</span><span>Shares</span></div>
+                  {fbPosts.map((f) => <div class="crow crow--fb"><span><b>{f.title}</b></span><span>{compact(f.reach)}</span><span>{num(f.reactions)}</span><span>{f.comments}</span><span>{f.shares}</span></div>)}
+                </div>
+                <div class="card">
+                  <div class="card__head"><b>Audience by age</b></div>
+                  <ul class="ages">{FB_AGES.map((a) => <li><span>{a.label}</span><i><em style={`width:${(a.share / 0.36) * 100}%`}></em></i><b>{Math.round(a.share * 100)}%</b></li>)}</ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== YouTube ===== -->
+            <section class="sview" data-view="youtube" aria-label="YouTube" hidden>
+              <div class="shead"><div><h3>YouTube</h3><p>{BRAND.name} channel · pick a video to see how long people watched</p></div></div>
+              {PERIODS.map(({ id: p }) => {
+                const s = V[p].st('youtube');
+                return (
+                  <div class="sper" data-p={p} hidden={p !== START}>
+                    <div class="tiles">
+                      <div class="tile"><small>Subscribers</small><b>{num(s.followers)}</b><em class="up"><Fragment set:html={icon('up', 11, 2.6)} />{num(s.gained)}</em></div>
+                      <div class="tile"><small>Views</small><b>{compact(s.reach)}</b><em>{s.posts} new {s.posts === 1 ? 'video' : 'videos'}</em></div>
+                      <div class="tile"><small>{s.extra.label}</small><b>{s.extra.value}</b><em>{s.extra.note}</em></div>
+                      <div class="tile"><small>Engagement rate</small><b>{s.engagement}%</b><em>Likes and comments</em></div>
+                    </div>
+                  </div>
+                );
+              })}
+              <div class="yt">
+                <div class="card">
+                  <div class="vrow vrow--head"><span>Video</span><span>Views</span><span>Watch time</span><span>Avg view</span><span>Click rate</span></div>
+                  {VIDEOS.map((v, i) => (
+                    <button type="button" class="vrow" data-video={i} aria-pressed={i === 0 ? 'true' : 'false'}>
+                      <span class="vrow__title"><span class="vrow__thumb" style={thumb(v.hue)} set:html={icon('play', 14)} /><b>{v.title}</b></span>
+                      <span>{compact(v.views)}</span><span>{v.watch}</span><span>{v.avg}</span><span>{v.ctr}%</span>
+                    </button>
+                  ))}
+                </div>
+                <div class="card">
+                  <div class="card__head"><b>Audience retention</b></div>
+                  {VIDEOS.map((v, i) => (
+                    <div class="ret" data-curve={i} hidden={i !== 0}>
+                      <p class="ret__title">{v.title}</p>
+                      <div class="ret__chart" set:html={retention(v.retention)} />
+                      <p class="ret__note">{v.retention[5]}% still watching halfway · {v.retention[10]}% to the end</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Reports ===== -->
+            <section class="sview" data-view="reports" aria-label="Reports" hidden>
+              <div class="shead">
+                <div><h3>Reports</h3><p>Summaries that send themselves, on a schedule you set</p></div>
+                <button type="button" class="sbtn sbtn--pri" data-say="New reports are set up in the full app."><Fragment set:html={icon('plus', 13, 2.2)} />New report</button>
+              </div>
+              <div class="reps">
+                <div class="card">
+                  {REPORTS.map((r) => (
+                    <div class="rep">
+                      <span class="rep__ico" set:html={icon('doc', 16)} />
+                      <span><b>{r.name}</b><small>To {r.to} · {r.when}</small></span>
+                      <em class="ptag ptag--plain">{r.channels}</em>
+                      <small class="rep__last">{r.last}</small>
+                      <button type="button" class="switch" role="switch" aria-checked="true" aria-label={`Send ${r.name} automatically`}><i></i></button>
+                      <button type="button" class="sbtn" data-say={`${r.name} will be sent from the full app.`}><Fragment set:html={icon('send', 13)} />Send now</button>
+                    </div>
+                  ))}
+                </div>
+                <div class="card mail">
+                  <p class="mail__from"><span set:html={icon('flow', 16, 2)} /><span><b>Weekly social summary</b><small>To: marketing team · Monday 9:00 am</small></span></p>
+                  <div class="mail__nums">
+                    <span><small>Reach</small><b>{compact(V['7d'].reachTotal)}</b></span>
+                    <span><small>New followers</small><b>{num(PLATFORMS.reduce((s, x) => s + V['7d'].st(x.id).gained, 0))}</b></span>
+                    <span><small>Ad spend</small><b>{inr(ADS['7d'].spend)}</b></span>
+                    <span><small>Leads</small><b>{num(V['7d'].leads)}</b></span>
+                  </div>
+                  <p class="mail__line">Top post: <b>{TOP_CONTENT[0].title}</b> ({compact(TOP_CONTENT[0].reach)} reach on Instagram).</p>
+                  <p class="mail__line">{INSIGHTS[1].text}</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <p class="stoast" data-toast role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { startTour } from '../../../scripts/demoTour';
+
+  document.querySelectorAll<HTMLElement>('[data-sf]').forEach((root) => {
+    const W = 1280, H = 760;
+    const scaler = root.querySelector<HTMLElement>('[data-scaler]')!;
+    const stage = root.querySelector<HTMLElement>('[data-stage]')!;
+    const fit = () => {
+      const s = scaler.clientWidth / W;
+      stage.style.setProperty('--s', String(s));
+      scaler.style.height = `${H * s}px`;
+    };
+    new ResizeObserver(fit).observe(scaler);
+    fit();
+
+    const toast = root.querySelector<HTMLElement>('[data-toast]')!;
+    let timer = 0;
+    const say = (msg: string) => {
+      toast.textContent = msg;
+      toast.classList.add('is-on');
+      clearTimeout(timer);
+      timer = window.setTimeout(() => toast.classList.remove('is-on'), 2200);
+    };
+    root.querySelectorAll<HTMLElement>('[data-say]').forEach((b) => b.addEventListener('click', () => say(b.dataset.say || '')));
+
+    // Screens
+    const navs = root.querySelectorAll<HTMLButtonElement>('[data-go]');
+    navs.forEach((b) =>
+      b.addEventListener('click', () => {
+        navs.forEach((n) => (n === b ? n.setAttribute('aria-current', 'page') : n.removeAttribute('aria-current')));
+        root.querySelectorAll<HTMLElement>('[data-view]').forEach((v) => {
+          const on = v.dataset.view === b.dataset.go;
+          v.hidden = !on;
+          v.classList.toggle('is-on', on);
+        });
+      })
+    );
+
+    // Period: every screen shows the chosen period's figures
+    const periods = root.querySelectorAll<HTMLButtonElement>('[data-period]');
+    const range = root.querySelector<HTMLElement>('[data-range]')!;
+    periods.forEach((b) =>
+      b.addEventListener('click', () => {
+        periods.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        range.textContent = b.title;
+        root.querySelectorAll<HTMLElement>('[data-p]').forEach((el) => (el.hidden = el.dataset.p !== b.dataset.period));
+        applyCamps();
+      })
+    );
+
+    // Meta Ads: campaign status filter (applies to every period's rows)
+    let status = 'All';
+    const applyCamps = () => root.querySelectorAll<HTMLElement>('[data-camp]').forEach((r) => (r.hidden = status !== 'All' && r.dataset.camp !== status));
+    const campBtns = root.querySelectorAll<HTMLButtonElement>('[data-camp-filter] [data-status]');
+    campBtns.forEach((b) =>
+      b.addEventListener('click', () => {
+        campBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        status = b.dataset.status || 'All';
+        applyCamps();
+      })
+    );
+
+    // Overview: sort top content
+    const list = root.querySelector<HTMLElement>('[data-sort-list]')!;
+    const sortBtns = root.querySelectorAll<HTMLButtonElement>('[data-sort]');
+    sortBtns.forEach((b) =>
+      b.addEventListener('click', () => {
+        sortBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        const key = b.dataset.sort === 'engagement' ? 'engagement' : 'reach';
+        [...list.children]
+          .sort((a, c) => Number((c as HTMLElement).dataset[key]) - Number((a as HTMLElement).dataset[key]))
+          .forEach((li) => list.appendChild(li));
+      })
+    );
+
+    // YouTube: pick a video to see its retention curve
+    const vids = root.querySelectorAll<HTMLButtonElement>('[data-video]');
+    vids.forEach((b) =>
+      b.addEventListener('click', () => {
+        vids.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        root.querySelectorAll<HTMLElement>('[data-curve]').forEach((c) => (c.hidden = c.dataset.curve !== b.dataset.video));
+      })
+    );
+
+    // Reports: switches
+    root.querySelectorAll<HTMLButtonElement>('[role="switch"]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const on = b.getAttribute('aria-checked') !== 'true';
+        b.setAttribute('aria-checked', String(on));
+        say(on ? 'Scheduled again.' : 'Paused. It will not send until you switch it back on.');
+      })
+    );
+
+    // Guided demo: a round of the screens, then back to where it started.
+    const q = (sel: string) => root.querySelector<HTMLElement>(sel);
+    startTour({
+      root,
+      stage,
+      round: async ({ wait, press, pointAt }) => {
+        await wait(2200);
+        await press(q('[data-period="7d"]'));
+        await wait(2000);
+        await press(q('[data-sort="engagement"]'));
+        await wait(2000);
+        await press(q('[data-go="ads"]'));
+        await wait(1800);
+        await press(q('[data-camp-filter] [data-status="Active"]'));
+        await wait(1800);
+        await press(q('[data-period="90d"]'));
+        await wait(2000);
+        await press(q('[data-camp-filter] [data-status="All"]'));
+        await wait(1200);
+        await press(q('[data-go="instagram"]'));
+        await wait(1800);
+        await pointAt(q('.heat i:nth-of-type(30)'));
+        await wait(1400);
+        await press(q('[data-go="youtube"]'));
+        await wait(1600);
+        await press(q('[data-video="1"]'));
+        await wait(1800);
+        await press(q('[data-video="2"]'));
+        await wait(1800);
+        await press(q('[data-video="0"]'));
+        await wait(1000);
+        await press(q('[data-go="reports"]'));
+        await wait(2400);
+        await press(q('[data-go="overview"]'));
+        await wait(600);
+        await press(q('[data-period="30d"]'));
+        await wait(600);
+        await press(q('[data-sort="reach"]'));
+      },
+    });
+  });
+</script>
+
+<style>
+  /* Same frame as the S47 Vyapar and Doptor demos: 1120px wide at most, 1280 × 760 stage. */
+  .sf {
+    --ink: #1F2937; --muted: #6B7280; --faint: #9AA3AF; --line: #E6E8EE; --ground: #F3F4F7; --card: #fff; --red: #E60000;
+    --meta: #5B4CF0;
+    max-width: 1120px; margin: clamp(40px, 5vw, 64px) auto 0;
+    border-radius: 14px; overflow: hidden; background: var(--ground);
+    box-shadow: 0 0 0 1px rgba(13, 13, 13, .07), 0 30px 60px -30px rgba(31, 41, 55, .4);
+  }
+  .sf__scaler { position: relative; aspect-ratio: 1280 / 760; overflow: hidden; }
+  .sf__stage {
+    position: absolute; top: 0; left: 0; width: 1280px; height: 760px;
+    transform: scale(var(--s, 1)); transform-origin: 0 0;
+    font-size: 13px; line-height: 1.35; color: var(--ink); text-align: left; font-variant-numeric: tabular-nums;
+  }
+  :where(.sf__stage button) { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0; }
+  :where(.sf__stage p, .sf__stage h3, .sf__stage ul) { margin: 0; padding: 0; }
+  :where(.sf__stage ul) { list-style: none; }
+  .sf__stage button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .sf__stage [hidden] { display: none !important; }
+  /* One row, exactly the stage's height, so a tall screen cannot stretch the sidebar. */
+  .sf__app { height: 100%; display: grid; grid-template-columns: 214px 1fr; grid-template-rows: 100%; }
+
+  /* Sidebar */
+  .sside { display: flex; flex-direction: column; gap: 14px; min-height: 0; overflow: hidden; padding: 16px 12px; background: #fff; border-right: 1px solid var(--line); }
+  .sside__brand { display: flex; align-items: center; gap: 10px; padding: 2px 6px 6px; }
+  .sside__mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--red); color: #fff; }
+  .sside__brand b { display: block; font-size: 15px; }
+  .sside__brand small { display: block; font-size: 9.5px; color: var(--muted); }
+  .sside__ws { display: flex; align-items: center; gap: 9px; padding: 8px 9px; border-radius: 10px; background: var(--ground); }
+  .sside__ws i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: #1F2937; color: #fff; font-style: normal; font-size: 11px; font-weight: 700; }
+  .sside__ws b { display: block; font-size: 12.5px; }
+  .sside__ws small { font-size: 11px; color: var(--muted); }
+  .sside__nav { display: grid; gap: 2px; }
+  .sside__item { width: 100%; display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 9px; font-size: 13.5px; text-align: left; }
+  .sside__item:hover { background: var(--ground); }
+  .sside__item[aria-current='page'] { background: #FDECEC; color: #B4121B; font-weight: 600; }
+  .sside__ico { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; color: var(--c, var(--muted)); background: color-mix(in srgb, var(--c, #6B7280) 12%, #fff); }
+  .sside__item[aria-current='page'] .sside__ico { background: #fff; }
+  .sside__accounts { margin-top: auto; padding: 12px 10px; border-radius: 10px; border: 1px solid var(--line); }
+  .sside__accounts p { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .sside__accounts ul { display: grid; gap: 6px; margin-bottom: 10px; }
+  .sside__accounts li { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .sside__accounts li i { width: 8px; height: 8px; border-radius: 50%; }
+  .sside__accounts li::after { content: 'Live'; margin-left: auto; font-size: 10px; font-weight: 600; color: #0F9D74; }
+  .sside__connect { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 7px; border-radius: 8px; border: 1px dashed #C9CED8 !important; font-size: 12px; color: var(--muted); }
+  .sside__connect:hover { border-color: var(--red) !important; color: var(--red); }
+
+  /* Top bar */
+  .smain { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
+  .stop { display: flex; align-items: center; gap: 12px; height: 58px; padding: 0 22px; background: #fff; border-bottom: 1px solid var(--line); }
+  .stop__period { display: inline-flex; padding: 3px; border-radius: 9px; background: var(--ground); }
+  .stop__period button { padding: 6px 13px; border-radius: 7px; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .stop__period button[aria-pressed='true'] { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, .12); }
+  .stop__range { font-size: 12px; color: var(--muted); }
+  .stop__tools { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+  .stop__bell { display: grid; color: var(--muted); }
+  .stop__me { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; }
+  .stop__me b { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #FDECEC; color: #B4121B; font-size: 11.5px; }
+  .stop__me small { display: block; font-weight: 400; color: var(--muted); font-size: 10.5px; }
+  .sbtn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--line) !important; background: #fff !important; font-size: 12px; font-weight: 500; }
+  .sbtn:hover { border-color: #C9CED8 !important; }
+  .sbtn--pri { background: var(--ink) !important; border-color: var(--ink) !important; color: #fff !important; }
+
+  /* Screens */
+  .sbody { flex: 1; min-height: 0; padding: 16px 22px; overflow: hidden; }
+  .sview { display: flex; flex-direction: column; gap: 12px; height: 100%; }
+  .sview.is-on { animation: sf-in .35s ease both; }
+  @keyframes sf-in { from { opacity: 0; transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce) { .sview.is-on { animation: none; } }
+  .sper { display: flex; flex-direction: column; gap: 12px; }
+  .shead { display: flex; justify-content: space-between; align-items: center; }
+  .shead h3 { font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
+  .shead p { font-size: 12px; color: var(--muted); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; min-width: 0; }
+  .card__head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .card__head b { font-size: 13.5px; }
+  .card__head small { font-size: 11px; color: var(--muted); }
+  .chart { height: 196px; }
+  .chart--ov { height: 146px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .tiles--5 { grid-template-columns: repeat(5, 1fr); }
+  .tiles--6 { grid-template-columns: repeat(6, 1fr); }
+  .tile { display: grid; gap: 2px; padding: 11px 13px; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+  .tile small { font-size: 11px; color: var(--muted); }
+  .tile b { font-size: 21px; font-weight: 700; letter-spacing: -.01em; }
+  .tile em { display: inline-flex; align-items: center; gap: 3px; font-style: normal; font-size: 10.5px; color: var(--muted); }
+  .tile em.up { color: #0F9D74; font-weight: 600; }
+
+  .legend { display: flex; gap: 12px; font-size: 11px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .legend i { width: 8px; height: 8px; border-radius: 50%; }
+  .seg { display: inline-flex; padding: 3px; border-radius: 8px; background: var(--ground); }
+  .seg button { padding: 4px 10px; border-radius: 6px; font-size: 11.5px; color: var(--muted); }
+  .seg button[aria-pressed='true'] { background: #fff; color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0, 0, 0, .1); }
+  .pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; font-size: 10.5px; font-weight: 600; }
+  .pill--soft { background: #FDECEC; color: #B4121B; }
+  .ptag { display: inline-block; margin-right: 6px; padding: 1px 6px; border-radius: 5px; font-size: 10px; font-weight: 600; font-style: normal; color: var(--c); background: color-mix(in srgb, var(--c) 12%, #fff); }
+  .ptag--plain { --c: #4B5563; }
+
+  /* Overview */
+  .ov { display: grid; grid-template-columns: 1.7fr 1fr; gap: 12px; }
+  .ov--low { grid-template-columns: 1.7fr 1fr; flex: 1; min-height: 0; }
+  .ov--low .card { overflow: hidden; }
+  .donut { position: relative; width: 118px; margin: 0 auto 8px; }
+  .donut svg { display: block; width: 118px; }
+  .donut div { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+  .donut b { font-size: 18px; }
+  .donut small { font-size: 10px; color: var(--muted); }
+  .dlist { display: grid; gap: 7px; }
+  .dlist li { display: grid; grid-template-columns: 9px 1fr auto 36px; gap: 8px; align-items: center; font-size: 12px; }
+  .dlist i { width: 9px; height: 9px; border-radius: 50%; }
+  .dlist small { text-align: right; color: var(--muted); }
+  .tops { display: grid; gap: 2px; }
+  .tops li { display: grid; grid-template-columns: 30px 1fr 64px 64px; gap: 10px; align-items: center; padding: 1px 0; border-bottom: 1px solid #F1F2F5; }
+  /* Top five, in whichever order is chosen (sorting re-ranks all six). */
+  .tops li:nth-child(n + 6) { display: none; }
+  .tops li:nth-child(5) { border-bottom: 0; }
+  .tops__thumb { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; color: #fff; }
+  .tops__txt b { display: block; font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tops__txt small { font-size: 10.5px; color: var(--muted); }
+  .tops__num { text-align: right; }
+  .tops__num b { display: block; font-size: 13px; }
+  .tops__num small { font-size: 10px; color: var(--muted); }
+  .insights { display: grid; gap: 9px; }
+  .insights li { display: flex; gap: 9px; align-items: flex-start; padding: 9px 10px; border-radius: 9px; background: var(--ground); font-size: 12px; line-height: 1.4; }
+  .insights i { flex: none; width: 8px; height: 8px; margin-top: 4px; border-radius: 50%; }
+  .tone-green i { background: #0F9D74; }
+  .tone-amber i { background: #E8900C; }
+  .tone-blue i { background: #1877F2; }
+
+  /* Meta Ads */
+  .ads { display: grid; grid-template-columns: 1.75fr 1fr; gap: 12px; }
+  .crow { display: grid; grid-template-columns: 1.7fr 70px 80px 64px 50px 50px 70px; gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px solid #F1F2F5; font-size: 12px; }
+  .crow:last-child { border-bottom: 0; }
+  .crow--head { padding-top: 0; font-size: 10.5px; color: var(--muted); }
+  .crow b { display: block; font-weight: 600; }
+  .crow small { font-size: 10.5px; color: var(--muted); }
+  .st { display: inline-block; font-style: normal; font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+  .st--active { background: #DDF3EA; color: #0F9D74; }
+  .st--paused { background: #FDF0DA; color: #B8730C; }
+  .st--ended { background: #EEF0F4; color: var(--muted); }
+  .hbars { display: grid; gap: 10px; }
+  .hbars li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; font-size: 11.5px; }
+  .hbars span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hbars i { grid-column: 1 / -1; order: 3; height: 7px; border-radius: 999px; background: #F1F2F5; overflow: hidden; }
+  .hbars em { display: block; height: 100%; border-radius: inherit; background: var(--meta); }
+  .ads__chart .chart { height: 150px; }
+
+  /* Instagram */
+  .ig { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; }
+  .ig .chart { height: 170px; }
+  .ig--low { flex: 1; min-height: 0; }
+  .types { display: grid; gap: 14px; }
+  .types li { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; font-size: 12.5px; }
+  .types b { font-weight: 700; }
+  .types i { grid-column: 1 / -1; height: 8px; border-radius: 999px; background: #F1F2F5; overflow: hidden; }
+  .types em { display: block; height: 100%; border-radius: inherit; }
+  .types small { grid-column: 1 / -1; font-size: 10.5px; color: var(--muted); }
+  .grid6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .grid6__img { position: relative; display: block; aspect-ratio: 4 / 5; border-radius: 8px; }
+  .grid6__img em { position: absolute; top: 6px; left: 6px; padding: 1px 6px; border-radius: 4px; background: rgba(0, 0, 0, .35); color: #fff; font-style: normal; font-size: 9.5px; font-weight: 600; }
+  .grid6__num { display: flex; align-items: center; gap: 3px; margin-top: 5px; font-size: 10.5px; color: var(--muted); }
+  .grid6__num svg:nth-of-type(2) { margin-left: 6px; }
+  .heat { display: grid; grid-template-columns: 34px repeat(5, 1fr); gap: 4px; align-items: center; }
+  .heat small { font-size: 10px; color: var(--muted); text-align: center; }
+  .heat small:nth-child(6n + 7), .heat > small:first-of-type { text-align: left; }
+  .heat i { height: 22px; border-radius: 5px; }
+
+  /* Facebook */
+  .fb { display: grid; grid-template-columns: 1.7fr 1fr; gap: 12px; }
+  .fb__chart .chart { height: 150px; }
+  .crow--fb { grid-template-columns: 1.8fr 70px 80px 80px 60px; }
+  .ages { display: grid; gap: 11px; }
+  .ages li { display: grid; grid-template-columns: 44px 1fr 36px; gap: 8px; align-items: center; font-size: 12px; }
+  .ages i { height: 8px; border-radius: 999px; background: #F1F2F5; overflow: hidden; }
+  .ages em { display: block; height: 100%; border-radius: inherit; background: #1877F2; }
+  .ages b { text-align: right; font-weight: 600; }
+
+  /* YouTube */
+  .yt { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.6fr 1fr; gap: 12px; }
+  .vrow { width: 100%; display: grid; grid-template-columns: 1.7fr 64px 80px 66px 66px; gap: 10px; align-items: center; padding: 9px 8px; border-radius: 9px; font-size: 12px; text-align: left; }
+  button.vrow:hover { background: var(--ground); }
+  button.vrow[aria-pressed='true'] { background: #FDE8E7; }
+  .vrow--head { padding-top: 0; font-size: 10.5px; color: var(--muted); }
+  .vrow__title { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .vrow__title b { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .vrow__thumb { flex: none; display: grid; place-items: center; width: 52px; height: 30px; border-radius: 6px; color: #fff; }
+  .ret__title { font-size: 12px; font-weight: 600; margin-bottom: 6px !important; }
+  .ret__chart { height: 190px; }
+  .ret__note { margin-top: 8px !important; font-size: 11.5px; color: var(--muted); }
+
+  /* Reports */
+  .reps { display: grid; grid-template-columns: 1.6fr 1fr; gap: 12px; align-items: start; }
+  .rep { display: grid; grid-template-columns: 34px 1fr auto 70px 40px auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid #F1F2F5; }
+  .rep:last-child { border-bottom: 0; }
+  .rep__ico { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: #FDECEC; color: #B4121B; }
+  .rep b { display: block; font-size: 13px; }
+  .rep small { font-size: 11px; color: var(--muted); }
+  .rep__last { text-align: right; }
+  .switch { position: relative; width: 36px; height: 20px; border-radius: 999px; background: #D5DBD7 !important; transition: background .2s ease; }
+  .switch i { position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: transform .2s ease; }
+  .switch[aria-checked='true'] { background: #0F9D74 !important; }
+  .switch[aria-checked='true'] i { transform: translateX(16px); }
+  .mail { display: grid; gap: 12px; }
+  .mail__from { display: flex; align-items: center; gap: 10px; }
+  .mail__from > span:first-child { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--red); color: #fff; }
+  .mail__from b { display: block; font-size: 13px; }
+  .mail__from small { font-size: 11px; color: var(--muted); }
+  .mail__nums { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mail__nums span { display: grid; padding: 8px 10px; border-radius: 9px; background: var(--ground); }
+  .mail__nums small { font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  .mail__nums b { font-size: 16px; }
+  .mail__line { font-size: 12px; line-height: 1.5; color: var(--muted); }
+  .mail__line b { color: var(--ink); }
+
+  .stoast {
+    position: absolute; left: 50%; bottom: 20px; z-index: 5; margin: 0;
+    padding: 10px 16px; border-radius: 10px; background: #1F2937; color: #fff; font-size: 12.5px;
+    opacity: 0; transform: translate(-50%, 8px); pointer-events: none; transition: opacity .25s ease, transform .25s ease;
+  }
+  .stoast.is-on { opacity: 1; transform: translate(-50%, 0); }
+</style>

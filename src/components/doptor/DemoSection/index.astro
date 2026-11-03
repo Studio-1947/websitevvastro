@@ -1,0 +1,26 @@
+---
+/**
+ * A live demo section on /products/doptor-erp/: a centred heading pair (the
+ * shared .p-title / .p-lede) over a demo on a flat light red panel (as behind
+ * the S47 Vyapar map), with a small note under it. The demo goes in the slot.
+ * Used for the Campus and NGO demos.
+ */
+interface Props { id: string; content: { title: string; lede: string; note: string } }
+const { id, content: c } = Astro.props;
+---
+
+<section class="demosec" aria-labelledby={`${id}-title`}>
+  <header class="demosec__head">
+    <h2 id={`${id}-title`} class="p-title">{c.title}</h2>
+    <p class="p-lede">{c.lede}</p>
+  </header>
+  <div class="demosec__panel reveal"><slot /></div>
+  <p class="demosec__note">{c.note}</p>
+</section>
+
+<style>
+  .demosec { max-width: 1280px; margin: 0 auto; padding: clamp(56px, 7vw, 110px) clamp(16px, 5vw, 72px); }
+  .demosec__head { max-width: 760px; margin: 0 auto clamp(36px, 4.4vw, 56px); text-align: center; }
+  .demosec__panel { padding: clamp(20px, 4vw, 56px); border-radius: 16px; background: #FFECE9; }
+  .demosec__note { margin: 16px 0 0; text-align: center; font-size: 14px; color: var(--p-muted); }
+</style>

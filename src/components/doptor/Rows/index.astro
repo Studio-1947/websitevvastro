@@ -1,0 +1,101 @@
+---
+/**
+ * Feature rows for /products/doptor-erp/: the shared row design
+ * (components/pharma/Rows: text on one side, a product screen on the red wash
+ * on the other, swapping sides each row) with more on the text side: an
+ * eyebrow, "The challenge" paragraph and a "With Doptor ERP" list. List items
+ * can lead with a bold term (the access layers). Phones: text, then screen.
+ * `flip` starts the alternation on the other side, so separate groups of rows
+ * keep alternating down the page.
+ */
+import Mock from '../../pharma/Mock/index.astro';
+import type { Mock as MockData } from '../../pharma/types';
+
+export interface DoptorRow {
+  eyebrow?: string;
+  title: string;
+  /** The problem, under a "The challenge" label. */
+  challenge?: string;
+  /** Plain text, shown when there is no challenge. */
+  body?: string;
+  /** Label above the list ("With Doptor ERP"). */
+  pointsLabel?: string;
+  points?: { term?: string; text: string }[];
+  mock: MockData;
+}
+
+interface Props { content: DoptorRow[]; flip?: boolean; label?: string }
+const { content: rows, flip = false, label = 'What it does' } = Astro.props;
+---
+
+<section class="drows" aria-label={label}>
+  {rows.map((r, i) => (
+    <article class:list={['drow', { 'drow--flip': (i % 2 === 1) !== flip }]}>
+      <div class="drow__copy">
+        {r.eyebrow && <p class="drow__eyebrow">{r.eyebrow}</p>}
+        <h2 class="drow__title">{r.title}</h2>
+        {r.challenge && <p class="drow__label">The challenge</p>}
+        {r.challenge && <p class="drow__body">{r.challenge}</p>}
+        {r.body && <p class="drow__body">{r.body}</p>}
+        {r.points && (
+          <>
+            {r.pointsLabel && <p class="drow__label drow__label--with">{r.pointsLabel}</p>}
+            <ul class:list={['drow__points', { 'drow__points--terms': r.points.some((p) => p.term) }]}>
+              {r.points.map((p) => (
+                <li>
+                  {!p.term && <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10" /></svg>}
+                  {p.term ? <span><b>{p.term}</b><span>{p.text}</span></span> : <span>{p.text}</span>}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+      <div class="drow__panel reveal">
+        <div class="drow__mock"><Mock mock={r.mock} /></div>
+      </div>
+    </article>
+  ))}
+</section>
+
+<style>
+  .drows {
+    max-width: 1280px; margin: 0 auto;
+    padding: clamp(40px, 6vw, 96px) clamp(16px, 5vw, 72px);
+    display: grid; gap: clamp(72px, 9vw, 140px);
+  }
+  .drow {
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(32px, 6vw, 100px); align-items: center;
+  }
+  .drow--flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .drow--flip .drow__copy { order: 2; }
+
+  .drow__eyebrow { margin: 0 0 12px; font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--p-muted); }
+  .drow__title { margin: 0 0 18px; font-size: clamp(28px, 2.6vw, 38px); line-height: 1.15; }
+  .drow__label { margin: 0 0 6px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #B4121B; }
+  .drow__label--with { margin-top: 22px; color: var(--p-green); }
+  .drow__body { margin: 0; max-width: 46ch; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.6; }
+  .drow__points { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; max-width: 46ch; }
+  .drow__points li { display: flex; gap: 10px; align-items: flex-start; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.5; }
+  .drow__points svg { flex: none; margin-top: 3px; color: var(--p-green); }
+  .drow__points--terms { gap: 14px; margin-top: 4px; }
+  .drow__points--terms li > span { display: grid; gap: 2px; padding-left: 14px; border-left: 2px solid #FFB4AA; }
+  .drow__points--terms b { font-weight: 600; }
+  .drow__points--terms li > span > span { color: var(--p-muted); }
+
+  .drow__panel {
+    display: grid; place-items: center;
+    min-height: clamp(340px, 34vw, 480px);
+    padding: clamp(28px, 4vw, 56px);
+    border-radius: 16px;
+    background: var(--p-wash);
+  }
+  .drow__mock { width: 100%; max-width: 440px; }
+
+  @media (max-width: 860px) {
+    .drow, .drow--flip { grid-template-columns: 1fr; }
+    .drow--flip .drow__copy { order: 0; }
+    .drow__panel { min-height: 0; padding: 28px 18px; }
+  }
+</style>

@@ -1,0 +1,1710 @@
+---
+/**
+ * Doptor Office Manager demo, the hero of /products/doptor-erp/. A clickable
+ * Doptor v0.5 workspace for an invented company, with sample data
+ * (./data.ts): no real people, projects or figures. The sidebar mirrors the app: Overview, then Space (Users,
+ * Organisation, Organisation settings, Reports, Notice board), Tasks &
+ * Projects (Projects, Tasks, Upcoming tasks, Wiki) and People (Attendance,
+ * Reviews). Laid out on a fixed
+ * 1280 × 760 stage that the script scales to its box, in the same 1120px
+ * frame as the Pharma ERP and S47 Vyapar demos, so it reads the same at
+ * every width.
+ *
+ * Things that work: every sidebar screen, chart and report periods, task
+ * filters, ticking tasks off, the weekly board, moving upcoming items into
+ * Tasks, sorting the scorecard, folding and searching the org chart, wiki
+ * pages, checking in and out, deciding leave, approving reviews, the
+ * light/dark switch, notifications and collapsing the sidebar. Buttons that
+ * would change real data show a short note instead. While on screen and
+ * untouched, a pointer plays a guided demo round the screens
+ * (src/scripts/demoTour.ts); the first click or key press stops it.
+ *
+ * It shows the product's own English interface, so it is left out of page
+ * translation (`data-i18n-skip`).
+ */
+import {
+  ORG, PULSE, PERIODS, CHARTS, TASKS, SPACES, NOTES, type Slice, ORG_ROOTS,
+  MEMBERS, scoreOf, OPS_INFO, POLICY, LEAVE_TYPES, HOLIDAYS, REPORT, WEEKS, NOTICES,
+  UPCOMING, WEEKDAYS, WIKI, LEAVE_BALANCE, LEAVE_REQUESTS, REVIEWS,
+} from './data';
+
+const ICON: Record<string, string> = {
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+  tools: '<path d="m14.7 6.3 3 3M4 20l6.5-6.5M17.7 9.3 20 7a2.1 2.1 0 0 0-3-3l-2.3 2.3"/><path d="M4 4l5 5M9 4 4 9M15 15l5 5M20 15l-5 5"/>',
+  people: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/>',
+  chev: '<path d="m9 6 6 6-6 6"/>',
+  down: '<path d="m6 9 6 6 6-6"/>',
+  back: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+  moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  chat: '<rect x="4" y="4" width="16" height="13" rx="2"/><path d="M8 21l3-4M8 9h8M8 12h5"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/>',
+  logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+  building: '<rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h1M14 15h1"/>',
+  check: '<path d="m5 12 5 5 9-10"/>',
+  x: '<path d="M6 6l12 12M18 6 6 18"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  arrowDown: '<path d="M12 5v14M6 13l6 6 6-6"/>',
+};
+const icon = (name: string, size = 16, stroke = 1.8) =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name]}</svg>`;
+
+/** The app's sidebar: Overview, then three groups that open like an accordion. */
+const GROUPS = [
+  { id: 'space', label: 'Space', icon: 'globe', items: [
+    { go: 'users', label: 'Users' }, { go: 'org', label: 'Organisation' }, { go: 'orgset', label: 'Organisation settings' },
+    { go: 'reports', label: 'Reports' }, { go: 'notices', label: 'Notice board' },
+  ] },
+  { id: 'work', label: 'Tasks & Projects', icon: 'tools', items: [
+    { go: 'projects', label: 'Projects' }, { go: 'tasks', label: 'Tasks' }, { go: 'upcoming', label: 'Upcoming tasks' }, { go: 'wiki', label: 'Wiki' },
+  ] },
+  { id: 'people', label: 'People', icon: 'people', items: [
+    { go: 'attendance', label: 'Attendance' }, { go: 'reviews', label: 'Reviews' },
+  ] },
+];
+
+/* ---------- Donut arcs, drawn at build time for every period ---------- */
+const TAU = Math.PI * 2;
+function arc(cx: number, cy: number, r0: number, r1: number, a0: number, a1: number): string {
+  const p = (r: number, a: number) => [cx + r * Math.sin(a), cy - r * Math.cos(a)].map((v) => v.toFixed(2)).join(' ');
+  const large = a1 - a0 > Math.PI ? 1 : 0;
+  return `M${p(r1, a0)} A${r1} ${r1} 0 ${large} 1 ${p(r1, a1)} L${p(r0, a1)} A${r0} ${r0} 0 ${large} 0 ${p(r0, a0)} Z`;
+}
+const arcs = (slices: Slice[]) => {
+  const total = slices.reduce((n, s) => n + s.value, 0);
+  let acc = 0;
+  return slices.map((s) => {
+    const a0 = (acc / total) * TAU;
+    acc += s.value;
+    const a1 = (acc / total) * TAU;
+    return { d: arc(100, 100, 62, 96, a0 + 0.012, a1 - 0.012), color: s.color, label: s.label, value: s.value };
+  });
+};
+const totalOf = (slices: Slice[]) => slices.reduce((n, s) => n + s.value, 0);
+
+const photoOf = (name: string) => MEMBERS.find((p) => p.name === name)?.photo ?? '';
+const statusKey = (s: string) => s.toLowerCase().replace(/\s+/g, '-');
+const openCount = TASKS.filter((t) => t.status !== 'Done').length;
+
+/* ---------- Space ---------- */
+const ranked = MEMBERS.map((m) => ({ ...m, score: scoreOf(m) })).sort((a, b) => (b.score ?? -1) - (a.score ?? -1));
+const kids = (manager?: string) =>
+  manager ? MEMBERS.filter((m) => m.manager === manager) : ORG_ROOTS.map((n) => MEMBERS.find((m) => m.name === n)!);
+const TEAMS = (['Leadership', 'Engineering', 'Design'] as const).map((t) => ({ name: t, people: MEMBERS.filter((m) => m.team === t) }));
+const maxWeek = Math.max(...WEEKS.map((w) => w.due));
+
+/* ---------- Tasks, people ---------- */
+const lateTasks = TASKS.filter((t) => t.status === 'Overdue');
+const dayTasks = (key: string) => TASKS.filter((t) => t.due === key && t.status !== 'Overdue');
+const inToday = MEMBERS.filter((m) => m.today === 'In').length;
+const reviewProjects = [...new Set(REVIEWS.map((r) => r.project))];
+---
+
+<div class="dof" data-i18n-skip data-dof role="region" aria-label="Interactive preview of Doptor Office Manager, with sample data. Use the sidebar to move between screens.">
+  <div class="dof__scaler" data-scaler>
+    <div class="dof__stage" data-stage>
+      <div class="dof__app" data-app>
+        <!-- ===== Sidebar ===== -->
+        <nav class="dside" aria-label="Dashboard screens">
+          <div class="dside__brand">
+            <img src="/assets/img/brand-mark.svg" alt="" width="30" height="30" />
+            <span class="dside__txt"><b>Doptor <small>{ORG.version}</small></b><em>A Product by Studio 1947</em></span>
+          </div>
+          <ul class="dside__nav">
+            <li>
+              <button type="button" class="dside__item" data-go="overview" aria-current="page" title="Overview">
+                <Fragment set:html={icon('grid', 17)} /><span class="dside__txt">Overview</span>
+              </button>
+            </li>
+            {GROUPS.map((g) => (
+              <li class="dside__group" data-group={g.id}>
+                <button type="button" class="dside__item dside__head" data-group-toggle aria-expanded="false" title={g.label}>
+                  <Fragment set:html={icon(g.icon, 17)} /><span class="dside__txt">{g.label}</span>
+                  <span class="dside__chev dside__txt" set:html={icon('chev', 12)} />
+                </button>
+                <ul class="dside__sub" hidden>
+                  {g.items.map((it) => <li><button type="button" class="dside__subitem" data-go={it.go}>{it.label}</button></li>)}
+                </ul>
+              </li>
+            ))}
+          </ul>
+
+          <div class="dside__foot">
+            <div class="dside__me">
+              <img src={ORG.user.photo} alt="" width="38" height="38" />
+              <span class="dside__txt"><b>{ORG.user.name}</b><small>{ORG.user.role}</small><small>{ORG.name}</small><em>{ORG.user.access}</em></span>
+              <i class="dside__dot dside__txt" aria-hidden="true"></i>
+            </div>
+            <span class="dside__box dside__txt"><i></i>{ORG.name}<Fragment set:html={icon('down', 12)} /></span>
+            <span class="dside__box dside__box--lg dside__txt"><Fragment set:html={icon('building', 16)} />Doptor Companies</span>
+            <div class="dside__btns dside__txt"><span set:html={icon('gear', 15)} /><span set:html={icon('logout', 15)} /></div>
+          </div>
+          <button type="button" class="dside__fold" data-fold aria-label="Collapse the sidebar" set:html={icon('back', 14)} />
+        </nav>
+
+        <div class="dmain">
+          <!-- ===== Top bar ===== -->
+          <header class="dtop">
+            <span class="dtop__sq" aria-hidden="true" set:html={icon('back', 14)} />
+            <span class="dtop__search" aria-hidden="true"><Fragment set:html={icon('search', 13)} />Search tasks, projects and people<kbd>⌘ K</kbd></span>
+            <div class="dtop__tools">
+              <button type="button" class="dtop__sq" data-theme-toggle aria-label="Switch light or dark">
+                <span class="when-dark" set:html={icon('moon', 15)} /><span class="when-light" set:html={icon('sun', 15)} />
+              </button>
+              <button type="button" class="dtop__sq" data-say="Messages open in the full app." aria-label="Messages" set:html={icon('chat', 15)} />
+              <div class="dtop__bellwrap">
+                <button type="button" class="dtop__sq" data-bell aria-label="Notifications" aria-expanded="false">
+                  <Fragment set:html={icon('bell', 15)} /><i>{PULSE.overdue}</i>
+                </button>
+                <div class="dnotes" data-notes hidden>
+                  <p>Notifications</p>
+                  <ul>{NOTES.map((n) => <li><b>{n.text}</b><small>{n.time}</small></li>)}</ul>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <div class="dbody">
+            <!-- ===== Overview ===== -->
+            <section class="dview is-on" data-view="overview" aria-label="Overview">
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Company operations</p>
+                  <h3>{ORG.name}</h3>
+                  <p class="dhead__sub">Company-level operations, projects, and team performance.</p>
+                </div>
+                <div class="dhead__btns">
+                  <button type="button" class="btn-ghost" data-say="Export makes a PDF or Excel report in the full app."><Fragment set:html={icon('arrowDown', 13)} />Export</button>
+                  <button type="button" class="btn-teal" data-say="New tasks are added in the full app."><Fragment set:html={icon('plus', 13, 2.2)} />New task</button>
+                </div>
+              </div>
+
+              <div class="dpulse">
+                <span class="dpulse__dot" aria-hidden="true"></span>
+                <div class="dpulse__txt"><b>{ORG.name} pulse</b><small><span data-open-count>{PULSE.open}</span> open tasks; {PULSE.overdue} are past their due date.</small></div>
+                <div class="dpulse__stat"><b>{PULSE.overdue}</b><small>Overdue commitments</small></div>
+                <div class="dpulse__stat"><b data-done-count>{PULSE.completed}</b><small>Tasks completed · all time</small></div>
+                <button type="button" class="dlink" data-go-to="reports">View report →</button>
+              </div>
+
+              <div class="dpred">
+                <div class="dpred__head">
+                  <div>
+                    <p class="eyebrow-t">CEO prediction layer</p>
+                    <b>Company outlook</b>
+                    <small>Based on task commitments, due dates, review performance, and team allocation.</small>
+                  </div>
+                  <span class="dpred__tag">Updates with your tasks</span>
+                </div>
+                <div class="dpred__grid">
+                  <div><small>Completed tasks</small><b><span data-done-count>{PULSE.completed}</span> / {PULSE.total}</b><span>Across all current project tasks</span><em>From shared task records</em></div>
+                  <div><small>Overdue commitments</small><b>{PULSE.overdue} / <span data-open-count>{PULSE.open}</span></b><span>Open tasks past their due date</span><em>Needs attention</em></div>
+                  <div><small>Next 14-day deadlines</small><b>{PULSE.next14}</b><span>Open tasks due within the next two weeks</span><em>From shared task records</em></div>
+                  <div><small>Logged task time</small><b>{PULSE.logged}</b><span>Actual recorded minutes, excluding estimates</span><em>From shared task records</em></div>
+                </div>
+              </div>
+
+              <div class="dcharts">
+                <div class="dcharts__head">
+                  <div><b>Tasks by size</b><small>All captured tasks, including subtasks, grouped by the Small, Medium, and Big size tags.</small></div>
+                  <span class="dcharts__scope">{PULSE.total} tasks in scope</span>
+                  <button type="button" class="btn-ghost" data-go-to="tasks">View tasks</button>
+                </div>
+                <div class="dcharts__row">
+                  {CHARTS.map((c) => (
+                    <div class="dchart" data-chart>
+                      <div class="dchart__head">
+                        <b>{c.title}</b>
+                        <label class="dsel">
+                          <span class="sr">Period for {c.title}</span>
+                          <select data-period-select>
+                            {PERIODS.map((p) => <option value={p.id}>{p.label}</option>)}
+                          </select>
+                          <Fragment set:html={icon('down', 12)} />
+                        </label>
+                      </div>
+                      {PERIODS.map((p, i) => (
+                        <div class="dchart__body" data-period={p.id} hidden={i !== 0}>
+                          <div class="donut">
+                            <svg viewBox="0 0 200 200" aria-hidden="true">
+                              {arcs(c.data[p.id]).map((a) => <path d={a.d} fill={a.color}><title>{a.label}: {a.value}</title></path>)}
+                            </svg>
+                            <div class="donut__mid"><b>{totalOf(c.data[p.id])}</b><small>tasks</small></div>
+                          </div>
+                          <ul class="dlegend">
+                            {c.data[p.id].map((s) => <li><i style={`background:${s.color}`}></i>{s.label}<b>{s.value}</b></li>)}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Tasks & Projects · Projects ===== -->
+            <section class="dview" data-view="projects" aria-label="Projects" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Project directory</p>
+                  <h3>Projects</h3>
+                  <p class="dhead__sub">{ORG.name} · connected tasks, people and conversations. Open a project to see its tasks.</p>
+                </div>
+                <div class="dhead__btns"><button type="button" class="btn-teal" data-say="New projects are created in the full app."><Fragment set:html={icon('plus', 13, 2.2)} />New project</button></div>
+              </div>
+              <div class="dfilters">
+                <label class="dfind"><Fragment set:html={icon('search', 13)} /><input type="search" placeholder="Find a project" data-proj-search aria-label="Find a project" /></label>
+                <label class="dsel dsel--label">
+                  <span>Status</span>
+                  <select data-proj-status aria-label="Project status">
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Completed">Completed</option>
+                    <option value="All">All</option>
+                  </select>
+                  <Fragment set:html={icon('down', 12)} />
+                </label>
+                <span class="dfilters__count" data-proj-count></span>
+              </div>
+              <div class="dprojects">
+                {SPACES.map((s) => (
+                  <article class="dproject" data-proj-card={s.name} data-pstatus={s.status}>
+                    <div class="dproject__cover" style={`background: linear-gradient(135deg, ${s.color}, color-mix(in srgb, ${s.color} 50%, #1B1D2A))`}>{s.name[0]}<em>{s.status}</em></div>
+                    <div class="dproject__body">
+                      <b>{s.name}</b>
+                      <small>{s.note}</small>
+                      <div class="dproject__stats"><span><b>{s.total - s.done}</b>Open</span><span><b>{s.done}</b>Done</span><span><b>{s.members.length}</b>People</span></div>
+                      <span class="dspace__bar"><em style={`width:${(s.done / s.total) * 100}%; background:${s.color}`}></em></span>
+                      <span class="dproject__logged">Last 7 days: {s.logged === '0h' ? 'no time logged' : `${s.logged} logged`}</span>
+                      <div class="dproject__btns">
+                        <span class="dspace__faces">{s.members.map((m) => <img src={photoOf(m)} alt="" width="26" height="26" loading="lazy" />)}</span>
+                        <button type="button" class="btn-ghost btn-sm" data-open-space={s.name}>View tasks</button>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <!-- ===== Tasks & Projects · Tasks ===== -->
+            <section class="dview" data-view="tasks" aria-label="Tasks" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Tasks &amp; Projects</p>
+                  <h3>Tasks</h3>
+                  <p class="dhead__sub">Tick a task to mark it done. Overdue work stays at the top. Switch to Weekly to see the week ahead.</p>
+                </div>
+                <div class="dhead__btns">
+                  <button type="button" class="btn-teal" data-say="New tasks are added in the full app."><Fragment set:html={icon('plus', 13, 2.2)} />New task</button>
+                </div>
+              </div>
+              <div class="dfilters">
+                <div class="dseg" role="group" aria-label="Task view">
+                  <button type="button" data-task-mode="list" aria-pressed="true">List</button>
+                  <button type="button" data-task-mode="weekly" aria-pressed="false">Weekly</button>
+                </div>
+                <div class="dchips" role="group" aria-label="Filter tasks by status" data-task-chips>
+                  {['All', 'Overdue', 'Open', 'In review', 'Done'].map((c, i) => <button type="button" data-chip={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+                </div>
+                <button type="button" class="dproj" data-proj-clear hidden><span data-proj-name></span><Fragment set:html={icon('x', 11, 2.2)} /></button>
+                <span class="dfilters__count"><b data-open-count>{openCount}</b> open in this list</span>
+              </div>
+              <div class="dlist" data-list-wrap>
+              <div class="dtable">
+                <div class="dtable__row dtable__row--head"><span></span><span>Task</span><span>Project</span><span>Size</span><span>Owner</span><span>Due</span><span>Status</span></div>
+                {TASKS.map((t) => (
+                  <div class="dtable__row" data-task data-status={t.status} data-project={t.project} data-was={t.status}>
+                    <button type="button" class="dcheck" data-tick aria-pressed={t.status === 'Done' ? 'true' : 'false'} aria-label={`Mark "${t.title}" done`} set:html={icon('check', 12, 2.6)} />
+                    <b>{t.title}</b>
+                    <span>{t.project}</span>
+                    <span><em class={`size size--${t.size.toLowerCase()}`}>{t.size}</em></span>
+                    <span class="dwho"><img src={photoOf(t.who)} alt="" width="22" height="22" loading="lazy" />{t.who}</span>
+                    <span>{t.due}</span>
+                    <span><em class={`st st--${statusKey(t.status)}`} data-st>{t.status}</em></span>
+                  </div>
+                ))}
+                {UPCOMING.map((u) => (
+                  <div class="dtable__row" data-parked={u.id} data-status="Open" data-project={u.project} data-was="Open" hidden>
+                    <button type="button" class="dcheck" data-tick aria-pressed="false" aria-label={`Mark "${u.title}" done`} set:html={icon('check', 12, 2.6)} />
+                    <b>{u.title}</b>
+                    <span>{u.project}</span>
+                    <span><em class={`size size--${u.size.toLowerCase()}`}>{u.size}</em></span>
+                    <span class="dwho"><img src={photoOf(u.who)} alt="" width="22" height="22" loading="lazy" />{u.who}</span>
+                    <span>No date</span>
+                    <span><em class="st st--open" data-st>Open</em></span>
+                  </div>
+                ))}
+                <p class="dtable__empty" data-empty hidden>No tasks match this filter.</p>
+              </div>
+              </div>
+              <div class="dweek" data-weekly hidden>
+                <div class="dweek__col dweek__col--late">
+                  <b>Overdue<small>{lateTasks.length}</small></b>
+                  {lateTasks.map((t) => <div class="dweek__card"><b>{t.title}</b><span><em class="dtag">{t.project}</em><img src={photoOf(t.who)} alt={t.who} width="20" height="20" loading="lazy" /></span></div>)}
+                </div>
+                {WEEKDAYS.map((d, i) => (
+                  <div class:list={['dweek__col', { 'is-today': i === 0 }]}>
+                    <b>{d.label}{i === 0 && ' · Today'}<small>{dayTasks(d.key).length}</small></b>
+                    {dayTasks(d.key).map((t) => <div class="dweek__card"><b>{t.title}</b><span><em class={`st st--${statusKey(t.status)}`}>{t.status}</em><img src={photoOf(t.who)} alt={t.who} width="20" height="20" loading="lazy" /></span></div>)}
+                    {dayTasks(d.key).length === 0 && <p class="dweek__empty">Nothing due</p>}
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <!-- ===== Space · Users ===== -->
+            <section class="dview" data-view="users" aria-label="Users" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Space</p>
+                  <h3>Users</h3>
+                  <p class="dhead__sub">Everyone in {ORG.name}: individual KPIs, attendance and task completion.</p>
+                </div>
+                <div class="dhead__btns"><button type="button" class="btn-teal" data-say="Invitations are sent from the full app."><Fragment set:html={icon('plus', 13, 2.2)} />Invite user</button></div>
+              </div>
+              <div class="dfilters">
+                <div class="dchips" role="group" aria-label="Filter people by team" data-people-chips>
+                  {['All', 'Leadership', 'Engineering', 'Design'].map((c, i) => <button type="button" data-chip={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+                </div>
+                <label class="dsel dsel--label">
+                  <span>Sort</span>
+                  <select data-sort aria-label="Sort the scorecard">
+                    <option value="score">Score</option>
+                    <option value="att">Attendance</option>
+                    <option value="tasks">Tasks</option>
+                    <option value="name">Name</option>
+                  </select>
+                  <Fragment set:html={icon('down', 12)} />
+                </label>
+              </div>
+              <div class="dcard dboard">
+                <div class="dcard__head"><div><b>Overall leaderboard</b><small>Score = Attendance 40% + Task completion 30% + KPI fulfilment 30%. Incomplete inputs stay unrated.</small></div></div>
+                <div class="dboard__row dboard__row--head"><span>#</span><span>Person</span><span>Team</span><span>Attendance</span><span>Tasks</span><span>KPIs</span><span>Score</span></div>
+                <div data-board>
+                  {ranked.map((m, i) => (
+                    <div class="dboard__row" data-team={m.team} data-name={m.name} data-score={m.score ?? -1} data-att={m.attendance} data-tasks={m.tasks}>
+                      <span class="dboard__rank" data-rank>{String(i + 1).padStart(2, '0')}</span>
+                      <span class="dwho dwho--lg"><img src={m.photo} alt="" width="32" height="32" loading="lazy" /><span><b>{m.name}</b><small>{m.title}</small></span></span>
+                      <span><em class="dtag">{m.team}</em></span>
+                      <span class="dmeter"><i><em style={`width:${m.attendance}%`}></em></i>{m.attendance}%</span>
+                      <span>{m.tasks}%</span>
+                      <span>{m.kpis == null ? '—' : `${m.kpis}%`}</span>
+                      <span class="dboard__score">{m.score ?? <small>Unrated</small>}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Space · Organisation ===== -->
+            <section class="dview" data-view="org" aria-label="Organisation" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Space</p>
+                  <h3>Organisation</h3>
+                  <p class="dhead__sub">Teams, who leads them and who is in them. You are highlighted.</p>
+                </div>
+                <label class="dfind"><Fragment set:html={icon('search', 13)} /><input type="search" placeholder="Find a person" data-org-find aria-label="Find a person in the chart" /></label>
+              </div>
+              <div class="dtabs" role="tablist" aria-label="Organisation view" data-tabs="org">
+                <button type="button" role="tab" data-tab="chart" aria-selected="true">Chart</button>
+                <button type="button" role="tab" data-tab="teams" aria-selected="false">Teams</button>
+              </div>
+              <div class="dcard dorg" data-pane="org:chart">
+                <div class="dcard__head">
+                  <div><b>Reporting chart</b><small>{MEMBERS.length} people · use the − and + buttons to fold a branch</small></div>
+                  <div class="dhead__btns"><button type="button" class="btn-ghost btn-sm" data-org-all="open">Expand all</button><button type="button" class="btn-ghost btn-sm" data-org-all="close">Collapse all</button></div>
+                </div>
+                <div class="dorg__canvas">
+                  <div class="dorg__root">{ORG.name}</div>
+                  <ul class="dtree">
+                    {kids(undefined).map((a) => (
+                      <li>
+                        <div class:list={['dnode', { 'is-me': a.name === ORG.user.name }]} data-node={a.name}><img src={a.photo} alt="" width="34" height="34" loading="lazy" /><span><b>{a.name}{a.name === ORG.user.name && <i>You</i>}</b><small>{a.title}</small></span></div>
+                        {kids(a.name).length > 0 && <button type="button" class="dnode__fold" data-fold-branch aria-expanded="true">− {kids(a.name).length}</button>}
+                        {kids(a.name).length > 0 && (
+                          <ul data-branch>
+                            {kids(a.name).map((b) => (
+                              <li>
+                                <div class="dnode" data-node={b.name}><img src={b.photo} alt="" width="34" height="34" loading="lazy" /><span><b>{b.name}</b><small>{b.title}</small></span></div>
+                                {kids(b.name).length > 0 && <button type="button" class="dnode__fold" data-fold-branch aria-expanded="true">− {kids(b.name).length}</button>}
+                                {kids(b.name).length > 0 && (
+                                  <ul data-branch>
+                                    {kids(b.name).map((c) => (
+                                      <li><div class="dnode" data-node={c.name}><img src={c.photo} alt="" width="34" height="34" loading="lazy" /><span><b>{c.name}</b><small>{c.title}</small></span></div></li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div class="dteams" data-pane="org:teams" hidden>
+                {TEAMS.map((t) => (
+                  <div class="dcard dteam">
+                    <div class="dcard__head"><div><b>{t.name}</b><small>{t.people.length} people</small></div></div>
+                    <ul>
+                      {t.people.map((m) => <li class="dwho dwho--lg" data-node={m.name}><img src={m.photo} alt="" width="32" height="32" loading="lazy" /><span><b>{m.name}</b><small>{m.title}</small></span></li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <!-- ===== Space · Organisation settings ===== -->
+            <section class="dview" data-view="orgset" aria-label="Organisation settings" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Space</p>
+                  <h3>Organisation settings</h3>
+                  <p class="dhead__sub">Settings that make the company's day predictable.</p>
+                </div>
+              </div>
+              <div class="dset">
+                <div class="dset__col">
+                  <div class="dops">
+                    {OPS_INFO.map((o) => (
+                      <div class="dcard dops__card">
+                        <b>{o.title}</b><small>{o.text}</small>
+                        <button type="button" class="dlink" data-say={`${o.title} is edited in the full app.`}>{o.action} →</button>
+                      </div>
+                    ))}
+                  </div>
+                  <div class="dcard">
+                    <div class="dcard__head"><div><b>Organisation calendar</b><small>Holidays everyone gets off</small></div><button type="button" class="btn-ghost btn-sm" data-say="Holidays are added in the full app."><Fragment set:html={icon('plus', 12, 2.2)} />Add holiday</button></div>
+                    <ul class="dhols">
+                      {HOLIDAYS.map((h) => <li><span class="dhols__date"><b>{h.date.split(' ')[0]}</b><small>{h.date.split(' ')[1]}</small></span><span><b>{h.name}</b><small>{h.day} · {h.kind}</small></span></li>)}
+                    </ul>
+                  </div>
+                </div>
+                <div class="dset__col">
+                  <div class="dcard">
+                    <div class="dcard__head"><div><b>Attendance policy</b><small>Used for check-in times and late marks</small></div></div>
+                    <div class="dform">
+                      {POLICY.map((f) => <label>{f.label}<input type="text" value={f.value} /></label>)}
+                    </div>
+                    <button type="button" class="btn-teal btn-sm" data-say="Policy saved for this preview.">Save policy</button>
+                  </div>
+                  <div class="dcard">
+                    <div class="dcard__head"><div><b>Leave types</b></div></div>
+                    <div class="dmini dmini--leave">
+                      <div class="dmini__row dmini__row--head"><span>Type</span><span>Days a year</span><span>Carry over</span><span>Approval</span></div>
+                      {LEAVE_TYPES.map((l) => <div class="dmini__row"><span><b>{l.type}</b></span><span>{l.days}</span><span>{l.carry}</span><span>{l.approval}</span></div>)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== Space · Reports ===== -->
+            <section class="dview" data-view="reports" aria-label="Reports" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Performance reporting</p>
+                  <h3>Reports</h3>
+                  <p class="dhead__sub">Delivery, projects and team at a glance. Save it as a PDF to share.</p>
+                </div>
+                <div class="dhead__btns">
+                  <label class="dsel dsel--label">
+                    <span>Period</span>
+                    <select data-report-period aria-label="Report period">
+                      <option value="month">This month</option>
+                      <option value="week">This week</option>
+                      <option value="all">All time</option>
+                    </select>
+                    <Fragment set:html={icon('down', 12)} />
+                  </label>
+                  <button type="button" class="btn-ghost" data-say="The CSV downloads in the full app.">Export CSV</button>
+                  <button type="button" class="btn-teal" data-say="The PDF downloads in the full app."><Fragment set:html={icon('arrowDown', 13)} />Download PDF</button>
+                </div>
+              </div>
+              {(['month', 'week', 'all'] as const).map((pid) => {
+                const r = REPORT[pid];
+                const status = CHARTS[1].data[pid];
+                const size = CHARTS[0].data[pid];
+                return (
+                  <div class="dreport" data-rperiod={pid} hidden={pid !== 'month'}>
+                    <div class="dreport__tiles">
+                      <div><b>{r.scope}</b><span>Tasks in scope</span><small>{SPACES.filter((s) => s.status === 'Ongoing').length} projects</small></div>
+                      <div><b>{Math.round((r.done / r.scope) * 100)}%</b><span>Completed</span><small>{r.done} of {r.scope}</small></div>
+                      <div><b>{r.progress}</b><span>In review</span><small>Waiting on a reviewer</small></div>
+                      <div class="is-bad"><b>{r.overdue}</b><span>Overdue</span><small>Past their due date</small></div>
+                      <div><b>{r.pass}</b><span>Review pass rate</span><small>Approved first time</small></div>
+                      <div><b>{r.logged}</b><span>Time logged</span><small>Actual minutes only</small></div>
+                    </div>
+                    <div class="dreport__summary"><b>Summary</b><ul>{r.summary.map((t) => <li>{t}</li>)}</ul></div>
+                    <div class="dreport__charts">
+                      <div class="dcard dmini-chart">
+                        <b>Delivery status</b>
+                        <div class="dmini-chart__body">
+                          <div class="donut donut--sm"><svg viewBox="0 0 200 200" aria-hidden="true">{arcs(status).map((a) => <path d={a.d} fill={a.color} />)}</svg><div class="donut__mid"><b>{totalOf(status)}</b><small>tasks</small></div></div>
+                          <ul class="dlegend">{status.map((s) => <li><i style={`background:${s.color}`}></i>{s.label}<b>{s.value}</b></li>)}</ul>
+                        </div>
+                      </div>
+                      <div class="dcard dmini-chart">
+                        <b>Work by size</b>
+                        <div class="dmini-chart__body">
+                          <div class="donut donut--sm"><svg viewBox="0 0 200 200" aria-hidden="true">{arcs(size).map((a) => <path d={a.d} fill={a.color} />)}</svg><div class="donut__mid"><b>{totalOf(size)}</b><small>tasks</small></div></div>
+                          <ul class="dlegend">{size.map((s) => <li><i style={`background:${s.color}`}></i>{s.label}<b>{s.value}</b></li>)}</ul>
+                        </div>
+                      </div>
+                      <div class="dcard dmini-chart dmini-chart--wide">
+                        <b>Work due by week<small>Eight weeks around today. The dark part of each bar is done.</small></b>
+                        <div class="dweeks">
+                          {WEEKS.map((w) => (
+                            <div class:list={{ 'is-now': w.now }} title={`${w.label}: ${w.done} of ${w.due} done`}>
+                              <small>{w.due}</small>
+                              <span style={`height:${(w.due / maxWeek) * 100}%`}><i style={`height:${(w.done / w.due) * 100}%`}></i></span>
+                              <em>{w.label}</em>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </section>
+
+            <!-- ===== Space · Notice board ===== -->
+            <section class="dview" data-view="notices" aria-label="Notice board" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">{ORG.name} · Space</p>
+                  <h3>Notice board</h3>
+                  <p class="dhead__sub">Company updates, reminders and important announcements in one place.</p>
+                </div>
+                <div class="dhead__btns"><button type="button" class="btn-teal" data-say="Notices are posted from the full app."><Fragment set:html={icon('plus', 13, 2.2)} />Add notice</button></div>
+              </div>
+              <div class="dchips" role="group" aria-label="Filter notices" data-filter="kind">
+                {['All', 'Announcement', 'Policy', 'Holiday'].map((c, i) => <button type="button" data-chip={c} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+              </div>
+              <div class="dnotices">
+                {NOTICES.map((n) => (
+                  <article class:list={['dcard dnotice', { 'is-pinned': n.pinned }]} data-kind={n.kind}>
+                    <div class="dnotice__top"><em class={`dtag dtag--${n.kind.toLowerCase()}`}>{n.kind}</em>{n.pinned && <em class="dnotice__pin">Pinned</em>}<small>{n.date}</small></div>
+                    <b>{n.title}</b>
+                    <p>{n.body}</p>
+                    <span class="dwho"><img src={photoOf(n.who)} alt="" width="22" height="22" loading="lazy" />{n.who}</span>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <!-- ===== Tasks & Projects · Upcoming tasks ===== -->
+            <section class="dview" data-view="upcoming" aria-label="Upcoming tasks" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Task planning</p>
+                  <h3>Upcoming tasks</h3>
+                  <p class="dhead__sub">A planning space for work you expect to take on. Add ideas now and keep updating them as plans change.</p>
+                </div>
+                <div class="dhead__btns"><button type="button" class="btn-teal" data-say="Upcoming items are added in the full app."><Fragment set:html={icon('plus', 13, 2.2)} />Add upcoming item</button></div>
+              </div>
+              <div class="dcard dplan__note">
+                <b><span data-up-count>{UPCOMING.length}</span> planned items</b>
+                <small>These are planning notes, not task commitments. Move an item into Tasks when it is ready to be scheduled.</small>
+              </div>
+              <div class="dplan">
+                {UPCOMING.map((u) => (
+                  <article class="dcard dplan__item" data-up={u.id}>
+                    <div class="dplan__top"><em class="dtag">{u.project}</em><em class={`size size--${u.size.toLowerCase()}`}>{u.size}</em><small>{u.when}</small></div>
+                    <b>{u.title}</b>
+                    <p>{u.note}</p>
+                    <div class="dplan__foot">
+                      <span class="dwho"><img src={photoOf(u.who)} alt="" width="22" height="22" loading="lazy" />{u.who}</span>
+                      <button type="button" class="btn-ghost btn-sm" data-move={u.id}>Move to Tasks →</button>
+                    </div>
+                  </article>
+                ))}
+                <p class="dplan__empty" data-up-empty hidden>Nothing planned yet. Everything has moved into Tasks.</p>
+              </div>
+            </section>
+
+            <!-- ===== Tasks & Projects · Wiki ===== -->
+            <section class="dview" data-view="wiki" aria-label="Wiki" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Knowledge</p>
+                  <h3>Wiki</h3>
+                  <p class="dhead__sub">Write pages like a document and share them with your team.</p>
+                </div>
+                <div class="dhead__btns"><button type="button" class="btn-teal" data-say="Pages are written in the full app."><Fragment set:html={icon('plus', 13, 2.2)} />Create page</button></div>
+              </div>
+              <div class="dwiki">
+                <div class="dcard dwiki__list">
+                  <label class="dfind dfind--full"><Fragment set:html={icon('search', 13)} /><input type="search" placeholder="Search pages" data-wiki-find aria-label="Search wiki pages" /></label>
+                  <ul>
+                    {WIKI.map((w, i) => (
+                      <li><button type="button" data-wiki={w.id} data-title={w.title.toLowerCase()} aria-pressed={i === 0 ? 'true' : 'false'}><b>{w.title}</b><small>{w.project} · {w.updated}</small></button></li>
+                    ))}
+                  </ul>
+                  <p class="dwiki__none" data-wiki-none hidden>No page matches.</p>
+                </div>
+                {WIKI.map((w, i) => (
+                  <article class="dcard dwiki__page" data-wiki-page={w.id} hidden={i !== 0}>
+                    <p class="eyebrow-t">{w.project}</p>
+                    <h4>{w.title}</h4>
+                    <span class="dwho"><img src={photoOf(w.who)} alt="" width="22" height="22" loading="lazy" />{w.who} · updated {w.updated.toLowerCase()}</span>
+                    <div class="dwiki__body">
+                      {w.body.map((blk) => (
+                        <>
+                          {blk.h && <h5>{blk.h}</h5>}
+                          {blk.p && <p>{blk.p}</p>}
+                          {blk.list && <ul>{blk.list.map((li) => <li>{li}</li>)}</ul>}
+                        </>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <!-- ===== People · Attendance ===== -->
+            <section class="dview" data-view="attendance" aria-label="Attendance" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">People operations</p>
+                  <h3>Attendance</h3>
+                  <p class="dhead__sub">Check in, leave and the team's day, in one place. Times come from the server.</p>
+                </div>
+              </div>
+              <div class="dtabs" role="tablist" aria-label="Attendance view" data-tabs="att">
+                <button type="button" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+                <button type="button" role="tab" data-tab="leave" aria-selected="false">Leave approvals <i data-pending-count>{LEAVE_REQUESTS.length}</i></button>
+                <button type="button" role="tab" data-tab="log" aria-selected="false">Team log</button>
+              </div>
+
+              <div class="datt" data-pane="att:overview">
+                <div class="dcard datt__me">
+                  <div class="dcard__head"><div><b>My attendance</b><small>Today · Monday 2 November</small></div></div>
+                  <div class="datt__clock">
+                    <span class="datt__state" data-clock-state>Not checked in yet</span>
+                    <b data-clock-time>--:--</b>
+                    <small data-clock-note>Working hours 10:00 to 18:00</small>
+                  </div>
+                  <button type="button" class="btn-teal datt__btn" data-clock>Check in</button>
+                  <div class="dmini">
+                    <div class="dmini__row dmini__row--head dmini__row--bal"><span>My leave</span><span>Allotted</span><span>Pending</span><span>Remaining</span></div>
+                    {LEAVE_BALANCE.map((l) => <div class="dmini__row dmini__row--bal"><span><b>{l.type}</b></span><span>{l.allotted}</span><span>{l.pending}</span><span><b>{l.remaining}</b></span></div>)}
+                  </div>
+                  <div class="dhead__btns">
+                    <button type="button" class="btn-ghost btn-sm" data-say="Leave requests are sent from the full app.">Apply for leave</button>
+                    <button type="button" class="btn-ghost btn-sm" data-say="Corrections are requested from the full app.">Request a correction</button>
+                  </div>
+                </div>
+                <div class="datt__team">
+                  <div class="datt__stats">
+                    <div class="dcard"><b>{inToday} / {MEMBERS.length}</b><small>Checked in today</small></div>
+                    <div class="dcard"><b>{MEMBERS.filter((m) => m.today === 'Leave').length}</b><small>On leave today</small></div>
+                    <div class="dcard"><b data-pending-count>{LEAVE_REQUESTS.length}</b><small>Leave requests waiting</small></div>
+                  </div>
+                  <div class="dcard">
+                    <div class="dcard__head"><div><b>Team today</b><small>Who is in, who is away, who has not checked in</small></div></div>
+                    <ul class="dtoday">
+                      {MEMBERS.map((m) => (
+                        <li><span class="dwho"><img src={m.photo} alt="" width="26" height="26" loading="lazy" /><span><b>{m.name}</b><small>{m.title}</small></span></span><em class={`st st--day-${m.today.toLowerCase().replace(' ', '-')}`}>{m.today === 'In' ? `In · ${m.checkIn}` : m.today === 'Leave' ? 'On leave' : 'Not yet'}</em></li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dcard dreqs" data-pane="att:leave" hidden>
+                <div class="dcard__head"><div><b>Pending leave requests</b><small>Awaiting your decision. Holidays and weekends are left out of the count.</small></div></div>
+                {LEAVE_REQUESTS.map((l) => (
+                  <div class="dreq" data-req={l.id}>
+                    <span class="dwho dwho--lg"><img src={photoOf(l.who)} alt="" width="32" height="32" loading="lazy" /><span><b>{l.who}</b><small>{l.type}</small></span></span>
+                    <span><b>{l.from === l.to ? l.from : `${l.from} to ${l.to}`}</b><small>{l.days} {l.days === 1 ? 'day' : 'days'}</small></span>
+                    <span class="dreq__why">{l.reason}</span>
+                    <span class="dreq__act" data-req-actions>
+                      <button type="button" class="btn-ghost btn-sm" data-decide="Declined">Decline</button>
+                      <button type="button" class="btn-teal btn-sm" data-decide="Approved">Approve</button>
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div class="dcard" data-pane="att:log" hidden>
+                <div class="dcard__head"><div><b>Team attendance log</b><small>Monday 2 November</small></div></div>
+                <div class="dmini dmini--log">
+                  <div class="dmini__row dmini__row--head"><span>Team member</span><span>Check in</span><span>Check out</span><span>Status</span></div>
+                  {MEMBERS.map((m) => (
+                    <div class="dmini__row">
+                      <span class="dwho"><img src={m.photo} alt="" width="22" height="22" loading="lazy" />{m.name}</span>
+                      <span>{m.checkIn || '—'}</span>
+                      <span>{m.checkOut || '—'}</span>
+                      <span><em class={`st st--day-${m.today.toLowerCase().replace(' ', '-')}`}>{m.today === 'In' ? (m.checkIn > '10:15' ? 'Late' : 'On time') : m.today === 'Leave' ? 'On leave' : 'Not yet'}</em></span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <!-- ===== People · Reviews ===== -->
+            <section class="dview" data-view="reviews" aria-label="Reviews" hidden>
+              <div class="dhead">
+                <div>
+                  <p class="eyebrow-t">Quality control</p>
+                  <h3>Reviews</h3>
+                  <p class="dhead__sub">Task details, final deliverables, assignees and reviewers in one view.</p>
+                </div>
+                <div class="dhead__btns">
+                  <label class="dsel dsel--label">
+                    <span>Review state</span>
+                    <select data-review-state aria-label="Filter by review state">
+                      {['All', 'Pending', 'Approved', 'Sent back'].map((o) => <option value={o}>{o}</option>)}
+                    </select>
+                    <Fragment set:html={icon('down', 12)} />
+                  </label>
+                </div>
+              </div>
+              <div class="dreviews">
+                {reviewProjects.map((proj) => (
+                  <div class="dcard drev" data-rev-group>
+                    <div class="drev__head"><i style={`background:${SPACES.find((s) => s.name === proj)?.color}`}></i><b>{proj}</b><small>Project review queue</small></div>
+                    <div class="drev__row drev__row--head"><span>Work</span><span>Size</span><span>Assignee</span><span>Reviewer</span><span>Due</span><span>Final file</span><span>Review</span></div>
+                    {REVIEWS.filter((r) => r.project === proj).map((r) => (
+                      <div class="drev__row" data-rev data-state={r.state}>
+                        <b>{r.work}</b>
+                        <span><em class={`size size--${r.size.toLowerCase()}`}>{r.size}</em></span>
+                        <span class="dwho"><img src={photoOf(r.who)} alt="" width="22" height="22" loading="lazy" />{r.who}</span>
+                        <span>{r.reviewer}</span>
+                        <span>{r.due}</span>
+                        <span class={r.file ? 'drev__file' : 'drev__nofile'}>{r.file || 'No final file'}</span>
+                        <span class="drev__act">
+                          <em class={`st st--rev-${r.state.toLowerCase().replace(' ', '-')}`} data-rev-st>{r.state}</em>
+                          <button type="button" class="drev__btn" data-review="Approved" aria-label={`Approve ${r.work}`} set:html={icon('check', 12, 2.6)} />
+                          <button type="button" class="drev__btn drev__btn--back" data-review="Sent back" aria-label={`Send back ${r.work}`} set:html={icon('back', 12, 2.4)} />
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+                <p class="dtable__empty" data-rev-empty hidden>No work matches this review state.</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <p class="dtoast" data-toast role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { startTour } from '../../../scripts/demoTour';
+
+  document.querySelectorAll<HTMLElement>('[data-dof]').forEach((root) => {
+    const W = 1280, H = 760;
+    const scaler = root.querySelector<HTMLElement>('[data-scaler]')!;
+    const stage = root.querySelector<HTMLElement>('[data-stage]')!;
+    const app = root.querySelector<HTMLElement>('[data-app]')!;
+    const fit = () => {
+      const s = scaler.clientWidth / W;
+      stage.style.setProperty('--s', String(s));
+      scaler.style.height = `${H * s}px`;
+    };
+    new ResizeObserver(fit).observe(scaler);
+    fit();
+
+    // A short note for buttons that would change real data
+    const toast = root.querySelector<HTMLElement>('[data-toast]')!;
+    let toastTimer = 0;
+    const say = (msg: string) => {
+      toast.textContent = msg;
+      toast.classList.add('is-on');
+      clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove('is-on'), 2200);
+    };
+    root.querySelectorAll<HTMLElement>('[data-say]').forEach((b) => b.addEventListener('click', () => say(b.dataset.say || '')));
+
+    // Screens, and the sidebar groups that hold them (one group open at a time)
+    const navs = root.querySelectorAll<HTMLButtonElement>('.dside [data-go]');
+    const views = root.querySelectorAll<HTMLElement>('[data-view]');
+    const groups = root.querySelectorAll<HTMLElement>('[data-group]');
+    const openGroup = (g: HTMLElement | null) =>
+      groups.forEach((x) => {
+        x.querySelector('[data-group-toggle]')!.setAttribute('aria-expanded', String(x === g));
+        x.querySelector<HTMLElement>('.dside__sub')!.hidden = x !== g;
+      });
+    const show = (name: string) => {
+      navs.forEach((n) => (n.dataset.go === name ? n.setAttribute('aria-current', 'page') : n.removeAttribute('aria-current')));
+      views.forEach((v) => {
+        const on = v.dataset.view === name;
+        v.hidden = !on;
+        v.classList.toggle('is-on', on);
+      });
+      const g = root.querySelector<HTMLElement>(`.dside [data-go="${name}"]`)?.closest<HTMLElement>('[data-group]') ?? null;
+      groups.forEach((x) => x.querySelector('[data-group-toggle]')!.classList.toggle('is-active', x === g));
+      if (g) openGroup(g);
+    };
+    navs.forEach((b) => b.addEventListener('click', () => show(b.dataset.go || 'overview')));
+    groups.forEach((g) =>
+      g.querySelector('[data-group-toggle]')!.addEventListener('click', () => {
+        app.classList.remove('is-folded');
+        const open = g.querySelector('[data-group-toggle]')!.getAttribute('aria-expanded') === 'true';
+        openGroup(open ? null : g);
+      })
+    );
+    root.querySelectorAll<HTMLElement>('[data-go-to]').forEach((b) =>
+      b.addEventListener('click', () => {
+        setProject('');
+        show(b.dataset.goTo || 'overview');
+      })
+    );
+
+    // Sidebar fold, light/dark, notifications
+    root.querySelector('[data-fold]')!.addEventListener('click', (e) => {
+      const folded = app.classList.toggle('is-folded');
+      (e.currentTarget as HTMLElement).setAttribute('aria-label', folded ? 'Expand the sidebar' : 'Collapse the sidebar');
+    });
+    root.querySelector('[data-theme-toggle]')!.addEventListener('click', () => app.classList.toggle('is-light'));
+    const bell = root.querySelector<HTMLButtonElement>('[data-bell]')!;
+    const notes = root.querySelector<HTMLElement>('[data-notes]')!;
+    bell.addEventListener('click', (e) => {
+      e.stopPropagation();
+      notes.hidden = !notes.hidden;
+      bell.setAttribute('aria-expanded', String(!notes.hidden));
+    });
+    root.addEventListener('click', (e) => {
+      if (!notes.hidden && !notes.contains(e.target as Node)) {
+        notes.hidden = true;
+        bell.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Chart periods
+    root.querySelectorAll<HTMLElement>('[data-chart]').forEach((chart) => {
+      const sel = chart.querySelector<HTMLSelectElement>('[data-period-select]')!;
+      sel.addEventListener('change', () => {
+        chart.querySelectorAll<HTMLElement>('[data-period]').forEach((b) => (b.hidden = b.dataset.period !== sel.value));
+      });
+    });
+
+    // Tasks: status chips, project filter (from Space), ticking off
+    const rows = [...root.querySelectorAll<HTMLElement>('[data-task]')];
+    const empty = root.querySelector<HTMLElement>('[data-empty]')!;
+    const projBtn = root.querySelector<HTMLButtonElement>('[data-proj-clear]')!;
+    const projName = root.querySelector<HTMLElement>('[data-proj-name]')!;
+    const taskChips = root.querySelectorAll<HTMLButtonElement>('[data-task-chips] [data-chip]');
+    let status = 'All';
+    let project = '';
+    const applyTasks = () => {
+      let shown = 0;
+      rows.forEach((r) => {
+        const ok = (status === 'All' || r.dataset.status === status) && (!project || r.dataset.project === project);
+        r.hidden = !ok;
+        if (ok) shown++;
+      });
+      empty.hidden = shown > 0;
+    };
+    const setProject = (name: string) => {
+      project = name;
+      projBtn.hidden = !name;
+      projName.textContent = name ? `Project: ${name}` : '';
+      applyTasks();
+    };
+    taskChips.forEach((c) =>
+      c.addEventListener('click', () => {
+        taskChips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+        status = c.dataset.chip || 'All';
+        applyTasks();
+      })
+    );
+    projBtn.addEventListener('click', () => setProject(''));
+    root.querySelectorAll<HTMLElement>('[data-open-space]').forEach((b) =>
+      b.addEventListener('click', () => {
+        taskChips.forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.chip === 'All')));
+        status = 'All';
+        setProject(b.dataset.openSpace || '');
+        show('tasks');
+      })
+    );
+
+    // Ticking a task off moves the open and done counts everywhere
+    const openEls = root.querySelectorAll<HTMLElement>('[data-open-count]');
+    const doneEls = root.querySelectorAll<HTMLElement>('[data-done-count]');
+    const bump = (els: NodeListOf<HTMLElement>, by: number) => els.forEach((el) => (el.textContent = String(Number(el.textContent) + by)));
+    root.querySelectorAll<HTMLButtonElement>('[data-tick]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const row = b.closest<HTMLElement>('[data-task]')!;
+        const done = b.getAttribute('aria-pressed') !== 'true';
+        const next = done ? 'Done' : row.dataset.was === 'Done' ? 'Open' : row.dataset.was || 'Open';
+        b.setAttribute('aria-pressed', String(done));
+        row.dataset.status = next;
+        const st = row.querySelector<HTMLElement>('[data-st]')!;
+        st.textContent = next;
+        st.className = `st st--${next.toLowerCase().replace(/\s+/g, '-')}`;
+        bump(openEls, done ? -1 : 1);
+        bump(doneEls, done ? 1 : -1);
+        if (done) say('Marked done. The overview counts update with it.');
+        applyTasks();
+      })
+    );
+
+    // People: team chips
+    const peopleChips = root.querySelectorAll<HTMLButtonElement>('[data-people-chips] [data-chip]');
+    peopleChips.forEach((c) =>
+      c.addEventListener('click', () => {
+        peopleChips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+        const want = c.dataset.chip;
+        root.querySelectorAll<HTMLElement>('[data-team]').forEach((p) => (p.hidden = want !== 'All' && p.dataset.team !== want));
+      })
+    );
+
+    // Tabs inside a screen (Organisation, Attendance)
+    root.querySelectorAll<HTMLElement>('[data-tabs]').forEach((group) => {
+      const name = group.dataset.tabs;
+      const tabs = group.querySelectorAll<HTMLButtonElement>('[data-tab]');
+      tabs.forEach((t) =>
+        t.addEventListener('click', () => {
+          tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+          root.querySelectorAll<HTMLElement>(`[data-pane^="${name}:"]`).forEach((p) => (p.hidden = p.dataset.pane !== `${name}:${t.dataset.tab}`));
+        })
+      );
+    });
+
+    // Simple filter chips: rows carry the same data attribute as the group
+    root.querySelectorAll<HTMLElement>('[data-filter]').forEach((group) => {
+      const key = group.dataset.filter || '';
+      const view = group.closest<HTMLElement>('[data-view]')!;
+      const chips = group.querySelectorAll<HTMLButtonElement>('[data-chip]');
+      chips.forEach((c) =>
+        c.addEventListener('click', () => {
+          chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+          view.querySelectorAll<HTMLElement>(`[data-${key}]`).forEach((el) => {
+            if (el === group) return;
+            el.hidden = c.dataset.chip !== 'All' && el.dataset[key] !== c.dataset.chip;
+          });
+        })
+      );
+    });
+
+    // Users: sort the leaderboard
+    const board = root.querySelector<HTMLElement>('[data-board]');
+    root.querySelector<HTMLSelectElement>('[data-sort]')?.addEventListener('change', (e) => {
+      if (!board) return;
+      const by = (e.target as HTMLSelectElement).value;
+      const list = [...board.children] as HTMLElement[];
+      list.sort((a, b) => (by === 'name' ? (a.dataset.name || '').localeCompare(b.dataset.name || '') : Number(b.dataset[by]) - Number(a.dataset[by])));
+      list.forEach((row, i) => {
+        board.appendChild(row);
+        row.querySelector('[data-rank]')!.textContent = String(i + 1).padStart(2, '0');
+      });
+    });
+
+    // Organisation: fold branches, find a person
+    const setFold = (btn: HTMLButtonElement, open: boolean) => {
+      const branch = btn.parentElement!.querySelector<HTMLElement>(':scope > [data-branch]');
+      if (!branch) return;
+      branch.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = `${open ? '−' : '+'} ${branch.children.length}`;
+    };
+    root.querySelectorAll<HTMLButtonElement>('[data-fold-branch]').forEach((b) => b.addEventListener('click', () => setFold(b, b.getAttribute('aria-expanded') !== 'true')));
+    root.querySelectorAll<HTMLButtonElement>('[data-org-all]').forEach((b) =>
+      b.addEventListener('click', () => root.querySelectorAll<HTMLButtonElement>('[data-fold-branch]').forEach((f) => setFold(f, b.dataset.orgAll === 'open')))
+    );
+    root.querySelector<HTMLInputElement>('[data-org-find]')?.addEventListener('input', (e) => {
+      const q = (e.target as HTMLInputElement).value.trim().toLowerCase();
+      if (q) root.querySelectorAll<HTMLButtonElement>('[data-fold-branch]').forEach((f) => setFold(f, true));
+      root.querySelectorAll<HTMLElement>('[data-node]').forEach((n) => {
+        const hit = !!q && (n.dataset.node || '').toLowerCase().includes(q);
+        n.classList.toggle('is-found', hit);
+        n.classList.toggle('is-dim', !!q && !hit);
+      });
+    });
+
+    // Reports: period
+    root.querySelector<HTMLSelectElement>('[data-report-period]')?.addEventListener('change', (e) => {
+      const v = (e.target as HTMLSelectElement).value;
+      root.querySelectorAll<HTMLElement>('[data-rperiod]').forEach((b) => (b.hidden = b.dataset.rperiod !== v));
+    });
+
+    // Projects: search and status
+    const projSearch = root.querySelector<HTMLInputElement>('[data-proj-search]');
+    const projStatus = root.querySelector<HTMLSelectElement>('[data-proj-status]');
+    const projCount = root.querySelector<HTMLElement>('[data-proj-count]');
+    const applyProjects = () => {
+      const q = (projSearch?.value || '').trim().toLowerCase();
+      const st = projStatus?.value || 'All';
+      let n = 0;
+      root.querySelectorAll<HTMLElement>('[data-proj-card]').forEach((c) => {
+        const ok = (st === 'All' || c.dataset.pstatus === st) && (!q || (c.dataset.projCard || '').toLowerCase().includes(q));
+        c.hidden = !ok;
+        if (ok) n++;
+      });
+      if (projCount) projCount.textContent = `${n} ${n === 1 ? 'project' : 'projects'}`;
+    };
+    projSearch?.addEventListener('input', applyProjects);
+    projStatus?.addEventListener('change', applyProjects);
+    applyProjects();
+
+    // Tasks: list or weekly
+    const modeBtns = root.querySelectorAll<HTMLButtonElement>('[data-task-mode]');
+    modeBtns.forEach((b) =>
+      b.addEventListener('click', () => {
+        modeBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        const weekly = b.dataset.taskMode === 'weekly';
+        root.querySelector<HTMLElement>('[data-list-wrap]')!.hidden = weekly;
+        root.querySelector<HTMLElement>('[data-weekly]')!.hidden = !weekly;
+      })
+    );
+
+    // Upcoming: move an item into Tasks
+    const upCount = root.querySelector<HTMLElement>('[data-up-count]')!;
+    root.querySelectorAll<HTMLButtonElement>('[data-move]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const id = b.dataset.move;
+        root.querySelector(`[data-up="${id}"]`)?.remove();
+        const row = root.querySelector<HTMLElement>(`[data-parked="${id}"]`);
+        if (row) {
+          row.removeAttribute('data-parked');
+          row.setAttribute('data-task', '');
+          rows.push(row);
+          bump(openEls, 1);
+          applyTasks();
+        }
+        const left = root.querySelectorAll('[data-up]').length;
+        upCount.textContent = String(left);
+        root.querySelector<HTMLElement>('[data-up-empty]')!.hidden = left > 0;
+        say('Moved to Tasks. It now has an owner and counts as open work.');
+      })
+    );
+
+    // Wiki: open a page, search
+    const wikiBtns = root.querySelectorAll<HTMLButtonElement>('[data-wiki]');
+    wikiBtns.forEach((b) =>
+      b.addEventListener('click', () => {
+        wikiBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        root.querySelectorAll<HTMLElement>('[data-wiki-page]').forEach((p) => (p.hidden = p.dataset.wikiPage !== b.dataset.wiki));
+      })
+    );
+    root.querySelector<HTMLInputElement>('[data-wiki-find]')?.addEventListener('input', (e) => {
+      const q = (e.target as HTMLInputElement).value.trim().toLowerCase();
+      let n = 0;
+      wikiBtns.forEach((b) => {
+        const ok = !q || (b.dataset.title || '').includes(q);
+        b.parentElement!.hidden = !ok;
+        if (ok) n++;
+      });
+      root.querySelector<HTMLElement>('[data-wiki-none]')!.hidden = n > 0;
+    });
+
+    // Attendance: check in and out with the real clock
+    const clockBtn = root.querySelector<HTMLButtonElement>('[data-clock]');
+    const clockState = root.querySelector<HTMLElement>('[data-clock-state]')!;
+    const clockTime = root.querySelector<HTMLElement>('[data-clock-time]')!;
+    const clockNote = root.querySelector<HTMLElement>('[data-clock-note]')!;
+    let clockStep = 0;
+    clockBtn?.addEventListener('click', () => {
+      const now = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      if (clockStep === 0) {
+        clockState.textContent = 'Checked in';
+        clockTime.textContent = now;
+        clockNote.textContent = 'Have a good day. Check out when you leave.';
+        clockBtn.textContent = 'Check out';
+        say('Checked in. The time comes from the server, so it cannot be changed later.');
+      } else if (clockStep === 1) {
+        clockState.textContent = 'Checked out';
+        clockNote.textContent = `In at ${clockTime.textContent}, out at ${now}`;
+        clockTime.textContent = now;
+        clockBtn.textContent = 'Update check out';
+        say('Checked out. See you tomorrow.');
+      } else {
+        clockNote.textContent = `Check out updated to ${now}`;
+        clockTime.textContent = now;
+      }
+      clockStep = Math.min(clockStep + 1, 2);
+    });
+
+    // Attendance: decide leave requests
+    const pendingEls = root.querySelectorAll<HTMLElement>('[data-pending-count]');
+    root.querySelectorAll<HTMLButtonElement>('[data-decide]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const req = b.closest<HTMLElement>('[data-req]')!;
+        const verdict = b.dataset.decide || '';
+        req.querySelector('[data-req-actions]')!.innerHTML = '';
+        const tag = document.createElement('span');
+        tag.textContent = verdict;
+        tag.className = 'dreq__done';
+        if (verdict === 'Declined') tag.classList.add('is-no');
+        req.querySelector('[data-req-actions]')!.appendChild(tag);
+        req.classList.add('is-decided');
+        bump(pendingEls, -1);
+      })
+    );
+
+    // Reviews: approve or send back, filter by state
+    const revSel = root.querySelector<HTMLSelectElement>('[data-review-state]');
+    const applyReviews = () => {
+      const want = revSel?.value || 'All';
+      let any = 0;
+      root.querySelectorAll<HTMLElement>('[data-rev-group]').forEach((g) => {
+        let n = 0;
+        g.querySelectorAll<HTMLElement>('[data-rev]').forEach((r) => {
+          const ok = want === 'All' || r.dataset.state === want;
+          r.hidden = !ok;
+          if (ok) n++;
+        });
+        g.hidden = n === 0;
+        any += n;
+      });
+      root.querySelector<HTMLElement>('[data-rev-empty]')!.hidden = any > 0;
+    };
+    revSel?.addEventListener('change', applyReviews);
+    root.querySelectorAll<HTMLButtonElement>('[data-review]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const row = b.closest<HTMLElement>('[data-rev]')!;
+        const state = b.dataset.review || 'Pending';
+        row.dataset.state = state;
+        const st = row.querySelector<HTMLElement>('[data-rev-st]')!;
+        st.textContent = state;
+        st.className = `st st--rev-${state.toLowerCase().replace(' ', '-')}`;
+        say(state === 'Approved' ? 'Approved. The assignee is told right away.' : 'Sent back with a note for the assignee.');
+        applyReviews();
+      })
+    );
+
+    // Guided demo: a round of the workspace that leaves everything as it found it.
+    const q = (sel: string) => root.querySelector<HTMLElement>(sel);
+    startTour({
+      root,
+      stage,
+      round: async ({ wait, press, choose }) => {
+        await wait(2200);
+        await choose(q('[data-period-select]') as HTMLSelectElement, 'month');
+        await wait(1800);
+        await press(q('[data-group="work"] [data-group-toggle]'));
+        await wait(700);
+        await press(q('.dside [data-go="tasks"]'));
+        await wait(1800);
+        const tick = root.querySelector<HTMLElement>('[data-task]:not([hidden]) [data-tick][aria-pressed="false"]');
+        await press(tick);
+        await wait(1800);
+        await press(tick);
+        await wait(1200);
+        await press(q('[data-task-mode="weekly"]'));
+        await wait(2400);
+        await press(q('[data-task-mode="list"]'));
+        await wait(900);
+        await press(q('[data-group="space"] [data-group-toggle]'));
+        await wait(700);
+        await press(q('.dside [data-go="org"]'));
+        await wait(1600);
+        await press(q('[data-org-all="close"]'));
+        await wait(1400);
+        await press(q('[data-org-all="open"]'));
+        await wait(1200);
+        await press(q('.dside [data-go="reports"]'));
+        await wait(1600);
+        await choose(q('[data-report-period]') as HTMLSelectElement, 'week');
+        await wait(2000);
+        await choose(q('[data-report-period]') as HTMLSelectElement, 'month');
+        await wait(900);
+        await press(q('[data-group="people"] [data-group-toggle]'));
+        await wait(700);
+        await press(q('.dside [data-go="attendance"]'));
+        await wait(1800);
+        await press(q('[data-tabs="att"] [data-tab="leave"]'));
+        await wait(1800);
+        await press(q('[data-tabs="att"] [data-tab="overview"]'));
+        await wait(900);
+        await press(q('.dside [data-go="reviews"]'));
+        await wait(2200);
+        await press(q('.dside [data-go="overview"]'));
+        await wait(600);
+        await choose(q('[data-period-select]') as HTMLSelectElement, 'all');
+      },
+    });
+  });
+</script>
+
+<style>
+  /* Same frame as the Pharma ERP and S47 Vyapar dashboards: 1120px wide at most, 1280 × 760 stage. */
+  .dof {
+    /* Top gap as on the S47 Vyapar dashboard, so the hero's pulsing arrow has room above it. */
+    max-width: 1120px; margin: clamp(40px, 5vw, 64px) auto 0;
+    border-radius: 14px; overflow: hidden;
+    background: #1B1D2A; box-shadow: 0 40px 90px -40px rgba(20, 20, 40, .55);
+  }
+  .dof__scaler { position: relative; aspect-ratio: 1280 / 760; overflow: hidden; }
+  .dof__stage {
+    position: absolute; top: 0; left: 0; width: 1280px; height: 760px;
+    transform: scale(var(--s, 1)); transform-origin: 0 0;
+    font-size: 13px; line-height: 1.35; text-align: left;
+  }
+  /* Resets kept at the lowest weight so every rule below wins over them. */
+  :where(.dof__stage button, .dof__stage select) { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0; }
+  :where(.dof__stage p, .dof__stage h3, .dof__stage ul, .dof__stage dl, .dof__stage dd) { margin: 0; padding: 0; }
+  :where(.dof__stage ul) { list-style: none; }
+  .dof__stage :where(button, select):focus-visible { outline: 2px solid var(--d-teal); outline-offset: 2px; }
+  .dof__stage [hidden] { display: none !important; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+  /* Theme: dark as in the app, light on the switch */
+  .dof__app {
+    --d-bg: #1B1D2A; --d-side: #1F2130; --d-card: #24263A; --d-card2: #2A2C42; --d-line: #34374D;
+    --d-ink: #EEF0F6; --d-muted: #A3A8BC; --d-faint: #6F758D; --d-teal: #23A68B; --d-teal-ink: #2FC3A3;
+    --d-wash: linear-gradient(135deg, #2A2747 0%, #24263A 60%);
+    --d-tag: #3A3466; --d-tag-ink: #D7D2FF;
+    height: 100%; display: grid; grid-template-columns: 220px 1fr;
+    background: var(--d-bg); color: var(--d-ink);
+    transition: grid-template-columns .3s ease;
+  }
+  .dof__app.is-light {
+    --d-bg: #F5F6FA; --d-side: #FFFFFF; --d-card: #FFFFFF; --d-card2: #F7F8FB; --d-line: #E2E5EE;
+    --d-ink: #1A1D2B; --d-muted: #5E6478; --d-faint: #8C92A6; --d-teal: #16967B; --d-teal-ink: #128A71;
+    --d-wash: linear-gradient(135deg, #F1EEFF 0%, #FFFFFF 60%);
+    --d-tag: #E9E5FF; --d-tag-ink: #4B3FB0;
+  }
+  .when-light { display: none; }
+  .is-light .when-light { display: inline; }
+  .is-light .when-dark { display: none; }
+
+  /* ===== Sidebar ===== */
+  .dside { position: relative; display: flex; flex-direction: column; background: var(--d-side); border-right: 1px solid var(--d-line); min-width: 0; }
+  .dside__brand { display: flex; align-items: center; gap: 10px; height: 62px; padding: 0 16px; border-bottom: 1px solid var(--d-line); }
+  .dside__brand img { flex: none; }
+  .dside__brand b { display: block; font-size: 16px; font-weight: 700; white-space: nowrap; }
+  .dside__brand b small { font-size: 9px; font-weight: 500; color: var(--d-muted); }
+  .dside__brand em { display: block; font-style: normal; font-size: 9px; color: var(--d-muted); white-space: nowrap; }
+  .dside__nav { display: grid; gap: 4px; padding: 16px 10px; }
+  .dside__item { width: 100%; display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; color: var(--d-ink); font-size: 14px; white-space: nowrap; transition: background .2s ease; }
+  .dside__item:hover { background: var(--d-card); }
+  .dside__item[aria-current='page'] { background: var(--d-card2); color: var(--d-teal-ink); font-weight: 600; box-shadow: inset 3px 0 0 var(--d-teal); }
+  .dside__chev { margin-left: auto; color: var(--d-muted); display: inline-flex; }
+  .dside__foot { margin-top: auto; padding: 14px 10px; border-top: 1px solid var(--d-line); display: grid; gap: 10px; }
+  .dside__me { display: flex; align-items: center; gap: 10px; padding: 4px 4px 6px; }
+  .dside__me img { flex: none; width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+  .dside__me b { display: block; font-size: 13px; }
+  .dside__me small { display: block; font-size: 10.5px; color: var(--d-muted); line-height: 1.4; }
+  .dside__me em { display: block; font-style: normal; font-size: 10.5px; font-weight: 700; color: #8F9BFF; }
+  .dside__dot { margin-left: auto; width: 22px; height: 22px; border-radius: 50%; background: var(--d-teal); box-shadow: 0 0 0 4px var(--d-card2); }
+  .dside__box { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border: 1px solid var(--d-line); border-radius: 9px; font-size: 12px; white-space: nowrap; }
+  .dside__box i { width: 8px; height: 8px; border: 1.5px solid currentColor; border-radius: 2px; }
+  .dside__box svg:last-child { margin-left: auto; }
+  .dside__box--lg { font-size: 13px; padding: 10px 12px; }
+  .dside__btns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .dside__btns span { display: grid; place-items: center; height: 32px; border: 1px solid var(--d-line); border-radius: 9px; color: var(--d-muted); }
+  .dside__fold {
+    position: absolute; top: 50%; right: -16px; z-index: 2;
+    display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px;
+    background: var(--d-side); border: 1px solid var(--d-line) !important; color: var(--d-ink) !important;
+    transition: transform .3s ease;
+  }
+  .dside__fold:hover { border-color: var(--d-teal) !important; }
+  .dof__app.is-folded { grid-template-columns: 68px 1fr; }
+  .is-folded .dside__txt { display: none; }
+  .is-folded .dside__brand { padding: 0 19px; }
+  .is-folded .dside__item { justify-content: center; padding: 11px 0; }
+  .is-folded .dside__me { justify-content: center; }
+  .is-folded .dside__fold { transform: rotate(180deg); }
+
+  /* ===== Top bar ===== */
+  .dmain { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+  .dtop { display: flex; align-items: center; gap: 12px; height: 62px; padding: 0 22px 0 30px; border-bottom: 1px solid var(--d-line); }
+  .dtop__sq { position: relative; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; border: 1px solid var(--d-line) !important; background: var(--d-card); color: var(--d-ink); }
+  button.dtop__sq:hover { border-color: var(--d-teal) !important; }
+  .dtop__search { display: flex; align-items: center; gap: 10px; width: 420px; height: 36px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--d-line); background: var(--d-card); color: var(--d-muted); font-size: 13px; }
+  .dtop__search kbd { margin-left: auto; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--d-line); font: 10px/1.4 inherit; color: var(--d-muted); }
+  .dtop__tools { margin-left: auto; display: flex; gap: 10px; }
+  .dtop__sq i { position: absolute; top: -6px; right: -6px; display: grid; place-items: center; min-width: 17px; height: 17px; padding: 0 3px; border-radius: 999px; background: #E5484D; color: #fff; font-style: normal; font-size: 9px; font-weight: 700; box-shadow: 0 0 0 2px var(--d-bg); }
+  .dtop__bellwrap { position: relative; }
+  .dnotes { position: absolute; top: 44px; right: 0; z-index: 5; width: 300px; padding: 12px; border-radius: 12px; background: var(--d-card); border: 1px solid var(--d-line); box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .5); }
+  .dnotes p { font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+  .dnotes ul { display: grid; gap: 8px; }
+  .dnotes li { padding: 8px 10px; border-radius: 9px; background: var(--d-card2); }
+  .dnotes b { display: block; font-weight: 500; font-size: 12px; }
+  .dnotes small { font-size: 10.5px; color: var(--d-muted); }
+
+  /* ===== Screens ===== */
+  .dbody { flex: 1; min-height: 0; padding: 16px 44px 14px 52px; overflow: hidden; }
+  .dview { display: flex; flex-direction: column; gap: 12px; height: 100%; }
+  .dview.is-on { animation: dof-in .35s ease both; }
+  @keyframes dof-in { from { opacity: 0; transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .dview.is-on { animation: none; }
+    .dof__app, .dside__fold { transition: none; }
+  }
+
+  .eyebrow-t { font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--d-teal-ink); }
+  .dhead { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
+  .dhead h3 { color: var(--d-ink); font-family: inherit; font-size: 27px; font-weight: 700; letter-spacing: -.02em; margin: 6px 0 4px; }
+  .dhead__sub { font-size: 13px; color: var(--d-muted); }
+  .dhead__btns { display: flex; gap: 8px; }
+  .btn-ghost, .btn-teal { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 15px; border-radius: 999px; font-size: 12.5px; font-weight: 500; white-space: nowrap; }
+  .btn-ghost { border: 1px solid var(--d-line) !important; background: var(--d-card); }
+  .btn-ghost:hover { border-color: var(--d-teal) !important; }
+  .btn-teal { background: var(--d-teal) !important; color: #fff !important; }
+  .btn-teal:hover { filter: brightness(1.08); }
+  .dlink { color: var(--d-teal-ink) !important; font-size: 12.5px; white-space: nowrap; }
+  .dlink:hover { text-decoration: underline; }
+
+  /* Overview: pulse */
+  .dpulse { display: flex; align-items: center; gap: 22px; padding: 12px 18px; border-radius: 12px; border: 1px solid var(--d-line); background: var(--d-card); }
+  .dpulse__dot { flex: none; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle, #fff 0 3px, var(--d-teal) 4px); box-shadow: 0 0 0 4px rgba(35, 166, 139, .2); animation: dof-pulse 2.4s ease-in-out infinite; }
+  @keyframes dof-pulse { 50% { box-shadow: 0 0 0 7px rgba(35, 166, 139, .06); } }
+  @media (prefers-reduced-motion: reduce) { .dpulse__dot { animation: none; } }
+  .dpulse__txt { flex: 1; }
+  .dpulse__txt b { display: block; font-size: 13px; }
+  .dpulse__txt small { font-size: 12px; color: var(--d-muted); }
+  .dpulse__stat { padding-left: 22px; border-left: 1px solid var(--d-line); min-width: 130px; }
+  .dpulse__stat b { display: block; font-size: 18px; font-weight: 700; }
+  .dpulse__stat small { font-size: 10.5px; color: var(--d-muted); }
+
+  /* Overview: prediction layer */
+  .dpred { padding: 13px 18px; border-radius: 12px; border: 1px solid var(--d-line); background: var(--d-wash); }
+  .dpred__head { display: flex; justify-content: space-between; align-items: flex-start; }
+  .dpred__head b { display: block; font-size: 15px; margin-top: 6px; }
+  .dpred__head small { font-size: 11px; color: var(--d-muted); }
+  .dpred__tag { padding: 4px 8px; border-radius: 6px; background: var(--d-tag); color: var(--d-tag-ink); font-size: 10px; font-weight: 700; }
+  .dpred__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 10px; }
+  .dpred__grid small { display: block; font-size: 10.5px; color: var(--d-muted); }
+  .dpred__grid b { display: block; font-size: 21px; font-weight: 700; margin: 2px 0; letter-spacing: -.01em; }
+  .dpred__grid div > span { display: block; font-size: 10.5px; }
+  .dpred__grid em { display: block; font-style: normal; font-size: 10px; color: var(--d-faint); margin-top: 2px; }
+
+  /* Overview: charts */
+  .dcharts { flex: 1; min-height: 0; display: flex; flex-direction: column; border-radius: 12px; border: 1px solid var(--d-line); background: var(--d-card); overflow: hidden; }
+  .dcharts__head { display: flex; align-items: center; gap: 14px; padding: 12px 18px; border-bottom: 1px solid var(--d-line); }
+  .dcharts__head > div { flex: 1; }
+  .dcharts__head b { display: block; font-size: 14px; }
+  .dcharts__head small { font-size: 11px; color: var(--d-muted); }
+  .dcharts__scope { padding: 3px 7px; border-radius: 5px; background: var(--d-card2); font-size: 9.5px; font-weight: 700; }
+  .dcharts__row { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 12px 18px 12px; }
+  .dchart { display: flex; flex-direction: column; min-height: 0; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--d-line); background: var(--d-card2); }
+  .dchart__head { display: flex; justify-content: space-between; align-items: center; }
+  .dchart__head b { font-size: 13.5px; }
+  .dsel { position: relative; display: inline-flex; align-items: center; }
+  .dsel select { appearance: none; -webkit-appearance: none; height: 28px; padding: 0 26px 0 10px; border-radius: 7px; border: 1px solid var(--d-line) !important; background: var(--d-card); font-size: 11px; color: var(--d-ink); }
+  .dsel select option { background: var(--d-card); color: var(--d-ink); }
+  .dsel svg { position: absolute; right: 8px; pointer-events: none; }
+  .dchart__body { flex: 1; min-height: 0; display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: center; animation: dof-in .3s ease both; }
+  .donut { position: relative; }
+  .donut svg { display: block; width: 150px; height: 150px; }
+  .donut path { transition: opacity .2s ease; }
+  .donut svg:hover path:not(:hover) { opacity: .45; }
+  .donut__mid { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; pointer-events: none; }
+  .donut__mid b { font-size: 28px; font-weight: 700; line-height: 1; }
+  .donut__mid small { font-size: 10px; color: var(--d-muted); margin-top: 3px; }
+  .dlegend { display: grid; gap: 6px; font-size: 11.5px; }
+  .dlegend li { display: grid; grid-template-columns: 9px 1fr auto; gap: 7px; align-items: center; }
+  .dlegend i { width: 9px; height: 9px; border-radius: 3px; }
+  .dlegend b { font-weight: 600; }
+
+  /* Project cards: progress bar and faces */
+  .dspace__bar { height: 7px; border-radius: 999px; background: var(--d-card2); overflow: hidden; }
+  .dspace__bar em { display: block; height: 100%; border-radius: inherit; }
+  .dspace__faces { display: flex; }
+  .dspace__faces img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--d-card); }
+  .dspace__faces img + img { margin-left: -7px; }
+
+  /* Chips */
+  .dfilters { display: flex; align-items: center; gap: 10px; }
+  .dfilters__count { margin-left: auto; font-size: 11.5px; color: var(--d-muted); }
+  .dfilters__count b { color: var(--d-ink); }
+  .dchips { display: flex; gap: 6px; }
+  .dchips button { padding: 6px 13px; border-radius: 999px; border: 1px solid var(--d-line) !important; background: var(--d-card); font-size: 12px; }
+  .dchips button:hover { border-color: var(--d-teal) !important; }
+  .dchips button[aria-pressed='true'] { background: var(--d-teal) !important; border-color: var(--d-teal) !important; color: #fff !important; }
+  .dproj { display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border-radius: 999px; background: var(--d-tag) !important; color: var(--d-tag-ink) !important; font-size: 12px; font-weight: 600; }
+
+  /* Tasks table */
+  .dtable { border-radius: 12px; border: 1px solid var(--d-line); background: var(--d-card); padding: 2px 16px; }
+  .dtable__row { display: grid; grid-template-columns: 26px 1.6fr 1fr 80px 120px 70px 96px; gap: 12px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--d-line); font-size: 12.5px; }
+  .dtable__row:last-of-type { border-bottom: 0; }
+  .dtable__row--head { font-size: 11px; color: var(--d-muted); }
+  .dtable__row b { font-weight: 600; }
+  .dtable__row[data-status='Done'] b { color: var(--d-muted); text-decoration: line-through; }
+  .dtable__empty { padding: 18px 0; text-align: center; color: var(--d-muted); }
+  .dcheck { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--d-faint) !important; color: transparent !important; transition: background .15s ease, border-color .15s ease; }
+  .dcheck:hover { border-color: var(--d-teal) !important; }
+  .dcheck[aria-pressed='true'] { background: var(--d-teal) !important; border-color: var(--d-teal) !important; color: #fff !important; }
+  .dwho { display: flex; align-items: center; gap: 7px; }
+  .dwho img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
+  .size, .st { display: inline-block; font-style: normal; font-size: 10.5px; font-weight: 600; padding: 3px 8px; border-radius: 999px; }
+  .size--small { background: rgba(35, 166, 139, .16); color: var(--d-teal-ink); }
+  .size--medium { background: rgba(227, 155, 55, .16); color: #E39B37; }
+  .size--big { background: rgba(224, 96, 94, .16); color: #E0605E; }
+  .st--overdue { background: rgba(224, 96, 94, .16); color: #E0605E; }
+  .st--open { background: rgba(138, 147, 163, .18); color: var(--d-muted); }
+  .st--in-review { background: rgba(59, 143, 201, .16); color: #3B8FC9; }
+  .st--done { background: rgba(35, 166, 139, .16); color: var(--d-teal-ink); }
+
+
+  /* ===== Sidebar groups ===== */
+  .dside__group { display: grid; gap: 2px; }
+  .dside__head.is-active { color: var(--d-teal-ink); font-weight: 600; }
+  .dside__head .dside__chev { transition: transform .2s ease; }
+  .dside__head[aria-expanded='true'] .dside__chev { transform: rotate(90deg); }
+  .dside__sub { display: grid; gap: 1px; padding: 2px 0 6px 41px; }
+  .dside__subitem { width: 100%; padding: 7px 10px; border-radius: 8px; font-size: 13px; color: var(--d-muted); text-align: left; white-space: nowrap; transition: background .2s ease, color .2s ease; }
+  .dside__subitem:hover { background: var(--d-card); color: var(--d-ink); }
+  .dside__subitem[aria-current='page'] { background: var(--d-card2); color: var(--d-teal-ink); font-weight: 600; box-shadow: inset 3px 0 0 var(--d-teal); }
+  .is-folded .dside__sub { display: none; }
+
+  /* ===== Shared pieces for the newer screens ===== */
+  .dcard { border-radius: 12px; border: 1px solid var(--d-line); background: var(--d-card); padding: 14px 16px; min-width: 0; }
+  .dcard__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .dcard__head b { display: block; font-size: 14px; }
+  .dcard__head small { display: block; font-size: 11px; color: var(--d-muted); margin-top: 2px; }
+  .btn-sm { height: 28px; padding: 0 11px; font-size: 11.5px; }
+  .dtag { display: inline-block; font-style: normal; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--d-tag); color: var(--d-tag-ink); white-space: nowrap; }
+  .dtag--policy { background: rgba(227, 155, 55, .16); color: #E39B37; }
+  .dtag--holiday { background: rgba(59, 143, 201, .16); color: #3B8FC9; }
+  .dsel--label { gap: 8px; font-size: 11.5px; color: var(--d-muted); margin-left: auto; }
+  .dsel--label select { height: 32px; font-size: 12px; }
+  .dhead__btns .dsel--label { margin-left: 0; }
+  .dfind { display: flex; align-items: center; gap: 8px; width: 240px; height: 34px; padding: 0 11px; border-radius: 9px; border: 1px solid var(--d-line); background: var(--d-card); color: var(--d-muted); }
+  .dfind input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; font-size: 12.5px; color: var(--d-ink); outline: none; }
+  .dfind:focus-within { border-color: var(--d-teal); }
+  .dfind--full { width: auto; margin-bottom: 10px; }
+  .dtabs { display: flex; gap: 4px; padding: 4px; border-radius: 10px; background: var(--d-card); border: 1px solid var(--d-line); align-self: flex-start; }
+  .dtabs button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 7px; font-size: 12.5px; color: var(--d-muted); }
+  .dtabs button[aria-selected='true'] { background: var(--d-card2); color: var(--d-ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0, 0, 0, .15); }
+  .dtabs i { min-width: 18px; padding: 1px 5px; border-radius: 999px; background: #E5484D; color: #fff; font-size: 10px; font-style: normal; font-weight: 700; }
+  .dwho--lg { gap: 10px; }
+  .dwho--lg img { width: 32px; height: 32px; }
+  .dwho > span b { display: block; font-size: 12.5px; font-weight: 600; }
+  .dwho > span small { display: block; font-size: 10.5px; color: var(--d-muted); }
+  .dmeter { display: flex; align-items: center; gap: 8px; }
+  .dmeter i { flex: 1; max-width: 80px; height: 6px; border-radius: 999px; background: var(--d-card2); overflow: hidden; }
+  .dmeter em { display: block; height: 100%; border-radius: inherit; background: var(--d-teal); }
+  .dmini__row { display: grid; gap: 10px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--d-line); font-size: 12px; }
+  .dmini__row:last-child { border-bottom: 0; }
+  .dmini__row--head { padding-top: 0; font-size: 10.5px; color: var(--d-muted); }
+  .dmini--leave .dmini__row { grid-template-columns: 1.2fr 80px 1.2fr 80px; }
+  .dmini__row--bal { grid-template-columns: 1.4fr 60px 60px 70px; }
+  .dmini--log .dmini__row { grid-template-columns: 1.4fr 1fr 1fr 1fr; padding: 8px 0; }
+
+  /* Users */
+  .dboard { padding-bottom: 6px; }
+  .dboard__row { display: grid; grid-template-columns: 30px 1.7fr 110px 1.1fr 70px 70px 70px; gap: 12px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--d-line); font-size: 12.5px; }
+  [data-board] .dboard__row:last-child { border-bottom: 0; }
+  .dboard__row--head { padding-top: 0; font-size: 10.5px; color: var(--d-muted); }
+  .dboard__rank { font-size: 11px; color: var(--d-faint); font-variant-numeric: tabular-nums; }
+  .dboard__score { font-size: 16px; font-weight: 700; }
+  .dboard__score small { font-size: 10.5px; font-weight: 500; color: var(--d-faint); }
+
+  /* Organisation chart */
+  .dorg { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .dorg__canvas { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; padding: 10px 0 4px; border-radius: 10px; overflow: hidden;
+    background-color: var(--d-card2); background-image: radial-gradient(var(--d-line) 1px, transparent 1px); background-size: 16px 16px; }
+  .dorg__root { padding: 7px 14px; border-radius: 8px; background: var(--d-ink); color: var(--d-bg); font-weight: 700; font-size: 12.5px; }
+  .dtree, .dtree ul { display: flex; justify-content: center; gap: 0; padding-top: 18px; position: relative; }
+  .dtree li { position: relative; display: flex; flex-direction: column; align-items: center; padding: 18px 4px 0; }
+  .dtree li::before, .dtree li::after { content: ''; position: absolute; top: 0; width: 50%; height: 18px; border-top: 1.5px solid var(--d-faint); }
+  .dtree li::before { right: 50%; }
+  .dtree li::after { left: 50%; border-left: 1.5px solid var(--d-faint); }
+  .dtree li:only-child::before, .dtree li:only-child::after { width: 0; }
+  .dtree li:only-child::after { border-top: 0; }
+  .dtree li:first-child::before, .dtree li:last-child::after { border-top: 0; }
+  .dtree li:last-child::before { border-right: 1.5px solid var(--d-faint); border-radius: 0 6px 0 0; }
+  .dtree li:first-child::after { border-radius: 6px 0 0 0; }
+  .dtree ul::before { content: ''; position: absolute; top: 0; left: 50%; height: 18px; border-left: 1.5px solid var(--d-faint); }
+  .dtree > li { padding-top: 18px; }
+  .dtree::before { content: ''; position: absolute; top: 0; left: 50%; height: 18px; border-left: 1.5px solid var(--d-faint); }
+  .dnode { display: flex; align-items: center; gap: 8px; width: 140px; padding: 7px 8px; border-radius: 10px; border: 1px solid var(--d-line); background: var(--d-card); text-align: left; transition: opacity .2s ease, border-color .2s ease, box-shadow .2s ease; }
+  .dnode img { flex: none; width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+  .dnode b { display: flex; align-items: center; gap: 5px; font-size: 12.5px; }
+  .dnode b i { font-style: normal; font-size: 8.5px; font-weight: 700; padding: 1px 5px; border-radius: 4px; background: var(--d-teal); color: #fff; }
+  .dnode small { display: block; font-size: 10px; color: var(--d-muted); line-height: 1.3; }
+  .dnode.is-me { border-color: var(--d-teal); box-shadow: 0 0 0 1px var(--d-teal); }
+  .is-found { border-color: #E39B37 !important; box-shadow: 0 0 0 2px rgba(227, 155, 55, .5) !important; }
+  .is-dim { opacity: .35; }
+  .dnode__fold { margin-top: 6px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--d-line) !important; background: var(--d-card) !important; font-size: 10.5px; color: var(--d-muted) !important; }
+  .dnode__fold:hover { border-color: var(--d-teal) !important; color: var(--d-ink) !important; }
+  .dnode__fold + ul { padding-top: 12px; }
+  .dteams { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .dteam ul { display: grid; gap: 10px; }
+  .dteam li { padding: 6px 8px; border-radius: 9px; border: 1px solid transparent; }
+
+  /* Organisation settings */
+  .dset { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dset__col { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+  .dops { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .dops__card { display: grid; gap: 4px; align-content: start; }
+  .dops__card b { font-size: 13.5px; }
+  .dops__card small { font-size: 11.5px; color: var(--d-muted); }
+  .dops__card .dlink { justify-self: start; margin-top: 4px; font-weight: 600; }
+  .dhols { display: grid; gap: 10px; }
+  .dhols li { display: flex; gap: 12px; align-items: center; }
+  .dhols__date { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: var(--d-card2); line-height: 1; }
+  .dhols__date b { font-size: 16px; }
+  .dhols__date small { font-size: 9.5px; text-transform: uppercase; color: var(--d-muted); }
+  .dhols li > span:last-child b { display: block; font-size: 13px; }
+  .dhols li > span:last-child small { font-size: 11px; color: var(--d-muted); }
+  .dform { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; margin-bottom: 12px; }
+  .dform label { display: grid; gap: 5px; font-size: 11px; color: var(--d-muted); }
+  .dform input { height: 34px; padding: 0 10px; border-radius: 8px; border: 1px solid var(--d-line); background: var(--d-card2); font: inherit; font-size: 12.5px; color: var(--d-ink); outline: none; }
+  .dform input:focus { border-color: var(--d-teal); }
+
+  /* Reports */
+  .dreport { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; animation: dof-in .3s ease both; }
+  .dreport__tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .dreport__tiles div { padding: 11px 13px; border-radius: 11px; border: 1px solid var(--d-line); background: var(--d-card); }
+  .dreport__tiles b { display: block; font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+  .dreport__tiles span { display: block; font-size: 12px; font-weight: 600; }
+  .dreport__tiles small { font-size: 10.5px; color: var(--d-muted); }
+  .dreport__tiles .is-bad b { color: #E0605E; }
+  .dreport__summary { padding: 11px 16px; border-radius: 11px; background: var(--d-wash); border: 1px solid var(--d-line); }
+  .dreport__summary b { font-size: 13px; }
+  .dreport__summary ul { list-style: disc; padding-left: 18px; margin-top: 4px; display: grid; gap: 2px; font-size: 12px; color: var(--d-muted); }
+  .dreport__charts { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 12px; }
+  .dmini-chart { display: flex; flex-direction: column; gap: 8px; }
+  .dmini-chart > b { font-size: 13px; }
+  .dmini-chart > b small { display: block; font-weight: 400; font-size: 10.5px; color: var(--d-muted); }
+  .dmini-chart__body { flex: 1; display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center; }
+  .donut--sm svg { width: 120px; height: 120px; }
+  .donut--sm .donut__mid b { font-size: 22px; }
+  .dweeks { flex: 1; min-height: 120px; display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; align-items: end; }
+  .dweeks > div { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
+  .dweeks small { font-size: 10px; font-weight: 600; }
+  .dweeks span { position: relative; width: 100%; max-width: 26px; border-radius: 5px 5px 2px 2px; background: rgba(143, 155, 255, .35); overflow: hidden; }
+  .dweeks span i { position: absolute; left: 0; right: 0; bottom: 0; background: #7B6CF0; }
+  .dweeks em { font-style: normal; font-size: 9.5px; color: var(--d-muted); white-space: nowrap; }
+  .dweeks .is-now em { color: var(--d-ink); font-weight: 700; }
+
+  /* Notice board */
+  .dnotices { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dnotice { display: grid; gap: 7px; align-content: start; }
+  .dnotice[hidden] { display: none; }
+  .dnotice.is-pinned { border-color: var(--d-teal); }
+  .dnotice__top { display: flex; align-items: center; gap: 8px; }
+  .dnotice__top small { margin-left: auto; font-size: 11px; color: var(--d-muted); }
+  .dnotice__pin { font-style: normal; font-size: 10px; font-weight: 700; color: var(--d-teal-ink); }
+  .dnotice > b { font-size: 14.5px; }
+  .dnotice p { font-size: 12.5px; color: var(--d-muted); line-height: 1.5; }
+
+  /* Projects */
+  .dprojects { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .dproject { display: flex; flex-direction: column; border-radius: 12px; border: 1px solid var(--d-line); background: var(--d-card); overflow: hidden; transition: border-color .2s ease, transform .2s ease; }
+  .dproject:hover { border-color: var(--d-teal); transform: translateY(-2px); }
+  .dproject__cover { position: relative; display: grid; place-items: center; height: 72px; color: #fff; font-size: 28px; font-weight: 800; letter-spacing: .02em; }
+  .dproject__cover em { position: absolute; top: 8px; right: 8px; font-style: normal; font-size: 9.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; background: rgba(0, 0, 0, .28); }
+  .dproject__body { display: grid; gap: 8px; padding: 12px 14px 14px; }
+  .dproject__body > b { font-size: 14px; }
+  .dproject__body > small { font-size: 11px; color: var(--d-muted); margin-top: -6px; }
+  .dproject__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .dproject__stats span { padding: 5px 7px; border-radius: 7px; background: var(--d-card2); font-size: 10px; color: var(--d-muted); }
+  .dproject__stats b { display: block; font-size: 15px; color: var(--d-ink); }
+  .dproject__logged { font-size: 10.5px; color: var(--d-muted); }
+  .dproject__btns { display: flex; justify-content: space-between; align-items: center; }
+  .dfilters__count--right { margin-left: auto; }
+
+  /* Tasks: list or weekly */
+  .dseg { display: inline-flex; padding: 3px; border-radius: 9px; border: 1px solid var(--d-line); background: var(--d-card); }
+  .dseg button { padding: 5px 12px; border-radius: 6px; font-size: 12px; color: var(--d-muted); }
+  .dseg button[aria-pressed='true'] { background: var(--d-teal) !important; color: #fff !important; }
+  .dweek { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .dweek__col { display: flex; flex-direction: column; gap: 8px; min-height: 360px; padding: 10px; border-radius: 12px; border: 1px solid var(--d-line); background: var(--d-card); }
+  .dweek__col > b { display: flex; justify-content: space-between; font-size: 12.5px; }
+  .dweek__col > b small { font-weight: 500; color: var(--d-muted); }
+  .dweek__col--late > b { color: #E0605E; }
+  .dweek__col.is-today { border-color: var(--d-teal); }
+  .dweek__card { display: grid; gap: 6px; padding: 9px 10px; border-radius: 9px; background: var(--d-card2); font-size: 11.5px; }
+  .dweek__card b { font-weight: 600; line-height: 1.3; }
+  .dweek__card > span { display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 10.5px; color: var(--d-muted); }
+  .dweek__card img { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; }
+  .dweek__empty { font-size: 11px; color: var(--d-faint); text-align: center; padding: 10px 0; }
+
+  /* Upcoming */
+  .dplan__note { display: flex; align-items: baseline; gap: 12px; background: var(--d-wash); }
+  .dplan__note b { font-size: 13.5px; white-space: nowrap; }
+  .dplan__note small { font-size: 11.5px; color: var(--d-muted); }
+  .dplan { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .dplan__item { display: grid; gap: 8px; align-content: start; }
+  .dplan__top { display: flex; align-items: center; gap: 6px; }
+  .dplan__top small { margin-left: auto; font-size: 11px; color: var(--d-muted); }
+  .dplan__item > b { font-size: 14px; }
+  .dplan__item p { font-size: 12px; color: var(--d-muted); line-height: 1.45; }
+  .dplan__foot { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+  .dplan__empty { grid-column: 1 / -1; padding: 30px; text-align: center; color: var(--d-muted); border: 1px dashed var(--d-line); border-radius: 12px; }
+
+  /* Wiki */
+  .dwiki { flex: 1; min-height: 0; display: grid; grid-template-columns: 280px 1fr; gap: 14px; }
+  .dwiki__list ul { display: grid; gap: 3px; }
+  .dwiki__list button { width: 100%; display: grid; gap: 1px; padding: 8px 10px; border-radius: 8px; text-align: left; }
+  .dwiki__list button:hover { background: var(--d-card2); }
+  .dwiki__list button[aria-pressed='true'] { background: var(--d-card2); box-shadow: inset 3px 0 0 var(--d-teal); }
+  .dwiki__list b { font-size: 12.5px; font-weight: 600; }
+  .dwiki__list small { font-size: 10.5px; color: var(--d-muted); }
+  .dwiki__none { font-size: 12px; color: var(--d-muted); padding: 8px 10px; }
+  .dwiki__page { padding: 22px 28px; overflow: hidden; }
+  .dwiki__page h4 { margin: 6px 0 8px; font-size: 24px; font-weight: 700; letter-spacing: -.01em; color: var(--d-ink); }
+  .dwiki__body { margin-top: 16px; display: grid; gap: 10px; max-width: 62ch; font-size: 13.5px; line-height: 1.6; }
+  .dwiki__body h5 { margin: 6px 0 0; font-size: 15px; color: var(--d-ink); }
+  .dwiki__body ul { list-style: disc; padding-left: 20px; display: grid; gap: 4px; }
+
+  /* Attendance */
+  .datt { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1.3fr; gap: 14px; }
+  .datt__me { display: flex; flex-direction: column; gap: 12px; }
+  .datt__clock { display: grid; justify-items: start; gap: 2px; padding: 12px 14px; border-radius: 10px; background: var(--d-card2); }
+  .datt__state { font-size: 11.5px; font-weight: 600; color: var(--d-teal-ink); }
+  .datt__clock b { font-size: 30px; font-weight: 700; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .datt__clock small { font-size: 11px; color: var(--d-muted); }
+  .datt__btn { align-self: flex-start; }
+  .datt__team { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+  .datt__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .datt__stats b { display: block; font-size: 22px; font-weight: 700; }
+  .datt__stats small { font-size: 11px; color: var(--d-muted); }
+  .dtoday { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; }
+  .dtoday li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--d-line); }
+  .dtoday .dwho img { width: 26px; height: 26px; }
+  .st--day-in { background: rgba(35, 166, 139, .16); color: var(--d-teal-ink); }
+  .st--day-leave { background: rgba(59, 143, 201, .16); color: #3B8FC9; }
+  .st--day-not-yet { background: rgba(138, 147, 163, .18); color: var(--d-muted); }
+  .dreqs { display: grid; gap: 0; align-content: start; }
+  .dreq { display: grid; grid-template-columns: 1.3fr 1fr 1fr 200px; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--d-line); font-size: 12.5px; transition: opacity .2s ease; }
+  .dreq:last-child { border-bottom: 0; }
+  .dreq > span > b { display: block; }
+  .dreq > span > small { font-size: 11px; color: var(--d-muted); }
+  .dreq__why { color: var(--d-muted); }
+  .dreq__act { display: flex; justify-content: flex-end; gap: 8px; }
+  /* Made by the script after a decision, so it sits outside the scoped styles. */
+  .dreq__act :global(.dreq__done) { font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: rgba(35, 166, 139, .16); color: var(--d-teal-ink); }
+  .dreq__act :global(.dreq__done.is-no) { background: rgba(224, 96, 94, .16); color: #E0605E; }
+  .dreq.is-decided { opacity: .7; }
+
+  /* Reviews */
+  .dreviews { display: grid; gap: 12px; }
+  .drev { padding: 12px 16px 6px; }
+  .drev__head { display: flex; align-items: center; gap: 9px; margin-bottom: 6px; }
+  .drev__head i { width: 11px; height: 11px; border-radius: 3px; }
+  .drev__head b { font-size: 15px; }
+  .drev__head small { font-size: 11px; color: var(--d-muted); }
+  .drev__row { display: grid; grid-template-columns: 1.5fr 70px 110px 80px 60px 1fr 170px; gap: 12px; align-items: center; padding: 7px 0; border-top: 1px solid var(--d-line); font-size: 12px; }
+  .drev__row--head { border-top: 0; padding-top: 0; font-size: 10.5px; color: var(--d-muted); }
+  .drev__row b { font-weight: 600; }
+  .drev__file { color: var(--d-teal-ink); font-weight: 500; }
+  .drev__nofile { color: var(--d-faint); }
+  .drev__act { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
+  .drev__act em { margin-right: auto; }
+  .drev__btn { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--d-line) !important; color: var(--d-teal-ink) !important; }
+  .drev__btn:hover { background: rgba(35, 166, 139, .16) !important; }
+  .drev__btn--back { color: #E39B37 !important; }
+  .drev__btn--back:hover { background: rgba(227, 155, 55, .16) !important; }
+  .st--rev-pending { background: rgba(138, 147, 163, .18); color: var(--d-muted); }
+  .st--rev-approved { background: rgba(35, 166, 139, .16); color: var(--d-teal-ink); }
+  .st--rev-sent-back { background: rgba(227, 155, 55, .16); color: #E39B37; }
+
+  .dlist { flex: 1; min-height: 0; overflow-y: auto; border-radius: 12px; }
+
+  /* Note for buttons that would change real data */
+  .dtoast {
+    position: absolute; left: 50%; bottom: 22px; z-index: 6;
+    padding: 10px 16px; border-radius: 10px; background: #0F1019; color: #fff; font-size: 12.5px;
+    box-shadow: 0 16px 36px -14px rgba(0, 0, 0, .6);
+    opacity: 0; transform: translate(-50%, 8px); pointer-events: none; transition: opacity .25s ease, transform .25s ease;
+  }
+  .dtoast.is-on { opacity: 1; transform: translate(-50%, 0); }
+</style>

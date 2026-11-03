@@ -1,0 +1,61 @@
+---
+/**
+ * Social Flow product page, laid out like S47 Vyapar (BI Dashboard): built
+ * from components on the shared product tokens (components/pharma/tokens.css)
+ * rather than the HTML string rendered by [slug].astro.
+ *
+ *   Hero      S47 Vyapar's hero design, with the live Social Flow dashboard
+ *   Rows      the shared feature rows, with this page's text
+ *   Steps     S47 Vyapar's three-step design, with this page's pictures
+ *   Toolkit   S47 Vyapar's toolkit cards
+ *   Closing   the shared closing call to action, with a "Read:" link
+ *
+ * Copy is in components/social/content.ts. SEO fields come from
+ * src/content/products/social-flow.json.
+ */
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { productJsonLd, cleanName, breadcrumbJsonLd } from '../../lib/seo';
+import '../../components/pharma/tokens.css';
+
+import Hero from '../../components/social/Hero/index.astro';
+import Rows from '../../components/pharma/Rows/index.astro';
+import Steps from '../../components/social/Steps/index.astro';
+import Toolkit from '../../components/isd/Toolkit/index.astro';
+import Closing from '../../components/pharma/Closing/index.astro';
+
+import { hero, rows, steps, toolkit, closing } from '../../components/social/content';
+
+const entry = await getEntry('products', 'social-flow');
+if (!entry) throw new Error('src/content/products/social-flow.json is missing');
+const d = entry.data;
+const url = new URL('/products/social-flow/', Astro.site).href;
+const jsonLd = [
+  productJsonLd({ name: cleanName(d.title), description: d.description, url }),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products/' },
+    { name: cleanName(d.title), path: '/products/social-flow/' },
+  ]),
+];
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  ogTitle={d.ogTitle}
+  ogDescription={d.ogDescription}
+  ogType={d.ogType}
+  noindex={d.noindex}
+  bodyClass="page-pharma"
+  jsonLd={jsonLd}
+>
+  {/* .pharma carries the shared product tokens (components/pharma/tokens.css). */}
+  <main class="pharma" data-i18n-text>
+    <Hero content={hero} />
+    <Rows content={rows} />
+    <Steps content={steps} />
+    <Toolkit content={toolkit} />
+    <Closing content={closing} />
+  </main>
+</BaseLayout>
