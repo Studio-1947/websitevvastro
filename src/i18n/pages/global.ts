@@ -6,7 +6,7 @@ export const global: Record<string, Entry> = {
   'global.nav.aboutUs': { hi: 'हमारे बारे में', bn: 'আমাদের সম্পর্কে', ne: 'हाम्रो बारेमा' },
   'global.nav.portfolio': { hi: 'पोर्टफ़ोलियो', bn: 'পোর্টফোলিও', ne: 'पोर्टफोलियो' },
   'global.nav.solutions': { hi: 'समाधान', bn: 'সমাধান', ne: 'समाधानहरू' },
-  'global.nav.products': { hi: 'उत्पाद', bn: 'পণ্য', ne: 'उत्पादनहरू' },
+  'global.nav.products': { hi: 'उत्पाद', bn: 'প্রডাক্ট', ne: 'उत्पादनहरू' },
   'global.nav.blogs': { hi: 'ब्लॉग', bn: 'ব্লগ', ne: 'ब्लगहरू' },
   'global.nav.localDesign': { hi: 'लोकल डिज़ाइन', bn: 'লোকাল ডিজাইন', ne: 'लोकल डिजाइन' },
   'global.nav.initiatives': { hi: 'पहल', bn: 'উদ্যোগ', ne: 'पहलहरू' },
@@ -63,14 +63,14 @@ export const global: Record<string, Entry> = {
   },
 
   // ── Products dropdown ────────────────────────────────────────────────
-  'global.dd.products.eyebrow': { hi: 'हमारे उत्पाद', bn: 'আমাদের পণ্য', ne: 'हाम्रा उत्पादनहरू' },
+  'global.dd.products.eyebrow': { hi: 'हमारे उत्पाद', bn: 'আমাদের প্রডাক্ট', ne: 'हाम्रा उत्पादनहरू' },
   'global.dd.products.heading': {
     hi: 'हमारे नए उत्पाद देखें',
-    bn: 'আমাদের নতুন পণ্য দেখুন',
+    bn: 'আমাদের নতুন প্রডাক্ট দেখুন',
     ne: 'हाम्रा नयाँ उत्पादनहरू हेर्नुहोस्',
   },
-  'global.dd.products.label': { hi: 'उत्पाद', bn: 'পণ্য', ne: 'उत्पादनहरू' },
-  'global.dd.products.doptorErp': { hi: 'डॉप्टर ईआरपी', bn: 'ডপ্টর ইআরপি', ne: 'डप्टर ईआरपी' },
+  'global.dd.products.label': { hi: 'उत्पाद', bn: 'প্রডাক্ট', ne: 'उत्पादनहरू' },
+  'global.dd.products.doptorErp': { hi: 'डॉप्टर ईआरपी', bn: 'দপ্তর ইআরপি', ne: 'डप्टर ईआरपी' },
   'global.dd.products.inventorySales': {
     hi: 'S47 Vyapar (BI डैशबोर्ड)',
     bn: 'S47 Vyapar (BI ড্যাশবোর্ড)',
@@ -82,7 +82,7 @@ export const global: Record<string, Entry> = {
   'global.dd.products.soon': { hi: 'जल्द आ रहा है', bn: 'শীঘ্রই আসছে', ne: 'चाँडै आउँदैछ' },
 
   // ── Footer ───────────────────────────────────────────────────────────
-  'global.footer.ourProducts': { hi: 'हमारे उत्पाद', bn: 'আমাদের পণ্য', ne: 'हाम्रा उत्पादनहरू' },
+  'global.footer.ourProducts': { hi: 'हमारे उत्पाद', bn: 'আমাদের প্রডাক্ট', ne: 'हाम्रा उत्पादनहरू' },
   'global.footer.ourSolutions': { hi: 'हमारे समाधान', bn: 'আমাদের সমাধান', ne: 'हाम्रा समाधानहरू' },
   'global.footer.ourJourney': { hi: 'हमारी यात्रा', bn: 'আমাদের যাত্রা', ne: 'हाम्रो यात्रा' },
   'global.footer.initiatives': { hi: 'पहल', bn: 'উদ্যোগ', ne: 'पहलहरू' },
