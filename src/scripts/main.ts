@@ -111,6 +111,7 @@ function init(): void {
   whenNear('[data-sol-particles]', () => import('./solutionsParticles').then((m) => m.solutionsParticles()));
 
   // ── Lazy: page-specific modules, gated on their own markup ───────────────
+  when('[data-search-open]', () => import('./siteSearch').then((m) => m.siteSearch()));
   when('[data-hero-aurora]', () => import('./heroAurora').then((m) => m.heroAurora()));
   when('.faq__item', () => import('./faq').then((m) => m.accordion()));
   when('[data-commit]', () => import('./carousel').then((m) => m.commitmentCarousel()));

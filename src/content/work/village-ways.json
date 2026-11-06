@@ -1,9 +1,9 @@
 {
   "mediaStyle": "contained",
   "title": "Village Ways: Capacity Building | Studio 1947",
-  "description": "How Studio 1947 became a field consulting partner for Village Ways, running digital literacy workshops on Bali Island, Sunderbans.",
+  "description": "How Studio 1947 became a field consulting partner for Village Ways, running digital literacy workshops on Bali Island, Sundarbans.",
   "ogTitle": "Village Ways: Capacity Building | Studio 1947",
-  "ogDescription": "How Studio 1947 grew from print design vendor into field consulting partner for Village Ways, running digital literacy workshops on Bali Island, Sunderbans.",
+  "ogDescription": "How Studio 1947 grew from print design vendor into field consulting partner for Village Ways, running digital literacy workshops on Bali Island, Sundarbans.",
   "ogType": "article",
   "brand": "#94c11f",
   "client": "Village Ways",
@@ -19,8 +19,8 @@
     {
       "divider": false,
       "body": [
-        "When social enterprises, eco-tourism organizations and impact funds look for a consultancy partner, they aren't scanning portfolios for slick tech graphics or trendy typography. They look for an agency with real empathy, hands-on field research skills, and the ability to turn people's talents into local income.",
-        "Since we started working with Village Ways (an organization known worldwide for pioneering community-owned tourism) our role has grown from design vendor into field consulting partner. This case study shows how we moved from high-quality print production to hands-on work in the field on Bali Island, Sunderbans, helping rural homestay hosts close the digital literacy gap and tell their own stories."
+        "When social enterprises, eco-tourism organisations and impact funds look for a consultancy partner, they aren't scanning portfolios for slick tech graphics or trendy typography. They look for an agency with real empathy, hands-on field research skills, and the ability to turn people's talents into local income.",
+        "Since we started working with Village Ways (an organisation known worldwide for pioneering community-owned tourism) our role has grown from design vendor into field consulting partner. This case study shows how we moved from high-quality print production to hands-on work in the field on Bali Island, Sundarbans, helping rural homestay hosts close the digital literacy gap and tell their own stories."
       ]
     },
     {
@@ -50,7 +50,7 @@
       "media": [
         {
           "src": "/assets/img/work/village-ways/brochure01.webp",
-          "alt": "Village Ways print brochure cover, pairing rural Sunderbans photography with an editorial layout",
+          "alt": "Village Ways print brochure cover, pairing rural Sundarbans photography with an editorial layout",
           "caption": "Brochure for Village Ways",
           "zoom": true,
           "pad": false
@@ -81,7 +81,7 @@
       "media": [
         {
           "src": "/assets/img/work/village-ways/calendar01.webp",
-          "alt": "Community-themed Village Ways wall calendar page featuring rural Sunderbans photography",
+          "alt": "Community-themed Village Ways wall calendar page featuring rural Sundarbans photography",
           "caption": "Calendar for Village Ways",
           "zoom": true,
           "pad": false
@@ -103,12 +103,12 @@
     {
       "divider": false,
       "body": [
-        "But print materials handed out in city centres don't give a community real power. To secure the local economy for the future, community members themselves needed the skills to reach modern digital marketplaces. So on April 1st, 2026, our team went to Bali Island, Sunderbans, to run a hands-on, people-first capacity-building programme."
+        "But print materials handed out in city centres don't give a community real power. To secure the local economy for the future, community members themselves needed the skills to reach modern digital marketplaces. So on 1 April 2026, our team went to Bali Island, Sundarbans, to run a hands-on, people-first capacity-building programme."
       ]
     },
     {
       "heading": "Digital Literacy Workshop with Communities",
-      "label": "Bali Island, Sunderbans",
+      "label": "Bali Island, Sundarbans",
       "labelIcon": "users",
       "body": [
         "We ran the workshop in the villages themselves, sitting with the people who would have to use any of this after we left. Guides, homestay hosts, women running small enterprises, a few young people who already had phones and no idea what to do with them.",
@@ -254,6 +254,6 @@
   "solutions": [
     "research-survey"
   ],
-  "location": "Sundarban",
-  "year": "April, 2026"
+  "location": "Sundarbans",
+  "year": "April 2026"
 }

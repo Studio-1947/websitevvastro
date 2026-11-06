@@ -16,10 +16,16 @@ const ICONS = [
 ];
 const pickIcon = (): string => ICONS[(Math.random() * ICONS.length) | 0];
 
+/** One backdrop per `[data-hero-aurora]` canvas (the hero, and the growth journey box). */
 export function heroAurora(): void {
+  document.querySelectorAll<HTMLCanvasElement>('[data-hero-aurora]').forEach(setup);
+}
+
+function setup(canvas: HTMLCanvasElement): void {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const canvas = document.querySelector<HTMLCanvasElement>('[data-hero-aurora]');
-  if (!canvas || !canvas.getContext) return;
+  if (!canvas.getContext) return;
+  // `data-hero-aurora="colour"` draws only the colour bulge, without the glyph field.
+  const glyphs = canvas.dataset.heroAurora !== 'colour';
   const wrap = canvas.parentNode as HTMLElement;
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
@@ -152,6 +158,7 @@ export function heroAurora(): void {
       lobeBlob(lx, ly, rr, hue + l.hoff, 0.16);
     }
 
+    if (!glyphs) return;
     const R = base * 0.34;
     let lastPx = -1;
     for (let y = 0; y < rows; y++) {

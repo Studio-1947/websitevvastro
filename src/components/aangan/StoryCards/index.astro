@@ -1,0 +1,159 @@
+---
+/**
+ * The aangan story as one section with two rows of cards that scroll sideways:
+ * the chapters of "What Aangan means" followed by the four people in the
+ * courtyard, then a day with aangan. Each row is a scroll-snap track with
+ * arrow buttons; on phones you swipe. Nothing pins or takes over the scroll. Replaces the
+ * scroll-driven logo scene (Courtyard), which the same three content files
+ * used to feed.
+ */
+import type { StoryContent } from '../StoryScroll/content';
+import type { LoopContent } from '../ConnectionLoop/content';
+import type { DayContent } from '../DayTimeline/content';
+
+interface Props { story: StoryContent; loop: LoopContent; day: DayContent }
+const { story, loop, day } = Astro.props;
+
+interface Card { n: string; title: string; body: string; src?: string; alt: string; width?: number; height?: number }
+interface Row { label: string; cards: Card[] }
+
+/* One heading for the whole section, then two rows: the story (its chapters,
+   then the people in the courtyard) and a day with aangan. */
+const rows: Row[] = [
+  {
+    label: loop.headingEn,
+    cards: [
+      ...story.chapters.map((c, i) => ({ n: `0${i + 1}`, title: c.title, body: c.body, src: c.image.src, alt: c.image.alt, width: c.image.width, height: c.image.height })),
+      ...loop.nodes.map((n, i) => ({ n: `0${i + 5}`, title: n.name, body: n.body, src: n.image.src, alt: n.image.alt, width: n.image.width, height: n.image.height })),
+    ],
+  },
+  {
+    label: `${day.heading} · ${day.note}`,
+    cards: day.stops.map((s) => ({ n: s.clock, title: s.time, body: s.text, src: s.image.src, alt: s.image.alt, width: s.image.width, height: s.image.height })),
+  },
+];
+---
+
+<section class="scards" aria-labelledby="aangan-story-title">
+  <header class="scards__head">
+    <h2 id="aangan-story-title" class="scards__heading">{story.heading}</h2>
+    <p class="scards__sub" lang="hi" data-i18n-skip>{loop.heading}</p>
+    <p class="scards__note">{loop.closing}</p>
+  </header>
+
+  {rows.map((r, ri) => (
+    <div class="scards__row" data-cards-row>
+      <div class="scards__bar">
+        <p class="scards__label">{r.label}</p>
+        <div class="scards__nav" aria-hidden="true">
+          <button type="button" class="scards__btn" data-prev tabindex="-1">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button type="button" class="scards__btn" data-next tabindex="-1">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <ul class="scards__track" data-track>
+        {r.cards.map((c, i) => (
+          <li class="scard">
+            <figure class="scard__media">
+              {c.src
+                ? <img src={c.src} alt={c.alt} width={c.width} height={c.height} loading={ri === 0 && i < 2 ? 'eager' : 'lazy'} decoding="async" />
+                : <span class="scard__blank" aria-hidden="true"></span>}
+              <figcaption class="scard__n">{c.n}</figcaption>
+            </figure>
+            <h3 class="scard__title">{c.title}</h3>
+            <p class="scard__body">{c.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</section>
+
+<style>
+  .scards { padding: clamp(56px, 8vw, 120px) 0 clamp(40px, 5vw, 80px); }
+  .scards__row { margin-top: clamp(28px, 3.5vw, 52px); }
+  .scards__head { padding: 0 clamp(16px, 5vw, 72px); }
+  .scards__heading { margin: 0; font-size: clamp(36px, 4.6vw, 68px); line-height: 1.04; letter-spacing: -0.02em; }
+  .scards__sub { margin: 10px 0 0; font-family: 'Noto Sans Devanagari', var(--font-body); font-size: clamp(18px, 1.5vw, 24px); color: var(--a-tea); }
+  .scards__note { margin: 6px 0 0; font-size: 15px; color: var(--a-tea); }
+  .scards__bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 0 clamp(16px, 5vw, 72px); margin-bottom: 12px;
+  }
+  .scards__label { margin: 0; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--a-tea); }
+  .scards__nav { display: flex; gap: 8px; flex: none; }
+  .scards__btn {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    border: 0; background: transparent; color: var(--a-ink); cursor: pointer;
+    box-shadow: inset 0 0 0 1.5px var(--a-ink);
+    transition: background .25s ease, color .25s ease, opacity .25s ease;
+  }
+  .scards__btn:hover { background: var(--a-ink); color: var(--a-paper); }
+  .scards__btn[disabled] { opacity: .3; cursor: default; background: transparent; color: var(--a-ink); }
+
+  /* The track: cards scroll sideways and snap. Side padding matches the heading
+     so the first card lines up with the text, and the last can scroll fully in. */
+  .scards__track {
+    --card: clamp(260px, 26vw, 400px);
+    display: flex; gap: clamp(14px, 1.6vw, 24px); list-style: none; margin: 0;
+    padding: 6px clamp(16px, 5vw, 72px) 14px;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: clamp(16px, 5vw, 72px);
+    scrollbar-width: none;
+  }
+  .scards__track::-webkit-scrollbar { display: none; }
+  .scard {
+    flex: 0 0 var(--card); scroll-snap-align: start;
+    display: flex; flex-direction: column; gap: 10px;
+    padding: 12px 12px 22px; border-radius: 22px;
+    background: #fff; box-shadow: 0 1px 0 rgba(42, 31, 23, .06), 0 18px 40px -28px rgba(42, 31, 23, .35);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .scard:hover { transform: translateY(-4px); box-shadow: 0 1px 0 rgba(42, 31, 23, .06), 0 26px 44px -26px rgba(42, 31, 23, .45); }
+  .scard__media { position: relative; margin: 0; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: var(--a-paper); }
+  .scard__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .scard__blank { display: block; width: 100%; height: 100%; background: linear-gradient(135deg, #E9DFCF, #D9CDB9); }
+  .scard__n {
+    position: absolute; left: 10px; top: 10px; padding: 5px 10px; border-radius: 999px;
+    background: rgba(244, 237, 225, .92); color: var(--a-ink); font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums;
+  }
+  .scard__title { margin: 6px 6px 0; font-size: clamp(20px, 1.6vw, 26px); line-height: 1.15; }
+  .scard__body { margin: 0 6px; font-size: 15px; line-height: 1.5; color: var(--a-ink); opacity: .82; }
+
+  @media (max-width: 760px) {
+    .scards__track { --card: min(78vw, 340px); }
+    .scards__nav { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scard, .scard:hover { transition: none; transform: none; }
+    .scards__track { scroll-behavior: auto; }
+  }
+</style>
+
+<script>
+  // Arrow buttons page the track one card at a time; they grey out at the ends.
+  document.querySelectorAll<HTMLElement>('[data-cards-row]').forEach((row) => {
+    const track = row.querySelector<HTMLElement>('[data-track]');
+    const prev = row.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = row.querySelector<HTMLButtonElement>('[data-next]');
+    if (!track || !prev || !next) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const step = () => {
+      const card = track.querySelector<HTMLElement>('.scard');
+      return card ? card.offsetWidth + parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '16') : track.clientWidth * 0.8;
+    };
+    const update = () => {
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' }));
+    track.addEventListener('scroll', update, { passive: true });
+    new ResizeObserver(update).observe(track);
+    update();
+  });
+</script>

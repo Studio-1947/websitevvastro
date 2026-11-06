@@ -85,8 +85,13 @@ export function i18n(): void {
     // Storage unavailable; default to English.
   }
   applyTranslations(stored);
+  // Translated: let the text show (see the inline script in BaseLayout).
+  document.documentElement.removeAttribute('data-lang-pending');
+  document.documentElement.lang = stored;
 
   document.addEventListener('site-language-change', (e) => {
-    applyTranslations((e as CustomEvent<{ lang: Lang }>).detail.lang);
+    const lang = (e as CustomEvent<{ lang: Lang }>).detail.lang;
+    applyTranslations(lang);
+    document.documentElement.lang = lang;
   });
 }

@@ -1,6 +1,6 @@
 {
   "mediaStyle": "contained",
-  "title": "Fermy Lab: Portfolio | Studio 1947",
+  "title": "Fermy Lab: Food Brand Identity System | Studio 1947",
   "description": "Brand identity, packaging and UI for Fermy Lab, a fermented food brand that joins traditional Indian cooking wisdom with modern design.",
   "ogTitle": "Fermy Lab: Portfolio | Studio 1947",
   "ogDescription": "Brand identity, packaging and a UI system for Fermy Lab, a fermented food brand that joins traditional Indian cooking wisdom with modern design.",
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "heading": "Color & Typography Systems",
+      "heading": "Colour & Typography Systems",
       "label": "The Palette",
       "body": [
         "The colour identity uses a high-contrast pairing made to stand out on store shelves:"
@@ -238,7 +238,7 @@
     },
     {
       "divider": false,
-      "label": "Delivery App Optimization",
+      "label": "Delivery App Optimisation",
       "body": [
         "We tuned the brand assets for dark-mode delivery apps on phones. When a customer is scrolling quickly through restaurant options, FermyLab's product cards, details and icons stay crisp and readable."
       ],
@@ -307,5 +307,5 @@
     }
   ],
   "location": "Gurgaon",
-  "year": "Jan, 2026"
+  "year": "Jan 2026"
 }

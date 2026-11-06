@@ -7,7 +7,7 @@
 export const SITE = {
   name: 'Studio 1947',
   url: 'https://www.1947.io',
-  defaultTitle: 'Data, Design & Tech Consulting | Studio 1947',
+  defaultTitle: 'Data, Design & Technology Studio in Darjeeling | Studio 1947',
   defaultDescription:
     'Studio 1947 makes data, design and technology solutions from Darjeeling. We understand, design, build and grow useful solutions for organisations worldwide.',
   locale: 'en',
@@ -111,7 +111,10 @@ export function articleJsonLd(opts: {
   if (opts.description) o.description = opts.description;
   if (opts.image) o.image = absoluteUrl(opts.image);
   if (opts.section) o.articleSection = opts.section;
-  if (opts.date) o.datePublished = opts.date;
+  if (opts.date) {
+    o.datePublished = opts.date;
+    o.dateModified = opts.date;
+  }
   return o;
 }
 
@@ -212,11 +215,24 @@ export function breadcrumbJsonLd(
 export function organizationJsonLd(): Record<string, unknown> {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': ['Organization', 'ProfessionalService'],
+    '@id': `${SITE.url}/#organization`,
     name: SITE.name,
+    legalName: 'WBIN 1947 Studio LLP',
     url: SITE.url,
     logo: SITE.logo,
+    image: SITE.logo,
     description: SITE.defaultDescription,
+    email: 'studio@1947.io',
+    foundingDate: '2025',
+    founder: { '@type': 'Person', name: 'Rabiul Islam', jobTitle: 'Founder & CEO', url: `${SITE.url}/about-us/#team` },
+    areaServed: ['IN', 'Worldwide'],
+    knowsAbout: [
+      'Data analysis', 'BI dashboards', 'Web design', 'Web development', 'Brand identity',
+      'Communication campaigns', 'Field research and surveys', 'Monitoring and evaluation',
+      'ERP software', 'Capacity building',
+    ],
+    contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'studio@1947.io', url: `${SITE.url}/sayhello/`, availableLanguage: ['en', 'hi', 'bn', 'ne'] },
     sameAs: [...SITE.sameAs],
     address: {
       '@type': 'PostalAddress',
@@ -226,5 +242,18 @@ export function organizationJsonLd(): Record<string, unknown> {
       postalCode: '734214',
       addressCountry: 'IN',
     },
+  };
+}
+
+/** WebSite JSON-LD — emitted on every page beside the Organization entity. */
+export function websiteJsonLd(): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
+    name: SITE.name,
+    url: SITE.url,
+    inLanguage: 'en',
+    publisher: { '@id': `${SITE.url}/#organization` },
   };
 }

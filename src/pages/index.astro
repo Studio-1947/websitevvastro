@@ -17,6 +17,7 @@ const LOGO_WIDTHS = [200, 480, 641];
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/sections/HomeHero.astro';
 import StatsSection from '../components/sections/StatsSection.astro';
+import GrowthCycle from '../components/sections/GrowthCycle.astro';
 import Commitment from '../components/sections/Commitment.astro';
 import Approach from '../components/sections/Approach.astro';
 import Testimonials from '../components/sections/Testimonials.astro';
@@ -28,7 +29,7 @@ import { faqJsonLd } from '../lib/seo';
    than inside the component so the markup stays a verbatim port. */
 const faq = faqJsonLd([
   {
-    question: 'What we do?',
+    question: 'What do we do?',
     answer:
       'We design solutions that create impact. We work where Data, Design, Technology, Communication and Research meet, to make the biggest possible difference for our clients and partners. That runs from evidence and strategy through to brand, product and growth.',
   },
@@ -61,7 +62,7 @@ const faq = faqJsonLd([
 ---
 
 <BaseLayout
-  title="Data, Design & Tech Consulting | Studio 1947"
+  title="Data, Design & Technology Studio in Darjeeling | Studio 1947"
   description="Studio 1947 co-creates data, design and technology solutions from Darjeeling, helping organisations worldwide understand, design, build and grow."
   ogTitle="Data, Design & Tech Consulting | Studio 1947"
   ogDescription="Crafting & co-creating solutions from Darjeeling."
@@ -72,9 +73,10 @@ const faq = faqJsonLd([
   fontHref="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&family=Google+Sans:wght@400;500;700&family=Google+Sans+Flex:wght@400..700&display=swap"
   jsonLd={[faq]}
 >
-  <main>
+  <main class="page-home">
     <HomeHero />
     <StatsSection />
+    <GrowthCycle />
     <Commitment />
     <Approach />
 

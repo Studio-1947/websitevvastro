@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import StructuredLayout from '../../layouts/StructuredLayout.astro';
 import PostFooterNav from '../../components/blog/PostFooterNav.astro';
-import { articleJsonLd, cleanName, DEFAULT_FONT_HREF, formatPostDate } from '../../lib/seo';
+import { articleJsonLd, breadcrumbJsonLd, cleanName, DEFAULT_FONT_HREF, formatPostDate } from '../../lib/seo';
 // One shared article stylesheet for all 19 posts (they came from three
 // different templates, each with its own copy of the article CSS).
 import postCss from '../../styles/blog-post.css?raw';
@@ -58,6 +58,11 @@ const jsonLd = [
     section: d.section,
     date: d.date,
   }),
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog/' },
+    { name: d.heading ?? cleanName(d.title), path: `/blog/${entry.id}/` },
+  ]),
 ];
 ---
 

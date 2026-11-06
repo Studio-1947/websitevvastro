@@ -3,7 +3,7 @@
  * <head> for every page: SEO meta, OG/Twitter, canonical, fonts, favicon,
  * JSON-LD. Mirrors the original static site's head, componentized.
  */
-import { SITE, DEFAULT_FONT_HREF, SYNE_LATIN_URL, canonicalUrl, absoluteUrl, organizationJsonLd, type SeoProps } from '../../lib/seo';
+import { SITE, DEFAULT_FONT_HREF, SYNE_LATIN_URL, canonicalUrl, absoluteUrl, organizationJsonLd, websiteJsonLd, type SeoProps } from '../../lib/seo';
 
 type Props = SeoProps & { fontHref?: string };
 const {
@@ -23,7 +23,7 @@ const {
 
 const canonical = canonicalUrl(path, Astro.url.pathname);
 const ogImage = absoluteUrl(image ?? '/assets/img/brand-mark.png');
-const structured = [organizationJsonLd(), ...jsonLd];
+const structured = [organizationJsonLd(), websiteJsonLd(), ...jsonLd];
 
 // Each page loads the EXACT Google Fonts set its original counterpart loaded
 // (3 variants across the site). Weight sets matter: the ERP product pages load
@@ -64,6 +64,7 @@ const fontsHref = fontHref;
 <meta property="og:title" content={ogTitle ?? title} />
 <meta property="og:description" content={ogDescription ?? description} />
 <meta property="og:type" content={ogType} />
+<meta property="og:locale" content="en_IN" />
 <meta property="og:url" content={canonical} />
 {ogImage && <meta property="og:image" content={ogImage} />}
 {

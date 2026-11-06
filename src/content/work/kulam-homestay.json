@@ -1,6 +1,6 @@
 {
   "mediaStyle": "contained",
-  "title": "Kulam Homestay: Web Design & Online Presence | Studio 1947",
+  "title": "Kulam Homestay: One-Page Website Design | Studio 1947",
   "description": "A one-page website and brand presence for Kulam Homestay in Mirik, Darjeeling: hill culture, local tea gardens, artisan crafts, and direct booking.",
   "ogTitle": "Kulam Homestay: Web Design & Online Presence | Studio 1947",
   "ogDescription": "A one-page website for a boutique retreat in Mirik, Darjeeling.",
@@ -30,7 +30,7 @@
     {
       "divider": false,
       "body": [
-        "<strong>Kulam Homestay</strong> is a quiet boutique retreat in the hills of Mirik, Darjeeling, set among lush tea gardens and pine forests. It opened in 2025. Kulam is more than a place to stay. It is a refuge for travelers who want peace, real hill culture, and warm family hospitality.",
+        "<strong>Kulam Homestay</strong> is a quiet boutique retreat in the hills of Mirik, Darjeeling, set among lush tea gardens and pine forests. It opened in 2025. Kulam is more than a place to stay. It is a refuge for travellers who want peace, real hill culture, and warm family hospitality.",
         "Studio 1947 worked with Kulam Homestay to design and build a custom single-page website. It takes visitors straight into the calm of Mirik, shows off the homestay's artisan boutique, and makes booking simple."
       ]
     },
@@ -77,7 +77,7 @@
         {
           "num": "03",
           "title": "Direct WhatsApp Reservations",
-          "body": "Simple calls-to-action that connect travelers directly with the homestay hosts."
+          "body": "Simple calls-to-action that connect travellers directly with the homestay hosts."
         }
       ]
     },
@@ -98,7 +98,7 @@
         {
           "src": "/assets/img/work/kulam-homestay/design-development-2.webp",
           "alt": "Design & Development - Stay in Comfort rooms and amenities",
-          "caption": "Stay in Comfort: cozy wooden rooms, plush mountain view suites, and guest amenities",
+          "caption": "Stay in Comfort: cosy wooden rooms, plush mountain view suites, and guest amenities",
           "zoom": true,
           "pad": true
         }
@@ -126,7 +126,7 @@
       "label": "Mobile-First UX",
       "layout": "grid-2",
       "body": [
-        "Over 85% of homestay inquiries come from mobile users. We built the site for lag-free mobile performance, quick location maps, and easy-to-spot contact buttons."
+        "Over 85% of homestay enquiries come from mobile users. We built the site for lag-free mobile performance, quick location maps, and easy-to-spot contact buttons."
       ],
       "media": [
         {
@@ -166,7 +166,7 @@
       "divider": true,
       "label": "Measuring Success",
       "list": [
-        "<strong>More Direct Inquiries:</strong> A one-pager replaced static social posts and now drives direct WhatsApp and phone bookings.",
+        "<strong>More Direct Enquiries:</strong> A one-pager replaced static social posts and now drives direct WhatsApp and phone bookings.",
         "<strong>Support for Local Crafts:</strong> A dedicated online showcase for Mirik's village farmers and artisans, opening a new income stream for hill tea, honey, and spices.",
         "<strong>A Clear Brand Image:</strong> Kulam Homestay now stands as a premium boutique retreat in Mirik, Darjeeling."
       ]

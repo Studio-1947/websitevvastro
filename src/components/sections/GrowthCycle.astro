@@ -1,0 +1,228 @@
+---
+/**
+ * Home "growth journey": the five things we set up for a new business, as
+ * stops on one line from left to right, with a return arrow from the last
+ * stop back to the first ("Repeat").
+ *
+ * A red dot travels the line stop by stop, filling it behind, and the stop
+ * it reaches lights up. After the last stop the return arrow draws and the
+ * line clears to start again. Hover or click a stop to jump to it (autoplay
+ * pauses for a while). Plays only while on screen; with reduced motion the
+ * dot does not travel and stops change only on request.
+ */
+const steps = [
+  { key: 'brand', title: 'Brand makeover',
+    desc: 'A fresh identity: logo, colours, type and the design system everything else uses.' },
+  { key: 'dashboards', title: 'Dashboards',
+    desc: 'Sales, stock and spend in one view, so decisions come from the numbers.' },
+  { key: 'accounts', title: 'Accounts setup',
+    desc: 'Business, social and ad accounts set up properly, with tracking in place from day one.' },
+  { key: 'meta', title: 'Meta ads',
+    desc: 'Campaigns on Facebook and Instagram, aimed at the right people with the right budget.' },
+  { key: 'growth', title: 'Growth marketing',
+    desc: 'Content, offers and follow-ups that turn first customers into regulars.' },
+];
+---
+
+<section class="section container" aria-labelledby="gcycle-title">
+<div class="gcycle">
+  <canvas class="gcycle__fx" data-hero-aurora="colour" aria-hidden="true"></canvas>
+  <div class="gcycle__head">
+    <div>
+      <p class="eyebrow" data-i18n="home.cycle.eyebrow">For new businesses</p>
+      <h2 id="gcycle-title" class="gcycle__title" data-i18n="home.cycle.title">From brand makeover to growth, on repeat.</h2>
+    </div>
+    <p class="gcycle__sub" data-i18n="home.cycle.sub">Every new business we take on goes through one cycle. Each round sharpens the next.</p>
+  </div>
+
+  <ol class="journey">
+    {/* The line behind the stops, its red fill, and the travelling dot */}
+    <li class="journey__track" aria-hidden="true"><i class="journey__fill"></i><i class="journey__dot"></i></li>
+    {steps.map((s, i) => (
+      <li class={`jstep${i === 0 ? ' is-on' : ''}`} data-step={i}>
+        <button type="button" aria-current={i === 0 ? 'step' : undefined}>
+          <span class="jstep__node">0{i + 1}</span>
+          <span class="jstep__name" data-i18n={`home.cycle.${s.key}.title`}>{s.title}</span>
+          <span class="jstep__desc" data-i18n={`home.cycle.${s.key}.desc`}>{s.desc}</span>
+        </button>
+      </li>
+    ))}
+    {/* Return arrow: last stop back to the first */}
+    <li class="journey__back" aria-hidden="true">
+      <svg viewBox="0 0 1000 90" preserveAspectRatio="none" fill="none">
+        <path class="journey__back-line" pathLength="1" d="M1000 0 V40 A30 30 0 0 1 970 70 H30 A30 30 0 0 1 0 40 V0" stroke-width="2.5" />
+      </svg>
+      <svg class="journey__back-head" viewBox="0 0 16 16" fill="none"><path d="M3 10l5-6 5 6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span class="journey__back-label"><span data-i18n="home.cycle.repeat.title">Repeat</span> · <span data-i18n="home.cycle.repeat.desc">We read the results, keep what works, fix what does not, and run the cycle again.</span></span>
+    </li>
+  </ol>
+</div>
+</section>
+
+<style>
+  /* One rounded light-grey panel with the hero's pointer-reactive backdrop inside it. */
+  .gcycle {
+    position: relative; isolation: isolate; overflow: hidden;
+    padding: clamp(28px, 4vw, 64px); border-radius: calc(var(--radius-lg) + 8px);
+    background: var(--bg-alt); box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .gcycle__fx { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .gcycle > :not(.gcycle__fx) { position: relative; z-index: 1; }
+  .gcycle__head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(20px, 3vw, 56px); align-items: end; }
+  .gcycle .eyebrow { margin-bottom: 14px; }
+  .gcycle__title { font-size: clamp(32px, 3.8vw, 60px); line-height: 1.04; letter-spacing: -0.025em; color: var(--grey-900); max-width: 16ch; }
+  .gcycle__sub { margin: 0 0 .3em; font-size: clamp(16px, 1.2vw, 19px); line-height: 1.5; color: var(--grey-700); max-width: 40ch; }
+
+  /* The journey: five equal columns, the line through the middle of the nodes. */
+  .journey {
+    --node: 56px;
+    position: relative; list-style: none; margin: clamp(40px, 5vw, 72px) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(10px, 1.5vw, 24px);
+  }
+  .journey__track {
+    position: absolute; left: 10%; right: 10%; top: calc(var(--node) / 2 - 1.5px); height: 3px;
+    background: #D4D4D4; border-radius: 2px;
+  }
+  .journey__fill { position: absolute; inset: 0; background: var(--red); transform: scaleX(0); transform-origin: left; border-radius: 2px; }
+  .journey__dot {
+    position: absolute; top: 50%; left: 0; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%;
+    background: var(--red); box-shadow: 0 0 0 6px rgba(230, 0, 0, .15); opacity: 0;
+  }
+  .journey.is-moving .journey__fill, .journey.is-moving .journey__dot { transition: transform var(--travel, 1s) cubic-bezier(.65, 0, .35, 1), left var(--travel, 1s) cubic-bezier(.65, 0, .35, 1); }
+
+  .jstep { position: relative; z-index: 1; }
+  .jstep button {
+    display: grid; justify-items: center; gap: 12px; width: 100%; padding: 0;
+    border: 0; background: none; cursor: pointer; font: inherit; color: var(--grey-700); text-align: center;
+  }
+  .jstep__node {
+    display: grid; place-items: center; width: var(--node); height: var(--node); border-radius: 50%;
+    background: #fff; box-shadow: inset 0 0 0 2px #D4D4D4; color: var(--red);
+    font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums;
+    transition: background .3s var(--ease), box-shadow .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
+  }
+  .jstep__name { margin-top: 4px; font-family: var(--font-display); font-size: clamp(17px, 1.4vw, 22px); line-height: 1.15; color: var(--grey-900); transition: color .3s var(--ease); }
+  .jstep__desc { font-size: 14px; line-height: 1.45; color: var(--grey-700); max-width: 24ch; transition: opacity .3s var(--ease); }
+  .jstep button:hover .jstep__node { box-shadow: inset 0 0 0 2px var(--red); }
+  .jstep.is-done .jstep__node { box-shadow: inset 0 0 0 2px var(--red); }
+  .jstep.is-on .jstep__node { background: var(--red); box-shadow: inset 0 0 0 2px var(--red); color: #fff; transform: scale(1.12); }
+  .jstep.is-on .jstep__name { color: var(--red); }
+
+  /* The return arrow, under the row, from the last node back to the first. */
+  .journey__back { position: relative; grid-column: 1 / -1; height: 70px; margin: 8px 10% 0; }
+  .journey__back > svg:first-child { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .journey__back-line { stroke: var(--red); stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.2s var(--ease); }
+  .journey.is-back .journey__back-line { stroke-dashoffset: 0; }
+  .journey__back-head { position: absolute; left: -7px; top: -6px; width: 14px; height: 14px; stroke: var(--red); opacity: 0; transition: opacity .3s var(--ease) 1.1s; }
+  .journey.is-back .journey__back-head { opacity: 1; }
+  .journey__back-label {
+    position: absolute; left: 50%; top: 70px; transform: translate(-50%, -50%);
+    padding: 6px 14px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--line);
+    font-size: 13.5px; color: var(--grey-700); white-space: nowrap;
+  }
+  .journey__back-label > span:first-child { color: var(--red); font-weight: 500; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .journey.is-moving .journey__fill, .journey.is-moving .journey__dot, .journey__back-line, .journey__back-head, .jstep__node { transition: none; }
+  }
+  @media (max-width: 960px) {
+    .gcycle__head { grid-template-columns: 1fr; }
+    .journey__back-label { white-space: normal; text-align: center; max-width: 70%; }
+  }
+  /* Phones: the stops stack, the line runs down the left. */
+  @media (max-width: 760px) {
+    .journey { --node: 44px; grid-template-columns: 1fr; gap: 22px; }
+    .journey__track { left: calc(var(--node) / 2 - 1.5px); right: auto; top: 0; bottom: 0; width: 3px; height: auto; }
+    .journey__fill { transform-origin: top; }
+    .journey.is-moving .journey__fill, .journey.is-moving .journey__dot { transition: transform var(--travel, 1s) cubic-bezier(.65, 0, .35, 1), top var(--travel, 1s) cubic-bezier(.65, 0, .35, 1); }
+    .journey__dot { left: 50%; top: 0; }
+    .jstep button { grid-template-columns: var(--node) 1fr; justify-items: start; align-items: start; column-gap: 16px; row-gap: 4px; text-align: left; }
+    .jstep__node { grid-row: 1 / 3; font-size: 13px; }
+    .jstep__name { margin-top: 10px; }
+    .jstep__desc { max-width: none; }
+    .journey__back { height: auto; margin: 4px 0 0 calc(var(--node) + 16px); }
+    .journey__back > svg:first-child, .journey__back-head { display: none; }
+    .journey__back-label { position: static; transform: none; padding: 0; white-space: normal; max-width: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.journey');
+  if (root) {
+    const vertical = () => window.matchMedia('(max-width: 760px)').matches;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const steps = [...root.querySelectorAll<HTMLLIElement>('.jstep')];
+    const fill = root.querySelector<HTMLElement>('.journey__fill')!;
+    const dot = root.querySelector<HTMLElement>('.journey__dot')!;
+    const N = steps.length;
+    const TRAVEL = 900, HOLD = 2600, BACK = 2200;
+    root.style.setProperty('--travel', `${TRAVEL}ms`);
+
+    let cur = 0, visible = false, timer = 0, pausedUntil = 0;
+
+    /** Put the fill and dot at stop `i` (0 = first). */
+    function place(i: number): void {
+      const k = i / (N - 1);
+      fill.style.transform = vertical() ? `scaleY(${k})` : `scaleX(${k})`;
+      if (vertical()) dot.style.top = `${k * 100}%`; else dot.style.left = `${k * 100}%`;
+    }
+    function show(i: number): void {
+      cur = i;
+      steps.forEach((s, j) => {
+        s.classList.toggle('is-on', j === i);
+        s.classList.toggle('is-done', j < i);
+        const b = s.querySelector('button')!;
+        if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      });
+    }
+
+    function next(): void {
+      clearTimeout(timer);
+      if (!visible || reduced) return;
+      if (performance.now() < pausedUntil) { timer = window.setTimeout(next, pausedUntil - performance.now()); return; }
+      if (cur === N - 1) {
+        // Round done: draw the return arrow, then clear the line and start over.
+        root!.classList.add('is-back');
+        timer = window.setTimeout(() => {
+          root!.classList.remove('is-back', 'is-moving');
+          dot.style.opacity = '0';
+          place(0);
+          show(0);
+          timer = window.setTimeout(next, HOLD);
+        }, BACK);
+        return;
+      }
+      const to = cur + 1;
+      root!.classList.add('is-moving');
+      dot.style.opacity = '1';
+      steps[cur].classList.remove('is-on');
+      place(to);
+      timer = window.setTimeout(() => { dot.style.opacity = '0'; show(to); timer = window.setTimeout(next, HOLD); }, TRAVEL);
+    }
+
+    function pick(i: number): void {
+      clearTimeout(timer);
+      root!.classList.remove('is-moving', 'is-back');
+      dot.style.opacity = '0';
+      place(i);
+      show(i);
+      pausedUntil = performance.now() + 8000;
+      if (!reduced) timer = window.setTimeout(next, 8000);
+    }
+
+    steps.forEach((s, i) => {
+      const b = s.querySelector('button')!;
+      b.addEventListener('click', () => pick(i));
+      b.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') pick(i); });
+    });
+
+    place(0);
+    show(0);
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      clearTimeout(timer);
+      if (visible && !reduced) timer = window.setTimeout(next, HOLD);
+      else { root!.classList.remove('is-moving'); dot.style.opacity = '0'; }
+    }, { threshold: 0.4 }).observe(root);
+  }
+</script>

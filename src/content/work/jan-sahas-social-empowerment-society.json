@@ -1,6 +1,6 @@
 {
   "mediaStyle": "contained",
-  "title": "Jan Sahas Social Empowerment Society: JSSES | Studio 1947",
+  "title": "Jan Sahas (JSSES): NGO Website Design | Studio 1947",
   "description": "How Studio 1947 designed and built a new website for JSSES to share its mental health, women's livelihood and migrant resilience work across Madhya Pradesh.",
   "ogTitle": "Jan Sahas Social Empowerment Society: JSSES | Studio 1947",
   "ogDescription": "How Studio 1947 built a new website for Jan Sahas Social Empowerment Society to grow its community work across Madhya Pradesh.",
@@ -32,7 +32,7 @@
     {
       "divider": false,
       "body": [
-        "Marginalised communities across Madhya Pradesh face linked barriers: little access to mental health support, the stigma around asking for help, gender-based violence, and the insecurity of migrant livelihoods. <strong>Jan Sahas Social Empowerment Society (JSSES)</strong>, set up in 2006, works where these challenges meet. It supports underserved communities through mental health services, women's livelihoods, and migrant resilience programs.",
+        "Marginalised communities across Madhya Pradesh face linked barriers: little access to mental health support, the stigma around asking for help, gender-based violence, and the insecurity of migrant livelihoods. <strong>Jan Sahas Social Empowerment Society (JSSES)</strong>, set up in 2006, works where these challenges meet. It supports underserved communities through mental health services, women's livelihoods, and migrant resilience programmes.",
         "Studio 1947 worked with JSSES to design and build a new website that turns nearly two decades of grassroots work into a clear, trustworthy online presence. One that serves survivors, rural women, migrant workers, donors, and government partners alike."
       ]
     },
@@ -43,7 +43,7 @@
       "divider": false,
       "label": "The Mission",
       "body": [
-        "JSSES works towards a society that is socially, economically, and educationally empowered, where everyone enjoys equal rights and opportunities. Its programs span mental health support, women's livelihood work like the Usha Silai School Program, and the Migrant Resilience Collaborative Program, which supports safe and dignified migration."
+        "JSSES works towards a society that is socially, economically, and educationally empowered, where everyone enjoys equal rights and opportunities. Its programmes span mental health support, women's livelihood work like the Usha Silai School Program, and the Migrant Resilience Collaborative Program, which supports safe and dignified migration."
       ]
     },
     {
@@ -62,7 +62,7 @@
         {
           "num": "02",
           "title": "Make Help Accessible",
-          "body": "Give survivors and community members a clear, stigma-free path to counselling, legal support, and program information, in simple, human language."
+          "body": "Give survivors and community members a clear, stigma-free path to counselling, legal support, and programme information, in simple, human language."
         },
         {
           "num": "03",
@@ -72,10 +72,10 @@
       ]
     },
     {
-      "heading": "Community-Led Programs, Clearly Told",
-      "label": "Program Structure",
+      "heading": "Community-Led Programmes, Clearly Told",
+      "label": "Programme Structure",
       "body": [
-        "The site is built around JSSES's core programs. Each one is presented with its approach, services, and measurable outcomes, so visitors quickly understand how the organisation works on the ground:"
+        "The site is built around JSSES's core programmes. Each one is presented with its approach, services, and measurable outcomes, so visitors quickly understand how the organisation works on the ground:"
       ],
       "layout": "grid-3",
       "cards": [
@@ -114,7 +114,7 @@
         {
           "src": "/assets/img/work/jan-sahas-social-empowerment-society/site-home-top.webp",
           "alt": "Jan Sahas Social Empowerment Society homepage interface designed by Studio 1947",
-          "caption": "The JSSES homepage: community-led programs told with clarity and warmth (click to expand in lightbox)",
+          "caption": "The JSSES homepage: community-led programmes told with clarity and warmth (click to expand in lightbox)",
           "zoom": true,
           "pad": true,
           "ratio": "16/9"
@@ -141,14 +141,14 @@
       "divider": true,
       "label": "Page-by-Page",
       "body": [
-        "Each section of the site moves visitors from curiosity to confidence. It starts with the programs, then the evidence, the people, and finally a clear invitation to act."
+        "Each section of the site moves visitors from curiosity to confidence. It starts with the programmes, then the evidence, the people, and finally a clear invitation to act."
       ],
       "layout": "grid-2",
       "media": [
         {
-          "src": "/assets/img/work/jan-sahas-social-empowerment-society/page-programs.webp",
-          "alt": "Our Work page on the JSSES platform: mental health, Usha Silai, and migrant resilience programs",
-          "caption": "Our Work: every program with its services, impact data, and ways to get help",
+          "src": "/assets/img/work/jan-sahas-social-empowerment-society/page-programmes.webp",
+          "alt": "Our Work page on the JSSES platform: mental health, Usha Silai, and migrant resilience programmes",
+          "caption": "Our Work: every programme with its services, impact data, and ways to get help",
           "zoom": true,
           "pad": true,
           "ratio": "16/9"
@@ -189,7 +189,7 @@
       "layout": "grid-2",
       "cards": [
         {
-          "title": "Program-First Structure",
+          "title": "Programme-First Structure",
           "body": "Mental health, livelihoods, and migration each get their own story, from mission and approach to services, impact data, and how to get help."
         },
         {
@@ -198,7 +198,7 @@
         },
         {
           "title": "Resources, Reports & Media Hub",
-          "body": "Annual reports (FY 2023 to 24 and 2024 to 25), mental health resources, event coverage, and photo galleries, so donors, journalists, and partners can check and share the organisation's ongoing work."
+          "body": "Annual reports (FY 2023–24 and 2024–25), mental health resources, event coverage, and photo galleries, so donors, journalists, and partners can check and share the organisation's ongoing work."
         },
         {
           "title": "Clear Pathways to Get Involved",
@@ -208,7 +208,7 @@
     },
     {
       "divider": false,
-      "label": "Brand Color Palette",
+      "label": "Brand Colour Palette",
       "swatches": [
         {
           "hex": "#2D2A6D",
@@ -230,8 +230,8 @@
       "label": "Measuring Success",
       "list": [
         "<strong>A Website That Matches the Mission:</strong> One calm, credible site that presents mental health, women's livelihoods, and migrant resilience work with the dignity they deserve.",
-        "<strong>Stronger Trust:</strong> Clear governance, program approach, and published reports and resources that support CSR engagement, donor confidence, and government partnerships.",
-        "<strong>Easier Paths to Help:</strong> Survivors and community members can now find counselling, legal support, and program information (including the police referral network) in one stigma-free place."
+        "<strong>Stronger Trust:</strong> Clear governance, programme approach, and published reports and resources that support CSR engagement, donor confidence, and government partnerships.",
+        "<strong>Easier Paths to Help:</strong> Survivors and community members can now find counselling, legal support, and programme information (including the police referral network) in one stigma-free place."
       ]
     }
   ],

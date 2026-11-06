@@ -1,5 +1,5 @@
 {
-  "title": "Frame Bengal: Data Storytelling for the Frame Fellowship | Studio 1947",
+  "title": "Frame Bengal: Data Storytelling Posters | Studio 1947",
   "description": "How we turned Frame Fellowship selection data, 34 candidates across 13 districts, into posters, cards and a district map Bengal could share with pride.",
   "ogTitle": "Frame Bengal: Fellowship Data Storytelling | Studio 1947",
   "ogDescription": "Posters, candidate cards and a district map that turned fellowship selection data into a story worth sharing.",
@@ -64,7 +64,7 @@
     },
     {
       "heading": "A Map of 34 Futures",
-      "label": "Data Visualization",
+      "label": "Data Visualisation",
       "layout": "split",
       "backdrop": "/assets/img/work/frame-bengal/map-sketch.webp",
       "body": [
