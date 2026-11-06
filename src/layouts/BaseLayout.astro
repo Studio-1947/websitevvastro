@@ -37,6 +37,7 @@ const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+    </script>
     {/* A saved non-English language: hide translatable text until the
         dictionary has swapped it in, so the page never flashes English first.
         The i18n module clears the flag; a timeout clears it regardless. */}
@@ -52,11 +53,27 @@ const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
         } catch (e) {}
       })();
     </script>
+    {/* Meta Pixel (3731952963624361): a PageView on every page load. Its
+        <noscript> fallback image sits at the top of <body>, where an image is allowed. */}
+    <script is:inline>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '3731952963624361');
+      fbq('track', 'PageView');
+    </script>
     <BaseHead {...seo}>
       <slot name="head" />
     </BaseHead>
   </head>
   <body class={bodyClass} data-work-released={RELEASED_WORK.join(',')} data-products-released={RELEASED_PRODUCTS.join(',')} data-initiatives-released={RELEASED_INITIATIVES.join(',')}>
+    {/* Meta Pixel fallback for visitors without JavaScript. */}
+    <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=3731952963624361&ev=PageView&noscript=1" /></noscript>
     {/* Skip link: first thing in the tab order, so keyboard and screen-reader
         users can jump the nav. Pages render their own <main> through the slot,
         so the target is this zero-size anchor rather than an id we cannot reach
