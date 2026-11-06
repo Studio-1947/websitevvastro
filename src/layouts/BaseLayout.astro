@@ -37,6 +37,7 @@ const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+    </script>
     {/* A saved non-English language: hide translatable text until the
         dictionary has swapped it in, so the page never flashes English first.
         The i18n module clears the flag; a timeout clears it regardless. */}
