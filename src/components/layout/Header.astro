@@ -13,6 +13,11 @@
     <a class="nav__brand" href="/" aria-label="Studio 1947 home">
       <img src="/assets/img/brand-mark.svg" alt="Studio 1947" width="38" height="38" />
     </a>
+    <button class="nav__search" type="button" aria-label="Search the site" aria-haspopup="dialog" aria-expanded="false" data-search-open>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span class="nav__search-text" aria-hidden="true"><span class="nav__search-label" data-i18n="global.nav.search">Search</span> <span class="nav__search-hint" data-words="Products|Services|Studio|People|Portfolio|Blogs">Products</span></span>
+      <kbd class="nav__search-kbd" aria-hidden="true">/</kbd>
+    </button>
     <div class="nav__links">
       <div class="nav__item has-dropdown">
         <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-about">
@@ -151,7 +156,8 @@
     </div>
     <div class="nav__item has-dropdown nav__language">
       <button class="nav__trigger" type="button" aria-expanded="false" aria-controls="dd-language">
-        <span data-lang-current>English</span>
+        <svg class="nav__globe" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        <span data-lang-current>EN</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="nav__dropdown" id="dd-language">
@@ -266,3 +272,53 @@
   </div>
   </div>
 </div>
+
+{/* Site-wide search overlay — the nav magnifier opens this; the index is
+    fetched lazily on first open (src/scripts/siteSearch.ts). */}
+<div class="search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="Search the site" aria-hidden="true" data-search-modal>
+  <div class="search-modal__backdrop" data-search-close></div>
+  <div class="search-modal__panel" role="search" tabindex="-1">
+    <div class="search-modal__bar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input
+        class="search-modal__input"
+        type="search"
+        placeholder="Search portfolios, blogs, products…"
+        aria-label="Search the site"
+        autocomplete="off"
+        spellcheck="false"
+        data-search-input
+      />
+      <button class="search-modal__close" type="button" aria-label="Close search" data-search-close>&times;</button>
+    </div>
+    <div class="search-modal__filters" role="group" aria-label="Filter results" data-search-filters>
+      <button type="button" class="search-chip is-active" data-search-filter="all">All</button>
+      <button type="button" class="search-chip" data-search-filter="Product">Products</button>
+      <button type="button" class="search-chip" data-search-filter="Solution">Services</button>
+      <button type="button" class="search-chip" data-search-filter="Portfolio">Portfolio</button>
+      <button type="button" class="search-chip" data-search-filter="Blog">Blog</button>
+      <button type="button" class="search-chip" data-search-filter="People">People</button>
+      <button type="button" class="search-chip" data-search-filter="Career">Careers</button>
+      <button type="button" class="search-chip" data-search-filter="Page">Pages</button>
+    </div>
+    <div class="search-modal__results" data-search-results data-search-suggest="Pharma ERP|BI dashboard|NGO website|Branding|Homestay|Workshops|Darjeeling|Careers"></div>
+  </div>
+</div>
+
+<script>
+  // The search pill's hint blinks from one word to the next (Products, Services,
+  // Studio…): a short fade out, swap, fade in. Still for reduced motion.
+  const hint = document.querySelector<HTMLElement>('.nav__search-hint');
+  if (hint && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const words = (hint.dataset.words || '').split('|').filter(Boolean);
+    let w = 0;
+    setInterval(() => {
+      hint.classList.add('is-out');
+      setTimeout(() => {
+        w = (w + 1) % words.length;
+        hint.textContent = words[w];
+        hint.classList.remove('is-out');
+      }, 220);
+    }, 2000);
+  }
+</script>

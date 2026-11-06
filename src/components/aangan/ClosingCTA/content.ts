@@ -30,7 +30,7 @@ export interface ClosingContent {
 export const closing: ClosingContent = {
   headline: 'Aangan mein aaiye.',
   headlineEn: 'Come into the courtyard.',
-  offer: 'Rs 1 to join for travellers. Rs 99 a year for homestays, cafes and drivers. A launch offer.',
+  offer: '₹1 to join for travellers. ₹99 a year for homestays, cafes and drivers. A launch offer.',
   primary: { label: 'Plan your trip', href: AANGAN_URL },
   secondary: { label: 'List your homestay, cafe or taxi', href: AANGAN_LIST_URL },
   apps: {

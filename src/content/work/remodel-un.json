@@ -1,6 +1,6 @@
 {
   "mediaStyle": "contained",
-  "title": "Remodel UN | Studio 1947",
+  "title": "ReModelUN: Podcast Brand Identity | Studio 1947",
   "description": "Brand strategy and visual identity for ReModelUN, an AI podcast with thought leaders from UN-affiliated groups around the world.",
   "ogTitle": "Remodel UN | Studio 1947",
   "ogDescription": "Brand strategy and visual identity for ReModelUN, an AI podcast with thought leaders from UN-affiliated groups around the world.",
@@ -37,7 +37,7 @@
       "label": "The \"re\" Loop: Continuous Iteration",
       "layout": "grid-2",
       "body": [
-        "AI is not a fixed destination. It is a process that keeps going. The 're' loop stands for constant remodeling, adaptation and forward movement. Set inside a deliberate, closed cycle, the visual language mirrors the podcast's core theme: keep checking, rethinking and improving global systems through technology."
+        "AI is not a fixed destination. It is a process that keeps going. The 're' loop stands for constant remodelling, adaptation and forward movement. Set inside a deliberate, closed cycle, the visual language mirrors the podcast's core theme: keep checking, rethinking and improving global systems through technology."
       ],
       "media": [
         {
@@ -58,13 +58,13 @@
     },
     {
       "divider": false,
-      "label": "The Center Core: The Variable Engine",
+      "label": "The Centre Core: The Variable Engine",
       "body": [
-        "The center of the logo works as a bridge. For the main brand, the microphone icon places the mark firmly in audio and broadcasting. But this slot is built to change. Because the icon can be swapped, the same wordmark adapts for sister ventures (a podium for conferences, a cap for scholarships) without losing its shape."
+        "The centre of the logo works as a bridge. For the main brand, the microphone icon places the mark firmly in audio and broadcasting. But this slot is built to change. Because the icon can be swapped, the same wordmark adapts for sister ventures (a podium for conferences, a cap for scholarships) without losing its shape."
       ],
       "media": [
         {
-          "src": "/assets/img/work/remodel-un/the-center-core.webp",
+          "src": "/assets/img/work/remodel-un/the-centre-core.webp",
           "alt": "The interchangeable centre slot of the ReModelUN mark shown with a microphone, podium and graduation-cap icon for the podcast, conference and scholarship sub-brands",
           "zoom": true,
           "pad": false
@@ -75,7 +75,7 @@
       "divider": false,
       "label": "The \"UN\" Chat Bubble: Diplomatic Dialogue",
       "body": [
-        "Global change doesn't happen in a vacuum. It happens through conversation. So the '<strong>UN</strong>' at the end is shaped as a speech bubble, to stress dialogue, cross-border collaboration and human-first storytelling. It takes the authority of UN-affiliated organizations and makes it warm, approachable and open to talk."
+        "Global change doesn't happen in a vacuum. It happens through conversation. So the '<strong>UN</strong>' at the end is shaped as a speech bubble, to stress dialogue, cross-border collaboration and human-first storytelling. It takes the authority of UN-affiliated organisations and makes it warm, approachable and open to talk."
       ],
       "media": [
         {
@@ -87,7 +87,7 @@
       ]
     },
     {
-      "heading": "Color Theory",
+      "heading": "Colour Theory",
       "body": [
         "The ReModelUN identity sits at a crossroads. It has to respect the weight and prestige of international diplomacy, and also catch the fast-changing energy of artificial intelligence. The palette is a deliberate, high-contrast pairing chosen to bridge those two worlds."
       ],
@@ -106,15 +106,15 @@
     },
     {
       "divider": false,
-      "label": "Primary Color",
+      "label": "Primary Colour",
       "subheading": "Institutional Authority & Grounded Trust",
       "body": [
-        "Dark Cyan is the foundation of the whole brand. It is a deliberate step away from the bright corporate blues usually linked with global bureaucracies. This deep, muted tone brings a calm, academic weight instead. It signals wisdom, research-backed integrity and the composure needed for big global challenges. Using it as the main backdrop gives us instant credibility with UN-affiliated thought leaders and global organizations."
+        "Dark Cyan is the foundation of the whole brand. It is a deliberate step away from the bright corporate blues usually linked with global bureaucracies. This deep, muted tone brings a calm, academic weight instead. It signals wisdom, research-backed integrity and the composure needed for big global challenges. Using it as the main backdrop gives us instant credibility with UN-affiliated thought leaders and global organisations."
       ]
     },
     {
       "divider": false,
-      "label": "Secondary Color",
+      "label": "Secondary Colour",
       "subheading": "AI Innovation & Bias toward Action",
       "body": [
         "If Dark Cyan stands for the institutional problem, Fresh Lime is the technological answer: a bright accent colour that cuts against the deep primary base and pulls the eye to interactive UI parts, useful resources and key insights."
@@ -125,7 +125,7 @@
       "label": "Chromatic Harmony in Digital Layouts",
       "layout": "grid-2",
       "body": [
-        "When these two colors meet, they create a clear, easy-to-scan hierarchy that suits premium dark-mode interfaces."
+        "When these two colours meet, they create a clear, easy-to-scan hierarchy that suits premium dark-mode interfaces."
       ],
       "cards": [
         {
@@ -151,7 +151,7 @@
         "When a brand deals with dense, academic global challenges alongside fast-moving AI discussion, the typeface cannot be decorative or distracting. It has to be an invisible, hard-working carrier for ideas.",
         "We built the whole brand on <strong>Roboto</strong>. We chose it for its neo-grotesque, geometric discipline. Its friendly, open curves make technical content feel approachable and easy to read.",
         "Beyond looks, choosing a typeface is a business decision. Roboto is a variable type system, freely available in the open-source Google Font Library. Picking it removed a big practical hurdle for <strong>ReModelUN</strong>.",
-        "Future internal teams, international chapter organizers and outside web developers can grow the brand anywhere in the world without licensing friction, missing-font errors or recurring seat costs. It shows prospective clients that we design with their long-term budget and daily workflow in mind."
+        "Future internal teams, international chapter organisers and outside web developers can grow the brand anywhere in the world without licensing friction, missing-font errors or recurring seat costs. It shows prospective clients that we design with their long-term budget and daily workflow in mind."
       ]
     },
     {
@@ -176,7 +176,7 @@
         },
         {
           "title": "The Solution",
-          "body": "We made a pill-shaped, two-tone frame in the brand colors. The speaker's photo sits in a circle, with a Fresh Lime container for their name. Dark flags label their role and topic, like 'AI & Sustainability.'"
+          "body": "We made a pill-shaped, two-tone frame in the brand colours. The speaker's photo sits in a circle, with a Fresh Lime container for their name. Dark flags label their role and topic, like 'AI & Sustainability.'"
         }
       ]
     },
@@ -232,7 +232,7 @@
     {
       "heading": "Design Philosophy",
       "body": [
-        "A visual identity is only as strong as its real-world use. When brand assets are spread across marketing teams, developers and international event organizers, they risk being watered down. To make sure <strong>ReModelUN</strong> looks the same and speaks with authority at every touchpoint, we set clear rules for how assets are used. This section shows that care: the main marks stay clean, standard and intact wherever they appear, on screen or in print."
+        "A visual identity is only as strong as its real-world use. When brand assets are spread across marketing teams, developers and international event organisers, they risk being watered down. To make sure <strong>ReModelUN</strong> looks the same and speaks with authority at every touchpoint, we set clear rules for how assets are used. This section shows that care: the main marks stay clean, standard and intact wherever they appear, on screen or in print."
       ]
     },
     {
@@ -302,5 +302,5 @@
     }
   ],
   "location": "Geneva",
-  "year": "June, 2025"
+  "year": "June 2025"
 }

@@ -1,6 +1,6 @@
 {
   "mediaStyle": "contained",
-  "title": "Rajkamal Prakashan | Studio 1947",
+  "title": "Rajkamal Prakashan: Brand & Campaign Design | Studio 1947",
   "description": "How Studio 1947 rebuilt the brand foundations of India's largest Hindi literary publisher: brand rules, digital product and events.",
   "ogTitle": "Rajkamal Prakashan | Studio 1947",
   "ogDescription": "How Studio 1947 rebuilt the brand foundations of India's largest Hindi literary publisher: brand rules, a digital product and events across the country.",
@@ -217,8 +217,8 @@
         },
         {
           "src": "/assets/img/work/rajkamal-prakashan/creative-23.webp",
-          "alt": "Rajkamal Prakashan Children Books card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
-          "caption": "Children Books"
+          "alt": "Rajkamal Prakashan Children's Books card: an illustrated reader with the 25 to 40 percent discount offer, 8 to 23 August",
+          "caption": "Children's Books"
         },
         {
           "src": "/assets/img/work/rajkamal-prakashan/creative-24.webp",
@@ -352,5 +352,5 @@
     "data-design-tech"
   ],
   "location": "New Delhi",
-  "year": "Sept, 2025"
+  "year": "Sep 2025"
 }

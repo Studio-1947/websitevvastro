@@ -19,7 +19,7 @@ interface SearchDoc {
   text: string;
 }
 
-const MAX_RESULTS = 8;
+const MAX_RESULTS = 10;
 let indexPromise: Promise<SearchDoc[]> | null = null;
 
 function loadIndex(): Promise<SearchDoc[]> {
@@ -61,6 +61,10 @@ export function siteSearch(): void {
   const resultsEl = modal?.querySelector<HTMLElement>('[data-search-results]');
   if (!modal || !openBtn || !input || !resultsEl) return;
 
+  const filterBtns = [...modal.querySelectorAll<HTMLButtonElement>('[data-search-filter]')];
+  const suggestions = (resultsEl.dataset.searchSuggest || '').split('|').filter(Boolean);
+  let filter = 'all';
+
   let lastFocus: HTMLElement | null = null;
   let activeIndex = -1;
   let items: HTMLElement[] = [];
@@ -76,6 +80,8 @@ export function siteSearch(): void {
     // fetch while the user starts typing.
     void loadIndex();
     input!.value = '';
+    filter = 'all';
+    filterBtns.forEach((b) => b.classList.toggle('is-active', b.dataset.searchFilter === 'all'));
     render([]);
     input!.focus();
   }
@@ -98,9 +104,26 @@ export function siteSearch(): void {
       const empty = document.createElement('p');
       empty.className = 'search-modal__empty';
       empty.textContent = input!.value.trim()
-        ? 'No results found.'
-        : 'Type to search the whole site — portfolios, blogs, products and more.';
+        ? 'No results found. Try another word, or clear the filter.'
+        : 'Search the whole site: products, services, portfolio, blog, people and pages. Or try:';
       resultsEl!.appendChild(empty);
+      if (!input!.value.trim() && suggestions.length) {
+        const row = document.createElement('div');
+        row.className = 'search-modal__suggest';
+        suggestions.forEach((word) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'search-chip search-chip--suggest';
+          b.textContent = word;
+          b.addEventListener('click', () => {
+            input!.value = word;
+            void runSearch(word);
+            input!.focus();
+          });
+          row.appendChild(b);
+        });
+        resultsEl!.appendChild(row);
+      }
       return;
     }
     docs.forEach((doc) => {
@@ -134,7 +157,7 @@ export function siteSearch(): void {
 
   async function runSearch(q: string): Promise<void> {
     const tokens = tokenize(q);
-    if (!tokens.length) {
+    if (!tokens.length && filter === 'all') {
       render([]);
       return;
     }
@@ -142,7 +165,13 @@ export function siteSearch(): void {
     // Guard: the user may have closed the overlay (or kept typing) while the
     // index was still loading — only paint results for the current query.
     if (input!.value !== q || !modal!.classList.contains('is-open')) return;
-    const ranked = index
+    const pool = filter === 'all' ? index : index.filter((d) => d.type === filter);
+    if (!tokens.length) {
+      // A filter with no words: browse that section, A to Z.
+      render([...pool].sort((a, b) => a.title.localeCompare(b.title)).slice(0, 24));
+      return;
+    }
+    const ranked = pool
       .map((doc) => ({ doc, s: score(doc, tokens) }))
       .filter((r) => r.s > 0)
       .sort((a, b) => b.s - a.s)
@@ -164,6 +193,15 @@ export function siteSearch(): void {
   });
 
   modal.querySelectorAll('[data-search-close]').forEach((el) => el.addEventListener('click', close));
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filter = btn.dataset.searchFilter || 'all';
+      filterBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
+      void runSearch(input!.value);
+      input!.focus();
+    });
+  });
 
   input.addEventListener('input', () => {
     window.clearTimeout(debounce);

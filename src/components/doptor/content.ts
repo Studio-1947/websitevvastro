@@ -61,7 +61,7 @@ export const spaces: CardsContent = {
     { title: 'Office Manager', body: 'A simple hub for daily admin: centralised operations, shared task views and real-time oversight for your team.', icon: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/>' },
     { title: 'NGO Manager', body: 'Track projects, teams, funds and field activities from one impact dashboard.', icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>' },
   ],
-  note: 'Pick the module built for how you work, campus administration, office operations or NGO impact tracking, all inside one platform.',
+  note: 'Pick the module built for how you work: campus administration, office operations or NGO impact tracking, all inside one platform.',
 };
 
 /* ===================== Campus Manager ===================== */

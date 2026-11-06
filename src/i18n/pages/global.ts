@@ -6,6 +6,7 @@ export const global: Record<string, Entry> = {
   'global.nav.aboutUs': { hi: 'हमारे बारे में', bn: 'আমাদের সম্পর্কে', ne: 'हाम्रो बारेमा' },
   'global.nav.portfolio': { hi: 'पोर्टफ़ोलियो', bn: 'পোর্টফোলিও', ne: 'पोर्टफोलियो' },
   'global.nav.solutions': { hi: 'समाधान', bn: 'সমাধান', ne: 'समाधानहरू' },
+  'global.nav.search': { hi: 'खोजें', bn: 'খুঁজুন', ne: 'खोज्नुहोस्' },
   'global.nav.products': { hi: 'उत्पाद', bn: 'প্রডাক্ট', ne: 'उत्पादनहरू' },
   'global.nav.blogs': { hi: 'ब्लॉग', bn: 'ব্লগ', ne: 'ब्लगहरू' },
   'global.nav.localDesign': { hi: 'लोकल डिज़ाइन', bn: 'লোকাল ডিজাইন', ne: 'लोकल डिजाइन' },

@@ -30,6 +30,21 @@ const { bodyClass, ...seo } = Astro.props;  // seo includes noindex
   <head>
     <!-- Mark JS active so entrance animations apply; if this never runs, content stays visible. -->
     <script is:inline>document.documentElement.className += ' js';</script>
+    {/* A saved non-English language: hide translatable text until the
+        dictionary has swapped it in, so the page never flashes English first.
+        The i18n module clears the flag; a timeout clears it regardless. */}
+    <script is:inline>
+      (function () {
+        try {
+          var l = localStorage.getItem('site-language');
+          if (l && l !== 'en') {
+            document.documentElement.setAttribute('data-lang-pending', l);
+            document.documentElement.lang = l;
+            setTimeout(function () { document.documentElement.removeAttribute('data-lang-pending'); }, 2000);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <BaseHead {...seo}>
       <slot name="head" />
     </BaseHead>
