@@ -52,6 +52,20 @@ function validate(form: HTMLFormElement): boolean {
     }
   }
 
+  // Phone fields, required or not: when filled in, they must look like a number
+  // (7 to 15 digits; +, spaces, dashes, dots and brackets allowed). Empty optional
+  // ones pass; empty required ones were caught above.
+  for (const input of form.querySelectorAll<HTMLInputElement>('input[type="tel"]')) {
+    const value = input.value.trim();
+    if (!value || input.getAttribute('aria-invalid')) continue;
+    const digits = value.replace(/\D/g, '').length;
+    if (!/^[+\d\s().-]+$/.test(value) || digits < 7 || digits > 15) {
+      fieldError(input, 'Enter a valid phone number.');
+      ok = false;
+      firstBad ??= input;
+    }
+  }
+
   firstBad?.focus();
   return ok;
 }
