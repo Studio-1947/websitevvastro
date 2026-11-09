@@ -121,6 +121,7 @@ export const global: Record<string, Entry> = {
   },
   'global.contact.name': { hi: 'नाम', bn: 'নাম', ne: 'नाम' },
   'global.contact.email': { hi: 'ईमेल', bn: 'ইমেল', ne: 'इमेल' },
+  'global.contact.phone': { hi: 'फ़ोन', bn: 'ফোন', ne: 'फोन' },
   'global.contact.org': { hi: 'संगठन', bn: 'প্রতিষ্ঠান', ne: 'संस्था' },
   'global.contact.message': { hi: 'संदेश', bn: 'বার্তা', ne: 'सन्देश' },
   'global.contact.send': { hi: 'संदेश भेजें', bn: 'বার্তা পাঠান', ne: 'सन्देश पठाउनुहोस्' },

@@ -60,9 +60,15 @@
             <input type="email" id="cm-email" name="email" placeholder="you@example.com" autocomplete="email" required />
           </div>
         </div>
-        <div class="cm-field">
-          <label for="cm-org" data-i18n="global.contact.org">Organisation</label>
-          <input type="text" id="cm-org" name="organisation" placeholder="Company or organisation (optional)" autocomplete="organization" />
+        <div class="cm-row">
+          <div class="cm-field">
+            <label for="cm-phone" data-i18n="global.contact.phone">Phone</label>
+            <input type="tel" id="cm-phone" name="phone" placeholder="Phone number (optional)" autocomplete="tel" inputmode="tel" />
+          </div>
+          <div class="cm-field">
+            <label for="cm-org" data-i18n="global.contact.org">Organisation</label>
+            <input type="text" id="cm-org" name="organisation" placeholder="Company or organisation (optional)" autocomplete="organization" />
+          </div>
         </div>
         <div class="cm-field">
           <label for="cm-msg"><span data-i18n="global.contact.message">Message</span> <span class="cm-req" aria-hidden="true">*</span></label>
