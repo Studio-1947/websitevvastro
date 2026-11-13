@@ -291,3 +291,13 @@ footer .icon:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
 .toggle label:active,.icon:active,.btn:active,.wi:active,.wheel-btn:active{opacity:.75}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.bg video{display:none}}
+.ugc-check{font-size:14px;color:var(--ink,inherit);font-weight:500;align-items:center}
+.ugc-check input{margin:0}
+/* Niche: the four pills sit in one row */
+.niche-card .chips{flex-wrap:nowrap;gap:5px}
+.niche-card .chips label{flex:0 1 auto;min-width:0;padding:0 11px;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.niche-card .chips label.add-pill{padding:0 11px}
+.niche-card .chips .pill-input{flex:1 1 auto;min-width:0;width:auto}
+.niche-card .chips label:not(#n11-label){flex:none}
+.niche-card .chips #n11-label{flex:1 1 auto;justify-content:center}
+.niche-card .chips .pill-input{font-size:12.5px;padding:0 12px}

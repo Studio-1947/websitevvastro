@@ -178,7 +178,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
   const textFields = () => form.querySelectorAll('input[type=text]:not([hidden]),input[type=tel],textarea');
   function formDirty() {
     return [...textFields()].some((f) => f.value.trim()) ||
-      !!document.getElementById('f-lang').value || form.querySelector('#f-ok:checked, #f-ugc:checked') !== null;
+      !!document.getElementById('f-lang').value || form.querySelector('#f-ok:checked') !== null;
   }
   function saveDraft() {
     const draft = { fields: {}, checks: [] };
@@ -295,7 +295,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
     nicheOther.hidden = true;
     otherLabel.hidden = false;
     otherBox.checked = !!text;
-    otherLabel.textContent = text || '+ Add your niche';
+    otherLabel.textContent = text || '+ Add';
     otherLabel.classList.toggle('add-pill', !text);
   }
   otherLabel.addEventListener('click', (e) => { e.preventDefault(); if (!otherBox.disabled || otherBox.checked) editOther(); });
@@ -351,7 +351,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
       pin: (fd.get('pin') || '').trim(),
       deal: document.getElementById('c-paid').checked ? PASS_PAID : PASS_BARTER,
       rate: wholeNumber(fd.get('rate') || ''),
-      ugc: !!fd.get('ugc'),
+      ugc: document.getElementById('f-ugc').checked,  // sits on the main page, outside the form
       consent: !!fd.get('consent'),
       usage: !!fd.get('consent'),  // one tick covers both consents in the form
       // Niche capsules sit on the main page, outside the form
@@ -371,7 +371,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
     if (!/^[1-9]\d{5}$/.test(d.pin)) miss.push('a 6-digit PIN code');
     else if (!pinInfo && !pinLookupDown) miss.push('a PIN code we can find');
     if (isPaid(d) && !touched.rate) miss.push('your remuneration (move the bar)');
-    if (!d.ugc) miss.push('the UGC creator tick');
+    if (!d.ugc) miss.push('the "I make UGC reels" tick on the first page');
     if (!d.consent) miss.push('the consent tick');
     return miss;
   }
