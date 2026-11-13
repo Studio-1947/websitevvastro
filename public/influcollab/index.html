@@ -26,6 +26,19 @@
     <p class="lede">Studio 1947 is launching some products, and we want creators to show them first.</p>
   </section>
 
+  <div class="rate-card handle-card">
+    <div class="handle-row">
+      <div class="field float select-field plat-field">
+        <svg class="plat-ic" id="plat-ic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
+        <select id="f-plat" name="platform" aria-label="Platform">
+          <option selected>Instagram</option>
+          <option>Facebook</option>
+          <option>YouTube</option>
+        </select>
+      </div>
+      <div class="field float"><input placeholder=" " id="f-handle" name="handle" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="url"><label for="f-handle">Your profile link</label></div>
+    </div>
+  </div>
   <div class="duo">
     <div class="rate-card pref">
       <span class="qlabel-sm" id="h-offer">Collab preference</span>
@@ -35,13 +48,14 @@
         <span class="tip" id="collab-tip" role="status">Tap to switch</span>
       </div>
       <p class="toggle-note" id="collab-note" aria-live="polite">A homestay booking or a dinner coupon.</p>
+      <label class="check ugc-check" for="f-ugc"><input id="f-ugc" name="ugc" type="radio"> I make UGC Reels</label>
     </div>
     <div class="rate-card">
       <span class="qlabel-sm" id="fol-label">Your Followers</span>
       <div class="wheel-wrap">
         <button class="wheel-btn up" type="button" data-step="-1" aria-label="Lower follower range"><svg class="arw up blink" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
         <button class="wheel-btn down" type="button" data-step="1" aria-label="Higher follower range"><svg class="arw down blink r" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
-        <div class="wheel" id="fol-wheel" tabindex="0" role="spinbutton" aria-labelledby="fol-label" aria-valuetext="2K+" aria-valuemin="0" aria-valuemax="18" aria-valuenow="0">
+        <div class="wheel" id="fol-wheel" tabindex="0" role="spinbutton" aria-labelledby="fol-label" aria-valuetext="2K+" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0">
           <div class="wheel-track">
             <div class="wi" data-v="2000">2K+</div>
             <div class="wi" data-v="3000">3K+</div>
@@ -62,6 +76,18 @@
             <div class="wi" data-v="18000">18K+</div>
             <div class="wi" data-v="19000">19K+</div>
             <div class="wi" data-v="20000">20K+</div>
+            <div class="wi" data-v="25000">25K+</div>
+            <div class="wi" data-v="30000">30K+</div>
+            <div class="wi" data-v="40000">40K+</div>
+            <div class="wi" data-v="50000">50K+</div>
+            <div class="wi" data-v="75000">75K+</div>
+            <div class="wi" data-v="100000">100K+</div>
+            <div class="wi" data-v="150000">150K+</div>
+            <div class="wi" data-v="200000">200K+</div>
+            <div class="wi" data-v="300000">300K+</div>
+            <div class="wi" data-v="500000">500K+</div>
+            <div class="wi" data-v="750000">750K+</div>
+            <div class="wi" data-v="1000000">1M+</div>
           </div>
         </div>
       </div>
@@ -71,27 +97,41 @@
   <div class="bars">
     <div class="rate-card">
       <div class="slide" data-band="eng">
-        <div class="slide-top"><label for="t-eng">Engagement score</label></div>
-        <input type="range" id="t-eng" min="0" max="30" step="1" value="0">
-        <div class="slide-ends"><span aria-hidden="true">Not sure</span><output for="t-eng" class="nudge"><svg class="arw left blink" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Drag the bar</span><svg class="arw blink r" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></output><span aria-hidden="true">15%+</span></div>
+        <div class="slide-top"><label for="t-eng">Views on your top reel</label></div>
+        <input type="range" id="t-eng" min="0" max="17" step="1" value="0">
+        <div class="slide-ends"><span aria-hidden="true">Not sure</span><output for="t-eng" class="nudge"><svg class="arw left blink" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Drag the bar</span><svg class="arw blink r" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></output><span aria-hidden="true">5M+</span></div>
       </div>
     </div>
-    <div class="rate-card niche-card">
-      <span class="qlabel-sm" id="q-niche">Select your niche <span class="hint">(pick one)</span></span>
-      <div class="chips" role="group" aria-labelledby="q-niche">
-        <input type="checkbox" id="n12" name="niche" value="Technology"><label for="n12">Technology</label>
-        <input type="checkbox" id="n1" name="niche" value="Travel"><label for="n1">Travel</label>
-        <input type="checkbox" id="n3" name="niche" value="Tea"><label for="n3">Tea</label>
-        <input type="checkbox" id="n11" value="__other__"><label for="n11" id="n11-label" class="add-pill">+ Add</label>
-        <input class="pill-input" id="niche-other" type="text" placeholder="Type niche" aria-label="Your niche" enterkeyhint="done" maxlength="30" hidden>
+    <div class="duo niche-duo">
+      <div class="rate-card lang-card">
+        <label class="qlabel-sm" for="lang-pick">Language</label>
+        <div class="field select-field lang-field">
+          <select id="lang-pick">
+            <option value="" selected disabled>Choose</option>
+            <option>Nepali</option>
+            <option>Hindi</option>
+            <option>Bengali</option>
+            <option>English</option>
+            <option>Lepcha</option>
+          </select>
+        </div>
+      </div>
+      <div class="rate-card niche-card">
+        <span class="qlabel-sm" id="q-niche">Your niche <span class="hint">(pick one)</span></span>
+        <div class="chips" role="group" aria-labelledby="q-niche">
+          <input type="checkbox" id="n12" name="niche" value="Technology"><label for="n12">Technology</label>
+          <input type="checkbox" id="n1" name="niche" value="Travel"><label for="n1">Travel</label>
+          <input type="checkbox" id="n3" name="niche" value="Tea"><label for="n3">Tea</label>
+          <input type="checkbox" id="n11" value="__other__"><label for="n11" id="n11-label" class="add-pill">+ Add</label>
+          <input class="pill-input" id="niche-other" type="text" placeholder="Type niche" aria-label="Your niche" enterkeyhint="done" maxlength="30" hidden>
+        </div>
       </div>
     </div>
   </div>
 
   <section class="cta-wrap" id="cta-wrap">
-    <label class="check ugc-check" for="f-ugc"><input id="f-ugc" name="ugc" type="checkbox"> I make UGC reels</label>
     <button class="submit" type="button" id="cta">Apply to collaborate <span class="arrow" aria-hidden="true">→</span></button>
-    <p class="cta-note">6 questions. 2 minutes.</p>
+    <p class="cta-note">4 more questions. Less than a minute.</p>
   </section>
 
   <footer>
@@ -118,27 +158,14 @@
         <div class="field float"><input placeholder=" " id="f-name" name="name" type="text" autocomplete="name"><label for="f-name">Your name</label></div>
         <div class="field float"><input placeholder=" " id="f-wa" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel"><label for="f-wa">WhatsApp number</label></div>
       </div>
-      <div class="field float"><input placeholder=" " id="f-handle" name="handle" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="url"><label for="f-handle">Instagram / YouTube profile link</label></div>
       <div class="field float"><textarea placeholder=" " id="f-reels" name="reels" autocapitalize="off"></textarea><label for="f-reels">1 or 2 links to your best reels <span class="hint">(optional)</span></label></div>
 
       <div class="pair">
-        <div class="field float select-field">
-          <select id="f-lang" name="lang" required>
-            <option value="" selected disabled hidden></option>
-            <option>Bengali</option>
-            <option>Nepali</option>
-            <option>Hindi</option>
-            <option>English</option>
-            <option>Lepcha</option>
-            <option value="__other__">Other</option>
-          </select>
-          <label for="f-lang">Language</label>
-        </div>
-        <div class="field float pin-field"><input placeholder=" " id="f-pin" name="pin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="postal-code" aria-describedby="pin-status"><label for="f-pin">Your PIN code</label>
+        <div class="field float pin-field"><input placeholder=" " id="f-pin" name="pin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="postal-code" aria-describedby="pin-status"><label for="f-pin">Your area PIN code</label>
         </div>
         <p class="pin-status" id="pin-status" aria-live="polite"></p>
       </div>
-      <div class="field float" id="lang-other-field" hidden><input placeholder=" " id="f-lang-other" name="langOther" type="text"><label for="f-lang-other">Which language?</label></div>
+      <input type="hidden" id="f-lang" name="lang">
       <input type="hidden" id="f-fol" name="followers">
       <input type="hidden" id="f-eng" name="engagement">
 

@@ -301,3 +301,50 @@ footer .icon:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
 .niche-card .chips label:not(#n11-label){flex:none}
 .niche-card .chips #n11-label{flex:1 1 auto;justify-content:center}
 .niche-card .chips .pill-input{font-size:12.5px;padding:0 12px}
+.niche-card .chips #n11-label{flex:0 1 auto;padding:0 12px}
+.niche-card .ugc-check{margin-top:4px;font-size:13.5px}
+/* UGC tick: optional, drawn as a radio */
+.ugc-check input{border-radius:50%}
+.ugc-check input::after{width:8px;height:8px;border:0;border-radius:50%;background:var(--on-accent);transform:scale(0)}
+.ugc-check input:checked::after{transform:scale(1)}
+.niche-card .ugc-check{font-size:15px;gap:12px;align-items:center}
+.ugc-check input{width:24px;height:24px}
+.ugc-check input::after{width:10px;height:10px}
+.handle-card{padding:12px}
+.pref .ugc-check{font-size:13.5px;gap:9px;align-items:center;margin-top:2px;color:var(--ink);font-weight:500}
+.pref .ugc-check input{width:22px;height:22px}
+.pref .ugc-check input::after{width:9px;height:9px}
+.handle-card+.duo{margin-top:-18px}
+/* Profile link: platform dropdown + link, side by side */
+.handle-row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:8px}
+.plat-field select{padding-right:34px}
+.plat-field::after{right:14px}
+.handle-row{grid-template-columns:auto minmax(0,1fr)}
+.plat-field select{width:auto;min-width:9.2em;height:100%;min-height:54px;padding:0 34px 0 14px;font-size:15px}
+.plat-field select{min-width:7.4em}
+/* Niche (left) + Language wheel (right) */
+.niche-duo{margin-top:0}
+.niche-duo .niche-card .chips{flex-wrap:wrap;gap:6px}
+.niche-duo .niche-card .chips label{flex:none}
+.pair{grid-template-columns:minmax(0,1fr)}
+.lang-card .wi.on{font-size:16px}
+.lang-card .wheel-wrap::before{left:4px}
+.lang-card{gap:12px}
+.lang-field select{padding:0 32px 0 12px;min-height:48px;font-size:15px}
+.lang-field select:invalid,.lang-field select option[value=""]{color:var(--soft)}
+.lang-field::after{right:13px}
+/* Niche + language: compact */
+.niche-duo .rate-card{padding:10px 12px 12px;gap:8px}
+.niche-duo .niche-card .chips{gap:5px}
+.niche-duo .niche-card .chips label{min-height:32px;padding:0 11px;font-size:12.5px}
+.niche-duo .chips .pill-input{min-height:32px}
+.lang-field{position:relative}
+.lang-field select{min-height:40px;height:40px;padding:0 30px 0 12px;font-size:14px;border-radius:12px}
+.lang-card .qlabel-sm{line-height:1.35}
+.niche-duo{grid-template-columns:minmax(0,.72fr) minmax(0,1.6fr)}
+.niche-duo{grid-template-columns:minmax(0,.92fr) minmax(0,1.6fr)}
+.lang-field select{padding:0 26px 0 10px}
+.lang-field::after{right:11px;width:7px;height:7px}
+.plat-field{position:relative}
+.plat-ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--mint);pointer-events:none;z-index:1}
+.plat-field select{padding-left:42px}
