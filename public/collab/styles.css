@@ -348,3 +348,8 @@ footer .icon:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
 .plat-field{position:relative}
 .plat-ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--mint);pointer-events:none;z-index:1}
 .plat-field select{padding-left:42px}
+/* Niche inside the form: wraps freely, mobile friendly */
+.form-niche{display:flex;flex-direction:column;gap:8px;padding:2px 2px 0}
+.form-niche .chips{flex-wrap:wrap;gap:8px}
+.form-niche .chips label{flex:none;min-height:38px;padding:0 15px;font-size:14px}
+.form-niche .chips .pill-input{min-height:38px;width:10em;flex:none}

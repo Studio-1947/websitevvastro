@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#062A30">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hill Pass Creator Call | Studio 1947</title>
-<meta name="description" content="Studio 1947 is looking for travel creators from Kolkata and Darjeeling for a new tourism product in the Darjeeling hills.">
+<meta name="description" content="Studio 1947 is always building new products and services. We’re looking for influencers and authentic creators to help tell our story.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wdth,wght@6..144,75..125,400..900&display=swap">
@@ -48,10 +48,10 @@
         <span class="tip" id="collab-tip" role="status">Tap to switch</span>
       </div>
       <p class="toggle-note" id="collab-note" aria-live="polite">A homestay booking or a dinner coupon.</p>
-      <label class="check ugc-check" for="f-ugc"><input id="f-ugc" name="ugc" type="radio"> I make UGC Reels</label>
+      <label class="check ugc-check" for="f-ugc"><input id="f-ugc" name="ugc" type="radio"> I make UGC reels</label>
     </div>
     <div class="rate-card">
-      <span class="qlabel-sm" id="fol-label">Your Followers</span>
+      <span class="qlabel-sm" id="fol-label">Your followers</span>
       <div class="wheel-wrap">
         <button class="wheel-btn up" type="button" data-step="-1" aria-label="Lower follower range"><svg class="arw up blink" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
         <button class="wheel-btn down" type="button" data-step="1" aria-label="Higher follower range"><svg class="arw down blink r" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
@@ -102,36 +102,11 @@
         <div class="slide-ends"><span aria-hidden="true">Not sure</span><output for="t-eng" class="nudge"><svg class="arw left blink" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Drag the bar</span><svg class="arw blink r" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></output><span aria-hidden="true">5M+</span></div>
       </div>
     </div>
-    <div class="duo niche-duo">
-      <div class="rate-card lang-card">
-        <label class="qlabel-sm" for="lang-pick">Language</label>
-        <div class="field select-field lang-field">
-          <select id="lang-pick">
-            <option value="" selected disabled>Choose</option>
-            <option>Nepali</option>
-            <option>Hindi</option>
-            <option>Bengali</option>
-            <option>English</option>
-            <option>Lepcha</option>
-          </select>
-        </div>
-      </div>
-      <div class="rate-card niche-card">
-        <span class="qlabel-sm" id="q-niche">Your niche <span class="hint">(pick one)</span></span>
-        <div class="chips" role="group" aria-labelledby="q-niche">
-          <input type="checkbox" id="n12" name="niche" value="Technology"><label for="n12">Technology</label>
-          <input type="checkbox" id="n1" name="niche" value="Travel"><label for="n1">Travel</label>
-          <input type="checkbox" id="n3" name="niche" value="Tea"><label for="n3">Tea</label>
-          <input type="checkbox" id="n11" value="__other__"><label for="n11" id="n11-label" class="add-pill">+ Add</label>
-          <input class="pill-input" id="niche-other" type="text" placeholder="Type niche" aria-label="Your niche" enterkeyhint="done" maxlength="30" hidden>
-        </div>
-      </div>
-    </div>
   </div>
 
   <section class="cta-wrap" id="cta-wrap">
     <button class="submit" type="button" id="cta">Apply to collaborate <span class="arrow" aria-hidden="true">→</span></button>
-    <p class="cta-note">4 more questions. Less than a minute.</p>
+    <p class="cta-note">6 more questions. Less than 2 minutes.</p>
   </section>
 
   <footer>
@@ -160,12 +135,33 @@
       </div>
       <div class="field float"><textarea placeholder=" " id="f-reels" name="reels" autocapitalize="off"></textarea><label for="f-reels">1 or 2 links to your best reels <span class="hint">(optional)</span></label></div>
 
+      <div class="field float select-field">
+        <select id="f-lang" name="lang" required>
+          <option value="" selected disabled hidden></option>
+          <option>Nepali</option>
+          <option>Hindi</option>
+          <option>Bengali</option>
+          <option>English</option>
+          <option>Lepcha</option>
+        </select>
+        <label for="f-lang">Language you make reels in</label>
+      </div>
+      <div class="niche-card form-niche">
+      <span class="qlabel-sm" id="q-niche">Your niche <span class="hint">(pick one)</span></span>
+      <div class="chips" role="group" aria-labelledby="q-niche">
+        <input type="checkbox" id="n12" name="niche" value="Technology"><label for="n12">Technology</label>
+        <input type="checkbox" id="n1" name="niche" value="Travel"><label for="n1">Travel</label>
+        <input type="checkbox" id="n3" name="niche" value="Tea"><label for="n3">Tea</label>
+        <input type="checkbox" id="n11" value="__other__"><label for="n11" id="n11-label" class="add-pill">+ Add</label>
+        <input class="pill-input" id="niche-other" type="text" placeholder="Type niche" aria-label="Your niche" enterkeyhint="done" maxlength="30" hidden>
+      </div>
+      </div>
+
       <div class="pair">
         <div class="field float pin-field"><input placeholder=" " id="f-pin" name="pin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="postal-code" aria-describedby="pin-status"><label for="f-pin">Your area PIN code</label>
         </div>
         <p class="pin-status" id="pin-status" aria-live="polite"></p>
       </div>
-      <input type="hidden" id="f-lang" name="lang">
       <input type="hidden" id="f-fol" name="followers">
       <input type="hidden" id="f-eng" name="engagement">
 
@@ -179,7 +175,7 @@
       </div>
       </div>
 
-      <label class="check" for="f-ok"><input id="f-ok" name="consent" type="checkbox"> My details are correct. If selected, WhatsApp me and feature our reels with my handle.</label>
+      <label class="check" for="f-ok"><input id="f-ok" name="consent" type="checkbox"> My details are correct. If I’m selected, you can WhatsApp me and feature my reels with my handle.</label>
 
       <p class="err" id="err" role="alert" hidden></p>
       <button class="submit go" id="go" type="submit">I'm in <svg class="tick" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg></button>

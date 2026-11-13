@@ -101,9 +101,6 @@ const CONTACT_EMAIL = 'studio@1947.io';
   platSel.addEventListener('change', syncPlat);
   syncPlat();
 
-  // Content language: dropdown on the main page, copied into the form's hidden field
-  const langPick = document.getElementById('lang-pick');
-  langPick.addEventListener('change', () => { document.getElementById('f-lang').value = langPick.value; });
 
   // Toggle note changes with the choice
   const NOTES = {
@@ -194,7 +191,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
   const textFields = () => form.querySelectorAll('input[type=text]:not([hidden]),input[type=tel],textarea');
   function formDirty() {
     return [...textFields()].some((f) => f.value.trim()) || !!document.getElementById('f-handle').value.trim() ||
-      form.querySelector('#f-ok:checked') !== null;
+      !!document.getElementById('f-lang').value || form.querySelector('#f-ok:checked, .chips input:checked') !== null;
   }
   function saveDraft() {
     const draft = { fields: {}, checks: [] };
@@ -212,6 +209,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
     form.querySelectorAll('input[type=text],input[type=tel],textarea').forEach((f) => { f.value = ''; });
     form.querySelectorAll('input[type=radio],input[type=checkbox]').forEach((c) => { c.checked = false; });
     document.getElementById('f-handle').value = '';
+    document.getElementById('f-lang').value = '';
     document.getElementById('f-plat').value = 'Instagram';
     syncPlat();
     touched.rate = false;
@@ -363,7 +361,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
       handle: (() => { const v = document.getElementById('f-handle').value.trim(); return v ? document.getElementById('f-plat').value + ': ' + v : ''; })(),
       reels: (fd.get('reels') || '').trim(),
       lang: fd.get('lang') || '',
-      langOther: '',  // language is picked from the wheel on the main page
+      langOther: '',
       followers: wholeNumber(fd.get('followers') || ''),
       engagement: decimal(fd.get('engagement') || ''),
       pin: (fd.get('pin') || '').trim(),
@@ -383,7 +381,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
     if (!d.name) miss.push('your name');
     if (d.whatsapp.length !== 10) miss.push('a 10-digit WhatsApp number');
     if (!d.handle) miss.push('your profile link on the first page');
-    if (!d.lang || (d.lang === '__other__' && !d.langOther)) miss.push('your content language on the first page');
+    if (!d.lang || (d.lang === '__other__' && !d.langOther)) miss.push('your language');
     if (!d.followers) miss.push('your follower range');
 
     if (!/^[1-9]\d{5}$/.test(d.pin)) miss.push('a 6-digit PIN code');
@@ -457,7 +455,8 @@ const CONTACT_EMAIL = 'studio@1947.io';
     const d = collect();
     const miss = validate(d);
     if (miss.length) {
-      err.textContent = 'Almost there. Add ' + miss.join(', ') + '.';
+      const list = miss.length > 1 ? miss.slice(0, -1).join(', ') + ' and ' + miss[miss.length - 1] : miss[0];
+      err.textContent = 'Almost there. Please add ' + list + '.';
       err.hidden = false;
       err.scrollIntoView({ block: 'center', behavior: 'smooth' });
       return;
@@ -505,7 +504,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
       const s = getSelection();
       s.removeAllRanges();
       s.addRange(r);
-      e.target.textContent = 'Selected, copy it now';
+      e.target.textContent = 'Selected. Copy it now.';
     }
   });
 
