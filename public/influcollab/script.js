@@ -299,16 +299,12 @@ const CONTACT_EMAIL = 'studio@1947.io';
     otherLabel.classList.toggle('add-pill', !text);
   }
   otherLabel.addEventListener('click', (e) => { e.preventDefault(); if (!otherBox.disabled || otherBox.checked) editOther(); });
-  // Niche: pick at most 2 (a typed niche counts as one); the rest dim once 2 are chosen
-  const NICHE_MAX = 2;
+  // Niche: one pick only; choosing a chip (or typing your own) replaces the previous pick
   const nicheCard = document.querySelector('.niche-card');
-  function limitNiche() {
-    const boxes = [...nicheCard.querySelectorAll('input[type=checkbox]')];
-    const full = boxes.filter((b) => b.checked).length >= NICHE_MAX;
-    boxes.forEach((b) => { b.disabled = full && !b.checked; });
-  }
-  nicheCard.addEventListener('change', limitNiche);
-  nicheOther.addEventListener('blur', () => setTimeout(limitNiche));
+  const nicheBoxes = () => [...nicheCard.querySelectorAll('input[type=checkbox]')];
+  function onlyNiche(keep) { nicheBoxes().forEach((b) => { if (b !== keep) b.checked = false; }); }
+  nicheCard.addEventListener('change', (e) => { if (e.target.type === 'checkbox' && e.target.checked) onlyNiche(e.target); });
+  nicheOther.addEventListener('blur', () => setTimeout(() => { if (otherBox.checked) onlyNiche(otherBox); }));
 
   // Keyboard users toggle the hidden checkbox with Space; open the field for them too
   otherBox.addEventListener('change', () => { if (otherBox.checked && !nicheOther.value.trim()) editOther(); });
