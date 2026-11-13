@@ -2,7 +2,9 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     { "source": "/products/inventory-sales-dashboard", "destination": "/products/s47vyapar/", "permanent": true },
-    { "source": "/products/inventory-sales-dashboard/", "destination": "/products/s47vyapar/", "permanent": true }
+    { "source": "/products/inventory-sales-dashboard/", "destination": "/products/s47vyapar/", "permanent": true },
+    { "source": "/influcollab", "destination": "/collab/", "permanent": true },
+    { "source": "/influcollab/:path*", "destination": "/collab/:path*", "permanent": true }
   ],
   "headers": [
     {
