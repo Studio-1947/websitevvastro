@@ -353,3 +353,4 @@ footer .icon:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
 .form-niche .chips{flex-wrap:wrap;gap:8px}
 .form-niche .chips label{flex:none;min-height:38px;padding:0 15px;font-size:14px}
 .form-niche .chips .pill-input{min-height:38px;width:10em;flex:none}
+.pair{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}

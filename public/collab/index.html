@@ -98,8 +98,8 @@
     <div class="rate-card">
       <div class="slide" data-band="eng">
         <div class="slide-top"><label for="t-eng">Views on your top reel</label></div>
-        <input type="range" id="t-eng" min="0" max="17" step="1" value="0">
-        <div class="slide-ends"><span aria-hidden="true">Not sure</span><output for="t-eng" class="nudge"><svg class="arw left blink" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Drag the bar</span><svg class="arw blink r" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></output><span aria-hidden="true">5M+</span></div>
+        <input type="range" id="t-eng" min="0" max="20" step="1" value="0">
+        <div class="slide-ends"><span aria-hidden="true">Not sure</span><output for="t-eng" class="nudge"><svg class="arw left blink" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg><span class="sr-only">Drag the bar</span><svg class="arw blink r" viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></output><span aria-hidden="true">100K+</span></div>
       </div>
     </div>
   </div>
@@ -135,17 +135,6 @@
       </div>
       <div class="field float"><textarea placeholder=" " id="f-reels" name="reels" autocapitalize="off"></textarea><label for="f-reels">1 or 2 links to your best reels <span class="hint">(optional)</span></label></div>
 
-      <div class="field float select-field">
-        <select id="f-lang" name="lang" required>
-          <option value="" selected disabled hidden></option>
-          <option>Nepali</option>
-          <option>Hindi</option>
-          <option>Bengali</option>
-          <option>English</option>
-          <option>Lepcha</option>
-        </select>
-        <label for="f-lang">Language you make reels in</label>
-      </div>
       <div class="niche-card form-niche">
       <span class="qlabel-sm" id="q-niche">Your niche <span class="hint">(pick one)</span></span>
       <div class="chips" role="group" aria-labelledby="q-niche">
@@ -158,6 +147,17 @@
       </div>
 
       <div class="pair">
+        <div class="field float select-field">
+          <select id="f-lang" name="lang" required>
+            <option value="" selected disabled hidden></option>
+            <option>Nepali</option>
+            <option>Hindi</option>
+            <option>Bengali</option>
+            <option>English</option>
+            <option>Lepcha</option>
+          </select>
+          <label for="f-lang">Reel language</label>
+        </div>
         <div class="field float pin-field"><input placeholder=" " id="f-pin" name="pin" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="postal-code" aria-describedby="pin-status"><label for="f-pin">Your area PIN code</label>
         </div>
         <p class="pin-status" id="pin-status" aria-live="polite"></p>

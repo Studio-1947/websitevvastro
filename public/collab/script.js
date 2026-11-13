@@ -23,7 +23,7 @@ const ENTRY = {
   rate: 'entry.390257086',
   consent: 'entry.37014283',
   usage: 'entry.548370017',
-  // niche: 'entry.XXXX',  // add once the Google Form has a Niche question
+  niche: 'entry.1184007103',  // also carries the UGC answer until the form has its own UGC question
 };
 // Must match the form's checkbox options word for word
 const CONSENT_TEXT = 'I confirm the details above are accurate and agree to be contacted on WhatsApp about this collaboration.';
@@ -132,10 +132,10 @@ const CONTACT_EMAIL = 'studio@1947.io';
   // Slider bars. Top-reel views sit on the main page, charge per reel in the form
   // (Paid only). Each writes its value into a hidden form field.
   const BANDS = {
-    // Views on the creator's most-watched reel: Not sure, then 1K up to 5M+
-    eng: { input: 'f-eng', steps: [['', 'Not sure']].concat([1e3, 2e3, 5e3, 10e3, 20e3, 50e3, 75e3, 100e3, 200e3, 300e3, 500e3, 750e3, 1e6, 2e6, 3e6, 4e6, 5e6].map((v, i, a) => {
-      const n = v >= 1e6 ? v / 1e6 + 'M' : v / 1e3 + 'K';
-      return [String(v), n + (i === a.length - 1 ? '+' : '') + ' views'];
+    // Views on the creator's most-watched reel: Not sure, then every 5K from 5K to 100K+
+    eng: { input: 'f-eng', steps: [['', 'Not sure']].concat(Array.from({ length: 20 }, (_, i) => {
+      const v = (i + 1) * 5000;
+      return [String(v), v / 1000 + 'K+ Views'];
     })) },
     // ₹500 to ₹2,000 in ₹100 steps
     rate: { input: 'f-rate', steps: Array.from({ length: 16 }, (_, i) => [String(500 + i * 100), '₹' + (500 + i * 100).toLocaleString('en-IN')]) },
@@ -440,7 +440,7 @@ const CONTACT_EMAIL = 'studio@1947.io';
     body.append(ENTRY.rate, isPaid(d) ? d.rate : '0');
     body.append(ENTRY.consent, CONSENT_TEXT);
     body.append(ENTRY.usage, USAGE_TEXT);
-    if (ENTRY.niche) body.append(ENTRY.niche, d.niche);
+    body.append(ENTRY.niche, [d.niche, 'UGC: ' + (d.ugc ? 'Yes' : 'No')].filter(Boolean).join(' | '));
     try {
       // no-cors: Google accepts the post but hides the response from the page
       await fetch(FORM_ENDPOINT, { method: 'POST', mode: 'no-cors', body });
