@@ -1,11 +1,11 @@
 {
   "title": "Elegant Sip: Tea Packaging & Online Store | Studio 1947",
-  "description": "Packaging design, a direct-to-consumer store and year-round online marketing for Elegant Sip, a single-garden Darjeeling tea sold at the source in Mirik.",
+  "description": "Packaging design, a direct-to-consumer store and year-round online marketing for Elegant Sip, a single-origin Darjeeling tea sold at the source in Mirik.",
   "ogTitle": "Elegant Sip: Portfolio | Studio 1947",
-  "ogDescription": "Packaging design, a direct-to-consumer store and year-round online marketing for Elegant Sip, a single-garden Darjeeling tea sold at the source in Mirik.",
+  "ogDescription": "Packaging design, a direct-to-consumer store and year-round online marketing for Elegant Sip, a single-origin Darjeeling tea sold at the source in Mirik.",
   "ogType": "article",
   "mediaStyle": "contained",
-  "brand": "#2F6B3A",
+  "brand": "#4A7333",
   "client": "Elegant Sip",
   "location": "Mirik, Darjeeling",
   "year": "2026",
@@ -19,17 +19,28 @@
     "communication-campaign"
   ],
   "hero": {
-    "src": "/assets/img/work/elegant-sip/hero.webp",
-    "alt": "Darjeeling tea being poured from a glass teapot into a glass cup beside a bowl of dried leaves",
-    "style": "photo"
+    "src": "/assets/img/work/elegant-sip/hero-scroll.mp4",
+    "poster": "/assets/img/work/elegant-sip/hero-poster.webp",
+    "alt": "A tea garden at sunrise; a hand plucks a single leaf, it drifts down through the mist, and the film settles on a glass teapot of Darjeeling",
+    "style": "photo",
+    "scrub": true,
+    "scrubLength": 400
   },
   "sections": [
     {
       "heading": "Context & The Vision",
       "label": "The Brand",
+      "layout": "split",
       "body": [
-        "Elegant Sip sells single-garden Darjeeling tea from the Okayti estate at 8th Mile, Mirik. Its shop already does what most tea brands can only claim: visitors taste the tea where it grows, then carry it home. The brand did not need to find new customers online; it needed a way for the people already at the counter to buy again.",
+        "Elegant Sip sells single-origin Darjeeling tea from the Okayti estate at 8th Mile, Mirik. Its shop already does what most tea brands can only claim: visitors taste the tea where it grows, then carry it home. Leaves are bought straight from the garden and never blended across estates.",
         "From August 2026, Studio 1947 is Elegant Sip's partner for <strong>packaging design, the online store and all online marketing</strong>, a multi-year collaboration rather than a one-off project."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/elegant-sip/harvest.webp",
+          "alt": "Tea pickers in headscarves plucking leaves on a Darjeeling hillside, baskets on their backs",
+          "blend": true
+        }
       ]
     },
     {
@@ -37,37 +48,433 @@
       "label": "Core Problem",
       "body": [
         "Two facts shaped the brief. Sales concentrate in the First and Second Flush seasons, roughly March to June, and go quiet for the rest of the year. And every delighted walk-in customer left without a way to reorder. The larger online tea brands aggregate leaves from dozens of gardens; Elegant Sip can say it lives where the tea grows, and thousands of visitors a year can vouch for it."
-      ]
+      ],
+      "widget": {
+        "name": "season-calendar",
+        "data": {
+          "defaultMonth": 10,
+          "rows": [
+            {
+              "label": "Harvest",
+              "color": "#8BB56E",
+              "ink": "#10240f",
+              "items": [
+                {
+                  "from": 3,
+                  "to": 4,
+                  "label": "First Flush",
+                  "short": "1st"
+                },
+                {
+                  "from": 5,
+                  "to": 6,
+                  "label": "Second Flush",
+                  "short": "2nd"
+                },
+                {
+                  "from": 10,
+                  "to": 11,
+                  "label": "Autumn Flush",
+                  "short": "Aut"
+                }
+              ]
+            },
+            {
+              "label": "Shop sales",
+              "color": "#4A7333",
+              "sells": true,
+              "items": [
+                {
+                  "from": 3,
+                  "to": 6,
+                  "label": "Busy season",
+                  "short": "Busy season"
+                }
+              ]
+            },
+            {
+              "label": "Gifting campaigns",
+              "color": "#F99C43",
+              "ink": "#10240f",
+              "sells": true,
+              "plan": true,
+              "items": [
+                {
+                  "from": 2,
+                  "to": 2,
+                  "label": "Valentine's"
+                },
+                {
+                  "from": 8,
+                  "to": 8,
+                  "label": "Rakhi"
+                },
+                {
+                  "from": 10,
+                  "to": 11,
+                  "label": "Diwali",
+                  "short": "Diwali"
+                },
+                {
+                  "from": 12,
+                  "to": 12,
+                  "label": "Christmas"
+                }
+              ]
+            }
+          ]
+        }
+      }
     },
     {
       "heading": "What We Are Building",
       "layout": "grid-3",
       "cards": [
         {
+          "icon": "users",
           "title": "The counter as a channel",
           "body": "A QR reorder card in every bag and a ten-second WhatsApp ask at billing, so a tourist purchase becomes a repeat customer at the cost of a printed card."
         },
         {
+          "icon": "phone",
           "title": "A store that fills the valley",
           "body": "A direct-to-consumer store with mobile checkout, and a gifting calendar (Diwali, Christmas, Valentine's, Rakhi) timed for the months the shop is quiet."
         },
         {
+          "icon": "leaf",
           "title": "Origin over aggregation",
           "body": "Garden-to-cup content, customer photos and reviews from the hillside itself, with packaging that carries the estate, the flush and the story on the pack."
         }
       ]
     },
     {
-      "heading": "Packaging",
+      "heading": "Origin, Craft, Experience",
+      "label": "Brand Story",
       "body": [
-        "Packaging is being designed for two moments: the shelf in Mirik, where a visitor decides in seconds, and the doorstep months later, where the pack has to bring the hillside back. Estate, flush and harvest window sit on the front; a reorder code sits inside every bag."
+        "The brand's story is told in three chapters that run through the store, the packs and every post: where the leaf grows, how it is made, and how it should be brewed. The line that opens the site sets the tone: <em>where every leaf tells a story</em>."
+      ],
+      "widget": {
+        "name": "story-panels",
+        "data": {
+          "items": [
+            {
+              "title": "Origin",
+              "body": "Darjeeling's misty Himalayan slopes, and growers who share an appreciation for the land and its seasons.",
+              "src": "/assets/img/work/elegant-sip/origin.webp",
+              "alt": "Close view of fresh green tea leaves on the bush"
+            },
+            {
+              "title": "Craft",
+              "body": "First flush is withered long and fired light, so the leaf keeps its aromatics. No blending, just the grade the garden produced.",
+              "src": "/assets/img/work/elegant-sip/craft.webp",
+              "alt": "Green tea leaves withering in steel trays"
+            },
+            {
+              "title": "Experience",
+              "body": "Every tea carries its own brewing card: temperature, steep time, leaf amount and steep count.",
+              "src": "/assets/img/work/elegant-sip/experience.webp",
+              "alt": "A jar of Elegant Sip Morning Dew beside a glass cup of tea on a hillside wall"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "heading": "The Promise on Every Pack",
+      "label": "Proof Points",
+      "body": [
+        "A small range told precisely. Every grade is named for its flush, bought from named gardens with no auction house in between, packed within weeks of harvest and dated on the pack."
+      ],
+      "stats": [
+        {
+          "value": 4,
+          "label": "Leaf grades"
+        },
+        {
+          "value": 3,
+          "label": "Harvest flushes",
+          "note": "First, Second and Autumn"
+        },
+        {
+          "value": 12,
+          "label": "Teas in the collection",
+          "note": "Three more arrive with the next harvest"
+        },
+        {
+          "value": 30,
+          "suffix": " days",
+          "label": "The Sip Promise",
+          "note": "Replace or refund, no questions"
+        }
+      ],
+      "statsCaption": "Figures from the live store at elegantsip.in, November 2026."
+    },
+    {
+      "heading": "Packaging",
+      "label": "Illustrated Pouches",
+      "body": [
+        "Packaging is designed for two moments: the shelf in Mirik, where a visitor decides in seconds, and the doorstep months later, where the pack has to bring the hillside back.",
+        "Each tea gets its own black-and-white engraving of where and how it is made: a window onto the hills for First Flush, hands sorting a tray for Golden Needle, a roasting pan over fire for Pan Roasted, a picker's hands for Whole Leaf First Flush, terraced slopes for Whole Leaf Autumn Flush. A coloured label carries the name, the flush and the weight, and a reorder code sits inside every bag."
+      ],
+      "widget": {
+        "name": "flip-shelf",
+        "data": {
+          "items": [
+            {
+              "slug": "first-flush",
+              "name": "First Flush",
+              "type": "Black Tea",
+              "src": "/assets/img/work/elegant-sip/pouch-first-flush.webp",
+              "alt": "Elegant Sip First Flush pouch with its engraved illustration, on an olive ground",
+              "notes": [
+                "Floral",
+                "Muscatel",
+                "Bright"
+              ],
+              "temp": "90°C / 194°F",
+              "time": "3–4 minutes",
+              "steeps": "2–3",
+              "leaf": "1 tsp per 8 oz",
+              "liquor": "#D9A441",
+              "blurb": "The first pluck of spring: a bright, floral Darjeeling with the light muscatel lift the season is known for."
+            },
+            {
+              "slug": "whole-leaf-first-flush",
+              "name": "Whole Leaf 1st Flush",
+              "type": "Black Tea",
+              "src": "/assets/img/work/elegant-sip/pouch-whole-leaf-first-flush.webp",
+              "alt": "Elegant Sip Whole Leaf 1st Flush pouch with its engraved illustration, on an olive ground",
+              "notes": [
+                "Floral",
+                "Muscatel",
+                "Layered"
+              ],
+              "temp": "90°C / 194°F",
+              "time": "3–4 minutes",
+              "steeps": "2–3",
+              "leaf": "1½ tsp per 8 oz",
+              "liquor": "#D29A38",
+              "blurb": "Unbroken spring leaves, picked by hand, the fullest expression of a Darjeeling first flush."
+            },
+            {
+              "slug": "second-flush",
+              "name": "Second Flush",
+              "type": "Black Tea",
+              "src": "/assets/img/work/elegant-sip/pouch-second-flush.webp",
+              "alt": "Elegant Sip Second Flush pouch with its engraved illustration, on an olive ground",
+              "notes": [
+                "Muscatel",
+                "Fruity",
+                "Full"
+              ],
+              "temp": "95°C / 203°F",
+              "time": "3–4 minutes",
+              "steeps": "2",
+              "leaf": "1 tsp per 8 oz",
+              "liquor": "#A44E1B",
+              "blurb": "The summer pluck: a deeper, fruitier Darjeeling with the classic muscatel character."
+            },
+            {
+              "slug": "whole-leaf-autumn-flush",
+              "name": "Whole Leaf Autumn Flush",
+              "type": "Black Tea",
+              "src": "/assets/img/work/elegant-sip/pouch-whole-leaf-autumn-flush.webp",
+              "alt": "Elegant Sip Whole Leaf Autumn Flush pouch with its engraved illustration, on an olive ground",
+              "notes": [
+                "Mellow",
+                "Coppery",
+                "Sweet"
+              ],
+              "temp": "95°C / 203°F",
+              "time": "3–4 minutes",
+              "steeps": "2–3",
+              "leaf": "1½ tsp per 8 oz",
+              "liquor": "#8C3D16",
+              "soon": true,
+              "blurb": "Arriving with the next harvest."
+            },
+            {
+              "slug": "golden-needle",
+              "name": "Golden Needle",
+              "type": "Black Tea",
+              "src": "/assets/img/work/elegant-sip/pouch-golden-needle.webp",
+              "alt": "Elegant Sip Golden Needle pouch with its engraved illustration, on an olive ground",
+              "notes": [
+                "Honeyed",
+                "Malty",
+                "Smooth"
+              ],
+              "temp": "90°C / 194°F",
+              "time": "3–4 minutes",
+              "steeps": "2–3",
+              "leaf": "1 tsp per 8 oz",
+              "liquor": "#B5621C",
+              "blurb": "Golden-tipped buds that brew a rounded, honeyed cup, the richest tea in the range."
+            },
+            {
+              "slug": "pan-roasted",
+              "name": "Pan Roasted",
+              "type": "Green Tea",
+              "src": "/assets/img/work/elegant-sip/pouch-pan-roasted.webp",
+              "alt": "Elegant Sip Pan Roasted pouch with its engraved illustration, on an olive ground",
+              "notes": [
+                "Toasty",
+                "Nutty",
+                "Soft"
+              ],
+              "temp": "85°C / 185°F",
+              "time": "2–3 minutes",
+              "steeps": "3",
+              "leaf": "1 tsp per 8 oz",
+              "liquor": "#BFA048",
+              "blurb": "Leaf fired in a hot pan by hand, giving a toasty, nutty green tea with a soft finish."
+            },
+            {
+              "slug": "silver-needle",
+              "name": "Silver Needle",
+              "type": "White Tea",
+              "src": "/assets/img/work/elegant-sip/pouch-silver-needle.webp",
+              "alt": "Elegant Sip Silver Needle pouch with its engraved illustration, on an olive ground",
+              "notes": [
+                "Delicate",
+                "Sweet",
+                "Light"
+              ],
+              "temp": "80°C / 176°F",
+              "time": "4–5 minutes",
+              "steeps": "3–4",
+              "leaf": "2 tsp per 8 oz",
+              "liquor": "#E9DCA4",
+              "blurb": "Downy silver buds, simply withered and dried, the most delicate cup we make."
+            },
+            {
+              "slug": "white-tea",
+              "name": "White Tea",
+              "type": "White Tea",
+              "src": "/assets/img/work/elegant-sip/pouch-white-tea.webp",
+              "alt": "Elegant Sip White Tea pouch with its engraved illustration, on an olive ground",
+              "notes": [
+                "Soft",
+                "Sweet",
+                "Floral"
+              ],
+              "temp": "80°C / 176°F",
+              "time": "3–4 minutes",
+              "steeps": "3",
+              "leaf": "2 tsp per 8 oz",
+              "liquor": "#E2C478",
+              "blurb": "Gently withered leaf and bud: soft, sweet and lightly floral."
+            }
+          ],
+          "hint": "Tap a pack to turn it over"
+        }
+      }
+    },
+    {
+      "divider": false,
+      "subheading": "A colour for every flush",
+      "body": [
+        "The system takes its colours from the garden and the cup. Deep garden green for type, an olive ground behind every product, and a label colour that tells the season at a glance: pale spring green for the light teas, gold for Second Flush, amber for Autumn."
+      ],
+      "swatchBackdrop": "/assets/img/work/elegant-sip/origin.webp",
+      "swatches": [
+        {
+          "hex": "#1B261B",
+          "role": "Type",
+          "name": "Garden Ink"
+        },
+        {
+          "hex": "#4A7333",
+          "role": "Primary",
+          "name": "Estate Green"
+        },
+        {
+          "hex": "#8BB56E",
+          "role": "Accent",
+          "name": "New Shoot"
+        },
+        {
+          "hex": "#81834E",
+          "role": "Product ground",
+          "name": "Pouch Olive"
+        },
+        {
+          "hex": "#EDF1C0",
+          "role": "First Flush label",
+          "name": "Spring Leaf"
+        },
+        {
+          "hex": "#FCC83A",
+          "role": "Second Flush label",
+          "name": "Muscatel Gold"
+        },
+        {
+          "hex": "#F99C43",
+          "role": "Autumn Flush label",
+          "name": "Autumn Amber"
+        }
       ]
+    },
+    {
+      "heading": "Gifting, Timed for the Quiet Months",
+      "label": "Gift Range",
+      "layout": "grid-2",
+      "body": [
+        "The quiet months are gifting months. A presentation box and a jar range give the festive calendar something to sell: Diwali, Christmas, Valentine's and Rakhi each get a campaign, so the store keeps moving long after the spring flushes sell out."
+      ],
+      "media": [
+        {
+          "src": "/assets/img/work/elegant-sip/gift-box.webp",
+          "alt": "Navy Elegant Sip 'Finest Darjeeling Tea' gift box in front of the snow-capped Kanchenjunga range",
+          "ratio": "16/9"
+        },
+        {
+          "src": "/assets/img/work/elegant-sip/jar.webp",
+          "alt": "An Elegant Sip 'Ember Charm' glass jar held on an open palm",
+          "ratio": "16/9",
+          "blend": true
+        }
+      ]
+    },
+    {
+      "heading": "A Store Built for the Phone",
+      "label": "D2C Store",
+      "body": [
+        "Most orders start on a phone, often one that was just at the counter, so the store is designed for one thumb. A ten-second Taste Matcher quiz helps first-time buyers choose. Every product page carries tasting notes and the same brewing card that ships with the pack, and the promises (free shipping over ₹1,000, a dated freshness guarantee, a 30-day satisfaction promise) sit right under the buy button.",
+        "Order questions go straight to WhatsApp, and the Tea Circle mailing list gives early access to limited harvests."
+      ],
+      "widget": {
+        "name": "phone-showcase",
+        "data": {
+          "interval": 5200,
+          "screens": [
+            {
+              "src": "/assets/img/work/elegant-sip/store-product.webp",
+              "alt": "Elegant Sip product page on a phone: the First Flush pouch with price and gallery",
+              "title": "Product page",
+              "body": "The pack, the price per 100 g and the promises sit above the fold, with the buy button in reach of a thumb."
+            },
+            {
+              "src": "/assets/img/work/elegant-sip/store-brew.webp",
+              "alt": "Tasting notes and the brewing guide card for First Flush on a phone",
+              "title": "Brewing card",
+              "body": "Tasting notes and the same brewing card that ships with the pack: water, steep time, leaf and steeps."
+            },
+            {
+              "src": "/assets/img/work/elegant-sip/store-shop.webp",
+              "alt": "The Elegant Sip collection on a phone, a grid of tea pouches with prices",
+              "title": "The collection",
+              "body": "Twelve teas, filtered by type, each on the olive ground the packaging uses."
+            }
+          ]
+        }
+      }
     },
     {
       "heading": "Status",
       "label": "Ongoing",
       "body": [
-        "The collaboration began in August 2026 with the first ninety days focused on reorder capture at the counter, a fully live mobile store, and the first festive gifting campaign. Results and imagery will be added as the first season completes."
+        "The collaboration began in August 2026. The first ninety days focused on reorder capture at the counter, a fully live mobile store and the first festive gifting campaign. The store is now live at <a href=\"https://elegantsip.in\" target=\"_blank\" rel=\"noopener noreferrer\">elegantsip.in</a>, and results will be added as the first full season completes."
       ]
     }
   ],
@@ -84,5 +491,6 @@
   "coordinator": {
     "name": "Amit Rai",
     "role": "Proprietor, Elegant Sip Tea"
-  }
+  },
+  "liveUrl": "https://elegantsip.in"
 }

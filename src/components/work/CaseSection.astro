@@ -7,6 +7,7 @@ import CaseFigure from './CaseFigure.astro';
 import CaseAudio from './CaseAudio.astro';
 import CaseStats from './CaseStats.astro';
 import CaseIcon from './CaseIcon.astro';
+import CaseWidget from './CaseWidget.astro';
 
 interface AudioTrack {
   title: string;
@@ -94,6 +95,8 @@ interface Props {
   /** Opt-in: a light-on-white card treatment instead of the default dark,
       brand-tinted card. */
   cardsTheme?: 'dark' | 'light';
+  /** Opt-in: an interactive React island after the prose (CaseWidget). */
+  widget?: { name: 'season-calendar' | 'story-panels' | 'flip-shelf' | 'phone-showcase'; data: Record<string, any> };
 }
 
 function swatchInk(hex: string): string {
@@ -131,6 +134,7 @@ const {
   bleed = false,
   boxed = false,
   cardsTheme = 'dark',
+  widget,
   i18nKey,
 } = Astro.props;
 
@@ -289,6 +293,8 @@ const scrollerRows = isScroller
             ))}
           </div>
         )}
+
+        {widget && <CaseWidget name={widget.name} data={widget.data} />}
 
         </div>
 

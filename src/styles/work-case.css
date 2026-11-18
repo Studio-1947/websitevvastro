@@ -1884,3 +1884,146 @@ body.page-case-modular {
   padding: 12px var(--gutter) 0;
   text-align: center;
 }
+
+/* ── Scroll-scrubbed hero (opt-in: `hero.scrub`) ─────────────────────────────
+   Only cases that set `hero.scrub` render .case-hero--scrub, so nothing here
+   reaches another case. Until heroScrub.ts adds `is-live` (and always for
+   reduced motion) it is the ordinary still hero: same height, poster frame,
+   title in place. Live, the hero becomes a tall track and the stage pins to
+   the viewport while the film follows the scroll. */
+.case-hero--scrub {
+  height: auto;
+}
+.case-hero--scrub .case-hero__stage {
+  position: relative;
+  height: var(--case-hero-h);
+  overflow: hidden;
+  background: var(--ink);
+}
+.case-hero__cue,
+.case-hero__skip,
+.case-hero__progress {
+  display: none;
+}
+
+.case-hero--scrub.is-live {
+  height: var(--scrub-len, 400vh);
+}
+.case-hero--scrub.is-live .case-hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+}
+/* The title and its scrim settle in over the held last frame. */
+.case-hero--scrub.is-live .case-hero__scrim {
+  opacity: var(--scrub-reveal, 0);
+}
+.case-hero--scrub.is-live .case-hero__stack {
+  opacity: var(--scrub-reveal, 0);
+  transform: translateY(calc((1 - var(--scrub-reveal, 0)) * 28px));
+}
+
+.case-hero--scrub.is-live .case-hero__cue {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: clamp(72px, 9vh, 104px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.82);
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  transition: opacity 0.4s var(--ease);
+}
+.case-hero__cue i {
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), transparent);
+  animation: case-hero-cue 1.8s var(--ease) infinite;
+  transform-origin: top;
+}
+@keyframes case-hero-cue {
+  0% { transform: scaleY(0); opacity: 1; }
+  70% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+.case-hero--scrub.is-started .case-hero__cue {
+  opacity: 0;
+}
+
+/* Skip sits bottom-right on the same shell as the title, in the hero's dark
+   glass pill, and steps aside once the title is in. */
+.case-hero--scrub.is-live .case-hero__skip {
+  position: absolute;
+  z-index: 2;
+  right: var(--gutter);
+  bottom: clamp(24px, 3.5vw, 48px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease), opacity 0.4s var(--ease);
+}
+@media (min-width: 1400px) {
+  .case-hero--scrub.is-live .case-hero__skip {
+    right: calc((100% - 1400px) / 2 + var(--gutter));
+  }
+}
+.case-hero--scrub.is-live .case-hero__skip:hover {
+  background: rgba(17, 17, 17, 0.75);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.case-hero--scrub.is-live .case-hero__skip:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+/* Hidden, not just faded, so keyboard focus cannot land on it once gone. */
+.case-hero--scrub.is-done .case-hero__skip {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* A hairline of the case's own colour tracks how far through the film the
+   reader is. */
+.case-hero--scrub.is-live .case-hero__progress {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.case-hero__progress span {
+  display: block;
+  height: 100%;
+  background: color-mix(in srgb, var(--brand) 55%, #fff);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@media (max-width: 640px) {
+  /* On a phone the skip pill would sit on top of the tags; it moves up. */
+  .case-hero--scrub.is-live .case-hero__skip {
+    top: 92px;
+    bottom: auto;
+  }
+}

@@ -31,6 +31,8 @@ interface Props {
       scrim?: string;
       scrimOpacity?: number;
       background?: 'brand' | 'light';
+      scrub?: boolean;
+      scrubLength?: number;
     };
     sections?: any[];
     credits?: { role: string; members: string }[];
@@ -188,6 +190,8 @@ if (brand) {
           scrim={hero.scrim}
           scrimOpacity={hero.scrimOpacity}
           background={hero.background}
+          scrub={hero.scrub}
+          scrubLength={hero.scrubLength}
           location={location}
           year={year}
           liveUrl={liveUrl}

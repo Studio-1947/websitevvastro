@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
+import react from '@astrojs/react';
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 
@@ -38,6 +39,9 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
     mdx(),
+    // Interactive islands (case-study widgets). Only pages that render one
+    // ship React; everything else stays zero-JS as before.
+    react(),
     sitemap({
       // Pages marked `noindex` must not be advertised in the sitemap either —
       // submitting a URL while asking robots to ignore it is contradictory.

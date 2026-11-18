@@ -1,0 +1,286 @@
+/* Season calendar widget. Colours derive from the case's --brand. */
+.cw-cal {
+  --cw-line: color-mix(in srgb, var(--brand, #333) 18%, transparent);
+  background: #fff;
+  border: 1px solid var(--cw-line);
+  border-radius: 20px;
+  padding: clamp(16px, 2.4vw, 32px);
+  font-family: var(--font-body);
+}
+.cw-cal__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+  margin-bottom: clamp(18px, 2.4vw, 30px);
+}
+
+/* Two-way switch with a sliding thumb. */
+.cw-cal__toggle {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand, #333) 8%, #fff);
+  border: 1px solid var(--cw-line);
+}
+.cw-cal__toggle button {
+  position: relative;
+  z-index: 1;
+  padding: 9px 16px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  color: var(--grey-700, #444);
+  cursor: pointer;
+  border-radius: 999px;
+  transition: color 0.35s var(--ease);
+  white-space: nowrap;
+}
+.cw-cal__toggle button[aria-pressed='true'] {
+  color: var(--brand-ink, #fff);
+}
+.cw-cal__toggle button:focus-visible {
+  outline: 2px solid var(--brand-text, #333);
+  outline-offset: 2px;
+}
+.cw-cal__thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 999px;
+  background: var(--brand-fill, var(--brand));
+  transition: transform 0.5s var(--ease);
+}
+.cw-cal__thumb[data-on='true'] {
+  transform: translateX(100%);
+}
+
+.cw-cal__count {
+  margin: 0;
+  font-size: 15px;
+  color: var(--grey-700, #444);
+}
+.cw-cal__count strong {
+  display: inline-block;
+  margin-right: 4px;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--brand-text, var(--brand));
+  vertical-align: -0.12em;
+  animation: cw-cal-pop 0.5s var(--ease);
+}
+@keyframes cw-cal-pop {
+  from { transform: translateY(40%); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* The track: a label column then twelve months. Rows use subgrid so every
+   bar lines up with the month heads. */
+.cw-cal__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(110px, 170px) repeat(12, minmax(0, 1fr));
+  row-gap: 10px;
+}
+.cw-cal__sel {
+  grid-column: calc(var(--sel) + 1);
+  grid-row: 1 / -1;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--brand, #333) 8%, transparent);
+  pointer-events: none;
+}
+.cw-cal__corner {
+  grid-column: 1;
+  grid-row: 1;
+}
+.cw-cal__month {
+  grid-column: calc(var(--c) + 1);
+  grid-row: 1;
+  z-index: 1;
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  color: var(--grey-500, #777);
+  cursor: pointer;
+  border-radius: 8px;
+}
+.cw-cal__month[aria-pressed='true'] {
+  color: var(--brand-text, var(--brand));
+  font-weight: 600;
+}
+.cw-cal__month:focus-visible,
+.cw-cal__bar:focus-visible {
+  outline: 2px solid var(--brand-text, #333);
+  outline-offset: 2px;
+}
+.cw-cal__m-short {
+  display: none;
+}
+
+.cw-cal__row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: center;
+  min-height: 42px;
+  border-top: 1px dashed var(--cw-line);
+  padding-top: 10px;
+}
+.cw-cal__label {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 12px;
+  font-size: 13px;
+  color: var(--grey-700, #444);
+}
+.cw-cal__label i {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+.cw-cal__bar {
+  grid-column: calc(var(--f) + 1) / calc(var(--t) + 1);
+  grid-row: 1;
+  z-index: 1;
+  height: 34px;
+  margin: 0 2px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transform-origin: left center;
+  transition:
+    transform 0.7s var(--ease) var(--d, 0ms),
+    opacity 0.5s var(--ease) var(--d, 0ms),
+    filter 0.25s;
+}
+.cw-cal__bar:hover {
+  filter: brightness(1.06);
+}
+.cw-cal__bar span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cw-cal__bar-short {
+  display: none !important;
+}
+.cw-cal__row--plan.is-off .cw-cal__bar {
+  transform: scaleX(0);
+  opacity: 0;
+  pointer-events: none;
+}
+.cw-cal__row--plan.is-off .cw-cal__label {
+  opacity: 0.45;
+}
+
+.cw-cal__detail {
+  margin-top: clamp(16px, 2vw, 24px);
+  padding-top: 16px;
+  border-top: 1px solid var(--cw-line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 20px;
+  min-height: 56px;
+}
+.cw-cal__detail-month {
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: 500;
+  color: var(--grey-900, #111);
+}
+.cw-cal__detail ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cw-cal__detail li,
+.cw-cal__detail p {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 14px;
+  color: var(--grey-700, #444);
+}
+.cw-cal__detail li i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.cw-cal__detail-row {
+  color: var(--grey-500, #777);
+}
+
+/* Phones: labels sit above their row, months shrink to initials and a
+   one-month bar drops its text (the detail line names it). */
+@media (max-width: 640px) {
+  .cw-cal__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .cw-cal__corner {
+    display: none;
+  }
+  .cw-cal__sel {
+    grid-column: var(--sel);
+  }
+  .cw-cal__month {
+    grid-column: var(--c);
+    min-height: 32px;
+  }
+  .cw-cal__m-long {
+    display: none;
+  }
+  .cw-cal__m-short {
+    display: inline;
+  }
+  .cw-cal__label {
+    grid-column: 1 / -1;
+    padding: 0 0 6px;
+  }
+  .cw-cal__bar {
+    grid-row: 2;
+    grid-column: var(--f) / var(--t);
+    height: 28px;
+    margin: 0 1px;
+    padding: 0 6px;
+    font-size: 11.5px;
+  }
+  .cw-cal__bar-long {
+    display: none !important;
+  }
+  .cw-cal__bar.is-wide .cw-cal__bar-short {
+    display: block !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cw-cal__bar,
+  .cw-cal__thumb,
+  .cw-cal__count strong {
+    transition: none;
+    animation: none;
+  }
+}

@@ -43,8 +43,15 @@ interface Props {
   poster?: string;
   /** The shipped product's public URL; renders the "View Live Project" button. */
   liveUrl?: string;
+  /**
+   * Opt-in, video heroes only: scrub the film with the scroll instead of
+   * looping it (see heroScrub.ts). Absent → the ordinary hero.
+   */
+  scrub?: boolean;
+  /** Scroll distance the scrub runs over, in vh. */
+  scrubLength?: number;
 }
-const { src, alt, title, tags = [], style = 'photo', scrim, scrimOpacity, background, location, year, poster, liveUrl } = Astro.props;
+const { src, alt, title, tags = [], style = 'photo', scrim, scrimOpacity, background, location, year, poster, liveUrl, scrub = false, scrubLength = 400 } = Astro.props;
 // A hero can be a film rather than a photograph. It plays muted, loops and
 // carries no controls, so it behaves like a moving still: the poster paints
 // first, and a browser that blocks autoplay simply keeps showing it.
@@ -58,8 +65,60 @@ const alphaHex = Math.round(Math.min(Math.max(scrimOpacity ?? 0.8, 0), 1) * 255)
   .toString(16)
   .padStart(2, '0');
 const scrimStyle = scrim ? { '--case-scrim': `${scrim}${alphaHex}` }: undefined;
+// Scroll-scrubbed film: only for a video photo hero.
+const isScrub = scrub && isVideo && !isLogo;
 ---
 
+{isScrub ? (
+  /* The hero becomes a tall scroll track; the stage inside it pins to the
+     viewport while the film advances with the scroll. Until the script runs
+     (and for reduced motion) it is the ordinary still hero on the poster. */
+  <div class="case-hero case-hero--scrub" data-hero-scrub style={{ ...scrimStyle, '--scrub-len': `${scrubLength}vh` }}>
+    <div class="case-hero__stage">
+      <video
+        class="case-hero__img case-hero__video"
+        src={src}
+        poster={poster}
+        muted
+        playsinline
+        preload="auto"
+        aria-label={alt}
+        data-scrub-video
+      />
+      <div class="case-hero__scrim"></div>
+      <div class="case-hero__stack">
+        <h1 class="case-hero__title" set:html={title} />
+        {
+          (tags.length > 0 || meta.length > 0) && (
+            <div class="case-hero__row">
+              {tags.map((t) => (
+                <span class="case-tag">{t}</span>
+              ))}
+              {location && (
+                <span class="case-meta-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                  {location}
+                </span>
+              )}
+              {year && (
+                <span class="case-meta-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  {year}
+                </span>
+              )}
+            </div>
+          )
+        }
+      </div>
+      <div class="case-hero__cue" aria-hidden="true">
+        <span>Scroll</span>
+        <i></i>
+      </div>
+      <button type="button" class="case-hero__skip" data-scrub-skip>Skip intro <span aria-hidden="true">→</span></button>
+      <div class="case-hero__progress" aria-hidden="true"><span data-scrub-bar></span></div>
+    </div>
+  </div>
+) : (
 <div class:list={['case-hero', isLogo && 'case-hero--logo', isLight && 'case-hero--light']} style={scrimStyle}>
   {
     isVideo ? (
@@ -104,6 +163,7 @@ const scrimStyle = scrim ? { '--case-scrim': `${scrim}${alphaHex}` }: undefined;
     }
   </div>
 </div>
+)}
 
 <div class="case-heading">
   {
