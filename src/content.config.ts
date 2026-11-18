@@ -282,6 +282,18 @@ const caseSection = z.object({
    * default dark, brand-tinted card. Absent → dark as usual.
    */
   cardsTheme: z.enum(['dark', 'light']).default('dark'),
+  /**
+   * Opt-in, per section: an interactive React island rendered after the
+   * section's prose (see src/components/work/CaseWidget.astro). `data` is
+   * passed to the widget as props, so a case's content stays in its JSON.
+   * Absent → the section is static as before.
+   */
+  widget: z
+    .object({
+      name: z.enum(['season-calendar', 'story-panels', 'flip-shelf', 'phone-showcase']),
+      data: z.record(z.string(), z.any()),
+    })
+    .optional(),
 });
 
 /**
@@ -373,6 +385,17 @@ const work = defineCollection({
          * hero is never an empty rectangle.
          */
         poster: z.string().optional(),
+        /**
+         * Opt-in, video heroes only: the film is scrubbed by the scroll
+         * instead of looping. The hero pins for `scrubLength` (in vh) while
+         * the frames advance with the reader, then the title settles in over
+         * the last frame. Without JS or with reduced motion it falls back to
+         * the ordinary still hero (the poster). The video should be encoded
+         * with dense keyframes so seeking stays smooth. Absent → loops as now.
+         */
+        scrub: z.boolean().default(false),
+        /** Scroll distance the scrub runs over, in vh. Defaults to 400. */
+        scrubLength: z.number().int().min(150).max(800).optional(),
       })
       .optional(),
     sections: z.array(caseSection).optional(),

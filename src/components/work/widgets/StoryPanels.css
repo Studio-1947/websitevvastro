@@ -1,0 +1,169 @@
+/* Expanding story panels. */
+.cw-story {
+  display: flex;
+  gap: clamp(8px, 1vw, 14px);
+  height: clamp(420px, 44vw, 600px);
+  font-family: var(--font-body);
+}
+.cw-story__panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--grey-900, #111);
+  transition: flex-grow 0.8s var(--ease);
+  isolation: isolate;
+}
+.cw-story__panel.is-open {
+  flex-grow: 3.2;
+}
+.cw-story__panel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  filter: saturate(0.85) brightness(0.85);
+  transition: transform 1.2s var(--ease), filter 0.8s var(--ease);
+  z-index: -2;
+}
+.cw-story__panel.is-open img {
+  transform: scale(1);
+  filter: none;
+}
+.cw-story__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.12) 55%, transparent);
+}
+
+.cw-story__head {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  font: inherit;
+}
+.cw-story__trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: clamp(16px, 1.8vw, 26px);
+  border: 0;
+  background: none;
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.cw-story__trigger:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -6px;
+  border-radius: 16px;
+}
+.cw-story__num {
+  flex: 0 0 auto;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  opacity: 0.75;
+}
+.cw-story__title {
+  flex: 1 1 auto;
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.cw-story__plus {
+  position: relative;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: transform 0.5s var(--ease), background 0.3s;
+}
+.cw-story__plus::before,
+.cw-story__plus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 1.5px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+.cw-story__plus::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.cw-story__panel.is-open .cw-story__plus {
+  transform: rotate(45deg);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* The chapter text rises in above the title of the open panel. */
+.cw-story__body {
+  position: absolute;
+  left: clamp(16px, 1.8vw, 26px);
+  right: clamp(16px, 1.8vw, 26px);
+  bottom: calc(clamp(16px, 1.8vw, 26px) * 2 + 36px);
+  max-width: 460px;
+  color: rgba(255, 255, 255, 0.92);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s var(--ease), transform 0.6s var(--ease);
+  pointer-events: none;
+}
+.cw-story__panel.is-open .cw-story__body {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.25s;
+}
+.cw-story__body p {
+  margin: 0;
+  font-size: clamp(14px, 1.1vw, 16px);
+  line-height: 1.55;
+}
+
+/* Narrow closed panels hide their title text rather than wrapping it into
+   a column of single words. */
+@media (min-width: 768px) and (max-width: 1100px) {
+  .cw-story__panel:not(.is-open) .cw-story__title {
+    font-size: 18px;
+  }
+}
+
+/* Phones and small tablets: stacked accordion. */
+@media (max-width: 767px) {
+  .cw-story {
+    flex-direction: column;
+    height: auto;
+  }
+  .cw-story__panel {
+    flex: 0 0 auto;
+    height: 92px;
+    border-radius: 16px;
+    transition: height 0.7s var(--ease);
+  }
+  .cw-story__panel.is-open {
+    height: min(440px, 112vw);
+  }
+  .cw-story__body {
+    bottom: 80px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cw-story__panel,
+  .cw-story__panel img,
+  .cw-story__body,
+  .cw-story__plus {
+    transition: none;
+  }
+}

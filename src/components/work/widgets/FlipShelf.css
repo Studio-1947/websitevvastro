@@ -1,0 +1,306 @@
+/* Flip shelf: packs that turn over to a tasting + brewing card. */
+.cw-shelf {
+  font-family: var(--font-body);
+}
+.cw-shelf__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: clamp(16px, 2vw, 26px);
+}
+.cw-shelf__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cw-shelf__chips button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px 9px 16px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--brand, #333) 30%, transparent);
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  color: var(--grey-800, #222);
+  cursor: pointer;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s;
+}
+.cw-shelf__chips button span {
+  min-width: 20px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand, #333) 10%, #fff);
+  color: var(--brand-text, var(--brand));
+  font-size: 12px;
+  text-align: center;
+}
+.cw-shelf__chips button[aria-pressed='true'] {
+  background: var(--brand-fill, var(--brand));
+  border-color: var(--brand-fill, var(--brand));
+  color: var(--brand-ink, #fff);
+}
+.cw-shelf__chips button[aria-pressed='true'] span {
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+}
+.cw-shelf__chips button:focus-visible {
+  outline: 2px solid var(--brand-text, #333);
+  outline-offset: 2px;
+}
+.cw-shelf__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--grey-500, #777);
+}
+
+.cw-shelf__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cw-tea {
+  perspective: 1200px;
+  animation: cw-tea-in 0.6s var(--ease) both;
+  animation-delay: calc(var(--i) * 60ms);
+}
+@keyframes cw-tea-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+.cw-tea__card {
+  position: relative;
+  aspect-ratio: 4 / 5.2;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+.cw-tea__card.is-flipped {
+  transform: rotateY(180deg);
+}
+.cw-tea__face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Front: the pack on its olive ground, name beneath. */
+.cw-tea__front {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+.cw-tea__front img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+.cw-tea__card:hover .cw-tea__front img {
+  transform: scale(1.05) rotate(-1.5deg);
+}
+.cw-tea__foot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 16px;
+}
+.cw-tea__type {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-text, var(--brand));
+}
+.cw-tea__name {
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--grey-900, #111);
+}
+.cw-tea__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.6);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(6px);
+}
+
+/* Back: the tasting and brewing card. */
+.cw-tea__back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(16px, 1.6vw, 22px);
+  background:
+    radial-gradient(120% 70% at 100% 100%, color-mix(in srgb, var(--liquor) 30%, transparent), transparent 60%),
+    color-mix(in srgb, var(--brand, #333) 22%, #0f1a10);
+  color: #fff;
+}
+.cw-tea__back .cw-tea__type {
+  color: color-mix(in srgb, var(--brand, #333) 40%, #fff);
+}
+.cw-tea__back .cw-tea__name {
+  color: #fff;
+  font-size: clamp(17px, 1.3vw, 20px);
+}
+.cw-tea__blurb {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.78);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cw-tea__notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cw-tea__notes li {
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 11.5px;
+}
+.cw-tea__brew {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  margin: auto 0 0;
+  padding-top: 10px;
+  padding-right: 64px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.cw-tea__brew dt {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.cw-tea__brew dd {
+  margin: 2px 0 0;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+/* The cup fills with the tea's colour once the card is turned. */
+.cw-tea__cup {
+  position: absolute;
+  right: clamp(12px, 1.4vw, 18px);
+  bottom: clamp(12px, 1.4vw, 18px);
+  width: 56px;
+  height: 56px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.cw-tea__liquor {
+  fill: var(--liquor);
+  transform: translateY(100%);
+  transform-box: fill-box;
+  transition: transform 1.8s cubic-bezier(0.3, 0.7, 0.2, 1) 0.45s;
+}
+.cw-tea__card.is-flipped .cw-tea__liquor {
+  transform: translateY(12%);
+}
+.cw-tea__steam {
+  opacity: 0;
+  transition: opacity 0.6s 1.6s;
+}
+.cw-tea__card.is-flipped .cw-tea__steam {
+  opacity: 0.7;
+  animation: cw-steam 2.4s ease-in-out 1.6s infinite;
+}
+@keyframes cw-steam {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(-3px); opacity: 0.35; }
+}
+
+/* The whole card is the flip control. */
+.cw-tea__flip {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 0;
+  border-radius: 18px;
+  background: none;
+  cursor: pointer;
+  transform: translateZ(1px);
+}
+.cw-tea__flip:focus-visible {
+  outline: 2px solid var(--brand-text, #333);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1100px) {
+  .cw-shelf__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Phones: a swipeable rail, one and a bit cards wide so the next one shows. */
+@media (max-width: 720px) {
+  .cw-shelf__grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(var(--gutter, 18px) * -1);
+    padding: 4px var(--gutter, 18px) 12px;
+    scroll-padding-inline: var(--gutter, 18px);
+    scrollbar-width: none;
+  }
+  .cw-shelf__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .cw-tea {
+    flex: 0 0 min(76vw, 300px);
+    scroll-snap-align: start;
+  }
+  .cw-shelf__chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: calc(var(--gutter, 18px) * -1);
+    padding-inline: var(--gutter, 18px);
+    scrollbar-width: none;
+  }
+  .cw-shelf__chips button {
+    flex: 0 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cw-tea,
+  .cw-tea__card,
+  .cw-tea__liquor,
+  .cw-tea__steam,
+  .cw-tea__front img {
+    animation: none;
+    transition: none;
+  }
+}

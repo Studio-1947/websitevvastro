@@ -1,0 +1,34 @@
+---
+/**
+ * Interactive case-study widgets (opt-in per section: `widget` in the work
+ * JSON). Each is a React island that hydrates as it nears the viewport, so a
+ * case without a widget ships no React at all, and a case with one only pays
+ * for the widgets it uses.
+ *
+ * Astro cannot hydrate a dynamically chosen component, so each widget is
+ * named explicitly here.
+ */
+import SeasonCalendar from './widgets/SeasonCalendar';
+import StoryPanels from './widgets/StoryPanels';
+import FlipShelf from './widgets/FlipShelf';
+import PhoneShowcase from './widgets/PhoneShowcase';
+
+interface Props {
+  name: 'season-calendar' | 'story-panels' | 'flip-shelf' | 'phone-showcase';
+  data: Record<string, any>;
+}
+const { name, data } = Astro.props;
+---
+
+<div class="case-widget">
+  {name === 'season-calendar' && <SeasonCalendar client:visible={{ rootMargin: '300px' }} {...(data as any)} />}
+  {name === 'story-panels' && <StoryPanels client:visible={{ rootMargin: '300px' }} {...(data as any)} />}
+  {name === 'flip-shelf' && <FlipShelf client:visible={{ rootMargin: '300px' }} {...(data as any)} />}
+  {name === 'phone-showcase' && <PhoneShowcase client:visible={{ rootMargin: '300px' }} {...(data as any)} />}
+</div>
+
+<style>
+  .case-widget {
+    margin-top: clamp(24px, 3.2vw, 44px);
+  }
+</style>

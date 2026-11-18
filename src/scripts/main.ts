@@ -126,6 +126,8 @@ function init(): void {
   when('[data-footer-strip]', () => import('./footerStrip').then((m) => m.footerStrip()));
   when('#story-modal', () => import('./storyModal').then((m) => m.storyModal()));
   when('[data-yt-play]', () => import('./ytInlinePlay').then((m) => m.ytInlinePlay()));
+  // Case heroes that opt into a scroll-scrubbed film (`hero.scrub`).
+  when('[data-hero-scrub]', () => import('./heroScrub').then((m) => m.heroScrub()));
 }
 
 if (document.readyState === 'loading') {
